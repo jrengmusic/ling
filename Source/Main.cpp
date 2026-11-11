@@ -26,6 +26,7 @@ static void printError (std::string_view argument, std::string_view message)
 }
 
 static constexpr int flagArgIndex { 1 };
+static constexpr int postFlagArgIndex { 2 };
 static constexpr int flagOnlyArgumentCount { 2 };
 
 static const std::string& getVersionFlag()
@@ -74,7 +75,7 @@ static bool isTerminalOutput() noexcept
 
 static void printBannerAndHelp()
 {
-    juce::ScopedJuceInitialiser_GUI juceInitialiser;
+    juce::ScopedJuceInitialiser_GUI libraryInitialiser;
     const BinaryData::Raw binary { files::lingHelp };
     std::string newlineText;
     jam::Format::appendUtf8 (newlineText, Chars::newline);
@@ -82,6 +83,56 @@ static void printBannerAndHelp()
     printBanner();
     fwrite (newlineText.data(), sizeof (char), newlineText.size(), stdout);
     printHelp (std::string_view (binary.data, static_cast<size_t> (binary.size)));
+}
+
+static int runDocument (const juce::File& documentFile, std::string_view path)
+{
+    const auto sourceText { documentFile.loadFileAsString() };
+    const auto document { jam::CLanguageDocument::parse (jam::Strings::getView (sourceText)) };
+    const auto result { jam::CLanguageValidator().isValid (document) };
+
+    if (result.wasOk())
+    {
+        const jam::SharedInstance<map::SyntaxTokenType> syntaxTokenType { std::in_place };
+        std::string declarations;
+
+        for (const auto* child : document)
+            child->applyFunctionRecursively (
+                [&declarations, &document, path] (const jam::Document::Element& element)
+                {
+                    const auto offset { element.find<jam::Document::Tokens> (Id::name)->last().offset() };
+
+                    declarations.append (path);
+                    jam::Format::appendUtf8 (declarations, Chars::colon);
+                    jam::Format::appendDecimal (declarations, static_cast<int> (document.getLineNumber (offset)));
+                    jam::Format::appendUtf8 (declarations, Chars::colon);
+                    jam::Format::appendDecimal (declarations, static_cast<int> (document.getColumnNumber (offset)));
+                    jam::Format::appendUtf8 (declarations, Chars::colon);
+                    jam::Format::appendUtf8 (declarations, Chars::space);
+                    declarations.append (jam::Strings::getView (map::SyntaxTokenType::getInstance()->get (*element.find<int> (Id::type))));
+                    jam::Format::appendUtf8 (declarations, Chars::space);
+                    declarations.append (jam::Strings::getView (element.id.toString()));
+                    jam::Format::appendUtf8 (declarations, Chars::newline);
+                });
+
+        fwrite (declarations.data(), sizeof (char), declarations.size(), stdout);
+        return EXIT_SUCCESS;
+    }
+
+    printError (path, jam::Strings::getView (result.getErrorMessage()));
+    return EXIT_FAILURE;
+}
+
+static int runDocumentNotFound (std::string_view path)
+{
+    printBannerAndHelp();
+    printError (path, text::Diagnostics::failNotFound);
+    return EXIT_FAILURE;
+}
+
+static juce::File getDocumentFile (char* argv[])
+{
+    return juce::File::getCurrentWorkingDirectory().getChildFile (juce::String::fromUTF8 (argv[flagArgIndex])).getLinkedTarget();
 }
 
 static int runCommandLine (int argc, char* argv[])
@@ -98,9 +149,19 @@ static int runCommandLine (int argc, char* argv[])
         return EXIT_SUCCESS;
     }
 
-    if (argc >= flagOnlyArgumentCount)
+    if (argc == flagOnlyArgumentCount)
     {
-        printError (argv[flagArgIndex], text::Diagnostics::failFlagUnknown);
+        const auto documentFile { getDocumentFile (argv) };
+
+        if (documentFile.existsAsFile())
+            return runDocument (documentFile, argv[flagArgIndex]);
+
+        return runDocumentNotFound (argv[flagArgIndex]);
+    }
+
+    if (argc > flagOnlyArgumentCount)
+    {
+        printError (argv[postFlagArgIndex], text::Diagnostics::failFlagUnknown);
         return EXIT_FAILURE;
     }
 

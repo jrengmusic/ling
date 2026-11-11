@@ -28,6 +28,7 @@ namespace text
 /** @brief ling message texts, emitted verbatim when a run fails. */
 struct Diagnostics
 {
+    static constexpr const char* const failNotFound    { "not found"    };///< A file argument that does not exist.
     static constexpr const char* const failFlagUnknown { "unknown flag" };///< An argument that is not --help or --version.
 };
 

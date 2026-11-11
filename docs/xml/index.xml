@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.18.0" xml:lang="en-US">
   <compound refid="structtext_1_1_diagnostics" kind="struct"><name>text::Diagnostics</name>
+    <member refid="structtext_1_1_diagnostics_1a614879ccbad6f4edaf1a511bf5a2fa68" kind="variable"><name>failNotFound</name></member>
     <member refid="structtext_1_1_diagnostics_1a54030ad642dee1157d22d8255503812d" kind="variable"><name>failFlagUnknown</name></member>
   </compound>
   <compound refid="namespace_project_info" kind="namespace"><name>ProjectInfo</name>
@@ -38,6 +39,7 @@
   </compound>
   <compound refid="_main_8cpp" kind="file"><name>Main.cpp</name>
     <member refid="_main_8cpp_1a7eacf8422a0bf113fc72a4ecc24fac25" kind="variable"><name>flagArgIndex</name></member>
+    <member refid="_main_8cpp_1a8d15eab864d23bacb85f66408f136d42" kind="variable"><name>postFlagArgIndex</name></member>
     <member refid="_main_8cpp_1ab112c8dd220252b8308c8882da65e1b1" kind="variable"><name>flagOnlyArgumentCount</name></member>
     <member refid="_main_8cpp_1a2c040b6a8eba42513dfa5b2a261f442d" kind="function"><name>printBanner</name></member>
     <member refid="_main_8cpp_1a9e829d663254bc1194b28d474a86f897" kind="function"><name>printError</name></member>
@@ -48,6 +50,9 @@
     <member refid="_main_8cpp_1a2bbde775f6db9f0e32cf9455a2ead1b7" kind="function"><name>writeVersion</name></member>
     <member refid="_main_8cpp_1a6f06085b02e0ad301adcc85196bbb128" kind="function"><name>isTerminalOutput</name></member>
     <member refid="_main_8cpp_1a7f683cefdf7f675f09e36661ce8df7cc" kind="function"><name>printBannerAndHelp</name></member>
+    <member refid="_main_8cpp_1a89106c2d9f856067b01fb268582b1e9a" kind="function"><name>runDocument</name></member>
+    <member refid="_main_8cpp_1a71f4a80b69df59cea48bb36733898656" kind="function"><name>runDocumentNotFound</name></member>
+    <member refid="_main_8cpp_1af6dc96d8ea3eaa82f12e5f8dc0dac218" kind="function"><name>getDocumentFile</name></member>
     <member refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" kind="function"><name>runCommandLine</name></member>
     <member refid="_main_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" kind="function"><name>main</name></member>
   </compound>

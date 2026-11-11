@@ -7,5 +7,6 @@
 +-----------------+----------------+----------------------------------------------+
 | name            | value          | description                                  |
 +=================+================+==============================================+
+| failNotFound    | `not found`    | A file argument that does not exist.         |
 | failFlagUnknown | `unknown flag` | An argument that is not --help or --version. |
 +-----------------+----------------+----------------------------------------------+

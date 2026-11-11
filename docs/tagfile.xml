@@ -140,6 +140,27 @@
     </member>
     <member kind="function" static="yes">
       <type>static int</type>
+      <name>runDocument</name>
+      <anchorfile>_main_8cpp.html</anchorfile>
+      <anchor>a89106c2d9f856067b01fb268582b1e9a</anchor>
+      <arglist>(const juce::File &amp;documentFile, std::string_view path)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static int</type>
+      <name>runDocumentNotFound</name>
+      <anchorfile>_main_8cpp.html</anchorfile>
+      <anchor>a71f4a80b69df59cea48bb36733898656</anchor>
+      <arglist>(std::string_view path)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static juce::File</type>
+      <name>getDocumentFile</name>
+      <anchorfile>_main_8cpp.html</anchorfile>
+      <anchor>af6dc96d8ea3eaa82f12e5f8dc0dac218</anchor>
+      <arglist>(char *argv[])</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static int</type>
       <name>runCommandLine</name>
       <anchorfile>_main_8cpp.html</anchorfile>
       <anchor>a52f1af656d9670faf7049108bef951b9</anchor>
@@ -161,6 +182,13 @@
     </member>
     <member kind="variable" static="yes">
       <type>static constexpr int</type>
+      <name>postFlagArgIndex</name>
+      <anchorfile>_main_8cpp.html</anchorfile>
+      <anchor>a8d15eab864d23bacb85f66408f136d42</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr int</type>
       <name>flagOnlyArgumentCount</name>
       <anchorfile>_main_8cpp.html</anchorfile>
       <anchor>ab112c8dd220252b8308c8882da65e1b1</anchor>
@@ -170,6 +198,13 @@
   <compound kind="struct">
     <name>text::Diagnostics</name>
     <filename>structtext_1_1_diagnostics.html</filename>
+    <member kind="variable" static="yes">
+      <type>static constexpr const char *const</type>
+      <name>failNotFound</name>
+      <anchorfile>structtext_1_1_diagnostics.html</anchorfile>
+      <anchor>a614879ccbad6f4edaf1a511bf5a2fa68</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="variable" static="yes">
       <type>static constexpr const char *const</type>
       <name>failFlagUnknown</name>

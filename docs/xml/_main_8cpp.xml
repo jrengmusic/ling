@@ -82,9 +82,25 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Main.cpp" line="28" column="22" bodyfile="Main.cpp" bodystart="28" bodyend="28"/>
-        <referencedby refid="_main_8cpp_1a6336581d1e8cbdb8df62474ac9e3fdbb" compoundref="_main_8cpp" startline="48" endline="51">isHelp</referencedby>
-        <referencedby refid="_main_8cpp_1a03053d92e25bc6f705c27356cd39d228" compoundref="_main_8cpp" startline="43" endline="46">isVersion</referencedby>
-        <referencedby refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" compoundref="_main_8cpp" startline="87" endline="109">runCommandLine</referencedby>
+        <referencedby refid="_main_8cpp_1af6dc96d8ea3eaa82f12e5f8dc0dac218" compoundref="_main_8cpp" startline="133" endline="136">getDocumentFile</referencedby>
+        <referencedby refid="_main_8cpp_1a6336581d1e8cbdb8df62474ac9e3fdbb" compoundref="_main_8cpp" startline="49" endline="52">isHelp</referencedby>
+        <referencedby refid="_main_8cpp_1a03053d92e25bc6f705c27356cd39d228" compoundref="_main_8cpp" startline="44" endline="47">isVersion</referencedby>
+        <referencedby refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" compoundref="_main_8cpp" startline="138" endline="170">runCommandLine</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="_main_8cpp_1a8d15eab864d23bacb85f66408f136d42" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int postFlagArgIndex</definition>
+        <argsstring></argsstring>
+        <name>postFlagArgIndex</name>
+        <initializer>{ 2 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.cpp" line="29" column="22" bodyfile="Main.cpp" bodystart="29" bodyend="29"/>
+        <referencedby refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" compoundref="_main_8cpp" startline="138" endline="170">runCommandLine</referencedby>
       </memberdef>
       <memberdef kind="variable" id="_main_8cpp_1ab112c8dd220252b8308c8882da65e1b1" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>int</type>
@@ -98,10 +114,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="29" column="22" bodyfile="Main.cpp" bodystart="29" bodyend="29"/>
-        <referencedby refid="_main_8cpp_1a6336581d1e8cbdb8df62474ac9e3fdbb" compoundref="_main_8cpp" startline="48" endline="51">isHelp</referencedby>
-        <referencedby refid="_main_8cpp_1a03053d92e25bc6f705c27356cd39d228" compoundref="_main_8cpp" startline="43" endline="46">isVersion</referencedby>
-        <referencedby refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" compoundref="_main_8cpp" startline="87" endline="109">runCommandLine</referencedby>
+        <location file="Main.cpp" line="30" column="22" bodyfile="Main.cpp" bodystart="30" bodyend="30"/>
+        <referencedby refid="_main_8cpp_1a6336581d1e8cbdb8df62474ac9e3fdbb" compoundref="_main_8cpp" startline="49" endline="52">isHelp</referencedby>
+        <referencedby refid="_main_8cpp_1a03053d92e25bc6f705c27356cd39d228" compoundref="_main_8cpp" startline="44" endline="47">isVersion</referencedby>
+        <referencedby refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" compoundref="_main_8cpp" startline="138" endline="170">runCommandLine</referencedby>
       </memberdef>
     </sectiondef>
     <sectiondef kind="func">
@@ -120,7 +136,7 @@
         <references refid="namespacemap_1a1662c21339f1c14339e65f221d7b126d" compoundref="_generated_8cpp" startline="45" endline="59">map::banner</references>
         <references refid="_main_8cpp_1a2c040b6a8eba42513dfa5b2a261f442d" compoundref="_main_8cpp" startline="11" endline="15">printBanner</references>
         <referencedby refid="_main_8cpp_1a2c040b6a8eba42513dfa5b2a261f442d" compoundref="_main_8cpp" startline="11" endline="15">printBanner</referencedby>
-        <referencedby refid="_main_8cpp_1a7f683cefdf7f675f09e36661ce8df7cc" compoundref="_main_8cpp" startline="75" endline="85">printBannerAndHelp</referencedby>
+        <referencedby refid="_main_8cpp_1a7f683cefdf7f675f09e36661ce8df7cc" compoundref="_main_8cpp" startline="76" endline="86">printBannerAndHelp</referencedby>
       </memberdef>
       <memberdef kind="function" id="_main_8cpp_1a9e829d663254bc1194b28d474a86f897" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -148,7 +164,9 @@
         <references refid="structChars_1a4691bc69052e757e7325970098922899">Chars::newline</references>
         <references refid="_main_8cpp_1a9e829d663254bc1194b28d474a86f897" compoundref="_main_8cpp" startline="17" endline="26">printError</references>
         <referencedby refid="_main_8cpp_1a9e829d663254bc1194b28d474a86f897" compoundref="_main_8cpp" startline="17" endline="26">printError</referencedby>
-        <referencedby refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" compoundref="_main_8cpp" startline="87" endline="109">runCommandLine</referencedby>
+        <referencedby refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" compoundref="_main_8cpp" startline="138" endline="170">runCommandLine</referencedby>
+        <referencedby refid="_main_8cpp_1a89106c2d9f856067b01fb268582b1e9a" compoundref="_main_8cpp" startline="88" endline="124">runDocument</referencedby>
+        <referencedby refid="_main_8cpp_1a71f4a80b69df59cea48bb36733898656" compoundref="_main_8cpp" startline="126" endline="131">runDocumentNotFound</referencedby>
       </memberdef>
       <memberdef kind="function" id="_main_8cpp_1a3e84cc35c31b3249e335bc1b737a2bf6" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const std::string &amp;</type>
@@ -161,13 +179,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="31" column="26" bodyfile="Main.cpp" bodystart="31" bodyend="35"/>
+        <location file="Main.cpp" line="32" column="26" bodyfile="Main.cpp" bodystart="32" bodyend="36"/>
         <references refid="structChars_1a375464038832537822fff69be3285e32">Chars::doubleDash</references>
-        <references refid="_main_8cpp_1a3e84cc35c31b3249e335bc1b737a2bf6" compoundref="_main_8cpp" startline="31" endline="35">getVersionFlag</references>
+        <references refid="_main_8cpp_1a3e84cc35c31b3249e335bc1b737a2bf6" compoundref="_main_8cpp" startline="32" endline="36">getVersionFlag</references>
         <references refid="classjam_1_1Strings_1a41bbcc9a9a93f448cd58f666a72cdd6d">jam::Strings::getView</references>
         <references refid="namespaceId_1a26b45dcee4122af40c4184ef577e0a0e">Id::version</references>
-        <referencedby refid="_main_8cpp_1a3e84cc35c31b3249e335bc1b737a2bf6" compoundref="_main_8cpp" startline="31" endline="35">getVersionFlag</referencedby>
-        <referencedby refid="_main_8cpp_1a03053d92e25bc6f705c27356cd39d228" compoundref="_main_8cpp" startline="43" endline="46">isVersion</referencedby>
+        <referencedby refid="_main_8cpp_1a3e84cc35c31b3249e335bc1b737a2bf6" compoundref="_main_8cpp" startline="32" endline="36">getVersionFlag</referencedby>
+        <referencedby refid="_main_8cpp_1a03053d92e25bc6f705c27356cd39d228" compoundref="_main_8cpp" startline="44" endline="47">isVersion</referencedby>
       </memberdef>
       <memberdef kind="function" id="_main_8cpp_1a86ca1e62537bd1ac77ddfe13a6e83a01" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const std::string &amp;</type>
@@ -180,13 +198,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="37" column="26" bodyfile="Main.cpp" bodystart="37" bodyend="41"/>
+        <location file="Main.cpp" line="38" column="26" bodyfile="Main.cpp" bodystart="38" bodyend="42"/>
         <references refid="structChars_1a375464038832537822fff69be3285e32">Chars::doubleDash</references>
-        <references refid="_main_8cpp_1a86ca1e62537bd1ac77ddfe13a6e83a01" compoundref="_main_8cpp" startline="37" endline="41">getHelpFlag</references>
+        <references refid="_main_8cpp_1a86ca1e62537bd1ac77ddfe13a6e83a01" compoundref="_main_8cpp" startline="38" endline="42">getHelpFlag</references>
         <references refid="classjam_1_1Strings_1a41bbcc9a9a93f448cd58f666a72cdd6d">jam::Strings::getView</references>
         <references refid="namespaceId_1a7f93eafe58a56db2c54f56300c1484b9" compoundref="_generated_8cpp" startline="26" endline="26">Id::help</references>
-        <referencedby refid="_main_8cpp_1a86ca1e62537bd1ac77ddfe13a6e83a01" compoundref="_main_8cpp" startline="37" endline="41">getHelpFlag</referencedby>
-        <referencedby refid="_main_8cpp_1a6336581d1e8cbdb8df62474ac9e3fdbb" compoundref="_main_8cpp" startline="48" endline="51">isHelp</referencedby>
+        <referencedby refid="_main_8cpp_1a86ca1e62537bd1ac77ddfe13a6e83a01" compoundref="_main_8cpp" startline="38" endline="42">getHelpFlag</referencedby>
+        <referencedby refid="_main_8cpp_1a6336581d1e8cbdb8df62474ac9e3fdbb" compoundref="_main_8cpp" startline="49" endline="52">isHelp</referencedby>
       </memberdef>
       <memberdef kind="function" id="_main_8cpp_1a03053d92e25bc6f705c27356cd39d228" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -208,13 +226,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="43" column="13" bodyfile="Main.cpp" bodystart="43" bodyend="46"/>
+        <location file="Main.cpp" line="44" column="13" bodyfile="Main.cpp" bodystart="44" bodyend="47"/>
         <references refid="_main_8cpp_1a7eacf8422a0bf113fc72a4ecc24fac25" compoundref="_main_8cpp" startline="28" endline="28">flagArgIndex</references>
-        <references refid="_main_8cpp_1ab112c8dd220252b8308c8882da65e1b1" compoundref="_main_8cpp" startline="29" endline="29">flagOnlyArgumentCount</references>
-        <references refid="_main_8cpp_1a3e84cc35c31b3249e335bc1b737a2bf6" compoundref="_main_8cpp" startline="31" endline="35">getVersionFlag</references>
-        <references refid="_main_8cpp_1a03053d92e25bc6f705c27356cd39d228" compoundref="_main_8cpp" startline="43" endline="46">isVersion</references>
-        <referencedby refid="_main_8cpp_1a03053d92e25bc6f705c27356cd39d228" compoundref="_main_8cpp" startline="43" endline="46">isVersion</referencedby>
-        <referencedby refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" compoundref="_main_8cpp" startline="87" endline="109">runCommandLine</referencedby>
+        <references refid="_main_8cpp_1ab112c8dd220252b8308c8882da65e1b1" compoundref="_main_8cpp" startline="30" endline="30">flagOnlyArgumentCount</references>
+        <references refid="_main_8cpp_1a3e84cc35c31b3249e335bc1b737a2bf6" compoundref="_main_8cpp" startline="32" endline="36">getVersionFlag</references>
+        <references refid="_main_8cpp_1a03053d92e25bc6f705c27356cd39d228" compoundref="_main_8cpp" startline="44" endline="47">isVersion</references>
+        <referencedby refid="_main_8cpp_1a03053d92e25bc6f705c27356cd39d228" compoundref="_main_8cpp" startline="44" endline="47">isVersion</referencedby>
+        <referencedby refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" compoundref="_main_8cpp" startline="138" endline="170">runCommandLine</referencedby>
       </memberdef>
       <memberdef kind="function" id="_main_8cpp_1a6336581d1e8cbdb8df62474ac9e3fdbb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -236,13 +254,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="48" column="13" bodyfile="Main.cpp" bodystart="48" bodyend="51"/>
+        <location file="Main.cpp" line="49" column="13" bodyfile="Main.cpp" bodystart="49" bodyend="52"/>
         <references refid="_main_8cpp_1a7eacf8422a0bf113fc72a4ecc24fac25" compoundref="_main_8cpp" startline="28" endline="28">flagArgIndex</references>
-        <references refid="_main_8cpp_1ab112c8dd220252b8308c8882da65e1b1" compoundref="_main_8cpp" startline="29" endline="29">flagOnlyArgumentCount</references>
-        <references refid="_main_8cpp_1a86ca1e62537bd1ac77ddfe13a6e83a01" compoundref="_main_8cpp" startline="37" endline="41">getHelpFlag</references>
-        <references refid="_main_8cpp_1a6336581d1e8cbdb8df62474ac9e3fdbb" compoundref="_main_8cpp" startline="48" endline="51">isHelp</references>
-        <referencedby refid="_main_8cpp_1a6336581d1e8cbdb8df62474ac9e3fdbb" compoundref="_main_8cpp" startline="48" endline="51">isHelp</referencedby>
-        <referencedby refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" compoundref="_main_8cpp" startline="87" endline="109">runCommandLine</referencedby>
+        <references refid="_main_8cpp_1ab112c8dd220252b8308c8882da65e1b1" compoundref="_main_8cpp" startline="30" endline="30">flagOnlyArgumentCount</references>
+        <references refid="_main_8cpp_1a86ca1e62537bd1ac77ddfe13a6e83a01" compoundref="_main_8cpp" startline="38" endline="42">getHelpFlag</references>
+        <references refid="_main_8cpp_1a6336581d1e8cbdb8df62474ac9e3fdbb" compoundref="_main_8cpp" startline="49" endline="52">isHelp</references>
+        <referencedby refid="_main_8cpp_1a6336581d1e8cbdb8df62474ac9e3fdbb" compoundref="_main_8cpp" startline="49" endline="52">isHelp</referencedby>
+        <referencedby refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" compoundref="_main_8cpp" startline="138" endline="170">runCommandLine</referencedby>
       </memberdef>
       <memberdef kind="function" id="_main_8cpp_1a2bbde775f6db9f0e32cf9455a2ead1b7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -255,15 +273,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="53" column="13" bodyfile="Main.cpp" bodystart="53" bodyend="64"/>
+        <location file="Main.cpp" line="54" column="13" bodyfile="Main.cpp" bodystart="54" bodyend="65"/>
         <references refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4">jam::Format::appendUtf8</references>
         <references refid="structChars_1ab49a1038f17219d6f768eb1575513a0a">Chars::closeParen</references>
         <references refid="structChars_1a4691bc69052e757e7325970098922899">Chars::newline</references>
         <references refid="structChars_1abd3afa51b77bcc972daf75a3a9c7edfa">Chars::openParen</references>
         <references refid="structChars_1a04b9b7227a5cdf082413821f7a1c66de">Chars::space</references>
-        <references refid="_main_8cpp_1a2bbde775f6db9f0e32cf9455a2ead1b7" compoundref="_main_8cpp" startline="53" endline="64">writeVersion</references>
-        <referencedby refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" compoundref="_main_8cpp" startline="87" endline="109">runCommandLine</referencedby>
-        <referencedby refid="_main_8cpp_1a2bbde775f6db9f0e32cf9455a2ead1b7" compoundref="_main_8cpp" startline="53" endline="64">writeVersion</referencedby>
+        <references refid="_main_8cpp_1a2bbde775f6db9f0e32cf9455a2ead1b7" compoundref="_main_8cpp" startline="54" endline="65">writeVersion</references>
+        <referencedby refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" compoundref="_main_8cpp" startline="138" endline="170">runCommandLine</referencedby>
+        <referencedby refid="_main_8cpp_1a2bbde775f6db9f0e32cf9455a2ead1b7" compoundref="_main_8cpp" startline="54" endline="65">writeVersion</referencedby>
       </memberdef>
       <memberdef kind="function" id="_main_8cpp_1a6f06085b02e0ad301adcc85196bbb128" prot="public" static="yes" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type>bool</type>
@@ -276,10 +294,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="66" column="13" bodyfile="Main.cpp" bodystart="66" bodyend="73"/>
-        <references refid="_main_8cpp_1a6f06085b02e0ad301adcc85196bbb128" compoundref="_main_8cpp" startline="66" endline="73">isTerminalOutput</references>
-        <referencedby refid="_main_8cpp_1a6f06085b02e0ad301adcc85196bbb128" compoundref="_main_8cpp" startline="66" endline="73">isTerminalOutput</referencedby>
-        <referencedby refid="_main_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" compoundref="_main_8cpp" startline="111" endline="126">main</referencedby>
+        <location file="Main.cpp" line="67" column="13" bodyfile="Main.cpp" bodystart="67" bodyend="74"/>
+        <references refid="_main_8cpp_1a6f06085b02e0ad301adcc85196bbb128" compoundref="_main_8cpp" startline="67" endline="74">isTerminalOutput</references>
+        <referencedby refid="_main_8cpp_1a6f06085b02e0ad301adcc85196bbb128" compoundref="_main_8cpp" startline="67" endline="74">isTerminalOutput</referencedby>
+        <referencedby refid="_main_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" compoundref="_main_8cpp" startline="172" endline="187">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="_main_8cpp_1a7f683cefdf7f675f09e36661ce8df7cc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -292,15 +310,103 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="75" column="13" bodyfile="Main.cpp" bodystart="75" bodyend="85"/>
+        <location file="Main.cpp" line="76" column="13" bodyfile="Main.cpp" bodystart="76" bodyend="86"/>
         <references refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4">jam::Format::appendUtf8</references>
         <references refid="namespacefiles_1a7a34dcf346eed72b4150f7f995e92d19" compoundref="_generated_8cpp" startline="36" endline="36">files::lingHelp</references>
         <references refid="structChars_1a4691bc69052e757e7325970098922899">Chars::newline</references>
         <references refid="_main_8cpp_1a2c040b6a8eba42513dfa5b2a261f442d" compoundref="_main_8cpp" startline="11" endline="15">printBanner</references>
-        <references refid="_main_8cpp_1a7f683cefdf7f675f09e36661ce8df7cc" compoundref="_main_8cpp" startline="75" endline="85">printBannerAndHelp</references>
+        <references refid="_main_8cpp_1a7f683cefdf7f675f09e36661ce8df7cc" compoundref="_main_8cpp" startline="76" endline="86">printBannerAndHelp</references>
         <references refid="_help_8cpp_1a9b19836bb5ca0e3083ee375706b72664" compoundref="_help_8cpp" startline="3" endline="35">printHelp</references>
-        <referencedby refid="_main_8cpp_1a7f683cefdf7f675f09e36661ce8df7cc" compoundref="_main_8cpp" startline="75" endline="85">printBannerAndHelp</referencedby>
-        <referencedby refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" compoundref="_main_8cpp" startline="87" endline="109">runCommandLine</referencedby>
+        <referencedby refid="_main_8cpp_1a7f683cefdf7f675f09e36661ce8df7cc" compoundref="_main_8cpp" startline="76" endline="86">printBannerAndHelp</referencedby>
+        <referencedby refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" compoundref="_main_8cpp" startline="138" endline="170">runCommandLine</referencedby>
+        <referencedby refid="_main_8cpp_1a71f4a80b69df59cea48bb36733898656" compoundref="_main_8cpp" startline="126" endline="131">runDocumentNotFound</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="_main_8cpp_1a89106c2d9f856067b01fb268582b1e9a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int runDocument</definition>
+        <argsstring>(const juce::File &amp;documentFile, std::string_view path)</argsstring>
+        <name>runDocument</name>
+        <param>
+          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
+          <declname>documentFile</declname>
+        </param>
+        <param>
+          <type>std::string_view</type>
+          <declname>path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.cpp" line="88" column="12" bodyfile="Main.cpp" bodystart="88" bodyend="124"/>
+        <references refid="structjam_1_1Format_1a331fe8c5c824937852d7a87bd6c667c9">jam::Format::appendDecimal</references>
+        <references refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4">jam::Format::appendUtf8</references>
+        <references refid="structChars_1ab0e6e951a85086a81e11533c0bcfc422">Chars::colon</references>
+        <references refid="structmap_1_1SyntaxTokenType_1a1b51520b9369074f57af2828c07dc9b0">map::SyntaxTokenType::getInstance</references>
+        <references refid="classjam_1_1Strings_1a41bbcc9a9a93f448cd58f666a72cdd6d">jam::Strings::getView</references>
+        <references refid="structjam_1_1Document_1_1Validator_1a1275a95db9c777fcceff5c574c561ae0">jam::Document::Validator::isValid</references>
+        <references refid="classjuce_1_1File_1aa65d2fa50370357bf93658d6447c296d">juce::File::loadFileAsString</references>
+        <references refid="namespaceId_1ab17c6c7afce10ee78699a1e23ac7acdf">Id::name</references>
+        <references refid="structChars_1a4691bc69052e757e7325970098922899">Chars::newline</references>
+        <references refid="structjam_1_1Document_1a367d65133f164cf9421ff0c3ddf2bbf6">jam::Document::parse</references>
+        <references refid="_main_8cpp_1a9e829d663254bc1194b28d474a86f897" compoundref="_main_8cpp" startline="17" endline="26">printError</references>
+        <references refid="_main_8cpp_1a89106c2d9f856067b01fb268582b1e9a" compoundref="_main_8cpp" startline="88" endline="124">runDocument</references>
+        <references refid="structChars_1a04b9b7227a5cdf082413821f7a1c66de">Chars::space</references>
+        <references refid="classjuce_1_1Identifier_1ab6f0db1de2c36cacd1a9d7280f73aeeb">juce::Identifier::toString</references>
+        <references refid="namespaceId_1ab4956db6d5e735af8b4e202830ac73f7">Id::type</references>
+        <referencedby refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" compoundref="_main_8cpp" startline="138" endline="170">runCommandLine</referencedby>
+        <referencedby refid="_main_8cpp_1a89106c2d9f856067b01fb268582b1e9a" compoundref="_main_8cpp" startline="88" endline="124">runDocument</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="_main_8cpp_1a71f4a80b69df59cea48bb36733898656" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int runDocumentNotFound</definition>
+        <argsstring>(std::string_view path)</argsstring>
+        <name>runDocumentNotFound</name>
+        <param>
+          <type>std::string_view</type>
+          <declname>path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.cpp" line="126" column="12" bodyfile="Main.cpp" bodystart="126" bodyend="131"/>
+        <references refid="structtext_1_1_diagnostics_1a614879ccbad6f4edaf1a511bf5a2fa68" compoundref="_text_8h" startline="31" endline="31">text::Diagnostics::failNotFound</references>
+        <references refid="_main_8cpp_1a7f683cefdf7f675f09e36661ce8df7cc" compoundref="_main_8cpp" startline="76" endline="86">printBannerAndHelp</references>
+        <references refid="_main_8cpp_1a9e829d663254bc1194b28d474a86f897" compoundref="_main_8cpp" startline="17" endline="26">printError</references>
+        <references refid="_main_8cpp_1a71f4a80b69df59cea48bb36733898656" compoundref="_main_8cpp" startline="126" endline="131">runDocumentNotFound</references>
+        <referencedby refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" compoundref="_main_8cpp" startline="138" endline="170">runCommandLine</referencedby>
+        <referencedby refid="_main_8cpp_1a71f4a80b69df59cea48bb36733898656" compoundref="_main_8cpp" startline="126" endline="131">runDocumentNotFound</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="_main_8cpp_1af6dc96d8ea3eaa82f12e5f8dc0dac218" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref></type>
+        <definition>static juce::File getDocumentFile</definition>
+        <argsstring>(char *argv[])</argsstring>
+        <name>getDocumentFile</name>
+        <param>
+          <type>char *</type>
+          <declname>argv</declname>
+          <array>[]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.cpp" line="133" column="19" bodyfile="Main.cpp" bodystart="133" bodyend="136"/>
+        <references refid="_main_8cpp_1a7eacf8422a0bf113fc72a4ecc24fac25" compoundref="_main_8cpp" startline="28" endline="28">flagArgIndex</references>
+        <references refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223">juce::String::fromUTF8</references>
+        <references refid="classjuce_1_1File_1a57b992aacb19e09ee5905cd0f0e9bb31">juce::File::getChildFile</references>
+        <references refid="classjuce_1_1File_1af57a7a6e83fbd4a6b048e7d0010d7279">juce::File::getCurrentWorkingDirectory</references>
+        <references refid="_main_8cpp_1af6dc96d8ea3eaa82f12e5f8dc0dac218" compoundref="_main_8cpp" startline="133" endline="136">getDocumentFile</references>
+        <references refid="classjuce_1_1File_1ab64be7537af26a53fa61643e42538c29">juce::File::getLinkedTarget</references>
+        <referencedby refid="_main_8cpp_1af6dc96d8ea3eaa82f12e5f8dc0dac218" compoundref="_main_8cpp" startline="133" endline="136">getDocumentFile</referencedby>
+        <referencedby refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" compoundref="_main_8cpp" startline="138" endline="170">runCommandLine</referencedby>
       </memberdef>
       <memberdef kind="function" id="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -322,18 +428,22 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="87" column="12" bodyfile="Main.cpp" bodystart="87" bodyend="109"/>
-        <references refid="structtext_1_1_diagnostics_1a54030ad642dee1157d22d8255503812d" compoundref="_text_8h" startline="31" endline="31">text::Diagnostics::failFlagUnknown</references>
+        <location file="Main.cpp" line="138" column="12" bodyfile="Main.cpp" bodystart="138" bodyend="170"/>
+        <references refid="structtext_1_1_diagnostics_1a54030ad642dee1157d22d8255503812d" compoundref="_text_8h" startline="32" endline="32">text::Diagnostics::failFlagUnknown</references>
         <references refid="_main_8cpp_1a7eacf8422a0bf113fc72a4ecc24fac25" compoundref="_main_8cpp" startline="28" endline="28">flagArgIndex</references>
-        <references refid="_main_8cpp_1ab112c8dd220252b8308c8882da65e1b1" compoundref="_main_8cpp" startline="29" endline="29">flagOnlyArgumentCount</references>
-        <references refid="_main_8cpp_1a6336581d1e8cbdb8df62474ac9e3fdbb" compoundref="_main_8cpp" startline="48" endline="51">isHelp</references>
-        <references refid="_main_8cpp_1a03053d92e25bc6f705c27356cd39d228" compoundref="_main_8cpp" startline="43" endline="46">isVersion</references>
-        <references refid="_main_8cpp_1a7f683cefdf7f675f09e36661ce8df7cc" compoundref="_main_8cpp" startline="75" endline="85">printBannerAndHelp</references>
+        <references refid="_main_8cpp_1ab112c8dd220252b8308c8882da65e1b1" compoundref="_main_8cpp" startline="30" endline="30">flagOnlyArgumentCount</references>
+        <references refid="_main_8cpp_1af6dc96d8ea3eaa82f12e5f8dc0dac218" compoundref="_main_8cpp" startline="133" endline="136">getDocumentFile</references>
+        <references refid="_main_8cpp_1a6336581d1e8cbdb8df62474ac9e3fdbb" compoundref="_main_8cpp" startline="49" endline="52">isHelp</references>
+        <references refid="_main_8cpp_1a03053d92e25bc6f705c27356cd39d228" compoundref="_main_8cpp" startline="44" endline="47">isVersion</references>
+        <references refid="_main_8cpp_1a8d15eab864d23bacb85f66408f136d42" compoundref="_main_8cpp" startline="29" endline="29">postFlagArgIndex</references>
+        <references refid="_main_8cpp_1a7f683cefdf7f675f09e36661ce8df7cc" compoundref="_main_8cpp" startline="76" endline="86">printBannerAndHelp</references>
         <references refid="_main_8cpp_1a9e829d663254bc1194b28d474a86f897" compoundref="_main_8cpp" startline="17" endline="26">printError</references>
-        <references refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" compoundref="_main_8cpp" startline="87" endline="109">runCommandLine</references>
-        <references refid="_main_8cpp_1a2bbde775f6db9f0e32cf9455a2ead1b7" compoundref="_main_8cpp" startline="53" endline="64">writeVersion</references>
-        <referencedby refid="_main_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" compoundref="_main_8cpp" startline="111" endline="126">main</referencedby>
-        <referencedby refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" compoundref="_main_8cpp" startline="87" endline="109">runCommandLine</referencedby>
+        <references refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" compoundref="_main_8cpp" startline="138" endline="170">runCommandLine</references>
+        <references refid="_main_8cpp_1a89106c2d9f856067b01fb268582b1e9a" compoundref="_main_8cpp" startline="88" endline="124">runDocument</references>
+        <references refid="_main_8cpp_1a71f4a80b69df59cea48bb36733898656" compoundref="_main_8cpp" startline="126" endline="131">runDocumentNotFound</references>
+        <references refid="_main_8cpp_1a2bbde775f6db9f0e32cf9455a2ead1b7" compoundref="_main_8cpp" startline="54" endline="65">writeVersion</references>
+        <referencedby refid="_main_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" compoundref="_main_8cpp" startline="172" endline="187">main</referencedby>
+        <referencedby refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" compoundref="_main_8cpp" startline="138" endline="170">runCommandLine</referencedby>
       </memberdef>
       <memberdef kind="function" id="_main_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -355,14 +465,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="111" column="5" bodyfile="Main.cpp" bodystart="111" bodyend="126"/>
+        <location file="Main.cpp" line="172" column="5" bodyfile="Main.cpp" bodystart="172" bodyend="187"/>
         <references refid="classjuce_1_1MemoryOutputStream_1a050102f4ce6bec06a6e307434f467635">juce::MemoryOutputStream::getData</references>
         <references refid="classjuce_1_1MemoryOutputStream_1a2ec3b7c88c8eba50d8a45f081dee0529">juce::MemoryOutputStream::getDataSize</references>
-        <references refid="_main_8cpp_1a6f06085b02e0ad301adcc85196bbb128" compoundref="_main_8cpp" startline="66" endline="73">isTerminalOutput</references>
-        <references refid="_main_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" compoundref="_main_8cpp" startline="111" endline="126">main</references>
-        <references refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" compoundref="_main_8cpp" startline="87" endline="109">runCommandLine</references>
+        <references refid="_main_8cpp_1a6f06085b02e0ad301adcc85196bbb128" compoundref="_main_8cpp" startline="67" endline="74">isTerminalOutput</references>
+        <references refid="_main_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" compoundref="_main_8cpp" startline="172" endline="187">main</references>
+        <references refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" compoundref="_main_8cpp" startline="138" endline="170">runCommandLine</references>
         <references refid="structjam_1_1TerminalEncoder_1a4d55627117d567684bcebe251d818220">jam::TerminalEncoder::writeEraseScreen</references>
-        <referencedby refid="_main_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" compoundref="_main_8cpp" startline="111" endline="126">main</referencedby>
+        <referencedby refid="_main_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" compoundref="_main_8cpp" startline="172" endline="187">main</referencedby>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -398,104 +508,165 @@
 <codeline lineno="26"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="27"><highlight class="normal"></highlight></codeline>
 <codeline lineno="28" refid="_main_8cpp_1a7eacf8422a0bf113fc72a4ecc24fac25" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="_main_8cpp_1a7eacf8422a0bf113fc72a4ecc24fac25" kindref="member">flagArgIndex</ref><sp/>{<sp/>1<sp/>};</highlight></codeline>
-<codeline lineno="29" refid="_main_8cpp_1ab112c8dd220252b8308c8882da65e1b1" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="_main_8cpp_1ab112c8dd220252b8308c8882da65e1b1" kindref="member">flagOnlyArgumentCount</ref><sp/>{<sp/>2<sp/>};</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"></highlight></codeline>
-<codeline lineno="31" refid="_main_8cpp_1a3e84cc35c31b3249e335bc1b737a2bf6" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="_main_8cpp_1a3e84cc35c31b3249e335bc1b737a2bf6" kindref="member">getVersionFlag</ref>()</highlight></codeline>
-<codeline lineno="32"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>versionFlag<sp/>(std::string<sp/>(<ref refid="structChars_1a375464038832537822fff69be3285e32" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Chars::doubleDash</ref>).append<sp/>(<ref refid="classjam_1_1Strings_1a41bbcc9a9a93f448cd58f666a72cdd6d" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings::getView</ref><sp/>(<ref refid="namespaceId_1a26b45dcee4122af40c4184ef577e0a0e" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::version</ref>.toString())));</highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>versionFlag;</highlight></codeline>
-<codeline lineno="35"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"></highlight></codeline>
-<codeline lineno="37" refid="_main_8cpp_1a86ca1e62537bd1ac77ddfe13a6e83a01" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="_main_8cpp_1a86ca1e62537bd1ac77ddfe13a6e83a01" kindref="member">getHelpFlag</ref>()</highlight></codeline>
-<codeline lineno="38"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>helpFlag<sp/>(std::string<sp/>(<ref refid="structChars_1a375464038832537822fff69be3285e32" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Chars::doubleDash</ref>).append<sp/>(<ref refid="classjam_1_1Strings_1a41bbcc9a9a93f448cd58f666a72cdd6d" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings::getView</ref><sp/>(<ref refid="namespaceId_1a7f93eafe58a56db2c54f56300c1484b9" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::help</ref>.toString())));</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>helpFlag;</highlight></codeline>
-<codeline lineno="41"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight></codeline>
-<codeline lineno="43" refid="_main_8cpp_1a03053d92e25bc6f705c27356cd39d228" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="_main_8cpp_1a03053d92e25bc6f705c27356cd39d228" kindref="member">isVersion</ref><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>argv[])</highlight></codeline>
-<codeline lineno="44"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>argc<sp/>==<sp/><ref refid="_main_8cpp_1ab112c8dd220252b8308c8882da65e1b1" kindref="member">flagOnlyArgumentCount</ref><sp/>and<sp/>std::string_view<sp/>(argv[<ref refid="_main_8cpp_1a7eacf8422a0bf113fc72a4ecc24fac25" kindref="member">flagArgIndex</ref>]).compare<sp/>(<ref refid="_main_8cpp_1a3e84cc35c31b3249e335bc1b737a2bf6" kindref="member">getVersionFlag</ref>())<sp/>==<sp/>0;</highlight></codeline>
-<codeline lineno="46"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"></highlight></codeline>
-<codeline lineno="48" refid="_main_8cpp_1a6336581d1e8cbdb8df62474ac9e3fdbb" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="_main_8cpp_1a6336581d1e8cbdb8df62474ac9e3fdbb" kindref="member">isHelp</ref><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>argv[])</highlight></codeline>
-<codeline lineno="49"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>argc<sp/>==<sp/><ref refid="_main_8cpp_1ab112c8dd220252b8308c8882da65e1b1" kindref="member">flagOnlyArgumentCount</ref><sp/>and<sp/>std::string_view<sp/>(argv[<ref refid="_main_8cpp_1a7eacf8422a0bf113fc72a4ecc24fac25" kindref="member">flagArgIndex</ref>]).compare<sp/>(<ref refid="_main_8cpp_1a86ca1e62537bd1ac77ddfe13a6e83a01" kindref="member">getHelpFlag</ref>())<sp/>==<sp/>0;</highlight></codeline>
-<codeline lineno="51"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"></highlight></codeline>
-<codeline lineno="53" refid="_main_8cpp_1a2bbde775f6db9f0e32cf9455a2ead1b7" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_main_8cpp_1a2bbde775f6db9f0e32cf9455a2ead1b7" kindref="member">writeVersion</ref>()</highlight></codeline>
-<codeline lineno="54"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>versionLine<sp/>{<sp/>ProjectInfo::projectName<sp/>};</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Format::appendUtf8</ref><sp/>(versionLine,<sp/><ref refid="structChars_1a04b9b7227a5cdf082413821f7a1c66de" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Chars::space</ref>);</highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>versionLine.append<sp/>(ProjectInfo::versionString);</highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Format::appendUtf8</ref><sp/>(versionLine,<sp/><ref refid="structChars_1a04b9b7227a5cdf082413821f7a1c66de" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Chars::space</ref>);</highlight></codeline>
-<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Format::appendUtf8</ref><sp/>(versionLine,<sp/><ref refid="structChars_1abd3afa51b77bcc972daf75a3a9c7edfa" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Chars::openParen</ref>);</highlight></codeline>
-<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>versionLine.append<sp/>(CAST_COMMIT);</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Format::appendUtf8</ref><sp/>(versionLine,<sp/><ref refid="structChars_1ab49a1038f17219d6f768eb1575513a0a" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Chars::closeParen</ref>);</highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Format::appendUtf8</ref><sp/>(versionLine,<sp/><ref refid="structChars_1a4691bc69052e757e7325970098922899" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Chars::newline</ref>);</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>fwrite<sp/>(versionLine.data(),<sp/>sizeof<sp/>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal">),<sp/>versionLine.size(),<sp/>stdout);</highlight></codeline>
-<codeline lineno="64"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="65"><highlight class="normal"></highlight></codeline>
-<codeline lineno="66" refid="_main_8cpp_1a6f06085b02e0ad301adcc85196bbb128" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="_main_8cpp_1a6f06085b02e0ad301adcc85196bbb128" kindref="member">isTerminalOutput</ref>()<sp/>noexcept</highlight></codeline>
-<codeline lineno="67"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>_WIN32</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>_isatty<sp/>(_fileno<sp/>(stdout))<sp/>!=<sp/>0;</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>isatty<sp/>(fileno<sp/>(stdout))<sp/>!=<sp/>0;</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="73"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"></highlight></codeline>
-<codeline lineno="75" refid="_main_8cpp_1a7f683cefdf7f675f09e36661ce8df7cc" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_main_8cpp_1a7f683cefdf7f675f09e36661ce8df7cc" kindref="member">printBannerAndHelp</ref>()</highlight></codeline>
-<codeline lineno="76"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1ScopedJuceInitialiser__GUI" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ScopedJuceInitialiser_GUI</ref><sp/>juceInitialiser;</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structBinaryData_1_1Raw" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">BinaryData::Raw</ref><sp/>binary<sp/>{<sp/><ref refid="namespacefiles_1a7a34dcf346eed72b4150f7f995e92d19" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">files::lingHelp</ref><sp/>};</highlight></codeline>
-<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>newlineText;</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Format::appendUtf8</ref><sp/>(newlineText,<sp/><ref refid="structChars_1a4691bc69052e757e7325970098922899" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Chars::newline</ref>);</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"></highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_main_8cpp_1a2c040b6a8eba42513dfa5b2a261f442d" kindref="member">printBanner</ref>();</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>fwrite<sp/>(newlineText.data(),<sp/>sizeof<sp/>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal">),<sp/>newlineText.size(),<sp/>stdout);</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_help_8cpp_1a9b19836bb5ca0e3083ee375706b72664" kindref="member">printHelp</ref><sp/>(std::string_view<sp/>(binary.data,<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">size_t</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal"><sp/>(binary.size)));</highlight></codeline>
-<codeline lineno="85"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"></highlight></codeline>
-<codeline lineno="87" refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" kindref="member">runCommandLine</ref><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>argv[])</highlight></codeline>
-<codeline lineno="88"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="_main_8cpp_1a03053d92e25bc6f705c27356cd39d228" kindref="member">isVersion</ref><sp/>(argc,<sp/>argv))</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="_main_8cpp_1a2bbde775f6db9f0e32cf9455a2ead1b7" kindref="member">writeVersion</ref>();</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>EXIT_SUCCESS;</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"></highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="_main_8cpp_1a6336581d1e8cbdb8df62474ac9e3fdbb" kindref="member">isHelp</ref><sp/>(argc,<sp/>argv))</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="_main_8cpp_1a7f683cefdf7f675f09e36661ce8df7cc" kindref="member">printBannerAndHelp</ref>();</highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>EXIT_SUCCESS;</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"></highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(argc<sp/>&gt;=<sp/><ref refid="_main_8cpp_1ab112c8dd220252b8308c8882da65e1b1" kindref="member">flagOnlyArgumentCount</ref>)</highlight></codeline>
-<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="_main_8cpp_1a9e829d663254bc1194b28d474a86f897" kindref="member">printError</ref><sp/>(argv[<ref refid="_main_8cpp_1a7eacf8422a0bf113fc72a4ecc24fac25" kindref="member">flagArgIndex</ref>],<sp/><ref refid="structtext_1_1_diagnostics_1a54030ad642dee1157d22d8255503812d" kindref="member">text::Diagnostics::failFlagUnknown</ref>);</highlight></codeline>
-<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>EXIT_FAILURE;</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"></highlight></codeline>
-<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_main_8cpp_1a7f683cefdf7f675f09e36661ce8df7cc" kindref="member">printBannerAndHelp</ref>();</highlight></codeline>
-<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>EXIT_SUCCESS;</highlight></codeline>
-<codeline lineno="109"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="110"><highlight class="normal"></highlight></codeline>
-<codeline lineno="111" refid="_main_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="_main_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" kindref="member">main</ref><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>argv[])</highlight></codeline>
-<codeline lineno="112"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="113"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>_WIN32</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/>SetConsoleOutputCP<sp/>(CP_UTF8);</highlight></codeline>
-<codeline lineno="115"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="116"><highlight class="normal"></highlight></codeline>
-<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="_main_8cpp_1a6f06085b02e0ad301adcc85196bbb128" kindref="member">isTerminalOutput</ref>())</highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1MemoryOutputStream" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::MemoryOutputStream</ref><sp/>erase;</highlight></codeline>
-<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structjam_1_1TerminalEncoder_1a4d55627117d567684bcebe251d818220" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::TerminalEncoder::writeEraseScreen</ref><sp/>(erase);</highlight></codeline>
-<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fwrite<sp/>(erase.<ref refid="classjuce_1_1MemoryOutputStream_1a050102f4ce6bec06a6e307434f467635" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">getData</ref>(),<sp/>sizeof<sp/>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal">),<sp/>erase.<ref refid="classjuce_1_1MemoryOutputStream_1a2ec3b7c88c8eba50d8a45f081dee0529" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">getDataSize</ref>(),<sp/>stdout);</highlight></codeline>
-<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fflush<sp/>(stdout);</highlight></codeline>
-<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="124"><highlight class="normal"></highlight></codeline>
-<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" kindref="member">runCommandLine</ref><sp/>(argc,<sp/>argv);</highlight></codeline>
-<codeline lineno="126"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="29" refid="_main_8cpp_1a8d15eab864d23bacb85f66408f136d42" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="_main_8cpp_1a8d15eab864d23bacb85f66408f136d42" kindref="member">postFlagArgIndex</ref><sp/>{<sp/>2<sp/>};</highlight></codeline>
+<codeline lineno="30" refid="_main_8cpp_1ab112c8dd220252b8308c8882da65e1b1" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="_main_8cpp_1ab112c8dd220252b8308c8882da65e1b1" kindref="member">flagOnlyArgumentCount</ref><sp/>{<sp/>2<sp/>};</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32" refid="_main_8cpp_1a3e84cc35c31b3249e335bc1b737a2bf6" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="_main_8cpp_1a3e84cc35c31b3249e335bc1b737a2bf6" kindref="member">getVersionFlag</ref>()</highlight></codeline>
+<codeline lineno="33"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>versionFlag<sp/>(std::string<sp/>(<ref refid="structChars_1a375464038832537822fff69be3285e32" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Chars::doubleDash</ref>).append<sp/>(<ref refid="classjam_1_1Strings_1a41bbcc9a9a93f448cd58f666a72cdd6d" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings::getView</ref><sp/>(<ref refid="namespaceId_1a26b45dcee4122af40c4184ef577e0a0e" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::version</ref>.toString())));</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>versionFlag;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38" refid="_main_8cpp_1a86ca1e62537bd1ac77ddfe13a6e83a01" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="_main_8cpp_1a86ca1e62537bd1ac77ddfe13a6e83a01" kindref="member">getHelpFlag</ref>()</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>helpFlag<sp/>(std::string<sp/>(<ref refid="structChars_1a375464038832537822fff69be3285e32" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Chars::doubleDash</ref>).append<sp/>(<ref refid="classjam_1_1Strings_1a41bbcc9a9a93f448cd58f666a72cdd6d" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings::getView</ref><sp/>(<ref refid="namespaceId_1a7f93eafe58a56db2c54f56300c1484b9" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::help</ref>.toString())));</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>helpFlag;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44" refid="_main_8cpp_1a03053d92e25bc6f705c27356cd39d228" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="_main_8cpp_1a03053d92e25bc6f705c27356cd39d228" kindref="member">isVersion</ref><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>argv[])</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>argc<sp/>==<sp/><ref refid="_main_8cpp_1ab112c8dd220252b8308c8882da65e1b1" kindref="member">flagOnlyArgumentCount</ref><sp/>and<sp/>std::string_view<sp/>(argv[<ref refid="_main_8cpp_1a7eacf8422a0bf113fc72a4ecc24fac25" kindref="member">flagArgIndex</ref>]).compare<sp/>(<ref refid="_main_8cpp_1a3e84cc35c31b3249e335bc1b737a2bf6" kindref="member">getVersionFlag</ref>())<sp/>==<sp/>0;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49" refid="_main_8cpp_1a6336581d1e8cbdb8df62474ac9e3fdbb" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="_main_8cpp_1a6336581d1e8cbdb8df62474ac9e3fdbb" kindref="member">isHelp</ref><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>argv[])</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>argc<sp/>==<sp/><ref refid="_main_8cpp_1ab112c8dd220252b8308c8882da65e1b1" kindref="member">flagOnlyArgumentCount</ref><sp/>and<sp/>std::string_view<sp/>(argv[<ref refid="_main_8cpp_1a7eacf8422a0bf113fc72a4ecc24fac25" kindref="member">flagArgIndex</ref>]).compare<sp/>(<ref refid="_main_8cpp_1a86ca1e62537bd1ac77ddfe13a6e83a01" kindref="member">getHelpFlag</ref>())<sp/>==<sp/>0;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54" refid="_main_8cpp_1a2bbde775f6db9f0e32cf9455a2ead1b7" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_main_8cpp_1a2bbde775f6db9f0e32cf9455a2ead1b7" kindref="member">writeVersion</ref>()</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>versionLine<sp/>{<sp/>ProjectInfo::projectName<sp/>};</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Format::appendUtf8</ref><sp/>(versionLine,<sp/><ref refid="structChars_1a04b9b7227a5cdf082413821f7a1c66de" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Chars::space</ref>);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>versionLine.append<sp/>(ProjectInfo::versionString);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Format::appendUtf8</ref><sp/>(versionLine,<sp/><ref refid="structChars_1a04b9b7227a5cdf082413821f7a1c66de" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Chars::space</ref>);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Format::appendUtf8</ref><sp/>(versionLine,<sp/><ref refid="structChars_1abd3afa51b77bcc972daf75a3a9c7edfa" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Chars::openParen</ref>);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>versionLine.append<sp/>(CAST_COMMIT);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Format::appendUtf8</ref><sp/>(versionLine,<sp/><ref refid="structChars_1ab49a1038f17219d6f768eb1575513a0a" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Chars::closeParen</ref>);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Format::appendUtf8</ref><sp/>(versionLine,<sp/><ref refid="structChars_1a4691bc69052e757e7325970098922899" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Chars::newline</ref>);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>fwrite<sp/>(versionLine.data(),<sp/>sizeof<sp/>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal">),<sp/>versionLine.size(),<sp/>stdout);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67" refid="_main_8cpp_1a6f06085b02e0ad301adcc85196bbb128" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="_main_8cpp_1a6f06085b02e0ad301adcc85196bbb128" kindref="member">isTerminalOutput</ref>()<sp/>noexcept</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>_WIN32</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>_isatty<sp/>(_fileno<sp/>(stdout))<sp/>!=<sp/>0;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>isatty<sp/>(fileno<sp/>(stdout))<sp/>!=<sp/>0;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76" refid="_main_8cpp_1a7f683cefdf7f675f09e36661ce8df7cc" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_main_8cpp_1a7f683cefdf7f675f09e36661ce8df7cc" kindref="member">printBannerAndHelp</ref>()</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1ScopedJuceInitialiser__GUI" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ScopedJuceInitialiser_GUI</ref><sp/>libraryInitialiser;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structBinaryData_1_1Raw" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">BinaryData::Raw</ref><sp/>binary<sp/>{<sp/><ref refid="namespacefiles_1a7a34dcf346eed72b4150f7f995e92d19" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">files::lingHelp</ref><sp/>};</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>newlineText;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Format::appendUtf8</ref><sp/>(newlineText,<sp/><ref refid="structChars_1a4691bc69052e757e7325970098922899" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Chars::newline</ref>);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_main_8cpp_1a2c040b6a8eba42513dfa5b2a261f442d" kindref="member">printBanner</ref>();</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>fwrite<sp/>(newlineText.data(),<sp/>sizeof<sp/>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal">),<sp/>newlineText.size(),<sp/>stdout);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_help_8cpp_1a9b19836bb5ca0e3083ee375706b72664" kindref="member">printHelp</ref><sp/>(std::string_view<sp/>(binary.data,<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">size_t</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal"><sp/>(binary.size)));</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88" refid="_main_8cpp_1a89106c2d9f856067b01fb268582b1e9a" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="_main_8cpp_1a89106c2d9f856067b01fb268582b1e9a" kindref="member">runDocument</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref>&amp;<sp/>documentFile,<sp/>std::string_view<sp/>path)</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>sourceText<sp/>{<sp/>documentFile.<ref refid="classjuce_1_1File_1aa65d2fa50370357bf93658d6447c296d" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">loadFileAsString</ref>()<sp/>};</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>document<sp/>{<sp/><ref refid="structjam_1_1Document_1a367d65133f164cf9421ff0c3ddf2bbf6" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::CLanguageDocument::parse</ref><sp/>(<ref refid="classjam_1_1Strings_1a41bbcc9a9a93f448cd58f666a72cdd6d" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings::getView</ref><sp/>(sourceText))<sp/>};</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>result<sp/>{<sp/><ref refid="structjam_1_1CLanguageValidator" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::CLanguageValidator</ref>().<ref refid="structjam_1_1Document_1_1Validator_1a1275a95db9c777fcceff5c574c561ae0" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">isValid</ref><sp/>(document)<sp/>};</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(result.wasOk())</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjam_1_1SharedInstance" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::SharedInstance&lt;map::SyntaxTokenType&gt;</ref><sp/>syntaxTokenType<sp/>{<sp/>std::in_place<sp/>};</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>declarations;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">*<sp/>child<sp/>:<sp/>document)</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>child-&gt;applyFunctionRecursively<sp/>(</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[&amp;declarations,<sp/>&amp;document,<sp/>path]<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;<sp/>element)</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>offset<sp/>{<sp/>element.find&lt;<ref refid="structjam_1_1Document_1a805d84a9511bbac7e123e95c20c6c32b" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Tokens</ref>&gt;<sp/>(<ref refid="namespaceId_1ab17c6c7afce10ee78699a1e23ac7acdf" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::name</ref>)-&gt;last().offset()<sp/>};</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>declarations.append<sp/>(path);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Format::appendUtf8</ref><sp/>(declarations,<sp/><ref refid="structChars_1ab0e6e951a85086a81e11533c0bcfc422" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Chars::colon</ref>);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structjam_1_1Format_1a331fe8c5c824937852d7a87bd6c667c9" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Format::appendDecimal</ref><sp/>(declarations,<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal"><sp/>(document.getLineNumber<sp/>(offset)));</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Format::appendUtf8</ref><sp/>(declarations,<sp/><ref refid="structChars_1ab0e6e951a85086a81e11533c0bcfc422" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Chars::colon</ref>);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structjam_1_1Format_1a331fe8c5c824937852d7a87bd6c667c9" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Format::appendDecimal</ref><sp/>(declarations,<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal"><sp/>(document.getColumnNumber<sp/>(offset)));</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Format::appendUtf8</ref><sp/>(declarations,<sp/><ref refid="structChars_1ab0e6e951a85086a81e11533c0bcfc422" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Chars::colon</ref>);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Format::appendUtf8</ref><sp/>(declarations,<sp/><ref refid="structChars_1a04b9b7227a5cdf082413821f7a1c66de" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Chars::space</ref>);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>declarations.append<sp/>(<ref refid="classjam_1_1Strings_1a41bbcc9a9a93f448cd58f666a72cdd6d" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings::getView</ref><sp/>(<ref refid="structmap_1_1SyntaxTokenType_1a1b51520b9369074f57af2828c07dc9b0" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">map::SyntaxTokenType::getInstance</ref>()-&gt;get<sp/>(*element.find&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">&gt;<sp/>(<ref refid="namespaceId_1ab4956db6d5e735af8b4e202830ac73f7" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::type</ref>))));</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Format::appendUtf8</ref><sp/>(declarations,<sp/><ref refid="structChars_1a04b9b7227a5cdf082413821f7a1c66de" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Chars::space</ref>);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>declarations.append<sp/>(<ref refid="classjam_1_1Strings_1a41bbcc9a9a93f448cd58f666a72cdd6d" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings::getView</ref><sp/>(element.id.<ref refid="classjuce_1_1Identifier_1ab6f0db1de2c36cacd1a9d7280f73aeeb" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">toString</ref>()));</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Format::appendUtf8</ref><sp/>(declarations,<sp/><ref refid="structChars_1a4691bc69052e757e7325970098922899" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Chars::newline</ref>);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>});</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fwrite<sp/>(declarations.data(),<sp/>sizeof<sp/>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal">),<sp/>declarations.size(),<sp/>stdout);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>EXIT_SUCCESS;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_main_8cpp_1a9e829d663254bc1194b28d474a86f897" kindref="member">printError</ref><sp/>(path,<sp/><ref refid="classjam_1_1Strings_1a41bbcc9a9a93f448cd58f666a72cdd6d" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings::getView</ref><sp/>(result.getErrorMessage()));</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>EXIT_FAILURE;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126" refid="_main_8cpp_1a71f4a80b69df59cea48bb36733898656" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="_main_8cpp_1a71f4a80b69df59cea48bb36733898656" kindref="member">runDocumentNotFound</ref><sp/>(std::string_view<sp/>path)</highlight></codeline>
+<codeline lineno="127"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_main_8cpp_1a7f683cefdf7f675f09e36661ce8df7cc" kindref="member">printBannerAndHelp</ref>();</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_main_8cpp_1a9e829d663254bc1194b28d474a86f897" kindref="member">printError</ref><sp/>(path,<sp/><ref refid="structtext_1_1_diagnostics_1a614879ccbad6f4edaf1a511bf5a2fa68" kindref="member">text::Diagnostics::failNotFound</ref>);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>EXIT_FAILURE;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133" refid="_main_8cpp_1af6dc96d8ea3eaa82f12e5f8dc0dac218" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref><sp/><ref refid="_main_8cpp_1af6dc96d8ea3eaa82f12e5f8dc0dac218" kindref="member">getDocumentFile</ref><sp/>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>argv[])</highlight></codeline>
+<codeline lineno="134"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1File_1af57a7a6e83fbd4a6b048e7d0010d7279" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File::getCurrentWorkingDirectory</ref>().<ref refid="classjuce_1_1File_1a57b992aacb19e09ee5905cd0f0e9bb31" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">getChildFile</ref><sp/>(<ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(argv[<ref refid="_main_8cpp_1a7eacf8422a0bf113fc72a4ecc24fac25" kindref="member">flagArgIndex</ref>])).<ref refid="classjuce_1_1File_1ab64be7537af26a53fa61643e42538c29" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">getLinkedTarget</ref>();</highlight></codeline>
+<codeline lineno="136"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138" refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" kindref="member">runCommandLine</ref><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>argv[])</highlight></codeline>
+<codeline lineno="139"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="_main_8cpp_1a03053d92e25bc6f705c27356cd39d228" kindref="member">isVersion</ref><sp/>(argc,<sp/>argv))</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="_main_8cpp_1a2bbde775f6db9f0e32cf9455a2ead1b7" kindref="member">writeVersion</ref>();</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>EXIT_SUCCESS;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="_main_8cpp_1a6336581d1e8cbdb8df62474ac9e3fdbb" kindref="member">isHelp</ref><sp/>(argc,<sp/>argv))</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="_main_8cpp_1a7f683cefdf7f675f09e36661ce8df7cc" kindref="member">printBannerAndHelp</ref>();</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>EXIT_SUCCESS;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(argc<sp/>==<sp/><ref refid="_main_8cpp_1ab112c8dd220252b8308c8882da65e1b1" kindref="member">flagOnlyArgumentCount</ref>)</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>documentFile<sp/>{<sp/><ref refid="_main_8cpp_1af6dc96d8ea3eaa82f12e5f8dc0dac218" kindref="member">getDocumentFile</ref><sp/>(argv)<sp/>};</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(documentFile.existsAsFile())</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="_main_8cpp_1a89106c2d9f856067b01fb268582b1e9a" kindref="member">runDocument</ref><sp/>(documentFile,<sp/>argv[<ref refid="_main_8cpp_1a7eacf8422a0bf113fc72a4ecc24fac25" kindref="member">flagArgIndex</ref>]);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="_main_8cpp_1a71f4a80b69df59cea48bb36733898656" kindref="member">runDocumentNotFound</ref><sp/>(argv[<ref refid="_main_8cpp_1a7eacf8422a0bf113fc72a4ecc24fac25" kindref="member">flagArgIndex</ref>]);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(argc<sp/>&gt;<sp/><ref refid="_main_8cpp_1ab112c8dd220252b8308c8882da65e1b1" kindref="member">flagOnlyArgumentCount</ref>)</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="_main_8cpp_1a9e829d663254bc1194b28d474a86f897" kindref="member">printError</ref><sp/>(argv[<ref refid="_main_8cpp_1a8d15eab864d23bacb85f66408f136d42" kindref="member">postFlagArgIndex</ref>],<sp/><ref refid="structtext_1_1_diagnostics_1a54030ad642dee1157d22d8255503812d" kindref="member">text::Diagnostics::failFlagUnknown</ref>);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>EXIT_FAILURE;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_main_8cpp_1a7f683cefdf7f675f09e36661ce8df7cc" kindref="member">printBannerAndHelp</ref>();</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>EXIT_SUCCESS;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172" refid="_main_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="_main_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" kindref="member">main</ref><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>argv[])</highlight></codeline>
+<codeline lineno="173"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>_WIN32</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/>SetConsoleOutputCP<sp/>(CP_UTF8);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="_main_8cpp_1a6f06085b02e0ad301adcc85196bbb128" kindref="member">isTerminalOutput</ref>())</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1MemoryOutputStream" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::MemoryOutputStream</ref><sp/>erase;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structjam_1_1TerminalEncoder_1a4d55627117d567684bcebe251d818220" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::TerminalEncoder::writeEraseScreen</ref><sp/>(erase);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fwrite<sp/>(erase.<ref refid="classjuce_1_1MemoryOutputStream_1a050102f4ce6bec06a6e307434f467635" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">getData</ref>(),<sp/>sizeof<sp/>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal">),<sp/>erase.<ref refid="classjuce_1_1MemoryOutputStream_1a2ec3b7c88c8eba50d8a45f081dee0529" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">getDataSize</ref>(),<sp/>stdout);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fflush<sp/>(stdout);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" kindref="member">runCommandLine</ref><sp/>(argc,<sp/>argv);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="Main.cpp"/>
   </compounddef>

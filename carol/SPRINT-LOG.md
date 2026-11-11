@@ -114,6 +114,62 @@
 <!-- The entry format is in /log (commands/log.md). It is the only source. -->
 <!-- Sprint entries go here, written by PRIMARY agents -->
 
+## Sprint 4: LING Part 4, `CLanguageDocument`: tokens and the declaration tree ✅
+
+**Date:** 2026-11-11
+**Duration:** not measured. The sprint is one session.
+
+### Agents Participated
+- COUNSELOR — executed `PLAN-ling-4-language-document.md` Steps 1-8. Validated each Engineer return by its own reads. Filtered the 32 Auditor findings. Made small fixes in `Main.cpp`, `text.md`, `HELP.md`, and the PLAN.
+- Pathfinder — discovery reads, the doxygen pass, and the Step 9 runs of `ling`.
+- Engineer — Steps 1-3, Steps 4-6 (the walk), Steps 7-8, the audit corrections, and the clamp and name corrections.
+- Auditor — one pass over Steps 1-8. It reported 32 findings.
+
+### Files Modified (20 total)
+**jam:**
+- `cast/syntax_tree.md` — `## SyntaxTokenType` rows 5-19 (`identifier` to `macro`). `## CppKeyword` row `tokenDefine` 96. Row `import` renamed `tokenImport` (NAMES Rule 5). Both table briefs rewritten.
+- `generated/jam_SyntaxTree.h` — cast output only.
+- `user-modules-info.md` — four `jam_syntax_tree` submodule rows for `jam_CLanguageDocument` and `jam_CLanguageValidator`.
+- `jam_syntax_tree/jam_syntax_tree.h`, `.cpp` — cast added the include lines.
+- `jam_syntax_tree/document/jam_CodeDocument.h`, `.cpp` — `tokens` and `family` are `protected`. A keyword token holds its key under `Id::key`, and any other word is an `identifier` token (`.cpp:169-178`). A punctuation token is one byte (`.cpp:122-128`). `parse` takes `std::string_view codeText` (ruling 50).
+- `jam_syntax_tree/document/jam_CLanguageDocument.h`, `.cpp` (new) — `parse (std::string_view)`. `build()` runs the statement walk through `statementConstruction` and `punctuationConstruction`. Lookups `declarationTypes` (ruling 80), `scopeTypes`, `depthChanges`, `comparisonPrefixes`, and `declaratorBytes`. `addElement` is the only writer of `Id::type` and `Id::name`.
+- `jam_syntax_tree/document/jam_CLanguageValidator.h`, `.cpp` (new) — the rules `Id::type` and `Id::name` (ruling 31), in the `XmlValidator` form.
+- `jam_core/document/jam_Document.h`, `.cpp:290-293` — `getColumnNumber`. The bare `addChild` comment is now a doxygen block.
+
+**ling:**
+- `Source/Main.cpp` — `runDocument`, `runDocumentNotFound`, `getDocumentFile`, and `postFlagArgIndex`. The file branch prints `<path>:<line>:<column>: <type> <name>`.
+- `cast/text.md` — row `failNotFound`.
+- `Source/HELP.md` — rows for `ling <file>`, the rule failure, `ling <missing>`, and `ling <file> <other>`.
+- `PLAN-ling-4-language-document.md` — the executed names in the Names table, `addBlock` and `addExtern` in The walk, the Declarations item 8 audit correction, the Step 8 validation, and the Risks line on `define`.
+
+### Alignment Check
+- [x] BLESSED principles followed
+- [x] NAMES.md adhered. The PLAN Names table records each new name with its family.
+- [x] MANIFESTO.md principles applied
+- [ ] MANIFESTO L: `jam_CLanguageDocument.cpp` holds about 660 lines. The type has one responsibility (PLAN Language Constraints). `getStatementConstruction` is 32 lines: it is one table.
+
+### Problems Solved
+- **`Token` is not copyable.** Its properties are a `jam::Array` (`jam_Array.h:895`). `build()` moves the tokens into the work array. `getNameTokens` builds each token from `span`.
+- **The PLAN text of item 8 took a member initializer block as the body.** A `{` after an identifier or `>` is now an initializer. The PLAN records this correction.
+- **Auditor findings.** 14, 15, 17, 19, 24, 25, 26, 29 and 31 are resolved. 12 is resolved in the PLAN text. 16, 18, 20, 21, 27 and 30 are partly resolved. 1-11 are rejected: the code follows PLAN Declarations items 1-9 and The walk table. 13, 22, 23 and 28 are rejected with reads. 32 is no finding. ARCHITECT received each one in chat.
+- **Two of my rejections were wrong**, found when I read the contract again. Finding 27 broke CODING.md:1072, so I re-delegated with each local name verbatim. Finding 16 broke MANIFESTO.md:184, so I added `getNextPosition`.
+- **`runDocumentNotFound` had a parameter it did not use.** My spec caused it. The parameter is removed.
+- **`juce::ScopedJuceInitialiser_GUI` in `runDocument`** is removed. My stated cause was wrong. `JUCE v8.0.14` goes to stderr, and it still appears there.
+- Verification by ARCHITECT and Pathfinder: LING builds, "ling 0.1.0 (4139530)". Step 9 items 2-5 pass. The two `SessionView.cpp` outputs are equal (`cmp` 0, 48 lines each). Stdout holds only declaration rows.
+
+### State for Continuation
+- Part 5 is next (tracker `PLAN-ling-0-tracker.md`). The tracker row for Part 4 does not say Done yet.
+- The JAM doxygen XML is stale until ARCHITECT runs `<leader>bd`. The warning count is not measured.
+- COUNSELOR has not read these doxygen blocks against the code: `jam_CLanguageValidator.h`, the two `jam_Document.h` blocks, the `jam_CodeDocument.h` blocks, and the two `syntax_tree.md` briefs.
+- The Step 9 output has rows from Auditor findings 1, 2 and 8: `->` targets, the `(` inside `<...>`, and an unnamed parameter named by its type. They follow the PLAN rules, and a change is a change to the PLAN.
+- `JUCE v8.0.14` is written to stderr on each `ling <file>` run. Its source is not read.
+
+### Debts Paid
+- None
+
+### Debts Deferred
+- Step 10, the Windows build and runs (`PLAN-ling-4-language-document.md`, Step 10). ARCHITECT: "windows deferred". No `DEBT.md` entry exists.
+
 ## Sprint 3: LING Part 3, line comments and escapes in the `Document` segments ✅
 
 **Date:** 2026-11-11

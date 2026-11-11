@@ -107,7 +107,12 @@ Line numbers are reads of 2026-11-10. Base path: `~/Documents/Poems/dev/jam/`. `
 | `declarationTypes` | NAMES.md Rule 8, a plain noun for what the table holds |
 | `functionType`, `staticFunctionType`, `variableType`, `staticVariableType`, `scopeType` | ruling 80: the form that ARCHITECT selected, verbatim |
 | `isFunctionShape`, `hasStaticKeyword` | NAMES.md Rule 1, the boolean forms `is` and `has`; the shape of Declarations item 4; the keyword row `tokenStatic` |
-| `runDocument`, `getDocumentFile`, `runDocumentNotFound` | scout, verbatim |
+| `runDocument`, `getDocumentFile`, `runDocumentNotFound`, `postFlagArgIndex` | scout, verbatim |
+| `addBlock`, `addExtern`, `addDeclarationCandidate`, `addDeclarators`, `addEnumConstants`, `skipTemplateParameters` | the `add*` and `skip*` families above (NAMES.md Rule 5), set in execution |
+| `getStatementEnd`, `getBodyStart`, `getBoundary`, `getLastIdentifierPosition`, `getNamePosition`, `getQualifierStart`, `getNameTokens`, `getDeclarationType`, `getDepthChange`, `getScopeType` | the `getPreludeEnd`, `getBlockEnd` family (NAMES.md Rule 5), set in execution |
+| `isDeclaration`, `isConstructor`, `isDestructor`, `isFunctionScope`, `isPunctuation`, `isKeyword`, `isSingleColon`, `isSameName` | NAMES.md Rule 1, the boolean form `is`, set in execution |
+| `invalidPosition`, `qualifierLength`, `accessSpecifierLength` | `CodeDocument::invalidFamily`, `singleByteAdvance` (`jam_CodeDocument.h`) |
+| `depthChanges`, `scopeTypes`, `comparisonPrefixes`, `declaratorBytes` | NAMES.md Rule 8, a plain noun for what the table holds |
 
 ## The design
 
@@ -148,13 +153,13 @@ The first token of a statement selects the handler, through the table `statement
 | First token | Handler | Result |
 |---|---|---|
 | punctuation `;` | `skipStatement` | next position |
-| punctuation `{` | `addStatements` | inside a function: the block is walked in the same scope. In another scope: the block is skipped. |
+| punctuation `{` | `addBlock` (it calls `addStatements` for the block) | inside a function: the block is walked in the same scope. In another scope: the block is skipped. |
 | punctuation `#` | `addDirective` | see Directives |
 | keyword `tokenTemplate` | (prefix) | when `<` follows, the walk skips to the matching `>` by a depth count of `<` and `>`. The token after it selects the handler. |
 | keyword `tokenNamespace` | `addNamespace` | one `namespaceToken` element for each name of `A::B`, nested. The block is walked in namespace scope. A statement with no block makes no element. A namespace with no name is walked in the scope that holds it. |
 | keyword `tokenClass`, `tokenStruct` | `addClass` | with a block: one `classToken` or `structToken` element. Its name is the last identifier before the first single `:` or the `{`. The block is walked in class scope. The walk then skips to the `;`. With no block: no element. |
 | keyword `tokenEnum` | `addEnum` | one `enumToken` element, named by the first identifier after `enum` and an optional `class` or `struct`. In the block, the first identifier, and each identifier directly after a `,` outside brackets, is one `enumConstant` child. An enum with no name makes no element, and its constants are children of the scope. |
-| keyword `tokenExtern` | `addStatements` or `addDeclaration` | a string token and then a block: the block is walked in the same scope. Otherwise: a declaration. |
+| keyword `tokenExtern` | `addExtern` (it calls `addStatements` or `addDeclaration`) | a string token and then a block: the block is walked in the same scope. Otherwise: a declaration. |
 | keyword `tokenPublic`, `tokenPrivate`, `tokenProtected` | `skipStatement` | the keyword and the `:` after it are skipped |
 | keyword `tokenIf`, `tokenFor`, `tokenWhile`, `tokenSwitch`, `tokenCatch` | `addControl` | the `(` `)` group is read as one declaration candidate, up to its first `;` or single `:`. The walk continues after the `)`. |
 | keyword `tokenElse`, `tokenDo`, `tokenTry` | `skipStatement` | the keyword alone is skipped |
@@ -182,7 +187,7 @@ The first token of a statement selects the handler, through the table `statement
    The read is `const auto [functionType, staticFunctionType, variableType, staticVariableType] { declarationTypes[scopeType] };`, a structured binding of the `jam::Union` (`jam_Union.h:21`, `:197-211`). `isFunctionShape` selects the pair: it is true for the shape `function` of item 4. `hasStaticKeyword` selects the member of the pair: it is true when a keyword token of the prelude, outside brackets, holds `Id::key` equal to `map::CppKeyword::tokenStatic`. The read thus holds two conditions and no chain on the scope type. The first entry of the table is the `namespaceToken` entry, and its value is the value of each slot that no entry names (`jam_LookupTable.h:39-40`, `:90-92`). The walk makes a declaration in these eight scope types only: an enum block gives constants, the block of a variable is not walked (item 9), and a parameter is a `variable` by item 7.
 6. **More declarators.** For a variable shape, each `,` outside brackets, followed by zero or more `*` or `&` bytes and then an identifier, gives one more element of the same type.
 7. **Parameters.** For a function shape outside a function scope, `addParameters` reads the `(` `)` group. Each part between `,` bytes outside brackets is one declaration candidate with the boundary and name rules of items 1 and 2 and the test of item 3. Each one that passes is a `variable` child of the function element.
-8. **The body.** For a function shape with a `{` terminator, the block is walked in the scope of the function element, so each local is a child of it. When a single `:` follows the parameter group (a constructor initializer list), the body is the last block of the chain: after a block, a `,` continues the list and the next block is read; a `{` with no `,` before it is the body.
+8. **The body.** For a function shape with a `{` terminator, the block is walked in the scope of the function element, so each local is a child of it. When a single `:` follows the parameter group (a constructor initializer list), the body is the last block of the chain. A `{` directly after an identifier or a `>` is a member initializer (`name {`): the walk skips its block and reads to the next `{`. The first `{` that follows any other token is the body. Audit correction: the first text ("a `{` with no `,` before it is the body") took the block of `: a { 1 }, b { 2 } {` as the body, and gave no rule for `: a (1), b (2) {`.
 9. **A variable with a block.** For a variable shape with a `{` terminator (a brace initializer or a lambda), the walk skips to the `;` outside every block. The block is not walked.
 
 ### Directives
@@ -291,7 +296,7 @@ the whole sprint — never per step.
    - returns 0.
 3. Add the file argument to `HELP.md`.
 
-**Validation:** `Main.cpp` holds no language name other than the one call to `CLanguageDocument::parse`. Part 6 replaces that call with the manifest (ruling 22). The print reads the tree and changes nothing.
+**Validation:** `Main.cpp` holds no language name other than the call to `CLanguageDocument::parse` and the call to `CLanguageValidator`. Part 6 replaces that call with the manifest (ruling 22). The print reads the tree and changes nothing.
 
 ### Step 9: Build and check, macOS
 **Scope:** builds of LING and END; runs of `ling`.
@@ -339,4 +344,4 @@ Limits of the table front end. Ruling 28 makes this front end the MVP, and a dec
 - **The limits of Part 3** stay: raw string literals and digit separators.
 - **Locals and parameters are in the tree.** The basis is RFC ruling 9, "our own COMPLETE AST", and its uses "definition, jump, snippet, completion" (tracker Canon, From the removed RFC). They have the type `variable`: ruling 32 gives no parameter type.
 - **`CodeDocument` token changes.** A punctuation token is now one byte, and an identifier now has a token. A future highlighter reads the new stream.
-- **`define` and `include` are keyword rows** of the C family after Step 1. An identifier with one of these two names gets a keyword token, not an identifier token.
+- **`define` is a keyword row** of the C family after Step 1. An identifier with this name gets a keyword token, not an identifier token. No `include` row exists (`cast/syntax_tree.md` `## CppKeyword`).
