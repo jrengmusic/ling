@@ -128,6 +128,12 @@ the whole sprint — never per step.
    `static int addCommentToken (jam::Array<Token>& tokens, const std::string& text, size_t cursor, std::string_view open, std::string_view close);`
    The body is the body at `:533-546`, with `open` for `vocabulary.commentOpen` and `close` for `vocabulary.commentClose`.
 3. Change no other function in this step. `getTokens` does not compile until Step 4.
+4. Correction after the audit (ARCHITECT: "update plan"). `isCommentOpen` is a `protected` literal test. Its declaration follows `getVocabulary` (`jam_Document.h:1211`):
+   `static bool isCommentOpen (std::string_view text, size_t cursor, std::string_view open) noexcept;`
+   It returns `not open.empty() and text.compare (cursor, open.size(), open) == 0` (`jam_Document.cpp:559-562`). The caller tests `insideQuoteOrRegion`. Reasons:
+   - `CodeDocument::addCommentToken` and `CodeDocument::addPunctuationToken` call it (Step 5). MANIFESTO **E**: "expose only when there is a proven external caller".
+   - MANIFESTO **S**: "Check if functionality already exists before creating new implementations".
+   - The CodeDocument scanners have no quote state, so the quote test stays at the caller in `getTokens`.
 
 **Validation:** One function tests an opening literal. One function consumes a comment. Neither reads a `Vocabulary` (MANIFESTO **S**, SSOT: no second copy of the comment logic for the line comment).
 
@@ -145,11 +151,19 @@ the whole sprint — never per step.
 3. Directly after it, add the same test for the line comment. It passes `vocabulary.lineCommentOpen` as the opening literal. The closing literal is the one byte `Chars::newline`, as a `std::string_view` over one `static constexpr char lineCommentClose { static_cast<char> (Chars::newline) };` inside `getTokens`, its one user (CODING.md, Scope and ownership of values, rule 2). `Chars::newline` is a `juce::juce_wchar` (`generated/jam_Core.h:301`), so a view of one byte needs this one-byte constant. The token type is `map::DocumentTokenType::comment`, as for the block comment.
 4. After the loop reads `character` (`:379`) and before the quote state changes (`:385-386`), add `getEscapeLength (text, beforeChar, quote, vocabulary)` to `cursor`. The escaped byte is then inside the region segment and never reaches `getQuote`.
 5. Keep every other line of the loop.
+6. Correction after the audit (ARCHITECT: "update plan"):
+   - `getEscapeLength` takes `juce::juce_wchar escape` in place of the vocabulary (`jam_Document.h:1143`). It reads only that member. Constraints, above: "The two changed private functions take the literals they read". MANIFESTO **E**: "All parameters visible in the function signature".
+   - It returns `sizeof (char)` or `0`, and the next-byte test is `cursor + sizeof (char) < text.size()` (`jam_Document.cpp:580-588`). MANIFESTO **E**: "No magic values".
+   - The two comment tests are two `if` blocks, block then line (`jam_Document.cpp:376-387`). Each one tests `(not insideQuoteOrRegion)` and then calls `isCommentOpen`. The one loop over the two literal pairs is removed. It added 18 lines against 11, a staged pair array, and three names that the Names table does not hold (`comments`, `comment`, `literals`). Names: "No other name is new".
 
 **Validation:**
 - With a default `Vocabulary` (empty `lineCommentOpen`, `escape` equal to `Chars::nullCharacter`), `getTokens` takes the same path as before for every input: `isCommentOpen` returns false for an empty literal, and `getEscapeLength` returns 0. This is the proof that the seven other document types do not change.
 - No `if (not ...) return;` guard. No magic value: the newline is a named constant.
-- `getTokens` stays within MANIFESTO **L** (30 lines). If the two comment tests push it over, the two tests are one loop over the two literal pairs, not a helper cut for line count.
+- `getTokens` is 54 lines (`jam_Document.cpp:359-412`). It was 44 lines before this part (`:358-401`). The Lean ladder (`auditor.md` Lean):
+  1. No branch is extra.
+  2. No lookup replaces the type ternary. `map::Byte` (`cast/core.md:213-217`) and `map::DocumentTokenType` (`:193-196`) do not map one to one, and the ternary has 3 outcomes. MANIFESTO **L**: "more than 3".
+  3. The two `if` blocks are the simpler form.
+  4. A split of the byte walk must give back `depth`, `quote`, and `cursor` together. That needs an out-parameter or a carrier struct. CODING.md forbids both: "No out-parameters", "No fake-carrier structs". `auditor.md` Lean: "A split that fails its own check is not a finding."
 
 ### Step 5: Set the C family vocabulary, and make `CodeDocument` read it
 **Scope:** `jam/jam_syntax_tree/document/jam_CodeDocument.h` and `.cpp` (after Part 2).
@@ -158,6 +172,11 @@ the whole sprint — never per step.
 2. `addCommentToken (Cursor&, const Vocabulary&)` (`:76-88`): when `vocabulary.lineCommentOpen` is not empty and `cursor.startsWith (vocabulary.lineCommentOpen)`, the scan advances past the opening literal and then to the first `Chars::newline`, and consumes that newline when the cursor is not empty. In every other case the body is the body that exists now. Both cases return a `map::SyntaxTokenType::comment` token over the consumed bytes.
 3. `addStringToken` takes the vocabulary, as its two siblings do: `static Document::Token addStringToken (Cursor& cursor, const Vocabulary& vocabulary);`. In its scan (`:96-97`), when `vocabulary.escape != Chars::nullCharacter` and `*cursor == vocabulary.escape`, the cursor advances past that byte and the next byte, when a next byte exists. The `region` entry of the `segments` table (`:36-37`) passes `vocabulary`.
 4. Change no other vocabulary. Python, shell, markup, and data keep their three values.
+5. Correction after the audit (ARCHITECT: "update plan"):
+   - `addCommentToken` selects the line form with `isCommentOpen (cursor.source, cursor.getOffset(), vocabulary.lineCommentOpen)` (`jam_CodeDocument.cpp:77`). This is the test of Step 3, item 4.
+   - In `addStringToken`, the escape byte advances the cursor once, and each pass then advances once when the cursor is not empty (`jam_CodeDocument.cpp:107-114`). The loop has no local flag.
+   - `addPunctuationToken` also stops where `vocabulary.commentOpen` or `vocabulary.lineCommentOpen` opens (`jam_CodeDocument.cpp:126-130`). The defect: `/` is an operator byte (`cast/syntax_tree.md:324`). For `f();// note\nint y; /* a */`, the scanner took `();//`. `parse` then gave the comment segment to `getToken` in the middle of the comment, and the block branch consumed `int y;` up to the later `*/`. Each scanner stops on its own vocabulary literal. This is the established pattern (`jam_Css.cpp:141`, `jam_Html.cpp:90`, `jam_MermaidDiagram.cpp:60-62`; MANIFESTO **E**: "Find the established pattern. Extend it."). A cursor limited to its segment in `Document::parse` is not used. The XML and HTML markup scanners start on the `<` operator segment and read the whole tag (`jam_Xml.cpp:210-211`, `:408-441`), so that limit would change other document types.
+   - `getToken` has no whitespace branch, and `getWhitespaceLength` is deleted (`jam_CodeDocument.cpp:57-65`). It added no token, and the default branch `singleByteAdvance` gives the same tokens. MANIFESTO **L**: "more than 3 `if/else` … Replace with direct lookup". `auditor.md` Lean, question 1: "Is the branch needed?"
 
 **Validation:** The comment scanner and the string scanner consume exactly the bytes of the engine's segment for the same input, so `Document::parse` stays in step (`jam_Document.cpp:653-655`). NAMES.md: `addStringToken` has the parameter list of `addCommentToken` and `addPunctuationToken` (`jam_CodeDocument.h:84`, `:105`). No string compare with `==`: the literal test is `Cursor::startsWith` (`jam_Document.h:828`).
 
@@ -165,6 +184,7 @@ the whole sprint — never per step.
 **Scope:** builds of LING, END, cast, and scout.
 **Action:** Build the four projects.
 **Validation:** No error. END, cast, and scout show no change in their documents: no vocabulary of theirs sets the new members (Step 4, first validation line). The run-time proof of the C segments is in Part 4, where `CLanguageDocument` is the first reader of `CodeDocument`'s scanners on real source.
+**Result (2026-11-11):** LING builds and runs. ARCHITECT: "ling 0.1.0 (c89f5d5)".
 
 ### Step 7: Build, Windows
 **Scope:** builds of LING and END on a Windows machine.
@@ -192,6 +212,7 @@ Limits that stay after this part. Each is a fact for the review of the whole PLA
 - **Raw string literals.** `R"(a"b)"` has no escape byte. The quote state toggles at the inner quote. One file of `jam_core`, `jam_web`, `jam_markdown`, `end/Source`, `scout/Source`, and `cast/Source` together holds the text `R"`.
 - **Digit separators.** `1'000` (C++14) opens a quote at the apostrophe.
 - **A backslash before a newline in a line comment.** The comment ends at the newline. The compiler continues it.
+- **`//` in an include path.** `#include <a//b.h>` opens a line comment at `//`. `<` is an operator byte (`cast/syntax_tree.md:305`), not a quote.
 - **Other vocabularies.** `CssDocument`, `HtmlDocument`, and `XmlDocument` have quote bytes and no escape value. They keep their present segments. Each owner sets `escape` when it needs it.
 - **No run-time check in this part.** `CodeDocument::parse` has no caller (LSP `findReferences` at `jam_CodeDocument.h:40:25`: the declaration and the definition only). The first run on real source is in Part 4.
-- **Doxygen.** The blocks at `jam_Document.h:776-799`, `:1003-1024`, `:1115-1139` and `jam_CodeDocument.h:77-96` are stale until the doxygen pass.
+- **Doxygen.** The doxygen pass wrote the blocks on 2026-11-11: `jam_Document.h:776-806`, `:1010-1039`, `:1130-1171`, `:1239-1250`, and `jam_CodeDocument.h:47-63`, `:78-117`, `:144-153`. The JAM XML in `docs/xml` is stale until ARCHITECT runs `<leader>bd`. The zero-warning check follows that run.

@@ -114,6 +114,71 @@
 <!-- The entry format is in /log (commands/log.md). It is the only source. -->
 <!-- Sprint entries go here, written by PRIMARY agents -->
 
+## Sprint 3: LING Part 3, line comments and escapes in the `Document` segments ✅
+
+**Date:** 2026-11-11
+**Duration:** not measured. The sprint is one session.
+
+### Agents Participated
+- COUNSELOR — executed `PLAN-ling-3-document-segments.md`. Validated each Engineer return by its own reads. Filtered the Auditor findings, and derived the corrections from CONTRACT. Updated the PLAN and the tracker.
+- Pathfinder — discovery reads of the engine, `CodeDocument`, and the eleven `getToken` overriders. Wrote the doxygen pass.
+- Engineer — Steps 1-5, the cast run with a snapshot diff, and the audit corrections.
+- Auditor — one pass over the sprint. It reported eleven findings.
+
+### Files Modified (10 total)
+**jam:**
+- `cast/core.md:532` — `## tokens` row `doubleSlash`, `//`, "Line comment open.".
+- `generated/jam_Core.h:376` — cast output `Chars::doubleSlash`. The snapshot diff showed no other generated change.
+- `jam_core/document/jam_Document.h:788-789` — `Vocabulary::lineCommentOpen {}` and `Vocabulary::escape { Chars::nullCharacter }`. The defaults keep every existing aggregate construction valid and equal in behaviour.
+- `jam_core/document/jam_Document.h:1147-1151`, `:1171`, `:1250` — `addCommentToken` takes `open` and `close`. `getEscapeLength` takes `escape`. `isCommentOpen` is a `protected` literal test, which `CodeDocument` also calls.
+- `jam_core/document/jam_Document.cpp:141-146` — `isPlainText` also tests `lineCommentOpen`.
+- `jam_core/document/jam_Document.cpp:359-412` — `getTokens` tests the block comment, then the line comment. The line comment closes at a one-byte newline view (`:363`). The escape inside a quote takes the next byte (`:390`).
+- `jam_core/document/jam_Document.cpp:539-588` — `addCommentToken`, `isCommentOpen`, and `getEscapeLength`.
+- `jam_syntax_tree/document/jam_CodeDocument.h`, `.cpp` — `getCLangVocabulary` sets `Chars::doubleSlash` and `Chars::backslash` (`.cpp:182-183`). `addCommentToken` has the line form (`:73-99`). `addStringToken` takes the vocabulary and honours the escape (`:101-120`). `addPunctuationToken` stops where a comment opens (`:122-133`). `getToken` has no whitespace branch, and `getWhitespaceLength` is deleted (`:57-65`).
+- Doxygen pass: `jam_Document.h:776-806`, `:1010-1039`, `:1130-1171`, `:1239-1250`; `jam_CodeDocument.h:47-63`, `:78-117`, `:144-153`.
+
+**ling:**
+- `PLAN-ling-3-document-segments.md` — the audit corrections in Step 3 item 4, Step 4 item 6 and its Lean validation, Step 5 item 5, the Step 6 result, the `#include <a//b.h>` limit, and the doxygen line.
+- `PLAN-ling-0-tracker.md:20-21` — Part 2 and Part 3 status set to Done.
+
+### Alignment Check
+- [x] BLESSED principles followed
+- [x] NAMES.md adhered. The new names come from the PLAN Names table: `lineCommentOpen`, `escape`, `doubleSlash`, `getEscapeLength`. `lineCommentClose` is the local constant of PLAN Step 4.3. No other name is new.
+- [x] MANIFESTO.md principles applied
+- [ ] MANIFESTO L: `getTokens` is 54 lines (`jam_Document.cpp:359-412`). It was 44 before. A split must give back `depth`, `quote`, and `cursor` together. CODING.md forbids an out-parameter and a fake carrier, so the split fails its own check (`auditor.md` Lean). The PLAN Step 4 validation records this.
+
+### Problems Solved
+- **The punctuation scanner took the comment opener.** `/` is an operator byte (`cast/syntax_tree.md:324`). For `f();// note\nint y; /* a */`, `addPunctuationToken` took `();//`. `parse` then gave the comment segment to `getToken` in the middle of the comment. The block branch consumed code up to the later `*/`. The scanner now stops on the vocabulary's comment openers. This is the pattern of the sibling scanners (`jam_Css.cpp:141`, `jam_Html.cpp:90`, `jam_MermaidDiagram.cpp:60-62`). A cursor limited to its segment in `parse` was rejected: the XML and HTML markup scanners read a whole tag across segments (`jam_Xml.cpp:210-211`, `:408-441`).
+- **The one-loop form made `getTokens` longer.** The PLAN fallback "one loop over the two literal pairs" took 18 lines against 11. It also staged an array and added three names that the PLAN does not hold. It is replaced by two `if` blocks.
+- **Auditor findings, resolved or rejected:**
+  1. Punctuation scanner past the comment opener: resolved (above).
+  2. `getTokens` length: resolved to the simpler form. The remaining crossing is recorded (Alignment Check).
+  3. Staged pair array as data in transit: rejected. `getTokens` is creation: "Creation can use … work buffers" (MANIFESTO:254). The array is removed anyway.
+  4. Names outside the PLAN: resolved. `comments`, `comment`, `literals`, and `isEscape` are gone.
+  5. `CodeDocument::getToken` had 4 `if` branches: resolved. The whitespace branch added no token, and the default branch gives the same tokens.
+  6. Type ternary as a truth table: rejected. It has 3 outcomes, and the limit is "more than 3" (MANIFESTO:66).
+  7. Comment scan in two files: rejected. Each document type scans its own comment (`jam_Css.cpp:141`, `jam_Html.cpp:90`, `jam_Xml.cpp:193-201`). MANIFESTO: "Find the established pattern. Extend it."
+  8. `return isEscape ? 1 : 0;`: resolved to `sizeof (char)`.
+  9. `getEscapeLength` took the whole `Vocabulary`: resolved. It takes `escape`.
+  10. `escape` against `Chars::escapeCharacter`: rejected. No clause.
+  11. Brace position on an initializer: rejected. The brace rule is for code blocks. The line is gone.
+- Verification: ARCHITECT built LING, and it runs: "ling 0.1.0 (c89f5d5)".
+
+### State for Continuation
+- Next work: Part 4, `PLAN-ling-4-language-document.md` (tracker `PLAN-ling-0-tracker.md:22`). `CLanguageDocument` is the first run-time reader of the C segments.
+- The JAM doxygen XML is stale until ARCHITECT runs `<leader>bd`. Doxygen must then give zero warnings for `jam_Document.h` and `jam_CodeDocument.h`.
+- The END, cast, and scout builds of PLAN Step 6 have no recorded result from this session. Only the LING build is recorded.
+- `jam_CodeDocument.h:120` and `:132` (`addNumberToken`, `addIdentifierToken`) still say "starting at position". These symbols did not change in this sprint.
+- clangd returned only declarations for `findReferences` on the framework files. Load the jam project in nvim before you rely on LSP references there.
+
+### Debts Paid
+- None
+
+### Debts Deferred
+- Step 7, the LING and END builds on Windows (`PLAN-ling-3-document-segments.md`, Step 7). It is ARCHITECT's, and it blocks no part (ruling 78). No `DEBT.md` entry exists.
+
+---
+
 ## Sprint 2: LING Part 2, the `jam_syntax_tree` module ✅
 
 **Date:** 2026-11-11
