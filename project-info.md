@@ -122,6 +122,7 @@ Every field is a complete literal; nothing downstream derives, concatenates, or 
 | root         | name                  | description                                                                                      |
 +==============+=======================+==================================================================================================+
 | @user-module | jam_core              | JAM Core                                                                                         |
+| @user-module | jam_syntax_tree       | Programming-language tokenizers and parsers over jam::Document                                   |
 | @user-module | jam_document          | Universal line break and reflow (UAX #14)                                                        |
 | @user-module | jam_markdown          | Clean-room native CommonMark + GFM markdown parsing and rendering                                |
 | @user-module | jam_freetype          | Vendored FreeType font rasterization library                                                     |

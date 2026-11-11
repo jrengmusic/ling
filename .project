@@ -5,7 +5,7 @@ return {
     debug = {
       database = "/Users/jreng/Documents/Poems/dev/ling/Builds/Debug/compile_commands.json",
       flags = {
-        "-DCAST_COMMIT=\\\"b3cb1ec\\\"",
+        "-DCAST_COMMIT=\\\"c998599\\\"",
         "-DDEBUG=1",
         "-DDONT_SET_USING_JUCE_NAMESPACE=1",
         "-DHAVE_FREETYPE",
@@ -24,6 +24,7 @@ return {
         "-DJUCE_MODULE_AVAILABLE_jam_markdown_graphics=1",
         "-DJUCE_MODULE_AVAILABLE_jam_mermaid_diagram=1",
         "-DJUCE_MODULE_AVAILABLE_jam_style=1",
+        "-DJUCE_MODULE_AVAILABLE_jam_syntax_tree=1",
         "-DJUCE_MODULE_AVAILABLE_jam_terminal=1",
         "-DJUCE_MODULE_AVAILABLE_jam_web=1",
         "-DJUCE_MODULE_AVAILABLE_juce_animation=1",
@@ -124,6 +125,10 @@ return {
         {
           name = "jam_core",
           root = "/Users/jreng/Documents/Poems/dev/jam/jam_core",
+        },
+        {
+          name = "jam_syntax_tree",
+          root = "/Users/jreng/Documents/Poems/dev/jam/jam_syntax_tree",
         },
         {
           name = "jam_document",

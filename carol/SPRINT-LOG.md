@@ -114,6 +114,65 @@
 <!-- The entry format is in /log (commands/log.md). It is the only source. -->
 <!-- Sprint entries go here, written by PRIMARY agents -->
 
+## Sprint 2: LING Part 2, the `jam_syntax_tree` module ✅
+
+**Date:** 2026-11-11
+**Duration:** not measured. The sprint is one session.
+
+### Agents Participated
+- COUNSELOR — executed `PLAN-ling-2-language-tables.md`, validated each step by its own reads, made the 1-line fixes, and recorded the rulings in the PLAN. Filtered the Auditor findings.
+- Pathfinder — discovery reads of the manifest, the cast tables and the generated output. Read the cast file-merge code (`cast/Source/Writer.cpp`, `Shapes.cpp`).
+- Engineer — the file move, the manifest rows, the module header and source, the table move, the `spell.md` wiring, the `@code:line` enclosure, the `@pragmaOnce` alias, and the cast runs with snapshot diffs.
+- Auditor — one pass over the sprint. It reported four findings.
+
+### Files Modified (16 total)
+**jam:**
+- `jam_syntax_tree/document/jam_CodeDocument.h`, `.cpp` — moved byte-identical from `jam_core/document/` (sha256 h `d362ffbc…dad9`, cpp `e62cdaf1…d38d6`). Ruling 30: `CodeDocument` leaves `jam_core`.
+- `jam_syntax_tree/jam_syntax_tree.h`, `.cpp` — new module header and source, copied from `jam_document` with only the module names and the generated include changed. Cast writes the declaration block and the submodule includes.
+- `jam_core/jam_core.h`, `jam_core/jam_core.cpp` — cast removed the two `CodeDocument` includes.
+- `user-modules-info.md:155-158` — the `jam_syntax_tree` module group (`kernel`; depends on `juce_core`, `jam_core`). `:1145-1148` — its four submodule rows. The two `jam_core` CodeDocument rows are deleted.
+- `cast/syntax_tree.md` — new table file. Its `## index` holds `@operators`, `@quote`, and the six `Family` aliases. It holds the nine tables, unchanged (ruling 36).
+- `cast/core.md` — the nine tables and the six `Family` aliases are removed.
+- `cast/spell.md:31-32`, `:65`, `:188-189` — aliases of the generated pair, the table file and the module files. `:71` — `@pragmaOnce` holds `#pragma once`. `:284-289` — the `jam_SyntaxTree.h` headers row. `:1192-1324` — the moved output rows. Each of the nine map rows encloses its `@code:namespace` in `@code:line` with `- macro: @pragmaOnce`. The first row holds the file brief and an empty separator cell. The module rows of `jam_syntax_tree` follow the `jam_subprocess` group.
+- `generated/jam_SyntaxTree.h`, `.cpp` — new cast output. One `namespace map` block holds the eight tables and the `languageFamily` declaration. The `.cpp` holds the `languageFamily` definition, 27 entries.
+- `generated/jam_Core.h`, `.cpp` — the nine tables are removed. No line is added.
+
+**ling:**
+- `project-info.md:125` — the `jam_syntax_tree` user-module row, with the module description.
+- `PLAN-ling-2-language-tables.md` — Step 5 items 4 and 5a, and Step 7 item 1, record the rulings and the corrections below.
+
+### Alignment Check
+- [x] BLESSED principles followed
+- [x] NAMES.md adhered. Every new name is from a cited family: `jam_syntax_tree` (ruling 30), `syntax_tree.md`, `jam_SyntaxTree`, the alias families, and `@pragmaOnce` (the value-alias family of `@bimap`).
+- [x] MANIFESTO.md principles applied. MANIFESTO S: `#pragma once` is declared once, in the index, and the nine rows reference it. ARCHITECT: "Index alias".
+
+### Problems Solved
+- **Two `namespace map` blocks in `jam_SyntaxTree.h`.** Cast groups the rows of one file by the template and the placeholder values of the first structure line (`cast/Source/Shapes.cpp:438-458`). `- macro:` is a placeholder of the `namespace` fence (`code.cast:11`), so a macro on the first row only split the block. ARCHITECT: "enclosed means make it as list. although only one. so no dangling macro". Each map row now encloses its namespace in `@code:line` (the form of `spell.md:347-353`). The nine equal `line` rows give one group, and its list merges the nine namespaces into one block (`Shapes.cpp:427-429`, `:301`, `:481-504`).
+- **A `//====` line between the blocks.** Cast takes the row join of a file from the separator cell of the file's first row (`Writer.cpp:261-268`). The first row now has an empty separator cell, as the first row of each sibling file does. The moved text is equal line for line to the text that left `jam_Core.h`.
+- **The same value nine times.** The nine rows read `@pragmaOnce`. Cast output is byte-identical before and after the alias.
+- Auditor findings, resolved or rejected:
+  1. `spell.md` first-row separator: resolved, recorded as PLAN Step 5 item 5a.
+  2. `core.md` "Extensions pair with map::languageFamily." as a layer violation: rejected. MANIFESTO.md:238 says the topology rule "applies at compile time", and `jam_core` holds no include of `jam_syntax_tree` and no read of its symbols.
+  3. `project-info.md:125` held the title: resolved. It now holds the module description, as `:126` does.
+  4. `@operators` and `@quote` in three table files: rejected. "Aliases are scoped to the index" (`cast/Source/HELP.md:510`), and `web.md:16-17` declares the same pair for its own tables.
+- Verification: the cast runs exit 0, and a second run changes nothing. ARCHITECT built the four macOS projects clean. `ling --version` prints `ling 0.1.0 (c998599)`.
+
+### State for Continuation
+- Next work: Part 3, `PLAN-ling-3-document-segments.md` (tracker `PLAN-ling-0-tracker.md:21`).
+- `PLAN-ling-0-tracker.md:20` still reads "Written. Locked". The Part 2 status is not updated.
+- `jam/.claude/CLAUDE.md:33-61` (MODULE LAYER ORDER) does not list `jam_syntax_tree` (layer 2, depends on core). That file belongs to MACHINIST.
+- The JAM doxygen XML is stale after the move until ARCHITECT regenerates it. Before you rely on `docs/xml` for `CodeDocument`, check that it names `jam_syntax_tree/document/`.
+- No `cast sync` to KANJUT ran. The module class is `kernel`, so a sync carries it (`cast/Source/HELP.md:85-89`).
+- To check the cast output again: run `cast ../jam/cast/spell.md` from `~/Documents/Poems/dev/cast/`, then check that `generated/` does not change.
+
+### Debts Paid
+- None
+
+### Debts Deferred
+- Step 8, the LING and END builds on Windows (PLAN-ling-2:252-256). It is ARCHITECT's, and it blocks no part (ruling 78). No `DEBT.md` entry exists.
+
+---
+
 ## Sprint 1: LING Part 1 console project, and JAM markdown help on the terminal cell grid ✅
 
 **Date:** 2026-11-11

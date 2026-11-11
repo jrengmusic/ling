@@ -214,8 +214,9 @@ This is a scripted move of project text. Follow CAROL.md Destructive-Edit Discip
    - `@core:` becomes `@syntax_tree:` in every list cell.
    - `@jam_Core` becomes `@jam_SyntaxTree`. In the `languageFamily` definition group, `@jam_CoreSource` becomes `@jam_SyntaxTreeSource`.
    - Change nothing else.
-4. In the first pasted group (`SyntaxTokenType`), the structure cell of the `@code:namespace` gets the header keys of a first row. It reads, in this order: `- macro: #pragma once`, `- generated:`, `- name: map`, `- [description]: @headers:brief` (keys of `:1186-1189`; the `map` form of `:2321-2326`).
+4. Each of the nine pasted groups of `@jam_SyntaxTree` encloses its `@code:namespace` in a `@code:line` (the form of `:347-353`, `@code:line` enclosing `@code:struct`). The `line` structure of every group holds `- macro: @pragmaOnce`. The `## index` row `@pragmaOnce` holds `#pragma once` (the value-alias family of `@bimap`), so the value is declared once (MANIFESTO S). ARCHITECT: "Index alias". The first group (`SyntaxTokenType`) also holds `- generated:` and `- [description]: @headers:brief`. ARCHITECT: "enclosed means make it as list. although only one. so no dangling macro". Reason: cast groups the rows of one file by the first structure line and its placeholder values (`cast/Source/Shapes.cpp:438-458`). A `- macro:` on one `@code:namespace` row only gives two `namespace map` blocks. Equal `@code:line` rows give one `line` group, and its list merges the nine namespaces into one block (`Shapes.cpp:427-429`, `:301`, `:481-504`).
 5. The `languageFamily` declaration group came from `:512-521` and holds `- generated:` and `- [description]: @headers:brief`. Delete these two lines from the pasted group. The first group now holds them.
+5a. The separator cell of the first group (`SyntaxTokenType`) is empty. Cast takes the row join of a file from the first row of the file (`cast/Source/Writer.cpp:261-268`). The first row of each sibling file has an empty separator cell (`@core:identifiers`, `@mermaid:identifiers`), so the blocks inside `namespace map` follow each other with no `//====` line, as in `jam_Core.h`. Source: Step 6 Validation, "correct the `spell.md` rows from the cited sibling rows".
 6. `## output`, the module rows. Add three row groups after the `jam_subprocess` module group, in the shape of the `jam_web` groups (`:3810-3823`):
    - `@modules:identity`, `@modules:framework`, `@modules:module:name=jam_syntax_tree`, file `@jam_syntax_tree`.
    - `@modules:submodule:aggregator=jam_syntax_tree.h`, file `@jam_syntax_tree`.
@@ -242,7 +243,7 @@ This is a scripted move of project text. Follow CAROL.md Destructive-Edit Discip
 ### Step 7: Let a compiler read the module, macOS
 **Scope:** `ling/project-info.md` (the LING project of Part 1); builds of LING and END.
 **Action:**
-1. In `ling/project-info.md` `## user module`, add one row after the `jam_core` row, in the form of the rows there: `| @user-module | jam_syntax_tree | JAM Syntax Tree |`.
+1. In `ling/project-info.md` `## user module`, add one row after the `jam_core` row, in the form of the rows there: `| @user-module | jam_syntax_tree | Programming-language tokenizers and parsers over jam::Document |`. The description cell holds the module description of `user-modules-info.md`, as each row there does (`jam_document`: `project-info.md:126`, `user-modules-info.md:68-69`).
 2. Build LING: `cast cast/spell.md --debug` in `~/Documents/Poems/dev/ling/` (PLAN-ling-1-project.md Step 10). This compiles `jam_syntax_tree` and `jam_core`.
 3. Build END. END does not name the new module. This proves that no code of END, and no JAM module that END compiles, reads `CodeDocument` or one of the nine tables.
 4. Build cast and scout. They compile `jam_markdown_graphics`, which END does not.
