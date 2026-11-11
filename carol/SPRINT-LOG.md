@@ -114,6 +114,42 @@
 <!-- The entry format is in /log (commands/log.md). It is the only source. -->
 <!-- Sprint entries go here, written by PRIMARY agents -->
 
+## Sprint 5: ling Builds with cast's Templates — No archetype, ccache ✅
+
+**Date:** 2026-11-12
+**Duration:** not measured (one session)
+**Scope:** ARCHITECT: *"fix ling like all other cli"*.
+
+### Agents Participated
+- COUNSELOR: scaffold read, the two missing `## cmake` keys, validation by read, this log.
+- Engineer (sonnet): template and artwork copies, manifest and table conformance, `## library`, the `spell` symlink.
+
+### Files Modified (7 total)
+- `cast/cmake.cast`, `cast/installer.cast`, `cast/installer/resources/*` — byte copies of cast's (ccache block, `## library` lane).
+- `cast/spell.md` — `@cmake`/`@installer` → local files (was `../../archetype/cli/cast/…`); CMakeLists row as cast's: no `[description]` binding, no `architecture` list row, nine flag rows, `define` → `macro`, `library` → `value`; CMakeLists.txt row removed from `## headers`.
+- `project-info.md` — `description` → `projectDescription`; `architecture` key; `installerResourceDirectory` → `${CMAKE_SOURCE_DIR}/cast/installer/resources`; `## architecture` deleted; `## define` → `## macro`; `## library` header-only; `compileJobMemory` (`1280`) and `precompiledHeader` (`JuceHeader.h`) added at `:90-93` — the template's `math(EXPR … / :::compileJobMemory:::)` failed on the empty key.
+- `spell` — symlink → `cast/spell.md`, relative.
+
+### Alignment Check
+- [x] BLESSED principles followed
+- [x] NAMES.md adhered
+- [x] MANIFESTO.md principles applied
+
+### Problems Solved
+- archetype dependency removed.
+- `math cannot parse the expression: "11985 / "` — missing `compileJobMemory` key.
+- ccache confirmed in the regenerated `CMakeLists.txt:53-57`.
+
+### State for Continuation
+- ling's single identifier `help` has no twin in jam's generated headers; a full build result was not reported in this session.
+- macOS build not run this session.
+
+### Debts Paid
+- None
+
+### Debts Deferred
+- None
+
 ## Sprint 4: LING Part 4, `CLanguageDocument`: tokens and the declaration tree ✅
 
 **Date:** 2026-11-11
