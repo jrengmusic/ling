@@ -16,7 +16,7 @@ The numbered files together are one PLAN, in smaller parts. ARCHITECT reviews th
 | Part | Plan | Subject | Status | Depends on |
 |---|---|---|---|---|
 | 0 | this file | Tracker, canon, inventory | Written. Locked 2026-11-11 (ruling 81). | |
-| 1 | `PLAN-ling-1-project.md` | The console project, from the cli archetype | Written. Locked 2026-11-11 (ruling 81). No open item. | 0 |
+| 1 | `PLAN-ling-1-project.md` | The console project, from the cli archetype | Done 2026-11-11. Step 10 (macOS) passed. Step 11 (Windows) deferred. ARCHITECT: "all passed. windows deffered." | 0 |
 | 2 | `PLAN-ling-2-language-tables.md` | The `jam_syntax_tree` module: `CodeDocument` and its nine tables moved in. Each new table row comes in the part that holds its first reader. | Written. Locked 2026-11-11 (ruling 81). No open item. | 0, 1 (Step 7 builds LING) |
 | 3 | `PLAN-ling-3-document-segments.md` | The `Document` engine: line comments and escapes in `getTokens`; the C family vocabulary sets them | Written. Locked 2026-11-11 (ruling 81). No open item. | 2 |
 | 4 | `PLAN-ling-4-language-document.md` | `CLanguageDocument`: the token rows it reads, tokens, the declaration tree, and `ling <file>` to print it | Written. Locked 2026-11-11 (ruling 81). No open item. | 1, 3 |

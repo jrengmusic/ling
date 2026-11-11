@@ -1,0 +1,264 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<tagfile doxygen_version="1.18.0">
+  <compound kind="file">
+    <name>Files.h</name>
+    <path>generated/</path>
+    <filename>_files_8h.html</filename>
+  </compound>
+  <compound kind="file">
+    <name>Generated.cpp</name>
+    <path>generated/</path>
+    <filename>_generated_8cpp.html</filename>
+    <includes id="_generated_8h" name="Generated.h" local="yes" import="no" module="no" objc="no">Generated.h</includes>
+  </compound>
+  <compound kind="file">
+    <name>Generated.h</name>
+    <path>generated/</path>
+    <filename>_generated_8h.html</filename>
+    <includes id="_project_info_8h" name="ProjectInfo.h" local="yes" import="no" module="no" objc="no">ProjectInfo.h</includes>
+    <includes id="_identifiers_8h" name="Identifiers.h" local="yes" import="no" module="no" objc="no">Identifiers.h</includes>
+    <includes id="_text_8h" name="Text.h" local="yes" import="no" module="no" objc="no">Text.h</includes>
+    <includes id="_files_8h" name="Files.h" local="yes" import="no" module="no" objc="no">Files.h</includes>
+    <includes id="_hash_maps_8h" name="HashMaps.h" local="yes" import="no" module="no" objc="no">HashMaps.h</includes>
+  </compound>
+  <compound kind="file">
+    <name>HashMaps.h</name>
+    <path>generated/</path>
+    <filename>_hash_maps_8h.html</filename>
+  </compound>
+  <compound kind="file">
+    <name>Identifiers.h</name>
+    <path>generated/</path>
+    <filename>_identifiers_8h.html</filename>
+  </compound>
+  <compound kind="file">
+    <name>ProjectInfo.h</name>
+    <path>generated/</path>
+    <filename>_project_info_8h.html</filename>
+    <namespace>ProjectInfo</namespace>
+  </compound>
+  <compound kind="file">
+    <name>Text.h</name>
+    <path>generated/</path>
+    <filename>_text_8h.html</filename>
+    <class kind="struct">text::Diagnostics</class>
+  </compound>
+  <compound kind="file">
+    <name>Help.cpp</name>
+    <path></path>
+    <filename>_help_8cpp.html</filename>
+    <includes id="_help_8h" name="Help.h" local="yes" import="no" module="no" objc="no">Help.h</includes>
+    <member kind="function">
+      <type>void</type>
+      <name>printHelp</name>
+      <anchorfile>_help_8cpp.html</anchorfile>
+      <anchor>a9b19836bb5ca0e3083ee375706b72664</anchor>
+      <arglist>(std::string_view helpText)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>Help.h</name>
+    <path></path>
+    <filename>_help_8h.html</filename>
+    <includes id="_generated_8h" name="Generated.h" local="yes" import="no" module="no" objc="no">generated/Generated.h</includes>
+    <member kind="function">
+      <type>void</type>
+      <name>printHelp</name>
+      <anchorfile>_help_8h.html</anchorfile>
+      <anchor>a9b19836bb5ca0e3083ee375706b72664</anchor>
+      <arglist>(std::string_view helpText)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>Main.cpp</name>
+    <path></path>
+    <filename>_main_8cpp.html</filename>
+    <includes id="_generated_8h" name="Generated.h" local="yes" import="no" module="no" objc="no">generated/Generated.h</includes>
+    <includes id="_help_8h" name="Help.h" local="yes" import="no" module="no" objc="no">Help.h</includes>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>printBanner</name>
+      <anchorfile>_main_8cpp.html</anchorfile>
+      <anchor>a2c040b6a8eba42513dfa5b2a261f442d</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>printError</name>
+      <anchorfile>_main_8cpp.html</anchorfile>
+      <anchor>a9e829d663254bc1194b28d474a86f897</anchor>
+      <arglist>(std::string_view argument, std::string_view message)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static const std::string &amp;</type>
+      <name>getVersionFlag</name>
+      <anchorfile>_main_8cpp.html</anchorfile>
+      <anchor>a3e84cc35c31b3249e335bc1b737a2bf6</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static const std::string &amp;</type>
+      <name>getHelpFlag</name>
+      <anchorfile>_main_8cpp.html</anchorfile>
+      <anchor>a86ca1e62537bd1ac77ddfe13a6e83a01</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static bool</type>
+      <name>isVersion</name>
+      <anchorfile>_main_8cpp.html</anchorfile>
+      <anchor>a03053d92e25bc6f705c27356cd39d228</anchor>
+      <arglist>(int argc, char *argv[])</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static bool</type>
+      <name>isHelp</name>
+      <anchorfile>_main_8cpp.html</anchorfile>
+      <anchor>a6336581d1e8cbdb8df62474ac9e3fdbb</anchor>
+      <arglist>(int argc, char *argv[])</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>writeVersion</name>
+      <anchorfile>_main_8cpp.html</anchorfile>
+      <anchor>a2bbde775f6db9f0e32cf9455a2ead1b7</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static bool</type>
+      <name>isTerminalOutput</name>
+      <anchorfile>_main_8cpp.html</anchorfile>
+      <anchor>a6f06085b02e0ad301adcc85196bbb128</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>printBannerAndHelp</name>
+      <anchorfile>_main_8cpp.html</anchorfile>
+      <anchor>a7f683cefdf7f675f09e36661ce8df7cc</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static int</type>
+      <name>runCommandLine</name>
+      <anchorfile>_main_8cpp.html</anchorfile>
+      <anchor>a52f1af656d9670faf7049108bef951b9</anchor>
+      <arglist>(int argc, char *argv[])</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>main</name>
+      <anchorfile>_main_8cpp.html</anchorfile>
+      <anchor>a0ddf1224851353fc92bfbff6f499fa97</anchor>
+      <arglist>(int argc, char *argv[])</arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr int</type>
+      <name>flagArgIndex</name>
+      <anchorfile>_main_8cpp.html</anchorfile>
+      <anchor>a7eacf8422a0bf113fc72a4ecc24fac25</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr int</type>
+      <name>flagOnlyArgumentCount</name>
+      <anchorfile>_main_8cpp.html</anchorfile>
+      <anchor>ab112c8dd220252b8308c8882da65e1b1</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>text::Diagnostics</name>
+    <filename>structtext_1_1_diagnostics.html</filename>
+    <member kind="variable" static="yes">
+      <type>static constexpr const char *const</type>
+      <name>failFlagUnknown</name>
+      <anchorfile>structtext_1_1_diagnostics.html</anchorfile>
+      <anchor>a54030ad642dee1157d22d8255503812d</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="namespace">
+    <name>ProjectInfo</name>
+    <filename>namespace_project_info.html</filename>
+    <member kind="variable" static="yes">
+      <type>static constexpr const char *const</type>
+      <name>projectName</name>
+      <anchorfile>namespace_project_info.html</anchorfile>
+      <anchor>a50f49d766351ea9313f67b3f30aa014d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr const char *const</type>
+      <name>companyName</name>
+      <anchorfile>namespace_project_info.html</anchorfile>
+      <anchor>a9b435df60395ecec1378ecbaba7ccb75</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr const char *const</type>
+      <name>legalCompanyName</name>
+      <anchorfile>namespace_project_info.html</anchorfile>
+      <anchor>a75557edf46fa8becc81d2bff04c4c24b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr const char *const</type>
+      <name>versionString</name>
+      <anchorfile>namespace_project_info.html</anchorfile>
+      <anchor>a7e092322572cc0554d2ee7e6963b22fe</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr int</type>
+      <name>versionNumber</name>
+      <anchorfile>namespace_project_info.html</anchorfile>
+      <anchor>a3dfad1d1308874f47f13297fa6e93c49</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr const char *const</type>
+      <name>productWebsite</name>
+      <anchorfile>namespace_project_info.html</anchorfile>
+      <anchor>a53f184d022499b38a6958b0ea2e88ab9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr const char *const</type>
+      <name>companyEmail</name>
+      <anchorfile>namespace_project_info.html</anchorfile>
+      <anchor>a9f61dfba4aab183c0a33c730776e3227</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr const char *const</type>
+      <name>presetExtension</name>
+      <anchorfile>namespace_project_info.html</anchorfile>
+      <anchor>a8bc2cb4961d15c8b81888e1dafbeca41</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr const char *const</type>
+      <name>presetDefault</name>
+      <anchorfile>namespace_project_info.html</anchorfile>
+      <anchor>aa30ca45a1228a1a11b2ecb2f3177ef06</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="namespace">
+    <name>std</name>
+    <filename>namespacestd.html</filename>
+  </compound>
+  <compound kind="dir">
+    <name>generated</name>
+    <path>generated/</path>
+    <filename>dir_84fc5dba3506812825191c0c043e3c97.html</filename>
+    <file>Files.h</file>
+    <file>Generated.cpp</file>
+    <file>Generated.h</file>
+    <file>HashMaps.h</file>
+    <file>Identifiers.h</file>
+    <file>ProjectInfo.h</file>
+    <file>Text.h</file>
+  </compound>
+</tagfile>
