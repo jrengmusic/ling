@@ -133,7 +133,8 @@ One document holds one file (ruling 40). The tree comes from the bytes of that f
 
 | Part | Value |
 |---|---|
-| `Element::id` | the declared name as a `juce::Identifier`. An operator function has the id `operator`. A destructor has the id of its class. |
+| `Element::id` | the structural tag `Id::syntax`, the same for every element (as each Ansi line is `Id::line`, `jam_terminal/document/jam_AnsiDocument.cpp:188`). The name is not in the id. Every `juce::Identifier` constructor takes JUCE's one process-wide `StringPool` lock (`juce_core/text/juce_Identifier.cpp:58-72`, `juce_StringPool.cpp:122-129`), so one id for each element made the parse threads wait in turn (Part 6 Step 7 sample). The name is already in `Id::name`, so a pooled id is a second copy (MANIFESTO **S**) and a write to shared state from each pool thread (MANIFESTO **B**). ARCHITECT selected the tag: "Id::syntax? Id::keyword? @NAMES.md", then "/go". |
+| The name of an element | the text of its last `Id::name` token: the view of that token's span in `Document::getSource()`. An operator function has the name `operator`. A destructor has the name of its class. Two names compare with `CLanguageDocument::isSameName (source, name, otherName)`. |
 | `Id::type` | `int`, a `map::SyntaxTokenType` key |
 | `Id::name` | `Tokens`: the identifier tokens of the name, in source order. A qualified name `Foo::bar` gives two tokens. The last token is the declared name. |
 | parent | the element of the declaration that holds this one: a namespace, a class, an enum, or a function. A top-level declaration is a child of the root. |
@@ -292,7 +293,7 @@ the whole sprint — never per step.
 2. `runDocument (file)`:
    - reads the file text with `juce::File::loadFileAsString()`, the load of scout and cast (`scout/Source/Processor.cpp:13`; `cast/Source/Model.cpp:8`), and calls `jam::CLanguageDocument::parse (jam::Strings::getView (text))`. The `juce::String` is a JUCE return (ruling 50);
    - calls `jam::CLanguageValidator().isValid (document)`; on a failure it prints the message with `printError` and returns 1;
-   - walks the tree with `applyFunctionRecursively` and prints one row per element below the root to stdout: `<path>:<line>:<column>: <type name> <name>`. `<path>` is the path of the file argument. `<line>` and `<column>` are `getLineNumber` and `getColumnNumber` of the offset of the last `Id::name` token. `<type name>` is the `map::SyntaxTokenType` value of `Id::type`. `<name>` is the element id;
+   - walks the tree with `applyFunctionRecursively` and prints one row per element below the root to stdout: `<path>:<line>:<column>: <type name> <name>`. `<path>` is the path of the file argument. `<line>` and `<column>` are `getLineNumber` and `getColumnNumber` of the offset of the last `Id::name` token. `<type name>` is the `map::SyntaxTokenType` value of `Id::type`. `<name>` is the name of the element (section The element of a declaration);
    - returns 0.
 3. Add the file argument to `HELP.md`.
 

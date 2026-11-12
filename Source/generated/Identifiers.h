@@ -25,9 +25,23 @@ namespace Id
 {
 /*_____________________________________________________________________________*/
 
-/** @brief LING vocabulary — the words of the ling command line. */
+/** @brief LING vocabulary — the words of the ling command line and of the state tree. */
 
+extern const juce::Identifier argument;
+extern const juce::Identifier arguments;
+extern const juce::Identifier declarations;
+extern const juce::Identifier dependencies;
+extern const juce::Identifier documents;
+extern const juce::Identifier family;
+extern const juce::Identifier files;
+extern const juce::Identifier flag;
 extern const juce::Identifier help;
+extern const juce::Identifier ling;
+extern const juce::Identifier manifest;
+extern const juce::Identifier output;
+extern const juce::Identifier references;
+extern const juce::Identifier toolchain;
+extern const juce::Identifier toolchainArgument;
 
 /**______________________________END OF NAMESPACE______________________________*/
 }// namespace Id

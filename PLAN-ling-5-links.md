@@ -42,7 +42,7 @@ Line numbers are reads of 2026-11-10. Base path: `~/Documents/Poems/dev/jam/`.
 | A link to an element of the same document | an `Element*` property and an `Elements` property; `Elements` is `jam::Array<Element*>` | `jam_core/document/jam_Document.h:187`, `:202-203` |
 | The edge pattern inside one document | an edge holds `Id::from` and `Id::to`; each end vertex holds the edge in its own `Id::out` or `Id::in` list. `addEdgeEndpoint (vertex, key, edge)` makes the list on the first call. `addEdgeEndpoints (edge, source, target)` sets both sides. | `jam_mermaid_diagram/diagram/jam_MermaidDiagram.h:852-859` |
 | Walk the children of an element | `Element::begin`, `end`; `nextSibling` | `jam_Document.h:229-265` |
-| An id compare | `juce::Identifier` equality is a pointer compare | CODING.md, CRITICAL RULES |
+| A name compare | `CLanguageDocument::isSameName (source, name, otherName)` on the last `Id::name` tokens; the element id is the tag `Id::syntax` and holds no name (PLAN-ling-4-language-document.md, The element of a declaration) | `jam_syntax_tree/document/jam_CLanguageDocument.cpp:37-42` |
 | The element writer of Part 4 | `addElement (scope, nameTokens, type)` | PLAN-ling-4-language-document.md Step 4 |
 | The statement walk of Part 4 | `addStatements`, `addDeclaration`, `addClass`, `addControl`, `skipStatement`, and the other handlers | PLAN-ling-4-language-document.md, The walk |
 | The type table | `## SyntaxTokenType`, keys 0 to 19 after Part 4 | `cast/syntax_tree.md` |
@@ -78,7 +78,7 @@ A reference is one more element, made by `addElement` of Part 4:
 | Part | Value |
 |---|---|
 | parent | the declaration whose statement holds the reference. A reference in a function body, in its parameters, in its return type, or in a lambda inside it is a child of that function. A reference in the prelude of a class is a child of the class. A reference in a statement that declares nothing is a child of the scope element. |
-| `Element::id` | the name that is used |
+| `Element::id` | the tag `Id::syntax` (PLAN-ling-4-language-document.md, The element of a declaration). The name that is used is the last `Id::name` token. |
 | `Id::type` | `reference`; or `call` when the byte `(` follows the name; or `base` for a name in the base list of a class |
 | `Id::name` | `Tokens`: the qualifier identifiers and the name, as in Part 4. `A::b` gives two tokens. |
 | `Id::member` | `bool`, present and true only when `.` or `->` is directly before the name |
@@ -104,9 +104,9 @@ A keyword, a number, a string, and a punctuation token give no reference.
 
 ### The local link
 
-`addLocalLinks` runs at the end of `build()`. For each reference that has no qualifier and no `Id::member`, it goes up the parents from the reference. It stops at the first element that is not a function type. At each function-type element on the way it collects every `variable` or `staticVariable` child with the same id. The first level that gives one declaration or more ends the walk, and all declarations of that level are the `Id::to` list (tracker Risks item 7). Each of them gets the reference in its `Id::in` list.
+`addLocalLinks` runs at the end of `build()`. For each reference that has no qualifier and no `Id::member`, it goes up the parents from the reference. It stops at the first element that is not a function type. At each function-type element on the way it collects every `variable` or `staticVariable` child with the same name (`isSameName` on the last `Id::name` tokens). The first level that gives one declaration or more ends the walk, and all declarations of that level are the `Id::to` list (tracker Risks item 7). Each of them gets the reference in its `Id::in` list.
 
-A reference that finds no local keeps no `Id::to`. Its relation is then stated by its id, its `Id::name`, its `Id::member`, and its chain of parents. These four are what the lookup across files reads.
+A reference that finds no local keeps no `Id::to`. Its relation is then stated by its `Id::name`, its `Id::member`, and its chain of parents. These three are what the lookup across files reads.
 
 ### What a reader gets from one file tree
 
@@ -115,8 +115,8 @@ A reference that finds no local keeps no `Id::to`. Its relation is then stated b
 | A reference to a local or a parameter, and all references to it | `Id::to` of the reference; `Id::in` of the declaration |
 | The caller of a call | the parent of the `call` element |
 | The bases of a class, as written | the `base` children of the class element |
-| The qualified name of a declaration | the ids of its parents, then its own id |
-| A reference that is not local | the name as written, the member mark, and its parents. Part 7 walks the parents and calls `getChildByID` in each document. |
+| The qualified name of a declaration | the names of its parents, then its own name |
+| A reference that is not local | the name as written, the member mark, and its parents. Part 7 walks the parents and compares names in each document. |
 
 ## Validation Gate
 
@@ -160,7 +160,7 @@ Execution correction: the row `link` (`mermaid.md:203`) moved with `in` and `to`
 **Scope:** `jam/jam_syntax_tree/document/jam_CLanguageValidator.h` and `.cpp`.
 **Action:**
 1. The `type` rule of Part 4 accepts the keys from `namespaceToken` to `base`.
-2. Add one rule, key `link`: every element of an `Id::to` list has the id of the reference; every element `e` of the `Id::to` list of `r` holds `r` in its `Id::in` list, and the reverse.
+2. Add one rule, key `link`: every element of an `Id::to` list has the name of the reference; every element `e` of the `Id::to` list of `r` holds `r` in its `Id::in` list, and the reverse.
 
 **Validation:** The rules read a `const Document&` and change nothing.
 

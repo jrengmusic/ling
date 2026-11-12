@@ -235,6 +235,7 @@ juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_gui")              # GUI
 juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_mermaid_diagram")  # Clean-room native mermaid diagram parsing over jam::Document producing the semantic Element tree
 juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_markdown_graphics")# Markdown and mermaid materialisation, layout and view component
 juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_terminal")         # VT read-side engine, TTY, protocol vocabulary, keyboard encoding
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_subprocess")       # JUCE-based subprocess launcher with streaming output and byte-cap truncation
 
 message(STATUS "CAST: user modules added from ${CMAKE_CURRENT_SOURCE_DIR}/../jam")
 
@@ -320,6 +321,7 @@ jam_gui
 jam_mermaid_diagram
 jam_markdown_graphics
 jam_terminal
+jam_subprocess
     PUBLIC
         juce::juce_recommended_config_flags
 )

@@ -21,9 +21,23 @@ namespace Id
 {
 /*_____________________________________________________________________________*/
 
-/** @brief LING vocabulary — the words of the ling command line. */
+/** @brief LING vocabulary — the words of the ling command line and of the state tree. */
 
-    const juce::Identifier help { juce::String::fromUTF8 ("help") };
+    const juce::Identifier argument          { juce::String::fromUTF8 ("argument") };
+    const juce::Identifier arguments         { juce::String::fromUTF8 ("arguments") };
+    const juce::Identifier declarations      { juce::String::fromUTF8 ("declarations") };
+    const juce::Identifier dependencies      { juce::String::fromUTF8 ("dependencies") };
+    const juce::Identifier documents         { juce::String::fromUTF8 ("documents") };
+    const juce::Identifier family            { juce::String::fromUTF8 ("family") };
+    const juce::Identifier files             { juce::String::fromUTF8 ("files") };
+    const juce::Identifier flag              { juce::String::fromUTF8 ("flag") };
+    const juce::Identifier help              { juce::String::fromUTF8 ("help") };
+    const juce::Identifier ling              { juce::String::fromUTF8 ("ling") };
+    const juce::Identifier manifest          { juce::String::fromUTF8 ("manifest") };
+    const juce::Identifier output            { juce::String::fromUTF8 ("output") };
+    const juce::Identifier references        { juce::String::fromUTF8 ("references") };
+    const juce::Identifier toolchain         { juce::String::fromUTF8 ("toolchain") };
+    const juce::Identifier toolchainArgument { juce::String::fromUTF8 ("toolchainArgument") };
 
 /**______________________________END OF NAMESPACE______________________________*/
 }// namespace Id

@@ -1,0 +1,832 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="class_processor" kind="class" language="C++" prot="public">
+    <compoundname>Processor</compoundname>
+    <basecompoundref refid="classjuce_1_1ValueTree_1_1Listener" prot="public" virt="non-virtual">juce::ValueTree::Listener</basecompoundref>
+    <includes refid="_processor_8h" local="no">Processor.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_processor_1a221e46c95ba79722accf868ad6e2cacb" prot="private" static="no" mutable="no">
+        <type><ref refid="class_l_i_n_g_model" kindref="compound">LINGModel</ref> &amp;</type>
+        <definition>LINGModel&amp; Processor::model</definition>
+        <argsstring></argsstring>
+        <name>model</name>
+        <qualifiedname>Processor::model</qualifiedname>
+        <briefdescription>
+<para>The model that this processor listens to. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The application owns the model. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="143" column="15" bodyfile="Processor.h" bodystart="143" bodyend="-1"/>
+        <referencedby refid="class_processor_1a382544055777bd6b922918f36a82f6ac" compoundref="_processor_8cpp" startline="58" endline="79">addDocument</referencedby>
+        <referencedby refid="class_processor_1a3d8bc2958e0972bb7a4a84c29f0581c4" compoundref="_processor_8cpp" startline="3" endline="7">Processor</referencedby>
+        <referencedby refid="class_processor_1a76ad4c4456941a5be3d84a6ae4e58d45" compoundref="_processor_8cpp" startline="90" endline="98">setDocuments</referencedby>
+        <referencedby refid="class_processor_1a3d7c16d172be09d3bfb4df3519d21b31" compoundref="_processor_8cpp" startline="9" endline="12">~Processor</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_processor_1ab3ce5f644b8d26fa8641556022228d30" prot="private" static="no" mutable="no">
+        <type><ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref></type>
+        <definition>jam::Strings Processor::paths</definition>
+        <argsstring></argsstring>
+        <name>paths</name>
+        <qualifiedname>Processor::paths</qualifiedname>
+        <briefdescription>
+<para>The path texts. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The index of a path in paths is the key of its document. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="146" column="18" bodyfile="Processor.h" bodystart="146" bodyend="-1"/>
+        <referencedby refid="class_processor_1a3731df1c2da6bfe84ea3f6945ac9ebe6" compoundref="_processor_8h" startline="40" endline="54">applyToDocuments</referencedby>
+        <referencedby refid="class_processor_1aac757d619a6214a38300e73c93733256" compoundref="_processor_8cpp" startline="81" endline="88">getOrCreatePathIndex</referencedby>
+        <referencedby refid="class_processor_1a9f8e753a0945fc9c7f2ab64e628370f8" compoundref="_processor_8cpp" startline="26" endline="31">valueTreeChildRemoved</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_processor_1aa107851379e6cb122c96dfa591d33061" prot="private" static="no" mutable="no">
+        <type><ref refid="classjam_1_1HashMap" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::HashMap</ref>&lt; int, std::unique_ptr&lt; <ref refid="structjam_1_1CodeDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::CodeDocument</ref> &gt; &gt;</type>
+        <definition>jam::HashMap&lt;int, std::unique_ptr&lt;jam::CodeDocument&gt; &gt; Processor::documents</definition>
+        <argsstring></argsstring>
+        <name>documents</name>
+        <qualifiedname>Processor::documents</qualifiedname>
+        <briefdescription>
+<para>The parsed documents, keyed by the index of their path in paths. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="149" column="18" bodyfile="Processor.h" bodystart="149" bodyend="-1"/>
+        <referencedby refid="class_processor_1a382544055777bd6b922918f36a82f6ac" compoundref="_processor_8cpp" startline="58" endline="79">addDocument</referencedby>
+        <referencedby refid="class_processor_1a3731df1c2da6bfe84ea3f6945ac9ebe6" compoundref="_processor_8h" startline="40" endline="54">applyToDocuments</referencedby>
+        <referencedby refid="class_processor_1a76ad4c4456941a5be3d84a6ae4e58d45" compoundref="_processor_8cpp" startline="90" endline="98">setDocuments</referencedby>
+        <referencedby refid="class_processor_1a9f8e753a0945fc9c7f2ab64e628370f8" compoundref="_processor_8cpp" startline="26" endline="31">valueTreeChildRemoved</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_processor_1a9e4f2c0b182b341e792c25cf8dc965be" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Processor::pendingJobs</definition>
+        <argsstring></argsstring>
+        <name>pendingJobs</name>
+        <qualifiedname>Processor::pendingJobs</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>The parse jobs that started and have not yet ended on the message thread. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="152" column="9" bodyfile="Processor.h" bodystart="152" bodyend="152"/>
+        <referencedby refid="class_processor_1a382544055777bd6b922918f36a82f6ac" compoundref="_processor_8cpp" startline="58" endline="79">addDocument</referencedby>
+        <referencedby refid="class_processor_1a547e161d2e24134f3c95df35019aeddb" compoundref="_processor_8cpp" startline="39" endline="56">addJob</referencedby>
+        <referencedby refid="class_processor_1a88cdf27664e3bbebb9f25e1f0c868566" compoundref="_processor_8cpp" startline="14" endline="24">valueTreeChildAdded</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_processor_1acac63082f3b21b83ead437326c96fa27" prot="private" static="no" mutable="no">
+        <type><ref refid="classjuce_1_1ThreadPool" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ThreadPool</ref></type>
+        <definition>juce::ThreadPool Processor::pool</definition>
+        <argsstring></argsstring>
+        <name>pool</name>
+        <qualifiedname>Processor::pool</qualifiedname>
+        <briefdescription>
+<para>The thread pool that runs the parse jobs. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="155" column="22" bodyfile="Processor.h" bodystart="155" bodyend="-1"/>
+        <referencedby refid="class_processor_1a547e161d2e24134f3c95df35019aeddb" compoundref="_processor_8cpp" startline="39" endline="56">addJob</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_processor_1a3d8bc2958e0972bb7a4a84c29f0581c4" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Processor::Processor</definition>
+        <argsstring>(LINGModel &amp;newModel)</argsstring>
+        <name>Processor</name>
+        <qualifiedname>Processor::Processor</qualifiedname>
+        <param>
+          <type><ref refid="class_l_i_n_g_model" kindref="compound">LINGModel</ref> &amp;</type>
+          <declname>newModel</declname>
+        </param>
+        <briefdescription>
+<para>Registers the processor as a listener of the model. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>newModel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The model whose changes start the parse jobs. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="24" column="14" bodyfile="Processor.cpp" bodystart="3" bodyend="7"/>
+        <references refid="classjam_1_1Model_1ae5d4d70e706dcc558cf21923125a9176">jam::Model::addListener</references>
+        <references refid="class_processor_1a221e46c95ba79722accf868ad6e2cacb" compoundref="_processor_8h" startline="143">model</references>
+      </memberdef>
+      <memberdef kind="function" id="class_processor_1a3d7c16d172be09d3bfb4df3519d21b31" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Processor::~Processor</definition>
+        <argsstring>() override</argsstring>
+        <name>~Processor</name>
+        <qualifiedname>Processor::~Processor</qualifiedname>
+        <briefdescription>
+<para>Removes the processor from the listeners of the model. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="27" column="5" bodyfile="Processor.cpp" bodystart="9" bodyend="12"/>
+        <references refid="class_processor_1a221e46c95ba79722accf868ad6e2cacb" compoundref="_processor_8h" startline="143">model</references>
+        <references refid="classjam_1_1Model_1a688b7625ae8b2a4d4d1f1643a6b3aa41">jam::Model::removeListener</references>
+      </memberdef>
+      <memberdef kind="function" id="class_processor_1a3731df1c2da6bfe84ea3f6945ac9ebe6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Function</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void Processor::applyToDocuments</definition>
+        <argsstring>(const Function &amp;function) const</argsstring>
+        <name>applyToDocuments</name>
+        <qualifiedname>Processor::applyToDocuments</qualifiedname>
+        <param>
+          <type>const Function &amp;</type>
+          <declname>function</declname>
+        </param>
+        <briefdescription>
+<para>Calls <computeroutput>function</computeroutput> for each stored document, in ascending order of the path bytes. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The documents are held in a HashMap, which has no order, so the path indices are sorted first. The view that <computeroutput>function</computeroutput> receives points into paths, and it is valid during the call.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A callable type that takes (std::string_view, const <ref refid="structjam_1_1CodeDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::CodeDocument</ref>&amp;). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The callable. It receives the path and the document of each stored entry. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="40" column="10" bodyfile="Processor.h" bodystart="40" bodyend="54"/>
+        <references refid="classjam_1_1Array_1a11f82d383b72419d9e9624cbe63f7767">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::add</references>
+        <references refid="classjam_1_1Array_1aa5240327dd94267390aefa03215033e1">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::begin</references>
+        <references refid="class_processor_1aa107851379e6cb122c96dfa591d33061" compoundref="_processor_8h" startline="149">documents</references>
+        <references refid="classjam_1_1Array_1a7336e35022c8a66e55217a273f0b8808">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::end</references>
+        <references refid="classjam_1_1Strings_1adfb32d159be94dc4a4004c50be876e3c">jam::Strings::getView</references>
+        <references refid="class_processor_1ab3ce5f644b8d26fa8641556022228d30" compoundref="_processor_8h" startline="146">paths</references>
+        <referencedby refid="class_application_1a6d3a3f1db721639ea4efd49bd6bf4015" compoundref="_main_8cpp" startline="381" endline="395">Application::valueTreePropertyChanged</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_processor_1a88cdf27664e3bbebb9f25e1f0c868566" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void Processor::valueTreeChildAdded</definition>
+        <argsstring>(juce::ValueTree &amp;parentTree, juce::ValueTree &amp;childWhichHasBeenAdded) override</argsstring>
+        <name>valueTreeChildAdded</name>
+        <qualifiedname>Processor::valueTreeChildAdded</qualifiedname>
+        <reimplements refid="classjuce_1_1ValueTree_1_1Listener_1ac26fa68e6f4625f71b52ab6fe776e0dc">valueTreeChildAdded</reimplements>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>parentTree</declname>
+        </param>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>childWhichHasBeenAdded</declname>
+        </param>
+        <briefdescription>
+<para>Starts a parse job for each row of an added files child. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>When no job is pending after the rows start, the documents count is written at once. Any other added child is ignored.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>parentTree</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The tree that received the child. Not read. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>childWhichHasBeenAdded</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The added child. Its rows start the parse jobs when it is a files child. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="66" column="10" bodyfile="Processor.cpp" bodystart="14" bodyend="24"/>
+        <references refid="class_processor_1a547e161d2e24134f3c95df35019aeddb" compoundref="_processor_8cpp" startline="39" endline="56">addJob</references>
+        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="32" endline="32">Id::files</references>
+        <references refid="classjuce_1_1ValueTree_1a4d635ee9293e16a674c1d9c271364ac2">juce::ValueTree::getChild</references>
+        <references refid="classjuce_1_1ValueTree_1a5862b376b4cf88dec5302297a3a0732c">juce::ValueTree::getNumChildren</references>
+        <references refid="classjuce_1_1ValueTree_1a21ae8143e7abb766a9a3b4961d74be2b">juce::ValueTree::hasType</references>
+        <references refid="class_processor_1a9e4f2c0b182b341e792c25cf8dc965be" compoundref="_processor_8h" startline="152" endline="152">pendingJobs</references>
+        <references refid="class_processor_1a76ad4c4456941a5be3d84a6ae4e58d45" compoundref="_processor_8cpp" startline="90" endline="98">setDocuments</references>
+        <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
+      </memberdef>
+      <memberdef kind="function" id="class_processor_1a9f8e753a0945fc9c7f2ab64e628370f8" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void Processor::valueTreeChildRemoved</definition>
+        <argsstring>(juce::ValueTree &amp;parentTree, juce::ValueTree &amp;childWhichHasBeenRemoved, int indexFromWhichChildWasRemoved) override</argsstring>
+        <name>valueTreeChildRemoved</name>
+        <qualifiedname>Processor::valueTreeChildRemoved</qualifiedname>
+        <reimplements refid="classjuce_1_1ValueTree_1_1Listener_1a09dc85f9c71389f2801c9a7bc582ae1b">valueTreeChildRemoved</reimplements>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>parentTree</declname>
+        </param>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>childWhichHasBeenRemoved</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>indexFromWhichChildWasRemoved</declname>
+        </param>
+        <briefdescription>
+<para>Drops the stored documents of the rows of a removed files child. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The entries of paths stay. Each document is keyed by the index of its path, so removing an entry would move the indices of the other documents.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>parentTree</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The tree that lost the child. Not read. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>childWhichHasBeenRemoved</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The removed child. Its rows give the documents to drop when it is a files child. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>indexFromWhichChildWasRemoved</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index of the removed child in its parent. Not read. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="78" column="10" bodyfile="Processor.cpp" bodystart="26" bodyend="31"/>
+        <references refid="class_processor_1aa107851379e6cb122c96dfa591d33061" compoundref="_processor_8h" startline="149">documents</references>
+        <references refid="classjam_1_1HashMap_1a5e682345379d0e9a688741607ee0108b">jam::HashMap&lt; typename Key, typename Mapped, typename HashFn, typename KeyEqual, typename AllocatorOrContainer, typename Bucket, typename BucketContainer, bool IsSegmented &gt;::erase</references>
+        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="32" endline="32">Id::files</references>
+        <references refid="classjuce_1_1ValueTree_1a21ae8143e7abb766a9a3b4961d74be2b">juce::ValueTree::hasType</references>
+        <references refid="classjam_1_1Strings_1a5ac902c382badccfe7b50c6cc0a8b1a1">jam::Strings::indexOf</references>
+        <references refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab">Id::path</references>
+        <references refid="class_processor_1ab3ce5f644b8d26fa8641556022228d30" compoundref="_processor_8h" startline="146">paths</references>
+        <references refid="classjuce_1_1Identifier_1ab6f0db1de2c36cacd1a9d7280f73aeeb">juce::Identifier::toString</references>
+        <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
+      </memberdef>
+      <memberdef kind="function" id="class_processor_1a8deb7a1105ec3f6ecb8644f966930903" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void Processor::valueTreePropertyChanged</definition>
+        <argsstring>(juce::ValueTree &amp;tree, const juce::Identifier &amp;property) override</argsstring>
+        <name>valueTreePropertyChanged</name>
+        <qualifiedname>Processor::valueTreePropertyChanged</qualifiedname>
+        <reimplements refid="classjuce_1_1ValueTree_1_1Listener_1a1a5481aafc0faa40aa3404a10c7b3785">valueTreePropertyChanged</reimplements>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>tree</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjuce_1_1Identifier" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref> &amp;</type>
+          <declname>property</declname>
+        </param>
+        <briefdescription>
+<para>Starts a parse job for a file row whose path changes. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The model sends a path change for a row when the watcher reports that its file changed. Only the path of a file row starts a job.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tree</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The tree whose property changed. A file row starts a job. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>property</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The changed property. Only <ref refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::path</ref> starts a job. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="89" column="10" bodyfile="Processor.cpp" bodystart="33" bodyend="37"/>
+        <references refid="class_processor_1a547e161d2e24134f3c95df35019aeddb" compoundref="_processor_8cpp" startline="39" endline="56">addJob</references>
+        <references refid="namespaceId_1a5d963020f2ab66034cf12eef33500c62">Id::file</references>
+        <references refid="classjuce_1_1ValueTree_1ab24fd944bc0bc40b8cfb5668c5931634">juce::ValueTree::getParent</references>
+        <references refid="classjuce_1_1ValueTree_1a21ae8143e7abb766a9a3b4961d74be2b">juce::ValueTree::hasType</references>
+        <references refid="classjuce_1_1ValueTree_1a9fbe22cceb6b7e4d8a5c9d86dd89ef03">juce::ValueTree::indexOf</references>
+        <references refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab">Id::path</references>
+        <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
+      </memberdef>
+      <memberdef kind="function" id="class_processor_1a547e161d2e24134f3c95df35019aeddb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Processor::addJob</definition>
+        <argsstring>(const juce::ValueTree &amp;row, int rowIndex)</argsstring>
+        <name>addJob</name>
+        <qualifiedname>Processor::addJob</qualifiedname>
+        <param>
+          <type>const <ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>row</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>rowIndex</declname>
+        </param>
+        <briefdescription>
+<para>Starts a parse job for one file row, on the thread pool. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The job gets the path and the family as values, read on the calling thread. It reads the file, parses it, and validates it. Then it returns its result to the message thread through <ref refid="classjuce_1_1MessageManager_1aa34494bcb54b9d4155934c8f53ed1070" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::MessageManager::callAsync</ref>. The pending count rises here, and addDocument lowers it.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The file row. Its path and family are copied for the job. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rowIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index of the row in the files child. addDocument checks the result against this row. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="102" column="10" bodyfile="Processor.cpp" bodystart="39" bodyend="56"/>
+        <references refid="class_processor_1a382544055777bd6b922918f36a82f6ac" compoundref="_processor_8cpp" startline="58" endline="79">addDocument</references>
+        <references refid="classjuce_1_1ThreadPool_1a1f9f523d52ef5258a72c0c5049306a6a">juce::ThreadPool::addJob</references>
+        <references refid="classjuce_1_1MessageManager_1aa34494bcb54b9d4155934c8f53ed1070">juce::MessageManager::callAsync</references>
+        <references refid="namespaceId_1acf65f12aaf985fd43284a3365d0475b3" compoundref="_identifiers_8h" startline="35">Id::family</references>
+        <references refid="classjam_1_1Strings_1adfb32d159be94dc4a4004c50be876e3c">jam::Strings::getView</references>
+        <references refid="structjam_1_1SyntaxTree_1a03fec4dc978454858083c5c10c3e9052">jam::SyntaxTree::isValid</references>
+        <references refid="classjuce_1_1Result_1ac2133128eeba510367bfe1b83383ae0f">juce::Result::ok</references>
+        <references refid="structjam_1_1SyntaxTree_1a968f74d98a4fdb34aeac1f1594c81bed">jam::SyntaxTree::parse</references>
+        <references refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab">Id::path</references>
+        <references refid="class_processor_1a9e4f2c0b182b341e792c25cf8dc965be" compoundref="_processor_8h" startline="152" endline="152">pendingJobs</references>
+        <references refid="class_processor_1acac63082f3b21b83ead437326c96fa27" compoundref="_processor_8h" startline="155">pool</references>
+        <referencedby refid="class_processor_1a88cdf27664e3bbebb9f25e1f0c868566" compoundref="_processor_8cpp" startline="14" endline="24">valueTreeChildAdded</referencedby>
+        <referencedby refid="class_processor_1a8deb7a1105ec3f6ecb8644f966930903" compoundref="_processor_8cpp" startline="33" endline="37">valueTreePropertyChanged</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_processor_1a382544055777bd6b922918f36a82f6ac" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Processor::addDocument</definition>
+        <argsstring>(int rowIndex, const juce::String &amp;path, juce::Time modificationTime, std::unique_ptr&lt; jam::CodeDocument &gt; document, const juce::Result &amp;result)</argsstring>
+        <name>addDocument</name>
+        <qualifiedname>Processor::addDocument</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>rowIndex</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type><ref refid="classjuce_1_1Time" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Time</ref></type>
+          <declname>modificationTime</declname>
+        </param>
+        <param>
+          <type>std::unique_ptr&lt; <ref refid="structjam_1_1CodeDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::CodeDocument</ref> &gt;</type>
+          <declname>document</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjuce_1_1Result" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Result</ref> &amp;</type>
+          <declname>result</declname>
+        </param>
+        <briefdescription>
+<para>Ends a parse job on the message thread, and keeps its document when the row still matches. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The result is kept only when the row at rowIndex still has the path, and the file still has the modification time that the job read. A result that does not match is dropped with no message. For a match, a document replaces the stored document of the path, and no document erases it. A failed validation sets the overlay message. When the last pending job ends, the count of documents is written.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>rowIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index of the row that started the job. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The path that the job read. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>modificationTime</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The modification time that the job read. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>document</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The parsed document, or nullptr when the file is missing or its family has no parser. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>result</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The validation result. An ok result when there is no document. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="120" column="10" bodyfile="Processor.cpp" bodystart="58" bodyend="79"/>
+        <references refid="classjam_1_1HashMap_1af20e91310ec8716d1e64de45ef92f1dd">jam::HashMap&lt; typename Key, typename Mapped, typename HashFn, typename KeyEqual, typename AllocatorOrContainer, typename Bucket, typename BucketContainer, bool IsSegmented &gt;::addOrReplace</references>
+        <references refid="namespaceId_1a5e729b9864fd096462b3f08ef1eb4b1a">Id::diagnosticSeparator</references>
+        <references refid="class_processor_1aa107851379e6cb122c96dfa591d33061" compoundref="_processor_8h" startline="149">documents</references>
+        <references refid="classjam_1_1HashMap_1a5e682345379d0e9a688741607ee0108b">jam::HashMap&lt; typename Key, typename Mapped, typename HashFn, typename KeyEqual, typename AllocatorOrContainer, typename Bucket, typename BucketContainer, bool IsSegmented &gt;::erase</references>
+        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="32" endline="32">Id::files</references>
+        <references refid="classjuce_1_1ValueTree_1a4d635ee9293e16a674c1d9c271364ac2">juce::ValueTree::getChild</references>
+        <references refid="classjuce_1_1ValueTree_1ac9bbcb6db4464f77b512b9bd8bbb8c3f">juce::ValueTree::getChildWithName</references>
+        <references refid="classjuce_1_1Result_1a66c89847ccbea729fade011d0daaa858">juce::Result::getErrorMessage</references>
+        <references refid="classjuce_1_1File_1a2f22cdd5de8fd256be6da4c71cfb61e1">juce::File::getLastModificationTime</references>
+        <references refid="class_processor_1aac757d619a6214a38300e73c93733256" compoundref="_processor_8cpp" startline="81" endline="88">getOrCreatePathIndex</references>
+        <references refid="class_processor_1a221e46c95ba79722accf868ad6e2cacb" compoundref="_processor_8h" startline="143">model</references>
+        <references refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab">Id::path</references>
+        <references refid="class_processor_1a9e4f2c0b182b341e792c25cf8dc965be" compoundref="_processor_8h" startline="152" endline="152">pendingJobs</references>
+        <references refid="class_processor_1a76ad4c4456941a5be3d84a6ae4e58d45" compoundref="_processor_8cpp" startline="90" endline="98">setDocuments</references>
+        <references refid="class_l_i_n_g_model_1afdef5b210be00b4c407239da424c8b3d" compoundref="_l_i_n_g_model_8cpp" startline="18" endline="25">LINGModel::setMessage</references>
+        <references refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857">jam::Model::state</references>
+        <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
+        <references refid="classjuce_1_1Result_1a204ba5a9124544a89a5b0565672ef5f3">juce::Result::wasOk</references>
+        <referencedby refid="class_processor_1a547e161d2e24134f3c95df35019aeddb" compoundref="_processor_8cpp" startline="39" endline="56">addJob</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_processor_1aac757d619a6214a38300e73c93733256" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Processor::getOrCreatePathIndex</definition>
+        <argsstring>(const juce::String &amp;path)</argsstring>
+        <name>getOrCreatePathIndex</name>
+        <qualifiedname>Processor::getOrCreatePathIndex</qualifiedname>
+        <param>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <declname>path</declname>
+        </param>
+        <briefdescription>
+<para>Returns the index of a path in paths, and adds the path when it is absent. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The index is the key of the path&apos;s document. Nothing removes an entry from paths, so an index stays the same for the life of the processor.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The path text. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The index of the path in paths. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="131" column="9" bodyfile="Processor.cpp" bodystart="81" bodyend="88"/>
+        <references refid="classjam_1_1Strings_1a9223c1bf16916a52b122ae7e9d871f50">jam::Strings::add</references>
+        <references refid="classjam_1_1Strings_1a5ac902c382badccfe7b50c6cc0a8b1a1">jam::Strings::indexOf</references>
+        <references refid="class_processor_1ab3ce5f644b8d26fa8641556022228d30" compoundref="_processor_8h" startline="146">paths</references>
+        <references refid="classjam_1_1Strings_1a6e9725c26e13e395def58defc50d7259">jam::Strings::size</references>
+        <referencedby refid="class_processor_1a382544055777bd6b922918f36a82f6ac" compoundref="_processor_8cpp" startline="58" endline="79">addDocument</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_processor_1a76ad4c4456941a5be3d84a6ae4e58d45" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Processor::setDocuments</definition>
+        <argsstring>()</argsstring>
+        <name>setDocuments</name>
+        <qualifiedname>Processor::setDocuments</qualifiedname>
+        <briefdescription>
+<para>Writes the number of stored documents to <ref refid="namespaceId_1a72f698cea9e6a6c20308661f18254984" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::documents</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The callers call this only when no job is pending. The application reacts to each change of <ref refid="namespaceId_1a72f698cea9e6a6c20308661f18254984" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::documents</ref>. When the count is unchanged, the change message is sent by hand. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="140" column="10" bodyfile="Processor.cpp" bodystart="90" bodyend="98"/>
+        <references refid="namespaceId_1a72f698cea9e6a6c20308661f18254984" compoundref="_generated_8cpp" startline="30" endline="30">Id::documents</references>
+        <references refid="class_processor_1aa107851379e6cb122c96dfa591d33061" compoundref="_processor_8h" startline="149">documents</references>
+        <references refid="class_processor_1a221e46c95ba79722accf868ad6e2cacb" compoundref="_processor_8h" startline="143">model</references>
+        <references refid="classjuce_1_1ValueTree_1ae48f6072bff41f419d5ec15ff1765c5e">juce::ValueTree::sendPropertyChangeMessage</references>
+        <references refid="classjuce_1_1ValueTree_1a86de4a6662eb049c21c30c627616fb0e">juce::ValueTree::setProperty</references>
+        <references refid="classjam_1_1HashMap_1a85e610745893eb5c944cc480ed1fa719">jam::HashMap&lt; typename Key, typename Mapped, typename HashFn, typename KeyEqual, typename AllocatorOrContainer, typename Bucket, typename BucketContainer, bool IsSegmented &gt;::size</references>
+        <references refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857">jam::Model::state</references>
+        <referencedby refid="class_processor_1a382544055777bd6b922918f36a82f6ac" compoundref="_processor_8cpp" startline="58" endline="79">addDocument</referencedby>
+        <referencedby refid="class_processor_1a88cdf27664e3bbebb9f25e1f0c868566" compoundref="_processor_8cpp" startline="14" endline="24">valueTreeChildAdded</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Parses the source files of the model on a pool thread, and keeps the parsed documents. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Each file row of the model starts one parse job. No ValueTree reaches the pool thread. A job returns its result to the message thread, and the result is kept only when the row still holds the same path and the file still has the modification time that the job read. The documents are keyed by the index of their path in paths. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Processor</label>
+        <link refid="class_processor"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>juce::ValueTree::Listener</label>
+        <link refid="classjuce_1_1ValueTree_1_1Listener" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>LINGModel</label>
+        <link refid="class_l_i_n_g_model"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="13" relation="public-inheritance">
+        </childnode>
+        <childnode refid="14" relation="private-inheritance">
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>watcher</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Processor</label>
+        <link refid="class_processor"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>model</edgelabel>
+        </childnode>
+        <childnode refid="22" relation="usage">
+          <edgelabel>paths</edgelabel>
+        </childnode>
+        <childnode refid="28" relation="usage">
+          <edgelabel>documents</edgelabel>
+        </childnode>
+        <childnode refid="29" relation="usage">
+          <edgelabel>pool</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>jam::AnyMap&lt; typename TypeOfCriticalSectionToUse &gt;</label>
+        <link refid="classjam_1_1AnyMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>entries</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>types</edgelabel>
+        </childnode>
+      </node>
+      <node id="24">
+        <label>jam::Array&lt; char &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>jam::Array&lt; jam::Union&lt; int32_t, int32_t &gt; &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>jam::File::Watcher</label>
+        <link refid="structjam_1_1File_1_1Watcher" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="16" relation="usage">
+          <edgelabel>timers</edgelabel>
+        </childnode>
+        <childnode refid="20" relation="usage">
+          <edgelabel>listeners</edgelabel>
+        </childnode>
+        <childnode refid="21" relation="usage">
+          <edgelabel>watched</edgelabel>
+        </childnode>
+      </node>
+      <node id="19">
+        <label>jam::File::Watcher::CoalesceTimer</label>
+        <link refid="structjam_1_1File_1_1Watcher_1_1CoalesceTimer" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>owner</edgelabel>
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>f</edgelabel>
+        </childnode>
+      </node>
+      <node id="14">
+        <label>jam::File::Watcher::Listener</label>
+        <link refid="classjam_1_1File_1_1Watcher_1_1Listener" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="28">
+        <label>jam::HashMap&lt; int, std::unique_ptr&lt; jam::CodeDocument &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="27">
+        <label>jam::HashMap&lt; jam::Union&lt; int32_t, int32_t &gt;, int, jam::Strings::CaseFoldHash, jam::Strings::CaseFoldEqual &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="26">
+        <label>jam::HashMap&lt; jam::Union&lt; int32_t, int32_t &gt;, int, jam::Strings::TransparentHash, jam::Strings::TransparentEqual &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="9">
+        <label>jam::HashMap&lt; juce::Identifier, jam::AnyMap::Trait &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="12">
+        <label>jam::HashMap&lt; juce::Identifier, jam::HashMap&lt; juce::Identifier, std::unique_ptr&lt; ParameterAdapter &gt; &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="8">
+        <label>jam::HashMap&lt; juce::Identifier, std::unique_ptr&lt; void, Deleter &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="13">
+        <label>jam::Instance&lt; LINGModel &gt;</label>
+        <link refid="structjam_1_1Instance" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="4">
+        <label>jam::Model</label>
+        <link refid="classjam_1_1Model" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>params</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>state</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>valueTreeChanging</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>adapters</edgelabel>
+        </childnode>
+      </node>
+      <node id="22">
+        <label>jam::Strings</label>
+        <link refid="classjam_1_1Strings" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="23" relation="usage">
+          <edgelabel>arena</edgelabel>
+        </childnode>
+        <childnode refid="25" relation="usage">
+          <edgelabel>spans</edgelabel>
+        </childnode>
+        <childnode refid="26" relation="usage">
+          <edgelabel>exactPositions</edgelabel>
+        </childnode>
+        <childnode refid="27" relation="usage">
+          <edgelabel>foldedPositions</edgelabel>
+        </childnode>
+      </node>
+      <node id="11">
+        <label>juce::CriticalSection</label>
+        <link refid="classjuce_1_1CriticalSection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="7">
+        <label>juce::DummyCriticalSection</label>
+        <link refid="classjuce_1_1DummyCriticalSection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="17">
+        <label>juce::File</label>
+        <link refid="classjuce_1_1File" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="20">
+        <label>juce::ListenerList&lt; jam::File::Watcher::Listener &gt;</label>
+        <link refid="classjuce_1_1ListenerList" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="21">
+        <label>juce::OwnedArray&lt; Impl &gt;</label>
+        <link refid="classjuce_1_1OwnedArray" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="29">
+        <label>juce::ThreadPool</label>
+        <link refid="classjuce_1_1ThreadPool" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="5">
+        <label>juce::Timer</label>
+        <link refid="classjuce_1_1Timer" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="10">
+        <label>juce::ValueTree</label>
+        <link refid="classjuce_1_1ValueTree" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="2">
+        <label>juce::ValueTree::Listener</label>
+        <link refid="classjuce_1_1ValueTree_1_1Listener" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="16">
+        <label>std::map&lt; juce::File, std::unique_ptr&lt; jam::File::Watcher::CoalesceTimer &gt; &gt;</label>
+        <childnode refid="17" relation="usage">
+          <edgelabel>keys</edgelabel>
+        </childnode>
+        <childnode refid="18" relation="usage">
+          <edgelabel>elements</edgelabel>
+        </childnode>
+      </node>
+      <node id="23">
+        <label>std::unique_ptr&lt; jam::Array&lt; char &gt; &gt;</label>
+        <childnode refid="24" relation="usage">
+          <edgelabel>ptr</edgelabel>
+        </childnode>
+      </node>
+      <node id="18">
+        <label>std::unique_ptr&lt; jam::File::Watcher::CoalesceTimer &gt;</label>
+        <childnode refid="19" relation="usage">
+          <edgelabel>ptr</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Processor.h" line="16" column="1" bodyfile="Processor.h" bodystart="17" bodyend="158"/>
+    <listofallmembers>
+      <member refid="class_processor_1a382544055777bd6b922918f36a82f6ac" prot="private" virt="non-virtual"><scope>Processor</scope><name>addDocument</name></member>
+      <member refid="class_processor_1a547e161d2e24134f3c95df35019aeddb" prot="private" virt="non-virtual"><scope>Processor</scope><name>addJob</name></member>
+      <member refid="class_processor_1a3731df1c2da6bfe84ea3f6945ac9ebe6" prot="public" virt="non-virtual"><scope>Processor</scope><name>applyToDocuments</name></member>
+      <member refid="class_processor_1aa107851379e6cb122c96dfa591d33061" prot="private" virt="non-virtual"><scope>Processor</scope><name>documents</name></member>
+      <member refid="class_processor_1aac757d619a6214a38300e73c93733256" prot="private" virt="non-virtual"><scope>Processor</scope><name>getOrCreatePathIndex</name></member>
+      <member refid="class_processor_1a221e46c95ba79722accf868ad6e2cacb" prot="private" virt="non-virtual"><scope>Processor</scope><name>model</name></member>
+      <member refid="class_processor_1ab3ce5f644b8d26fa8641556022228d30" prot="private" virt="non-virtual"><scope>Processor</scope><name>paths</name></member>
+      <member refid="class_processor_1a9e4f2c0b182b341e792c25cf8dc965be" prot="private" virt="non-virtual"><scope>Processor</scope><name>pendingJobs</name></member>
+      <member refid="class_processor_1acac63082f3b21b83ead437326c96fa27" prot="private" virt="non-virtual"><scope>Processor</scope><name>pool</name></member>
+      <member refid="class_processor_1a3d8bc2958e0972bb7a4a84c29f0581c4" prot="public" virt="non-virtual"><scope>Processor</scope><name>Processor</name></member>
+      <member refid="class_processor_1a76ad4c4456941a5be3d84a6ae4e58d45" prot="private" virt="non-virtual"><scope>Processor</scope><name>setDocuments</name></member>
+      <member refid="class_processor_1a88cdf27664e3bbebb9f25e1f0c868566" prot="private" virt="virtual"><scope>Processor</scope><name>valueTreeChildAdded</name></member>
+      <member refid="classjuce_1_1ValueTree_1_1Listener_1a5fb2f9f798c9ebb48235ba15759fd48b" prot="public" virt="virtual"><scope>Processor</scope><name>valueTreeChildOrderChanged</name></member>
+      <member refid="class_processor_1a9f8e753a0945fc9c7f2ab64e628370f8" prot="private" virt="virtual"><scope>Processor</scope><name>valueTreeChildRemoved</name></member>
+      <member refid="classjuce_1_1ValueTree_1_1Listener_1a2e39febd013de0ff7da23a5b574055db" prot="public" virt="virtual"><scope>Processor</scope><name>valueTreeParentChanged</name></member>
+      <member refid="class_processor_1a8deb7a1105ec3f6ecb8644f966930903" prot="private" virt="virtual"><scope>Processor</scope><name>valueTreePropertyChanged</name></member>
+      <member refid="classjuce_1_1ValueTree_1_1Listener_1aa46de90c3746a395792a632219e404f2" prot="public" virt="virtual"><scope>Processor</scope><name>valueTreeRedirected</name></member>
+      <member refid="classjuce_1_1ValueTree_1_1Listener_1ab78745617b47f3b12726c0de220e8d9b" prot="public" virt="virtual"><scope>Processor</scope><name>~Listener</name></member>
+      <member refid="class_processor_1a3d7c16d172be09d3bfb4df3519d21b31" prot="public" virt="non-virtual"><scope>Processor</scope><name>~Processor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

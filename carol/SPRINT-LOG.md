@@ -114,6 +114,66 @@
 <!-- The entry format is in /log (commands/log.md). It is the only source. -->
 <!-- Sprint entries go here, written by PRIMARY agents -->
 
+## Sprint 7: LING Part 6, the state model: one row per file, parsed in parallel, from the compiler manifest ✅
+
+**Date:** 2026-11-13
+**Duration:** not measured. The sprint ran over two sessions (one compaction).
+
+### Agents Participated
+- COUNSELOR — executed `PLAN-ling-6-manifest.md` Steps 1-7. Validated each Engineer return by its own reads. Ran the ODE diagnosis and the whatdbg attach sample. Filtered the 35 Auditor findings and the 3 points of the doxygen pass. Amended PLAN Parts 4-9 and 11 for the two contract corrections below, and recorded every new name in the PLAN-6 Names table.
+- Pathfinder — discovery reads, the Step 7 runs of `ling` (four rounds), the ninja-against-ling file compare, the whatdbg `sample` run, and the doxygen pass.
+- Engineer — Steps 1-6, the `JUCEApplicationBase` rewrite of `Main.cpp`, the `Id::syntax` change, and two rounds of audit fixes.
+- Auditor — one pass over the sprint. It reported 35 findings.
+
+### Files Modified (about 45 total)
+**jam:**
+- `cast/core.md:2118`, `:2128` — extension rows `cxx`, `mm`. `:140` — identifier `syntax`.
+- `cast/syntax_tree.md:424-425` — `Extensions::cxx`, `Extensions::mm` give `cLang`.
+- `user-modules-info.md:1151-1152` — the `jam_SyntaxTree` submodule rows. `generated/jam_Core.*`, `generated/jam_SyntaxTree.*`, `jam_syntax_tree/jam_syntax_tree.h`, `.cpp` — cast output only.
+- `jam_syntax_tree/document/jam_CodeDocument.h` — `invalidFamily` and `getLanguageFamily` are public.
+- `jam_syntax_tree/document/jam_SyntaxTree.h`, `.cpp` (new) — `struct SyntaxTree`: `getFamily`, `parse`, `isValid`, with the tables `getDocumentConstruction` and `getValidators` keyed by `map::Family`. LING names no language type (ruling 22).
+- `jam_syntax_tree/document/jam_CLanguageDocument.h`, `.cpp` — `addElement` gives every element the id `Id::syntax` (`.cpp:731`). The local links compare names with `isSameName` (`.cpp:764-791`), which is public (`.h:54`).
+- `jam_syntax_tree/document/jam_CLanguageValidator.h`, `.cpp` — the `link` rule compares names. The failure text gives the name read from the source.
+- `jam_subprocess/subprocess/jam_ChildProcess.h:59`, `native/jam_ChildProcess_posix.cpp:211-254`, `native/jam_ChildProcess_windows.cpp:205-221` — `getArguments`: the clang GNU split on POSIX, `CommandLineToArgvW` on Windows. An empty line gives no argument, and a failed Windows split asserts.
+- `jam_core/text/jam_Strings.h:578`, `.cpp:626-630` — `getView (int)`, taken forward from PLAN-8 Step 1 item 4 (ruling 52).
+
+**ling:**
+- `Source/Main.cpp` — `class Application : juce::JUCEApplicationBase`, started by `START_JUCE_APPLICATION` (`:281`, last line). `initialise` writes `Id::toolchainArgument` and `Id::manifest`, or sets the exit code and calls `quit()`. The `Id::documents` reaction prints the rows and calls `quit()`. The arguments come from `getCommandLineParameterArray()`.
+- `Source/LINGModel.h`, `.cpp` (new) — the state tree, the `Id::message` parameter, the watcher. The `Id::manifest` reaction parses, validates, and replaces the `FILES` row whole.
+- `Source/Validator.h`, `.cpp` (new) — the `toolchain` column rule.
+- `Source/CompilerManifest.h`, `.cpp` (new) — the units from `compile_commands.json`, and the files of each unit from `ninja -t deps`. A path gets one row.
+- `Source/Processor.h`, `.cpp` (new) — one parse job per row on a `juce::ThreadPool`. No `juce::ValueTree` reaches the pool thread. A result is kept only when the row at its index still has its path and the file still has the read's modification time.
+- `Source/HELP.md`; `cast/c_language.md` (new), `cast/spell.md`, `cast/text.md`, `cast/identifiers.md`, `project-info.md` (`jam_subprocess`); `Source/generated/*` — cast output.
+- `PLAN-ling-6-manifest.md` — Step 6 item 1 (the application), Step 3 (`isValid`), the documents paragraph (index, path, time), the Step 6 Validation (`applyToDocuments`), the Names table. `PLAN-ling-4`, `-5`, `-7`, `-9`, `-11` — the element id is `Id::syntax` and every id read becomes a name read. `PLAN-ling-8` Step 1 item 4 is marked done. `PLAN-ling-0-tracker.md:22-24` — status of Parts 4, 5, 6.
+
+### Alignment Check
+- [x] BLESSED principles followed
+- [x] NAMES.md adhered. Every new name is in the PLAN-6 Names table with its family. `Id::syntax` is ARCHITECT's: "Id::syntax? Id::keyword? @NAMES.md", then "/go".
+- [x] MANIFESTO.md principles applied
+- [ ] MANIFESTO §L: `jam_CLanguageDocument.cpp` is about 875 lines. The split that the Auditor offered only relocates one responsibility (MANIFESTO §L, file size), so it is rejected.
+
+### Problems Solved
+- **The message loop never ran on macOS.** The ODE log showed `runDispatchLoop` return at once with no stop message. `runDispatchLoop` is `[NSApp run]` (`juce_MessageManager_mac.mm:323-351`), and only `JUCEApplicationBase::main (argc, argv)` makes the `NSApplication` (`juce_ApplicationBase.cpp:242-244`). ARCHITECT: "juce CAN be used to create CLI and TUI ... what's the established pattern? what's the isomorphic abstraction?" The application is now a `juce::JUCEApplicationBase` (`juce_events`), as tit uses `START_JUCE_APPLICATION`. My first options (an `.mm` file, a forward declaration, `JUCEApplication`) were wrong; ARCHITECT rejected them.
+- **The parse jobs ran one at a time.** A whatdbg attach sample showed ten pool threads in `__psynch_mutexwait` under `juce::Identifier::Identifier` → `StringPool::getPooledString`. `addElement` made one pooled id per element, and the pool has one process-wide lock. The name already lives in `Id::name`, so the id was a second copy (MANIFESTO S). The id is now the tag `Id::syntax`. END `--debug`: 71 s real, 227 s user, against a run that did not end in 120 s.
+- **Two contract findings on the jobs.** F4: a `juce::ValueTree` was copied and destroyed on the pool thread (MANIFESTO B). F6: an older parse could replace a newer one (MANIFESTO D). The job now carries the row index, the path, and the modification time. ARCHITECT: "why always leave ANYTHING HALF-ASSED?"
+- **Auditor findings.** Resolved: F2, F4, F6, F8, F9, F10, F12 (PLAN text), F13, F16, F17, F21, F25, F27, F29, F33, F35. Rejected with a read or a PLAN line: F1, F3, F5, F7, F11, F14, F15, F18, F19, F20, F22, F23, F24, F26, F28, F30, F31, F32, F34. ARCHITECT received each one in chat.
+- **The doxygen pass.** The stale id blocks are corrected. COUNSELOR fixed the `@return` tag and added the why to the `addElement` block. A bad `@returns` replacement gave 6 warnings (`@returnThe`). Fixed, and ARCHITECT's next build ran with no further report.
+- **Verification (Step 7).** `ling end/project-info.md --debug`: 5600 documents. Two runs are byte-equal. The rows for `end/Source/Main.cpp`, `jam_core/document/jam_Document.cpp`, `juce_core.h` and `vector` exist, and no path has two rows. Against `ninja -C Builds/Debug -t deps`, normalised: ling has no path that ninja lacks. The 35 paths that only ninja has are 33 shader files of the `spv` units, which are not in `compile_commands.json`, and 2 files that no longer exist on disk. `--nothing`, the column fixture, and `ling end/Source/Main.cpp` print `0 documents` with the expected diagnostic. `ling end/project-info.md --debug extra` prints `ling: extra: unknown flag`.
+
+### State for Continuation
+- Step 7 item 6 is not run. whatdbg launch takes `program` and `cwd` only, with no arguments (`~/.carol/skills/trace/SKILL.md:93-106`). The attach form works (this sprint's sample ran with a Monitor-started process), but a breakpoint at the return of `getArguments` stops 142 times and the attach must come before `CompilerManifest` runs. ARCHITECT decides the form.
+- Step 7 item 7 is not run. A scout epoch needs a samples file that the command writes (`~/.carol/skills/profile/SKILL.md:80-82`, `:94`), and ling writes none. ARCHITECT decides the form.
+- Step 8 (Windows) is ARCHITECT's (ruling 78). The Auditor raised a possible `\r\n` from ninja on Windows (F11), not observed (`CompilerManifest.cpp`, the record read).
+- A run on the 142 END units with no `ninja` row (`scratchpad/probe/units`) took 31 s before the `Id::syntax` change. It was not timed again.
+- Each run of the one-file probe now takes 0.20 s.
+- `Source/Main.cpp.bak` was a scratchpad backup only. No file in the project holds it.
+
+### Debts Paid
+- None
+
+### Debts Deferred
+- Step 8, the Windows build and run (`PLAN-ling-6-manifest.md`, Step 8). It is ARCHITECT's (ruling 78). No `DEBT.md` entry exists.
+
 ## Sprint 6: LING Part 5, references and local links as metadata of the file tree ✅
 
 **Date:** 2026-11-12
@@ -319,65 +379,6 @@
 
 ### Debts Deferred
 - Step 7, the LING and END builds on Windows (`PLAN-ling-3-document-segments.md`, Step 7). It is ARCHITECT's, and it blocks no part (ruling 78). No `DEBT.md` entry exists.
-
----
-
-## Sprint 2: LING Part 2, the `jam_syntax_tree` module ✅
-
-**Date:** 2026-11-11
-**Duration:** not measured. The sprint is one session.
-
-### Agents Participated
-- COUNSELOR — executed `PLAN-ling-2-language-tables.md`, validated each step by its own reads, made the 1-line fixes, and recorded the rulings in the PLAN. Filtered the Auditor findings.
-- Pathfinder — discovery reads of the manifest, the cast tables and the generated output. Read the cast file-merge code (`cast/Source/Writer.cpp`, `Shapes.cpp`).
-- Engineer — the file move, the manifest rows, the module header and source, the table move, the `spell.md` wiring, the `@code:line` enclosure, the `@pragmaOnce` alias, and the cast runs with snapshot diffs.
-- Auditor — one pass over the sprint. It reported four findings.
-
-### Files Modified (16 total)
-**jam:**
-- `jam_syntax_tree/document/jam_CodeDocument.h`, `.cpp` — moved byte-identical from `jam_core/document/` (sha256 h `d362ffbc…dad9`, cpp `e62cdaf1…d38d6`). Ruling 30: `CodeDocument` leaves `jam_core`.
-- `jam_syntax_tree/jam_syntax_tree.h`, `.cpp` — new module header and source, copied from `jam_document` with only the module names and the generated include changed. Cast writes the declaration block and the submodule includes.
-- `jam_core/jam_core.h`, `jam_core/jam_core.cpp` — cast removed the two `CodeDocument` includes.
-- `user-modules-info.md:155-158` — the `jam_syntax_tree` module group (`kernel`; depends on `juce_core`, `jam_core`). `:1145-1148` — its four submodule rows. The two `jam_core` CodeDocument rows are deleted.
-- `cast/syntax_tree.md` — new table file. Its `## index` holds `@operators`, `@quote`, and the six `Family` aliases. It holds the nine tables, unchanged (ruling 36).
-- `cast/core.md` — the nine tables and the six `Family` aliases are removed.
-- `cast/spell.md:31-32`, `:65`, `:188-189` — aliases of the generated pair, the table file and the module files. `:71` — `@pragmaOnce` holds `#pragma once`. `:284-289` — the `jam_SyntaxTree.h` headers row. `:1192-1324` — the moved output rows. Each of the nine map rows encloses its `@code:namespace` in `@code:line` with `- macro: @pragmaOnce`. The first row holds the file brief and an empty separator cell. The module rows of `jam_syntax_tree` follow the `jam_subprocess` group.
-- `generated/jam_SyntaxTree.h`, `.cpp` — new cast output. One `namespace map` block holds the eight tables and the `languageFamily` declaration. The `.cpp` holds the `languageFamily` definition, 27 entries.
-- `generated/jam_Core.h`, `.cpp` — the nine tables are removed. No line is added.
-
-**ling:**
-- `project-info.md:125` — the `jam_syntax_tree` user-module row, with the module description.
-- `PLAN-ling-2-language-tables.md` — Step 5 items 4 and 5a, and Step 7 item 1, record the rulings and the corrections below.
-
-### Alignment Check
-- [x] BLESSED principles followed
-- [x] NAMES.md adhered. Every new name is from a cited family: `jam_syntax_tree` (ruling 30), `syntax_tree.md`, `jam_SyntaxTree`, the alias families, and `@pragmaOnce` (the value-alias family of `@bimap`).
-- [x] MANIFESTO.md principles applied. MANIFESTO S: `#pragma once` is declared once, in the index, and the nine rows reference it. ARCHITECT: "Index alias".
-
-### Problems Solved
-- **Two `namespace map` blocks in `jam_SyntaxTree.h`.** Cast groups the rows of one file by the template and the placeholder values of the first structure line (`cast/Source/Shapes.cpp:438-458`). `- macro:` is a placeholder of the `namespace` fence (`code.cast:11`), so a macro on the first row only split the block. ARCHITECT: "enclosed means make it as list. although only one. so no dangling macro". Each map row now encloses its namespace in `@code:line` (the form of `spell.md:347-353`). The nine equal `line` rows give one group, and its list merges the nine namespaces into one block (`Shapes.cpp:427-429`, `:301`, `:481-504`).
-- **A `//====` line between the blocks.** Cast takes the row join of a file from the separator cell of the file's first row (`Writer.cpp:261-268`). The first row now has an empty separator cell, as the first row of each sibling file does. The moved text is equal line for line to the text that left `jam_Core.h`.
-- **The same value nine times.** The nine rows read `@pragmaOnce`. Cast output is byte-identical before and after the alias.
-- Auditor findings, resolved or rejected:
-  1. `spell.md` first-row separator: resolved, recorded as PLAN Step 5 item 5a.
-  2. `core.md` "Extensions pair with map::languageFamily." as a layer violation: rejected. MANIFESTO.md:238 says the topology rule "applies at compile time", and `jam_core` holds no include of `jam_syntax_tree` and no read of its symbols.
-  3. `project-info.md:125` held the title: resolved. It now holds the module description, as `:126` does.
-  4. `@operators` and `@quote` in three table files: rejected. "Aliases are scoped to the index" (`cast/Source/HELP.md:510`), and `web.md:16-17` declares the same pair for its own tables.
-- Verification: the cast runs exit 0, and a second run changes nothing. ARCHITECT built the four macOS projects clean. `ling --version` prints `ling 0.1.0 (c998599)`.
-
-### State for Continuation
-- Next work: Part 3, `PLAN-ling-3-document-segments.md` (tracker `PLAN-ling-0-tracker.md:21`).
-- `PLAN-ling-0-tracker.md:20` still reads "Written. Locked". The Part 2 status is not updated.
-- `jam/.claude/CLAUDE.md:33-61` (MODULE LAYER ORDER) does not list `jam_syntax_tree` (layer 2, depends on core). That file belongs to MACHINIST.
-- The JAM doxygen XML is stale after the move until ARCHITECT regenerates it. Before you rely on `docs/xml` for `CodeDocument`, check that it names `jam_syntax_tree/document/`.
-- No `cast sync` to KANJUT ran. The module class is `kernel`, so a sync carries it (`cast/Source/HELP.md:85-89`).
-- To check the cast output again: run `cast ../jam/cast/spell.md` from `~/Documents/Poems/dev/cast/`, then check that `generated/` does not change.
-
-### Debts Paid
-- None
-
-### Debts Deferred
-- Step 8, the LING and END builds on Windows (PLAN-ling-2:252-256). It is ARCHITECT's, and it blocks no part (ruling 78). No `DEBT.md` entry exists.
 
 ---
 

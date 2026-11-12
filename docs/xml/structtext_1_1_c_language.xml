@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="structtext_1_1_c_language" kind="struct" language="C++" prot="public">
+    <compoundname>text::CLanguage</compoundname>
+    <includes refid="_text_8h" local="no">Text.h</includes>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="structtext_1_1_c_language_1a9be795f2d2883967cc207c7f541ff463" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>const char *const</type>
+        <definition>const char* const text::CLanguage::compilerManifestCommand</definition>
+        <argsstring></argsstring>
+        <name>compilerManifestCommand</name>
+        <qualifiedname>text::CLanguage::compilerManifestCommand</qualifiedname>
+        <initializer>{ &quot;cmake&quot;                 }</initializer>
+        <briefdescription>
+<para>The command cell of the toolchain row that names the build folder. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Text.h" line="51" column="39" bodyfile="generated/Text.h" bodystart="51" bodyend="51"/>
+        <referencedby refid="struct_compiler_manifest_1ac4bddba13101adcf0ff115e8626131ec" compoundref="_compiler_manifest_8cpp" startline="52" endline="60">CompilerManifest::addCLanguageFiles</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structtext_1_1_c_language_1a7fb5fd950f3d94521013128911356798" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>const char *const</type>
+        <definition>const char* const text::CLanguage::flagBuildDirectory</definition>
+        <argsstring></argsstring>
+        <name>flagBuildDirectory</name>
+        <qualifiedname>text::CLanguage::flagBuildDirectory</qualifiedname>
+        <initializer>{ &quot;-B&quot;                    }</initializer>
+        <briefdescription>
+<para>The flag whose next token is the build folder. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Text.h" line="52" column="39" bodyfile="generated/Text.h" bodystart="52" bodyend="52"/>
+        <referencedby refid="struct_compiler_manifest_1aeb98507984924cff3bfc19f704f111b5" compoundref="_compiler_manifest_8cpp" startline="62" endline="90">CompilerManifest::addCLanguageUnits</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structtext_1_1_c_language_1ae03041f8f1b92f254b9b1389bcc84bcf" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>const char *const</type>
+        <definition>const char* const text::CLanguage::compilerManifest</definition>
+        <argsstring></argsstring>
+        <name>compilerManifest</name>
+        <qualifiedname>text::CLanguage::compilerManifest</qualifiedname>
+        <initializer>{ &quot;compile_commands.json&quot; }</initializer>
+        <briefdescription>
+<para>The file name of the compiler manifest in the build folder. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Text.h" line="53" column="39" bodyfile="generated/Text.h" bodystart="53" bodyend="53"/>
+        <referencedby refid="struct_compiler_manifest_1aeb98507984924cff3bfc19f704f111b5" compoundref="_compiler_manifest_8cpp" startline="62" endline="90">CompilerManifest::addCLanguageUnits</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structtext_1_1_c_language_1ad1af23c7dc5da52607d788a1a20f3fba" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>const char *const</type>
+        <definition>const char* const text::CLanguage::dependencyCommand</definition>
+        <argsstring></argsstring>
+        <name>dependencyCommand</name>
+        <qualifiedname>text::CLanguage::dependencyCommand</qualifiedname>
+        <initializer>{ &quot;ninja&quot;                 }</initializer>
+        <briefdescription>
+<para>The command cell of the toolchain row that gives the dependency record. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Text.h" line="54" column="39" bodyfile="generated/Text.h" bodystart="54" bodyend="54"/>
+        <referencedby refid="struct_compiler_manifest_1ac4bddba13101adcf0ff115e8626131ec" compoundref="_compiler_manifest_8cpp" startline="52" endline="60">CompilerManifest::addCLanguageFiles</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structtext_1_1_c_language_1aa56719167bbba6ef522401dc798cfa32" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>const char *const</type>
+        <definition>const char* const text::CLanguage::flagDependencyDirectory</definition>
+        <argsstring></argsstring>
+        <name>flagDependencyDirectory</name>
+        <qualifiedname>text::CLanguage::flagDependencyDirectory</qualifiedname>
+        <initializer>{ &quot;-C&quot;                    }</initializer>
+        <briefdescription>
+<para>The flag whose next token is the build folder of that row. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Text.h" line="55" column="39" bodyfile="generated/Text.h" bodystart="55" bodyend="55"/>
+        <referencedby refid="struct_compiler_manifest_1a27b9440fa07342c696ffd2af1e7eebc5" compoundref="_compiler_manifest_8cpp" startline="130" endline="155">CompilerManifest::addCLanguageDependencies</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structtext_1_1_c_language_1ab8bea2ef87db0b9ec4600c8d770462d8" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>const char *const</type>
+        <definition>const char* const text::CLanguage::dependencyFlag</definition>
+        <argsstring></argsstring>
+        <name>dependencyFlag</name>
+        <qualifiedname>text::CLanguage::dependencyFlag</qualifiedname>
+        <initializer>{ &quot;-t deps&quot;               }</initializer>
+        <briefdescription>
+<para>The flag that makes the command print the dependency record. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Text.h" line="56" column="39" bodyfile="generated/Text.h" bodystart="56" bodyend="56"/>
+        <referencedby refid="struct_compiler_manifest_1aee55cebf27ed4511f421f1bebb883eaf" compoundref="_compiler_manifest_8cpp" startline="157" endline="168">CompilerManifest::getDependencyArguments</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structtext_1_1_c_language_1a9643ea126445b0aff1fa5a8ef6bdf829" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>const char *const</type>
+        <definition>const char* const text::CLanguage::dependencyHead</definition>
+        <argsstring></argsstring>
+        <name>dependencyHead</name>
+        <qualifiedname>text::CLanguage::dependencyHead</qualifiedname>
+        <initializer>{ &quot;: #deps&quot;               }</initializer>
+        <briefdescription>
+<para>The text that follows the output path in the head line of a record. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Text.h" line="57" column="39" bodyfile="generated/Text.h" bodystart="57" bodyend="57"/>
+        <referencedby refid="struct_compiler_manifest_1a744a99f5c065ef4439a7824b80a0ce78" compoundref="_compiler_manifest_8cpp" startline="185" endline="212">CompilerManifest::addCLanguageRecord</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>The words of the C family compiler manifest and dependency record. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="generated/Text.h" line="49" column="1" bodyfile="generated/Text.h" bodystart="50" bodyend="58"/>
+    <listofallmembers>
+      <member refid="structtext_1_1_c_language_1ae03041f8f1b92f254b9b1389bcc84bcf" prot="public" virt="non-virtual"><scope>text::CLanguage</scope><name>compilerManifest</name></member>
+      <member refid="structtext_1_1_c_language_1a9be795f2d2883967cc207c7f541ff463" prot="public" virt="non-virtual"><scope>text::CLanguage</scope><name>compilerManifestCommand</name></member>
+      <member refid="structtext_1_1_c_language_1ad1af23c7dc5da52607d788a1a20f3fba" prot="public" virt="non-virtual"><scope>text::CLanguage</scope><name>dependencyCommand</name></member>
+      <member refid="structtext_1_1_c_language_1ab8bea2ef87db0b9ec4600c8d770462d8" prot="public" virt="non-virtual"><scope>text::CLanguage</scope><name>dependencyFlag</name></member>
+      <member refid="structtext_1_1_c_language_1a9643ea126445b0aff1fa5a8ef6bdf829" prot="public" virt="non-virtual"><scope>text::CLanguage</scope><name>dependencyHead</name></member>
+      <member refid="structtext_1_1_c_language_1a7fb5fd950f3d94521013128911356798" prot="public" virt="non-virtual"><scope>text::CLanguage</scope><name>flagBuildDirectory</name></member>
+      <member refid="structtext_1_1_c_language_1aa56719167bbba6ef522401dc798cfa32" prot="public" virt="non-virtual"><scope>text::CLanguage</scope><name>flagDependencyDirectory</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

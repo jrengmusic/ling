@@ -13,7 +13,7 @@ The parse gives the two facts that a reader cannot get from the tree today: the 
 
 ## What this part does not do
 
-- No type analysis. A member name (after `.` or `->`) completes to every member declaration with a matching id, as Part 7 links a member reference (PLAN-ling-7-queries.md, The declarations of an element).
+- No type analysis. A member name (after `.` or `->`) completes to every member declaration with a matching name, as Part 7 links a member reference (PLAN-ling-7-queries.md, The declarations of an element).
 - No completion of an unsaved buffer. The source file is the Model (ruling 14), and the watcher is its one author (ruling 45). The client saves the file before it asks (ruling 21: the client acts).
 - No comment in `hover` or in the other eight operations. Only `completion` writes the comment.
 - No keyword completion. The tree holds declarations; keywords are rows of `## CppKeyword`, not declarations.
@@ -103,14 +103,14 @@ The first token of a candidate is the token where the handler starts the stateme
 
 `template <typename Function> void Processor::applyToCompletions (const jam::CodeDocument& document, const Element& reference, const Fuzzy::Pattern& pattern, const Function& function);`
 
-`function` receives the index of the file in `paths`, the document, the declaration, and the score: `function (int pathIndex, const jam::CodeDocument& declarationDocument, const Element& declaration, int score)`. A declaration is a candidate when `pattern.match (declaration.id.toString(), slab)` gives `isMatch()`.
+`function` receives the index of the file in `paths`, the document, the declaration, and the score: `function (int pathIndex, const jam::CodeDocument& declarationDocument, const Element& declaration, int score)`. A declaration is a candidate when `pattern.match (name, slab)` gives `isMatch()`, with `name` the text of the last `Id::name` token of the declaration (PLAN-ling-4-language-document.md, The element of a declaration).
 
 | The reference | The candidates |
 |---|---|
 | with `Id::member` | every declaration, in every document, whose type is in the member type table of Part 7 |
 | any other | the scope walk below |
 
-**The scope walk.** Let the scope be the path of the parent of the reference, and the qualifier be the segments of its `Id::name` without the last one. The walk visits the scope plus the qualifier, then the scope without its last id plus the qualifier, and so on to the qualifier alone. At each visit it calls `getElements` in every document, and takes the declaration children of each element it gets. Unlike Part 7, the walk does not stop at the first visit that gives a result: a completion lists every name that the position can see. A local and a parameter are children of the function element on the scope path, so the walk gets them with no special case.
+**The scope walk.** Let the scope be the path of the parent of the reference, and the qualifier be the segments of its `Id::name` without the last one. The walk visits the scope plus the qualifier, then the scope without its last name plus the qualifier, and so on to the qualifier alone. At each visit it calls `getElements` in every document, and takes the declaration children of each element it gets. Unlike Part 7, the walk does not stop at the first visit that gives a result: a completion lists every name that the position can see. A local and a parameter are children of the function element on the scope path, so the walk gets them with no special case.
 
 **The base step.** At a visit whose elements are a `classToken` or a `structToken` declaration, the walk also visits each class that `applyToDeclarations` gives for each of their `base` children. It keeps the paths it has visited inside the call, as Part 7 does, so a class that names itself as a base ends the step.
 
@@ -125,11 +125,11 @@ The first token of a candidate is the token where the handler starts the stateme
 | `completion` | file, line, column | the candidates of the name that ends before the column |
 
 1. The column is the position of the cursor, after the typed name. The entry calls `getElement (document, line, column - 1)`, so the last byte of the name is under the position.
-2. When that element is a `reference`, a `call`, or a `base`, the pattern is `Fuzzy::Pattern::parse (element.id.toString(), Fuzzy::CaseMode::smart, true, Fuzzy::Scheme::standard)`, and `applyToCompletions` gives the candidates. Any other element, or no element, gives `[]`.
+2. When that element is a `reference`, a `call`, or a `base`, the pattern is `Fuzzy::Pattern::parse (name, Fuzzy::CaseMode::smart, true, Fuzzy::Scheme::standard)`, with `name` the text of the last `Id::name` token of the element, and `applyToCompletions` gives the candidates. Any other element, or no element, gives `[]`.
 3. Order: the score, high first; then the path; then the file path, the line, and the column. This is the order of `workspaceSymbol`.
 4. Each entry is the JSON object of Part 7 (`path`, `line`, `column`, `type`, `name`), and two more keys, as `hover` adds `scope`:
    - `comment`: the text of the `Id::comment` tokens, each the view of its span in `Document::getSource()`, joined with `Chars::newline`, escaped as every JSON string of `JsonWriter` is. The text is the source text, with its comment markers. The client formats it (ruling 21). No comment gives no key.
-   - `snippet`: for a type in the function types of Part 7 only. The text is the id, `Chars::openParen`, one placeholder for each element of `Id::parameters`, separated by `Chars::comma` and `Chars::space`, then `Chars::closeParen`. A placeholder is `Chars::dollarSign`, `Chars::openBrace`, its 1-based number, `Chars::colon`, the id of the parameter, `Chars::closeBrace`. For example `setBounds(${1:x}, ${2:y}, ${3:width}, ${4:height})`. A function with no parameters gives `name()`.
+   - `snippet`: for a type in the function types of Part 7 only. The text is the name, `Chars::openParen`, one placeholder for each element of `Id::parameters`, separated by `Chars::comma` and `Chars::space`, then `Chars::closeParen`. A placeholder is `Chars::dollarSign`, `Chars::openBrace`, its 1-based number, `Chars::colon`, the name of the parameter, `Chars::closeBrace`. For example `setBounds(${1:x}, ${2:y}, ${3:width}, ${4:height})`. A function with no parameters gives `name()`.
 
 **The file is parsed before the answer.** When `Processor` gets a `REQUEST` row with `Id::completion`, it first sends `sendPropertyChangeMessage (Id::path)` on the `FILE` row of the file argument, the reaction of the watcher (PLAN-ling-6-manifest.md, item 4 of `LINGModel`). That starts a parse of the file as it is on disk, so a parse is pending. The entry then runs when `Id::documents` is written (PLAN-ling-7-queries.md, The nine operations). A file with no `FILE` row gives `[]`.
 
@@ -186,7 +186,7 @@ the whole sprint — never per step.
 1. ARCHITECT builds cast, LING, and every project that has `jam_syntax_tree` or reads `Id::comment`.
 2. With END's manifest, run `completion` and read the result against the source files:
    - at a call to `addCommentToken` in `jam/jam_syntax_tree/document/jam_CodeDocument.cpp`, with the column after its sixth byte (`addCom`): `addCommentToken` is in the result. Its `comment` is the comment directly above its declaration, when one exists there. Its `snippet` has one placeholder for each parameter of that declaration.
-   - at a member call after `.` in the same file: the result holds member declarations whose ids match the typed name.
+   - at a member call after `.` in the same file: the result holds member declarations whose names match the typed name.
    - at a reference to a parameter inside a function body: the parameter is in the result.
 3. Add one line `getVocab` inside the body of a function in `jam_CodeDocument.cpp`, save, and run `completion` at once, at the end of that line. `getVocabulary` and `getVocabularyForFamily` are in the result. Remove the line and save.
 4. Run item 2, first case, two times. Compare the outputs byte for byte.
@@ -217,7 +217,7 @@ None open.
 
 Facts for the review of the whole PLAN:
 
-- **A member name completes to every member with a matching id.** No type analysis (Part 7). The reference data counts 171 symbols named `get` behind `JuceHeader.h`.
+- **A member name completes to every member with a matching name.** No type analysis (Part 7). The reference data counts 171 symbols named `get` behind `JuceHeader.h`.
 - **The name needs one byte.** Directly after `.`, `->`, or `::`, no name token is at the position, so the result is `[]`.
 - **A save of a statement that is not complete changes the walk.** Part 4 reads a prelude to the first `;` or `{` (PLAN-ling-4-language-document.md, The walk). A typed name with no `;` joins the next statement. The name is still a reference, but its parent can change.
 - **Each `completion` parses its file once.** The watcher event that follows the save parses the same file again and replaces the document with an equal one.

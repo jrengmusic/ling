@@ -1,8 +1,87 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.18.0" xml:lang="en-US">
+  <compound refid="class_application" kind="class"><name>Application</name>
+    <member refid="class_application_1ac75f70224a78b1776f74b5a6ab198787" kind="variable"><name>model</name></member>
+    <member refid="class_application_1a3e48419454eaec0f01e7725da71e34ae" kind="variable"><name>processor</name></member>
+    <member refid="class_application_1afac95b8c59b889fcc00a97c91a9d797c" kind="variable"><name>message</name></member>
+    <member refid="class_application_1afa8cc05ce6b6092be5ecdfdae44e05f8" kind="function"><name>Application</name></member>
+    <member refid="class_application_1a444b0b6d9162b14d5262b81bd75586df" kind="function"><name>~Application</name></member>
+    <member refid="class_application_1a9ca4a5b1cd128bfdc90020919624f29b" kind="function"><name>getApplicationName</name></member>
+    <member refid="class_application_1a871a460a03e9a5a70544681332c409d6" kind="function"><name>getApplicationVersion</name></member>
+    <member refid="class_application_1a28f20394267183bd8faac2db9bf57b4b" kind="function"><name>moreThanOneInstanceAllowed</name></member>
+    <member refid="class_application_1a2f873a3abcc4cc7b154269b80ef7c84f" kind="function"><name>initialise</name></member>
+    <member refid="class_application_1acd050c59340807685052276fb053787a" kind="function"><name>shutdown</name></member>
+    <member refid="class_application_1a0bd3fab129fe4edb5e5b4d13cff98bf5" kind="function"><name>anotherInstanceStarted</name></member>
+    <member refid="class_application_1ab8b25a6e9fd026257798d70ce10b060d" kind="function"><name>systemRequestedQuit</name></member>
+    <member refid="class_application_1a99f9888b785fa3fe7af4f8327c63a095" kind="function"><name>suspended</name></member>
+    <member refid="class_application_1aba26cb2704157414d4f253116443ad7d" kind="function"><name>resumed</name></member>
+    <member refid="class_application_1a6b9a3c22db32ea0f531d16952c53e06d" kind="function"><name>unhandledException</name></member>
+    <member refid="class_application_1a6d3a3f1db721639ea4efd49bd6bf4015" kind="function"><name>valueTreePropertyChanged</name></member>
+  </compound>
+  <compound refid="structtext_1_1_c_language" kind="struct"><name>text::CLanguage</name>
+    <member refid="structtext_1_1_c_language_1a9be795f2d2883967cc207c7f541ff463" kind="variable"><name>compilerManifestCommand</name></member>
+    <member refid="structtext_1_1_c_language_1a7fb5fd950f3d94521013128911356798" kind="variable"><name>flagBuildDirectory</name></member>
+    <member refid="structtext_1_1_c_language_1ae03041f8f1b92f254b9b1389bcc84bcf" kind="variable"><name>compilerManifest</name></member>
+    <member refid="structtext_1_1_c_language_1ad1af23c7dc5da52607d788a1a20f3fba" kind="variable"><name>dependencyCommand</name></member>
+    <member refid="structtext_1_1_c_language_1aa56719167bbba6ef522401dc798cfa32" kind="variable"><name>flagDependencyDirectory</name></member>
+    <member refid="structtext_1_1_c_language_1ab8bea2ef87db0b9ec4600c8d770462d8" kind="variable"><name>dependencyFlag</name></member>
+    <member refid="structtext_1_1_c_language_1a9643ea126445b0aff1fa5a8ef6bdf829" kind="variable"><name>dependencyHead</name></member>
+  </compound>
+  <compound refid="struct_compiler_manifest" kind="struct"><name>CompilerManifest</name>
+    <member refid="struct_compiler_manifest_1ac6c023b121716f31f5adc69791ec314f" kind="function"><name>getFiles</name></member>
+    <member refid="struct_compiler_manifest_1ac05558d9da1bb4ca092a0e9df7786ffd" kind="function"><name>getFilesConstruction</name></member>
+    <member refid="struct_compiler_manifest_1ac4bddba13101adcf0ff115e8626131ec" kind="function"><name>addCLanguageFiles</name></member>
+    <member refid="struct_compiler_manifest_1aeb98507984924cff3bfc19f704f111b5" kind="function"><name>addCLanguageUnits</name></member>
+    <member refid="struct_compiler_manifest_1a9d2007dbcec110ea5bdf2fccace5b7ea" kind="function"><name>addCLanguageUnit</name></member>
+    <member refid="struct_compiler_manifest_1acc5f271e53b5519c3c85cfe3a8cdbfe7" kind="function"><name>getCommandArguments</name></member>
+    <member refid="struct_compiler_manifest_1a27b9440fa07342c696ffd2af1e7eebc5" kind="function"><name>addCLanguageDependencies</name></member>
+    <member refid="struct_compiler_manifest_1aee55cebf27ed4511f421f1bebb883eaf" kind="function"><name>getDependencyArguments</name></member>
+    <member refid="struct_compiler_manifest_1a35121152e52c7c8d5ad86dad4cd8f1c6" kind="function"><name>addCLanguageRecords</name></member>
+    <member refid="struct_compiler_manifest_1a744a99f5c065ef4439a7824b80a0ce78" kind="function"><name>addCLanguageRecord</name></member>
+    <member refid="struct_compiler_manifest_1acf1db0d6d6f7955e16ca1f11721a1b88" kind="function"><name>getOrCreateFileIndex</name></member>
+    <member refid="struct_compiler_manifest_1a2ab0bfb600da37c5bdd0453d088d7da4" kind="function"><name>getBuildDirectory</name></member>
+  </compound>
   <compound refid="structtext_1_1_diagnostics" kind="struct"><name>text::Diagnostics</name>
     <member refid="structtext_1_1_diagnostics_1a614879ccbad6f4edaf1a511bf5a2fa68" kind="variable"><name>failNotFound</name></member>
     <member refid="structtext_1_1_diagnostics_1a54030ad642dee1157d22d8255503812d" kind="variable"><name>failFlagUnknown</name></member>
+    <member refid="structtext_1_1_diagnostics_1a970639e94e56dd027f442cb9bf7f89a6" kind="variable"><name>failUnitNotFound</name></member>
+    <member refid="structtext_1_1_diagnostics_1a92a2023e448148a2d35ffdcd09f5c242" kind="variable"><name>failCompilerManifestInvalid</name></member>
+    <member refid="structtext_1_1_diagnostics_1a1b230c2f263a740ce68ec009c9e0e5e4" kind="variable"><name>failCompilerManifestNotFound</name></member>
+    <member refid="structtext_1_1_diagnostics_1af763ab2fde1f227b356e621789f9dce5" kind="variable"><name>failDependenciesNotFound</name></member>
+    <member refid="structtext_1_1_diagnostics_1af3213d85de76f5051147adf231066b11" kind="variable"><name>failToolchain</name></member>
+    <member refid="structtext_1_1_diagnostics_1a15f1fdeea830a67020306e9b3e5073ea" kind="variable"><name>failToolchainArgument</name></member>
+    <member refid="structtext_1_1_diagnostics_1acb39935ba8149723d8a1c9615271f294" kind="variable"><name>failToolchainColumn</name></member>
+  </compound>
+  <compound refid="class_l_i_n_g_model" kind="class"><name>LINGModel</name>
+    <member refid="class_l_i_n_g_model_1a0f5c4a85d80ca163d85c7cc496fbab46" kind="variable"><name>watcher</name></member>
+    <member refid="class_l_i_n_g_model_1a1c57527a53635e5f4efbcb6d27aa843e" kind="variable"><name>coalesceMs</name></member>
+    <member refid="class_l_i_n_g_model_1a027340bbc7ee3868a010942469b1f1ec" kind="function"><name>LINGModel</name></member>
+    <member refid="class_l_i_n_g_model_1aed5183a1e913ceaaf115ac1d666e89a0" kind="function"><name>~LINGModel</name></member>
+    <member refid="class_l_i_n_g_model_1afdef5b210be00b4c407239da424c8b3d" kind="function"><name>setMessage</name></member>
+    <member refid="class_l_i_n_g_model_1a3cd783d99a31ffc14afb62bdd6abe103" kind="function"><name>valueTreePropertyChanged</name></member>
+    <member refid="class_l_i_n_g_model_1a167994bf1e11534308dc0c92299af677" kind="function"><name>valueTreeChildAdded</name></member>
+    <member refid="class_l_i_n_g_model_1a69cf1f824a69271ac205f6432f0b8955" kind="function"><name>fileChanged</name></member>
+  </compound>
+  <compound refid="class_processor" kind="class"><name>Processor</name>
+    <member refid="class_processor_1a221e46c95ba79722accf868ad6e2cacb" kind="variable"><name>model</name></member>
+    <member refid="class_processor_1ab3ce5f644b8d26fa8641556022228d30" kind="variable"><name>paths</name></member>
+    <member refid="class_processor_1aa107851379e6cb122c96dfa591d33061" kind="variable"><name>documents</name></member>
+    <member refid="class_processor_1a9e4f2c0b182b341e792c25cf8dc965be" kind="variable"><name>pendingJobs</name></member>
+    <member refid="class_processor_1acac63082f3b21b83ead437326c96fa27" kind="variable"><name>pool</name></member>
+    <member refid="class_processor_1a3d8bc2958e0972bb7a4a84c29f0581c4" kind="function"><name>Processor</name></member>
+    <member refid="class_processor_1a3d7c16d172be09d3bfb4df3519d21b31" kind="function"><name>~Processor</name></member>
+    <member refid="class_processor_1a3731df1c2da6bfe84ea3f6945ac9ebe6" kind="function"><name>applyToDocuments</name></member>
+    <member refid="class_processor_1a88cdf27664e3bbebb9f25e1f0c868566" kind="function"><name>valueTreeChildAdded</name></member>
+    <member refid="class_processor_1a9f8e753a0945fc9c7f2ab64e628370f8" kind="function"><name>valueTreeChildRemoved</name></member>
+    <member refid="class_processor_1a8deb7a1105ec3f6ecb8644f966930903" kind="function"><name>valueTreePropertyChanged</name></member>
+    <member refid="class_processor_1a547e161d2e24134f3c95df35019aeddb" kind="function"><name>addJob</name></member>
+    <member refid="class_processor_1a382544055777bd6b922918f36a82f6ac" kind="function"><name>addDocument</name></member>
+    <member refid="class_processor_1aac757d619a6214a38300e73c93733256" kind="function"><name>getOrCreatePathIndex</name></member>
+    <member refid="class_processor_1a76ad4c4456941a5be3d84a6ae4e58d45" kind="function"><name>setDocuments</name></member>
+  </compound>
+  <compound refid="struct_validator" kind="struct"><name>Validator</name>
+    <member refid="struct_validator_1af387720572933d5519b0597814433c17" kind="function"><name>addRules</name></member>
+    <member refid="struct_validator_1a394659562ffe86296738ed5a5b14f80f" kind="function"><name>getRules</name></member>
   </compound>
   <compound refid="namespace_project_info" kind="namespace"><name>ProjectInfo</name>
     <member refid="namespace_project_info_1a50f49d766351ea9313f67b3f30aa014d" kind="variable"><name>projectName</name></member>
@@ -16,6 +95,10 @@
     <member refid="namespace_project_info_1aa30ca45a1228a1a11b2ecb2f3177ef06" kind="variable"><name>presetDefault</name></member>
   </compound>
   <compound refid="namespacestd" kind="namespace"><name>std</name>
+  </compound>
+  <compound refid="_compiler_manifest_8cpp" kind="file"><name>CompilerManifest.cpp</name>
+  </compound>
+  <compound refid="_compiler_manifest_8h" kind="file"><name>CompilerManifest.h</name>
   </compound>
   <compound refid="_files_8h" kind="file"><name>Files.h</name>
   </compound>
@@ -37,28 +120,38 @@
   <compound refid="_help_8h" kind="file"><name>Help.h</name>
     <member refid="_help_8h_1a9b19836bb5ca0e3083ee375706b72664" kind="function"><name>printHelp</name></member>
   </compound>
+  <compound refid="_l_i_n_g_model_8cpp" kind="file"><name>LINGModel.cpp</name>
+  </compound>
+  <compound refid="_l_i_n_g_model_8h" kind="file"><name>LINGModel.h</name>
+  </compound>
   <compound refid="_main_8cpp" kind="file"><name>Main.cpp</name>
     <member refid="_main_8cpp_1a7eacf8422a0bf113fc72a4ecc24fac25" kind="variable"><name>flagArgIndex</name></member>
     <member refid="_main_8cpp_1a8d15eab864d23bacb85f66408f136d42" kind="variable"><name>postFlagArgIndex</name></member>
     <member refid="_main_8cpp_1ab112c8dd220252b8308c8882da65e1b1" kind="variable"><name>flagOnlyArgumentCount</name></member>
+    <member refid="_main_8cpp_1a44a67bc14d8fdff2eccce0b22ac6ceaf" kind="variable"><name>toolchainArgumentCount</name></member>
     <member refid="_main_8cpp_1a2c040b6a8eba42513dfa5b2a261f442d" kind="function"><name>printBanner</name></member>
     <member refid="_main_8cpp_1a9e829d663254bc1194b28d474a86f897" kind="function"><name>printError</name></member>
     <member refid="_main_8cpp_1a3e84cc35c31b3249e335bc1b737a2bf6" kind="function"><name>getVersionFlag</name></member>
     <member refid="_main_8cpp_1a86ca1e62537bd1ac77ddfe13a6e83a01" kind="function"><name>getHelpFlag</name></member>
-    <member refid="_main_8cpp_1a03053d92e25bc6f705c27356cd39d228" kind="function"><name>isVersion</name></member>
-    <member refid="_main_8cpp_1a6336581d1e8cbdb8df62474ac9e3fdbb" kind="function"><name>isHelp</name></member>
+    <member refid="_main_8cpp_1a7844445680c3b0682cfeb03fe35ce0bf" kind="function"><name>isVersion</name></member>
+    <member refid="_main_8cpp_1ad9e9fbfcca7cfa6282cbabe07b539fda" kind="function"><name>isHelp</name></member>
     <member refid="_main_8cpp_1a2bbde775f6db9f0e32cf9455a2ead1b7" kind="function"><name>writeVersion</name></member>
     <member refid="_main_8cpp_1a6f06085b02e0ad301adcc85196bbb128" kind="function"><name>isTerminalOutput</name></member>
     <member refid="_main_8cpp_1a7f683cefdf7f675f09e36661ce8df7cc" kind="function"><name>printBannerAndHelp</name></member>
-    <member refid="_main_8cpp_1a35e6f345ab590b9dd0aa34ffa170a6d6" kind="function"><name>appendPosition</name></member>
-    <member refid="_main_8cpp_1a050dd4fce386ed2a46e9400a3f9c8b2b" kind="function"><name>appendName</name></member>
-    <member refid="_main_8cpp_1a123dfb4efc33de4c3ec585966e287fb8" kind="function"><name>appendLinks</name></member>
-    <member refid="_main_8cpp_1a18cc16f90fedddb1717da789f0a2a260" kind="function"><name>appendDeclaration</name></member>
-    <member refid="_main_8cpp_1a89106c2d9f856067b01fb268582b1e9a" kind="function"><name>runDocument</name></member>
+    <member refid="_main_8cpp_1a25f21432c4207490fd18b68b4eadd9f2" kind="function"><name>appendDocument</name></member>
     <member refid="_main_8cpp_1a71f4a80b69df59cea48bb36733898656" kind="function"><name>runDocumentNotFound</name></member>
-    <member refid="_main_8cpp_1af6dc96d8ea3eaa82f12e5f8dc0dac218" kind="function"><name>getDocumentFile</name></member>
-    <member refid="_main_8cpp_1a52f1af656d9670faf7049108bef951b9" kind="function"><name>runCommandLine</name></member>
-    <member refid="_main_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" kind="function"><name>main</name></member>
+    <member refid="_main_8cpp_1aa6962595c085c03e12fa864a96afc658" kind="function"><name>getDocumentFile</name></member>
+    <member refid="_main_8cpp_1a377607efa51a8618706348a41877acb3" kind="function"><name>getToolchainArgument</name></member>
+    <member refid="_main_8cpp_1a64793fc03a95d0e57151cc8c62c46d34" kind="function"><name>isDocument</name></member>
+    <member refid="_main_8cpp_1a92f2321886f9537b6a47ade955342c57" kind="function"><name>runCommandLine</name></member>
+  </compound>
+  <compound refid="_processor_8cpp" kind="file"><name>Processor.cpp</name>
+  </compound>
+  <compound refid="_processor_8h" kind="file"><name>Processor.h</name>
+  </compound>
+  <compound refid="_validator_8cpp" kind="file"><name>Validator.cpp</name>
+  </compound>
+  <compound refid="_validator_8h" kind="file"><name>Validator.h</name>
   </compound>
   <compound refid="dir_84fc5dba3506812825191c0c043e3c97" kind="dir"><name>generated</name>
   </compound>

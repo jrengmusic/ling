@@ -1,0 +1,578 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="class_l_i_n_g_model" kind="class" language="C++" prot="public">
+    <compoundname>LINGModel</compoundname>
+    <basecompoundref refid="classjam_1_1Model" prot="public" virt="non-virtual">jam::Model</basecompoundref>
+    <basecompoundref refid="structjam_1_1Instance" prot="public" virt="non-virtual">jam::Instance&lt; LINGModel &gt;</basecompoundref>
+    <basecompoundref refid="classjam_1_1File_1_1Watcher_1_1Listener" prot="private" virt="non-virtual">jam::File::Watcher::Listener</basecompoundref>
+    <includes refid="_l_i_n_g_model_8h" local="no">LINGModel.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_l_i_n_g_model_1a0f5c4a85d80ca163d85c7cc496fbab46" prot="private" static="no" mutable="no">
+        <type><ref refid="structjam_1_1File_1_1Watcher" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::File::Watcher</ref></type>
+        <definition>jam::File::Watcher LINGModel::watcher</definition>
+        <argsstring></argsstring>
+        <name>watcher</name>
+        <qualifiedname>LINGModel::watcher</qualifiedname>
+        <briefdescription>
+<para>The file watcher. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>It reports the changes of the files in the watched folders. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="LINGModel.h" line="73" column="24" bodyfile="LINGModel.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="class_l_i_n_g_model_1a027340bbc7ee3868a010942469b1f1ec" compoundref="_l_i_n_g_model_8cpp" startline="5" endline="16">LINGModel</referencedby>
+        <referencedby refid="class_l_i_n_g_model_1a167994bf1e11534308dc0c92299af677" compoundref="_l_i_n_g_model_8cpp" startline="47" endline="59">valueTreeChildAdded</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_l_i_n_g_model_1a1c57527a53635e5f4efbcb6d27aa843e" prot="private" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int LINGModel::coalesceMs</definition>
+        <argsstring></argsstring>
+        <name>coalesceMs</name>
+        <qualifiedname>LINGModel::coalesceMs</qualifiedname>
+        <initializer>{ 300 }</initializer>
+        <briefdescription>
+<para>The window, in milliseconds, in which the watcher merges the events of one file into one event. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="LINGModel.h" line="76" column="26" bodyfile="LINGModel.h" bodystart="76" bodyend="76"/>
+        <referencedby refid="class_l_i_n_g_model_1a027340bbc7ee3868a010942469b1f1ec" compoundref="_l_i_n_g_model_8cpp" startline="5" endline="16">LINGModel</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_l_i_n_g_model_1a027340bbc7ee3868a010942469b1f1ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>LINGModel::LINGModel</definition>
+        <argsstring>()</argsstring>
+        <name>LINGModel</name>
+        <qualifiedname>LINGModel::LINGModel</qualifiedname>
+        <briefdescription>
+<para>Creates the files child and the overlay row, then starts the watcher. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The overlay row holds the message parameter. The application prints each change of that parameter. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="LINGModel.h" line="25" column="5" bodyfile="LINGModel.cpp" bodystart="5" bodyend="16"/>
+        <references refid="structjam_1_1File_1_1Watcher_1a77218b3dfff2d229f480087e9e30f5c0">jam::File::Watcher::addListener</references>
+        <references refid="structjam_1_1File_1_1Watcher_1a5d536adc6fc6ccc3a1636c32ea791c06">jam::File::Watcher::coalesceEvents</references>
+        <references refid="class_l_i_n_g_model_1a1c57527a53635e5f4efbcb6d27aa843e" compoundref="_l_i_n_g_model_8h" startline="76" endline="76">coalesceMs</references>
+        <references refid="classjam_1_1Model_1ac250f7a4c969aa2d05602b9805dd63ce">jam::Model::createAndAddParameter</references>
+        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="32" endline="32">Id::files</references>
+        <references refid="classjam_1_1Model_1a322c866d6fc435eb6799562d6d6db8b1">jam::Model::getOrCreateChildWithName</references>
+        <references refid="namespaceId_1a0e0b9ef1fb687c4c7c73d2bd7213ac01">Id::message</references>
+        <references refid="classjam_1_1Model_1afbe837fa9d9c8086381333783bb1db3b">jam::Model::Model</references>
+        <references refid="namespaceId_1a3c4b99c0119059fde6024a09a758312e">Id::overlay</references>
+        <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
+        <references refid="class_l_i_n_g_model_1a0f5c4a85d80ca163d85c7cc496fbab46" compoundref="_l_i_n_g_model_8h" startline="73">watcher</references>
+      </memberdef>
+      <memberdef kind="function" id="class_l_i_n_g_model_1aed5183a1e913ceaaf115ac1d666e89a0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>LINGModel::~LINGModel</definition>
+        <argsstring>() override=default</argsstring>
+        <name>~LINGModel</name>
+        <qualifiedname>LINGModel::~LINGModel</qualifiedname>
+        <briefdescription>
+<para>Releases the model. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The members release their own resources. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="LINGModel.h" line="28" column="5"/>
+        <references refid="class_l_i_n_g_model_1a69cf1f824a69271ac205f6432f0b8955" compoundref="_l_i_n_g_model_8cpp" startline="61" endline="67">fileChanged</references>
+        <references refid="class_l_i_n_g_model_1afdef5b210be00b4c407239da424c8b3d" compoundref="_l_i_n_g_model_8cpp" startline="18" endline="25">setMessage</references>
+        <references refid="class_l_i_n_g_model_1a167994bf1e11534308dc0c92299af677" compoundref="_l_i_n_g_model_8cpp" startline="47" endline="59">valueTreeChildAdded</references>
+        <references refid="class_l_i_n_g_model_1a3cd783d99a31ffc14afb62bdd6abe103" compoundref="_l_i_n_g_model_8cpp" startline="27" endline="45">valueTreePropertyChanged</references>
+      </memberdef>
+      <memberdef kind="function" id="class_l_i_n_g_model_1afdef5b210be00b4c407239da424c8b3d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void LINGModel::setMessage</definition>
+        <argsstring>(const juce::String &amp;text)</argsstring>
+        <name>setMessage</name>
+        <qualifiedname>LINGModel::setMessage</qualifiedname>
+        <param>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <declname>text</declname>
+        </param>
+        <briefdescription>
+<para>Writes text to the message parameter of the overlay row. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The manifest reading, the compiler manifest reading, and the parse jobs all report their failures through this function.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>text</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The message text. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="LINGModel.h" line="38" column="10" bodyfile="LINGModel.cpp" bodystart="18" bodyend="25"/>
+        <references refid="classjam_1_1Model_1a7ec2529e24ab07f42c0bd51be30a8529">jam::Model::getParameter</references>
+        <references refid="namespaceId_1a0e0b9ef1fb687c4c7c73d2bd7213ac01">Id::message</references>
+        <references refid="namespaceId_1a3c4b99c0119059fde6024a09a758312e">Id::overlay</references>
+        <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
+        <referencedby refid="class_processor_1a382544055777bd6b922918f36a82f6ac" compoundref="_processor_8cpp" startline="58" endline="79">Processor::addDocument</referencedby>
+        <referencedby refid="class_l_i_n_g_model_1a3cd783d99a31ffc14afb62bdd6abe103" compoundref="_l_i_n_g_model_8cpp" startline="27" endline="45">valueTreePropertyChanged</referencedby>
+        <referencedby refid="class_l_i_n_g_model_1aed5183a1e913ceaaf115ac1d666e89a0">~LINGModel</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_l_i_n_g_model_1a3cd783d99a31ffc14afb62bdd6abe103" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void LINGModel::valueTreePropertyChanged</definition>
+        <argsstring>(juce::ValueTree &amp;tree, const juce::Identifier &amp;property) override</argsstring>
+        <name>valueTreePropertyChanged</name>
+        <qualifiedname>LINGModel::valueTreePropertyChanged</qualifiedname>
+        <reimplements refid="classjuce_1_1ValueTree_1_1Listener_1a1a5481aafc0faa40aa3404a10c7b3785">valueTreePropertyChanged</reimplements>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>tree</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjuce_1_1Identifier" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref> &amp;</type>
+          <declname>property</declname>
+        </param>
+        <briefdescription>
+<para>Rebuilds the files child from the manifest when the manifest path changes. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The toolchain argument is read from the state at the same time. A manifest that fails validation sets the message, and its files child is empty.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tree</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The tree whose property changed. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>property</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The changed property. Only <ref refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::manifest</ref> rebuilds the files child. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="LINGModel.h" line="50" column="10" bodyfile="LINGModel.cpp" bodystart="27" bodyend="45"/>
+        <references refid="classjam_1_1Model_1ae0cb2cc2b04acb47eb9760d92dcedc46">jam::Model::appendChild</references>
+        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="32" endline="32">Id::files</references>
+        <references refid="classjuce_1_1ValueTree_1ac9bbcb6db4464f77b512b9bd8bbb8c3f">juce::ValueTree::getChildWithName</references>
+        <references refid="struct_compiler_manifest_1ac6c023b121716f31f5adc69791ec314f" compoundref="_compiler_manifest_8cpp" startline="3" endline="34">CompilerManifest::getFiles</references>
+        <references refid="structjam_1_1Document_1_1Validator_1a1275a95db9c777fcceff5c574c561ae0">jam::Document::Validator::isValid</references>
+        <references refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" compoundref="_identifiers_8h" startline="40">Id::manifest</references>
+        <references refid="structjam_1_1Document_1a367d65133f164cf9421ff0c3ddf2bbf6">jam::Document::parse</references>
+        <references refid="classjam_1_1Model_1acbf5ef1a6e71240468f17fe707532bec">jam::Model::removeChild</references>
+        <references refid="class_l_i_n_g_model_1afdef5b210be00b4c407239da424c8b3d" compoundref="_l_i_n_g_model_8cpp" startline="18" endline="25">setMessage</references>
+        <references refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857">jam::Model::state</references>
+        <references refid="namespaceId_1ad2d03a036d57999f43066f5737dc8008" compoundref="_generated_8cpp" startline="40" endline="40">Id::toolchainArgument</references>
+        <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
+        <references refid="classjam_1_1Model_1ab664f3dda27392cd40724b87549d0b6c">jam::Model::valueTreePropertyChanged</references>
+        <referencedby refid="class_l_i_n_g_model_1aed5183a1e913ceaaf115ac1d666e89a0">~LINGModel</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_l_i_n_g_model_1a167994bf1e11534308dc0c92299af677" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void LINGModel::valueTreeChildAdded</definition>
+        <argsstring>(juce::ValueTree &amp;parentTree, juce::ValueTree &amp;childWhichHasBeenAdded) override</argsstring>
+        <name>valueTreeChildAdded</name>
+        <qualifiedname>LINGModel::valueTreeChildAdded</qualifiedname>
+        <reimplements refid="classjuce_1_1ValueTree_1_1Listener_1ac26fa68e6f4625f71b52ab6fe776e0dc">valueTreeChildAdded</reimplements>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>parentTree</declname>
+        </param>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>childWhichHasBeenAdded</declname>
+        </param>
+        <briefdescription>
+<para>Adds the folder of each row of an added files child to the watcher. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Only a folder that exists is watched.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>parentTree</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The tree that received the child. Passed to the base class. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>childWhichHasBeenAdded</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The added child. Its rows give the folders when it is a files child. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="LINGModel.h" line="60" column="10" bodyfile="LINGModel.cpp" bodystart="47" bodyend="59"/>
+        <references refid="structjam_1_1File_1_1Watcher_1af3b174cc017a51839fcfa19d0e9f9cbc">jam::File::Watcher::addFolder</references>
+        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="32" endline="32">Id::files</references>
+        <references refid="classjuce_1_1File_1ab6bec65fbcf19ce10e38cf9d1015770d">juce::File::getParentDirectory</references>
+        <references refid="classjuce_1_1ValueTree_1a21ae8143e7abb766a9a3b4961d74be2b">juce::ValueTree::hasType</references>
+        <references refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab">Id::path</references>
+        <references refid="classjuce_1_1Identifier_1ab6f0db1de2c36cacd1a9d7280f73aeeb">juce::Identifier::toString</references>
+        <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
+        <references refid="classjam_1_1Model_1af47cced4e2e104409035766e12796fd3">jam::Model::valueTreeChildAdded</references>
+        <references refid="class_l_i_n_g_model_1a0f5c4a85d80ca163d85c7cc496fbab46" compoundref="_l_i_n_g_model_8h" startline="73">watcher</references>
+        <referencedby refid="class_l_i_n_g_model_1aed5183a1e913ceaaf115ac1d666e89a0">~LINGModel</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_l_i_n_g_model_1a69cf1f824a69271ac205f6432f0b8955" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void LINGModel::fileChanged</definition>
+        <argsstring>(const juce::File &amp;file, jam::File::Watcher::Event event) override</argsstring>
+        <name>fileChanged</name>
+        <qualifiedname>LINGModel::fileChanged</qualifiedname>
+        <reimplements refid="classjam_1_1File_1_1Watcher_1_1Listener_1a138401762ba6d0915d2adb5b0a81486f">fileChanged</reimplements>
+        <param>
+          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type><ref refid="structjam_1_1File_1_1Watcher_1a67463011ada054bc1dc66cdf49d446f2" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::File::Watcher::Event</ref></type>
+          <declname>event</declname>
+        </param>
+        <briefdescription>
+<para>Sends a path change for the row of a changed file. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The processor parses the file again on that change.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The changed file. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The kind of change. Not read. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="LINGModel.h" line="70" column="10" bodyfile="LINGModel.cpp" bodystart="61" bodyend="67"/>
+        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="32" endline="32">Id::files</references>
+        <references refid="classjuce_1_1ValueTree_1ac9bbcb6db4464f77b512b9bd8bbb8c3f">juce::ValueTree::getChildWithName</references>
+        <references refid="classjuce_1_1ValueTree_1ae75bed92e299905f8e6a03ddfd63bea4">juce::ValueTree::getChildWithProperty</references>
+        <references refid="classjuce_1_1Identifier_1aa11734917f2bc61608c3bcd3e6611a6c">juce::Identifier::isValid</references>
+        <references refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab">Id::path</references>
+        <references refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857">jam::Model::state</references>
+        <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
+        <referencedby refid="class_l_i_n_g_model_1aed5183a1e913ceaaf115ac1d666e89a0">~LINGModel</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>The state of one LING run: the files, the message, and the watcher of the file folders. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The model reads the manifest path from its state, and it replaces the files child with the rows of the manifest. Each folder of a file row is watched. A change of a watched file sends a path change for its row. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>LINGModel</label>
+        <link refid="class_l_i_n_g_model"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+        <childnode refid="6" relation="private-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>jam::File::Watcher::Listener</label>
+        <link refid="classjam_1_1File_1_1Watcher_1_1Listener" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="5">
+        <label>jam::Instance&lt; LINGModel &gt;</label>
+        <link refid="structjam_1_1Instance" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="2">
+        <label>jam::Model</label>
+        <link refid="classjam_1_1Model" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>juce::Timer</label>
+        <link refid="classjuce_1_1Timer" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="4">
+        <label>juce::ValueTree::Listener</label>
+        <link refid="classjuce_1_1ValueTree_1_1Listener" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>LINGModel</label>
+        <link refid="class_l_i_n_g_model"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="12" relation="public-inheritance">
+        </childnode>
+        <childnode refid="13" relation="private-inheritance">
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>watcher</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>jam::AnyMap&lt; typename TypeOfCriticalSectionToUse &gt;</label>
+        <link refid="classjam_1_1AnyMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>entries</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>types</edgelabel>
+        </childnode>
+      </node>
+      <node id="14">
+        <label>jam::File::Watcher</label>
+        <link refid="structjam_1_1File_1_1Watcher" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="15" relation="usage">
+          <edgelabel>timers</edgelabel>
+        </childnode>
+        <childnode refid="19" relation="usage">
+          <edgelabel>listeners</edgelabel>
+        </childnode>
+        <childnode refid="20" relation="usage">
+          <edgelabel>watched</edgelabel>
+        </childnode>
+      </node>
+      <node id="18">
+        <label>jam::File::Watcher::CoalesceTimer</label>
+        <link refid="structjam_1_1File_1_1Watcher_1_1CoalesceTimer" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>owner</edgelabel>
+        </childnode>
+        <childnode refid="16" relation="usage">
+          <edgelabel>f</edgelabel>
+        </childnode>
+      </node>
+      <node id="13">
+        <label>jam::File::Watcher::Listener</label>
+        <link refid="classjam_1_1File_1_1Watcher_1_1Listener" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="8">
+        <label>jam::HashMap&lt; juce::Identifier, jam::AnyMap::Trait &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="11">
+        <label>jam::HashMap&lt; juce::Identifier, jam::HashMap&lt; juce::Identifier, std::unique_ptr&lt; ParameterAdapter &gt; &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="7">
+        <label>jam::HashMap&lt; juce::Identifier, std::unique_ptr&lt; void, Deleter &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="12">
+        <label>jam::Instance&lt; LINGModel &gt;</label>
+        <link refid="structjam_1_1Instance" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="2">
+        <label>jam::Model</label>
+        <link refid="classjam_1_1Model" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>params</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>state</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>valueTreeChanging</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>adapters</edgelabel>
+        </childnode>
+      </node>
+      <node id="10">
+        <label>juce::CriticalSection</label>
+        <link refid="classjuce_1_1CriticalSection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="6">
+        <label>juce::DummyCriticalSection</label>
+        <link refid="classjuce_1_1DummyCriticalSection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="16">
+        <label>juce::File</label>
+        <link refid="classjuce_1_1File" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="19">
+        <label>juce::ListenerList&lt; jam::File::Watcher::Listener &gt;</label>
+        <link refid="classjuce_1_1ListenerList" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="20">
+        <label>juce::OwnedArray&lt; Impl &gt;</label>
+        <link refid="classjuce_1_1OwnedArray" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="3">
+        <label>juce::Timer</label>
+        <link refid="classjuce_1_1Timer" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="9">
+        <label>juce::ValueTree</label>
+        <link refid="classjuce_1_1ValueTree" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="4">
+        <label>juce::ValueTree::Listener</label>
+        <link refid="classjuce_1_1ValueTree_1_1Listener" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="15">
+        <label>std::map&lt; juce::File, std::unique_ptr&lt; jam::File::Watcher::CoalesceTimer &gt; &gt;</label>
+        <childnode refid="16" relation="usage">
+          <edgelabel>keys</edgelabel>
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>elements</edgelabel>
+        </childnode>
+      </node>
+      <node id="17">
+        <label>std::unique_ptr&lt; jam::File::Watcher::CoalesceTimer &gt;</label>
+        <childnode refid="18" relation="usage">
+          <edgelabel>ptr</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="LINGModel.h" line="13" column="1" bodyfile="LINGModel.h" bodystart="17" bodyend="79"/>
+    <listofallmembers>
+      <member refid="classjam_1_1Model_1ad6b6050547be2d2a2cc168153dbf3384" prot="private" virt="non-virtual"><scope>LINGModel</scope><name>adapters</name></member>
+      <member refid="classjam_1_1Model_1a20c192be5cae95af1e9afcc50901e73a" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>addChildrenFrom</name></member>
+      <member refid="classjam_1_1Model_1ae5d4d70e706dcc558cf21923125a9176" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>addListener</name></member>
+      <member refid="classjam_1_1Model_1a33f5acd69f6437087508af293bf6c85a" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>addParameterAdapter</name></member>
+      <member refid="classjam_1_1Model_1ae0cb2cc2b04acb47eb9760d92dcedc46" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>appendChild</name></member>
+      <member refid="classjam_1_1Model_1abec66a5e5e341df5a42edbe29ee854ef" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>applyFunctionRecursively</name></member>
+      <member refid="classjam_1_1Model_1a314f6e896821356520303b7573c48423" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>applyFunctionRecursively</name></member>
+      <member refid="classjam_1_1Model_1af25ba1962946fffc16995f6b4472c684" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>attach</name></member>
+      <member refid="classjam_1_1Model_1a3ed123f7c9c6436f41f452d901af4dba" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>attach</name></member>
+      <member refid="classjam_1_1Model_1ab71d5001c8602ebdfb3d04e9f2f4c7e1" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>attach</name></member>
+      <member refid="classjam_1_1Model_1adf738fe853600390fd4eceb76ef99524" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>attachChild</name></member>
+      <member refid="classjam_1_1Model_1a0d1165a7ea673857286c5d08e2a9cc9d" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>buildUniqueNodeMap</name></member>
+      <member refid="classjuce_1_1Timer_1a5eb2dfa3e6810c268704c159ddcb37bc" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>callAfterDelay</name></member>
+      <member refid="classjuce_1_1Timer_1a6c366b7f5a5d70c270a1e85b8aa45888" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>callPendingTimersSynchronously</name></member>
+      <member refid="structjam_1_1Instance_1ac0def93de8fa465bffdb5dd8491b70dc" prot="private" virt="non-virtual"><scope>LINGModel</scope><name>chainLock</name></member>
+      <member refid="class_l_i_n_g_model_1a1c57527a53635e5f4efbcb6d27aa843e" prot="private" virt="non-virtual"><scope>LINGModel</scope><name>coalesceMs</name></member>
+      <member refid="classjam_1_1Model_1ac250f7a4c969aa2d05602b9805dd63ce" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>createAndAddParameter</name></member>
+      <member refid="class_l_i_n_g_model_1a69cf1f824a69271ac205f6432f0b8955" prot="private" virt="virtual"><scope>LINGModel</scope><name>fileChanged</name></member>
+      <member refid="classjam_1_1Model_1a18b3c394b364e643b78edc5d6b0351ae" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>findAndRemoveChild</name></member>
+      <member refid="classjam_1_1Model_1a9eb2e927e025645e46609f37aa6f9304" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>flush</name></member>
+      <member refid="classjam_1_1Model_1aaa8b722daed8928b8d587ec30662ac34" prot="private" virt="non-virtual"><scope>LINGModel</scope><name>flushHz</name></member>
+      <member refid="classjam_1_1File_1_1Watcher_1_1Listener_1a75221307eb1bf0ef2735e9ef80ebf4a4" prot="private" virt="virtual"><scope>LINGModel</scope><name>folderChanged</name></member>
+      <member refid="classjam_1_1Model_1aca2af1e2651acc75ee5be91435d2c434" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>forEachProperty</name></member>
+      <member refid="classjam_1_1Model_1af982080085c49090570d065f1ff2506e" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>fromFiles</name></member>
+      <member refid="classjam_1_1Model_1a7f02a97f0aa8e2d69cf84fc9d006484e" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getChildWithID</name></member>
+      <member refid="classjam_1_1Model_1aecef6b658fc1de8bd8642ce3c0011036" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getChildWithName</name></member>
+      <member refid="classjam_1_1Model_1a6fc5e6f42695dfdedb8564b7e21da8f7" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getChildWithName</name></member>
+      <member refid="classjam_1_1Model_1a4444ea2325daca8826c76b7ce220906b" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getFrom</name></member>
+      <member refid="classjam_1_1Model_1a79cce52c9ceec1401fe2198aab902942" prot="private" virt="non-virtual"><scope>LINGModel</scope><name>getGroupId</name></member>
+      <member refid="structjam_1_1Instance_1ad5d2bbb58e37d8d260b428b334823140" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getInstance</name></member>
+      <member refid="classjam_1_1Model_1aae1e12fc9077155368fc2ccc635b4bc1" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getInt</name></member>
+      <member refid="classjam_1_1Model_1a9d225eeff2565fc96addfd769c787eeb" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getInt16</name></member>
+      <member refid="classjam_1_1Model_1a322c866d6fc435eb6799562d6d6db8b1" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getOrCreateChildWithName</name></member>
+      <member refid="classjam_1_1Model_1a146fb95140bdad880fea06bd3a48ccbf" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getOrCreateChildWithName</name></member>
+      <member refid="classjam_1_1Model_1a7ec2529e24ab07f42c0bd51be30a8529" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getParameter</name></member>
+      <member refid="classjam_1_1Model_1aa1d193d4f422ef5bb2e0317354ae992a" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getParent</name></member>
+      <member refid="classjam_1_1Model_1ad37ac05ef036ebe52d46f3909de8fa99" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getRawParameterValue</name></member>
+      <member refid="classjam_1_1Model_1ae0f5ebc5b842cc35104244fac7e9dc1b" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getRoot</name></member>
+      <member refid="classjuce_1_1Timer_1a3dd602cadcc8e2a3be6aeb6538b8d2c1" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getTimerInterval</name></member>
+      <member refid="classjam_1_1Model_1abe937e02011833b8cf8f20bfb650ac9d" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getTreeProperty</name></member>
+      <member refid="classjam_1_1Model_1a3466c9f9fcd9a4baa862bb400562e7b7" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getTreePropertyAsValue</name></member>
+      <member refid="classjam_1_1Model_1ac922db931cd481a9cf483c90e4de2543" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getType</name></member>
+      <member refid="classjam_1_1Model_1a91dc367954c0e066ce3af757919617da" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getValue</name></member>
+      <member refid="classjam_1_1Model_1a329bb238c23cd2d7e7b2a369f723e4a0" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getValue</name></member>
+      <member refid="classjam_1_1Model_1ae73d7fc4bd6d69d633c3d4499cd410f9" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getValueFromChildWithID</name></member>
+      <member refid="classjam_1_1Model_1abfe9e19f01304a4c27dcfc5435a2d736" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getValueFromChildWithProperty</name></member>
+      <member refid="classjam_1_1Model_1a710fd55b83d2e5657e48d49ce5225ea2" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getXml</name></member>
+      <member refid="structjam_1_1Instance_1adf1a1af39fe4935b8710ca6bd8349dce" prot="private" virt="non-virtual"><scope>LINGModel</scope><name>head</name></member>
+      <member refid="classjam_1_1Model_1a1c976506dd5eb7d125a0e804c97c61e2" prot="private" virt="non-virtual"><scope>LINGModel</scope><name>idleHz</name></member>
+      <member refid="structjam_1_1Instance_1a85529c50c3424e8b843fa92fa2f9c4da" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>Instance</name></member>
+      <member refid="classjam_1_1Model_1a24732b04142b883972e93bb57e282bec" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>isNonVoid</name></member>
+      <member refid="classjuce_1_1Timer_1a525f38cc7afdc0696b467bd4ed3f17da" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>isTimerRunning</name></member>
+      <member refid="class_l_i_n_g_model_1a027340bbc7ee3868a010942469b1f1ec" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>LINGModel</name></member>
+      <member refid="classjam_1_1Model_1ac97ca5f948d0f494b0e9945d385c88f2" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>loadState</name></member>
+      <member refid="classjam_1_1Model_1abd38aa125a4885469d76dd8dbd15b2d7" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>loadState</name></member>
+      <member refid="classjam_1_1Model_1afbe837fa9d9c8086381333783bb1db3b" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>Model</name></member>
+      <member refid="classjam_1_1Model_1aca68b3505d4b767cfd67c9950f825bdc" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>Model</name></member>
+      <member refid="classjam_1_1Model_1ac2b1be0ad517b16b39bf38e7abb35c68" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>Model</name></member>
+      <member refid="structjam_1_1Instance_1a8bcf431bb53fe6432585a139f6bc562d" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>operator=</name></member>
+      <member refid="classjam_1_1Model_1a9be603e3c0a76e1f0b6c263066993b63" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>params</name></member>
+      <member refid="structjam_1_1Instance_1af12a7073f28131cc327baa99fc5745d8" prot="private" virt="non-virtual"><scope>LINGModel</scope><name>previous</name></member>
+      <member refid="classjam_1_1Model_1acbf5ef1a6e71240468f17fe707532bec" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>removeChild</name></member>
+      <member refid="classjam_1_1Model_1a688b7625ae8b2a4d4d1f1643a6b3aa41" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>removeListener</name></member>
+      <member refid="classjam_1_1Model_1a73bb2822ba0b1211ca9e290d57c5cd2d" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>replaceState</name></member>
+      <member refid="class_l_i_n_g_model_1afdef5b210be00b4c407239da424c8b3d" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>setMessage</name></member>
+      <member refid="classjam_1_1Model_1a3263920ba9cd2e5633d714a49c0a5000" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>setTreeProperty</name></member>
+      <member refid="classjam_1_1Model_1af7401e3c38ecf3fb0428369ebb822283" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>setValue</name></member>
+      <member refid="classjam_1_1Model_1afd1a5ee11f1e480cb14c0027d6b617b7" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>setValuesFrom</name></member>
+      <member refid="classjam_1_1Model_1a12033159c1e0fb41d3712a322fc7f029" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>setValuesFrom</name></member>
+      <member refid="classjuce_1_1Timer_1acb43e06d5742106830080af3d50b422d" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>startTimer</name></member>
+      <member refid="classjuce_1_1Timer_1a49a4cf0bb438ca956bfae44c1010b0f9" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>startTimerHz</name></member>
+      <member refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>state</name></member>
+      <member refid="classjuce_1_1Timer_1a2ff70b860a8c875658b4baa91c8bcef0" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>stopTimer</name></member>
+      <member refid="classjam_1_1Model_1ab9d206b5e6392086ee3f494e38313852" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>storeValue</name></member>
+      <member refid="classjam_1_1Model_1affd4d08b7250cb1fd61518193388ac93" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>storeValue</name></member>
+      <member refid="classjuce_1_1Timer_1a4517f6b34af45ee3edc05c468959146e" prot="protected" virt="non-virtual"><scope>LINGModel</scope><name>Timer</name></member>
+      <member refid="classjuce_1_1Timer_1a2ef75896b7a44dfc641ce2faea04682c" prot="protected" virt="non-virtual"><scope>LINGModel</scope><name>Timer</name></member>
+      <member refid="classjam_1_1Model_1a5de5c362c126a9f4d8d21c592b678bdb" prot="private" virt="virtual"><scope>LINGModel</scope><name>timerCallback</name></member>
+      <member refid="classjam_1_1Model_1a6ec69ae045254c97f81b6e816d41cb71" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>toStrings</name></member>
+      <member refid="classjam_1_1Model_1a6603b442da324d4976ab137907a98985" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>UniqueNodeMap</name></member>
+      <member refid="classjam_1_1Model_1a054cb31f8f0b13e8ea67953e5fa59a41" prot="private" virt="non-virtual"><scope>LINGModel</scope><name>updateAdapterConnections</name></member>
+      <member refid="classjam_1_1Model_1a495677a2122cc1dbb67c416ddfd51e17" prot="private" virt="non-virtual"><scope>LINGModel</scope><name>valueTreeChanging</name></member>
+      <member refid="class_l_i_n_g_model_1a167994bf1e11534308dc0c92299af677" prot="private" virt="virtual"><scope>LINGModel</scope><name>valueTreeChildAdded</name></member>
+      <member refid="classjuce_1_1ValueTree_1_1Listener_1a5fb2f9f798c9ebb48235ba15759fd48b" prot="public" virt="virtual"><scope>LINGModel</scope><name>valueTreeChildOrderChanged</name></member>
+      <member refid="classjuce_1_1ValueTree_1_1Listener_1a09dc85f9c71389f2801c9a7bc582ae1b" prot="public" virt="virtual"><scope>LINGModel</scope><name>valueTreeChildRemoved</name></member>
+      <member refid="classjuce_1_1ValueTree_1_1Listener_1a2e39febd013de0ff7da23a5b574055db" prot="public" virt="virtual"><scope>LINGModel</scope><name>valueTreeParentChanged</name></member>
+      <member refid="class_l_i_n_g_model_1a3cd783d99a31ffc14afb62bdd6abe103" prot="private" virt="virtual"><scope>LINGModel</scope><name>valueTreePropertyChanged</name></member>
+      <member refid="classjam_1_1Model_1a51c3ae7bee8cfe7096ca93c13355c27a" prot="public" virt="virtual"><scope>LINGModel</scope><name>valueTreeRedirected</name></member>
+      <member refid="class_l_i_n_g_model_1a0f5c4a85d80ca163d85c7cc496fbab46" prot="private" virt="non-virtual"><scope>LINGModel</scope><name>watcher</name></member>
+      <member refid="classjam_1_1Model_1a5e0284f87a2a71c84edd644b75f4d07f" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>writeToXml</name></member>
+      <member refid="structjam_1_1Instance_1a6d091bd7f9bfd134ba3c831c8a3b04a3" prot="public" virt="virtual"><scope>LINGModel</scope><name>~Instance</name></member>
+      <member refid="class_l_i_n_g_model_1aed5183a1e913ceaaf115ac1d666e89a0" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>~LINGModel</name></member>
+      <member refid="classjuce_1_1ValueTree_1_1Listener_1ab78745617b47f3b12726c0de220e8d9b" prot="public" virt="virtual" ambiguityscope="jam::"><scope>LINGModel</scope><name>~Listener</name></member>
+      <member refid="classjam_1_1File_1_1Watcher_1_1Listener_1a36c31b730e410628b516813e6e0679e7" prot="private" virt="virtual" ambiguityscope="jam::File::Watcher::Listener::"><scope>LINGModel</scope><name>~Listener</name></member>
+      <member refid="classjam_1_1Model_1afb01105d951530920a004ca01b5c54c1" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>~Model</name></member>
+      <member refid="classjuce_1_1Timer_1aa1de34211c34295dfa6a658474ae0ae0" prot="public" virt="virtual"><scope>LINGModel</scope><name>~Timer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

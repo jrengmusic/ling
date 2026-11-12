@@ -132,6 +132,7 @@ Every field is a complete literal; nothing downstream derives, concatenates, or 
 | @user-module | jam_mermaid_diagram   | Clean-room native mermaid diagram parsing over jam::Document producing the semantic Element tree |
 | @user-module | jam_markdown_graphics | Markdown and mermaid materialisation, layout and view component                                  |
 | @user-module | jam_terminal          | VT read-side engine, TTY, protocol vocabulary, keyboard encoding                                 |
+| @user-module | jam_subprocess        | JUCE-based subprocess launcher with streaming output and byte-cap truncation                     |
 +--------------+-----------------------+--------------------------------------------------------------------------------------------------+
 
 ## source glob
