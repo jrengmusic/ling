@@ -133,6 +133,7 @@ Every field is a complete literal; nothing downstream derives, concatenates, or 
 | @user-module | jam_markdown_graphics | Markdown and mermaid materialisation, layout and view component                                  |
 | @user-module | jam_terminal          | VT read-side engine, TTY, protocol vocabulary, keyboard encoding                                 |
 | @user-module | jam_subprocess        | JUCE-based subprocess launcher with streaming output and byte-cap truncation                     |
+| @user-module | jam_fuzzy             | Fuzzy search (Levenshtein) and fzf-algorithm matching engine                                     |
 +--------------+-----------------------+--------------------------------------------------------------------------------------------------+
 
 ## source glob

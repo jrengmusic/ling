@@ -114,6 +114,54 @@
 <!-- The entry format is in /log (commands/log.md). It is the only source. -->
 <!-- Sprint entries go here, written by PRIMARY agents -->
 
+## Sprint 8: LING Part 7, the lookups across the documents and the nine operations ✅
+
+**Date:** 2026-11-13
+**Duration:** not measured. The sprint is one session, with one pause for an API rate limit.
+
+### Agents Participated
+- COUNSELOR — executed `PLAN-ling-7-queries.md` Steps 1-6. Validated each Engineer return by its own reads. Diagnosed the two Step 6 failures. Filtered the 29 Auditor findings and the 3 findings of the doxygen pass. Amended the PLAN for each contract correction, and recorded every new name in its Names table.
+- Pathfinder — discovery reads, the Step 6 runs of `ling` (five rounds), and the doxygen pass.
+- Engineer — Steps 1-5, two Step 2 and Step 5 corrections, the constructor fix, the audit fixes, and the cast builds.
+- Auditor — one pass over the sprint. It reported 29 findings.
+
+### Files Modified (13 total)
+**ling:**
+- `Source/Processor.h`, `.cpp` — the lookups: `getPath`, `getElement`, `applyToDeclarations` (element and path forms), `applyToReferences` (element and path forms), the scope walk (`getDeclarationPaths`, `getMemberPaths`) with the base step (`applyToBases`) and the member lookup (`applyToMembers`). The nine operations are entries of `events` (END's `Events` form), selected by `runRequest`. `applyToPosition`, `applyToFunctions`, `applyToDerived`, `applyToImplementations`, `setResult`, `getMatches` (`jam::Fuzzy`), `appendDocumentSymbols`. A `REQUEST` row runs when no parse is pending, or from `setDocuments`.
+- `Source/JsonWriter.h`, `.cpp` (new) — `appendString` (`juce::JSON::escapeString`), `appendKey`, `appendSeparator`, `appendArray`, `appendElement` (the object of one element, with a members callback). It holds all JSON structure; `Processor` writes no bracket, brace, or comma.
+- `Source/Main.cpp` — the operation run: `addRequest` adds the `REQUEST` row (`Id::command`, `Id::arguments`, `Id::directory`), then writes `Id::toolchainArgument` and `Id::manifest`. The `Id::result` reaction prints the JSON and quits. The `Id::documents` print runs only when the root holds no `REQUEST` row. `getFlags` (a `Function::Map`, the form of `jam_CodeDocument.cpp:27-43`) and `getFlagWord` replace `isVersion`, `isHelp`, `getVersionFlag`, `getHelpFlag`. `getDocumentFile` takes the argument index.
+- `Source/HELP.md` — the operation rows, the `## Operations` table, the entry keys, and `type` as the numeric `map::SyntaxTokenType` value.
+- `cast/identifiers.md` — `children`, `column`, `scope`, the nine operation names, `request`, `result`. `cast/text.md` — `failArguments` `wrong arguments`. `project-info.md` — the `jam_fuzzy` `## user module` row. `Source/generated/*` — cast output.
+- `PLAN-ling-7-queries.md` — the name compare, the base step union, the constructor rule of the scope walk, the path-index signatures, the path overload in place of `getElements`, the unnamed declarations of `documentSymbol`, the request order and `Id::directory`, the `JsonWriter` structure, the Names table, the `jam_Array.h` path, Step 6 item 2 on LING's manifest.
+- `PLAN-ling-0-tracker.md:25` — Part 7 status.
+
+### Alignment Check
+- [x] BLESSED principles followed
+- [x] NAMES.md adhered. Every new name is in the PLAN-7 Names table with its family.
+- [x] MANIFESTO.md principles applied
+- [ ] MANIFESTO §L: `Processor.cpp` is about 560 lines and `Processor.h` about 870 with doxygen. The Auditor ladder (finding 6) found the DRY repeats (findings 1-4, 7), which are resolved. No split was proposed with the checks that the Auditor Lean ladder requires.
+
+### Problems Solved
+- **Step 6 item 2 returned `[]` on END's manifest.** END's build compiles no `jam_syntax_tree` file: `ling end/project-info.md --debug` lists 5600 documents and no `jam_CodeDocument` row. The checks now run on LING's manifest, which compiles `jam_syntax_tree`.
+- **`goToImplementation` on `Document::build` returned `[]`.** The base `Document` of `struct MarkdownDocument : Document` resolved to the constructor `Document::Document` (`jam_Document.h:910`): the try `[jam, Document, Document]` found it. A try whose declarations are all constructors or destructors now gives nothing, so the walk reaches the class. The run then gives the `build` overrides of ten document types.
+- **Contract corrections during the steps:** `isSameName` compares two tokens of one source (`jam_CLanguageDocument.h:54`) and names a language, so names compare as views. The base step takes the union of all bases (a first-found base depends on hash-map order). `applyToReferences` needs the declaration's document. `applyToDeclarations` (35 lines) and `workspaceSymbol` (57 lines) were split by responsibility (`applyToMembers`, `getMatches`). A `.substr` on `std::string` copied in `JsonWriter`.
+- **Auditor findings.** Resolved: 1, 2, 3, 4, 5, 6 (Q1), 7, 8 (`Id::directory`), 9, 11, 13, 14, 16, 17, 21, 23, 24, 25, 26, 29, and the shadowed local `paths` that Engineer flagged. Rejected with a read: 8 (symbolic link: no read shows the row form), 10 (the path arrays hold views; "a view passed by value does not copy the data it names"), 12 (`Pattern::match` takes only `juce::String`, `jam_BonusMatrix.h:242`), 15 (each name was in a delegation prompt and has a family), 18 (one element per identifier, `jam_CLanguageDocument.cpp:756`), 19 and 20 (a reference's owner is the declared element or the scope, `jam_CLanguageDocument.h:420-432`), 22 (no clause), 27 (no CODING clause), 28 (`jam::Format::append*` takes `std::string&`, `jam_Format.h:390`).
+- **Doxygen pass findings.** F1 and F2 (asserts on the name) rejected: the collectors establish the invariant, and a second assert is the MANIFESTO D violation that finding 16 removed. F3 (`callAsync` after destruction) rejected: messages are dispatched only inside `runDispatchLoop` (`juce_ApplicationBase.cpp:277`), which ends before the application is destroyed (`:268`, `:281`).
+- **Verification (Step 6), on LING's manifest, after the audit fixes.** Item 2: `goToDefinition` gives `jam_CodeDocument.h:103` and `.cpp:72`; `findReferences` gives the call `.cpp:33:88` and not the definition; `documentSymbol` gives `jam`, `CodeDocument`, 22 members; `workspaceSymbol CodeDoc` holds `jam_CodeDocument.h:25`; `incomingCalls` gives `getVocabulary` and `getToken`; `goToImplementation` gives the `build` overrides. Item 3: both pairs byte-equal. `hover` adds `scope`. A wrong word or count prints `wrong arguments` and `[]`. Every output is valid JSON. Item 4: `findReferences` on `CodeDocument::parse` gives 9 member calls named `parse` (a member reference gives every member with that name, PLAN Risks); the LSP tool gives only the declaration, because its index does not resolve JAM `.cpp` files.
+
+### State for Continuation
+- Next sprint, ARCHITECT: "we discuss json document next sprint after wrapping up". The design under discussion: a JAM `JsonDocument` with a `std::string` writer, which replaces `jam::json` and `ling/Source/JsonWriter`. Open point: `Document::Writer::getText` returns `juce::String` (`jam_Document.h:891`), and `CssWriter`, `MarkdownWriter`, `MermaidWriter` derive from it.
+- Step 6 item 5 is not run. A scout workload writes a samples file (`~/.carol/skills/profile/SKILL.md:317-324`), and `ling` writes none. The same item of Part 6 is open (Sprint 7).
+- Timing on LING's manifest (4770 documents, Debug): one operation takes about 65 s, which is the parse. `findReferences` on `parse` takes about 115 s. `goToImplementation` on `Document::build` took 435 s alone. PLAN Risks names this cost; Part 8 removes the parse from each call.
+- `ling` has no `doxygen` ninja target (`ninja -t targets all`). A doxygen run over the five changed files gave 0 warnings (`scratchpad/doxcheck/warn.log`).
+- `Fuzzy::Pattern::match` takes only `juce::String` (`jam_BonusMatrix.h:242`), so `workspaceSymbol` makes one `juce::String` per declaration.
+
+### Debts Paid
+- None
+
+### Debts Deferred
+- Step 7, the Windows build and run (`PLAN-ling-7-queries.md`, Step 7). It is ARCHITECT's (ruling 78). No `DEBT.md` entry exists.
+
 ## Sprint 7: LING Part 6, the state model: one row per file, parsed in parallel, from the compiler manifest ✅
 
 **Date:** 2026-11-13
@@ -316,69 +364,6 @@
 
 ### Debts Deferred
 - Step 10, the Windows build and runs (`PLAN-ling-4-language-document.md`, Step 10). ARCHITECT: "windows deferred". No `DEBT.md` entry exists.
-
-## Sprint 3: LING Part 3, line comments and escapes in the `Document` segments ✅
-
-**Date:** 2026-11-11
-**Duration:** not measured. The sprint is one session.
-
-### Agents Participated
-- COUNSELOR — executed `PLAN-ling-3-document-segments.md`. Validated each Engineer return by its own reads. Filtered the Auditor findings, and derived the corrections from CONTRACT. Updated the PLAN and the tracker.
-- Pathfinder — discovery reads of the engine, `CodeDocument`, and the eleven `getToken` overriders. Wrote the doxygen pass.
-- Engineer — Steps 1-5, the cast run with a snapshot diff, and the audit corrections.
-- Auditor — one pass over the sprint. It reported eleven findings.
-
-### Files Modified (10 total)
-**jam:**
-- `cast/core.md:532` — `## tokens` row `doubleSlash`, `//`, "Line comment open.".
-- `generated/jam_Core.h:376` — cast output `Chars::doubleSlash`. The snapshot diff showed no other generated change.
-- `jam_core/document/jam_Document.h:788-789` — `Vocabulary::lineCommentOpen {}` and `Vocabulary::escape { Chars::nullCharacter }`. The defaults keep every existing aggregate construction valid and equal in behaviour.
-- `jam_core/document/jam_Document.h:1147-1151`, `:1171`, `:1250` — `addCommentToken` takes `open` and `close`. `getEscapeLength` takes `escape`. `isCommentOpen` is a `protected` literal test, which `CodeDocument` also calls.
-- `jam_core/document/jam_Document.cpp:141-146` — `isPlainText` also tests `lineCommentOpen`.
-- `jam_core/document/jam_Document.cpp:359-412` — `getTokens` tests the block comment, then the line comment. The line comment closes at a one-byte newline view (`:363`). The escape inside a quote takes the next byte (`:390`).
-- `jam_core/document/jam_Document.cpp:539-588` — `addCommentToken`, `isCommentOpen`, and `getEscapeLength`.
-- `jam_syntax_tree/document/jam_CodeDocument.h`, `.cpp` — `getCLangVocabulary` sets `Chars::doubleSlash` and `Chars::backslash` (`.cpp:182-183`). `addCommentToken` has the line form (`:73-99`). `addStringToken` takes the vocabulary and honours the escape (`:101-120`). `addPunctuationToken` stops where a comment opens (`:122-133`). `getToken` has no whitespace branch, and `getWhitespaceLength` is deleted (`:57-65`).
-- Doxygen pass: `jam_Document.h:776-806`, `:1010-1039`, `:1130-1171`, `:1239-1250`; `jam_CodeDocument.h:47-63`, `:78-117`, `:144-153`.
-
-**ling:**
-- `PLAN-ling-3-document-segments.md` — the audit corrections in Step 3 item 4, Step 4 item 6 and its Lean validation, Step 5 item 5, the Step 6 result, the `#include <a//b.h>` limit, and the doxygen line.
-- `PLAN-ling-0-tracker.md:20-21` — Part 2 and Part 3 status set to Done.
-
-### Alignment Check
-- [x] BLESSED principles followed
-- [x] NAMES.md adhered. The new names come from the PLAN Names table: `lineCommentOpen`, `escape`, `doubleSlash`, `getEscapeLength`. `lineCommentClose` is the local constant of PLAN Step 4.3. No other name is new.
-- [x] MANIFESTO.md principles applied
-- [ ] MANIFESTO L: `getTokens` is 54 lines (`jam_Document.cpp:359-412`). It was 44 before. A split must give back `depth`, `quote`, and `cursor` together. CODING.md forbids an out-parameter and a fake carrier, so the split fails its own check (`auditor.md` Lean). The PLAN Step 4 validation records this.
-
-### Problems Solved
-- **The punctuation scanner took the comment opener.** `/` is an operator byte (`cast/syntax_tree.md:324`). For `f();// note\nint y; /* a */`, `addPunctuationToken` took `();//`. `parse` then gave the comment segment to `getToken` in the middle of the comment. The block branch consumed code up to the later `*/`. The scanner now stops on the vocabulary's comment openers. This is the pattern of the sibling scanners (`jam_Css.cpp:141`, `jam_Html.cpp:90`, `jam_MermaidDiagram.cpp:60-62`). A cursor limited to its segment in `parse` was rejected: the XML and HTML markup scanners read a whole tag across segments (`jam_Xml.cpp:210-211`, `:408-441`).
-- **The one-loop form made `getTokens` longer.** The PLAN fallback "one loop over the two literal pairs" took 18 lines against 11. It also staged an array and added three names that the PLAN does not hold. It is replaced by two `if` blocks.
-- **Auditor findings, resolved or rejected:**
-  1. Punctuation scanner past the comment opener: resolved (above).
-  2. `getTokens` length: resolved to the simpler form. The remaining crossing is recorded (Alignment Check).
-  3. Staged pair array as data in transit: rejected. `getTokens` is creation: "Creation can use … work buffers" (MANIFESTO:254). The array is removed anyway.
-  4. Names outside the PLAN: resolved. `comments`, `comment`, `literals`, and `isEscape` are gone.
-  5. `CodeDocument::getToken` had 4 `if` branches: resolved. The whitespace branch added no token, and the default branch gives the same tokens.
-  6. Type ternary as a truth table: rejected. It has 3 outcomes, and the limit is "more than 3" (MANIFESTO:66).
-  7. Comment scan in two files: rejected. Each document type scans its own comment (`jam_Css.cpp:141`, `jam_Html.cpp:90`, `jam_Xml.cpp:193-201`). MANIFESTO: "Find the established pattern. Extend it."
-  8. `return isEscape ? 1 : 0;`: resolved to `sizeof (char)`.
-  9. `getEscapeLength` took the whole `Vocabulary`: resolved. It takes `escape`.
-  10. `escape` against `Chars::escapeCharacter`: rejected. No clause.
-  11. Brace position on an initializer: rejected. The brace rule is for code blocks. The line is gone.
-- Verification: ARCHITECT built LING, and it runs: "ling 0.1.0 (c89f5d5)".
-
-### State for Continuation
-- Next work: Part 4, `PLAN-ling-4-language-document.md` (tracker `PLAN-ling-0-tracker.md:22`). `CLanguageDocument` is the first run-time reader of the C segments.
-- The JAM doxygen XML is stale until ARCHITECT runs `<leader>bd`. Doxygen must then give zero warnings for `jam_Document.h` and `jam_CodeDocument.h`.
-- The END, cast, and scout builds of PLAN Step 6 have no recorded result from this session. Only the LING build is recorded.
-- `jam_CodeDocument.h:120` and `:132` (`addNumberToken`, `addIdentifierToken`) still say "starting at position". These symbols did not change in this sprint.
-- clangd returned only declarations for `findReferences` on the framework files. Load the jam project in nvim before you rely on LSP references there.
-
-### Debts Paid
-- None
-
-### Debts Deferred
-- Step 7, the LING and END builds on Windows (`PLAN-ling-3-document-segments.md`, Step 7). It is ARCHITECT's, and it blocks no part (ruling 78). No `DEBT.md` entry exists.
 
 ---
 

@@ -23,21 +23,35 @@ namespace Id
 
 /** @brief LING vocabulary — the words of the ling command line and of the state tree. */
 
-    const juce::Identifier argument          { juce::String::fromUTF8 ("argument") };
-    const juce::Identifier arguments         { juce::String::fromUTF8 ("arguments") };
-    const juce::Identifier declarations      { juce::String::fromUTF8 ("declarations") };
-    const juce::Identifier dependencies      { juce::String::fromUTF8 ("dependencies") };
-    const juce::Identifier documents         { juce::String::fromUTF8 ("documents") };
-    const juce::Identifier family            { juce::String::fromUTF8 ("family") };
-    const juce::Identifier files             { juce::String::fromUTF8 ("files") };
-    const juce::Identifier flag              { juce::String::fromUTF8 ("flag") };
-    const juce::Identifier help              { juce::String::fromUTF8 ("help") };
-    const juce::Identifier ling              { juce::String::fromUTF8 ("ling") };
-    const juce::Identifier manifest          { juce::String::fromUTF8 ("manifest") };
-    const juce::Identifier output            { juce::String::fromUTF8 ("output") };
-    const juce::Identifier references        { juce::String::fromUTF8 ("references") };
-    const juce::Identifier toolchain         { juce::String::fromUTF8 ("toolchain") };
-    const juce::Identifier toolchainArgument { juce::String::fromUTF8 ("toolchainArgument") };
+    const juce::Identifier argument             { juce::String::fromUTF8 ("argument") };
+    const juce::Identifier arguments            { juce::String::fromUTF8 ("arguments") };
+    const juce::Identifier children             { juce::String::fromUTF8 ("children") };
+    const juce::Identifier column               { juce::String::fromUTF8 ("column") };
+    const juce::Identifier declarations         { juce::String::fromUTF8 ("declarations") };
+    const juce::Identifier dependencies         { juce::String::fromUTF8 ("dependencies") };
+    const juce::Identifier documents            { juce::String::fromUTF8 ("documents") };
+    const juce::Identifier documentSymbol       { juce::String::fromUTF8 ("documentSymbol") };
+    const juce::Identifier family               { juce::String::fromUTF8 ("family") };
+    const juce::Identifier files                { juce::String::fromUTF8 ("files") };
+    const juce::Identifier findReferences       { juce::String::fromUTF8 ("findReferences") };
+    const juce::Identifier flag                 { juce::String::fromUTF8 ("flag") };
+    const juce::Identifier goToDefinition       { juce::String::fromUTF8 ("goToDefinition") };
+    const juce::Identifier goToImplementation   { juce::String::fromUTF8 ("goToImplementation") };
+    const juce::Identifier help                 { juce::String::fromUTF8 ("help") };
+    const juce::Identifier hover                { juce::String::fromUTF8 ("hover") };
+    const juce::Identifier incomingCalls        { juce::String::fromUTF8 ("incomingCalls") };
+    const juce::Identifier ling                 { juce::String::fromUTF8 ("ling") };
+    const juce::Identifier manifest             { juce::String::fromUTF8 ("manifest") };
+    const juce::Identifier outgoingCalls        { juce::String::fromUTF8 ("outgoingCalls") };
+    const juce::Identifier output               { juce::String::fromUTF8 ("output") };
+    const juce::Identifier prepareCallHierarchy { juce::String::fromUTF8 ("prepareCallHierarchy") };
+    const juce::Identifier references           { juce::String::fromUTF8 ("references") };
+    const juce::Identifier request              { juce::String::fromUTF8 ("request") };
+    const juce::Identifier result               { juce::String::fromUTF8 ("result") };
+    const juce::Identifier scope                { juce::String::fromUTF8 ("scope") };
+    const juce::Identifier toolchain            { juce::String::fromUTF8 ("toolchain") };
+    const juce::Identifier toolchainArgument    { juce::String::fromUTF8 ("toolchainArgument") };
+    const juce::Identifier workspaceSymbol      { juce::String::fromUTF8 ("workspaceSymbol") };
 
 /**______________________________END OF NAMESPACE______________________________*/
 }// namespace Id

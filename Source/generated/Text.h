@@ -30,6 +30,7 @@ struct Diagnostics
 {
     static constexpr const char* const failNotFound                 { "not found"                       };///< A file argument that does not exist.
     static constexpr const char* const failFlagUnknown              { "unknown flag"                    };///< Not --help or --version, or a rejected argument after the manifest.
+    static constexpr const char* const failArguments                { "wrong arguments"                 };///< An operation word that ling does not hold, or a wrong count or value of arguments.
     static constexpr const char* const failUnitNotFound             { "unit file not found"             };///< A unit file of a compiler manifest that does not exist.
     static constexpr const char* const failCompilerManifestInvalid  { "compiler manifest is not valid"  };///< A compiler manifest whose root is not an array.
     static constexpr const char* const failCompilerManifestNotFound { "compiler manifest not found"     };///< A compiler manifest that does not exist in its build folder.

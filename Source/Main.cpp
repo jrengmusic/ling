@@ -42,50 +42,6 @@ static constexpr int flagOnlyArgumentCount { 1 };
 static constexpr int toolchainArgumentCount { 2 };
 
 /**
- * @brief Returns the version flag: the double dash and the version word.
- *
- * @return The version flag, built once on first use.
- */
-static const std::string& getVersionFlag()
-{
-    static const std::string versionFlag (std::string (Chars::doubleDash).append (jam::Strings::getView (Id::version.toString())));
-    return versionFlag;
-}
-
-/**
- * @brief Returns the help flag: the double dash and the help word.
- *
- * @return The help flag, built once on first use.
- */
-static const std::string& getHelpFlag()
-{
-    static const std::string helpFlag (std::string (Chars::doubleDash).append (jam::Strings::getView (Id::help.toString())));
-    return helpFlag;
-}
-
-/**
- * @brief Tells whether the arguments are the version request.
- *
- * @param arguments  The command line arguments.
- * @return @c true when the only argument is the version flag.
- */
-static bool isVersion (const juce::StringArray& arguments)
-{
-    return arguments.size() == flagOnlyArgumentCount and jam::Strings::getView (arguments[flagArgIndex]).compare (getVersionFlag()) == 0;
-}
-
-/**
- * @brief Tells whether the arguments are the help request.
- *
- * @param arguments  The command line arguments.
- * @return @c true when the only argument is the help flag.
- */
-static bool isHelp (const juce::StringArray& arguments)
-{
-    return arguments.size() == flagOnlyArgumentCount and jam::Strings::getView (arguments[flagArgIndex]).compare (getHelpFlag()) == 0;
-}
-
-/**
  * @brief Writes the project name, the version, and the build commit to stdout.
  */
 static void writeVersion()
@@ -132,6 +88,31 @@ static void printBannerAndHelp()
 }
 
 /**
+ * @brief Returns the table of flags that run without a document: the version and the help.
+ *
+ * The table is built on the first call. Each entry runs its action and returns
+ * the exit code of the run.
+ *
+ * @return A reference to the static table.
+ */
+static const jam::Function::Map<juce::Identifier, jam::Function::pointerCapacity, int ()>& getFlags()
+{
+    static const auto flags (
+        []
+        {
+            jam::Function::Map<juce::Identifier, jam::Function::pointerCapacity, int ()> flags;
+
+            flags.add (Id::version, [] (const juce::Identifier&) { writeVersion(); return EXIT_SUCCESS; });
+            flags.add (Id::help, [] (const juce::Identifier&) { printBannerAndHelp(); return EXIT_SUCCESS; });
+
+            return flags;
+        }()
+    );
+
+    return flags;
+}
+
+/**
  * @brief Appends one report row for a document: its path, its declaration count, and its reference count.
  *
  * An element whose type is below the reference type is a declaration. Every
@@ -149,7 +130,7 @@ static void appendDocument (std::string& rows, std::string_view path, const jam:
     for (const auto* child : document)
         child->applyFunctionRecursively ([&declarations, &references] (const jam::Document::Element& element)
         {
-            if (*element.get<int> (Id::type) < map::SyntaxTokenType::reference)
+            if (Processor::isDeclaration (element))
                 ++declarations;
             else
                 ++references;
@@ -183,20 +164,41 @@ static int runDocumentNotFound (std::string_view path)
 }
 
 /**
- * @brief Resolves the manifest argument against the current working folder, then follows a link to its target.
+ * @brief Resolves a manifest argument against the current working folder, then follows a link to its target.
  *
- * @param arguments  The command line arguments. The manifest argument is at flagArgIndex.
+ * @param arguments      The command line arguments.
+ * @param argumentIndex  The index of the manifest argument. It is flagArgIndex for a manifest run, and postFlagArgIndex for an operation run.
  * @return The resolved manifest file.
  */
-static juce::File getDocumentFile (const juce::StringArray& arguments)
+static juce::File getDocumentFile (const juce::StringArray& arguments, int argumentIndex)
 {
-    return juce::File::getCurrentWorkingDirectory().getChildFile (arguments[flagArgIndex]).getLinkedTarget();
+    return juce::File::getCurrentWorkingDirectory().getChildFile (arguments[argumentIndex]).getLinkedTarget();
+}
+
+/**
+ * @brief Returns the word of a flag argument, without its double dash.
+ *
+ * The double dash test is kept in this one function, so each caller follows the
+ * same rule. An argument without a double dash has no flag word.
+ *
+ * @param argument  The command line argument.
+ * @return The text after the double dash, or an empty view when the argument has no double dash.
+ */
+static std::string_view getFlagWord (std::string_view argument)
+{
+    const std::string_view doubleDash { Chars::doubleDash };
+
+    if (argument.compare (0, doubleDash.size(), doubleDash) == 0)
+        return argument.substr (doubleDash.size());
+
+    return {};
 }
 
 /**
  * @brief Returns the toolchain argument that follows the manifest argument, without its double dash.
  *
- * An argument that does not start with a double dash is not a toolchain argument.
+ * The double dash test is made by getFlagWord. An argument that does not start
+ * with a double dash is not a toolchain argument.
  *
  * @param arguments      The command line arguments.
  * @param manifestIndex  The index of the manifest argument.
@@ -204,16 +206,10 @@ static juce::File getDocumentFile (const juce::StringArray& arguments)
  */
 static std::string_view getToolchainArgument (const juce::StringArray& arguments, int manifestIndex)
 {
-    const std::string_view doubleDash { Chars::doubleDash };
     const auto argumentIndex { manifestIndex + 1 };
 
     if (argumentIndex < arguments.size())
-    {
-        const std::string_view argument { jam::Strings::getView (arguments[argumentIndex]) };
-
-        if (argument.compare (0, doubleDash.size(), doubleDash) == 0)
-            return argument.substr (doubleDash.size());
-    }
+        return getFlagWord (jam::Strings::getView (arguments[argumentIndex]));
 
     return {};
 }
@@ -231,31 +227,23 @@ static bool isDocument (const juce::StringArray& arguments)
 }
 
 /**
- * @brief Dispatches the command line to the version, the help, the not-found report, or the unknown flag error.
+ * @brief Runs the version or the help flag, reports a manifest as not found, or reports an unknown flag.
  *
- * A manifest argument, with or without a toolchain argument, goes to the
- * not-found report. A command line with more than one argument, other than a
- * manifest with a toolchain argument,
- * prints the unknown flag error for the argument after the manifest, or for the
- * argument after its toolchain argument. With no argument, the function prints
- * the banner and the help text.
+ * The flags table selects --version and --help. A manifest argument, with or
+ * without a toolchain argument, goes to the not-found report. Any other command
+ * line with more than one argument prints the unknown flag error for the
+ * argument after the manifest, or for the argument after its toolchain argument.
+ * With no argument, the function prints the banner and the help text.
  *
  * @param arguments  The command line arguments.
  * @return @c EXIT_SUCCESS for the version, the help, or no argument, or @c EXIT_FAILURE for a not-found file or an unknown flag.
  */
 static int runCommandLine (const juce::StringArray& arguments)
 {
-    if (isVersion (arguments))
-    {
-        writeVersion();
-        return EXIT_SUCCESS;
-    }
+    const auto word { arguments.size() == flagOnlyArgumentCount ? getFlagWord (jam::Strings::getView (arguments[flagArgIndex])) : std::string_view {} };
+    const juce::Identifier flag { word.empty() ? juce::Identifier {} : juce::Identifier { jam::Strings::fromView (word) } };
 
-    if (isHelp (arguments))
-    {
-        printBannerAndHelp();
-        return EXIT_SUCCESS;
-    }
+    if (getFlags().contains (flag)) return getFlags().get (flag);
 
     if (isDocument (arguments))
         return runDocumentNotFound (jam::Strings::getView (arguments[flagArgIndex]));
@@ -274,9 +262,11 @@ static int runCommandLine (const juce::StringArray& arguments)
  * @class Application
  * @brief The juce::JUCEApplicationBase of the LING command line, started by START_JUCE_APPLICATION.
  *
- * initialise() either writes the toolchain argument and the manifest path to
- * the model, or it sets the exit code and quits. The processor writes the
- * documents count, and the application prints each document and quits.
+ * initialise() starts one of three runs. A manifest run writes the toolchain
+ * argument and the manifest path to the model, and the processor parses the
+ * files. An operation run adds a request row, and the processor answers it. The
+ * application prints the result of the request and quits. Any other command
+ * line sets the exit code and quits.
  */
 class Application : public juce::JUCEApplicationBase,
                     private juce::ValueTree::Listener
@@ -318,10 +308,13 @@ public:
     bool moreThanOneInstanceAllowed() override { return true; }
 
     /**
-     * @brief Starts the run. It sets the toolchain argument and the manifest path when the arguments name an existing manifest, or it runs the command line and quits.
+     * @brief Starts one of three runs: the manifest run, the operation run, or the command line.
      *
-     * On Windows, the console output code page is set to UTF-8. On a terminal,
-     * the screen is erased before the run.
+     * The manifest run sets the toolchain argument and the manifest path when the
+     * arguments name an existing manifest. The operation run adds a request when
+     * the argument after the first names an existing file. Any other argument list
+     * runs the command line and quits. On Windows, the console output code page
+     * is set to UTF-8. On a terminal, the screen is erased before the run.
      */
     void initialise (const juce::String&) override
     {
@@ -338,13 +331,15 @@ public:
         }
 
         const auto arguments (getCommandLineParameterArray());
-        const auto documentFile { getDocumentFile (arguments) };
+        const auto documentFile { getDocumentFile (arguments, flagArgIndex) };
 
         if (isDocument (arguments) and documentFile.existsAsFile())
         {
             model.state.setProperty (Id::toolchainArgument, jam::Strings::fromView (getToolchainArgument (arguments, flagArgIndex)), nullptr);
             model.state.setProperty (Id::manifest, documentFile.getFullPathName(), nullptr);
         }
+        else if (getDocumentFile (arguments, postFlagArgIndex).existsAsFile())
+            addRequest (arguments);
         else
         {
             setApplicationReturnValue (runCommandLine (arguments));
@@ -371,16 +366,44 @@ public:
 
 private:
     /**
-     * @brief Prints each document, then the documents count, and quits when the documents count is written.
+     * @brief Appends a request row to the model, and writes the manifest and the toolchain argument to the state.
      *
-     * The processor writes Id::documents when the last parse job ends. The rows
-     * are printed in path order, one row for each document.
+     * The first argument is the command. The arguments after the manifest, and
+     * after the toolchain argument when one is present, become the arguments of
+     * the request. The request stores the current working folder, so the processor
+     * resolves its file argument against the folder of the client.
      *
-     * @param property  The changed property. Only Id::documents prints and quits.
+     * @param arguments  The command line arguments. The manifest is at postFlagArgIndex.
      */
-    void valueTreePropertyChanged (juce::ValueTree&, const juce::Identifier& property) override
+    void addRequest (const juce::StringArray& arguments)
     {
-        if (property == Id::documents)
+        const auto toolchainArgument { getToolchainArgument (arguments, postFlagArgIndex) };
+        const int index { postFlagArgIndex + (toolchainArgument.empty() ? flagOnlyArgumentCount : toolchainArgumentCount) };
+        juce::ValueTree request { jam::Format::toType (Id::request) };
+
+        request.setProperty (Id::command, arguments[flagArgIndex], nullptr);
+        request.setProperty (Id::arguments, juce::var (juce::StringArray (arguments.begin() + index, arguments.size() - index)), nullptr);
+        request.setProperty (Id::directory, juce::File::getCurrentWorkingDirectory().getFullPathName(), nullptr);
+        model.appendChild (request);
+        model.state.setProperty (Id::toolchainArgument, jam::Strings::fromView (toolchainArgument), nullptr);
+        model.state.setProperty (Id::manifest, getDocumentFile (arguments, postFlagArgIndex).getFullPathName(), nullptr);
+    }
+
+    /**
+     * @brief Prints the result of a request and quits, or prints the documents of a manifest run and quits.
+     *
+     * The processor writes Id::documents when the last parse job ends. A change of
+     * Id::documents prints each document in path order, then the documents count,
+     * and quits, when no request row remains. A change of Id::documents with a
+     * request row prints nothing. A change of Id::result prints the JSON, removes
+     * the request row, and quits.
+     *
+     * @param tree      The tree whose property changed. It is the root for Id::documents, and the request row for Id::result.
+     * @param property  The changed property. Only Id::documents and Id::result act.
+     */
+    void valueTreePropertyChanged (juce::ValueTree& tree, const juce::Identifier& property) override
+    {
+        if (property == Id::documents and not model.state.getChildWithName (jam::Format::toType (Id::request)).isValid())
         {
             std::string rows;
 
@@ -390,6 +413,17 @@ private:
             rows.append (jam::Strings::getView (Id::documents.toString()));
             jam::Format::appendUtf8 (rows, Chars::newline);
             fwrite (rows.data(), sizeof (char), rows.size(), stdout);
+            quit();
+        }
+        else if (property == Id::result)
+        {
+            const auto result { tree[Id::result].toString() };
+            std::string newlineText;
+
+            jam::Format::appendUtf8 (newlineText, Chars::newline);
+            fwrite (jam::Strings::getView (result).data(), sizeof (char), jam::Strings::getView (result).size(), stdout);
+            fwrite (newlineText.data(), sizeof (char), newlineText.size(), stdout);
+            model.removeChild (tree);
             quit();
         }
     }

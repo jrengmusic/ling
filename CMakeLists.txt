@@ -236,6 +236,7 @@ juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_mermaid_diagram")  # Cle
 juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_markdown_graphics")# Markdown and mermaid materialisation, layout and view component
 juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_terminal")         # VT read-side engine, TTY, protocol vocabulary, keyboard encoding
 juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_subprocess")       # JUCE-based subprocess launcher with streaming output and byte-cap truncation
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_fuzzy")            # Fuzzy search (Levenshtein) and fzf-algorithm matching engine
 
 message(STATUS "CAST: user modules added from ${CMAKE_CURRENT_SOURCE_DIR}/../jam")
 
@@ -322,6 +323,7 @@ jam_mermaid_diagram
 jam_markdown_graphics
 jam_terminal
 jam_subprocess
+jam_fuzzy
     PUBLIC
         juce::juce_recommended_config_flags
 )

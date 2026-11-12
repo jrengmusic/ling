@@ -39,8 +39,8 @@ Line numbers are reads of 2026-11-10. Base path for JAM: `~/Documents/Poems/dev/
 | A command id | "A command id is a callback id, owned by the owner of the state that its callback changes." | `end/ARCHITECTURE.md:841-842` |
 | A type that holds parsed documents and "the row and reference lookups the rest of the engine reads it through" | cast's `Model`, with `getValue`, `getTable`, `getSource`, `getFile`, each `const` | `cast/Source/Model.h:7-21`, `:93-124`, `:486-527` |
 | The root, the parent, the children | `getRoot`; `Element::parent`, `firstChild`, `nextSibling`; `begin`, `end` | `jam_core/document/jam_Document.h:229-265`, `:910-913` |
-| A name compare | `CLanguageDocument::isSameName (source, name, otherName)`, a compare of two token spans in place; the element id is `Id::syntax`, so `getChildByID` does not find a name | `jam_syntax_tree/document/jam_CLanguageDocument.cpp:37-42`; PLAN-ling-4-language-document.md, The element of a declaration |
-| A list of names | `jam::Array<std::string_view>`: each view is a name token's span in its document's source, read in place (MANIFESTO, Not a copy) | `jam_core/containers/jam_Array.h` |
+| A name compare | `std::string_view::compare (...) == 0` on the views of two names, the body of `CLanguageDocument::isSameName` (`jam_CLanguageDocument.cpp:37-42`). `isSameName` itself compares two tokens of one source (`jam_CLanguageDocument.h:54`), and a path holds names of other documents; `Processor` names no language (tracker, The contract of every part). The element id is `Id::syntax`, so `getChildByID` does not find a name | `jam_syntax_tree/document/jam_CLanguageDocument.cpp:37-42`; PLAN-ling-4-language-document.md, The element of a declaration |
+| A list of names | `jam::Array<std::string_view>`: each view is a name token's span in its document's source, read in place (MANIFESTO, Not a copy) | `jam_core/utils/jam_Array.h` |
 | A walk with a callback | `Element::applyFunctionRecursively`; `applyToProperties` | `jam_Document.h:419-442` |
 | A property read | `get (key, defaultValue)`, `find`, `contains` | `jam_Document.h:335`, `:359`, `:373` |
 | The row and the column of an offset | `Document::getLineNumber`; `Document::getColumnNumber` | `jam_Document.h:959`; PLAN-ling-4-language-document.md Step 3 |
@@ -67,6 +67,12 @@ Line numbers are reads of 2026-11-10. Base path for JAM: `~/Documents/Poems/dev/
 | `events` | the events map of END (`end/ARCHITECTURE.md:906-907`); its type is END's `Events` (`end/Source/config/ConfigModel.h:62`) |
 | `Id::request`, `Id::command`, `Id::arguments`, `Id::result` | plain nouns, as `Id::message`. `arguments` is the JSON key of an entry of `compile_commands.json` (PLAN-ling-6-manifest.md Step 4). |
 | JSON keys `path`, `line`, `column`, `type`, `name`, `scope`, `children` | `Id::path`, `Id::line`, `Id::type`, `Id::name`, `Id::children` where JAM has them; a `ling/cast/identifiers.md` row for each key that JAM does not have |
+| `Id::directory` on a `REQUEST` row | JAM (`jam/cast/core.md:71`): the folder against which the file argument resolves, written by the client |
+| Private lookups: `applyToElements`, `applyToBases`, `applyToMembers`, `applyToPosition`, `applyToFunctions`, `applyToDerived`, `applyToImplementations`, the path overloads of `applyToDeclarations` and `applyToReferences` | the `apply*` family: `Element::applyToProperties`, `applyFunctionRecursively`, `Processor::applyToDocuments` |
+| `getName`, `getView`, `getDeclarationPaths`, `getMemberPaths`, `getMatches`, `getPathIndex`, the `getPath (scope, size, name)` overload | `get` and one noun (NAMES Rule 1); `getView` as `jam::Strings::getView`; `match` as `Fuzzy::Pattern::match` |
+| `isDeclaration`, `isReferenceTo`, `isSamePath`, `isBefore`, `hasDeclarations` | `is` / `has` (NAMES Rule 1); `isSamePath` as `CLanguageDocument::isSameName` |
+| `setResult`, `appendDocumentSymbols`, `JsonWriter::appendKey`, `appendSeparator`, `appendArray` | `setMessage`, `setDocuments` of LING; the `append*` family of `jam::Format` |
+| `registerEvents`, `runRequest`, `addRequest`, `getFlags`, `getFlagWord` | END `Session::registerEvents` (`end/Source/plugins/Session.cpp:68`); `runCommandLine`, `runDocumentNotFound` of `ling/Source/Main.cpp`; `add` (NAMES Rule 1) |
 
 ## The design
 
@@ -82,9 +88,9 @@ It starts at the root of one document. For each name of the path it takes every 
 
 ### The declarations of an element
 
-`template <typename Function> void Processor::applyToDeclarations (const jam::CodeDocument& document, const Element& element, const Function& function) const;`
+`template <typename Function> void Processor::applyToDeclarations (int pathIndex, const Element& element, const Function& function) const;`
 
-`function` receives the index of the file in `paths`, the document, and the declaration: `function (int pathIndex, const jam::CodeDocument& declarationDocument, const Element& declaration)`. The index is a handle, not a copy of the path (MANIFESTO, Not a copy).
+`pathIndex` is the index of the element's file in `paths`; the document is `documents.at (pathIndex)`. Every caller already holds the index, so no lookup derives it again (MANIFESTO **E**, Complete at Creation). `function` receives the index of the file in `paths`, the document, and the declaration: `function (int pathIndex, const jam::CodeDocument& declarationDocument, const Element& declaration)`. The index is a handle, not a copy of the path (MANIFESTO, Not a copy). A private overload `applyToDeclarations (path, function)` calls `function` for every declaration at a path in every document; it replaces `getElements`, which kept the elements in an array that its one caller discarded (MANIFESTO **E**, No temporary container).
 
 | The element | The declarations |
 |---|---|
@@ -93,13 +99,15 @@ It starts at the root of one document. For each name of the path it takes every 
 | a reference with `Id::member` | every declaration, in every document, whose name is the last name segment and whose type is `field`, `instanceMethod`, `staticMethod`, or `staticVariable` |
 | any other reference | the scope walk |
 
-**The scope walk.** Let the scope be the path of the parent of the reference, and the name be the segments of its `Id::name`. The walk tries the scope plus the name, then the scope without its last name plus the name, and so on to the name alone. At each try it calls `getElements` in every document. The first try that gives one declaration or more ends the walk, and all declarations of that try are the result.
+**The scope walk.** Let the scope be the path of the parent of the reference, and the name be the segments of its `Id::name`. The walk tries the scope plus the name, then the scope without its last name plus the name, and so on to the name alone. At each try it calls `getElements` in every document. The first try that gives one declaration or more ends the walk, and all declarations of that try are the result. A try whose declarations are all of type `constructor` or `destructor` gives nothing: they carry the name of their class (`jam_Document.h:910`; PLAN-ling-4-language-document.md, The element of a declaration), so a reference to that name names the class, and the walk goes on to the class itself. Without this, the base `Document` of `struct MarkdownDocument : Document` resolves to the constructor `Document::Document` (Step 6 item 2, `goToImplementation`; RFC ruling 4).
 
-**The base step.** When a try gives nothing, and the scope of that try is the path of a `classToken` or `structToken` declaration, the walk takes each `base` child of each such declaration, gets its declarations by this same function, and tries the path of each of them plus the name. It keeps the paths it has tried, so a class that names itself as a base ends the step. The base step comes before the next shorter scope.
+**The base step.** When a try gives nothing, and the scope of that try is the path of a `classToken` or `structToken` declaration, the walk takes each `base` child of each such declaration, gets its declarations by this same function, and tries the path of each of them plus the name. It keeps the paths it has tried, so a class that names itself as a base ends the step. The base step comes before the next shorter scope. The result of the step is the union of the paths that every base gives; no base is tried first, because the order of the documents is the order of a hash map, and a first-found base would be a heuristic (tracker Risks item 7; MANIFESTO **D**).
 
 ### The references to a declaration
 
-`template <typename Function> void Processor::applyToReferences (const Element& declaration, const Function& function) const;`
+`template <typename Function> void Processor::applyToReferences (int pathIndex, const Element& declaration, const Function& function) const;`
+
+The path of the declaration needs the source of its document (`Document::getSource`, `jam_Document.h:940`), so the function takes the path index of that document first, in the form of `applyToDeclarations`.
 
 `function` receives the index of the file in `paths`, the document, and the reference.
 
@@ -121,9 +129,10 @@ LING
   REQUEST (Id::request)     Id::command (the operation), Id::arguments (the arguments), Id::result (the JSON)
 ```
 
-- The application adds a `REQUEST` row with `Id::command` and `Id::arguments`.
-- `Processor` listens to the root. On `valueTreeChildAdded` of a `REQUEST` row it gets the entry of its events map for the identifier in `Id::command` and runs it with the row. The entry reads `Id::arguments` and writes the JSON to `Id::result` of that row. When a parse is pending, it runs the entry when `Id::documents` is written.
-- The application listens to the row. On the change of `Id::result` it prints the JSON to stdout, removes the row, and stops the message loop.
+- The application adds a `REQUEST` row with `Id::command`, `Id::arguments`, and `Id::directory` (the folder of the client, against which a file argument resolves; `Processor` reads no folder of its own process, MANIFESTO **E**, "nothing pulled from implicit context"). It adds the row before it writes `Id::manifest`.
+- `Processor` listens to the root. On `valueTreeChildAdded` of a `REQUEST` row it gets the entry of its events map for the identifier in `Id::command` and runs it with the row. The entry reads `Id::arguments` and writes the JSON to `Id::result` of that row. A parse is pending while a job runs or before the first `Id::documents` write; then it runs the entry when `Id::documents` is written.
+- The application listens to the row. On the change of `Id::result` it prints the JSON to stdout, removes the row, and stops the message loop. The `Id::documents` print of Part 6 runs only when the root holds no `REQUEST` row: the Model, not the command line, tells the two runs apart.
+- `JsonWriter` writes all JSON structure: `appendArray`, `appendElement` (the object of one element, with a callback for the members that `hover` and `documentSymbol` add), `appendKey`, `appendString`, `appendSeparator`. `Processor` writes no bracket, brace, or comma.
 
 The nine operation names are identifiers, and they are the keys of the events map (`end/ARCHITECTURE.md:841-842`, `:906-907`).
 
@@ -134,7 +143,7 @@ The command is `ling <operation> <project-info.md> [--<word>] <arguments>`. Each
 | `goToDefinition` | file, line, column | the declarations of the element at the position |
 | `findReferences` | file, line, column | the references to each declaration of the element at the position |
 | `hover` | file, line, column | the declarations, each with its `scope`: the names of its path without the last one |
-| `documentSymbol` | file | the declarations of that file as a tree, each with `children` |
+| `documentSymbol` | file | the declarations of that file as a tree, each with `children`. A declaration with no name (an anonymous namespace or type) has no position (PLAN-ling-4-language-document.md, The element of a declaration), so it is no entry; its declarations are entries of its parent. |
 | `workspaceSymbol` | query | every declaration, in every document, whose name matches the query by `Fuzzy::Pattern::match`, ordered by the score of the match and then by path, line, and column |
 | `goToImplementation` | file, line, column | for a class: each class that holds a `base` reference to it, and the classes that derive from those. For a member of a class: the members with the same name in those classes. |
 | `prepareCallHierarchy` | file, line, column | the declarations of the element at the position whose type is `function`, `instanceMethod`, `staticMethod`, `constructor`, or `destructor` |
@@ -157,7 +166,7 @@ the whole sprint — never per step.
 ### Step 1: The path and the elements of a path
 **Scope:** `ling/Source/Processor.h` and `.cpp`.
 **Action:** Write `getPath`, `getElements`, and `getElement (document, line, column)`, as the design gives them. A type from `namespaceToken` to `macro` is a declaration.
-**Validation:** Each function is `const` or `static`, reads the documents in place, and keeps nothing. `getElements` walks children and compares names with `isSameName`; it builds no map. No out-parameter.
+**Validation:** Each function is `const` or `static`, reads the documents in place, and keeps nothing. `getElements` walks children and compares the name views with `compare (...) == 0` (Dependency & API Inventory, A name compare); it builds no map. No out-parameter.
 
 ### Step 2: The declarations of an element
 **Scope:** `ling/Source/Processor.h` and `.cpp`.
@@ -193,7 +202,7 @@ the whole sprint — never per step.
 **Scope:** build of LING; runs of `ling`; one scout manifest.
 **Action:**
 1. Build LING.
-2. With END's manifest and the toolchain argument `--debug` (`ling <operation> ~/Documents/Poems/dev/end/project-info.md --debug <arguments>`), run each of these and read the result against the source files:
+2. With LING's manifest and the toolchain argument `--debug` (`ling <operation> ling/project-info.md --debug <arguments>`, from `dev/`), run each of these and read the result against the source files. END's build compiles no `jam_syntax_tree` file: `ling end/project-info.md --debug` lists 5600 documents and no `jam_CodeDocument` row (run of 2026-11-13). LING's build compiles `jam_syntax_tree` (`ling/project-info.md`, `## user module`).
    - `goToDefinition` on a call to `addCommentToken` in `jam/jam_syntax_tree/document/jam_CodeDocument.cpp`: the declaration in `jam_CodeDocument.h` and the definition in `jam_CodeDocument.cpp`;
    - `findReferences` on the declaration of `addCommentToken` in `jam_CodeDocument.h`: the calls in `jam_CodeDocument.cpp`, and the definition is not among them;
    - `documentSymbol` on `jam_CodeDocument.h`: `jam`, then `CodeDocument`, then its members as `children`;
