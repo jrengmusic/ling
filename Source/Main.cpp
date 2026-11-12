@@ -85,6 +85,68 @@ static void printBannerAndHelp()
     printHelp (std::string_view (binary.data, static_cast<size_t> (binary.size)));
 }
 
+static void appendPosition (std::string& declarations, const jam::Document& document, const jam::Document::Element& element)
+{
+    const auto offset { element.get<jam::Document::Tokens> (Id::name)->last().offset() };
+
+    jam::Format::appendDecimal (declarations, static_cast<int> (document.getLineNumber (offset)));
+    jam::Format::appendUtf8 (declarations, Chars::colon);
+    jam::Format::appendDecimal (declarations, static_cast<int> (document.getColumnNumber (offset)));
+}
+
+static void appendName (std::string& declarations, const jam::Document& document, const jam::Document::Element& element)
+{
+    const auto& nameTokens { *element.get<jam::Document::Tokens> (Id::name) };
+
+    for (int index { 0 }; index < nameTokens.size(); ++index)
+    {
+        const auto& token { nameTokens.at (index) };
+
+        if (index > 0)
+            declarations.append (jam::Strings::getView (Id::doubleColon.toString()));
+
+        declarations.append (std::string_view (document.getSource()).substr (token.offset(), token.length()));
+    }
+}
+
+static void appendLinks (std::string& declarations, const jam::Document& document, const jam::Document::Element& element)
+{
+    static constexpr int linkIndent { 4 };
+
+    if (const auto* targets { element.find<jam::Document::Elements> (Id::to) })
+    {
+        for (const auto* target : *targets)
+        {
+            declarations.append (static_cast<size_t> (linkIndent), static_cast<char> (Chars::space));
+            declarations.append (jam::Strings::getView (Id::to.toString()));
+            jam::Format::appendUtf8 (declarations, Chars::space);
+            appendPosition (declarations, document, *target);
+            jam::Format::appendUtf8 (declarations, Chars::newline);
+        }
+    }
+}
+
+static void appendDeclaration (std::string& declarations, const jam::Document& document, const jam::Document::Element& element, std::string_view path)
+{
+    declarations.append (path);
+    jam::Format::appendUtf8 (declarations, Chars::colon);
+    appendPosition (declarations, document, element);
+    jam::Format::appendUtf8 (declarations, Chars::colon);
+    jam::Format::appendUtf8 (declarations, Chars::space);
+    declarations.append (jam::Strings::getView (map::SyntaxTokenType::getInstance()->get (*element.get<int> (Id::type))));
+    jam::Format::appendUtf8 (declarations, Chars::space);
+    appendName (declarations, document, element);
+
+    if (element.contains (Id::member))
+    {
+        jam::Format::appendUtf8 (declarations, Chars::space);
+        declarations.append (jam::Strings::getView (Id::member.toString()));
+    }
+
+    jam::Format::appendUtf8 (declarations, Chars::newline);
+    appendLinks (declarations, document, element);
+}
+
 static int runDocument (const juce::File& documentFile, std::string_view path)
 {
     const auto sourceText { documentFile.loadFileAsString() };
@@ -98,22 +160,7 @@ static int runDocument (const juce::File& documentFile, std::string_view path)
 
         for (const auto* child : document)
             child->applyFunctionRecursively (
-                [&declarations, &document, path] (const jam::Document::Element& element)
-                {
-                    const auto offset { element.find<jam::Document::Tokens> (Id::name)->last().offset() };
-
-                    declarations.append (path);
-                    jam::Format::appendUtf8 (declarations, Chars::colon);
-                    jam::Format::appendDecimal (declarations, static_cast<int> (document.getLineNumber (offset)));
-                    jam::Format::appendUtf8 (declarations, Chars::colon);
-                    jam::Format::appendDecimal (declarations, static_cast<int> (document.getColumnNumber (offset)));
-                    jam::Format::appendUtf8 (declarations, Chars::colon);
-                    jam::Format::appendUtf8 (declarations, Chars::space);
-                    declarations.append (jam::Strings::getView (map::SyntaxTokenType::getInstance()->get (*element.find<int> (Id::type))));
-                    jam::Format::appendUtf8 (declarations, Chars::space);
-                    declarations.append (jam::Strings::getView (element.id.toString()));
-                    jam::Format::appendUtf8 (declarations, Chars::newline);
-                });
+                [&declarations, &document, path] (const jam::Document::Element& element) { appendDeclaration (declarations, document, element, path); });
 
         fwrite (declarations.data(), sizeof (char), declarations.size(), stdout);
         return EXIT_SUCCESS;

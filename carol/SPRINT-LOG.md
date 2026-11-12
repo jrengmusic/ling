@@ -114,6 +114,57 @@
 <!-- The entry format is in /log (commands/log.md). It is the only source. -->
 <!-- Sprint entries go here, written by PRIMARY agents -->
 
+## Sprint 6: LING Part 5, references and local links as metadata of the file tree ✅
+
+**Date:** 2026-11-12
+**Duration:** not measured. The sprint is one session.
+
+### Agents Participated
+- COUNSELOR — executed `PLAN-ling-5-links.md` Steps 1-6. Wrote the exact code of each brief. Validated each return by its own reads. Filtered the 24 Auditor findings and the 3 points of the doxygen pass. Made one doxygen line fix and recorded the executed names and the `link` correction in the PLAN.
+- Pathfinder — discovery reads, the doxygen pass, the Step 6 runs of `ling`, and the state of the repos.
+- Engineer — Step 1 and the cast runs with snapshot diffs. Steps 2-3. Steps 4-5. The six accepted audit fixes.
+- Auditor — one pass over Steps 1-5. It reported 24 findings.
+
+### Files Modified (12 total)
+**jam:**
+- `cast/core.md:95`, `:106`, `:111`, `:142` — rows `in`, `link`, `member`, `to`. `in`, `to`, and `link` moved down from `cast/mermaid.md` (PLAN inventory: a row that both modules read moves to `jam_core`).
+- `cast/mermaid.md` `## identifiers` — rows `in`, `link`, `to` removed. `out` stays (`:211`).
+- `cast/syntax_tree.md:63-65` — `SyntaxTokenType` rows `reference` 20, `call` 21, `base` 22. The brief at `:28-40` names the reference types.
+- `generated/jam_Core.h`, `.cpp`, `jam_Mermaid.h`, `.cpp`, `jam_SyntaxTree.h` — cast output only. The snapshot diffs showed no other change.
+- `jam_syntax_tree/document/jam_CLanguageDocument.h`, `.cpp` — `addReferences` makes one reference element for each identifier that is not a declared name. Each handler gives the ranges that it does not walk as statements to `addReferences`. `getReferenceOwner`: inside a function the function owns the references, otherwise the declared element or the scope. `addDeclarationContents`, `getBaseStart`, `getCandidateEnd` hold the reference ranges and keep each function near the limit. `addLocalLinks` runs at the end of `build()` and writes `Id::to` and `Id::in` through `addLinkEndpoint` and `addLinkEndpoints`. `isMemberAccess`, `isLocalReference`, `getLocalDeclarations`. Doxygen pass on every new and changed block.
+- `jam_syntax_tree/document/jam_CLanguageValidator.h`, `.cpp` — the `Id::type` rule accepts keys up to `base`. A new `Id::link` rule. `getElementFailures` holds the walk that the three rules share (Auditor 11, MANIFESTO S).
+
+**ling:**
+- `Source/Main.cpp:88-148` — `appendPosition`, `appendName`, `appendLinks`, `appendDeclaration`. A row prints the `Id::name` tokens joined with `::`, ` member` for a member access, and one `    to <line>:<column>` row for each target.
+- `PLAN-ling-5-links.md` — the executed names in the Names table, and the `link` execution correction in Step 1.
+
+### Alignment Check
+- [x] BLESSED principles followed
+- [x] NAMES.md adhered. Every new name is in a family (NAMES Rule 5). The PLAN Names table records each one.
+- [x] MANIFESTO.md principles applied
+- [ ] MANIFESTO L: `addClass` (`jam_CLanguageDocument.cpp:297-328`) is 32 lines. The Auditor's ladder found no fix for it (finding 22). `jam_CLanguageDocument.cpp` is about 880 lines. The type has one responsibility (PLAN-ling-4 Language Constraints).
+
+### Problems Solved
+- **`Id::link` lived only in `jam_mermaid_diagram`.** The Step 4 rule key is `link`, and `jam_syntax_tree` does not depend on that module. The row moved to `jam_core` with `in` and `to`.
+- **The local link walks top-down.** A function-type element never has a function-type parent (`getDeclarationType`, `jam_CLanguageDocument.cpp:626-667`). Thus the PLAN walk up the parents is one level, and a top-down walk over the mutable children gives the same links. The Auditor confirmed this.
+- **My `scopeTypes` capacity edit was wrong.** `LookupTable::operator[]` gives the default row for a key out of range (`jam_LookupTable.h:157-160`). I reverted the edit.
+- **Auditor findings.** 5, 9, 11, 14, 15 and 18 are resolved. 1, 2, 3, 4, 6, 7, 8, 10, 12, 13, 16, 17, 19, 20, 21, 22, 23 and 24 are rejected with a read or a PLAN line. ARCHITECT received each one in chat.
+- **The doxygen pass.** One line of the `addLocalLinks` block was false ("every element of the subtree of scope"). It is corrected. The pass reported 3 contract points: the `bool` inputs, the two 32-line functions, and the directive inside a declaration. All 3 are rejected.
+- **Verification.** ARCHITECT built LING, END, cast, and scout on macOS clean, and the Windows build is clean up to Part 4. The doxygen output is clean. Step 6: `ling 0.1.0 (a9b659c)`. The four `jam_CodeDocument.cpp` cases hold. Every use of `cursor` in `addStringToken` (`:102-118`) has `to 100:55`. The two `SessionView.cpp` outputs are equal (`cmp` 0, 321 lines each). The validator reports no failure.
+
+### State for Continuation
+- Part 6 is next (`PLAN-ling-6-manifest.md`). `PLAN-ling-0-tracker.md:22-23` still says "Written" for Parts 4 and 5.
+- Known limits that the Step 6 output shows. A statement that starts with `p->x`, `*p`, or `a > b` gives a fake local through the Part 4 declaration test (`jam_CLanguageDocument.cpp:599-619`), and later references can link to it (Auditor 1). A trailing return type after `->` gets `Id::member` (Auditor 2). A lambda parameter can link to an outer local (Auditor 20). A change to any of these is a change to the PLAN.
+- Declaration rows now print the qualified name, for example `CodeDocument::getToken` (`Main.cpp:97-110`).
+- The JUCE banner `JUCE v8.0.17` still goes to stderr on each run.
+- clangd does not resolve the framework `.cpp` files. `findReferences` gives only the header declaration.
+
+### Debts Paid
+- None
+
+### Debts Deferred
+- Step 7, the Windows build and run (`PLAN-ling-5-links.md`, Step 7). ARCHITECT: "it's pointless to test anything on windows, when we're still half assed implementation." No `DEBT.md` entry exists.
+
 ## Sprint 5: ling Builds with cast's Templates — No archetype, ccache ✅
 
 **Date:** 2026-11-12
@@ -327,66 +378,6 @@
 
 ### Debts Deferred
 - Step 8, the LING and END builds on Windows (PLAN-ling-2:252-256). It is ARCHITECT's, and it blocks no part (ruling 78). No `DEBT.md` entry exists.
-
----
-
-## Sprint 1: LING Part 1 console project, and JAM markdown help on the terminal cell grid ✅
-
-**Date:** 2026-11-11
-**Duration:** not measured. The sprint spans the sessions from 2026-11-10.
-
-### Agents Participated
-- COUNSELOR — planned, delegated, and validated each return by its own reads. Filtered the Auditor findings.
-- Pathfinder — discovery reads. Wrote the comment pass of the JAM fix.
-- Engineer — implemented the Part 1 steps, the `Function::Map` conversions, the mono stamp, and the accepted Auditor fixes.
-- Auditor — one pass for Part 1. One pass for the JAM fix.
-
-### Files Modified
-**ling (Part 1, `PLAN-ling-1-project.md` Steps 1-10):**
-- `project-info.md`, `LICENSE`, `RELEASE.md`, `cast/signing.md` — skeleton from `archetype/cli` and the project, module, define, include, binary, and signing values (Steps 1-5).
-- `cast/identifiers.md`, `cast/text.md`, `cast/files.md`, `cast/banner.md`, `cast/source.cast` — the project word tables (Step 6).
-- `cast/spell.md` — the tables wired in the manifest (Step 7).
-- `Source/style.css`, `Source/Help.h`, `Source/Help.cpp`, `Source/HELP.md` — the help files. `printHelp` takes `std::string_view` (ruling 50) (Step 8).
-- `Source/Main.cpp` — the entry file: `--version`, `--help`, no argument, unknown flag (Step 9).
-- `Source/generated/*` — generated by cast: `ProjectInfo.h`, `Identifiers.h`, `Text.h`, `Files.h`, `HashMaps.h`, `Generated.h`, `Generated.cpp`.
-- The Part 1 Auditor findings were resolved earlier in this sprint. The per-finding record is in the session transcript `/Users/jreng/.claude/projects/-Users-jreng-Documents-Poems-dev-ling/1a1b2755-cff5-470b-8eb1-b1e354f5c8b1.jsonl`.
-
-**jam (markdown help on the cell grid):**
-- `jam_style/style_manager/jam_StyleManager.h:182-192`, `.cpp:241-248` — new `StyleManager::getWidthClass (sheetType)`. It returns `AttributedChar::narrow` when the unit of the sheet's `fontSize` (`Format::toType (Id::fontSize)`, the jam_core identifier) is `em`. Otherwise it returns `AttributedChar::proportional`. It uses `HashMap::get`, which gives a default on a miss.
-- `jam_markdown/document/jam_MarkdownDocument.cpp:1123`, `.h:770-772` — `addStyle` stamps the width class from that query at atom creation. `AttributedString::append` then sets narrow or wide and adds the spacer.
-- `jam_markdown_graphics/style/jam_StyleMarkdown.cpp:91-98, 252-263`, `.h:159-162, 220-221, 356-362` — for a narrow sheet, the cell width and the list marker character width are the base font size. A proportional sheet measures, as before.
-
-**ling, cast, scout, ggwp — `Source/style.css`:**
-- `:119` `fontSize: 1em;`. `:133-137` heading1-5 letter spacing set to `0`. `:2-9` header comment: ling line 2 now names ling, and lines 6-9 state the cell-grid meaning.
-
-**cast, scout, ggwp — `Function::Map` conversions (JAM commit `a55270275` API):**
-- `cast/Source/Pack.cpp:16-34`, `cast/Source/Transforms.cpp:221-366` — maps declare their uniform signature in the type.
-- `scout/Source/Validator.cpp:8-9, 27-28` — same conversion.
-- `ggwp/Source/Artwork.cpp:23-38` — same conversion.
-
-### Alignment Check
-- [x] BLESSED principles followed
-- [x] NAMES.md adhered. `getWidthClass` joins the family of `AttributedChar::getWidthClass`. No new identifier.
-- [x] MANIFESTO.md principles applied
-- [x] `addStyle` reads the process `StyleManager` instance that its signature does not show. ARCHITECT ruled this: "Read from StyleManager".
-
-### Problems Solved
-- **Markdown `--help` drew overlapping text in the terminal.** Runs after the first on a line started at about half their column. Cause: JAM commit `2f94e2f0b` removed the cell source, so every markdown atom was proportional, and font advances at font size 1 are fractions of a cell. Solution: the stylesheet declares the stamp. A sheet whose `fontSize` has the unit `em` stamps narrow, and one cell is the base font size. The one advance method `GlyphArrangement::getCellAdvance` stays unchanged. EVE (`fontSize: 16;`, no unit) stays proportional.
-- **Heading letter spacing gave fractional mono advances.** `getCellAdvance` adds `extraKerning` to every width class (`jam_GlyphArrangement.cpp:260`). ARCHITECT chose "Terminal sheets set 0".
-- **Ruling 9 collision.** A jam_style `fontSize` row would define `Id::fontSize` again (jam_core `generated/jam_Core.h:83`). The query uses the jam_core identifier, because `Format::toType` maps `fontSize` and `font-size` to `FONT_SIZE`.
-- **JAM `Function::Map` API change broke the consumers.** cast, scout, and ggwp now build.
-- Verification by ARCHITECT: EVE `test/clusters.sh` passed. cast, scout, ggwp, and ling build, and `--help` renders correctly. Part 1 Step 10 checks all passed.
-
-### State for Continuation
-- Next work: Part 2, `PLAN-ling-2-language-tables.md` (tracker `PLAN-ling-0-tracker.md:20`).
-- JAM doxygen XML regenerates with `<leader>bd`. Before you rely on `docs/xml` for `StyleManager::getWidthClass`, check that it is there.
-- The `ling/Source/style.css` file and the `scout/Source/style.css` file are identical except line 2.
-
-### Debts Paid
-- None
-
-### Debts Deferred
-- Part 1 Step 11, the Windows build and check (`PLAN-ling-1-project.md:284-288`). ARCHITECT: "windows deffered". No `DEBT.md` entry exists.
 
 ---
 

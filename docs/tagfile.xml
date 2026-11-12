@@ -139,6 +139,34 @@
       <arglist>()</arglist>
     </member>
     <member kind="function" static="yes">
+      <type>static void</type>
+      <name>appendPosition</name>
+      <anchorfile>_main_8cpp.html</anchorfile>
+      <anchor>a35e6f345ab590b9dd0aa34ffa170a6d6</anchor>
+      <arglist>(std::string &amp;declarations, const jam::Document &amp;document, const jam::Document::Element &amp;element)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>appendName</name>
+      <anchorfile>_main_8cpp.html</anchorfile>
+      <anchor>a050dd4fce386ed2a46e9400a3f9c8b2b</anchor>
+      <arglist>(std::string &amp;declarations, const jam::Document &amp;document, const jam::Document::Element &amp;element)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>appendLinks</name>
+      <anchorfile>_main_8cpp.html</anchorfile>
+      <anchor>a123dfb4efc33de4c3ec585966e287fb8</anchor>
+      <arglist>(std::string &amp;declarations, const jam::Document &amp;document, const jam::Document::Element &amp;element)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>appendDeclaration</name>
+      <anchorfile>_main_8cpp.html</anchorfile>
+      <anchor>a18cc16f90fedddb1717da789f0a2a260</anchor>
+      <arglist>(std::string &amp;declarations, const jam::Document &amp;document, const jam::Document::Element &amp;element, std::string_view path)</arglist>
+    </member>
+    <member kind="function" static="yes">
       <type>static int</type>
       <name>runDocument</name>
       <anchorfile>_main_8cpp.html</anchorfile>

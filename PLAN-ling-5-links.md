@@ -63,6 +63,11 @@ Line numbers are reads of 2026-11-10. Base path: `~/Documents/Poems/dev/jam/`.
 | `addReferences` | the `add*` family of Part 4 |
 | `addLocalLinks` | the pass family of `Model`: `addDescriptions`, `addChains` (`cast/Source/Model.h:358`, `:785`) |
 | `addLinkEndpoint`, `addLinkEndpoints` | `addEdgeEndpoint`, `addEdgeEndpoints` (`jam_MermaidDiagram.h:853-859`) |
+| `addDeclarationContents`, `getLocalDeclarations` | the `add*` and `get*` families of Part 4 (NAMES.md Rule 5), set in execution |
+| `getReferenceOwner`, `getBaseStart`, `getCandidateEnd` | the `getPreludeEnd`, `getBodyStart`, `getQualifierStart` family (NAMES.md Rule 5), set in execution |
+| `isMemberAccess`, `isLocalReference` | NAMES.md Rule 1, the boolean form `is`, set in execution |
+| `getElementFailures` | `Validator::getFailures` (`jam_Document.h:878`), set in execution |
+| `appendPosition`, `appendName`, `appendLinks`, `appendDeclaration`, `linkIndent` | the `jam::Format::appendUtf8`, `appendDecimal` family, set in execution |
 
 ## The design
 
@@ -130,7 +135,9 @@ the whole sprint — never per step.
 3. `## SyntaxTokenType`: add three rows after `macro`: `reference` 20, `call` 21, `base` 22.
 4. Run cast on `jam/cast/spell.md`.
 
-**Validation:** `Id::in` and `Id::to` are in `generated/jam_Core.h` and `.cpp`, and not in `generated/jam_Mermaid.h` and `.cpp`. Each is defined one time (MANIFESTO **S**, SSOT). `Id::out` stays in `mermaid.md`: this part does not read it. No table was added.
+Execution correction: the row `link` (`mermaid.md:203`) moved with `in` and `to`. Step 4 names the rule key `link`, and `jam_syntax_tree` does not depend on `jam_mermaid_diagram`. The rule of the inventory applies: a row that both modules read moves to `jam_core`.
+
+**Validation:** `Id::in`, `Id::to`, and `Id::link` are in `generated/jam_Core.h` and `.cpp`, and not in `generated/jam_Mermaid.h` and `.cpp`. Each is defined one time (MANIFESTO **S**, SSOT). `Id::out` stays in `mermaid.md`: this part does not read it. No table was added.
 
 ### Step 2: Make the reference elements in the walk
 **Scope:** `jam/jam_syntax_tree/document/jam_CLanguageDocument.h` and `.cpp`.
