@@ -25,8 +25,8 @@ void Manifest::addJob()
     {
         const juce::File manifestFile { manifestPath };
         const auto text { manifestFile.loadFileAsString() };
-        const auto manifest { jam::ConfigDocument::parse (text, manifestFile.getFullPathName()) };
-        const auto result { manifest != nullptr ? Validator {}.isValid (*manifest) : jam::ConfigDocument::isValid (text, manifestFile.getFullPathName()) };
+        const auto manifest { jam::MarkdownDocument::parse (text, manifestFile.getFullPathName()) };
+        const auto result { manifest != nullptr ? Validator {}.isValid (*manifest) : jam::MarkdownDocument::isValid (jam::Strings::getView (text), manifestFile.getFullPathName()) };
         const auto timeout { result.wasOk() ? getTimeout (*manifest) : LINGModel::defaultTimeoutMs };
         const auto files (result.wasOk() ? CompilerManifest::getFiles (model, *manifest, manifestFile, toolchainArgument)
                                          : juce::ValueTree { jam::Format::toType (Id::files) });
@@ -45,7 +45,7 @@ void Manifest::setFiles (const juce::ValueTree& files, int timeout)
     model.appendChild (files);
 }
 
-int Manifest::getTimeout (const jam::ConfigDocument& manifest)
+int Manifest::getTimeout (const jam::MarkdownDocument& manifest)
 {
     for (const auto* table : manifest.getTables (Id::daemon))
         if (const auto* row { manifest.getTableRow (*table, Id::timeout) }; row != nullptr)

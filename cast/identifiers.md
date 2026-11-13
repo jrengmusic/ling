@@ -20,6 +20,7 @@
 | @id  | children             | `children`             |             |
 | @id  | column               | `column`               |             |
 | @id  | compilerManifests    | `compilerManifests`    |             |
+| @id  | completion           | `completion`           |             |
 | @id  | connection           | `connection`           |             |
 | @id  | connections          | `connections`          |             |
 | @id  | daemon               | `daemon`               |             |
@@ -46,6 +47,7 @@
 | @id  | request              | `request`              |             |
 | @id  | result               | `result`               |             |
 | @id  | scope                | `scope`                |             |
+| @id  | snippet              | `snippet`              |             |
 | @id  | timeout              | `timeout`              |             |
 | @id  | toolchain            | `toolchain`            |             |
 | @id  | toolchainArgument    | `toolchainArgument`    |             |

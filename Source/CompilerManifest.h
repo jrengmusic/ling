@@ -25,7 +25,7 @@ struct CompilerManifest
      * @param toolchainArgument  The toolchain argument from the command line. Empty when none is given.
      * @return The files child.
      */
-    static juce::ValueTree getFiles (LINGModel& model, const jam::ConfigDocument& manifest, const juce::File& manifestFile, const juce::String& toolchainArgument);
+    static juce::ValueTree getFiles (LINGModel& model, const jam::MarkdownDocument& manifest, const juce::File& manifestFile, const juce::String& toolchainArgument);
 
 private:
     /**
@@ -35,7 +35,7 @@ private:
      *
      * @return The family-to-builder table.
      */
-    static const jam::Function::Map<int, jam::Function::pointerCapacity, void (LINGModel&, juce::ValueTree&, const jam::ConfigDocument&, const jam::ConfigDocument::Element&, const juce::File&)>& getFilesConstruction();
+    static const jam::Function::Map<int, jam::Function::pointerCapacity, void (LINGModel&, juce::ValueTree&, const jam::MarkdownDocument&, const jam::MarkdownDocument::Element&, const juce::File&)>& getFilesConstruction();
 
     /**
      * @brief Adds the files of a C-family toolchain row, by the command of the row.
@@ -49,7 +49,7 @@ private:
      * @param row       The toolchain row.
      * @param directory The folder of the manifest.
      */
-    static void addCLanguageFiles (const int&, LINGModel& model, juce::ValueTree& files, const jam::ConfigDocument& manifest, const jam::ConfigDocument::Element& row, const juce::File& directory);
+    static void addCLanguageFiles (const int&, LINGModel& model, juce::ValueTree& files, const jam::MarkdownDocument& manifest, const jam::MarkdownDocument::Element& row, const juce::File& directory);
 
     /**
      * @brief Adds a file row for each unit of the compiler manifest in the build folder of the row.
@@ -65,7 +65,7 @@ private:
      * @param row       The toolchain row whose flag names the build folder.
      * @param directory The folder of the manifest. The build folder is relative to it.
      */
-    static void addCLanguageUnits (LINGModel& model, juce::ValueTree& files, const jam::ConfigDocument& manifest, const jam::ConfigDocument::Element& row, const juce::File& directory);
+    static void addCLanguageUnits (LINGModel& model, juce::ValueTree& files, const jam::MarkdownDocument& manifest, const jam::MarkdownDocument::Element& row, const juce::File& directory);
 
     /**
      * @brief Adds a file row for one unit, when its file exists and no row has its path.
@@ -107,7 +107,7 @@ private:
      * @param row       The toolchain row whose command and flag run.
      * @param directory The folder of the manifest, which is the working folder of the process.
      */
-    static void addCLanguageDependencies (LINGModel& model, juce::ValueTree& files, const jam::ConfigDocument& manifest, const jam::ConfigDocument::Element& row, const juce::File& directory);
+    static void addCLanguageDependencies (LINGModel& model, juce::ValueTree& files, const jam::MarkdownDocument& manifest, const jam::MarkdownDocument::Element& row, const juce::File& directory);
 
     /**
      * @brief Returns the argument list of a dependency command: the command, the flag arguments, and the dependency flag.

@@ -28,6 +28,7 @@ namespace Id
     const juce::Identifier children             { juce::String::fromUTF8 ("children") };
     const juce::Identifier column               { juce::String::fromUTF8 ("column") };
     const juce::Identifier compilerManifests    { juce::String::fromUTF8 ("compilerManifests") };
+    const juce::Identifier completion           { juce::String::fromUTF8 ("completion") };
     const juce::Identifier connection           { juce::String::fromUTF8 ("connection") };
     const juce::Identifier connections          { juce::String::fromUTF8 ("connections") };
     const juce::Identifier daemon               { juce::String::fromUTF8 ("daemon") };
@@ -54,6 +55,7 @@ namespace Id
     const juce::Identifier request              { juce::String::fromUTF8 ("request") };
     const juce::Identifier result               { juce::String::fromUTF8 ("result") };
     const juce::Identifier scope                { juce::String::fromUTF8 ("scope") };
+    const juce::Identifier snippet              { juce::String::fromUTF8 ("snippet") };
     const juce::Identifier timeout              { juce::String::fromUTF8 ("timeout") };
     const juce::Identifier toolchain            { juce::String::fromUTF8 ("toolchain") };
     const juce::Identifier toolchainArgument    { juce::String::fromUTF8 ("toolchainArgument") };

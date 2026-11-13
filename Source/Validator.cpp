@@ -7,15 +7,15 @@ void Validator::addRules (Rules& rules)
     rules.add (Id::toolchain.toString(),
         [] (const juce::String&, const jam::Document& document) -> juce::Result
         {
-            const auto& config { static_cast<const jam::ConfigDocument&> (document) };
+            const auto& manifest { static_cast<const jam::MarkdownDocument&> (document) };
             jam::Strings failures;
 
-            for (const auto* table : config.getTables (Id::toolchain))
+            for (const auto* table : manifest.getTables (Id::toolchain))
             {
-                const auto* headerRow { config.getTableRow (*table, Id::headerRow) };
+                const auto* headerRow { manifest.getTableRow (*table, Id::headerRow) };
 
-                if (config.getTableCell (*headerRow, Id::command) == nullptr
-                    or config.getTableCell (*headerRow, Id::flag) == nullptr)
+                if (manifest.getTableCell (*headerRow, Id::command) == nullptr
+                    or manifest.getTableCell (*headerRow, Id::flag) == nullptr)
                     failures.add (getLocation (*table, *headerRow, Id::toolchain.toString())
                                   + Id::diagnosticSeparator
                                   + text::Diagnostics::failToolchainColumn);
@@ -27,14 +27,14 @@ void Validator::addRules (Rules& rules)
     rules.add (Id::daemon.toString(),
         [] (const juce::String&, const jam::Document& document) -> juce::Result
         {
-            const auto& config { static_cast<const jam::ConfigDocument&> (document) };
+            const auto& manifest { static_cast<const jam::MarkdownDocument&> (document) };
             jam::Strings failures;
 
-            for (const auto* table : config.getTables (Id::daemon))
+            for (const auto* table : manifest.getTables (Id::daemon))
             {
-                if (const auto* row { config.getTableRow (*table, Id::timeout) }; row != nullptr)
+                if (const auto* row { manifest.getTableRow (*table, Id::timeout) }; row != nullptr)
                 {
-                    const auto value { config.getTableValue (*row, Id::value) };
+                    const auto value { manifest.getTableValue (*row, Id::value) };
 
                     if (juce::String (value.getIntValue()).compare (value) != 0 or value.getIntValue() <= 0)
                         failures.add (getLocation (*table, *row, Id::value.toString())

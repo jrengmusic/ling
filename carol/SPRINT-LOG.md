@@ -114,6 +114,87 @@
 <!-- The entry format is in /log (commands/log.md). It is the only source. -->
 <!-- Sprint entries go here, written by PRIMARY agents -->
 
+## Sprint 11: LING Part 9, completion and snippets from the stored document ✅
+
+**Date:** 2026-11-14
+**Duration:** Not measured. The work took two sessions (plan-9), with a compaction between them.
+**Scope:** `PLAN-ling-9-completion.md`, from ARCHITECT's `/go @PLAN-ling-9-completion.md` and `/go DESIGN BY CONTRACT`. Inside the sprint, ARCHITECT also ruled on these items:
+- The parse: *"why need to parsed again? why not only parsed once, complete AST build, memoized, cachaed. that have always been the contract"*.
+- The unnamed parameter: *"Fix in Part 9"* and *"Its source text"*.
+- The manifest load: *"Fix in this sprint"*.
+- The test word: *"what the fuck is getVocab"*, then *"fix it"*.
+- The leading attribute: *"getBoundary skips [[...]]"*.
+
+### Agents Participated
+- COUNSELOR: the plan amendments, the delegation, the read of each return, the Step 6 positions, the edit and the removal of the test line, the trace of the assertion, and this log.
+- Engineer (sonnet): the rows, the JAM parse, the validator rules, the LING lookup and operation, the JSON keys, the manifest fix, the audit fixes, the temporary diagnostics, and the `getBoundary` fix.
+- Auditor (opus): one sweep, with 22 findings. COUNSELOR accepted and fixed 17 of them: 1, 2, 4, 5, 6, 8, 10–14, 16–20, and 22. COUNSELOR rejected 5 of them:
+  - 3: a second member would be shadow state.
+  - 7 and 9: these allocations are part of a creation, which MANIFESTO permits.
+  - 15: the default argument shows in the signature.
+  - 21: this finding belongs to the doxygen pass.
+- Pathfinder (haiku): the reads, the doxygen pass (0 warnings), the two later doxygen corrections, and the Step 6 runs.
+
+### Files Modified
+- `jam/cast/core.md` `## identifiers` — gained the rows `comment` and `parameters`. `cast/cast/identifiers.md` — the `comment` row is removed, so the identifier is defined once (MANIFESTO **S**). The JAM generated files are regenerated (`jam/generated/jam_Core.h`, `.cpp`).
+- `jam/jam_syntax_tree/document/jam_CLanguageDocument.h`, `.cpp`:
+  - `build` keeps the comment tokens beside the code tokens.
+  - `addComment` attaches the comment tokens directly before each declaration as `Id::comment`.
+  - `getStatementStart` walks back over `template <...>`.
+  - `isNamedParameter` and `addParameter` give `Id::parameters`: the name token of a named part, or the span of an unnamed part.
+  - `addParameters` builds the list.
+  - `getDeclarationType` gives a constructor or a destructor only for a function shape.
+  - `getBoundary` skips a leading `[[...]]` group (`.cpp:590-591`).
+  - `addParameter` gives the whole part when the boundary is its first token (`.cpp:782-785`).
+- `jam/jam_syntax_tree/document/jam_CLanguageValidator.h`, `.cpp` — two new rules: `comment` and `parameters`.
+- `Source/Processor.h`, `.cpp`:
+  - New members: `applyToScopes`, `applyToCandidates`, `getMatches`, `getCompletions`, `applyToCompletions`, and `completion`. `completion` is registered after `workspaceSymbol`.
+  - The answer comes from the stored document, with no second parse (ARCHITECT's ruling above).
+  - `Processor::getView` is removed. Each call site uses `document.getView`.
+- `Source/JsonWriter.h`, `.cpp` — `appendComment` writes one source view. `appendSnippet` writes `name(${n:text}, …)`.
+- `Source/Manifest.h`, `.cpp`, `Source/CompilerManifest.h`, `.cpp`, and `Source/Validator.cpp` — the manifest is read as `jam::MarkdownDocument` (`Manifest.cpp:28-29`). Since Sprint 10, `ConfigDocument::parse` had applied the rules of END's config format, so `ling project-info.md` printed `0 documents`.
+- `Source/HELP.md` — gained the `completion` row. `cast/identifiers.md` gained `completion` and `snippet`. `Source/generated/` is regenerated.
+- `PLAN-ling-9-completion.md`:
+  - The stored document answers the request, and Step 5 sends no change message.
+  - The callable carries no score, and the comment is one view.
+  - `Id::parameters` holds Tokens, and the paragraphs "The unnamed parameter" and "The leading attribute" record the rulings.
+  - Step 6 item 3 uses the word `getVocabulary`.
+  - The Risks are updated.
+- `PLAN-ling-0-tracker.md:27` — the Part 9 row.
+- `.clangd`, `.project`, `compile_commands.json`, `docs/` — tool output.
+
+### Alignment Check
+- [x] BLESSED principles followed
+- [x] NAMES.md adhered: `getVocab` became `getVocabulary` (Rule 4).
+- [x] MANIFESTO.md principles applied: the AST is built once and read in place, with no second parse (**E**, Complete at Creation).
+
+### Problems Solved
+- **The manifest loaded no documents.** `ConfigValidator` rejected `0x100` and the `type` cells of a cast manifest. The fix reads the manifest as `jam::MarkdownDocument`.
+- **Unnamed parameters had wrong or no placeholders.** `const String&` was parsed as a variable named `String`, and `int` gave no placeholder. The named rule now separates the two cases.
+- **5119 assertions fired at `addParameter`, and 108 at `jam_Document.cpp:12` (a reversed span).**
+  - Cause: a parameter part that starts with `[[` or `(` has its boundary at its first token.
+  - Evidence: temporary `debug::Log` lines found the cause. The lines are removed.
+  - Result: after the fix, the manifest run gives 0 assertions.
+- **Step 6 on LING's manifest:** this manifest stands in for END's, because END's build compiles no `jam_syntax_tree` file (tracker:25).
+  - Item 2 passes. The `addCommentToken` case gives its comment and the snippet `${1:cursor}, ${2:vocabulary}`. `getOffset` comes first after `.`. The parameter `cursor` is in the result.
+  - Item 3 passes. After the watcher parse, `getVocabulary` and `getVocabularyForFamily` are in the result.
+  - Item 4 passes: `cmp` gives 0.
+
+### State for Continuation
+- `cast/Source/generated/Identifiers.h:48` still declares `comment`. Run cast on cast's own spell file, then read that line again.
+- Regenerate the doxygen XML of jam and ling. The header doxygen of `getBoundary` and `addParameter` changed after the last regeneration (`jam_CLanguageDocument.h:349-353`, `:660-663`).
+- Step 6 item 5 (scout) is not run, because `ling` writes no samples file (see Sprint 8). Step 7 (Windows) is ARCHITECT's.
+- A Pathfinder doxygen check ran `ninja -C Builds/Debug -n doxygen`, which printed "Re-running CMake". `Builds/Debug/build.ninja` may have been regenerated.
+- The `Processor` class doxygen says that the lookups "keep nothing", but `slab` is mutable working memory. Nobody has checked this block against the code.
+- `getBoundary` now skips `[[...]]` for every statement, so Part 4 statements such as `[[nodiscard]] int f()` become declarations. The parse has no rule for `__attribute__((...))`, which it reads as a function call shape.
+- `CLAUDE.md` still says "No code exists yet."
+
+### Debts Paid
+- None
+
+### Debts Deferred
+- None
+
 ## Sprint 10: JSON Through jam::JsonDocument; the Manifest Parse Validates Once ✅
 
 **Date:** 2026-11-14
@@ -371,42 +452,6 @@
 
 ### Debts Deferred
 - Step 7, the Windows build and run (`PLAN-ling-5-links.md`, Step 7). ARCHITECT: "it's pointless to test anything on windows, when we're still half assed implementation." No `DEBT.md` entry exists.
-
-## Sprint 5: ling Builds with cast's Templates — No archetype, ccache ✅
-
-**Date:** 2026-11-12
-**Duration:** not measured (one session)
-**Scope:** ARCHITECT: *"fix ling like all other cli"*.
-
-### Agents Participated
-- COUNSELOR: scaffold read, the two missing `## cmake` keys, validation by read, this log.
-- Engineer (sonnet): template and artwork copies, manifest and table conformance, `## library`, the `spell` symlink.
-
-### Files Modified (7 total)
-- `cast/cmake.cast`, `cast/installer.cast`, `cast/installer/resources/*` — byte copies of cast's (ccache block, `## library` lane).
-- `cast/spell.md` — `@cmake`/`@installer` → local files (was `../../archetype/cli/cast/…`); CMakeLists row as cast's: no `[description]` binding, no `architecture` list row, nine flag rows, `define` → `macro`, `library` → `value`; CMakeLists.txt row removed from `## headers`.
-- `project-info.md` — `description` → `projectDescription`; `architecture` key; `installerResourceDirectory` → `${CMAKE_SOURCE_DIR}/cast/installer/resources`; `## architecture` deleted; `## define` → `## macro`; `## library` header-only; `compileJobMemory` (`1280`) and `precompiledHeader` (`JuceHeader.h`) added at `:90-93` — the template's `math(EXPR … / :::compileJobMemory:::)` failed on the empty key.
-- `spell` — symlink → `cast/spell.md`, relative.
-
-### Alignment Check
-- [x] BLESSED principles followed
-- [x] NAMES.md adhered
-- [x] MANIFESTO.md principles applied
-
-### Problems Solved
-- archetype dependency removed.
-- `math cannot parse the expression: "11985 / "` — missing `compileJobMemory` key.
-- ccache confirmed in the regenerated `CMakeLists.txt:53-57`.
-
-### State for Continuation
-- ling's single identifier `help` has no twin in jam's generated headers; a full build result was not reported in this session.
-- macOS build not run this session.
-
-### Debts Paid
-- None
-
-### Debts Deferred
-- None
 
 ---
 

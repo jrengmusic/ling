@@ -78,8 +78,53 @@ public:
     static bool isDeclaration (const jam::Document::Element& element);
 
 private:
+    /** @brief The scored declarations of one lookup: the score, the index of the path, and the element. */
+    using Matches = jam::Array<std::tuple<int, int, const jam::Document::Element*>>;
+
+    /**
+     * @brief Tells whether the type of an element is one of the types in a table.
+     *
+     * @tparam Types     The table type, a std::array of map::SyntaxTokenType values.
+     * @param types      The table of types.
+     * @param element    The element to test. It must hold Id::type.
+     * @return @c true when the type of the element is in the table.
+     */
+    template <typename Types>
+    static bool hasType (const Types& types, const jam::Document::Element& element)
+    {
+        return std::find (types.begin(), types.end(), *element.get<int> (Id::type)) != types.end();
+    }
+
+    /**
+     * @brief Tells whether the name of an element has at least one token.
+     *
+     * The C-family parse gives Id::name to every element that it adds. Every
+     * element that a lookup tests is one of those elements.
+     *
+     * @param element  The element to test. It must hold Id::name.
+     * @return @c true when the element has at least one name token.
+     */
+    static bool hasName (const jam::Document::Element& element);
+
     /** @brief The index of the file argument of a request. The line and the column follow it. */
     static constexpr int fileIndex { 0 };
+
+    /**
+     * @brief The types of a class member: a field, an instance method, a static method, and a static variable.
+     *
+     * The member lookups match only these types.
+     */
+    static constexpr std::array memberTypes { map::SyntaxTokenType::field, map::SyntaxTokenType::instanceMethod, map::SyntaxTokenType::staticMethod, map::SyntaxTokenType::staticVariable };
+
+    /**
+     * @brief The types of a callable declaration: a function, an instance method, a static method, a constructor, and a destructor.
+     *
+     * The call hierarchy keeps these types. A completion writes a snippet only for these types.
+     */
+    static constexpr std::array functionTypes { map::SyntaxTokenType::function, map::SyntaxTokenType::instanceMethod, map::SyntaxTokenType::staticMethod, map::SyntaxTokenType::constructor, map::SyntaxTokenType::destructor };
+
+    /** @brief Whether the fuzzy patterns that the lookups parse normalize diacritics. */
+    static constexpr bool shouldNormalize { true };
 
     /**
      * @brief Returns the names of an element and of its ancestors, from the root down.
@@ -213,10 +258,11 @@ private:
      *
      * @tparam Function  A callable type that takes (int, const jam::CodeDocument&, const jam::Document::Element&).
      * @param request    The request row. Its arguments give the position.
-     * @param function   The callable. It receives the path index, the document, and the element.
+     * @param function      The callable. It receives the path index, the document, and the element.
+     * @param columnOffset  The count of columns that is added to the column before the lookup. completion passes -1, so the position is the last byte of the typed name.
      */
     template <typename Function>
-    void applyToPosition (juce::ValueTree& request, const Function& function) const
+    void applyToPosition (juce::ValueTree& request, const Function& function, int columnOffset = 0) const
     {
         static constexpr int positionArgumentCount { 3 };
         static constexpr int lineIndex { 1 };
@@ -230,8 +276,8 @@ private:
         {
             const auto pathIndex { getPathIndex (request) };
 
-            if (documents.contains (pathIndex))
-                if (const auto* element { getElement (*documents.at (pathIndex), line, column) }; element != nullptr)
+            if (documents.contains (pathIndex) and column + columnOffset > 0)
+                if (const auto* element { getElement (*documents.at (pathIndex), line, column + columnOffset) }; element != nullptr)
                     function (pathIndex, *documents.at (pathIndex), *element);
         }
         else
@@ -254,13 +300,11 @@ private:
     template <typename Function>
     void applyToFunctions (juce::ValueTree& request, const Function& function) const
     {
-        static constexpr std::array functionTypes { map::SyntaxTokenType::function, map::SyntaxTokenType::instanceMethod, map::SyntaxTokenType::staticMethod, map::SyntaxTokenType::constructor, map::SyntaxTokenType::destructor };
-
         applyToPosition (request, [this, &function] (int pathIndex, const jam::CodeDocument&, const jam::Document::Element& element)
         {
             applyToDeclarations (pathIndex, element, [&function] (int declarationIndex, const jam::CodeDocument& declarationDocument, const jam::Document::Element& declaration)
             {
-                if (std::find (functionTypes.begin(), functionTypes.end(), *declaration.get<int> (Id::type)) != functionTypes.end())
+                if (hasType (functionTypes, declaration))
                     function (declarationIndex, declarationDocument, declaration);
             });
         });
@@ -294,11 +338,94 @@ private:
                 {
                     auto derivedPath (getPath (document, *reference.parent));
 
-                    if (std::none_of (classPaths.begin(), classPaths.end(), [&derivedPath] (const auto& knownPath) { return isSamePath (knownPath, derivedPath); }))
+                    if (not hasPath (classPaths, derivedPath))
                     {
                         function (pathIndex, document, *reference.parent);
                         classPaths.add (std::move (derivedPath));
                     }
+                }
+            });
+        }
+    }
+
+    /**
+     * @brief Calls @p function for each declaration that a name can see from a scope.
+     *
+     * The scope paths are the first segments of scope, each followed by qualifier,
+     * for each count from the full scope down to zero. The walk does not stop at
+     * the first scope that has a match. An empty path gives the root of each
+     * stored document. Each base class of a visited class adds its paths to the
+     * walk once, so a class that names itself as its base ends the walk.
+     *
+     * @tparam Function  A callable type that takes (int, const jam::CodeDocument&, const jam::Document::Element&).
+     * @param scope      The path of the scope that holds the reference.
+     * @param qualifier  The segments of a qualified name, without its last segment.
+     * @param function   The callable. It receives the path index, the document, and each scope element.
+     */
+    template <typename Function>
+    void applyToScopes (const jam::Array<std::string_view>& scope, const jam::Array<std::string_view>& qualifier, const Function& function) const
+    {
+        jam::Array<jam::Array<std::string_view>> scopePaths;
+
+        for (int size { scope.size() }; size >= 0; --size)
+            scopePaths.add (getPath (scope, size, qualifier));
+
+        for (int index { 0 }; index < scopePaths.size(); ++index)
+        {
+            const auto path (getPath (scopePaths.at (index), scopePaths.at (index).size(), {}));
+
+            if (path.isEmpty())
+            {
+                for (const auto& [pathIndex, document] : documents)
+                    function (pathIndex, *document, *document->getRoot());
+            }
+            else
+            {
+                applyToDeclarations (path, function);
+                applyToBases (path, [this, &path, &scopePaths] (const jam::CodeDocument& baseDocument, const jam::Document::Element& base)
+                {
+                    for (auto& basePath : getDeclarationPaths (path, getName (baseDocument, base), {}))
+                        if (not hasPath (scopePaths, basePath))
+                            scopePaths.add (std::move (basePath));
+                });
+            }
+        }
+    }
+
+    /**
+     * @brief Calls @p function for each declaration that a reference can complete to.
+     *
+     * A member reference gives each member declaration of every stored document.
+     * Any other reference gives the named declarations below each scope that
+     * applyToScopes visits. The qualifier is the name of the reference without its
+     * last segment.
+     *
+     * @tparam Function  A callable type that takes (int, const jam::CodeDocument&, const jam::Document::Element&).
+     * @param document   The document that holds the reference.
+     * @param reference  The reference element whose name is completed.
+     * @param function   The callable. It receives the path index, the document, and each candidate.
+     */
+    template <typename Function>
+    void applyToCandidates (const jam::CodeDocument& document, const jam::Document::Element& reference, const Function& function) const
+    {
+        if (reference.contains (Id::member))
+        {
+            applyToElements ([&function] (int pathIndex, const jam::CodeDocument& declarationDocument, const jam::Document::Element& declaration)
+            {
+                if (hasType (memberTypes, declaration) and hasName (declaration))
+                    function (pathIndex, declarationDocument, declaration);
+            });
+        }
+        else
+        {
+            const auto name (getName (document, reference));
+
+            applyToScopes (getPath (document, *reference.parent), getPath (name, name.size() - 1, {}), [&function] (int pathIndex, const jam::CodeDocument& declarationDocument, const jam::Document::Element& declaration)
+            {
+                for (const auto* child : declaration)
+                {
+                    if (isDeclaration (*child) and hasName (*child))
+                        function (pathIndex, declarationDocument, *child);
                 }
             });
         }
@@ -409,7 +536,7 @@ private:
                 if (start + count <= path.size()
                     and std::equal (name.begin(), name.end(), path.begin() + start, [&document] (const auto& token, std::string_view segment)
                     {
-                        return getView (document, token).compare (segment) == 0;
+                        return document.getView (token).compare (segment) == 0;
                     }))
                 {
                     if (count > 0 and start + count == path.size())
@@ -475,26 +602,15 @@ private:
     template <typename Function>
     void applyToMembers (std::string_view name, const Function& function) const
     {
-        static constexpr std::array memberTypes { map::SyntaxTokenType::field, map::SyntaxTokenType::instanceMethod, map::SyntaxTokenType::staticMethod, map::SyntaxTokenType::staticVariable };
-
         applyToElements ([&function, name] (int pathIndex, const jam::CodeDocument& document, const jam::Document::Element& declaration)
         {
             const auto& tokens { *declaration.get<jam::Document::Tokens> (Id::name) };
 
-            if (std::find (memberTypes.begin(), memberTypes.end(), *declaration.get<int> (Id::type)) != memberTypes.end() and not tokens.isEmpty()
-                and getView (document, tokens.last()).compare (name) == 0)
+            if (hasType (memberTypes, declaration) and not tokens.isEmpty()
+                and document.getView (tokens.last()).compare (name) == 0)
                 function (pathIndex, document, declaration);
         });
     }
-
-    /**
-     * @brief Returns the text of a token as a view into the source of its document.
-     *
-     * @param document  The document that holds the token.
-     * @param token     The token whose text is returned.
-     * @return A view of the token text. The view is valid while the document lives.
-     */
-    static std::string_view getView (const jam::CodeDocument& document, const jam::Document::Token& token);
 
     /**
      * @brief Returns the text of each name token of an element.
@@ -526,6 +642,15 @@ private:
      * @return @c true when both paths have the same count of segments, and each pair of segments has equal text.
      */
     static bool isSamePath (const jam::Array<std::string_view>& path, const jam::Array<std::string_view>& otherPath);
+
+    /**
+     * @brief Tells whether a list of paths holds a path.
+     *
+     * @param knownPaths  The paths to search.
+     * @param path        The path to find.
+     * @return @c true when a known path has the same segments as the path.
+     */
+    static bool hasPath (const jam::Array<jam::Array<std::string_view>>& knownPaths, const jam::Array<std::string_view>& path);
 
     /**
      * @brief Returns the index in paths of the file that a request names.
@@ -639,6 +764,20 @@ private:
     bool isBefore (int pathIndex, const jam::Document::Element& element, int otherPathIndex, const jam::Document::Element& otherElement) const;
 
     /**
+     * @brief Tells whether one element comes before another in the order by path.
+     *
+     * The path segments give the first order, compared from the first segment. Two
+     * elements with the same path are ordered by isBefore.
+     *
+     * @param pathIndex       The path index of the first element.
+     * @param element         The first element.
+     * @param otherPathIndex  The path index of the second element.
+     * @param otherElement    The second element.
+     * @return @c true when the first element comes before the second.
+     */
+    bool isBeforeByPath (int pathIndex, const jam::Document::Element& element, int otherPathIndex, const jam::Document::Element& otherElement) const;
+
+    /**
      * @brief Appends the declarations below a parent as a tree of JSON elements.
      *
      * A declaration without a name has no position. Its declarations become
@@ -649,6 +788,21 @@ private:
      * @param parent     The element whose declarations are appended.
      */
     void appendDocumentSymbols (std::string& json, int pathIndex, const jam::Document::Element& parent) const;
+
+    /**
+     * @brief Appends one completion entry: the element, its comment, and the snippet of a function.
+     *
+     * The comment comes from the comment declaration, which can be another element
+     * of the same symbol. The snippet is written only for the function types.
+     *
+     * @param json                The JSON text that receives the entry.
+     * @param pathIndex           The index of the document that holds the declaration.
+     * @param declarationDocument The document that holds the declaration.
+     * @param declaration         The declaration of the entry.
+     * @param commentDocument     The document that holds the comment declaration.
+     * @param commentDeclaration  The element whose Id::comment is written.
+     */
+    void appendCompletion (std::string& json, int pathIndex, const jam::CodeDocument& declarationDocument, const jam::Document::Element& declaration, const jam::CodeDocument& commentDocument, const jam::Document::Element& commentDeclaration) const;
 
     /**
      * @brief Fills events with the operation of each request command.
@@ -713,7 +867,19 @@ private:
      *
      * @param request  The request row. Its single argument is the query.
      */
-    void workspaceSymbol (juce::ValueTree& request);
+    void workspaceSymbol (juce::ValueTree& request) const;
+
+    /**
+     * @brief Writes the completions of the name that ends before the position of a request, as a JSON array.
+     *
+     * The position is the cursor after the typed name, so the lookup reads the
+     * byte before it. No stored document, no element, or an element of another
+     * type gives an empty array. The lookup reads the stored documents and starts
+     * no parse.
+     *
+     * @param request  The request row. Its arguments give the file, the line, and the column.
+     */
+    void completion (juce::ValueTree& request) const;
 
     /**
      * @brief Returns the declarations whose last name matches a fuzzy pattern, with their scores.
@@ -725,7 +891,77 @@ private:
      * @param pattern  The parsed query.
      * @return Tuples of the score, the path index, and the element.
      */
-    jam::Array<std::tuple<int, int, const jam::Document::Element*>> getMatches (const jam::Fuzzy::Pattern& pattern);
+    Matches getMatches (const jam::Fuzzy::Pattern& pattern) const;
+
+    /**
+     * @brief Scores the last name of an element against a pattern.
+     *
+     * The match uses the slab as its working memory.
+     *
+     * @param pattern   The parsed query.
+     * @param document  The document that holds the element.
+     * @param element   The element to score. It must hold a name.
+     * @return The result of the match, with its isMatch() and score.
+     */
+    jam::Fuzzy::Result getMatch (const jam::Fuzzy::Pattern& pattern, const jam::CodeDocument& document, const jam::Document::Element& element) const;
+
+    /**
+     * @brief Returns the declarations that a reference can complete to, with their scores, in completion order.
+     *
+     * Each candidate of applyToCandidates whose name matches the pattern is kept.
+     * The list is sorted by descending score, then by path, then by file, line, and
+     * column. Entries with the same path are adjacent, because they have the same
+     * name, so they have the same score.
+     *
+     * @param document   The document that holds the reference.
+     * @param reference  The reference element whose name is completed.
+     * @param pattern    The parsed name of the reference.
+     * @return Tuples of the score, the path index, and the element.
+     */
+    Matches getCompletions (const jam::CodeDocument& document, const jam::Document::Element& reference, const jam::Fuzzy::Pattern& pattern) const;
+
+    /**
+     * @brief Calls @p function once for each symbol that a reference can complete to.
+     *
+     * Entries with the same path are one symbol. The first entry of a symbol, in
+     * the order of getCompletions, is the declaration. The comment is the Id::comment
+     * of the first entry of the symbol that has one. When no entry has one, the
+     * comment is absent.
+     *
+     * @tparam Function  A callable type that takes (int, const jam::CodeDocument&, const jam::Document::Element&, const jam::CodeDocument&, const jam::Document::Element&).
+     * @param document   The document that holds the reference.
+     * @param reference  The reference element whose name is completed.
+     * @param pattern    The parsed name of the reference.
+     * @param function   The callable. It receives the path index, the document, and the declaration, then the document and the element that holds the comment.
+     */
+    template <typename Function>
+    void applyToCompletions (const jam::CodeDocument& document, const jam::Document::Element& reference, const jam::Fuzzy::Pattern& pattern, const Function& function) const
+    {
+        const auto completions (getCompletions (document, reference, pattern));
+
+        for (int index { 0 }; index < completions.size();)
+        {
+            const auto& [score, pathIndex, declaration] { completions.at (index) };
+            const auto declarationPath (getPath (*documents.at (pathIndex), *declaration));
+            const auto runEnd { std::find_if (completions.begin() + index, completions.end(), [this, &declarationPath] (const auto& entry)
+            {
+                const auto& [otherScore, otherIndex, otherDeclaration] { entry };
+
+                return not isSamePath (declarationPath, getPath (*documents.at (otherIndex), *otherDeclaration));
+            }) };
+            const auto commentEntry { std::find_if (completions.begin() + index, runEnd, [] (const auto& entry)
+            {
+                const auto& [otherScore, otherIndex, otherDeclaration] { entry };
+
+                return otherDeclaration->contains (Id::comment);
+            }) };
+            const auto& [commentScore, commentIndex, commentDeclaration] { commentEntry == runEnd ? completions.at (index) : *commentEntry };
+
+            function (pathIndex, *documents.at (pathIndex), *declaration, *documents.at (commentIndex), *commentDeclaration);
+
+            index = static_cast<int> (runEnd - completions.begin());
+        }
+    }
 
     /**
      * @brief Writes the implementations of the declarations at the position of a request.
@@ -855,9 +1091,10 @@ private:
      * @brief The working memory of the fuzzy finder.
      *
      * The finder takes one slab per thread. Each entry of events runs on the
-     * message thread, so one slab serves every entry.
+     * message thread, so one slab serves every entry. The lookups that score names
+     * are const, so the slab is mutable.
      */
-    jam::Fuzzy::Slab slab;
+    mutable jam::Fuzzy::Slab slab;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Processor)
 };

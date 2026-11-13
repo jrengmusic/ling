@@ -4,10 +4,10 @@
     <compoundname>CompilerManifest</compoundname>
     <includes refid="_compiler_manifest_8h" local="no">CompilerManifest.h</includes>
     <sectiondef kind="public-static-func">
-      <memberdef kind="function" id="struct_compiler_manifest_1ac6c023b121716f31f5adc69791ec314f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="struct_compiler_manifest_1afae28058303b442370d04c23805a38dd" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref></type>
         <definition>juce::ValueTree CompilerManifest::getFiles</definition>
-        <argsstring>(LINGModel &amp;model, const jam::ConfigDocument &amp;manifest, const juce::File &amp;manifestFile, const juce::String &amp;toolchainArgument)</argsstring>
+        <argsstring>(LINGModel &amp;model, const jam::MarkdownDocument &amp;manifest, const juce::File &amp;manifestFile, const juce::String &amp;toolchainArgument)</argsstring>
         <name>getFiles</name>
         <qualifiedname>CompilerManifest::getFiles</qualifiedname>
         <param>
@@ -15,7 +15,7 @@
           <declname>model</declname>
         </param>
         <param>
-          <type>const <ref refid="structjam_1_1ConfigDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::ConfigDocument</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1MarkdownDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::MarkdownDocument</ref> &amp;</type>
           <declname>manifest</declname>
         </param>
         <param>
@@ -74,17 +74,17 @@
         <references refid="namespaceId_1ae454bde97d113063488161174cbc7deb" compoundref="_generated_8cpp" startline="26" endline="26">Id::argument</references>
         <references refid="namespaceId_1a5e729b9864fd096462b3f08ef1eb4b1a">Id::diagnosticSeparator</references>
         <references refid="structtext_1_1_diagnostics_1a15f1fdeea830a67020306e9b3e5073ea" compoundref="_text_8h" startline="39" endline="39">text::Diagnostics::failToolchainArgument</references>
-        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="40" endline="40">Id::files</references>
-        <references refid="struct_compiler_manifest_1ac05558d9da1bb4ca092a0e9df7786ffd" compoundref="_compiler_manifest_8cpp" startline="36" endline="50">getFilesConstruction</references>
+        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="41" endline="41">Id::files</references>
+        <references refid="struct_compiler_manifest_1a86692835222d24386b1ab5e3c5afc03d" compoundref="_compiler_manifest_8cpp" startline="36" endline="50">getFilesConstruction</references>
         <references refid="structmap_1_1Family_1a56a6bdd4ff0cefd5dfcdcb2120e053b5">map::Family::getInstance</references>
-        <references refid="namespaceId_1a0f9647376c570f4f428258196fa64c61" compoundref="_generated_8cpp" startline="58" endline="58">Id::toolchain</references>
+        <references refid="namespaceId_1a0f9647376c570f4f428258196fa64c61" compoundref="_generated_8cpp" startline="60" endline="60">Id::toolchain</references>
         <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
       </memberdef>
     </sectiondef>
     <sectiondef kind="private-static-func">
-      <memberdef kind="function" id="struct_compiler_manifest_1ac05558d9da1bb4ca092a0e9df7786ffd" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>const <ref refid="structjam_1_1Function_1_1Map" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Function::Map</ref>&lt; int, <ref refid="structjam_1_1Function_1ae0c82daeeeb7f4c4eaf062d55601f5cd" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Function::pointerCapacity</ref>, void(<ref refid="class_l_i_n_g_model" kindref="compound">LINGModel</ref> &amp;, <ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;, const <ref refid="structjam_1_1ConfigDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::ConfigDocument</ref> &amp;, const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::ConfigDocument::Element</ref> &amp;, const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;)&gt; &amp;</type>
-        <definition>const jam::Function::Map&lt; int, jam::Function::pointerCapacity, void(LINGModel &amp;, juce::ValueTree &amp;, const jam::ConfigDocument &amp;, const jam::ConfigDocument::Element &amp;, const juce::File &amp;)&gt; &amp; CompilerManifest::getFilesConstruction</definition>
+      <memberdef kind="function" id="struct_compiler_manifest_1a86692835222d24386b1ab5e3c5afc03d" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="structjam_1_1Function_1_1Map" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Function::Map</ref>&lt; int, <ref refid="structjam_1_1Function_1ae0c82daeeeb7f4c4eaf062d55601f5cd" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Function::pointerCapacity</ref>, void(<ref refid="class_l_i_n_g_model" kindref="compound">LINGModel</ref> &amp;, <ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;, const <ref refid="structjam_1_1MarkdownDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::MarkdownDocument</ref> &amp;, const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::MarkdownDocument::Element</ref> &amp;, const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;)&gt; &amp;</type>
+        <definition>const jam::Function::Map&lt; int, jam::Function::pointerCapacity, void(LINGModel &amp;, juce::ValueTree &amp;, const jam::MarkdownDocument &amp;, const jam::MarkdownDocument::Element &amp;, const juce::File &amp;)&gt; &amp; CompilerManifest::getFilesConstruction</definition>
         <argsstring>()</argsstring>
         <name>getFilesConstruction</name>
         <qualifiedname>CompilerManifest::getFilesConstruction</qualifiedname>
@@ -101,15 +101,15 @@
         </inbodydescription>
         <location file="CompilerManifest.h" line="38" column="37" bodyfile="CompilerManifest.cpp" bodystart="36" bodyend="50"/>
         <references refid="structjam_1_1Function_1_1Map_1ad53732bb862659c66b8112c75f437248">jam::Function::Map&lt; typename KeyType, size_t capacity, typename... Signatures &gt;::add</references>
-        <references refid="struct_compiler_manifest_1ac4bddba13101adcf0ff115e8626131ec" compoundref="_compiler_manifest_8cpp" startline="52" endline="60">addCLanguageFiles</references>
+        <references refid="struct_compiler_manifest_1a19aa5842d058f8a553f44bf2e97d47a6" compoundref="_compiler_manifest_8cpp" startline="52" endline="60">addCLanguageFiles</references>
         <references refid="structmap_1_1Family_1afad4082381d98239ca2d7afc8a24ccfda222ff7846debaedeabe4e543ffff1f3a">map::Family::cLang</references>
         <references refid="structjam_1_1Function_1ae0c82daeeeb7f4c4eaf062d55601f5cd">jam::Function::pointerCapacity</references>
-        <referencedby refid="struct_compiler_manifest_1ac6c023b121716f31f5adc69791ec314f" compoundref="_compiler_manifest_8cpp" startline="3" endline="34">getFiles</referencedby>
+        <referencedby refid="struct_compiler_manifest_1afae28058303b442370d04c23805a38dd" compoundref="_compiler_manifest_8cpp" startline="3" endline="34">getFiles</referencedby>
       </memberdef>
-      <memberdef kind="function" id="struct_compiler_manifest_1ac4bddba13101adcf0ff115e8626131ec" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="struct_compiler_manifest_1a19aa5842d058f8a553f44bf2e97d47a6" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void CompilerManifest::addCLanguageFiles</definition>
-        <argsstring>(const int &amp;, LINGModel &amp;model, juce::ValueTree &amp;files, const jam::ConfigDocument &amp;manifest, const jam::ConfigDocument::Element &amp;row, const juce::File &amp;directory)</argsstring>
+        <argsstring>(const int &amp;, LINGModel &amp;model, juce::ValueTree &amp;files, const jam::MarkdownDocument &amp;manifest, const jam::MarkdownDocument::Element &amp;row, const juce::File &amp;directory)</argsstring>
         <name>addCLanguageFiles</name>
         <qualifiedname>CompilerManifest::addCLanguageFiles</qualifiedname>
         <param>
@@ -124,11 +124,11 @@
           <declname>files</declname>
         </param>
         <param>
-          <type>const <ref refid="structjam_1_1ConfigDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::ConfigDocument</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1MarkdownDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::MarkdownDocument</ref> &amp;</type>
           <declname>manifest</declname>
         </param>
         <param>
-          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::ConfigDocument::Element</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::MarkdownDocument::Element</ref> &amp;</type>
           <declname>row</declname>
         </param>
         <param>
@@ -186,17 +186,17 @@
         <inbodydescription>
         </inbodydescription>
         <location file="CompilerManifest.h" line="52" column="17" bodyfile="CompilerManifest.cpp" bodystart="52" bodyend="60"/>
-        <references refid="struct_compiler_manifest_1a27b9440fa07342c696ffd2af1e7eebc5" compoundref="_compiler_manifest_8cpp" startline="142" endline="176">addCLanguageDependencies</references>
-        <references refid="struct_compiler_manifest_1aeb98507984924cff3bfc19f704f111b5" compoundref="_compiler_manifest_8cpp" startline="62" endline="92">addCLanguageUnits</references>
+        <references refid="struct_compiler_manifest_1ad7aa4cb2cc1792abc97dc3fabb307292" compoundref="_compiler_manifest_8cpp" startline="142" endline="176">addCLanguageDependencies</references>
+        <references refid="struct_compiler_manifest_1aae1bdb37a57862b8cc20232aabcbfaa8" compoundref="_compiler_manifest_8cpp" startline="62" endline="92">addCLanguageUnits</references>
         <references refid="namespaceId_1a1538a142ed265f60c8fcf1703a106a7d">Id::command</references>
         <references refid="structtext_1_1_c_language_1a9be795f2d2883967cc207c7f541ff463" compoundref="_text_8h" startline="55" endline="55">text::CLanguage::compilerManifestCommand</references>
         <references refid="structtext_1_1_c_language_1ad1af23c7dc5da52607d788a1a20f3fba" compoundref="_text_8h" startline="58" endline="58">text::CLanguage::dependencyCommand</references>
-        <referencedby refid="struct_compiler_manifest_1ac05558d9da1bb4ca092a0e9df7786ffd" compoundref="_compiler_manifest_8cpp" startline="36" endline="50">getFilesConstruction</referencedby>
+        <referencedby refid="struct_compiler_manifest_1a86692835222d24386b1ab5e3c5afc03d" compoundref="_compiler_manifest_8cpp" startline="36" endline="50">getFilesConstruction</referencedby>
       </memberdef>
-      <memberdef kind="function" id="struct_compiler_manifest_1aeb98507984924cff3bfc19f704f111b5" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="struct_compiler_manifest_1aae1bdb37a57862b8cc20232aabcbfaa8" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void CompilerManifest::addCLanguageUnits</definition>
-        <argsstring>(LINGModel &amp;model, juce::ValueTree &amp;files, const jam::ConfigDocument &amp;manifest, const jam::ConfigDocument::Element &amp;row, const juce::File &amp;directory)</argsstring>
+        <argsstring>(LINGModel &amp;model, juce::ValueTree &amp;files, const jam::MarkdownDocument &amp;manifest, const jam::MarkdownDocument::Element &amp;row, const juce::File &amp;directory)</argsstring>
         <name>addCLanguageUnits</name>
         <qualifiedname>CompilerManifest::addCLanguageUnits</qualifiedname>
         <param>
@@ -208,11 +208,11 @@
           <declname>files</declname>
         </param>
         <param>
-          <type>const <ref refid="structjam_1_1ConfigDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::ConfigDocument</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1MarkdownDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::MarkdownDocument</ref> &amp;</type>
           <declname>manifest</declname>
         </param>
         <param>
-          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::ConfigDocument::Element</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::MarkdownDocument::Element</ref> &amp;</type>
           <declname>row</declname>
         </param>
         <param>
@@ -276,7 +276,7 @@
         <references refid="namespaceId_1a5e729b9864fd096462b3f08ef1eb4b1a">Id::diagnosticSeparator</references>
         <references refid="structtext_1_1_diagnostics_1a92a2023e448148a2d35ffdcd09f5c242" compoundref="_text_8h" startline="35" endline="35">text::Diagnostics::failCompilerManifestInvalid</references>
         <references refid="structtext_1_1_diagnostics_1a1b230c2f263a740ce68ec009c9e0e5e4" compoundref="_text_8h" startline="36" endline="36">text::Diagnostics::failCompilerManifestNotFound</references>
-        <references refid="namespaceId_1ac8f84d92cb02638b89abb87149be1caf" compoundref="_generated_8cpp" startline="42" endline="42">Id::flag</references>
+        <references refid="namespaceId_1ac8f84d92cb02638b89abb87149be1caf" compoundref="_generated_8cpp" startline="43" endline="43">Id::flag</references>
         <references refid="structtext_1_1_c_language_1a7fb5fd950f3d94521013128911356798" compoundref="_text_8h" startline="56" endline="56">text::CLanguage::flagBuildDirectory</references>
         <references refid="classjam_1_1ChildProcess_1a65b273807f8478293c55710c46557054">jam::ChildProcess::getArguments</references>
         <references refid="struct_compiler_manifest_1a2ab0bfb600da37c5bdd0453d088d7da4" compoundref="_compiler_manifest_8cpp" startline="250" endline="258">getBuildDirectory</references>
@@ -284,7 +284,7 @@
         <references refid="classjam_1_1Strings_1adfb32d159be94dc4a4004c50be876e3c">jam::Strings::getView</references>
         <references refid="structjam_1_1JsonDocument_1ab4d7d11cde11cacec4a5b4c016453a63">jam::JsonDocument::isValid</references>
         <references refid="structjam_1_1Document_1a367d65133f164cf9421ff0c3ddf2bbf6">jam::Document::parse</references>
-        <referencedby refid="struct_compiler_manifest_1ac4bddba13101adcf0ff115e8626131ec" compoundref="_compiler_manifest_8cpp" startline="52" endline="60">addCLanguageFiles</referencedby>
+        <referencedby refid="struct_compiler_manifest_1a19aa5842d058f8a553f44bf2e97d47a6" compoundref="_compiler_manifest_8cpp" startline="52" endline="60">addCLanguageFiles</referencedby>
       </memberdef>
       <memberdef kind="function" id="struct_compiler_manifest_1a597cca6e747514d1bf62ada95c2ce80e" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -354,7 +354,7 @@
         <references refid="namespaceId_1a5e729b9864fd096462b3f08ef1eb4b1a">Id::diagnosticSeparator</references>
         <references refid="namespaceId_1a6669c6bd053caa80ea2d789eddc0de47">Id::directory</references>
         <references refid="structtext_1_1_diagnostics_1a970639e94e56dd027f442cb9bf7f89a6" compoundref="_text_8h" startline="34" endline="34">text::Diagnostics::failUnitNotFound</references>
-        <references refid="namespaceId_1acf65f12aaf985fd43284a3365d0475b3" compoundref="_identifiers_8h" startline="43">Id::family</references>
+        <references refid="namespaceId_1acf65f12aaf985fd43284a3365d0475b3" compoundref="_identifiers_8h" startline="44">Id::family</references>
         <references refid="namespaceId_1a5d963020f2ab66034cf12eef33500c62">Id::file</references>
         <references refid="structjam_1_1JsonDocument_1a45103ee564c7f108c853a96bdd09a0ab">jam::JsonDocument::find</references>
         <references refid="classjam_1_1Strings_1aca02ec79e3d857bca6f9647dce6415fc">jam::Strings::fromView</references>
@@ -362,11 +362,11 @@
         <references refid="structjam_1_1SyntaxTree_1ab754d45fe51320139c516c80c975ef78">jam::SyntaxTree::getFamily</references>
         <references refid="structjam_1_1JsonDocument_1abd07e9da20184aa266aa577b11a0408d">jam::JsonDocument::getString</references>
         <references refid="classjam_1_1Strings_1adfb32d159be94dc4a4004c50be876e3c">jam::Strings::getView</references>
-        <references refid="namespaceId_1a3c8da0c68c021ababf62dc69bef9488a" compoundref="_identifiers_8h" startline="55">Id::output</references>
+        <references refid="namespaceId_1a3c8da0c68c021ababf62dc69bef9488a" compoundref="_identifiers_8h" startline="56">Id::output</references>
         <references refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab">Id::path</references>
         <references refid="classjuce_1_1Identifier_1ab6f0db1de2c36cacd1a9d7280f73aeeb">juce::Identifier::toString</references>
         <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
-        <referencedby refid="struct_compiler_manifest_1aeb98507984924cff3bfc19f704f111b5" compoundref="_compiler_manifest_8cpp" startline="62" endline="92">addCLanguageUnits</referencedby>
+        <referencedby refid="struct_compiler_manifest_1aae1bdb37a57862b8cc20232aabcbfaa8" compoundref="_compiler_manifest_8cpp" startline="62" endline="92">addCLanguageUnits</referencedby>
       </memberdef>
       <memberdef kind="function" id="struct_compiler_manifest_1a24e08cc40e9081d979e22e3680aaeb3b" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref></type>
@@ -424,10 +424,10 @@
         <references refid="namespaceId_1a852b83817f32504602a384b9091ed9fb">Id::tokens</references>
         <referencedby refid="struct_compiler_manifest_1a597cca6e747514d1bf62ada95c2ce80e" compoundref="_compiler_manifest_8cpp" startline="94" endline="122">addCLanguageUnit</referencedby>
       </memberdef>
-      <memberdef kind="function" id="struct_compiler_manifest_1a27b9440fa07342c696ffd2af1e7eebc5" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="struct_compiler_manifest_1ad7aa4cb2cc1792abc97dc3fabb307292" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void CompilerManifest::addCLanguageDependencies</definition>
-        <argsstring>(LINGModel &amp;model, juce::ValueTree &amp;files, const jam::ConfigDocument &amp;manifest, const jam::ConfigDocument::Element &amp;row, const juce::File &amp;directory)</argsstring>
+        <argsstring>(LINGModel &amp;model, juce::ValueTree &amp;files, const jam::MarkdownDocument &amp;manifest, const jam::MarkdownDocument::Element &amp;row, const juce::File &amp;directory)</argsstring>
         <name>addCLanguageDependencies</name>
         <qualifiedname>CompilerManifest::addCLanguageDependencies</qualifiedname>
         <param>
@@ -439,11 +439,11 @@
           <declname>files</declname>
         </param>
         <param>
-          <type>const <ref refid="structjam_1_1ConfigDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::ConfigDocument</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1MarkdownDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::MarkdownDocument</ref> &amp;</type>
           <declname>manifest</declname>
         </param>
         <param>
-          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::ConfigDocument::Element</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::MarkdownDocument::Element</ref> &amp;</type>
           <declname>row</declname>
         </param>
         <param>
@@ -504,10 +504,10 @@
         <references refid="struct_compiler_manifest_1a35121152e52c7c8d5ad86dad4cd8f1c6" compoundref="_compiler_manifest_8cpp" startline="191" endline="204">addCLanguageRecords</references>
         <references refid="namespaceId_1a1538a142ed265f60c8fcf1703a106a7d">Id::command</references>
         <references refid="structtext_1_1_c_language_1a3339c5f83477b96b8b2865d5200cf64f" compoundref="_text_8h" startline="62" endline="62">text::CLanguage::dependencyRecord</references>
-        <references refid="namespaceId_1a0cc234c6ac0115ad1f808dfaccd17f7b" compoundref="_generated_8cpp" startline="36" endline="36">Id::dependencyRecords</references>
+        <references refid="namespaceId_1a0cc234c6ac0115ad1f808dfaccd17f7b" compoundref="_generated_8cpp" startline="37" endline="37">Id::dependencyRecords</references>
         <references refid="namespaceId_1a5e729b9864fd096462b3f08ef1eb4b1a">Id::diagnosticSeparator</references>
         <references refid="structtext_1_1_diagnostics_1af3213d85de76f5051147adf231066b11" compoundref="_text_8h" startline="38" endline="38">text::Diagnostics::failToolchain</references>
-        <references refid="namespaceId_1ac8f84d92cb02638b89abb87149be1caf" compoundref="_generated_8cpp" startline="42" endline="42">Id::flag</references>
+        <references refid="namespaceId_1ac8f84d92cb02638b89abb87149be1caf" compoundref="_generated_8cpp" startline="43" endline="43">Id::flag</references>
         <references refid="structtext_1_1_c_language_1aa56719167bbba6ef522401dc798cfa32" compoundref="_text_8h" startline="59" endline="59">text::CLanguage::flagDependencyDirectory</references>
         <references refid="classjam_1_1ChildProcess_1a65b273807f8478293c55710c46557054">jam::ChildProcess::getArguments</references>
         <references refid="struct_compiler_manifest_1a2ab0bfb600da37c5bdd0453d088d7da4" compoundref="_compiler_manifest_8cpp" startline="250" endline="258">getBuildDirectory</references>
@@ -517,7 +517,7 @@
         <references refid="classjuce_1_1WaitableEvent_1aa3a20faa489e012718f6e23690d85a8d">juce::WaitableEvent::signal</references>
         <references refid="structChars_1a04b9b7227a5cdf082413821f7a1c66de">Chars::space</references>
         <references refid="classjuce_1_1WaitableEvent_1ac38aeb80078cc4f3d3b5f32e230d6988">juce::WaitableEvent::wait</references>
-        <referencedby refid="struct_compiler_manifest_1ac4bddba13101adcf0ff115e8626131ec" compoundref="_compiler_manifest_8cpp" startline="52" endline="60">addCLanguageFiles</referencedby>
+        <referencedby refid="struct_compiler_manifest_1a19aa5842d058f8a553f44bf2e97d47a6" compoundref="_compiler_manifest_8cpp" startline="52" endline="60">addCLanguageFiles</referencedby>
       </memberdef>
       <memberdef kind="function" id="struct_compiler_manifest_1a6640f9d6d8fffc3ac4da177d14108db9" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref></type>
@@ -563,7 +563,7 @@
         <location file="CompilerManifest.h" line="119" column="25" bodyfile="CompilerManifest.cpp" bodystart="178" bodyend="189"/>
         <references refid="structtext_1_1_c_language_1ab8bea2ef87db0b9ec4600c8d770462d8" compoundref="_text_8h" startline="60" endline="60">text::CLanguage::dependencyFlag</references>
         <references refid="classjam_1_1ChildProcess_1a65b273807f8478293c55710c46557054">jam::ChildProcess::getArguments</references>
-        <referencedby refid="struct_compiler_manifest_1a27b9440fa07342c696ffd2af1e7eebc5" compoundref="_compiler_manifest_8cpp" startline="142" endline="176">addCLanguageDependencies</referencedby>
+        <referencedby refid="struct_compiler_manifest_1ad7aa4cb2cc1792abc97dc3fabb307292" compoundref="_compiler_manifest_8cpp" startline="142" endline="176">addCLanguageDependencies</referencedby>
       </memberdef>
       <memberdef kind="function" id="struct_compiler_manifest_1a35121152e52c7c8d5ad86dad4cd8f1c6" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -632,12 +632,12 @@
         <location file="CompilerManifest.h" line="131" column="17" bodyfile="CompilerManifest.cpp" bodystart="191" bodyend="204"/>
         <references refid="classjam_1_1Strings_1a9223c1bf16916a52b122ae7e9d871f50">jam::Strings::add</references>
         <references refid="struct_compiler_manifest_1a744a99f5c065ef4439a7824b80a0ce78" compoundref="_compiler_manifest_8cpp" startline="206" endline="233">addCLanguageRecord</references>
-        <references refid="namespaceId_1a0c516665dbb95c16587f27b00bc01242" compoundref="_generated_8cpp" startline="35" endline="35">Id::dependencies</references>
+        <references refid="namespaceId_1a0c516665dbb95c16587f27b00bc01242" compoundref="_generated_8cpp" startline="36" endline="36">Id::dependencies</references>
         <references refid="namespaceId_1a5e729b9864fd096462b3f08ef1eb4b1a">Id::diagnosticSeparator</references>
         <references refid="structtext_1_1_diagnostics_1af763ab2fde1f227b356e621789f9dce5" compoundref="_text_8h" startline="37" endline="37">text::Diagnostics::failDependenciesNotFound</references>
-        <references refid="namespaceId_1a3c8da0c68c021ababf62dc69bef9488a" compoundref="_identifiers_8h" startline="55">Id::output</references>
+        <references refid="namespaceId_1a3c8da0c68c021ababf62dc69bef9488a" compoundref="_identifiers_8h" startline="56">Id::output</references>
         <references refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab">Id::path</references>
-        <referencedby refid="struct_compiler_manifest_1a27b9440fa07342c696ffd2af1e7eebc5" compoundref="_compiler_manifest_8cpp" startline="142" endline="176">addCLanguageDependencies</referencedby>
+        <referencedby refid="struct_compiler_manifest_1ad7aa4cb2cc1792abc97dc3fabb307292" compoundref="_compiler_manifest_8cpp" startline="142" endline="176">addCLanguageDependencies</referencedby>
       </memberdef>
       <memberdef kind="function" id="struct_compiler_manifest_1a744a99f5c065ef4439a7824b80a0ce78" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>size_t</type>
@@ -718,7 +718,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="CompilerManifest.h" line="146" column="19" bodyfile="CompilerManifest.cpp" bodystart="206" bodyend="233"/>
-        <references refid="namespaceId_1a0c516665dbb95c16587f27b00bc01242" compoundref="_generated_8cpp" startline="35" endline="35">Id::dependencies</references>
+        <references refid="namespaceId_1a0c516665dbb95c16587f27b00bc01242" compoundref="_generated_8cpp" startline="36" endline="36">Id::dependencies</references>
         <references refid="structtext_1_1_c_language_1a9643ea126445b0aff1fa5a8ef6bdf829" compoundref="_text_8h" startline="61" endline="61">text::CLanguage::dependencyHead</references>
         <references refid="classjam_1_1Strings_1aca02ec79e3d857bca6f9647dce6415fc">jam::Strings::fromView</references>
         <references refid="classjuce_1_1File_1a57b992aacb19e09ee5905cd0f0e9bb31">juce::File::getChildFile</references>
@@ -726,7 +726,7 @@
         <references refid="struct_compiler_manifest_1acf1db0d6d6f7955e16ca1f11721a1b88" compoundref="_compiler_manifest_8cpp" startline="235" endline="248">getOrCreateFileIndex</references>
         <references refid="classjuce_1_1Identifier_1aa11734917f2bc61608c3bcd3e6611a6c">juce::Identifier::isValid</references>
         <references refid="structChars_1a4691bc69052e757e7325970098922899">Chars::newline</references>
-        <references refid="namespaceId_1a3c8da0c68c021ababf62dc69bef9488a" compoundref="_identifiers_8h" startline="55">Id::output</references>
+        <references refid="namespaceId_1a3c8da0c68c021ababf62dc69bef9488a" compoundref="_identifiers_8h" startline="56">Id::output</references>
         <references refid="structChars_1a04b9b7227a5cdf082413821f7a1c66de">Chars::space</references>
         <referencedby refid="struct_compiler_manifest_1a35121152e52c7c8d5ad86dad4cd8f1c6" compoundref="_compiler_manifest_8cpp" startline="191" endline="204">addCLanguageRecords</referencedby>
       </memberdef>
@@ -798,7 +798,7 @@
         </inbodydescription>
         <location file="CompilerManifest.h" line="160" column="16" bodyfile="CompilerManifest.cpp" bodystart="235" bodyend="248"/>
         <references refid="classjam_1_1Strings_1a9223c1bf16916a52b122ae7e9d871f50">jam::Strings::add</references>
-        <references refid="namespaceId_1acf65f12aaf985fd43284a3365d0475b3" compoundref="_identifiers_8h" startline="43">Id::family</references>
+        <references refid="namespaceId_1acf65f12aaf985fd43284a3365d0475b3" compoundref="_identifiers_8h" startline="44">Id::family</references>
         <references refid="namespaceId_1a5d963020f2ab66034cf12eef33500c62">Id::file</references>
         <references refid="classjam_1_1Strings_1a5ac902c382badccfe7b50c6cc0a8b1a1">jam::Strings::indexOf</references>
         <references refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab">Id::path</references>
@@ -851,8 +851,8 @@
         <references refid="classjam_1_1Strings_1ac8c114584f92994d983c1de7047be57d">jam::Strings::at</references>
         <references refid="classjam_1_1Strings_1a5ac902c382badccfe7b50c6cc0a8b1a1">jam::Strings::indexOf</references>
         <references refid="classjam_1_1Strings_1a6e9725c26e13e395def58defc50d7259">jam::Strings::size</references>
-        <referencedby refid="struct_compiler_manifest_1a27b9440fa07342c696ffd2af1e7eebc5" compoundref="_compiler_manifest_8cpp" startline="142" endline="176">addCLanguageDependencies</referencedby>
-        <referencedby refid="struct_compiler_manifest_1aeb98507984924cff3bfc19f704f111b5" compoundref="_compiler_manifest_8cpp" startline="62" endline="92">addCLanguageUnits</referencedby>
+        <referencedby refid="struct_compiler_manifest_1ad7aa4cb2cc1792abc97dc3fabb307292" compoundref="_compiler_manifest_8cpp" startline="142" endline="176">addCLanguageDependencies</referencedby>
+        <referencedby refid="struct_compiler_manifest_1aae1bdb37a57862b8cc20232aabcbfaa8" compoundref="_compiler_manifest_8cpp" startline="62" endline="92">addCLanguageUnits</referencedby>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -863,17 +863,17 @@
     </detaileddescription>
     <location file="CompilerManifest.h" line="15" column="1" bodyfile="CompilerManifest.h" bodystart="16" bodyend="170"/>
     <listofallmembers>
-      <member refid="struct_compiler_manifest_1a27b9440fa07342c696ffd2af1e7eebc5" prot="private" virt="non-virtual"><scope>CompilerManifest</scope><name>addCLanguageDependencies</name></member>
-      <member refid="struct_compiler_manifest_1ac4bddba13101adcf0ff115e8626131ec" prot="private" virt="non-virtual"><scope>CompilerManifest</scope><name>addCLanguageFiles</name></member>
+      <member refid="struct_compiler_manifest_1ad7aa4cb2cc1792abc97dc3fabb307292" prot="private" virt="non-virtual"><scope>CompilerManifest</scope><name>addCLanguageDependencies</name></member>
+      <member refid="struct_compiler_manifest_1a19aa5842d058f8a553f44bf2e97d47a6" prot="private" virt="non-virtual"><scope>CompilerManifest</scope><name>addCLanguageFiles</name></member>
       <member refid="struct_compiler_manifest_1a744a99f5c065ef4439a7824b80a0ce78" prot="private" virt="non-virtual"><scope>CompilerManifest</scope><name>addCLanguageRecord</name></member>
       <member refid="struct_compiler_manifest_1a35121152e52c7c8d5ad86dad4cd8f1c6" prot="private" virt="non-virtual"><scope>CompilerManifest</scope><name>addCLanguageRecords</name></member>
       <member refid="struct_compiler_manifest_1a597cca6e747514d1bf62ada95c2ce80e" prot="private" virt="non-virtual"><scope>CompilerManifest</scope><name>addCLanguageUnit</name></member>
-      <member refid="struct_compiler_manifest_1aeb98507984924cff3bfc19f704f111b5" prot="private" virt="non-virtual"><scope>CompilerManifest</scope><name>addCLanguageUnits</name></member>
+      <member refid="struct_compiler_manifest_1aae1bdb37a57862b8cc20232aabcbfaa8" prot="private" virt="non-virtual"><scope>CompilerManifest</scope><name>addCLanguageUnits</name></member>
       <member refid="struct_compiler_manifest_1a2ab0bfb600da37c5bdd0453d088d7da4" prot="private" virt="non-virtual"><scope>CompilerManifest</scope><name>getBuildDirectory</name></member>
       <member refid="struct_compiler_manifest_1a24e08cc40e9081d979e22e3680aaeb3b" prot="private" virt="non-virtual"><scope>CompilerManifest</scope><name>getCommandArguments</name></member>
       <member refid="struct_compiler_manifest_1a6640f9d6d8fffc3ac4da177d14108db9" prot="private" virt="non-virtual"><scope>CompilerManifest</scope><name>getDependencyArguments</name></member>
-      <member refid="struct_compiler_manifest_1ac6c023b121716f31f5adc69791ec314f" prot="public" virt="non-virtual"><scope>CompilerManifest</scope><name>getFiles</name></member>
-      <member refid="struct_compiler_manifest_1ac05558d9da1bb4ca092a0e9df7786ffd" prot="private" virt="non-virtual"><scope>CompilerManifest</scope><name>getFilesConstruction</name></member>
+      <member refid="struct_compiler_manifest_1afae28058303b442370d04c23805a38dd" prot="public" virt="non-virtual"><scope>CompilerManifest</scope><name>getFiles</name></member>
+      <member refid="struct_compiler_manifest_1a86692835222d24386b1ab5e3c5afc03d" prot="private" virt="non-virtual"><scope>CompilerManifest</scope><name>getFilesConstruction</name></member>
       <member refid="struct_compiler_manifest_1acf1db0d6d6f7955e16ca1f11721a1b88" prot="private" virt="non-virtual"><scope>CompilerManifest</scope><name>getOrCreateFileIndex</name></member>
     </listofallmembers>
   </compounddef>

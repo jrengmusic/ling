@@ -22,7 +22,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="LINGModel.h" line="45" column="26" bodyfile="LINGModel.h" bodystart="45" bodyend="45"/>
-        <referencedby refid="class_manifest_1a52fb4543112732ccd3b5618c5665b01f" compoundref="_manifest_8cpp" startline="48" endline="55">Manifest::getTimeout</referencedby>
+        <referencedby refid="class_manifest_1a74869b90c95c6ef6273bd00526a343c3" compoundref="_manifest_8cpp" startline="48" endline="55">Manifest::getTimeout</referencedby>
         <referencedby refid="class_l_i_n_g_model_1a027340bbc7ee3868a010942469b1f1ec" compoundref="_l_i_n_g_model_8cpp" startline="3" endline="16">LINGModel</referencedby>
       </memberdef>
       <memberdef kind="variable" id="class_l_i_n_g_model_1a1c57527a53635e5f4efbcb6d27aa843e" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -84,17 +84,17 @@
         <references refid="structjam_1_1File_1_1Watcher_1a77218b3dfff2d229f480087e9e30f5c0">jam::File::Watcher::addListener</references>
         <references refid="structjam_1_1File_1_1Watcher_1a5d536adc6fc6ccc3a1636c32ea791c06">jam::File::Watcher::coalesceEvents</references>
         <references refid="class_l_i_n_g_model_1a1c57527a53635e5f4efbcb6d27aa843e" compoundref="_l_i_n_g_model_8h" startline="48" endline="48">coalesceMs</references>
-        <references refid="namespaceId_1a743670993dd005f0f872a89a5d009560" compoundref="_generated_8cpp" startline="32" endline="32">Id::connections</references>
+        <references refid="namespaceId_1a743670993dd005f0f872a89a5d009560" compoundref="_generated_8cpp" startline="33" endline="33">Id::connections</references>
         <references refid="classjam_1_1Model_1ac250f7a4c969aa2d05602b9805dd63ce">jam::Model::createAndAddParameter</references>
         <references refid="class_l_i_n_g_model_1a98c415ab589e5c16c6e98d1a8f0859a5" compoundref="_l_i_n_g_model_8h" startline="45" endline="45">defaultTimeoutMs</references>
-        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="40" endline="40">Id::files</references>
+        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="41" endline="41">Id::files</references>
         <references refid="classjam_1_1Model_1a322c866d6fc435eb6799562d6d6db8b1">jam::Model::getOrCreateChildWithName</references>
         <references refid="namespaceId_1a0e0b9ef1fb687c4c7c73d2bd7213ac01">Id::message</references>
         <references refid="classjam_1_1Model_1afbe837fa9d9c8086381333783bb1db3b">jam::Model::Model</references>
         <references refid="namespaceId_1a3c4b99c0119059fde6024a09a758312e">Id::overlay</references>
         <references refid="classjuce_1_1ValueTree_1a86de4a6662eb049c21c30c627616fb0e">juce::ValueTree::setProperty</references>
         <references refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857">jam::Model::state</references>
-        <references refid="namespaceId_1ad99de3ca37a30e0bb93696f8de7d2561" compoundref="_generated_8cpp" startline="57" endline="57">Id::timeout</references>
+        <references refid="namespaceId_1ad99de3ca37a30e0bb93696f8de7d2561" compoundref="_generated_8cpp" startline="59" endline="59">Id::timeout</references>
         <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
         <references refid="class_l_i_n_g_model_1a0f5c4a85d80ca163d85c7cc496fbab46" compoundref="_l_i_n_g_model_8h" startline="113">watcher</references>
       </memberdef>
@@ -148,14 +148,14 @@
         <references refid="namespaceId_1a0e0b9ef1fb687c4c7c73d2bd7213ac01">Id::message</references>
         <references refid="namespaceId_1a3c4b99c0119059fde6024a09a758312e">Id::overlay</references>
         <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
-        <referencedby refid="class_processor_1a382544055777bd6b922918f36a82f6ac" compoundref="_processor_8cpp" startline="520" endline="541">Processor::addDocument</referencedby>
-        <referencedby refid="class_processor_1af9b813b2b399ce82a3bd27abc84d74e6" compoundref="_processor_8h" startline="219" endline="241">Processor::applyToPosition</referencedby>
+        <referencedby refid="class_processor_1a382544055777bd6b922918f36a82f6ac" compoundref="_processor_8cpp" startline="604" endline="625">Processor::addDocument</referencedby>
+        <referencedby refid="class_processor_1adcb5b196f390b4c80a4037eb92bdc4d8" compoundref="_processor_8h" startline="265" endline="287">Processor::applyToPosition</referencedby>
         <referencedby refid="class_client_1af9ec2edf06d69e92a25c53ce4260fa27" compoundref="_client_8cpp" startline="64" endline="69">Client::connectionLost</referencedby>
-        <referencedby refid="class_processor_1aed09034a614896ac3c982e0b761b3dbc" compoundref="_processor_8cpp" startline="323" endline="346">Processor::documentSymbol</referencedby>
+        <referencedby refid="class_processor_1aed09034a614896ac3c982e0b761b3dbc" compoundref="_processor_8cpp" startline="353" endline="376">Processor::documentSymbol</referencedby>
         <referencedby refid="class_client_1a70c485d5d4c5e8ceb24b89e9db1cd4ec" compoundref="_client_8cpp" startline="71" endline="90">Client::messageReceived</referencedby>
-        <referencedby refid="class_processor_1a1dcabcb77d254b34ff0c04c9b483028d" compoundref="_processor_8cpp" startline="244" endline="260">Processor::runRequest</referencedby>
+        <referencedby refid="class_processor_1a1dcabcb77d254b34ff0c04c9b483028d" compoundref="_processor_8cpp" startline="274" endline="290">Processor::runRequest</referencedby>
         <referencedby refid="class_client_1a742373e08a80d993d2651b6fff76f5b9" compoundref="_client_8cpp" startline="21" endline="37">Client::start</referencedby>
-        <referencedby refid="class_processor_1a700c05d5a1b8a0a7ac491caab4d746a5" compoundref="_processor_8cpp" startline="375" endline="399">Processor::workspaceSymbol</referencedby>
+        <referencedby refid="class_processor_1afd85c7b2fe001c412b1c083713c2dc5b" compoundref="_processor_8cpp" startline="434" endline="457">Processor::workspaceSymbol</referencedby>
         <referencedby refid="class_l_i_n_g_model_1aed5183a1e913ceaaf115ac1d666e89a0">~LINGModel</referencedby>
       </memberdef>
     </sectiondef>
@@ -231,8 +231,8 @@
         <location file="LINGModel.h" line="72" column="23" bodyfile="LINGModel.cpp" bodystart="39" bodyend="46"/>
         <references refid="classjuce_1_1File_1a57b992aacb19e09ee5905cd0f0e9bb31">juce::File::getChildFile</references>
         <references refid="classjuce_1_1File_1a3e0950b0d0dbe71a8bc4a7ed3c7ab067">juce::File::getSpecialLocation</references>
-        <references refid="namespacefiles_1a4fa25fc64adbec36e00fff9632295c44" compoundref="_generated_8cpp" startline="70" endline="70">files::lingCache</references>
-        <references refid="namespacefiles_1aa079c0253a0187189d6d99d6c3584be6" compoundref="_generated_8cpp" startline="72" endline="72">files::lingLocalCache</references>
+        <references refid="namespacefiles_1a4fa25fc64adbec36e00fff9632295c44" compoundref="_generated_8cpp" startline="72" endline="72">files::lingCache</references>
+        <references refid="namespacefiles_1aa079c0253a0187189d6d99d6c3584be6" compoundref="_generated_8cpp" startline="74" endline="74">files::lingLocalCache</references>
         <references refid="classjuce_1_1File_1a6efe0648697f59af5952171d5e7b0317afc7a0751112d5d2a2b7a5d139e65b967">juce::File::userHomeDirectory</references>
         <references refid="classjuce_1_1File_1a6efe0648697f59af5952171d5e7b0317a4027faec552772ef6dec955e0016031d">juce::File::windowsLocalAppData</references>
         <referencedby refid="class_client_1aefc3c94434262806f1bc3aafebeae9ea" compoundref="_client_8cpp" startline="3" endline="13">Client::Client</referencedby>
@@ -285,7 +285,7 @@
         <location file="LINGModel.h" line="83" column="10" bodyfile="LINGModel.cpp" bodystart="48" bodyend="54"/>
         <references refid="structjam_1_1File_1_1Watcher_1af3b174cc017a51839fcfa19d0e9f9cbc">jam::File::Watcher::addFolder</references>
         <references refid="classjuce_1_1File_1ab6bec65fbcf19ce10e38cf9d1015770d">juce::File::getParentDirectory</references>
-        <references refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" compoundref="_identifiers_8h" startline="53">Id::manifest</references>
+        <references refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" compoundref="_identifiers_8h" startline="54">Id::manifest</references>
         <references refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857">jam::Model::state</references>
         <references refid="classjam_1_1Model_1ab664f3dda27392cd40724b87549d0b6c">jam::Model::valueTreePropertyChanged</references>
         <references refid="class_l_i_n_g_model_1a0f5c4a85d80ca163d85c7cc496fbab46" compoundref="_l_i_n_g_model_8h" startline="113">watcher</references>
@@ -334,8 +334,8 @@
         <location file="LINGModel.h" line="97" column="10" bodyfile="LINGModel.cpp" bodystart="56" bodyend="75"/>
         <references refid="structjam_1_1File_1_1Watcher_1af3b174cc017a51839fcfa19d0e9f9cbc">jam::File::Watcher::addFolder</references>
         <references refid="namespaceId_1a2220ff2678eb873f0cbb12be72a557d3" compoundref="_generated_8cpp" startline="30" endline="30">Id::compilerManifests</references>
-        <references refid="namespaceId_1a0cc234c6ac0115ad1f808dfaccd17f7b" compoundref="_generated_8cpp" startline="36" endline="36">Id::dependencyRecords</references>
-        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="40" endline="40">Id::files</references>
+        <references refid="namespaceId_1a0cc234c6ac0115ad1f808dfaccd17f7b" compoundref="_generated_8cpp" startline="37" endline="37">Id::dependencyRecords</references>
+        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="41" endline="41">Id::files</references>
         <references refid="classjuce_1_1File_1ab6bec65fbcf19ce10e38cf9d1015770d">juce::File::getParentDirectory</references>
         <references refid="classjuce_1_1ValueTree_1a21ae8143e7abb766a9a3b4961d74be2b">juce::ValueTree::hasType</references>
         <references refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab">Id::path</references>
@@ -387,11 +387,11 @@
         </inbodydescription>
         <location file="LINGModel.h" line="110" column="10" bodyfile="LINGModel.cpp" bodystart="77" bodyend="99"/>
         <references refid="namespaceId_1a2220ff2678eb873f0cbb12be72a557d3" compoundref="_generated_8cpp" startline="30" endline="30">Id::compilerManifests</references>
-        <references refid="namespaceId_1a0cc234c6ac0115ad1f808dfaccd17f7b" compoundref="_generated_8cpp" startline="36" endline="36">Id::dependencyRecords</references>
-        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="40" endline="40">Id::files</references>
+        <references refid="namespaceId_1a0cc234c6ac0115ad1f808dfaccd17f7b" compoundref="_generated_8cpp" startline="37" endline="37">Id::dependencyRecords</references>
+        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="41" endline="41">Id::files</references>
         <references refid="classjuce_1_1ValueTree_1ac9bbcb6db4464f77b512b9bd8bbb8c3f">juce::ValueTree::getChildWithName</references>
         <references refid="classjuce_1_1Identifier_1aa11734917f2bc61608c3bcd3e6611a6c">juce::Identifier::isValid</references>
-        <references refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" compoundref="_identifiers_8h" startline="53">Id::manifest</references>
+        <references refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" compoundref="_identifiers_8h" startline="54">Id::manifest</references>
         <references refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab">Id::path</references>
         <references refid="classjuce_1_1ValueTree_1ae48f6072bff41f419d5ec15ff1765c5e">juce::ValueTree::sendPropertyChangeMessage</references>
         <references refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857">jam::Model::state</references>

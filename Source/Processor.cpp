@@ -12,16 +12,16 @@ Processor::~Processor()
     model.removeListener (this);
 }
 
-std::string_view Processor::getView (const jam::CodeDocument& document, const jam::Document::Token& token)
-{
-    return std::string_view (document.getSource()).substr (token.offset(), token.length());
-}
-
 bool Processor::isDeclaration (const jam::Document::Element& element)
 {
     const auto type { *element.get<int> (Id::type) };
 
     return type >= map::SyntaxTokenType::namespaceToken and type <= map::SyntaxTokenType::macro;
+}
+
+bool Processor::hasName (const jam::Document::Element& element)
+{
+    return not element.get<jam::Document::Tokens> (Id::name)->isEmpty();
 }
 
 jam::Array<std::string_view> Processor::getName (const jam::CodeDocument& document, const jam::Document::Element& element)
@@ -30,7 +30,7 @@ jam::Array<std::string_view> Processor::getName (const jam::CodeDocument& docume
 
     if (const auto* tokens { element.find<jam::Document::Tokens> (Id::name) }; tokens != nullptr)
         for (const auto& token : *tokens)
-            name.add (getView (document, token));
+            name.add (document.getView (token));
 
     return name;
 }
@@ -68,6 +68,11 @@ bool Processor::isSamePath (const jam::Array<std::string_view>& path, const jam:
     });
 }
 
+bool Processor::hasPath (const jam::Array<jam::Array<std::string_view>>& knownPaths, const jam::Array<std::string_view>& path)
+{
+    return std::any_of (knownPaths.begin(), knownPaths.end(), [&path] (const auto& knownPath) { return isSamePath (knownPath, path); });
+}
+
 int Processor::getPathIndex (const juce::ValueTree& request) const
 {
     return paths.indexOf (juce::File { request[Id::directory].toString() }.getChildFile ((*request[Id::arguments].getArray())[fileIndex].toString()).getFullPathName(), false, 0);
@@ -93,7 +98,7 @@ bool Processor::isReferenceTo (int referenceIndex, const jam::Document::Element&
     const auto* tokens { reference.find<jam::Document::Tokens> (Id::name) };
 
     if (not isDeclaration (reference) and tokens != nullptr and not tokens->isEmpty()
-        and getView (*documents.at (referenceIndex), tokens->last()).compare (declarationPath.last()) == 0)
+        and documents.at (referenceIndex)->getView (tokens->last()).compare (declarationPath.last()) == 0)
     {
         applyToDeclarations (referenceIndex, reference, [&isDeclared, &declarationPath] (int, const jam::CodeDocument& declarationDocument, const jam::Document::Element& declaration)
         {
@@ -147,7 +152,7 @@ jam::Array<jam::Array<std::string_view>> Processor::getMemberPaths (const jam::A
         {
             for (const auto& basePath : getDeclarationPaths (classPath, getName (baseDocument, base), extended))
                 for (auto& memberPath : getMemberPaths (basePath, name, extended))
-                    if (not std::any_of (memberPaths.begin(), memberPaths.end(), [&memberPath] (const auto& path) { return isSamePath (path, memberPath); }))
+                    if (not hasPath (memberPaths, memberPath))
                         memberPaths.add (std::move (memberPath));
         });
     }
@@ -203,6 +208,19 @@ bool Processor::isBefore (int pathIndex, const jam::Document::Element& element, 
     return order < 0;
 }
 
+bool Processor::isBeforeByPath (int pathIndex, const jam::Document::Element& element, int otherPathIndex, const jam::Document::Element& otherElement) const
+{
+    const auto path (getPath (*documents.at (pathIndex), element));
+    const auto otherPath (getPath (*documents.at (otherPathIndex), otherElement));
+
+    if (isSamePath (path, otherPath)) return isBefore (pathIndex, element, otherPathIndex, otherElement);
+
+    return std::lexicographical_compare (path.begin(), path.end(), otherPath.begin(), otherPath.end(), [] (std::string_view left, std::string_view right)
+    {
+        return left.compare (right) < 0;
+    });
+}
+
 void Processor::appendDocumentSymbols (std::string& json, int pathIndex, const jam::Document::Element& parent) const
 {
     for (const auto* child : parent)
@@ -228,6 +246,17 @@ void Processor::appendDocumentSymbols (std::string& json, int pathIndex, const j
     }
 }
 
+void Processor::appendCompletion (std::string& json, int pathIndex, const jam::CodeDocument& declarationDocument, const jam::Document::Element& declaration, const jam::CodeDocument& commentDocument, const jam::Document::Element& commentDeclaration) const
+{
+    JsonWriter::appendElement (json, paths.getView (pathIndex), declarationDocument, declaration, [&declarationDocument, &declaration, &commentDocument, &commentDeclaration] (std::string& members)
+    {
+        JsonWriter::appendComment (members, commentDocument, commentDeclaration);
+
+        if (hasType (functionTypes, declaration))
+            JsonWriter::appendSnippet (members, declarationDocument, declaration);
+    });
+}
+
 void Processor::registerEvents()
 {
     events.add (Id::goToDefinition, [this] (const juce::Identifier&, juce::ValueTree& request) { goToDefinition (request); });
@@ -235,6 +264,7 @@ void Processor::registerEvents()
     events.add (Id::hover, [this] (const juce::Identifier&, juce::ValueTree& request) { hover (request); });
     events.add (Id::documentSymbol, [this] (const juce::Identifier&, juce::ValueTree& request) { documentSymbol (request); });
     events.add (Id::workspaceSymbol, [this] (const juce::Identifier&, juce::ValueTree& request) { workspaceSymbol (request); });
+    events.add (Id::completion, [this] (const juce::Identifier&, juce::ValueTree& request) { completion (request); });
     events.add (Id::goToImplementation, [this] (const juce::Identifier&, juce::ValueTree& request) { goToImplementation (request); });
     events.add (Id::prepareCallHierarchy, [this] (const juce::Identifier&, juce::ValueTree& request) { prepareCallHierarchy (request); });
     events.add (Id::incomingCalls, [this] (const juce::Identifier&, juce::ValueTree& request) { incomingCalls (request); });
@@ -345,16 +375,22 @@ void Processor::documentSymbol (juce::ValueTree& request) const
     setResult (request, json);
 }
 
-jam::Array<std::tuple<int, int, const jam::Document::Element*>> Processor::getMatches (const jam::Fuzzy::Pattern& pattern)
+jam::Fuzzy::Result Processor::getMatch (const jam::Fuzzy::Pattern& pattern, const jam::CodeDocument& document, const jam::Document::Element& element) const
 {
-    jam::Array<std::tuple<int, int, const jam::Document::Element*>> scored;
+    jassert (hasName (element));
+
+    return pattern.match (jam::Strings::fromView (document.getView (element.get<jam::Document::Tokens> (Id::name)->last())), slab);
+}
+
+Processor::Matches Processor::getMatches (const jam::Fuzzy::Pattern& pattern) const
+{
+    Matches scored;
 
     applyToElements ([this, &scored, &pattern] (int pathIndex, const jam::CodeDocument& document, const jam::Document::Element& element)
     {
-        if (isDeclaration (element) and not element.get<jam::Document::Tokens> (Id::name)->isEmpty())
+        if (isDeclaration (element) and hasName (element))
         {
-            const auto& token { element.get<jam::Document::Tokens> (Id::name)->last() };
-            const auto match { pattern.match (jam::Strings::fromView (getView (document, token)), slab) };
+            const auto match { getMatch (pattern, document, element) };
 
             if (match.isMatch())
                 scored.add ({ match.score, pathIndex, &element });
@@ -372,10 +408,32 @@ jam::Array<std::tuple<int, int, const jam::Document::Element*>> Processor::getMa
     return scored;
 }
 
-void Processor::workspaceSymbol (juce::ValueTree& request)
+Processor::Matches Processor::getCompletions (const jam::CodeDocument& document, const jam::Document::Element& reference, const jam::Fuzzy::Pattern& pattern) const
+{
+    Matches completions;
+
+    applyToCandidates (document, reference, [this, &completions, &pattern] (int pathIndex, const jam::CodeDocument& declarationDocument, const jam::Document::Element& declaration)
+    {
+        const auto match { getMatch (pattern, declarationDocument, declaration) };
+
+        if (match.isMatch())
+            completions.add ({ match.score, pathIndex, &declaration });
+    });
+
+    std::sort (completions.begin(), completions.end(), [this] (const auto& left, const auto& right)
+    {
+        const auto& [leftScore, leftIndex, leftElement] { left };
+        const auto& [rightScore, rightIndex, rightElement] { right };
+
+        return leftScore != rightScore ? leftScore > rightScore : isBeforeByPath (leftIndex, *leftElement, rightIndex, *rightElement);
+    });
+
+    return completions;
+}
+
+void Processor::workspaceSymbol (juce::ValueTree& request) const
 {
     static constexpr int queryArgumentCount { 1 };
-    static constexpr bool shouldNormalize { true };
 
     const auto& arguments { *request[Id::arguments].getArray() };
     std::string json;
@@ -393,6 +451,32 @@ void Processor::workspaceSymbol (juce::ValueTree& request)
         {
             model.setMessage (text::Diagnostics::failArguments);
         }
+    });
+
+    setResult (request, json);
+}
+
+void Processor::completion (juce::ValueTree& request) const
+{
+    static constexpr int cursorOffset { -1 };
+    static constexpr std::array referenceTypes { map::SyntaxTokenType::reference, map::SyntaxTokenType::call, map::SyntaxTokenType::base };
+
+    std::string json;
+
+    jam::JsonWriter::appendArray (json, [this, &request] (std::string& entries)
+    {
+        applyToPosition (request, [this, &entries] (int, const jam::CodeDocument& document, const jam::Document::Element& element)
+        {
+            if (hasType (referenceTypes, element))
+            {
+                const auto pattern { jam::Fuzzy::Pattern::parse (jam::Strings::fromView (document.getView (element.get<jam::Document::Tokens> (Id::name)->last())), jam::Fuzzy::CaseMode::smart, shouldNormalize, jam::Fuzzy::Scheme::standard) };
+
+                applyToCompletions (document, element, pattern, [this, &entries] (int pathIndex, const jam::CodeDocument& declarationDocument, const jam::Document::Element& declaration, const jam::CodeDocument& commentDocument, const jam::Document::Element& commentDeclaration)
+                {
+                    appendCompletion (entries, pathIndex, declarationDocument, declaration, commentDocument, commentDeclaration);
+                });
+            }
+        }, cursorOffset);
     });
 
     setResult (request, json);

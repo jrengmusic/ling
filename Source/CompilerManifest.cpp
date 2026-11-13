@@ -1,6 +1,6 @@
 #include "CompilerManifest.h"
 
-juce::ValueTree CompilerManifest::getFiles (LINGModel& model, const jam::ConfigDocument& manifest, const juce::File& manifestFile, const juce::String& toolchainArgument)
+juce::ValueTree CompilerManifest::getFiles (LINGModel& model, const jam::MarkdownDocument& manifest, const juce::File& manifestFile, const juce::String& toolchainArgument)
 {
     static const jam::SharedInstance<map::Family> family { std::in_place };
 
@@ -8,7 +8,7 @@ juce::ValueTree CompilerManifest::getFiles (LINGModel& model, const jam::ConfigD
     const auto directory { manifestFile.getParentDirectory() };
     juce::ValueTree files { jam::Format::toType (Id::files) };
     const auto tables (manifest.getTables (Id::toolchain));
-    const auto isToolchainRow { [&manifest, &toolchainArgument] (const jam::ConfigDocument::Element* row) { return manifest.getTableValue (*row, Id::argument).compare (toolchainArgument) == 0; } };
+    const auto isToolchainRow { [&manifest, &toolchainArgument] (const jam::MarkdownDocument::Element* row) { return manifest.getTableValue (*row, Id::argument).compare (toolchainArgument) == 0; } };
 
     for (const auto* table : tables)
     {
@@ -23,7 +23,7 @@ juce::ValueTree CompilerManifest::getFiles (LINGModel& model, const jam::ConfigD
         }
     }
 
-    if (toolchainArgument.isNotEmpty() and std::none_of (tables.begin(), tables.end(), [&manifest, &isToolchainRow] (const jam::ConfigDocument::Element* table)
+    if (toolchainArgument.isNotEmpty() and std::none_of (tables.begin(), tables.end(), [&manifest, &isToolchainRow] (const jam::MarkdownDocument::Element* table)
                                                           {
                                                               const auto rows (manifest.getTableRows (*table));
                                                               return std::any_of (rows.begin(), rows.end(), isToolchainRow);
@@ -33,12 +33,12 @@ juce::ValueTree CompilerManifest::getFiles (LINGModel& model, const jam::ConfigD
     return files;
 }
 
-const jam::Function::Map<int, jam::Function::pointerCapacity, void (LINGModel&, juce::ValueTree&, const jam::ConfigDocument&, const jam::ConfigDocument::Element&, const juce::File&)>& CompilerManifest::getFilesConstruction()
+const jam::Function::Map<int, jam::Function::pointerCapacity, void (LINGModel&, juce::ValueTree&, const jam::MarkdownDocument&, const jam::MarkdownDocument::Element&, const juce::File&)>& CompilerManifest::getFilesConstruction()
 {
     static const auto filesConstruction (
         []
         {
-            jam::Function::Map<int, jam::Function::pointerCapacity, void (LINGModel&, juce::ValueTree&, const jam::ConfigDocument&, const jam::ConfigDocument::Element&, const juce::File&)> filesConstruction;
+            jam::Function::Map<int, jam::Function::pointerCapacity, void (LINGModel&, juce::ValueTree&, const jam::MarkdownDocument&, const jam::MarkdownDocument::Element&, const juce::File&)> filesConstruction;
 
             filesConstruction.add (map::Family::cLang, addCLanguageFiles);
 
@@ -49,7 +49,7 @@ const jam::Function::Map<int, jam::Function::pointerCapacity, void (LINGModel&, 
     return filesConstruction;
 }
 
-void CompilerManifest::addCLanguageFiles (const int&, LINGModel& model, juce::ValueTree& files, const jam::ConfigDocument& manifest, const jam::ConfigDocument::Element& row, const juce::File& directory)
+void CompilerManifest::addCLanguageFiles (const int&, LINGModel& model, juce::ValueTree& files, const jam::MarkdownDocument& manifest, const jam::MarkdownDocument::Element& row, const juce::File& directory)
 {
     const auto command { manifest.getTableValue (row, Id::command) };
 
@@ -59,7 +59,7 @@ void CompilerManifest::addCLanguageFiles (const int&, LINGModel& model, juce::Va
         addCLanguageDependencies (model, files, manifest, row, directory);
 }
 
-void CompilerManifest::addCLanguageUnits (LINGModel& model, juce::ValueTree& files, const jam::ConfigDocument& manifest, const jam::ConfigDocument::Element& row, const juce::File& directory)
+void CompilerManifest::addCLanguageUnits (LINGModel& model, juce::ValueTree& files, const jam::MarkdownDocument& manifest, const jam::MarkdownDocument::Element& row, const juce::File& directory)
 {
     const auto flagArguments (jam::ChildProcess::getArguments (jam::Strings::getView (manifest.getTableValue (row, Id::flag))));
     const auto buildDirectory { getBuildDirectory (flagArguments, text::CLanguage::flagBuildDirectory) };
@@ -139,7 +139,7 @@ jam::Strings CompilerManifest::getCommandArguments (const jam::JsonDocument& doc
     return jam::ChildProcess::getArguments (commandText);
 }
 
-void CompilerManifest::addCLanguageDependencies (LINGModel& model, juce::ValueTree& files, const jam::ConfigDocument& manifest, const jam::ConfigDocument::Element& row, const juce::File& directory)
+void CompilerManifest::addCLanguageDependencies (LINGModel& model, juce::ValueTree& files, const jam::MarkdownDocument& manifest, const jam::MarkdownDocument::Element& row, const juce::File& directory)
 {
     const auto command { manifest.getTableValue (row, Id::command) };
     const auto flag { manifest.getTableValue (row, Id::flag) };

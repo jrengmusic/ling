@@ -157,7 +157,7 @@
         </inbodydescription>
         <location file="Manifest.h" line="37" column="10" bodyfile="Manifest.cpp" bodystart="16" bodyend="20"/>
         <references refid="class_manifest_1a64ee33ff76020fa298b43994752e5200" compoundref="_manifest_8cpp" startline="22" endline="39">addJob</references>
-        <references refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" compoundref="_identifiers_8h" startline="53">Id::manifest</references>
+        <references refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" compoundref="_identifiers_8h" startline="54">Id::manifest</references>
         <references refid="class_manifest_1a87d745097f80d516fa1ebb90bfd89f47" compoundref="_manifest_8h" startline="71">model</references>
         <references refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857">jam::Model::state</references>
       </memberdef>
@@ -177,13 +177,14 @@
         </inbodydescription>
         <location file="Manifest.h" line="49" column="10" bodyfile="Manifest.cpp" bodystart="22" bodyend="39"/>
         <references refid="classjuce_1_1ThreadPool_1a1f9f523d52ef5258a72c0c5049306a6a">juce::ThreadPool::addJob</references>
-        <references refid="structjam_1_1ConfigDocument_1ad72ea8de8809e4ee5359c9ff5e759c76">jam::ConfigDocument::isValid</references>
+        <references refid="classjam_1_1Strings_1adfb32d159be94dc4a4004c50be876e3c">jam::Strings::getView</references>
+        <references refid="structjam_1_1MarkdownDocument_1ad95d41e53a316b9f17d2b0bf6e0f6a45">jam::MarkdownDocument::isValid</references>
         <references refid="classjuce_1_1Identifier_1aa11734917f2bc61608c3bcd3e6611a6c">juce::Identifier::isValid</references>
-        <references refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" compoundref="_identifiers_8h" startline="53">Id::manifest</references>
+        <references refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" compoundref="_identifiers_8h" startline="54">Id::manifest</references>
         <references refid="class_manifest_1a87d745097f80d516fa1ebb90bfd89f47" compoundref="_manifest_8h" startline="71">model</references>
         <references refid="class_manifest_1a87e7a005eb59055299b2515bd0fca245" compoundref="_manifest_8h" startline="74" endline="74">pool</references>
         <references refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857">jam::Model::state</references>
-        <references refid="namespaceId_1ad2d03a036d57999f43066f5737dc8008" compoundref="_generated_8cpp" startline="59" endline="59">Id::toolchainArgument</references>
+        <references refid="namespaceId_1ad2d03a036d57999f43066f5737dc8008" compoundref="_generated_8cpp" startline="61" endline="61">Id::toolchainArgument</references>
         <referencedby refid="class_manifest_1a86e078d9418d29915919effe785bb14a" compoundref="_manifest_8cpp" startline="16" endline="20">valueTreePropertyChanged</referencedby>
       </memberdef>
       <memberdef kind="function" id="class_manifest_1af7d5949981f9b11ec9b40ff8c29a9c17" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -227,25 +228,25 @@
         </inbodydescription>
         <location file="Manifest.h" line="57" column="10" bodyfile="Manifest.cpp" bodystart="41" bodyend="46"/>
         <references refid="classjam_1_1Model_1ae0cb2cc2b04acb47eb9760d92dcedc46">jam::Model::appendChild</references>
-        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="40" endline="40">Id::files</references>
+        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="41" endline="41">Id::files</references>
         <references refid="classjuce_1_1ValueTree_1ac9bbcb6db4464f77b512b9bd8bbb8c3f">juce::ValueTree::getChildWithName</references>
         <references refid="class_manifest_1a87d745097f80d516fa1ebb90bfd89f47" compoundref="_manifest_8h" startline="71">model</references>
         <references refid="classjam_1_1Model_1acbf5ef1a6e71240468f17fe707532bec">jam::Model::removeChild</references>
         <references refid="classjuce_1_1ValueTree_1a86de4a6662eb049c21c30c627616fb0e">juce::ValueTree::setProperty</references>
         <references refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857">jam::Model::state</references>
-        <references refid="namespaceId_1ad99de3ca37a30e0bb93696f8de7d2561" compoundref="_generated_8cpp" startline="57" endline="57">Id::timeout</references>
+        <references refid="namespaceId_1ad99de3ca37a30e0bb93696f8de7d2561" compoundref="_generated_8cpp" startline="59" endline="59">Id::timeout</references>
         <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
       </memberdef>
     </sectiondef>
     <sectiondef kind="private-static-func">
-      <memberdef kind="function" id="class_manifest_1a52fb4543112732ccd3b5618c5665b01f" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_manifest_1a74869b90c95c6ef6273bd00526a343c3" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
         <definition>int Manifest::getTimeout</definition>
-        <argsstring>(const jam::ConfigDocument &amp;manifest)</argsstring>
+        <argsstring>(const jam::MarkdownDocument &amp;manifest)</argsstring>
         <name>getTimeout</name>
         <qualifiedname>Manifest::getTimeout</qualifiedname>
         <param>
-          <type>const <ref refid="structjam_1_1ConfigDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::ConfigDocument</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1MarkdownDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::MarkdownDocument</ref> &amp;</type>
           <declname>manifest</declname>
         </param>
         <briefdescription>
@@ -268,9 +269,9 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Manifest.h" line="65" column="16" bodyfile="Manifest.cpp" bodystart="48" bodyend="55"/>
-        <references refid="namespaceId_1ad57a2d4fadbed29a552707db60b01f2a" compoundref="_generated_8cpp" startline="33" endline="33">Id::daemon</references>
+        <references refid="namespaceId_1ad57a2d4fadbed29a552707db60b01f2a" compoundref="_generated_8cpp" startline="34" endline="34">Id::daemon</references>
         <references refid="class_l_i_n_g_model_1a98c415ab589e5c16c6e98d1a8f0859a5" compoundref="_l_i_n_g_model_8h" startline="45" endline="45">LINGModel::defaultTimeoutMs</references>
-        <references refid="namespaceId_1ad99de3ca37a30e0bb93696f8de7d2561" compoundref="_generated_8cpp" startline="57" endline="57">Id::timeout</references>
+        <references refid="namespaceId_1ad99de3ca37a30e0bb93696f8de7d2561" compoundref="_generated_8cpp" startline="59" endline="59">Id::timeout</references>
         <references refid="namespaceId_1aa31dd51a36cc1b369f63f498441108e8">Id::value</references>
       </memberdef>
     </sectiondef>
@@ -450,7 +451,7 @@
     <location file="Manifest.h" line="15" column="1" bodyfile="Manifest.h" bodystart="16" bodyend="77"/>
     <listofallmembers>
       <member refid="class_manifest_1a64ee33ff76020fa298b43994752e5200" prot="private" virt="non-virtual"><scope>Manifest</scope><name>addJob</name></member>
-      <member refid="class_manifest_1a52fb4543112732ccd3b5618c5665b01f" prot="private" virt="non-virtual"><scope>Manifest</scope><name>getTimeout</name></member>
+      <member refid="class_manifest_1a74869b90c95c6ef6273bd00526a343c3" prot="private" virt="non-virtual"><scope>Manifest</scope><name>getTimeout</name></member>
       <member refid="class_manifest_1a16ddfc76a23f8dae673d0a8f08e41ef1" prot="public" virt="non-virtual"><scope>Manifest</scope><name>Manifest</name></member>
       <member refid="class_manifest_1a87d745097f80d516fa1ebb90bfd89f47" prot="private" virt="non-virtual"><scope>Manifest</scope><name>model</name></member>
       <member refid="class_manifest_1a87e7a005eb59055299b2515bd0fca245" prot="private" virt="non-virtual"><scope>Manifest</scope><name>pool</name></member>

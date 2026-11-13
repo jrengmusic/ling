@@ -21,7 +21,7 @@ The parse gives the two facts that a reader cannot get from the tree today: the 
 ## Language / Framework Constraints
 
 - Ruling 14 and ruling 45: the file on disk is the truth, and the watcher reaction is the only path from a file to a document. A request does not carry text.
-- MANIFESTO **D**: the same file gives the same answer. The watcher coalesces events (`jam/jam_core/file/jam_Listener.h:22-120`), so a request that comes right after a save could read the document of the old file. The request therefore sends the same change message for its file row that the watcher sends (PLAN-ling-6-manifest.md, item 4 of `LINGModel`). The request runs when the parse ends (PLAN-ling-7-queries.md, The nine operations: "When a parse is pending, it runs the entry when `Id::documents` is written").
+- MANIFESTO **E**, Complete at Creation: "Both are one Model, built once, read in place." A file is parsed once for each change, by the watcher reaction (`LINGModel.cpp:97`, `Processor.cpp:494-498`). `completion` reads the stored document, as the other eight operations do. It does not parse its file again. ARCHITECT, 2026-11-14: *"why need to parsed again? why not only parsed once, complete AST build, memoized, cachaed. that have always been the contract"*. This also holds PLAN-ling-8-daemon.md C2: "No request is ever pending: a request is answered inside its add event".
 - MANIFESTO **E**, Complete at Creation: "A parsed document tree is complete the instant its build operation returns; no downstream consumer mutates it, copies its fields into a working buffer, or re-derives what that operation already produced." The comment and the parameter list are written by `build()`. No reader scans the source for them.
 - Ruling 42 and MANIFESTO **S**: the lookup reads the documents in place, through the lingua of `jam::Document`. It builds no index of names.
 - Tracker Risks item 15 and ruling 32: a parameter stays a `variable`. No new `SyntaxTokenType` row.
@@ -86,7 +86,7 @@ Line numbers are reads of 2026-11-10. Base path for JAM: `~/Documents/Poems/dev/
 | Property | On | Value | Author |
 |---|---|---|---|
 | `Id::comment` | each declaration element | `Tokens`: the comment tokens directly before the first token of its declaration candidate, in source order. "Directly before" means that no token of another type is between them. With no such token, the element has no `Id::comment`. | `addComment (element, candidateStart)`, called by each handler after `addElement` |
-| `Id::parameters` | each function element that `addParameters` reads | `Elements`: the `variable` children that `addParameters` makes, in source order. An empty group gives an empty list. | `addParameters` |
+| `Id::parameters` | each function element that `addParameters` reads | `Tokens`: one token for each parameter, in source order, each of type `variable`. A named parameter gives its name token. An unnamed parameter gives the span of its part, from its first token to the token before its boundary (`getBoundary`), so a default value is not in it. When the boundary is the first token of the part, as in `(always_inline)`, the span is the whole part. An empty group gives an empty list. | `addParameter`, called by `addParameters` |
 
 `addComment` finds the first token of the candidate in `tokens` by its span offset, with `std::lower_bound` over the offsets (the tokens are in offset order). It then takes the tokens before it while their type is `comment`. This is creation: a work step inside `build()` (MANIFESTO **E**, "Creation can use multiple passes, look-ahead, reverse steps, work buffers").
 
@@ -97,13 +97,17 @@ The first token of a candidate is the token where the handler starts the stateme
 | Key | Rule |
 |---|---|
 | `comment` | each token of `Id::comment` has the type `comment`, and its span is inside the source |
-| `parameters` | each element of `Id::parameters` is a `variable` child of the element that holds the list |
+| `parameters` | each token of `Id::parameters` has the type `variable`, and its span is inside the source |
+
+**The unnamed parameter.** ARCHITECT, 2026-11-14, on the Part 4 fact that `const String&` parsed as a variable named `String` and that a bare `int` gave no placeholder: *"Fix in Part 9"*; the placeholder of an unnamed parameter holds *"Its source text"*. A parameter part is named when the token before its boundary is an identifier, and at least one token before that identifier is not the keyword `const` or `volatile`. So `int x`, `Foo x`, `const Foo& x`, and `Foo const x` are named; `Foo`, `const Foo`, `const Foo&`, and `int` are unnamed. A named part goes to `addDeclarationCandidate`, as before. An unnamed part declares nothing: its identifiers become references of the function (`addReferences`), and no `variable` element is made.
+
+**The leading attribute.** The manifest run of Step 6 showed 5119 parameter parts whose boundary was their first token. Two shapes cause this. One shape is a part that starts with an attribute, such as `[[maybe_unused]] bool shouldEnable`. The other is a macro or attribute call that the parse reads as a function, such as `__attribute__((always_inline))`. ARCHITECT, 2026-11-14: *"getBoundary skips [[...]]"*. `getBoundary` skips a leading `[[...]]` group for every statement, so the named rule gives `shouldEnable`. The Part 4 statement parse changes too: `[[nodiscard]] int f()` becomes a declaration. A part that starts with `(` is unnamed, and its span is the whole part.
 
 ### The lookup
 
 `template <typename Function> void Processor::applyToCompletions (const jam::CodeDocument& document, const Element& reference, const Fuzzy::Pattern& pattern, const Function& function);`
 
-`function` receives the index of the file in `paths`, the document, the declaration, and the score: `function (int pathIndex, const jam::CodeDocument& declarationDocument, const Element& declaration, int score)`. A declaration is a candidate when `pattern.match (name, slab)` gives `isMatch()`, with `name` the text of the last `Id::name` token of the declaration (PLAN-ling-4-language-document.md, The element of a declaration).
+`function` receives the index of the file in `paths`, the document, the declaration, and the declaration that holds the comment of the entry (section One entry for one symbol): `function (int pathIndex, const jam::CodeDocument& declarationDocument, const Element& declaration, const jam::CodeDocument& commentDocument, const Element& commentDeclaration)`. The comment can be in another document. No caller reads the score after the order is made, so the score is not passed (MANIFESTO **L**, YAGNI: "A parameter nobody passes yet"). A declaration is a candidate when `pattern.match (name, slab)` gives `isMatch()`, with `name` the text of the last `Id::name` token of the declaration (PLAN-ling-4-language-document.md, The element of a declaration).
 
 | The reference | The candidates |
 |---|---|
@@ -128,10 +132,10 @@ The first token of a candidate is the token where the handler starts the stateme
 2. When that element is a `reference`, a `call`, or a `base`, the pattern is `Fuzzy::Pattern::parse (name, Fuzzy::CaseMode::smart, true, Fuzzy::Scheme::standard)`, with `name` the text of the last `Id::name` token of the element, and `applyToCompletions` gives the candidates. Any other element, or no element, gives `[]`.
 3. Order: the score, high first; then the path; then the file path, the line, and the column. This is the order of `workspaceSymbol`.
 4. Each entry is the JSON object of Part 7 (`path`, `line`, `column`, `type`, `name`), and two more keys, as `hover` adds `scope`:
-   - `comment`: the text of the `Id::comment` tokens, each the view of its span in `Document::getSource()`, joined with `Chars::newline`, escaped as every JSON string of `JsonWriter` is. The text is the source text, with its comment markers. The client formats it (ruling 21). No comment gives no key.
-   - `snippet`: for a type in the function types of Part 7 only. The text is the name, `Chars::openParen`, one placeholder for each element of `Id::parameters`, separated by `Chars::comma` and `Chars::space`, then `Chars::closeParen`. A placeholder is `Chars::dollarSign`, `Chars::openBrace`, its 1-based number, `Chars::colon`, the name of the parameter, `Chars::closeBrace`. For example `setBounds(${1:x}, ${2:y}, ${3:width}, ${4:height})`. A function with no parameters gives `name()`.
+   - `comment`: the source text from the start of the first `Id::comment` token to the end of the last one, read with `Document::getView` (`jam_Document.h:975`), escaped as every JSON string of `JsonWriter` is. The text is the source text, with its comment markers. A line comment token includes its newline (`jam_CodeDocument.h:96-97`), so a join with `Chars::newline` would add bytes that are not in the source (MANIFESTO **E**, "do no operation on data in transit"). The client formats it (ruling 21). No comment gives no key.
+   - `snippet`: for a type in the function types of Part 7 only. The text is the name, `Chars::openParen`, one placeholder for each element of `Id::parameters`, separated by `Chars::comma` and `Chars::space`, then `Chars::closeParen`. A placeholder is `Chars::dollarSign`, `Chars::openBrace`, its 1-based number, `Chars::colon`, the text of the `Id::parameters` token (the name, or the source text of an unnamed parameter), `Chars::closeBrace`. For example `setBounds(${1:x}, ${2:y}, ${3:width}, ${4:height})`. A function with no parameters gives `name()`.
 
-**The file is parsed before the answer.** When `Processor` gets a `REQUEST` row with `Id::completion`, it first sends `sendPropertyChangeMessage (Id::path)` on the `FILE` row of the file argument, the reaction of the watcher (PLAN-ling-6-manifest.md, item 4 of `LINGModel`). That starts a parse of the file as it is on disk, so a parse is pending. The entry then runs when `Id::documents` is written (PLAN-ling-7-queries.md, The nine operations). A file with no `FILE` row gives `[]`.
+**The stored document answers.** `completion` runs inside the add event of its `REQUEST` row, as the other eight operations do (PLAN-ling-8-daemon.md C2). It reads the document that the last watcher parse stored. It sends no change message and starts no parse (ARCHITECT, 2026-11-14: *"why not only parsed once, complete AST build, memoized, cachaed. that have always been the contract"*). A file with no stored document gives `[]`.
 
 ## Validation Gate
 
@@ -155,7 +159,7 @@ the whole sprint — never per step.
 ### Step 2: The comment and the parameters at creation
 **Scope:** `jam/jam_syntax_tree/document/jam_CLanguageDocument.h` and `.cpp`.
 **Action:**
-1. Write `addComment (Element& element, const Token& candidateStart)` as section Two properties at creation gives it. Call it from each handler after `addElement`, with the first token of the candidate.
+1. Write `static void addComment (CLanguageDocument& document, Element& element, const Tokens& tokens, int candidateStart)` as section Two properties at creation gives it. The handlers are static and receive the document (`jam_CLanguageDocument.cpp:285`, `:307`), and `build()` moves the tokens out of the member (`:25`), so the comment tokens are a work buffer in the member `tokens` during `build()` and are released when it ends (MANIFESTO **S**, Stateless: "Transient state only"). A `template <...>` prefix is a separate statement (`skipTemplateParameters`), so `getStatementStart` walks back over it to the first token of the statement. Call it from each handler after `addElement`, with the first token of the candidate.
 2. In `addParameters`, add the `Id::parameters` list to the function element, and append each `variable` child that it makes, in source order.
 3. Add the rules `comment` and `parameters` to `CLanguageValidator`.
 
@@ -175,10 +179,9 @@ the whole sprint — never per step.
 **Scope:** `ling/Source/Processor.h` and `.cpp`; `ling/Source/HELP.md`.
 **Action:**
 1. Add the entry `Id::completion` to `events`, with the signature that the map type declares. It runs items 1 to 3 of section The operation.
-2. In the reaction to a `REQUEST` row, send the change message of the file row first for `Id::completion`, as section The operation gives it. Select this with one compare of the identifier in `Id::command` with `Id::completion`: an Identifier compare is a pointer compare (CODING.md, No `==` on strings), and one positive check is no branch chain (MANIFESTO **L**). No table holds one entry (MANIFESTO **L**, YAGNI). The entry itself does not send the message: it would need a flag for its second call (MANIFESTO **S**, Stateless).
-3. Describe `completion` in `HELP.md`: its arguments, that the column is the cursor after the typed name, that the client saves the file before it asks, and the keys `comment` and `snippet`.
+2. Describe `completion` in `HELP.md`: its arguments, that the column is the cursor after the typed name, that the client saves the file before it asks, and the keys `comment` and `snippet`.
 
-**Validation:** The request does not carry text and does not parse; the watcher reaction parses (rulings 14 and 45). No branch chain on the operation name: the events map selects. `Processor` consumes the row that the event gives.
+**Validation:** The request does not carry text and does not parse; the watcher reaction parses once for each change (rulings 14 and 45; MANIFESTO **E**, "built once, read in place"). No branch chain on the operation name: the events map selects. `Processor` consumes the row that the event gives.
 
 ### Step 6: Build and check, macOS
 **Scope:** builds of JAM consumers, cast, and LING; runs of `ling`; one scout manifest.
@@ -188,7 +191,7 @@ the whole sprint — never per step.
    - at a call to `addCommentToken` in `jam/jam_syntax_tree/document/jam_CodeDocument.cpp`, with the column after its sixth byte (`addCom`): `addCommentToken` is in the result. Its `comment` is the comment directly above its declaration, when one exists there. Its `snippet` has one placeholder for each parameter of that declaration.
    - at a member call after `.` in the same file: the result holds member declarations whose names match the typed name.
    - at a reference to a parameter inside a function body: the parameter is in the result.
-3. Add one line `getVocab` inside the body of a function in `jam_CodeDocument.cpp`, save, and run `completion` at once, at the end of that line. `getVocabulary` and `getVocabularyForFamily` are in the result. Remove the line and save.
+3. Add one line `getVocabulary` inside the body of a function in `jam_CodeDocument.cpp`, save, and run `completion` after the watcher parse of the file ends, at the end of that line. The line is the full name of the existing declaration (`jam_CodeDocument.cpp:21`), so the test puts no new word in the source (NAMES.md Rule 4, Rule 5). `getVocabulary` and `getVocabularyForFamily` are in the result. Remove the line and save.
 4. Run item 2, first case, two times. Compare the outputs byte for byte.
 5. Measure with scout: one benchmark for `completion` against a daemon whose parse has ended, the parse of one file included. Record the median beside the medians of Part 8 Step 7 item 9.
 
@@ -208,7 +211,7 @@ the whole sprint — never per step.
 - **S — SSOT.** The source file is the one truth; the request carries no copy of it. The comment and the parameters are written once, at the parse. The base step and the member types are the ones of Part 7.
 - **S — Stateless.** The lookup keeps nothing after it returns.
 - **E — Encapsulation.** The data flows one way: the file, the watcher reaction, the document, the lookup, the JSON, the client. The client formats the comment and inserts the snippet (ruling 21).
-- **D — Deterministic.** The request waits for the parse of its file, so the answer does not depend on the timing of the watcher. Every result has a total order. Step 6 item 4 proves equal output for equal input.
+- **D — Deterministic.** The same stored document gives the same answer. Every result has a total order. Step 6 item 4 proves equal output for equal input.
 - LANGUAGE.md: no override applies beyond the C++ / JUCE Lean adaptation.
 
 ## Risks / Open Questions
@@ -220,7 +223,8 @@ Facts for the review of the whole PLAN:
 - **A member name completes to every member with a matching name.** No type analysis (Part 7). The reference data counts 171 symbols named `get` behind `JuceHeader.h`.
 - **The name needs one byte.** Directly after `.`, `->`, or `::`, no name token is at the position, so the result is `[]`.
 - **A save of a statement that is not complete changes the walk.** Part 4 reads a prelude to the first `;` or `{` (PLAN-ling-4-language-document.md, The walk). A typed name with no `;` joins the next statement. The name is still a reference, but its parent can change.
-- **Each `completion` parses its file once.** The watcher event that follows the save parses the same file again and replaces the document with an equal one.
-- **The other eight operations do not parse their file first.** A `goToDefinition` right after a save can read the document of the old file.
-- **The comment is the source text with its markers** (`//`, `/**`, `*/`). A comment after a declaration on the same row is not attached.
-- **A placeholder holds the parameter name, not its type.** The tree holds the name of a parameter; its type names are references, not text.
+- **No operation parses its file first.** The watcher merges the events of one file over `LINGModel::coalesceMs` (`LINGModel.h:48`). A `completion` or a `goToDefinition` that comes before that parse ends reads the document of the old file.
+- **The comment is the source text with its markers** (`//`, `/**`, `*/`). A comment after a declaration on the same row is attached to the next declaration, because no code token is between that comment and the next statement (section Two properties at creation, "directly before").
+- **A placeholder holds the parameter name, not its type.** An unnamed parameter is the exception: its placeholder holds its source text, such as `${1:const String&}`.
+- **A C parameter list `(void)` gives one placeholder** `${1:void}`, because `void` is an unnamed part.
+- **The text of an unnamed placeholder is not escaped for the snippet grammar.** A `$`, `}`, or `\` in a type would end the placeholder early. C and C++ type text does not use these bytes, except in a default value, and the span stops before the default value.

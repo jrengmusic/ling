@@ -7,7 +7,7 @@
  * @brief Appends JSON text to a string that the caller owns.
  *
  * The struct holds no state. Each function writes into the string that the
- * caller passes. appendSeparator places each comma, so no caller places a comma.
+ * caller passes. appendSeparator places each JSON separator, so no caller places one.
  */
 struct JsonWriter
 {
@@ -47,7 +47,7 @@ struct JsonWriter
             jam::Format::appendDecimal (object, *element.get<int> (Id::type));
 
             jam::JsonWriter::appendKey (object, Id::name);
-            jam::JsonWriter::appendString (object, std::string_view (document.getSource()).substr (token.offset(), token.length()));
+            jam::JsonWriter::appendString (object, document.getView (token));
 
             appendMembers (object);
         });
@@ -62,4 +62,29 @@ struct JsonWriter
      * @param element   The element to append. It must hold a name.
      */
     static void appendElement (std::string& json, std::string_view path, const jam::CodeDocument& document, const jam::Document::Element& element);
+
+    /**
+     * @brief Appends the comment key: the source text from the first to the last comment token of the element.
+     *
+     * The text keeps its comment markers. An element with no Id::comment gets no key.
+     *
+     * @param json      The JSON text that receives the key.
+     * @param document  The document whose source holds the comment tokens.
+     * @param element   The element whose Id::comment is written.
+     */
+    static void appendComment (std::string& json, const jam::CodeDocument& document, const jam::Document::Element& element);
+
+    /**
+     * @brief Appends the snippet key of a function: its name, then one placeholder for each parameter.
+     *
+     * A placeholder holds the text of its parameter token. That is the name of a
+     * named parameter, or the source text of an unnamed parameter. A function with
+     * no parameters gives an empty pair of parentheses. The value is a JSON string.
+     * Its text is not escaped for the snippet grammar.
+     *
+     * @param json      The JSON text that receives the key.
+     * @param document  The document whose source gives the text of the name and the parameters.
+     * @param element   The function element. It must hold Id::name and Id::parameters.
+     */
+    static void appendSnippet (std::string& json, const jam::CodeDocument& document, const jam::Document::Element& element);
 };

@@ -62,7 +62,7 @@ private:
      * @param manifest  The parsed manifest.
      * @return The timeout, in milliseconds.
      */
-    static int getTimeout (const jam::ConfigDocument& manifest);
+    static int getTimeout (const jam::MarkdownDocument& manifest);
 
     /** @brief The number of threads of the pool. One thread runs the readings one after another. */
     static constexpr int threadCount { 1 };
