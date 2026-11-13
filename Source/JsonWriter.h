@@ -12,48 +12,6 @@
 struct JsonWriter
 {
     /**
-     * @brief Appends a text as a JSON string, with its quotes and its escapes.
-     *
-     * @param json  The JSON text that receives the string.
-     * @param text  The text to append. The JUCE JSON writer escapes its characters.
-     */
-    static void appendString (std::string& json, std::string_view text);
-
-    /**
-     * @brief Appends a separator, the key as a JSON string, and a colon.
-     *
-     * @param json  The JSON text that receives the key.
-     * @param key   The key. Its text is the name of the member.
-     */
-    static void appendKey (std::string& json, const juce::Identifier& key);
-
-    /**
-     * @brief Appends a comma when the JSON text holds an entry before the current point.
-     *
-     * The last byte decides. An empty text, or a text that ends with an opening
-     * bracket or an opening brace, has no entry before the point, so no comma is
-     * appended.
-     *
-     * @param json  The JSON text that receives the comma.
-     */
-    static void appendSeparator (std::string& json);
-
-    /**
-     * @brief Appends an array: an opening bracket, the entries, and a closing bracket.
-     *
-     * @tparam Function      A callable type that takes (std::string&).
-     * @param json           The JSON text that receives the array.
-     * @param appendEntries  The callable that appends the entries to the same text.
-     */
-    template <typename Function>
-    static void appendArray (std::string& json, const Function& appendEntries)
-    {
-        jam::Format::appendUtf8 (json, Chars::openBracket);
-        appendEntries (json);
-        jam::Format::appendUtf8 (json, Chars::closeBracket);
-    }
-
-    /**
      * @brief Appends one element object: its path, its position, its type, its name, and its extra members.
      *
      * The element must hold a name. The position is the line and the column of its
@@ -73,26 +31,26 @@ struct JsonWriter
     {
         const auto& token { element.get<jam::Document::Tokens> (Id::name)->last() };
 
-        appendSeparator (json);
-        jam::Format::appendUtf8 (json, Chars::openBrace);
+        jam::JsonWriter::appendSeparator (json);
+        jam::JsonWriter::appendObject (json, [&path, &document, &element, &token, &appendMembers] (std::string& object)
+        {
+            jam::JsonWriter::appendKey (object, Id::path);
+            jam::JsonWriter::appendString (object, path);
 
-        appendKey (json, Id::path);
-        appendString (json, path);
+            jam::JsonWriter::appendKey (object, Id::line);
+            jam::Format::appendDecimal (object, static_cast<int> (document.getLineNumber (token.offset())));
 
-        appendKey (json, Id::line);
-        jam::Format::appendDecimal (json, static_cast<int> (document.getLineNumber (token.offset())));
+            jam::JsonWriter::appendKey (object, Id::column);
+            jam::Format::appendDecimal (object, static_cast<int> (document.getColumnNumber (token.offset())));
 
-        appendKey (json, Id::column);
-        jam::Format::appendDecimal (json, static_cast<int> (document.getColumnNumber (token.offset())));
+            jam::JsonWriter::appendKey (object, Id::type);
+            jam::Format::appendDecimal (object, *element.get<int> (Id::type));
 
-        appendKey (json, Id::type);
-        jam::Format::appendDecimal (json, *element.get<int> (Id::type));
+            jam::JsonWriter::appendKey (object, Id::name);
+            jam::JsonWriter::appendString (object, std::string_view (document.getSource()).substr (token.offset(), token.length()));
 
-        appendKey (json, Id::name);
-        appendString (json, std::string_view (document.getSource()).substr (token.offset(), token.length()));
-
-        appendMembers (json);
-        jam::Format::appendUtf8 (json, Chars::closeBrace);
+            appendMembers (object);
+        });
     }
 
     /**

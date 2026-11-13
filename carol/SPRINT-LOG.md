@@ -114,6 +114,45 @@
 <!-- The entry format is in /log (commands/log.md). It is the only source. -->
 <!-- Sprint entries go here, written by PRIMARY agents -->
 
+## Sprint 10: JSON Through jam::JsonDocument; the Manifest Parse Validates Once ✅
+
+**Date:** 2026-11-14
+**Duration:** one session, from 2026-11-13 00:18 UTC. Not measured. `jam/carol/SPRINT-LOG.md` Sprint 187 is the primary record.
+**Scope:** `jam/PLAN-json.md` (ARCHITECT: *"possibly update our tooling that read/write json, with this module as SSOT"*; scope *"All of them"*) and `jam/PLAN-document-contract.md` (ARCHITECT: *"Document::Validator is to validate ALL DOCS … only get and set"*).
+
+### Agents Participated
+- COUNSELOR: delegation, the read of each return, the doxygen check, this log.
+- Engineer (sonnet): the ling call sites, the builds.
+- Pathfinder (haiku): reads, the doxygen pass.
+
+### Files Modified
+- `Source/Client.cpp`, `Source/Connection.cpp`, `Source/Main.cpp`, `Source/Server.h` — JSON reads through `jam::JsonDocument`; writes through `jam::JsonWriter`.
+- `Source/JsonWriter.h`, `.cpp` — the append helpers that `jam::JsonWriter` now gives are removed.
+- `Source/CompilerManifest.h`, `.cpp` — `compile_commands.json` through `jam::JsonDocument::parse`; on nullptr the message carries `JsonDocument::isValid` (`.cpp:77-85`). The `JsonValidator` call is gone. `addCLanguageUnit` and `getCommandArguments` take the parsed document (`.h:78`, `:89`, the `@param document` lines).
+- `Source/Manifest.cpp:28-29` — nullptr from `ConfigDocument::parse` gives `ConfigDocument::isValid`; the ling `Validator` (manifest schema) stays.
+- `Source/Processor.h`, `.cpp` — the parse result of `SyntaxTree::parse` is used as a valid document; nullptr gives `SyntaxTree::isValid`.
+- `Source/Help.cpp:19` — `setDocument (std::move (*jam::MarkdownDocument::parse (…)))`.
+- `project-info.md`, `CMakeLists.txt` — the `jam_data_structures` description drops "JSON conversion". `.clangd`, `.project`, `compile_commands.json`, `docs/` — tool output.
+
+### Alignment Check
+- [x] BLESSED principles followed
+- [x] NAMES.md adhered
+- [x] MANIFESTO.md principles applied
+
+### Problems Solved
+- Two JSON paths (hand appends and `juce::JSON`) became one: `jam::JsonDocument`.
+- Re-validation after the parse is gone; the Result API runs only on the failure path.
+- Doxygen warned on the undocumented `document` parameter of two functions.
+
+### State for Continuation
+- `CLAUDE.md` says "design-stage project. No code exists yet." and "No sprint entries exist yet." The repo has code and sprint entries.
+
+### Debts Paid
+- None
+
+### Debts Deferred
+- None
+
 ## Sprint 9: LING Part 8, the shared daemon: lock-free, no wait, no pending request ✅
 
 **Date:** 2026-11-13

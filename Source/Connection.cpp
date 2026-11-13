@@ -31,18 +31,18 @@ void Connection::messageReceived (const juce::MemoryBlock& message)
     static constexpr int directoryIndex { 1 };
     static constexpr int argumentsIndex { 2 };
 
-    const auto words { juce::JSON::parse (message.toString()) };
-    const auto* values { words.getArray() };
-
-    jassert (values != nullptr and values->size() >= argumentsIndex);
-
-    if (values != nullptr and values->size() >= argumentsIndex)
+    if (const auto document { jam::JsonDocument::parse (std::string_view { static_cast<const char*> (message.getData()), message.getSize() }) }; document != nullptr)
     {
+        const auto& words { *document->getChildByToken (*document->getRoot(), document->getValue())->get<jam::Document::Tokens> (Id::tokens) };
+        juce::Array<juce::var> arguments;
         juce::ValueTree request { jam::Format::toType (Id::request) };
 
-        request.setProperty (Id::command, values->getReference (commandIndex), nullptr);
-        request.setProperty (Id::directory, values->getReference (directoryIndex), nullptr);
-        request.setProperty (Id::arguments, juce::Array<juce::var> (values->begin() + argumentsIndex, values->size() - argumentsIndex), nullptr);
+        for (int index { argumentsIndex }; index < words.size(); ++index)
+            arguments.add (jam::Strings::fromView (document->getString (words.at (index))));
+
+        request.setProperty (Id::command, jam::Strings::fromView (document->getString (words.at (commandIndex))), nullptr);
+        request.setProperty (Id::directory, jam::Strings::fromView (document->getString (words.at (directoryIndex))), nullptr);
+        request.setProperty (Id::arguments, arguments, nullptr);
         state.appendChild (request, nullptr);
     }
 }

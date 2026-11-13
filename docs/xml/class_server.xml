@@ -93,10 +93,12 @@
         <initializer>{*model.getParameter&lt;<ref refid="structjam_1_1ParameterText" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::ParameterText</ref>&gt; (<ref refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Format::toType</ref> (<ref refid="namespaceId_1a3c4b99c0119059fde6024a09a758312e" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::overlay</ref>), <ref refid="namespaceId_1a0e0b9ef1fb687c4c7c73d2bd7213ac01" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::message</ref>),
                                               [this] (const <ref refid="classjuce_1_1var" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::var</ref>&amp; <ref refid="namespacetext" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">text</ref>)
                                               {
-                                                  const auto json { <ref refid="classjuce_1_1JSON_1a5f4ace2a02c442235a4fc991c2a109e7" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::JSON::toString</ref> (<ref refid="namespacetext" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">text</ref>) };
+                                                  std::string json;
+
+                                                  <ref refid="structjam_1_1JsonWriter_1a41ee48bba1971acba117f12c2d9d7764" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::JsonWriter::appendString</ref> (json, <ref refid="classjam_1_1Strings_1adfb32d159be94dc4a4004c50be876e3c" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings::getView</ref> (text.toString()), juce::JSON::Encoding::utf8);
 
                                                   for (const auto&amp; connection : <ref refid="class_server_1a3a2a4962b7e0ad2886a6ff7bb27b6479" kindref="member">connections</ref>)
-                                                      connection-&gt;sendMessage (<ref refid="classjuce_1_1MemoryBlock" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::MemoryBlock</ref> { json.toRawUTF8(), json.getNumBytesAsUTF8() });
+                                                      connection-&gt;sendMessage (<ref refid="classjuce_1_1MemoryBlock" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::MemoryBlock</ref> { json.data(), json.size() });
                                               } }</initializer>
         <briefdescription>
 <para>The attachment that sends each change of the overlay message to every open connection, as JSON text. </para>
@@ -105,7 +107,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Server.h" line="108" column="37" bodyfile="Server.h" bodystart="108" bodyend="115"/>
+        <location file="Server.h" line="108" column="37" bodyfile="Server.h" bodystart="108" bodyend="117"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -677,7 +679,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="Server.h" line="16" column="1" bodyfile="Server.h" bodystart="19" bodyend="118"/>
+    <location file="Server.h" line="16" column="1" bodyfile="Server.h" bodystart="19" bodyend="120"/>
     <listofallmembers>
       <member refid="classjuce_1_1Thread_1ab6c3e8b12180836f10d32c66f378a71e" prot="private" virt="non-virtual"><scope>Server</scope><name>addListener</name></member>
       <member refid="class_server_1a30ea9ecd4c1f78867e08840da331d0df" prot="private" virt="non-virtual"><scope>Server</scope><name>anyPort</name></member>

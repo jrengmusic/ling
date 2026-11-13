@@ -369,7 +369,7 @@ private:
 
         results.removeRange (static_cast<int> (tail - results.begin()), static_cast<int> (results.end() - tail));
 
-        JsonWriter::appendArray (json, [this, &results, &appendMembers] (std::string& entries)
+        jam::JsonWriter::appendArray (json, [this, &results, &appendMembers] (std::string& entries)
         {
             for (const auto& [pathIndex, element] : results)
                 JsonWriter::appendElement (entries, paths.getView (pathIndex), *documents.at (pathIndex), *element, [&appendMembers, pathIndex = pathIndex, element = element] (std::string& members)

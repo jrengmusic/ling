@@ -217,8 +217,8 @@ void Processor::appendDocumentSymbols (std::string& json, int pathIndex, const j
             {
                 JsonWriter::appendElement (json, paths.getView (pathIndex), *documents.at (pathIndex), *child, [this, pathIndex, child] (std::string& members)
                 {
-                    JsonWriter::appendKey (members, Id::children);
-                    JsonWriter::appendArray (members, [this, pathIndex, child] (std::string& entries)
+                    jam::JsonWriter::appendKey (members, Id::children);
+                    jam::JsonWriter::appendArray (members, [this, pathIndex, child] (std::string& entries)
                     {
                         appendDocumentSymbols (entries, pathIndex, *child);
                     });
@@ -308,13 +308,13 @@ void Processor::hover (juce::ValueTree& request) const
     {
         const auto path (getPath (*documents.at (pathIndex), element));
 
-        JsonWriter::appendKey (json, Id::scope);
-        JsonWriter::appendArray (json, [&path] (std::string& entries)
+        jam::JsonWriter::appendKey (json, Id::scope);
+        jam::JsonWriter::appendArray (json, [&path] (std::string& entries)
         {
             for (int index { 0 }; index < path.size() - 1; ++index)
             {
-                JsonWriter::appendSeparator (entries);
-                JsonWriter::appendString (entries, path.at (index));
+                jam::JsonWriter::appendSeparator (entries);
+                jam::JsonWriter::appendString (entries, path.at (index));
             }
         });
     });
@@ -327,7 +327,7 @@ void Processor::documentSymbol (juce::ValueTree& request) const
     const auto& arguments { *request[Id::arguments].getArray() };
     std::string json;
 
-    JsonWriter::appendArray (json, [this, &request, &arguments] (std::string& entries)
+    jam::JsonWriter::appendArray (json, [this, &request, &arguments] (std::string& entries)
     {
         if (arguments.size() == fileArgumentCount)
         {
@@ -380,7 +380,7 @@ void Processor::workspaceSymbol (juce::ValueTree& request)
     const auto& arguments { *request[Id::arguments].getArray() };
     std::string json;
 
-    JsonWriter::appendArray (json, [this, &arguments] (std::string& entries)
+    jam::JsonWriter::appendArray (json, [this, &arguments] (std::string& entries)
     {
         if (arguments.size() == queryArgumentCount)
         {
@@ -505,8 +505,9 @@ void Processor::addJob (const juce::ValueTree& row, int rowIndex)
     {
         const juce::File file { path };
         const auto modificationTime { file.getLastModificationTime() };
-        auto document { file.existsAsFile() ? jam::SyntaxTree::parse (jam::Strings::getView (file.loadFileAsString()), family) : nullptr };
-        const auto result { document != nullptr ? jam::SyntaxTree::isValid (*document, family) : juce::Result::ok() };
+        const auto text { file.loadFileAsString() };
+        auto document { file.existsAsFile() ? jam::SyntaxTree::parse (jam::Strings::getView (text), family) : nullptr };
+        const auto result { document == nullptr and file.existsAsFile() ? jam::SyntaxTree::isValid (jam::Strings::getView (text), family) : juce::Result::ok() };
         const auto parsed { std::make_shared<std::unique_ptr<jam::CodeDocument>> (std::move (document)) };
 
         juce::MessageManager::callAsync ([this, rowIndex, path, modificationTime, parsed, result]

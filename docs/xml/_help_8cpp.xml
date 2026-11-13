@@ -76,7 +76,7 @@
         <references refid="classjam_1_1StyleMarkdown_1a2c93456629f62deb63ffbe9c2d92d569">jam::StyleMarkdown::getColumnWidth</references>
         <references refid="structjam_1_1Instance_1ad5d2bbb58e37d8d260b428b334823140">jam::Instance&lt; Colours &gt;::getInstance</references>
         <references refid="namespacefiles_1a7a34dcf346eed72b4150f7f995e92d19" compoundref="_generated_8cpp" startline="71" endline="71">files::lingHelp</references>
-        <references refid="structjam_1_1MarkdownDocument_1af46000d5b257120c18b18b7b2a05031c">jam::MarkdownDocument::parse</references>
+        <references refid="structjam_1_1MarkdownDocument_1aafef572f4603f1b412f60f5cdf767ee3">jam::MarkdownDocument::parse</references>
         <references refid="_help_8cpp_1a9b19836bb5ca0e3083ee375706b72664" compoundref="_help_8cpp" startline="3" endline="35">printHelp</references>
         <references refid="namespacefiles_1af9cee358b02a31fced5538c286eb56a1">files::styleSheet</references>
         <referencedby refid="_main_8cpp_1a7f683cefdf7f675f09e36661ce8df7cc" compoundref="_main_8cpp" startline="82" endline="91">printBannerAndHelp</referencedby>
@@ -106,7 +106,7 @@
 <codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjam_1_1TextEditor" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::TextEditor</ref><sp/>component;</highlight></codeline>
 <codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>component.setLookAndFeel<sp/>(&amp;styleMarkdown);</highlight></codeline>
 <codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>component.setBounds<sp/>(0,<sp/>0,<sp/>columnWidth,<sp/>0);</highlight></codeline>
-<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>component.setDocument<sp/>(<ref refid="structjam_1_1MarkdownDocument_1af46000d5b257120c18b18b7b2a05031c" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::MarkdownDocument::parse</ref><sp/>(helpText,<sp/><ref refid="namespacefiles_1a7a34dcf346eed72b4150f7f995e92d19" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">files::lingHelp</ref>));</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>component.setDocument<sp/>(std::move<sp/>(*<ref refid="structjam_1_1MarkdownDocument_1aafef572f4603f1b412f60f5cdf767ee3" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::MarkdownDocument::parse</ref><sp/>(helpText,<sp/><ref refid="namespacefiles_1a7a34dcf346eed72b4150f7f995e92d19" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">files::lingHelp</ref>)));</highlight></codeline>
 <codeline lineno="20"><highlight class="normal"></highlight></codeline>
 <codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>rows<sp/>{<sp/>component.getViewedComponent()-&gt;getHeight()<sp/>};</highlight></codeline>
 <codeline lineno="22"><highlight class="normal"></highlight></codeline>

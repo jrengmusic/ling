@@ -24,10 +24,11 @@ void Manifest::addJob()
     pool.addJob ([this, manifestPath = model.state[Id::manifest].toString(), toolchainArgument = model.state[Id::toolchainArgument].toString()]
     {
         const juce::File manifestFile { manifestPath };
-        const auto manifest { jam::ConfigDocument::parse (manifestFile.loadFileAsString(), manifestFile.getFullPathName()) };
-        const auto result { Validator {}.isValid (manifest) };
-        const auto timeout { result.wasOk() ? getTimeout (manifest) : LINGModel::defaultTimeoutMs };
-        const auto files (result.wasOk() ? CompilerManifest::getFiles (model, manifest, manifestFile, toolchainArgument)
+        const auto text { manifestFile.loadFileAsString() };
+        const auto manifest { jam::ConfigDocument::parse (text, manifestFile.getFullPathName()) };
+        const auto result { manifest != nullptr ? Validator {}.isValid (*manifest) : jam::ConfigDocument::isValid (text, manifestFile.getFullPathName()) };
+        const auto timeout { result.wasOk() ? getTimeout (*manifest) : LINGModel::defaultTimeoutMs };
+        const auto files (result.wasOk() ? CompilerManifest::getFiles (model, *manifest, manifestFile, toolchainArgument)
                                          : juce::ValueTree { jam::Format::toType (Id::files) });
 
         if (not result.wasOk())

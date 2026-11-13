@@ -108,10 +108,12 @@ private:
     jam::Model::ParameterAttachment message {*model.getParameter<jam::ParameterText> (jam::Format::toType (Id::overlay), Id::message),
                                               [this] (const juce::var& text)
                                               {
-                                                  const auto json { juce::JSON::toString (text) };
+                                                  std::string json;
+
+                                                  jam::JsonWriter::appendString (json, jam::Strings::getView (text.toString()), juce::JSON::Encoding::utf8);
 
                                                   for (const auto& connection : connections)
-                                                      connection->sendMessage (juce::MemoryBlock { json.toRawUTF8(), json.getNumBytesAsUTF8() });
+                                                      connection->sendMessage (juce::MemoryBlock { json.data(), json.size() });
                                               } };
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Server)

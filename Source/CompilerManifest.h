@@ -73,11 +73,12 @@ private:
      * The row gets the path, the family from the file extension, and the output
      * path. A unit whose file does not exist sets the message.
      *
-     * @param model  The model that receives the failure messages.
-     * @param files  The files child that receives the row.
-     * @param unit   The unit: its directory, file, output, and arguments.
+     * @param model     The model that receives the failure messages.
+     * @param files     The files child that receives the row.
+     * @param document  The parsed compiler manifest that holds the unit and its text.
+     * @param unit      The unit: its directory, file, output, and arguments.
      */
-    static void addCLanguageUnit (LINGModel& model, juce::ValueTree& files, const juce::var& unit);
+    static void addCLanguageUnit (LINGModel& model, juce::ValueTree& files, const jam::JsonDocument& document, const jam::Document::Element& unit);
 
     /**
      * @brief Returns the arguments of a unit: its arguments array, or its command split into arguments.
@@ -85,10 +86,11 @@ private:
      * The command is split with jam::ChildProcess::getArguments when the unit has
      * no arguments array.
      *
-     * @param unit  The unit whose arguments are read.
+     * @param document  The parsed compiler manifest that holds the unit and its text.
+     * @param unit      The unit whose arguments are read.
      * @return The arguments of the unit.
      */
-    static jam::Strings getCommandArguments (const juce::var& unit);
+    static jam::Strings getCommandArguments (const jam::JsonDocument& document, const jam::Document::Element& unit);
 
     /**
      * @brief Runs the dependency command of a row, and adds the records that it prints.

@@ -74,16 +74,14 @@ void CompilerManifest::addCLanguageUnits (LINGModel& model, juce::ValueTree& fil
             compilerManifests.append (compilerManifest.getFullPathName());
             files.setProperty (Id::compilerManifests, compilerManifests, nullptr);
 
-            const auto entries { juce::JSON::parse (compilerManifest) };
-
-            if (const auto* units { entries.getArray() })
+            if (const auto document { jam::JsonDocument::parse (compilerManifest) }; document != nullptr)
             {
-                for (const auto& unit : *units)
-                    addCLanguageUnit (model, files, unit);
+                for (const auto* unit : *document->getChildByToken (*document->getRoot(), document->getValue()))
+                    addCLanguageUnit (model, files, *document, *unit);
             }
             else
             {
-                model.setMessage (compilerManifest.getFullPathName() + Id::diagnosticSeparator + text::Diagnostics::failCompilerManifestInvalid);
+                model.setMessage (compilerManifest.getFullPathName() + Id::diagnosticSeparator + text::Diagnostics::failCompilerManifestInvalid + Id::diagnosticSeparator + jam::JsonDocument::isValid (jam::Strings::getView (compilerManifest.loadFileAsString())).getErrorMessage());
             }
         }
         else
@@ -93,11 +91,18 @@ void CompilerManifest::addCLanguageUnits (LINGModel& model, juce::ValueTree& fil
     }
 }
 
-void CompilerManifest::addCLanguageUnit (LINGModel& model, juce::ValueTree& files, const juce::var& unit)
+void CompilerManifest::addCLanguageUnit (LINGModel& model, juce::ValueTree& files, const jam::JsonDocument& document, const jam::Document::Element& unit)
 {
-    const juce::File directory { unit[Id::directory].toString() };
-    const auto file { directory.getChildFile (unit[Id::file].toString()) };
-    const auto commandArguments (getCommandArguments (unit));
+    const auto getText { [&document, &unit] (const juce::Identifier& key)
+    {
+        const auto* value { document.find (unit, jam::Strings::getView (key.toString())) };
+
+        return value != nullptr ? jam::Strings::fromView (document.getString (*value)) : juce::String {};
+    } };
+
+    const juce::File directory { getText (Id::directory) };
+    const auto file { directory.getChildFile (getText (Id::file)) };
+    const auto commandArguments (getCommandArguments (document, unit));
 
     if (file.existsAsFile())
     {
@@ -106,7 +111,7 @@ void CompilerManifest::addCLanguageUnit (LINGModel& model, juce::ValueTree& file
             juce::ValueTree row { jam::Format::toType (Id::file) };
             row.setProperty (Id::path, file.getFullPathName(), nullptr);
             row.setProperty (Id::family, jam::SyntaxTree::getFamily (file), nullptr);
-            row.setProperty (Id::output, directory.getChildFile (unit[Id::output].toString()).getFullPathName(), nullptr);
+            row.setProperty (Id::output, directory.getChildFile (getText (Id::output)).getFullPathName(), nullptr);
             files.appendChild (row, nullptr);
         }
     }
@@ -116,19 +121,22 @@ void CompilerManifest::addCLanguageUnit (LINGModel& model, juce::ValueTree& file
     }
 }
 
-jam::Strings CompilerManifest::getCommandArguments (const juce::var& unit)
+jam::Strings CompilerManifest::getCommandArguments (const jam::JsonDocument& document, const jam::Document::Element& unit)
 {
-    if (const auto* arguments { unit[Id::arguments].getArray() })
+    if (const auto* arguments { document.find (unit, jam::Strings::getView (Id::arguments.toString())) })
     {
         jam::Strings commandArguments;
 
-        for (const auto& argument : *arguments)
-            commandArguments.add (argument.toString());
+        for (const auto& argument : *document.getChildByToken (unit, *arguments)->get<jam::Document::Tokens> (Id::tokens))
+            commandArguments.add (jam::Strings::fromView (document.getString (argument)));
 
         return commandArguments;
     }
 
-    return jam::ChildProcess::getArguments (jam::Strings::getView (unit[Id::command].toString()));
+    const auto* command { document.find (unit, jam::Strings::getView (Id::command.toString())) };
+    const auto commandText { command != nullptr ? document.getString (*command) : std::string {} };
+
+    return jam::ChildProcess::getArguments (commandText);
 }
 
 void CompilerManifest::addCLanguageDependencies (LINGModel& model, juce::ValueTree& files, const jam::ConfigDocument& manifest, const jam::ConfigDocument::Element& row, const juce::File& directory)

@@ -421,15 +421,23 @@ private:
     {
         const auto toolchainArgument { getToolchainArgument (arguments, postFlagArgIndex) };
         const int index { postFlagArgIndex + (toolchainArgument.empty() ? flagOnlyArgumentCount : toolchainArgumentCount) };
-        juce::Array<juce::var> words;
+        std::string request;
 
-        words.add (arguments[flagArgIndex]);
-        words.add (juce::File::getCurrentWorkingDirectory().getFullPathName());
+        jam::JsonWriter::appendArray (request, [&arguments, index] (std::string& words)
+        {
+            jam::JsonWriter::appendSeparator (words);
+            jam::JsonWriter::appendString (words, jam::Strings::getView (arguments[flagArgIndex]));
+            jam::JsonWriter::appendSeparator (words);
+            jam::JsonWriter::appendString (words, jam::Strings::getView (juce::File::getCurrentWorkingDirectory().getFullPathName()));
 
-        for (int argumentIndex { index }; argumentIndex < arguments.size(); ++argumentIndex)
-            words.add (arguments[argumentIndex]);
+            for (int argumentIndex { index }; argumentIndex < arguments.size(); ++argumentIndex)
+            {
+                jam::JsonWriter::appendSeparator (words);
+                jam::JsonWriter::appendString (words, jam::Strings::getView (arguments[argumentIndex]));
+            }
+        });
 
-        client = std::make_unique<Client> (getDocumentFile (arguments, postFlagArgIndex), jam::Strings::fromView (toolchainArgument), juce::JSON::toString (juce::var (words), true));
+        client = std::make_unique<Client> (getDocumentFile (arguments, postFlagArgIndex), jam::Strings::fromView (toolchainArgument), jam::Strings::fromView (request));
         client->start();
     }
 

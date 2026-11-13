@@ -689,15 +689,15 @@
       <type>static void</type>
       <name>addCLanguageUnit</name>
       <anchorfile>struct_compiler_manifest.html</anchorfile>
-      <anchor>a9d2007dbcec110ea5bdf2fccace5b7ea</anchor>
-      <arglist>(LINGModel &amp;model, juce::ValueTree &amp;files, const juce::var &amp;unit)</arglist>
+      <anchor>a597cca6e747514d1bf62ada95c2ce80e</anchor>
+      <arglist>(LINGModel &amp;model, juce::ValueTree &amp;files, const jam::JsonDocument &amp;document, const jam::Document::Element &amp;unit)</arglist>
     </member>
     <member kind="function" protection="private" static="yes">
       <type>static jam::Strings</type>
       <name>getCommandArguments</name>
       <anchorfile>struct_compiler_manifest.html</anchorfile>
-      <anchor>acc5f271e53b5519c3c85cfe3a8cdbfe7</anchor>
-      <arglist>(const juce::var &amp;unit)</arglist>
+      <anchor>a24e08cc40e9081d979e22e3680aaeb3b</anchor>
+      <arglist>(const jam::JsonDocument &amp;document, const jam::Document::Element &amp;unit)</arglist>
     </member>
     <member kind="function" protection="private" static="yes">
       <type>static void</type>
@@ -909,34 +909,6 @@
   <compound kind="struct">
     <name>JsonWriter</name>
     <filename>struct_json_writer.html</filename>
-    <member kind="function" static="yes">
-      <type>static void</type>
-      <name>appendString</name>
-      <anchorfile>struct_json_writer.html</anchorfile>
-      <anchor>a5c7d546c7ec9d25b9fe48f9cc96f24ad</anchor>
-      <arglist>(std::string &amp;json, std::string_view text)</arglist>
-    </member>
-    <member kind="function" static="yes">
-      <type>static void</type>
-      <name>appendKey</name>
-      <anchorfile>struct_json_writer.html</anchorfile>
-      <anchor>a47117138524c73fee7b5291e1388ac16</anchor>
-      <arglist>(std::string &amp;json, const juce::Identifier &amp;key)</arglist>
-    </member>
-    <member kind="function" static="yes">
-      <type>static void</type>
-      <name>appendSeparator</name>
-      <anchorfile>struct_json_writer.html</anchorfile>
-      <anchor>aff6e74258564a2ad8cbfeac144100d14</anchor>
-      <arglist>(std::string &amp;json)</arglist>
-    </member>
-    <member kind="function" static="yes">
-      <type>static void</type>
-      <name>appendArray</name>
-      <anchorfile>struct_json_writer.html</anchorfile>
-      <anchor>ab82ac00bfd524ac578c6ee116cbdd1fa</anchor>
-      <arglist>(std::string &amp;json, const Function &amp;appendEntries)</arglist>
-    </member>
     <member kind="function" static="yes">
       <type>static void</type>
       <name>appendElement</name>

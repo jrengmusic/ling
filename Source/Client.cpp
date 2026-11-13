@@ -72,7 +72,10 @@ void Client::messageReceived (const juce::MemoryBlock& reply)
 {
     if (reply[0] == static_cast<char> (Chars::doubleQuote))
     {
-        model.setMessage (juce::JSON::parse (reply.toString()).toString());
+        if (const auto document { jam::JsonDocument::parse (std::string_view { static_cast<const char*> (reply.getData()), reply.getSize() }) }; document != nullptr)
+        {
+            model.setMessage (jam::Strings::fromView (document->getString (document->getValue())));
+        }
     }
     else
     {

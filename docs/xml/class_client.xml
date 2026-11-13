@@ -100,7 +100,7 @@
         </inbodydescription>
         <location file="Client.h" line="94" column="15" bodyfile="Client.h" bodystart="94" bodyend="94"/>
         <referencedby refid="class_client_1af9ec2edf06d69e92a25c53ce4260fa27" compoundref="_client_8cpp" startline="64" endline="69">connectionLost</referencedby>
-        <referencedby refid="class_client_1a70c485d5d4c5e8ceb24b89e9db1cd4ec" compoundref="_client_8cpp" startline="71" endline="87">messageReceived</referencedby>
+        <referencedby refid="class_client_1a70c485d5d4c5e8ceb24b89e9db1cd4ec" compoundref="_client_8cpp" startline="71" endline="90">messageReceived</referencedby>
         <referencedby refid="class_client_1a742373e08a80d993d2651b6fff76f5b9" compoundref="_client_8cpp" startline="21" endline="37">start</referencedby>
       </memberdef>
       <memberdef kind="variable" id="class_client_1a5d2b39ff4446a3ff048057293c9e5bb7" prot="private" static="no" mutable="no">
@@ -240,7 +240,6 @@
         <references refid="classjam_1_1ChildProcess_1a733dcf55efb600733fdb2f3c7306fe37">jam::ChildProcess::startDetached</references>
         <references refid="class_client_1a58e679174623e64752fb4f1111186a36" compoundref="_client_8h" startline="88">toolchainArgument</references>
         <references refid="classjuce_1_1Identifier_1ab6f0db1de2c36cacd1a9d7280f73aeeb">juce::Identifier::toString</references>
-        <referencedby refid="class_application_1ae7a4170563da33f06cb264b12b72108d" compoundref="_main_8cpp" startline="420" endline="434">Application::runOperation</referencedby>
       </memberdef>
     </sectiondef>
     <sectiondef kind="private-func">
@@ -397,18 +396,18 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Client.h" line="79" column="10" bodyfile="Client.cpp" bodystart="71" bodyend="87"/>
+        <location file="Client.h" line="79" column="10" bodyfile="Client.cpp" bodystart="71" bodyend="90"/>
         <references refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4">jam::Format::appendUtf8</references>
         <references refid="classjuce_1_1InterprocessConnection_1a2a172e0cafd44584659d2b709678288d">juce::InterprocessConnection::disconnect</references>
         <references refid="structChars_1abe1c5ccbb63b51ed046fdf87b71aaf74">Chars::doubleQuote</references>
+        <references refid="classjam_1_1Strings_1aca02ec79e3d857bca6f9647dce6415fc">jam::Strings::fromView</references>
         <references refid="classjuce_1_1MemoryBlock_1a692f4e81b72cc79aaa98b6629d4a4dcd">juce::MemoryBlock::getData</references>
         <references refid="classjuce_1_1MemoryBlock_1a8c25cd08391185f1237944fad5d607d8">juce::MemoryBlock::getSize</references>
         <references refid="class_client_1a156ea116c333d0160312d53971a2a709" compoundref="_client_8h" startline="94" endline="94">model</references>
         <references refid="structChars_1a4691bc69052e757e7325970098922899">Chars::newline</references>
-        <references refid="classjuce_1_1JSON_1abc295825e430254777aaa4c9df3da485">juce::JSON::parse</references>
+        <references refid="structjam_1_1Document_1a367d65133f164cf9421ff0c3ddf2bbf6">jam::Document::parse</references>
         <references refid="classjuce_1_1JUCEApplicationBase_1ae2ba9b90c02361717d997aa26861f2c4">juce::JUCEApplicationBase::quit</references>
         <references refid="class_l_i_n_g_model_1afdef5b210be00b4c407239da424c8b3d" compoundref="_l_i_n_g_model_8cpp" startline="18" endline="25">LINGModel::setMessage</references>
-        <references refid="classjuce_1_1MemoryBlock_1a75ad75e20b17e7f593e229722d7c624d">juce::MemoryBlock::toString</references>
       </memberdef>
     </sectiondef>
     <briefdescription>
