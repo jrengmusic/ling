@@ -1,0 +1,396 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="struct_json_writer" kind="struct" language="C++" prot="public">
+    <compoundname>JsonWriter</compoundname>
+    <includes refid="_json_writer_8h" local="no">JsonWriter.h</includes>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="struct_json_writer_1a5c7d546c7ec9d25b9fe48f9cc96f24ad" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void JsonWriter::appendString</definition>
+        <argsstring>(std::string &amp;json, std::string_view text)</argsstring>
+        <name>appendString</name>
+        <qualifiedname>JsonWriter::appendString</qualifiedname>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>json</declname>
+        </param>
+        <param>
+          <type>std::string_view</type>
+          <declname>text</declname>
+        </param>
+        <briefdescription>
+<para>Appends a text as a JSON string, with its quotes and its escapes. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>json</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The JSON text that receives the string. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>text</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The text to append. The JUCE JSON writer escapes its characters. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="JsonWriter.h" line="20" column="17" bodyfile="JsonWriter.cpp" bodystart="3" bodyend="10"/>
+        <references refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4">jam::Format::appendUtf8</references>
+        <references refid="structChars_1abe1c5ccbb63b51ed046fdf87b71aaf74">Chars::doubleQuote</references>
+        <references refid="classjuce_1_1JSON_1a3a9146a20402dc02919886c4cda47020">juce::JSON::escapeString</references>
+        <references refid="classjam_1_1Strings_1aca02ec79e3d857bca6f9647dce6415fc">jam::Strings::fromView</references>
+        <references refid="classjam_1_1Strings_1adfb32d159be94dc4a4004c50be876e3c">jam::Strings::getView</references>
+        <referencedby refid="struct_json_writer_1a8309f189ec1525700f528bc02ba8cbc6" compoundref="_json_writer_8h" startline="72" endline="96">appendElement</referencedby>
+        <referencedby refid="struct_json_writer_1a47117138524c73fee7b5291e1388ac16" compoundref="_json_writer_8cpp" startline="12" endline="17">appendKey</referencedby>
+        <referencedby refid="class_processor_1a4642ebfb3d4a64e760c5f65f7c355359" compoundref="_processor_8cpp" startline="295" endline="321">Processor::hover</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="struct_json_writer_1a47117138524c73fee7b5291e1388ac16" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void JsonWriter::appendKey</definition>
+        <argsstring>(std::string &amp;json, const juce::Identifier &amp;key)</argsstring>
+        <name>appendKey</name>
+        <qualifiedname>JsonWriter::appendKey</qualifiedname>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>json</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjuce_1_1Identifier" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref> &amp;</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+<para>Appends a separator, the key as a JSON string, and a colon. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>json</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The JSON text that receives the key. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The key. Its text is the name of the member. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="JsonWriter.h" line="28" column="17" bodyfile="JsonWriter.cpp" bodystart="12" bodyend="17"/>
+        <references refid="struct_json_writer_1aff6e74258564a2ad8cbfeac144100d14" compoundref="_json_writer_8cpp" startline="19" endline="23">appendSeparator</references>
+        <references refid="struct_json_writer_1a5c7d546c7ec9d25b9fe48f9cc96f24ad" compoundref="_json_writer_8cpp" startline="3" endline="10">appendString</references>
+        <references refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4">jam::Format::appendUtf8</references>
+        <references refid="structChars_1ab0e6e951a85086a81e11533c0bcfc422">Chars::colon</references>
+        <references refid="classjam_1_1Strings_1adfb32d159be94dc4a4004c50be876e3c">jam::Strings::getView</references>
+        <references refid="classjuce_1_1Identifier_1ab6f0db1de2c36cacd1a9d7280f73aeeb">juce::Identifier::toString</references>
+        <referencedby refid="struct_json_writer_1a8309f189ec1525700f528bc02ba8cbc6" compoundref="_json_writer_8h" startline="72" endline="96">appendElement</referencedby>
+        <referencedby refid="class_processor_1a4642ebfb3d4a64e760c5f65f7c355359" compoundref="_processor_8cpp" startline="295" endline="321">Processor::hover</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="struct_json_writer_1aff6e74258564a2ad8cbfeac144100d14" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void JsonWriter::appendSeparator</definition>
+        <argsstring>(std::string &amp;json)</argsstring>
+        <name>appendSeparator</name>
+        <qualifiedname>JsonWriter::appendSeparator</qualifiedname>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>json</declname>
+        </param>
+        <briefdescription>
+<para>Appends a comma when the JSON text holds an entry before the current point. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The last byte decides. An empty text, or a text that ends with an opening bracket or an opening brace, has no entry before the point, so no comma is appended.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>json</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The JSON text that receives the comma. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="JsonWriter.h" line="39" column="17" bodyfile="JsonWriter.cpp" bodystart="19" bodyend="23"/>
+        <references refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4">jam::Format::appendUtf8</references>
+        <references refid="structChars_1a5368dd1fcd5893ecf635991f9208c199">Chars::comma</references>
+        <references refid="structChars_1a0e5ec90aededd9f537035dd008a475cf">Chars::openBrace</references>
+        <references refid="structChars_1a673ae3d47248ac3b649146befd4cc3c7">Chars::openBracket</references>
+        <referencedby refid="struct_json_writer_1a8309f189ec1525700f528bc02ba8cbc6" compoundref="_json_writer_8h" startline="72" endline="96">appendElement</referencedby>
+        <referencedby refid="struct_json_writer_1a47117138524c73fee7b5291e1388ac16" compoundref="_json_writer_8cpp" startline="12" endline="17">appendKey</referencedby>
+        <referencedby refid="class_processor_1a4642ebfb3d4a64e760c5f65f7c355359" compoundref="_processor_8cpp" startline="295" endline="321">Processor::hover</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="struct_json_writer_1ab82ac00bfd524ac578c6ee116cbdd1fa" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Function</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>static void JsonWriter::appendArray</definition>
+        <argsstring>(std::string &amp;json, const Function &amp;appendEntries)</argsstring>
+        <name>appendArray</name>
+        <qualifiedname>JsonWriter::appendArray</qualifiedname>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>json</declname>
+        </param>
+        <param>
+          <type>const Function &amp;</type>
+          <declname>appendEntries</declname>
+        </param>
+        <briefdescription>
+<para>Appends an array: an opening bracket, the entries, and a closing bracket. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A callable type that takes (std::string&amp;). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>json</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The JSON text that receives the array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>appendEntries</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The callable that appends the entries to the same text. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="JsonWriter.h" line="49" column="17" bodyfile="JsonWriter.h" bodystart="49" bodyend="54"/>
+        <references refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4">jam::Format::appendUtf8</references>
+        <references refid="structChars_1a09fb563bc9882fa89f9c6014dd847b90">Chars::closeBracket</references>
+        <references refid="structChars_1a673ae3d47248ac3b649146befd4cc3c7">Chars::openBracket</references>
+        <referencedby refid="class_processor_1aed09034a614896ac3c982e0b761b3dbc" compoundref="_processor_8cpp" startline="323" endline="346">Processor::documentSymbol</referencedby>
+        <referencedby refid="class_processor_1a4642ebfb3d4a64e760c5f65f7c355359" compoundref="_processor_8cpp" startline="295" endline="321">Processor::hover</referencedby>
+        <referencedby refid="class_processor_1a700c05d5a1b8a0a7ac491caab4d746a5" compoundref="_processor_8cpp" startline="375" endline="399">Processor::workspaceSymbol</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="struct_json_writer_1a8309f189ec1525700f528bc02ba8cbc6" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Function</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>static void JsonWriter::appendElement</definition>
+        <argsstring>(std::string &amp;json, std::string_view path, const jam::CodeDocument &amp;document, const jam::Document::Element &amp;element, const Function &amp;appendMembers)</argsstring>
+        <name>appendElement</name>
+        <qualifiedname>JsonWriter::appendElement</qualifiedname>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>json</declname>
+        </param>
+        <param>
+          <type>std::string_view</type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1CodeDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::CodeDocument</ref> &amp;</type>
+          <declname>document</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>element</declname>
+        </param>
+        <param>
+          <type>const Function &amp;</type>
+          <declname>appendMembers</declname>
+        </param>
+        <briefdescription>
+<para>Appends one element object: its path, its position, its type, its name, and its extra members. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The element must hold a name. The position is the line and the column of its last name token. appendMembers runs before the closing brace, so each caller adds its own members to the same object. Hover and document symbols need this, because each adds members that the others do not.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A callable type that takes (std::string&amp;). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>json</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The JSON text that receives the object. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The path text of the document that holds the element. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>document</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The document that holds the element. Its lines and its source give the position and the name. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>element</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The element to append. It must hold a name. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>appendMembers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The callable that appends the extra members to the same object. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="JsonWriter.h" line="72" column="17" bodyfile="JsonWriter.h" bodystart="72" bodyend="96"/>
+        <references refid="structjam_1_1Format_1a331fe8c5c824937852d7a87bd6c667c9">jam::Format::appendDecimal</references>
+        <references refid="struct_json_writer_1a47117138524c73fee7b5291e1388ac16" compoundref="_json_writer_8cpp" startline="12" endline="17">appendKey</references>
+        <references refid="struct_json_writer_1aff6e74258564a2ad8cbfeac144100d14" compoundref="_json_writer_8cpp" startline="19" endline="23">appendSeparator</references>
+        <references refid="struct_json_writer_1a5c7d546c7ec9d25b9fe48f9cc96f24ad" compoundref="_json_writer_8cpp" startline="3" endline="10">appendString</references>
+        <references refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4">jam::Format::appendUtf8</references>
+        <references refid="structChars_1a833a9070e2c2b6e057ec7dd65c74780f">Chars::closeBrace</references>
+        <references refid="namespaceId_1af2239fe8341ea76506105b6ce8f3b749" compoundref="_generated_8cpp" startline="29" endline="29">Id::column</references>
+        <references refid="structjam_1_1Document_1a86fec10b6cc4ec41143d30bddb906a23">jam::Document::getColumnNumber</references>
+        <references refid="structjam_1_1Document_1afc26cd1da23ba0b9eaaef1548fc2120b">jam::Document::getLineNumber</references>
+        <references refid="structjam_1_1Document_1a59ad4370c003a29d4bd38d9dab736a71">jam::Document::getSource</references>
+        <references refid="namespaceId_1a9acf3e231e632c1b02ad3a0d4c0fc008">Id::line</references>
+        <references refid="namespaceId_1ab17c6c7afce10ee78699a1e23ac7acdf">Id::name</references>
+        <references refid="structChars_1a0e5ec90aededd9f537035dd008a475cf">Chars::openBrace</references>
+        <references refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab">Id::path</references>
+        <references refid="namespaceId_1ab4956db6d5e735af8b4e202830ac73f7">Id::type</references>
+        <referencedby refid="class_processor_1a1244480684599a457ba6fbb06a2d7c2d" compoundref="_processor_8cpp" startline="206" endline="229">Processor::appendDocumentSymbols</referencedby>
+        <referencedby refid="struct_json_writer_1a0f05273b44c4f4479e8cbbe3669a52e3" compoundref="_json_writer_8cpp" startline="25" endline="28">appendElement</referencedby>
+        <referencedby refid="class_processor_1a700c05d5a1b8a0a7ac491caab4d746a5" compoundref="_processor_8cpp" startline="375" endline="399">Processor::workspaceSymbol</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="struct_json_writer_1a0f05273b44c4f4479e8cbbe3669a52e3" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void JsonWriter::appendElement</definition>
+        <argsstring>(std::string &amp;json, std::string_view path, const jam::CodeDocument &amp;document, const jam::Document::Element &amp;element)</argsstring>
+        <name>appendElement</name>
+        <qualifiedname>JsonWriter::appendElement</qualifiedname>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>json</declname>
+        </param>
+        <param>
+          <type>std::string_view</type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1CodeDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::CodeDocument</ref> &amp;</type>
+          <declname>document</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>element</declname>
+        </param>
+        <briefdescription>
+<para>Appends one element object with no extra members. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>json</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The JSON text that receives the object. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The path text of the document that holds the element. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>document</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The document that holds the element. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>element</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The element to append. It must hold a name. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="JsonWriter.h" line="106" column="17" bodyfile="JsonWriter.cpp" bodystart="25" bodyend="28"/>
+        <references refid="struct_json_writer_1a8309f189ec1525700f528bc02ba8cbc6" compoundref="_json_writer_8h" startline="72" endline="96">appendElement</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Appends JSON text to a string that the caller owns. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The struct holds no state. Each function writes into the string that the caller passes. appendSeparator places each comma, so no caller places a comma. </para>
+    </detaileddescription>
+    <location file="JsonWriter.h" line="12" column="1" bodyfile="JsonWriter.h" bodystart="13" bodyend="107"/>
+    <listofallmembers>
+      <member refid="struct_json_writer_1ab82ac00bfd524ac578c6ee116cbdd1fa" prot="public" virt="non-virtual"><scope>JsonWriter</scope><name>appendArray</name></member>
+      <member refid="struct_json_writer_1a8309f189ec1525700f528bc02ba8cbc6" prot="public" virt="non-virtual"><scope>JsonWriter</scope><name>appendElement</name></member>
+      <member refid="struct_json_writer_1a0f05273b44c4f4479e8cbbe3669a52e3" prot="public" virt="non-virtual"><scope>JsonWriter</scope><name>appendElement</name></member>
+      <member refid="struct_json_writer_1a47117138524c73fee7b5291e1388ac16" prot="public" virt="non-virtual"><scope>JsonWriter</scope><name>appendKey</name></member>
+      <member refid="struct_json_writer_1aff6e74258564a2ad8cbfeac144100d14" prot="public" virt="non-virtual"><scope>JsonWriter</scope><name>appendSeparator</name></member>
+      <member refid="struct_json_writer_1a5c7d546c7ec9d25b9fe48f9cc96f24ad" prot="public" virt="non-virtual"><scope>JsonWriter</scope><name>appendString</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

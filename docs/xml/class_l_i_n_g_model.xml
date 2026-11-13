@@ -6,6 +6,44 @@
     <basecompoundref refid="structjam_1_1Instance" prot="public" virt="non-virtual">jam::Instance&lt; LINGModel &gt;</basecompoundref>
     <basecompoundref refid="classjam_1_1File_1_1Watcher_1_1Listener" prot="private" virt="non-virtual">jam::File::Watcher::Listener</basecompoundref>
     <includes refid="_l_i_n_g_model_8h" local="no">LINGModel.h</includes>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="class_l_i_n_g_model_1a98c415ab589e5c16c6e98d1a8f0859a5" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int LINGModel::defaultTimeoutMs</definition>
+        <argsstring></argsstring>
+        <name>defaultTimeoutMs</name>
+        <qualifiedname>LINGModel::defaultTimeoutMs</qualifiedname>
+        <initializer>{ 60000 }</initializer>
+        <briefdescription>
+<para>The daemon timeout, in milliseconds, when the manifest sets none or fails validation. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="LINGModel.h" line="45" column="26" bodyfile="LINGModel.h" bodystart="45" bodyend="45"/>
+        <referencedby refid="class_manifest_1a52fb4543112732ccd3b5618c5665b01f" compoundref="_manifest_8cpp" startline="47" endline="54">Manifest::getTimeout</referencedby>
+        <referencedby refid="class_l_i_n_g_model_1a027340bbc7ee3868a010942469b1f1ec" compoundref="_l_i_n_g_model_8cpp" startline="3" endline="16">LINGModel</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_l_i_n_g_model_1a1c57527a53635e5f4efbcb6d27aa843e" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int LINGModel::coalesceMs</definition>
+        <argsstring></argsstring>
+        <name>coalesceMs</name>
+        <qualifiedname>LINGModel::coalesceMs</qualifiedname>
+        <initializer>{ 300 }</initializer>
+        <briefdescription>
+<para>The window, in milliseconds, in which the watcher merges the events of one file into one event. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="LINGModel.h" line="48" column="26" bodyfile="LINGModel.h" bodystart="48" bodyend="48"/>
+        <referencedby refid="class_client_1aefc3c94434262806f1bc3aafebeae9ea" compoundref="_client_8cpp" startline="3" endline="13">Client::Client</referencedby>
+        <referencedby refid="class_l_i_n_g_model_1a027340bbc7ee3868a010942469b1f1ec" compoundref="_l_i_n_g_model_8cpp" startline="3" endline="16">LINGModel</referencedby>
+      </memberdef>
+    </sectiondef>
     <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="class_l_i_n_g_model_1a0f5c4a85d80ca163d85c7cc496fbab46" prot="private" static="no" mutable="no">
         <type><ref refid="structjam_1_1File_1_1Watcher" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::File::Watcher</ref></type>
@@ -21,28 +59,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="LINGModel.h" line="73" column="24" bodyfile="LINGModel.h" bodystart="73" bodyend="-1"/>
-        <referencedby refid="class_l_i_n_g_model_1a027340bbc7ee3868a010942469b1f1ec" compoundref="_l_i_n_g_model_8cpp" startline="5" endline="16">LINGModel</referencedby>
-        <referencedby refid="class_l_i_n_g_model_1a167994bf1e11534308dc0c92299af677" compoundref="_l_i_n_g_model_8cpp" startline="47" endline="59">valueTreeChildAdded</referencedby>
-      </memberdef>
-    </sectiondef>
-    <sectiondef kind="private-static-attrib">
-      <memberdef kind="variable" id="class_l_i_n_g_model_1a1c57527a53635e5f4efbcb6d27aa843e" prot="private" static="yes" constexpr="yes" mutable="no">
-        <type>int</type>
-        <definition>int LINGModel::coalesceMs</definition>
-        <argsstring></argsstring>
-        <name>coalesceMs</name>
-        <qualifiedname>LINGModel::coalesceMs</qualifiedname>
-        <initializer>{ 300 }</initializer>
-        <briefdescription>
-<para>The window, in milliseconds, in which the watcher merges the events of one file into one event. </para>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="LINGModel.h" line="76" column="26" bodyfile="LINGModel.h" bodystart="76" bodyend="76"/>
-        <referencedby refid="class_l_i_n_g_model_1a027340bbc7ee3868a010942469b1f1ec" compoundref="_l_i_n_g_model_8cpp" startline="5" endline="16">LINGModel</referencedby>
+        <location file="LINGModel.h" line="113" column="24" bodyfile="LINGModel.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="class_l_i_n_g_model_1a027340bbc7ee3868a010942469b1f1ec" compoundref="_l_i_n_g_model_8cpp" startline="3" endline="16">LINGModel</referencedby>
+        <referencedby refid="class_l_i_n_g_model_1a167994bf1e11534308dc0c92299af677" compoundref="_l_i_n_g_model_8cpp" startline="56" endline="75">valueTreeChildAdded</referencedby>
+        <referencedby refid="class_l_i_n_g_model_1a3cd783d99a31ffc14afb62bdd6abe103" compoundref="_l_i_n_g_model_8cpp" startline="48" endline="54">valueTreePropertyChanged</referencedby>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -53,25 +73,30 @@
         <name>LINGModel</name>
         <qualifiedname>LINGModel::LINGModel</qualifiedname>
         <briefdescription>
-<para>Creates the files child and the overlay row, then starts the watcher. </para>
+<para>Creates the state rows of the run, and listens to the watcher. </para>
         </briefdescription>
         <detaileddescription>
-<para>The overlay row holds the message parameter. The application prints each change of that parameter. </para>
+<para>The rows are the files child, the connections child, and the overlay row. The overlay row holds the message parameter. The application prints each change of that parameter. The constructor also writes defaultTimeoutMs to <ref refid="namespaceId_1ad99de3ca37a30e0bb93696f8de7d2561" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::timeout</ref>, and it sets the coalescing window of the watcher. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="LINGModel.h" line="25" column="5" bodyfile="LINGModel.cpp" bodystart="5" bodyend="16"/>
+        <location file="LINGModel.h" line="29" column="5" bodyfile="LINGModel.cpp" bodystart="3" bodyend="16"/>
         <references refid="structjam_1_1File_1_1Watcher_1a77218b3dfff2d229f480087e9e30f5c0">jam::File::Watcher::addListener</references>
         <references refid="structjam_1_1File_1_1Watcher_1a5d536adc6fc6ccc3a1636c32ea791c06">jam::File::Watcher::coalesceEvents</references>
-        <references refid="class_l_i_n_g_model_1a1c57527a53635e5f4efbcb6d27aa843e" compoundref="_l_i_n_g_model_8h" startline="76" endline="76">coalesceMs</references>
+        <references refid="class_l_i_n_g_model_1a1c57527a53635e5f4efbcb6d27aa843e" compoundref="_l_i_n_g_model_8h" startline="48" endline="48">coalesceMs</references>
+        <references refid="namespaceId_1a743670993dd005f0f872a89a5d009560" compoundref="_generated_8cpp" startline="32" endline="32">Id::connections</references>
         <references refid="classjam_1_1Model_1ac250f7a4c969aa2d05602b9805dd63ce">jam::Model::createAndAddParameter</references>
-        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="32" endline="32">Id::files</references>
+        <references refid="class_l_i_n_g_model_1a98c415ab589e5c16c6e98d1a8f0859a5" compoundref="_l_i_n_g_model_8h" startline="45" endline="45">defaultTimeoutMs</references>
+        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="40" endline="40">Id::files</references>
         <references refid="classjam_1_1Model_1a322c866d6fc435eb6799562d6d6db8b1">jam::Model::getOrCreateChildWithName</references>
         <references refid="namespaceId_1a0e0b9ef1fb687c4c7c73d2bd7213ac01">Id::message</references>
         <references refid="classjam_1_1Model_1afbe837fa9d9c8086381333783bb1db3b">jam::Model::Model</references>
         <references refid="namespaceId_1a3c4b99c0119059fde6024a09a758312e">Id::overlay</references>
+        <references refid="classjuce_1_1ValueTree_1a86de4a6662eb049c21c30c627616fb0e">juce::ValueTree::setProperty</references>
+        <references refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857">jam::Model::state</references>
+        <references refid="namespaceId_1ad99de3ca37a30e0bb93696f8de7d2561" compoundref="_generated_8cpp" startline="57" endline="57">Id::timeout</references>
         <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
-        <references refid="class_l_i_n_g_model_1a0f5c4a85d80ca163d85c7cc496fbab46" compoundref="_l_i_n_g_model_8h" startline="73">watcher</references>
+        <references refid="class_l_i_n_g_model_1a0f5c4a85d80ca163d85c7cc496fbab46" compoundref="_l_i_n_g_model_8h" startline="113">watcher</references>
       </memberdef>
       <memberdef kind="function" id="class_l_i_n_g_model_1aed5183a1e913ceaaf115ac1d666e89a0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -87,11 +112,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="LINGModel.h" line="28" column="5"/>
-        <references refid="class_l_i_n_g_model_1a69cf1f824a69271ac205f6432f0b8955" compoundref="_l_i_n_g_model_8cpp" startline="61" endline="67">fileChanged</references>
+        <location file="LINGModel.h" line="32" column="5"/>
         <references refid="class_l_i_n_g_model_1afdef5b210be00b4c407239da424c8b3d" compoundref="_l_i_n_g_model_8cpp" startline="18" endline="25">setMessage</references>
-        <references refid="class_l_i_n_g_model_1a167994bf1e11534308dc0c92299af677" compoundref="_l_i_n_g_model_8cpp" startline="47" endline="59">valueTreeChildAdded</references>
-        <references refid="class_l_i_n_g_model_1a3cd783d99a31ffc14afb62bdd6abe103" compoundref="_l_i_n_g_model_8cpp" startline="27" endline="45">valueTreePropertyChanged</references>
       </memberdef>
       <memberdef kind="function" id="class_l_i_n_g_model_1afdef5b210be00b4c407239da424c8b3d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -121,14 +143,101 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="LINGModel.h" line="38" column="10" bodyfile="LINGModel.cpp" bodystart="18" bodyend="25"/>
+        <location file="LINGModel.h" line="42" column="10" bodyfile="LINGModel.cpp" bodystart="18" bodyend="25"/>
         <references refid="classjam_1_1Model_1a7ec2529e24ab07f42c0bd51be30a8529">jam::Model::getParameter</references>
         <references refid="namespaceId_1a0e0b9ef1fb687c4c7c73d2bd7213ac01">Id::message</references>
         <references refid="namespaceId_1a3c4b99c0119059fde6024a09a758312e">Id::overlay</references>
         <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
-        <referencedby refid="class_processor_1a382544055777bd6b922918f36a82f6ac" compoundref="_processor_8cpp" startline="58" endline="79">Processor::addDocument</referencedby>
-        <referencedby refid="class_l_i_n_g_model_1a3cd783d99a31ffc14afb62bdd6abe103" compoundref="_l_i_n_g_model_8cpp" startline="27" endline="45">valueTreePropertyChanged</referencedby>
+        <referencedby refid="class_processor_1a382544055777bd6b922918f36a82f6ac" compoundref="_processor_8cpp" startline="519" endline="540">Processor::addDocument</referencedby>
+        <referencedby refid="class_processor_1af9b813b2b399ce82a3bd27abc84d74e6" compoundref="_processor_8h" startline="219" endline="241">Processor::applyToPosition</referencedby>
+        <referencedby refid="class_client_1af9ec2edf06d69e92a25c53ce4260fa27" compoundref="_client_8cpp" startline="64" endline="69">Client::connectionLost</referencedby>
+        <referencedby refid="class_processor_1aed09034a614896ac3c982e0b761b3dbc" compoundref="_processor_8cpp" startline="323" endline="346">Processor::documentSymbol</referencedby>
+        <referencedby refid="class_client_1a70c485d5d4c5e8ceb24b89e9db1cd4ec" compoundref="_client_8cpp" startline="71" endline="87">Client::messageReceived</referencedby>
+        <referencedby refid="class_processor_1a1dcabcb77d254b34ff0c04c9b483028d" compoundref="_processor_8cpp" startline="244" endline="260">Processor::runRequest</referencedby>
+        <referencedby refid="class_client_1a742373e08a80d993d2651b6fff76f5b9" compoundref="_client_8cpp" startline="21" endline="37">Client::start</referencedby>
+        <referencedby refid="class_processor_1a700c05d5a1b8a0a7ac491caab4d746a5" compoundref="_processor_8cpp" startline="375" endline="399">Processor::workspaceSymbol</referencedby>
         <referencedby refid="class_l_i_n_g_model_1aed5183a1e913ceaaf115ac1d666e89a0">~LINGModel</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_l_i_n_g_model_1aa8f0468179c1dbd1d51bc903480152db" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string LINGModel::getDaemonName</definition>
+        <argsstring>(const juce::File &amp;manifest, std::string_view toolchainArgument)</argsstring>
+        <name>getDaemonName</name>
+        <qualifiedname>LINGModel::getDaemonName</qualifiedname>
+        <param>
+          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
+          <declname>manifest</declname>
+        </param>
+        <param>
+          <type>std::string_view</type>
+          <declname>toolchainArgument</declname>
+        </param>
+        <briefdescription>
+<para>Returns the name of the daemon of a manifest and a toolchain argument. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The name is the hexadecimal text of a Wyhash hash. The hash covers the full path of the manifest, a newline, and the toolchain argument. The same manifest and toolchain argument give the same name.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>manifest</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The manifest file. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>toolchainArgument</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The toolchain argument. Empty when none is given. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The name of the daemon. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="LINGModel.h" line="61" column="24" bodyfile="LINGModel.cpp" bodystart="27" bodyend="37"/>
+        <references refid="structjam_1_1Format_1a5778a92dce4cd8bb89c0d932b0bd53a9">jam::Format::appendHex</references>
+        <references refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4">jam::Format::appendUtf8</references>
+        <references refid="classjam_1_1Strings_1adfb32d159be94dc4a4004c50be876e3c">jam::Strings::getView</references>
+        <references refid="structjam_1_1Wyhash_1a1c7777b76b75b7cab9dc4c9eaedec2bc">jam::Wyhash::hashBytes</references>
+        <references refid="structChars_1a4691bc69052e757e7325970098922899">Chars::newline</references>
+        <referencedby refid="class_server_1a4eea4c89de21dd82775cd821d7374010" compoundref="_server_8cpp" startline="21" endline="24">Server::getPortFile</referencedby>
+        <referencedby refid="class_application_1a4de481aad2640107c4adb792347d8a8f" compoundref="_main_8cpp" startline="389" endline="409">Application::runDaemon</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_l_i_n_g_model_1a418ec05ca5a75c35b3187e995a82fb5c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref></type>
+        <definition>juce::File LINGModel::getCacheDirectory</definition>
+        <argsstring>()</argsstring>
+        <name>getCacheDirectory</name>
+        <qualifiedname>LINGModel::getCacheDirectory</qualifiedname>
+        <briefdescription>
+<para>Returns the cache folder of LING. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The folder is in the local application data folder on Windows, and in the home folder on the other platforms. The function creates no folder. Callers create the folder before they write to it.</para>
+<para><simplesect kind="return"><para>The cache folder. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="LINGModel.h" line="72" column="23" bodyfile="LINGModel.cpp" bodystart="39" bodyend="46"/>
+        <references refid="classjuce_1_1File_1a57b992aacb19e09ee5905cd0f0e9bb31">juce::File::getChildFile</references>
+        <references refid="classjuce_1_1File_1a3e0950b0d0dbe71a8bc4a7ed3c7ab067">juce::File::getSpecialLocation</references>
+        <references refid="namespacefiles_1a4fa25fc64adbec36e00fff9632295c44" compoundref="_generated_8cpp" startline="70" endline="70">files::lingCache</references>
+        <references refid="namespacefiles_1aa079c0253a0187189d6d99d6c3584be6" compoundref="_generated_8cpp" startline="72" endline="72">files::lingLocalCache</references>
+        <references refid="classjuce_1_1File_1a6efe0648697f59af5952171d5e7b0317afc7a0751112d5d2a2b7a5d139e65b967">juce::File::userHomeDirectory</references>
+        <references refid="classjuce_1_1File_1a6efe0648697f59af5952171d5e7b0317a4027faec552772ef6dec955e0016031d">juce::File::windowsLocalAppData</references>
+        <referencedby refid="class_client_1aefc3c94434262806f1bc3aafebeae9ea" compoundref="_client_8cpp" startline="3" endline="13">Client::Client</referencedby>
+        <referencedby refid="class_server_1a4eea4c89de21dd82775cd821d7374010" compoundref="_server_8cpp" startline="21" endline="24">Server::getPortFile</referencedby>
+        <referencedby refid="class_server_1a4dd7b0071ab8e42b970d7ca9474986bc" compoundref="_server_8cpp" startline="42" endline="52">Server::valueTreePropertyChanged</referencedby>
       </memberdef>
     </sectiondef>
     <sectiondef kind="private-func">
@@ -148,16 +257,16 @@
           <declname>property</declname>
         </param>
         <briefdescription>
-<para>Rebuilds the files child from the manifest when the manifest path changes. </para>
+<para>Adds the folder of the manifest to the watcher when the manifest path changes. </para>
         </briefdescription>
         <detaileddescription>
-<para>The toolchain argument is read from the state at the same time. A manifest that fails validation sets the message, and its files child is empty.</para>
+<para>The base class receives the change first.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>tree</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>The tree whose property changed. </para>
+<para>The tree whose property changed. Only the state tree acts. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -165,7 +274,7 @@
 <parametername>property</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>The changed property. Only <ref refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::manifest</ref> rebuilds the files child. </para>
+<para>The changed property. Only <ref refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::manifest</ref> acts. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -173,21 +282,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="LINGModel.h" line="50" column="10" bodyfile="LINGModel.cpp" bodystart="27" bodyend="45"/>
-        <references refid="classjam_1_1Model_1ae0cb2cc2b04acb47eb9760d92dcedc46">jam::Model::appendChild</references>
-        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="32" endline="32">Id::files</references>
-        <references refid="classjuce_1_1ValueTree_1ac9bbcb6db4464f77b512b9bd8bbb8c3f">juce::ValueTree::getChildWithName</references>
-        <references refid="struct_compiler_manifest_1ac6c023b121716f31f5adc69791ec314f" compoundref="_compiler_manifest_8cpp" startline="3" endline="34">CompilerManifest::getFiles</references>
-        <references refid="structjam_1_1Document_1_1Validator_1a1275a95db9c777fcceff5c574c561ae0">jam::Document::Validator::isValid</references>
-        <references refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" compoundref="_identifiers_8h" startline="40">Id::manifest</references>
-        <references refid="structjam_1_1Document_1a367d65133f164cf9421ff0c3ddf2bbf6">jam::Document::parse</references>
-        <references refid="classjam_1_1Model_1acbf5ef1a6e71240468f17fe707532bec">jam::Model::removeChild</references>
-        <references refid="class_l_i_n_g_model_1afdef5b210be00b4c407239da424c8b3d" compoundref="_l_i_n_g_model_8cpp" startline="18" endline="25">setMessage</references>
+        <location file="LINGModel.h" line="83" column="10" bodyfile="LINGModel.cpp" bodystart="48" bodyend="54"/>
+        <references refid="structjam_1_1File_1_1Watcher_1af3b174cc017a51839fcfa19d0e9f9cbc">jam::File::Watcher::addFolder</references>
+        <references refid="classjuce_1_1File_1ab6bec65fbcf19ce10e38cf9d1015770d">juce::File::getParentDirectory</references>
+        <references refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" compoundref="_identifiers_8h" startline="53">Id::manifest</references>
         <references refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857">jam::Model::state</references>
-        <references refid="namespaceId_1ad2d03a036d57999f43066f5737dc8008" compoundref="_generated_8cpp" startline="40" endline="40">Id::toolchainArgument</references>
-        <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
         <references refid="classjam_1_1Model_1ab664f3dda27392cd40724b87549d0b6c">jam::Model::valueTreePropertyChanged</references>
-        <referencedby refid="class_l_i_n_g_model_1aed5183a1e913ceaaf115ac1d666e89a0">~LINGModel</referencedby>
+        <references refid="class_l_i_n_g_model_1a0f5c4a85d80ca163d85c7cc496fbab46" compoundref="_l_i_n_g_model_8h" startline="113">watcher</references>
       </memberdef>
       <memberdef kind="function" id="class_l_i_n_g_model_1a167994bf1e11534308dc0c92299af677" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -205,10 +306,10 @@
           <declname>childWhichHasBeenAdded</declname>
         </param>
         <briefdescription>
-<para>Adds the folder of each row of an added files child to the watcher. </para>
+<para>Adds the folders of an added files child to the watcher. </para>
         </briefdescription>
         <detaileddescription>
-<para>Only a folder that exists is watched.</para>
+<para>The base class receives the child first. The folder of a file row is the parent of its path, and the watcher receives it only when it exists. The parent of each compiler manifest path and each dependency record path is passed to the watcher without that test, and the watcher asserts that the folder exists.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>parentTree</parametername>
@@ -222,7 +323,7 @@
 <parametername>childWhichHasBeenAdded</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>The added child. Its rows give the folders when it is a files child. </para>
+<para>The added child. A files child gives the folders of its rows, its compiler manifests, and its dependency records. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -230,17 +331,18 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="LINGModel.h" line="60" column="10" bodyfile="LINGModel.cpp" bodystart="47" bodyend="59"/>
+        <location file="LINGModel.h" line="97" column="10" bodyfile="LINGModel.cpp" bodystart="56" bodyend="75"/>
         <references refid="structjam_1_1File_1_1Watcher_1af3b174cc017a51839fcfa19d0e9f9cbc">jam::File::Watcher::addFolder</references>
-        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="32" endline="32">Id::files</references>
+        <references refid="namespaceId_1a2220ff2678eb873f0cbb12be72a557d3" compoundref="_generated_8cpp" startline="30" endline="30">Id::compilerManifests</references>
+        <references refid="namespaceId_1a0cc234c6ac0115ad1f808dfaccd17f7b" compoundref="_generated_8cpp" startline="36" endline="36">Id::dependencyRecords</references>
+        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="40" endline="40">Id::files</references>
         <references refid="classjuce_1_1File_1ab6bec65fbcf19ce10e38cf9d1015770d">juce::File::getParentDirectory</references>
         <references refid="classjuce_1_1ValueTree_1a21ae8143e7abb766a9a3b4961d74be2b">juce::ValueTree::hasType</references>
         <references refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab">Id::path</references>
         <references refid="classjuce_1_1Identifier_1ab6f0db1de2c36cacd1a9d7280f73aeeb">juce::Identifier::toString</references>
         <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
         <references refid="classjam_1_1Model_1af47cced4e2e104409035766e12796fd3">jam::Model::valueTreeChildAdded</references>
-        <references refid="class_l_i_n_g_model_1a0f5c4a85d80ca163d85c7cc496fbab46" compoundref="_l_i_n_g_model_8h" startline="73">watcher</references>
-        <referencedby refid="class_l_i_n_g_model_1aed5183a1e913ceaaf115ac1d666e89a0">~LINGModel</referencedby>
+        <references refid="class_l_i_n_g_model_1a0f5c4a85d80ca163d85c7cc496fbab46" compoundref="_l_i_n_g_model_8h" startline="113">watcher</references>
       </memberdef>
       <memberdef kind="function" id="class_l_i_n_g_model_1a69cf1f824a69271ac205f6432f0b8955" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -258,10 +360,10 @@
           <declname>event</declname>
         </param>
         <briefdescription>
-<para>Sends a path change for the row of a changed file. </para>
+<para>Sends a change for a changed file: a manifest change, or a path change of its file row. </para>
         </briefdescription>
         <detaileddescription>
-<para>The processor parses the file again on that change.</para>
+<para>The manifest, a compiler manifest, and a dependency record send a change of the manifest property, and the manifest reading then runs again. Any other file sends a change of the path property to its file row, when a row holds its path. The processor parses the file again on that change.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>file</parametername>
@@ -283,22 +385,24 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="LINGModel.h" line="70" column="10" bodyfile="LINGModel.cpp" bodystart="61" bodyend="67"/>
-        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="32" endline="32">Id::files</references>
+        <location file="LINGModel.h" line="110" column="10" bodyfile="LINGModel.cpp" bodystart="77" bodyend="99"/>
+        <references refid="namespaceId_1a2220ff2678eb873f0cbb12be72a557d3" compoundref="_generated_8cpp" startline="30" endline="30">Id::compilerManifests</references>
+        <references refid="namespaceId_1a0cc234c6ac0115ad1f808dfaccd17f7b" compoundref="_generated_8cpp" startline="36" endline="36">Id::dependencyRecords</references>
+        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="40" endline="40">Id::files</references>
         <references refid="classjuce_1_1ValueTree_1ac9bbcb6db4464f77b512b9bd8bbb8c3f">juce::ValueTree::getChildWithName</references>
-        <references refid="classjuce_1_1ValueTree_1ae75bed92e299905f8e6a03ddfd63bea4">juce::ValueTree::getChildWithProperty</references>
         <references refid="classjuce_1_1Identifier_1aa11734917f2bc61608c3bcd3e6611a6c">juce::Identifier::isValid</references>
+        <references refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" compoundref="_identifiers_8h" startline="53">Id::manifest</references>
         <references refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab">Id::path</references>
+        <references refid="classjuce_1_1ValueTree_1ae48f6072bff41f419d5ec15ff1765c5e">juce::ValueTree::sendPropertyChangeMessage</references>
         <references refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857">jam::Model::state</references>
         <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
-        <referencedby refid="class_l_i_n_g_model_1aed5183a1e913ceaaf115ac1d666e89a0">~LINGModel</referencedby>
       </memberdef>
     </sectiondef>
     <briefdescription>
-<para>The state of one LING run: the files, the message, and the watcher of the file folders. </para>
+<para>The state of one LING run: the files, the connections, the message, and the watcher of the file folders. </para>
     </briefdescription>
     <detaileddescription>
-<para>The model reads the manifest path from its state, and it replaces the files child with the rows of the manifest. Each folder of a file row is watched. A change of a watched file sends a path change for its row. </para>
+<para>The model holds the rows of one run. A change of the manifest path adds the folder of the manifest to the watcher. A files child adds the folders of its rows, and the folders of the compiler manifests and dependency records that it names. A change of a watched file sends a change to the manifest or to its file row. </para>
     </detaileddescription>
     <inheritancegraph>
       <node id="1">
@@ -475,7 +579,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="LINGModel.h" line="13" column="1" bodyfile="LINGModel.h" bodystart="17" bodyend="79"/>
+    <location file="LINGModel.h" line="15" column="1" bodyfile="LINGModel.h" bodystart="19" bodyend="116"/>
     <listofallmembers>
       <member refid="classjam_1_1Model_1ad6b6050547be2d2a2cc168153dbf3384" prot="private" virt="non-virtual"><scope>LINGModel</scope><name>adapters</name></member>
       <member refid="classjam_1_1Model_1a20c192be5cae95af1e9afcc50901e73a" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>addChildrenFrom</name></member>
@@ -492,8 +596,9 @@
       <member refid="classjuce_1_1Timer_1a5eb2dfa3e6810c268704c159ddcb37bc" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>callAfterDelay</name></member>
       <member refid="classjuce_1_1Timer_1a6c366b7f5a5d70c270a1e85b8aa45888" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>callPendingTimersSynchronously</name></member>
       <member refid="structjam_1_1Instance_1ac0def93de8fa465bffdb5dd8491b70dc" prot="private" virt="non-virtual"><scope>LINGModel</scope><name>chainLock</name></member>
-      <member refid="class_l_i_n_g_model_1a1c57527a53635e5f4efbcb6d27aa843e" prot="private" virt="non-virtual"><scope>LINGModel</scope><name>coalesceMs</name></member>
+      <member refid="class_l_i_n_g_model_1a1c57527a53635e5f4efbcb6d27aa843e" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>coalesceMs</name></member>
       <member refid="classjam_1_1Model_1ac250f7a4c969aa2d05602b9805dd63ce" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>createAndAddParameter</name></member>
+      <member refid="class_l_i_n_g_model_1a98c415ab589e5c16c6e98d1a8f0859a5" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>defaultTimeoutMs</name></member>
       <member refid="class_l_i_n_g_model_1a69cf1f824a69271ac205f6432f0b8955" prot="private" virt="virtual"><scope>LINGModel</scope><name>fileChanged</name></member>
       <member refid="classjam_1_1Model_1a18b3c394b364e643b78edc5d6b0351ae" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>findAndRemoveChild</name></member>
       <member refid="classjam_1_1Model_1a9eb2e927e025645e46609f37aa6f9304" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>flush</name></member>
@@ -501,9 +606,11 @@
       <member refid="classjam_1_1File_1_1Watcher_1_1Listener_1a75221307eb1bf0ef2735e9ef80ebf4a4" prot="private" virt="virtual"><scope>LINGModel</scope><name>folderChanged</name></member>
       <member refid="classjam_1_1Model_1aca2af1e2651acc75ee5be91435d2c434" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>forEachProperty</name></member>
       <member refid="classjam_1_1Model_1af982080085c49090570d065f1ff2506e" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>fromFiles</name></member>
+      <member refid="class_l_i_n_g_model_1a418ec05ca5a75c35b3187e995a82fb5c" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getCacheDirectory</name></member>
       <member refid="classjam_1_1Model_1a7f02a97f0aa8e2d69cf84fc9d006484e" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getChildWithID</name></member>
       <member refid="classjam_1_1Model_1aecef6b658fc1de8bd8642ce3c0011036" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getChildWithName</name></member>
       <member refid="classjam_1_1Model_1a6fc5e6f42695dfdedb8564b7e21da8f7" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getChildWithName</name></member>
+      <member refid="class_l_i_n_g_model_1aa8f0468179c1dbd1d51bc903480152db" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getDaemonName</name></member>
       <member refid="classjam_1_1Model_1a4444ea2325daca8826c76b7ce220906b" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getFrom</name></member>
       <member refid="classjam_1_1Model_1a79cce52c9ceec1401fe2198aab902942" prot="private" virt="non-virtual"><scope>LINGModel</scope><name>getGroupId</name></member>
       <member refid="structjam_1_1Instance_1ad5d2bbb58e37d8d260b428b334823140" prot="public" virt="non-virtual"><scope>LINGModel</scope><name>getInstance</name></member>

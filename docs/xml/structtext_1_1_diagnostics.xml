@@ -10,7 +10,7 @@
         <argsstring></argsstring>
         <name>failNotFound</name>
         <qualifiedname>text::Diagnostics::failNotFound</qualifiedname>
-        <initializer>{ &quot;not found&quot;                       }</initializer>
+        <initializer>{ &quot;not found&quot;                                 }</initializer>
         <briefdescription>
 <para>A file argument that does not exist. </para>
         </briefdescription>
@@ -19,7 +19,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="generated/Text.h" line="31" column="39" bodyfile="generated/Text.h" bodystart="31" bodyend="31"/>
-        <referencedby refid="_main_8cpp_1a71f4a80b69df59cea48bb36733898656" compoundref="_main_8cpp" startline="178" endline="183">runDocumentNotFound</referencedby>
+        <referencedby refid="_main_8cpp_1a71f4a80b69df59cea48bb36733898656" compoundref="_main_8cpp" startline="162" endline="167">runDocumentNotFound</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structtext_1_1_diagnostics_1a54030ad642dee1157d22d8255503812d" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>const char *const</type>
@@ -27,7 +27,7 @@
         <argsstring></argsstring>
         <name>failFlagUnknown</name>
         <qualifiedname>text::Diagnostics::failFlagUnknown</qualifiedname>
-        <initializer>{ &quot;unknown flag&quot;                    }</initializer>
+        <initializer>{ &quot;unknown flag&quot;                              }</initializer>
         <briefdescription>
 <para>Not <ndash/>help or <ndash/>version, or a rejected argument after the manifest. </para>
         </briefdescription>
@@ -36,7 +36,27 @@
         <inbodydescription>
         </inbodydescription>
         <location file="generated/Text.h" line="32" column="39" bodyfile="generated/Text.h" bodystart="32" bodyend="32"/>
-        <referencedby refid="_main_8cpp_1a92f2321886f9537b6a47ade955342c57" compoundref="_main_8cpp" startline="246" endline="271">runCommandLine</referencedby>
+        <referencedby refid="_main_8cpp_1a92f2321886f9537b6a47ade955342c57" compoundref="_main_8cpp" startline="244" endline="262">runCommandLine</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structtext_1_1_diagnostics_1ab8e4b15951f8dd3ceb318d7d3e79ff15" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>const char *const</type>
+        <definition>const char* const text::Diagnostics::failArguments</definition>
+        <argsstring></argsstring>
+        <name>failArguments</name>
+        <qualifiedname>text::Diagnostics::failArguments</qualifiedname>
+        <initializer>{ &quot;wrong arguments&quot;                           }</initializer>
+        <briefdescription>
+<para>An operation word that ling does not hold, or a wrong count or value of arguments. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Text.h" line="33" column="39" bodyfile="generated/Text.h" bodystart="33" bodyend="33"/>
+        <referencedby refid="class_processor_1af9b813b2b399ce82a3bd27abc84d74e6" compoundref="_processor_8h" startline="219" endline="241">Processor::applyToPosition</referencedby>
+        <referencedby refid="class_processor_1aed09034a614896ac3c982e0b761b3dbc" compoundref="_processor_8cpp" startline="323" endline="346">Processor::documentSymbol</referencedby>
+        <referencedby refid="class_processor_1a1dcabcb77d254b34ff0c04c9b483028d" compoundref="_processor_8cpp" startline="244" endline="260">Processor::runRequest</referencedby>
+        <referencedby refid="class_processor_1a700c05d5a1b8a0a7ac491caab4d746a5" compoundref="_processor_8cpp" startline="375" endline="399">Processor::workspaceSymbol</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structtext_1_1_diagnostics_1a970639e94e56dd027f442cb9bf7f89a6" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>const char *const</type>
@@ -44,7 +64,7 @@
         <argsstring></argsstring>
         <name>failUnitNotFound</name>
         <qualifiedname>text::Diagnostics::failUnitNotFound</qualifiedname>
-        <initializer>{ &quot;unit file not found&quot;             }</initializer>
+        <initializer>{ &quot;unit file not found&quot;                       }</initializer>
         <briefdescription>
 <para>A unit file of a compiler manifest that does not exist. </para>
         </briefdescription>
@@ -52,8 +72,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Text.h" line="33" column="39" bodyfile="generated/Text.h" bodystart="33" bodyend="33"/>
-        <referencedby refid="struct_compiler_manifest_1a9d2007dbcec110ea5bdf2fccace5b7ea" compoundref="_compiler_manifest_8cpp" startline="92" endline="113">CompilerManifest::addCLanguageUnit</referencedby>
+        <location file="generated/Text.h" line="34" column="39" bodyfile="generated/Text.h" bodystart="34" bodyend="34"/>
+        <referencedby refid="struct_compiler_manifest_1a9d2007dbcec110ea5bdf2fccace5b7ea" compoundref="_compiler_manifest_8cpp" startline="96" endline="117">CompilerManifest::addCLanguageUnit</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structtext_1_1_diagnostics_1a92a2023e448148a2d35ffdcd09f5c242" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>const char *const</type>
@@ -61,7 +81,7 @@
         <argsstring></argsstring>
         <name>failCompilerManifestInvalid</name>
         <qualifiedname>text::Diagnostics::failCompilerManifestInvalid</qualifiedname>
-        <initializer>{ &quot;compiler manifest is not valid&quot;  }</initializer>
+        <initializer>{ &quot;compiler manifest is not valid&quot;            }</initializer>
         <briefdescription>
 <para>A compiler manifest whose root is not an array. </para>
         </briefdescription>
@@ -69,8 +89,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Text.h" line="34" column="39" bodyfile="generated/Text.h" bodystart="34" bodyend="34"/>
-        <referencedby refid="struct_compiler_manifest_1aeb98507984924cff3bfc19f704f111b5" compoundref="_compiler_manifest_8cpp" startline="62" endline="90">CompilerManifest::addCLanguageUnits</referencedby>
+        <location file="generated/Text.h" line="35" column="39" bodyfile="generated/Text.h" bodystart="35" bodyend="35"/>
+        <referencedby refid="struct_compiler_manifest_1aeb98507984924cff3bfc19f704f111b5" compoundref="_compiler_manifest_8cpp" startline="62" endline="94">CompilerManifest::addCLanguageUnits</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structtext_1_1_diagnostics_1a1b230c2f263a740ce68ec009c9e0e5e4" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>const char *const</type>
@@ -78,7 +98,7 @@
         <argsstring></argsstring>
         <name>failCompilerManifestNotFound</name>
         <qualifiedname>text::Diagnostics::failCompilerManifestNotFound</qualifiedname>
-        <initializer>{ &quot;compiler manifest not found&quot;     }</initializer>
+        <initializer>{ &quot;compiler manifest not found&quot;               }</initializer>
         <briefdescription>
 <para>A compiler manifest that does not exist in its build folder. </para>
         </briefdescription>
@@ -86,8 +106,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Text.h" line="35" column="39" bodyfile="generated/Text.h" bodystart="35" bodyend="35"/>
-        <referencedby refid="struct_compiler_manifest_1aeb98507984924cff3bfc19f704f111b5" compoundref="_compiler_manifest_8cpp" startline="62" endline="90">CompilerManifest::addCLanguageUnits</referencedby>
+        <location file="generated/Text.h" line="36" column="39" bodyfile="generated/Text.h" bodystart="36" bodyend="36"/>
+        <referencedby refid="struct_compiler_manifest_1aeb98507984924cff3bfc19f704f111b5" compoundref="_compiler_manifest_8cpp" startline="62" endline="94">CompilerManifest::addCLanguageUnits</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structtext_1_1_diagnostics_1af763ab2fde1f227b356e621789f9dce5" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>const char *const</type>
@@ -95,7 +115,7 @@
         <argsstring></argsstring>
         <name>failDependenciesNotFound</name>
         <qualifiedname>text::Diagnostics::failDependenciesNotFound</qualifiedname>
-        <initializer>{ &quot;dependencies not found&quot;          }</initializer>
+        <initializer>{ &quot;dependencies not found&quot;                    }</initializer>
         <briefdescription>
 <para>A unit with no record in the dependency record. </para>
         </briefdescription>
@@ -103,8 +123,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Text.h" line="36" column="39" bodyfile="generated/Text.h" bodystart="36" bodyend="36"/>
-        <referencedby refid="struct_compiler_manifest_1a35121152e52c7c8d5ad86dad4cd8f1c6" compoundref="_compiler_manifest_8cpp" startline="170" endline="183">CompilerManifest::addCLanguageRecords</referencedby>
+        <location file="generated/Text.h" line="37" column="39" bodyfile="generated/Text.h" bodystart="37" bodyend="37"/>
+        <referencedby refid="struct_compiler_manifest_1a35121152e52c7c8d5ad86dad4cd8f1c6" compoundref="_compiler_manifest_8cpp" startline="183" endline="196">CompilerManifest::addCLanguageRecords</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structtext_1_1_diagnostics_1af3213d85de76f5051147adf231066b11" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>const char *const</type>
@@ -112,7 +132,7 @@
         <argsstring></argsstring>
         <name>failToolchain</name>
         <qualifiedname>text::Diagnostics::failToolchain</qualifiedname>
-        <initializer>{ &quot;toolchain <ref refid="juce__UnityPluginInterface_8h_1a485dc2a0e5ed7da3d9f826367b36ee55a6440030ae8284cee96c1c88b356c45a7" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">command</ref> failed&quot;        }</initializer>
+        <initializer>{ &quot;toolchain <ref refid="juce__UnityPluginInterface_8h_1a485dc2a0e5ed7da3d9f826367b36ee55a6440030ae8284cee96c1c88b356c45a7" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">command</ref> failed&quot;                  }</initializer>
         <briefdescription>
 <para>A toolchain row&apos;s process could not start or exited nonzero. </para>
         </briefdescription>
@@ -120,8 +140,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Text.h" line="37" column="39" bodyfile="generated/Text.h" bodystart="37" bodyend="37"/>
-        <referencedby refid="struct_compiler_manifest_1a27b9440fa07342c696ffd2af1e7eebc5" compoundref="_compiler_manifest_8cpp" startline="130" endline="155">CompilerManifest::addCLanguageDependencies</referencedby>
+        <location file="generated/Text.h" line="38" column="39" bodyfile="generated/Text.h" bodystart="38" bodyend="38"/>
+        <referencedby refid="struct_compiler_manifest_1a27b9440fa07342c696ffd2af1e7eebc5" compoundref="_compiler_manifest_8cpp" startline="134" endline="168">CompilerManifest::addCLanguageDependencies</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structtext_1_1_diagnostics_1a15f1fdeea830a67020306e9b3e5073ea" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>const char *const</type>
@@ -129,7 +149,7 @@
         <argsstring></argsstring>
         <name>failToolchainArgument</name>
         <qualifiedname>text::Diagnostics::failToolchainArgument</qualifiedname>
-        <initializer>{ &quot;toolchain argument not declared&quot; }</initializer>
+        <initializer>{ &quot;toolchain argument not declared&quot;           }</initializer>
         <briefdescription>
 <para>A <ndash/>&lt;word&gt; CLI argument matched no toolchain row&apos;s argument column. </para>
         </briefdescription>
@@ -137,7 +157,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Text.h" line="38" column="39" bodyfile="generated/Text.h" bodystart="38" bodyend="38"/>
+        <location file="generated/Text.h" line="39" column="39" bodyfile="generated/Text.h" bodystart="39" bodyend="39"/>
         <referencedby refid="struct_compiler_manifest_1ac6c023b121716f31f5adc69791ec314f" compoundref="_compiler_manifest_8cpp" startline="3" endline="34">CompilerManifest::getFiles</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structtext_1_1_diagnostics_1acb39935ba8149723d8a1c9615271f294" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -146,7 +166,7 @@
         <argsstring></argsstring>
         <name>failToolchainColumn</name>
         <qualifiedname>text::Diagnostics::failToolchainColumn</qualifiedname>
-        <initializer>{ &quot;toolchain column not declared&quot;   }</initializer>
+        <initializer>{ &quot;toolchain column not declared&quot;             }</initializer>
         <briefdescription>
 <para>A ## toolchain table&apos;s header row declares no command or flag column. </para>
         </briefdescription>
@@ -154,8 +174,59 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Text.h" line="39" column="39" bodyfile="generated/Text.h" bodystart="39" bodyend="39"/>
-        <referencedby refid="struct_validator_1af387720572933d5519b0597814433c17" compoundref="_validator_8cpp" startline="3" endline="26">Validator::addRules</referencedby>
+        <location file="generated/Text.h" line="40" column="39" bodyfile="generated/Text.h" bodystart="40" bodyend="40"/>
+        <referencedby refid="struct_validator_1af387720572933d5519b0597814433c17" compoundref="_validator_8cpp" startline="3" endline="48">Validator::addRules</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structtext_1_1_diagnostics_1a917b125ae6e7f9b56f438fc8a195cdd4" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>const char *const</type>
+        <definition>const char* const text::Diagnostics::failDaemonStart</definition>
+        <argsstring></argsstring>
+        <name>failDaemonStart</name>
+        <qualifiedname>text::Diagnostics::failDaemonStart</qualifiedname>
+        <initializer>{ &quot;daemon did not start&quot;                      }</initializer>
+        <briefdescription>
+<para>A daemon that did not start. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Text.h" line="41" column="39" bodyfile="generated/Text.h" bodystart="41" bodyend="41"/>
+        <referencedby refid="class_client_1a742373e08a80d993d2651b6fff76f5b9" compoundref="_client_8cpp" startline="21" endline="37">Client::start</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structtext_1_1_diagnostics_1a88ef151e729b90b683e17b37f0ca0083" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>const char *const</type>
+        <definition>const char* const text::Diagnostics::failDaemonLost</definition>
+        <argsstring></argsstring>
+        <name>failDaemonLost</name>
+        <qualifiedname>text::Diagnostics::failDaemonLost</qualifiedname>
+        <initializer>{ &quot;daemon connection lost&quot;                    }</initializer>
+        <briefdescription>
+<para>A connection to the daemon that ended before the result. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Text.h" line="42" column="39" bodyfile="generated/Text.h" bodystart="42" bodyend="42"/>
+        <referencedby refid="class_client_1af9ec2edf06d69e92a25c53ce4260fa27" compoundref="_client_8cpp" startline="64" endline="69">Client::connectionLost</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structtext_1_1_diagnostics_1a204d1ed64e1ddb8a0febcd742369a763" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>const char *const</type>
+        <definition>const char* const text::Diagnostics::failDaemonTimeout</definition>
+        <argsstring></argsstring>
+        <name>failDaemonTimeout</name>
+        <qualifiedname>text::Diagnostics::failDaemonTimeout</qualifiedname>
+        <initializer>{ &quot;daemon timeout must be a positive integer&quot; }</initializer>
+        <briefdescription>
+<para>A ## daemon timeout cell is not a positive integer. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Text.h" line="43" column="39" bodyfile="generated/Text.h" bodystart="43" bodyend="43"/>
+        <referencedby refid="struct_validator_1af387720572933d5519b0597814433c17" compoundref="_validator_8cpp" startline="3" endline="48">Validator::addRules</referencedby>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -163,10 +234,14 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="generated/Text.h" line="29" column="1" bodyfile="generated/Text.h" bodystart="30" bodyend="40"/>
+    <location file="generated/Text.h" line="29" column="1" bodyfile="generated/Text.h" bodystart="30" bodyend="44"/>
     <listofallmembers>
+      <member refid="structtext_1_1_diagnostics_1ab8e4b15951f8dd3ceb318d7d3e79ff15" prot="public" virt="non-virtual"><scope>text::Diagnostics</scope><name>failArguments</name></member>
       <member refid="structtext_1_1_diagnostics_1a92a2023e448148a2d35ffdcd09f5c242" prot="public" virt="non-virtual"><scope>text::Diagnostics</scope><name>failCompilerManifestInvalid</name></member>
       <member refid="structtext_1_1_diagnostics_1a1b230c2f263a740ce68ec009c9e0e5e4" prot="public" virt="non-virtual"><scope>text::Diagnostics</scope><name>failCompilerManifestNotFound</name></member>
+      <member refid="structtext_1_1_diagnostics_1a88ef151e729b90b683e17b37f0ca0083" prot="public" virt="non-virtual"><scope>text::Diagnostics</scope><name>failDaemonLost</name></member>
+      <member refid="structtext_1_1_diagnostics_1a917b125ae6e7f9b56f438fc8a195cdd4" prot="public" virt="non-virtual"><scope>text::Diagnostics</scope><name>failDaemonStart</name></member>
+      <member refid="structtext_1_1_diagnostics_1a204d1ed64e1ddb8a0febcd742369a763" prot="public" virt="non-virtual"><scope>text::Diagnostics</scope><name>failDaemonTimeout</name></member>
       <member refid="structtext_1_1_diagnostics_1af763ab2fde1f227b356e621789f9dce5" prot="public" virt="non-virtual"><scope>text::Diagnostics</scope><name>failDependenciesNotFound</name></member>
       <member refid="structtext_1_1_diagnostics_1a54030ad642dee1157d22d8255503812d" prot="public" virt="non-virtual"><scope>text::Diagnostics</scope><name>failFlagUnknown</name></member>
       <member refid="structtext_1_1_diagnostics_1a614879ccbad6f4edaf1a511bf5a2fa68" prot="public" virt="non-virtual"><scope>text::Diagnostics</scope><name>failNotFound</name></member>

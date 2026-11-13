@@ -1,0 +1,638 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="class_client" kind="class" language="C++" prot="public">
+    <compoundname>Client</compoundname>
+    <basecompoundref refid="classjuce_1_1InterprocessConnection" prot="public" virt="non-virtual">juce::InterprocessConnection</basecompoundref>
+    <basecompoundref refid="classjam_1_1File_1_1Watcher_1_1Listener" prot="private" virt="non-virtual">jam::File::Watcher::Listener</basecompoundref>
+    <includes refid="_client_8h" local="no">Client.h</includes>
+    <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_client_1a61d2ac7e18277691aa73738a51ed7b89" prot="private" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int Client::connectTimeoutMs</definition>
+        <argsstring></argsstring>
+        <name>connectTimeoutMs</name>
+        <qualifiedname>Client::connectTimeoutMs</qualifiedname>
+        <initializer>{ 200 }</initializer>
+        <briefdescription>
+<para>The longest wait, in milliseconds, for one connection attempt. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client.h" line="82" column="26" bodyfile="Client.h" bodystart="82" bodyend="82"/>
+        <referencedby refid="class_client_1a03fbf335433a66624210457ba50f83fb" compoundref="_client_8cpp" startline="39" endline="49">connectToDaemon</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_client_1ada497223de332fd90f251dcd387b5181" prot="private" static="no" mutable="no">
+        <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref></type>
+        <definition>const juce::File Client::manifestFile</definition>
+        <argsstring></argsstring>
+        <name>manifestFile</name>
+        <qualifiedname>Client::manifestFile</qualifiedname>
+        <briefdescription>
+<para>The manifest of the request. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Its path names the port file. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client.h" line="85" column="22" bodyfile="Client.h" bodystart="85" bodyend="-1"/>
+        <referencedby refid="class_client_1aefc3c94434262806f1bc3aafebeae9ea" compoundref="_client_8cpp" startline="3" endline="13">Client</referencedby>
+        <referencedby refid="class_client_1a03fbf335433a66624210457ba50f83fb" compoundref="_client_8cpp" startline="39" endline="49">connectToDaemon</referencedby>
+        <referencedby refid="class_client_1a369f7b5fbcaaa5bf47e7415336a1b82f" compoundref="_client_8cpp" startline="51" endline="57">fileChanged</referencedby>
+        <referencedby refid="class_client_1a742373e08a80d993d2651b6fff76f5b9" compoundref="_client_8cpp" startline="21" endline="37">start</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_client_1a58e679174623e64752fb4f1111186a36" prot="private" static="no" mutable="no">
+        <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref></type>
+        <definition>const juce::String Client::toolchainArgument</definition>
+        <argsstring></argsstring>
+        <name>toolchainArgument</name>
+        <qualifiedname>Client::toolchainArgument</qualifiedname>
+        <briefdescription>
+<para>The toolchain argument of the request. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Empty when none is given. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client.h" line="88" column="24" bodyfile="Client.h" bodystart="88" bodyend="-1"/>
+        <referencedby refid="class_client_1aefc3c94434262806f1bc3aafebeae9ea" compoundref="_client_8cpp" startline="3" endline="13">Client</referencedby>
+        <referencedby refid="class_client_1a03fbf335433a66624210457ba50f83fb" compoundref="_client_8cpp" startline="39" endline="49">connectToDaemon</referencedby>
+        <referencedby refid="class_client_1a369f7b5fbcaaa5bf47e7415336a1b82f" compoundref="_client_8cpp" startline="51" endline="57">fileChanged</referencedby>
+        <referencedby refid="class_client_1a742373e08a80d993d2651b6fff76f5b9" compoundref="_client_8cpp" startline="21" endline="37">start</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_client_1a499e1ec141333118c072fa9954e63922" prot="private" static="no" mutable="no">
+        <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref></type>
+        <definition>const juce::String Client::request</definition>
+        <argsstring></argsstring>
+        <name>request</name>
+        <qualifiedname>Client::request</qualifiedname>
+        <briefdescription>
+<para>The JSON text of the request. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The client sends it when the connection is made. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client.h" line="91" column="24" bodyfile="Client.h" bodystart="91" bodyend="-1"/>
+        <referencedby refid="class_client_1aefc3c94434262806f1bc3aafebeae9ea" compoundref="_client_8cpp" startline="3" endline="13">Client</referencedby>
+        <referencedby refid="class_client_1aa5def1c21072f5ed6f70a8859489d2da" compoundref="_client_8cpp" startline="59" endline="62">connectionMade</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_client_1a156ea116c333d0160312d53971a2a709" prot="private" static="no" mutable="no">
+        <type><ref refid="class_l_i_n_g_model" kindref="compound">LINGModel</ref> &amp;</type>
+        <definition>LINGModel&amp; Client::model</definition>
+        <argsstring></argsstring>
+        <name>model</name>
+        <qualifiedname>Client::model</qualifiedname>
+        <initializer>{ *<ref refid="structjam_1_1Instance_1ad5d2bbb58e37d8d260b428b334823140" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">LINGModel::getInstance</ref>() }</initializer>
+        <briefdescription>
+<para>The model of the run. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The client writes the overlay messages to it. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client.h" line="94" column="15" bodyfile="Client.h" bodystart="94" bodyend="94"/>
+        <referencedby refid="class_client_1af9ec2edf06d69e92a25c53ce4260fa27" compoundref="_client_8cpp" startline="64" endline="69">connectionLost</referencedby>
+        <referencedby refid="class_client_1a70c485d5d4c5e8ceb24b89e9db1cd4ec" compoundref="_client_8cpp" startline="71" endline="87">messageReceived</referencedby>
+        <referencedby refid="class_client_1a742373e08a80d993d2651b6fff76f5b9" compoundref="_client_8cpp" startline="21" endline="37">start</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_client_1a5d2b39ff4446a3ff048057293c9e5bb7" prot="private" static="no" mutable="no">
+        <type><ref refid="structjam_1_1File_1_1Watcher" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::File::Watcher</ref></type>
+        <definition>jam::File::Watcher Client::watcher</definition>
+        <argsstring></argsstring>
+        <name>watcher</name>
+        <qualifiedname>Client::watcher</qualifiedname>
+        <briefdescription>
+<para>The file watcher of the cache folder. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>It reports the change of the port file. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client.h" line="97" column="24" bodyfile="Client.h" bodystart="97" bodyend="-1"/>
+        <referencedby refid="class_client_1aefc3c94434262806f1bc3aafebeae9ea" compoundref="_client_8cpp" startline="3" endline="13">Client</referencedby>
+        <referencedby refid="class_client_1a03fbf335433a66624210457ba50f83fb" compoundref="_client_8cpp" startline="39" endline="49">connectToDaemon</referencedby>
+        <referencedby refid="class_client_1af96d672ca01fa070cc9489614dab4194" compoundref="_client_8cpp" startline="15" endline="19">~Client</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_client_1aefc3c94434262806f1bc3aafebeae9ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Client::Client</definition>
+        <argsstring>(const juce::File &amp;newManifestFile, const juce::String &amp;newToolchainArgument, const juce::String &amp;newRequest)</argsstring>
+        <name>Client</name>
+        <qualifiedname>Client::Client</qualifiedname>
+        <param>
+          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
+          <declname>newManifestFile</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <declname>newToolchainArgument</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <declname>newRequest</declname>
+        </param>
+        <briefdescription>
+<para>Stores the manifest, the toolchain argument, and the request, and watches the cache folder for the port file. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The constructor creates the cache folder.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>newManifestFile</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The manifest of the request. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>newToolchainArgument</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The toolchain argument. Empty when none is given. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>newRequest</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The JSON text of the request. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client.h" line="28" column="5" bodyfile="Client.cpp" bodystart="3" bodyend="13"/>
+        <references refid="structjam_1_1File_1_1Watcher_1af3b174cc017a51839fcfa19d0e9f9cbc">jam::File::Watcher::addFolder</references>
+        <references refid="structjam_1_1File_1_1Watcher_1a77218b3dfff2d229f480087e9e30f5c0">jam::File::Watcher::addListener</references>
+        <references refid="structjam_1_1File_1_1Watcher_1a5d536adc6fc6ccc3a1636c32ea791c06">jam::File::Watcher::coalesceEvents</references>
+        <references refid="class_l_i_n_g_model_1a1c57527a53635e5f4efbcb6d27aa843e" compoundref="_l_i_n_g_model_8h" startline="48" endline="48">LINGModel::coalesceMs</references>
+        <references refid="classjuce_1_1File_1af540d2875c87e47836e7deef02537ea4">juce::File::createDirectory</references>
+        <references refid="class_l_i_n_g_model_1a418ec05ca5a75c35b3187e995a82fb5c" compoundref="_l_i_n_g_model_8cpp" startline="39" endline="46">LINGModel::getCacheDirectory</references>
+        <references refid="classjuce_1_1InterprocessConnection_1a67bc4b0faef59efedb2f417afd231f88">juce::InterprocessConnection::InterprocessConnection</references>
+        <references refid="class_client_1ada497223de332fd90f251dcd387b5181" compoundref="_client_8h" startline="85">manifestFile</references>
+        <references refid="class_client_1a499e1ec141333118c072fa9954e63922" compoundref="_client_8h" startline="91">request</references>
+        <references refid="class_client_1a58e679174623e64752fb4f1111186a36" compoundref="_client_8h" startline="88">toolchainArgument</references>
+        <references refid="class_client_1a5d2b39ff4446a3ff048057293c9e5bb7" compoundref="_client_8h" startline="97">watcher</references>
+      </memberdef>
+      <memberdef kind="function" id="class_client_1af96d672ca01fa070cc9489614dab4194" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Client::~Client</definition>
+        <argsstring>() override</argsstring>
+        <name>~Client</name>
+        <qualifiedname>Client::~Client</qualifiedname>
+        <briefdescription>
+<para>Removes the client from the listeners of the watcher, and disconnects. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client.h" line="31" column="5" bodyfile="Client.cpp" bodystart="15" bodyend="19"/>
+        <references refid="classjuce_1_1InterprocessConnection_1a2a172e0cafd44584659d2b709678288d">juce::InterprocessConnection::disconnect</references>
+        <references refid="structjam_1_1File_1_1Watcher_1a1a8191122b5b3b011078720b9c50ce6c">jam::File::Watcher::removeListener</references>
+        <references refid="class_client_1a5d2b39ff4446a3ff048057293c9e5bb7" compoundref="_client_8h" startline="97">watcher</references>
+      </memberdef>
+      <memberdef kind="function" id="class_client_1a742373e08a80d993d2651b6fff76f5b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Client::start</definition>
+        <argsstring>()</argsstring>
+        <name>start</name>
+        <qualifiedname>Client::start</qualifiedname>
+        <briefdescription>
+<para>Connects to the daemon, or starts one when no daemon answers. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>A started daemon receives the daemon word, the manifest path, and the toolchain argument flag when one is set. When the process does not start, the function sets the message, sets the exit code to failure, and quits. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client.h" line="40" column="10" bodyfile="Client.cpp" bodystart="21" bodyend="37"/>
+        <references refid="classjam_1_1Strings_1a9223c1bf16916a52b122ae7e9d871f50">jam::Strings::add</references>
+        <references refid="class_client_1a03fbf335433a66624210457ba50f83fb" compoundref="_client_8cpp" startline="39" endline="49">connectToDaemon</references>
+        <references refid="classjuce_1_1File_1a6efe0648697f59af5952171d5e7b0317ade952da9c18e615b2ca5e9d63464f7b3">juce::File::currentExecutableFile</references>
+        <references refid="namespaceId_1ad57a2d4fadbed29a552707db60b01f2a" compoundref="_generated_8cpp" startline="33" endline="33">Id::daemon</references>
+        <references refid="structChars_1a375464038832537822fff69be3285e32">Chars::doubleDash</references>
+        <references refid="structtext_1_1_diagnostics_1a917b125ae6e7f9b56f438fc8a195cdd4" compoundref="_text_8h" startline="41" endline="41">text::Diagnostics::failDaemonStart</references>
+        <references refid="classjuce_1_1File_1a515fa016b189068f365cc875e241e2a1">juce::File::getFullPathName</references>
+        <references refid="classjuce_1_1JUCEApplicationBase_1ad202ba9fc825300b11c0d768da48b52a">juce::JUCEApplicationBase::getInstance</references>
+        <references refid="classjuce_1_1File_1a3e0950b0d0dbe71a8bc4a7ed3c7ab067">juce::File::getSpecialLocation</references>
+        <references refid="classjuce_1_1String_1af5084463343819f82187154ccb62ea3a">juce::String::isNotEmpty</references>
+        <references refid="class_client_1ada497223de332fd90f251dcd387b5181" compoundref="_client_8h" startline="85">manifestFile</references>
+        <references refid="class_client_1a156ea116c333d0160312d53971a2a709" compoundref="_client_8h" startline="94" endline="94">model</references>
+        <references refid="classjuce_1_1JUCEApplicationBase_1ae2ba9b90c02361717d997aa26861f2c4">juce::JUCEApplicationBase::quit</references>
+        <references refid="classjuce_1_1JUCEApplicationBase_1aa718d56bbc1c7d7271aedbc378eeaffe">juce::JUCEApplicationBase::setApplicationReturnValue</references>
+        <references refid="class_l_i_n_g_model_1afdef5b210be00b4c407239da424c8b3d" compoundref="_l_i_n_g_model_8cpp" startline="18" endline="25">LINGModel::setMessage</references>
+        <references refid="classjam_1_1ChildProcess_1a733dcf55efb600733fdb2f3c7306fe37">jam::ChildProcess::startDetached</references>
+        <references refid="class_client_1a58e679174623e64752fb4f1111186a36" compoundref="_client_8h" startline="88">toolchainArgument</references>
+        <references refid="classjuce_1_1Identifier_1ab6f0db1de2c36cacd1a9d7280f73aeeb">juce::Identifier::toString</references>
+        <referencedby refid="class_application_1ae7a4170563da33f06cb264b12b72108d" compoundref="_main_8cpp" startline="420" endline="434">Application::runOperation</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_client_1a03fbf335433a66624210457ba50f83fb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Client::connectToDaemon</definition>
+        <argsstring>()</argsstring>
+        <name>connectToDaemon</name>
+        <qualifiedname>Client::connectToDaemon</qualifiedname>
+        <briefdescription>
+<para>Connects to the port that the port file holds. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>A connection that succeeds removes the client from the listeners of the watcher.</para>
+<para><simplesect kind="return"><para><computeroutput>true</computeroutput> when the connection succeeds. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client.h" line="50" column="10" bodyfile="Client.cpp" bodystart="39" bodyend="49"/>
+        <references refid="class_client_1a61d2ac7e18277691aa73738a51ed7b89" compoundref="_client_8h" startline="82" endline="82">connectTimeoutMs</references>
+        <references refid="classjuce_1_1InterprocessConnection_1afed3ed47a1ddac4428a7a637fb3074c6">juce::InterprocessConnection::connectToSocket</references>
+        <references refid="classjuce_1_1String_1aeafb68fbf9400407a73b39fdaef6e0b0">juce::String::getIntValue</references>
+        <references refid="class_server_1a9cc0faedd6b771c2e6a2e91ddf95e50b" compoundref="_server_8cpp" startline="26" endline="31">Server::getPortFile</references>
+        <references refid="classjam_1_1Strings_1adfb32d159be94dc4a4004c50be876e3c">jam::Strings::getView</references>
+        <references refid="classjuce_1_1InterprocessConnection_1a9159f2606dbc6fb0f971bd12c824fec0">juce::InterprocessConnection::isConnected</references>
+        <references refid="classjuce_1_1File_1aa65d2fa50370357bf93658d6447c296d">juce::File::loadFileAsString</references>
+        <references refid="classjuce_1_1IPAddress_1ae4e292fb0e233dadad51919f66ef3951">juce::IPAddress::local</references>
+        <references refid="class_client_1ada497223de332fd90f251dcd387b5181" compoundref="_client_8h" startline="85">manifestFile</references>
+        <references refid="structjam_1_1File_1_1Watcher_1a1a8191122b5b3b011078720b9c50ce6c">jam::File::Watcher::removeListener</references>
+        <references refid="class_client_1a58e679174623e64752fb4f1111186a36" compoundref="_client_8h" startline="88">toolchainArgument</references>
+        <references refid="class_client_1a5d2b39ff4446a3ff048057293c9e5bb7" compoundref="_client_8h" startline="97">watcher</references>
+        <referencedby refid="class_client_1a369f7b5fbcaaa5bf47e7415336a1b82f" compoundref="_client_8cpp" startline="51" endline="57">fileChanged</referencedby>
+        <referencedby refid="class_client_1a742373e08a80d993d2651b6fff76f5b9" compoundref="_client_8cpp" startline="21" endline="37">start</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_client_1a369f7b5fbcaaa5bf47e7415336a1b82f" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void Client::fileChanged</definition>
+        <argsstring>(const juce::File &amp;file, jam::File::Watcher::Event event) override</argsstring>
+        <name>fileChanged</name>
+        <qualifiedname>Client::fileChanged</qualifiedname>
+        <reimplements refid="classjam_1_1File_1_1Watcher_1_1Listener_1a138401762ba6d0915d2adb5b0a81486f">fileChanged</reimplements>
+        <param>
+          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type><ref refid="structjam_1_1File_1_1Watcher_1a67463011ada054bc1dc66cdf49d446f2" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::File::Watcher::Event</ref></type>
+          <declname>event</declname>
+        </param>
+        <briefdescription>
+<para>Tries to connect when the port file changes. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>A change of any other file does nothing.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The changed file. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The kind of change. Not read. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client.h" line="60" column="10" bodyfile="Client.cpp" bodystart="51" bodyend="57"/>
+        <references refid="class_client_1a03fbf335433a66624210457ba50f83fb" compoundref="_client_8cpp" startline="39" endline="49">connectToDaemon</references>
+        <references refid="class_server_1a4eea4c89de21dd82775cd821d7374010" compoundref="_server_8cpp" startline="21" endline="24">Server::getPortFile</references>
+        <references refid="classjam_1_1Strings_1adfb32d159be94dc4a4004c50be876e3c">jam::Strings::getView</references>
+        <references refid="classjuce_1_1InterprocessConnection_1a9159f2606dbc6fb0f971bd12c824fec0">juce::InterprocessConnection::isConnected</references>
+        <references refid="class_client_1ada497223de332fd90f251dcd387b5181" compoundref="_client_8h" startline="85">manifestFile</references>
+        <references refid="class_client_1a58e679174623e64752fb4f1111186a36" compoundref="_client_8h" startline="88">toolchainArgument</references>
+      </memberdef>
+      <memberdef kind="function" id="class_client_1aa5def1c21072f5ed6f70a8859489d2da" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void Client::connectionMade</definition>
+        <argsstring>() override</argsstring>
+        <name>connectionMade</name>
+        <qualifiedname>Client::connectionMade</qualifiedname>
+        <reimplements refid="classjuce_1_1InterprocessConnection_1a0075c756270e686efa5ede9d8e8871ed">connectionMade</reimplements>
+        <briefdescription>
+<para>Sends the request to the daemon. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client.h" line="63" column="10" bodyfile="Client.cpp" bodystart="59" bodyend="62"/>
+        <references refid="classjuce_1_1String_1a60dc23fc1259cfc4e14bacf6dc40ad47">juce::String::getNumBytesAsUTF8</references>
+        <references refid="class_client_1a499e1ec141333118c072fa9954e63922" compoundref="_client_8h" startline="91">request</references>
+        <references refid="classjuce_1_1InterprocessConnection_1ae6ebaa49463c41df97fc81573608e9fb">juce::InterprocessConnection::sendMessage</references>
+        <references refid="classjuce_1_1String_1a276c7c57f1d1a2fc76a8b47aed0823e7">juce::String::toRawUTF8</references>
+      </memberdef>
+      <memberdef kind="function" id="class_client_1af9ec2edf06d69e92a25c53ce4260fa27" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void Client::connectionLost</definition>
+        <argsstring>() override</argsstring>
+        <name>connectionLost</name>
+        <qualifiedname>Client::connectionLost</qualifiedname>
+        <reimplements refid="classjuce_1_1InterprocessConnection_1ada0907dccbc892e525e15c76dc52a22e">connectionLost</reimplements>
+        <briefdescription>
+<para>Sets the failure message, sets the exit code to failure, and quits, when the daemon connection ends. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client.h" line="68" column="10" bodyfile="Client.cpp" bodystart="64" bodyend="69"/>
+        <references refid="structtext_1_1_diagnostics_1a88ef151e729b90b683e17b37f0ca0083" compoundref="_text_8h" startline="42" endline="42">text::Diagnostics::failDaemonLost</references>
+        <references refid="classjuce_1_1JUCEApplicationBase_1ad202ba9fc825300b11c0d768da48b52a">juce::JUCEApplicationBase::getInstance</references>
+        <references refid="class_client_1a156ea116c333d0160312d53971a2a709" compoundref="_client_8h" startline="94" endline="94">model</references>
+        <references refid="classjuce_1_1JUCEApplicationBase_1ae2ba9b90c02361717d997aa26861f2c4">juce::JUCEApplicationBase::quit</references>
+        <references refid="classjuce_1_1JUCEApplicationBase_1aa718d56bbc1c7d7271aedbc378eeaffe">juce::JUCEApplicationBase::setApplicationReturnValue</references>
+        <references refid="class_l_i_n_g_model_1afdef5b210be00b4c407239da424c8b3d" compoundref="_l_i_n_g_model_8cpp" startline="18" endline="25">LINGModel::setMessage</references>
+      </memberdef>
+      <memberdef kind="function" id="class_client_1a70c485d5d4c5e8ceb24b89e9db1cd4ec" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void Client::messageReceived</definition>
+        <argsstring>(const juce::MemoryBlock &amp;reply) override</argsstring>
+        <name>messageReceived</name>
+        <qualifiedname>Client::messageReceived</qualifiedname>
+        <reimplements refid="classjuce_1_1InterprocessConnection_1a028fab1c8d1e18d216a00162dec65686">messageReceived</reimplements>
+        <param>
+          <type>const <ref refid="classjuce_1_1MemoryBlock" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::MemoryBlock</ref> &amp;</type>
+          <declname>reply</declname>
+        </param>
+        <briefdescription>
+<para>Sets an overlay message, or prints a result and quits. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>A reply that starts with a double quote is a JSON string. It sets the message, and the client stays connected. Any other reply is the result. The function writes it to stdout with a newline, disconnects without a notification, and quits.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>reply</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The bytes of one reply. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client.h" line="79" column="10" bodyfile="Client.cpp" bodystart="71" bodyend="87"/>
+        <references refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4">jam::Format::appendUtf8</references>
+        <references refid="classjuce_1_1InterprocessConnection_1a2a172e0cafd44584659d2b709678288d">juce::InterprocessConnection::disconnect</references>
+        <references refid="structChars_1abe1c5ccbb63b51ed046fdf87b71aaf74">Chars::doubleQuote</references>
+        <references refid="classjuce_1_1MemoryBlock_1a692f4e81b72cc79aaa98b6629d4a4dcd">juce::MemoryBlock::getData</references>
+        <references refid="classjuce_1_1MemoryBlock_1a8c25cd08391185f1237944fad5d607d8">juce::MemoryBlock::getSize</references>
+        <references refid="class_client_1a156ea116c333d0160312d53971a2a709" compoundref="_client_8h" startline="94" endline="94">model</references>
+        <references refid="structChars_1a4691bc69052e757e7325970098922899">Chars::newline</references>
+        <references refid="classjuce_1_1JSON_1abc295825e430254777aaa4c9df3da485">juce::JSON::parse</references>
+        <references refid="classjuce_1_1JUCEApplicationBase_1ae2ba9b90c02361717d997aa26861f2c4">juce::JUCEApplicationBase::quit</references>
+        <references refid="class_l_i_n_g_model_1afdef5b210be00b4c407239da424c8b3d" compoundref="_l_i_n_g_model_8cpp" startline="18" endline="25">LINGModel::setMessage</references>
+        <references refid="classjuce_1_1MemoryBlock_1a75ad75e20b17e7f593e229722d7c624d">juce::MemoryBlock::toString</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Sends one request to the daemon of a manifest, and prints the reply. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The client connects to the daemon through the port file. When no daemon answers, it starts one as a detached process. It watches the cache folder, so that it connects when the port file appears. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Client</label>
+        <link refid="class_client"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="private-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>jam::File::Watcher::Listener</label>
+        <link refid="classjam_1_1File_1_1Watcher_1_1Listener" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="2">
+        <label>juce::InterprocessConnection</label>
+        <link refid="classjuce_1_1InterprocessConnection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>Client</label>
+        <link refid="class_client"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="private-inheritance">
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>manifestFile</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>request</edgelabel>
+          <edgelabel>toolchainArgument</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>model</edgelabel>
+        </childnode>
+        <childnode refid="18" relation="usage">
+          <edgelabel>watcher</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>LINGModel</label>
+        <link refid="class_l_i_n_g_model"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+        <childnode refid="17" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="private-inheritance">
+        </childnode>
+        <childnode refid="18" relation="usage">
+          <edgelabel>watcher</edgelabel>
+        </childnode>
+      </node>
+      <node id="10">
+        <label>jam::AnyMap&lt; typename TypeOfCriticalSectionToUse &gt;</label>
+        <link refid="classjam_1_1AnyMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="11" relation="public-inheritance">
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>entries</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>types</edgelabel>
+        </childnode>
+      </node>
+      <node id="18">
+        <label>jam::File::Watcher</label>
+        <link refid="structjam_1_1File_1_1Watcher" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="19" relation="usage">
+          <edgelabel>timers</edgelabel>
+        </childnode>
+        <childnode refid="22" relation="usage">
+          <edgelabel>listeners</edgelabel>
+        </childnode>
+        <childnode refid="23" relation="usage">
+          <edgelabel>watched</edgelabel>
+        </childnode>
+      </node>
+      <node id="21">
+        <label>jam::File::Watcher::CoalesceTimer</label>
+        <link refid="structjam_1_1File_1_1Watcher_1_1CoalesceTimer" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="8" relation="public-inheritance">
+        </childnode>
+        <childnode refid="18" relation="usage">
+          <edgelabel>owner</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>f</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>jam::File::Watcher::Listener</label>
+        <link refid="classjam_1_1File_1_1Watcher_1_1Listener" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="13">
+        <label>jam::HashMap&lt; juce::Identifier, jam::AnyMap::Trait &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="16">
+        <label>jam::HashMap&lt; juce::Identifier, jam::HashMap&lt; juce::Identifier, std::unique_ptr&lt; ParameterAdapter &gt; &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="12">
+        <label>jam::HashMap&lt; juce::Identifier, std::unique_ptr&lt; void, Deleter &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="17">
+        <label>jam::Instance&lt; LINGModel &gt;</label>
+        <link refid="structjam_1_1Instance" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="7">
+        <label>jam::Model</label>
+        <link refid="classjam_1_1Model" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="8" relation="public-inheritance">
+        </childnode>
+        <childnode refid="9" relation="public-inheritance">
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>params</edgelabel>
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>state</edgelabel>
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>valueTreeChanging</edgelabel>
+        </childnode>
+        <childnode refid="16" relation="usage">
+          <edgelabel>adapters</edgelabel>
+        </childnode>
+      </node>
+      <node id="15">
+        <label>juce::CriticalSection</label>
+        <link refid="classjuce_1_1CriticalSection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="11">
+        <label>juce::DummyCriticalSection</label>
+        <link refid="classjuce_1_1DummyCriticalSection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="4">
+        <label>juce::File</label>
+        <link refid="classjuce_1_1File" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="2">
+        <label>juce::InterprocessConnection</label>
+        <link refid="classjuce_1_1InterprocessConnection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="22">
+        <label>juce::ListenerList&lt; jam::File::Watcher::Listener &gt;</label>
+        <link refid="classjuce_1_1ListenerList" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="23">
+        <label>juce::OwnedArray&lt; Impl &gt;</label>
+        <link refid="classjuce_1_1OwnedArray" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="5">
+        <label>juce::String</label>
+        <link refid="classjuce_1_1String" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="8">
+        <label>juce::Timer</label>
+        <link refid="classjuce_1_1Timer" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="14">
+        <label>juce::ValueTree</label>
+        <link refid="classjuce_1_1ValueTree" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="9">
+        <label>juce::ValueTree::Listener</label>
+        <link refid="classjuce_1_1ValueTree_1_1Listener" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="19">
+        <label>std::map&lt; juce::File, std::unique_ptr&lt; jam::File::Watcher::CoalesceTimer &gt; &gt;</label>
+        <childnode refid="4" relation="usage">
+          <edgelabel>keys</edgelabel>
+        </childnode>
+        <childnode refid="20" relation="usage">
+          <edgelabel>elements</edgelabel>
+        </childnode>
+      </node>
+      <node id="20">
+        <label>std::unique_ptr&lt; jam::File::Watcher::CoalesceTimer &gt;</label>
+        <childnode refid="21" relation="usage">
+          <edgelabel>ptr</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Client.h" line="15" column="1" bodyfile="Client.h" bodystart="17" bodyend="100"/>
+    <listofallmembers>
+      <member refid="class_client_1aefc3c94434262806f1bc3aafebeae9ea" prot="public" virt="non-virtual"><scope>Client</scope><name>Client</name></member>
+      <member refid="class_client_1af9ec2edf06d69e92a25c53ce4260fa27" prot="private" virt="virtual"><scope>Client</scope><name>connectionLost</name></member>
+      <member refid="class_client_1aa5def1c21072f5ed6f70a8859489d2da" prot="private" virt="virtual"><scope>Client</scope><name>connectionMade</name></member>
+      <member refid="class_client_1a61d2ac7e18277691aa73738a51ed7b89" prot="private" virt="non-virtual"><scope>Client</scope><name>connectTimeoutMs</name></member>
+      <member refid="class_client_1a03fbf335433a66624210457ba50f83fb" prot="private" virt="non-virtual"><scope>Client</scope><name>connectToDaemon</name></member>
+      <member refid="classjuce_1_1InterprocessConnection_1a86e304165972be6d5c82a36f8d068673" prot="public" virt="non-virtual"><scope>Client</scope><name>connectToPipe</name></member>
+      <member refid="classjuce_1_1InterprocessConnection_1afed3ed47a1ddac4428a7a637fb3074c6" prot="public" virt="non-virtual"><scope>Client</scope><name>connectToSocket</name></member>
+      <member refid="classjuce_1_1InterprocessConnection_1a6afb122b0e9d65dead9aba005937c054" prot="public" virt="non-virtual"><scope>Client</scope><name>createPipe</name></member>
+      <member refid="classjuce_1_1InterprocessConnection_1a2a172e0cafd44584659d2b709678288d" prot="public" virt="non-virtual"><scope>Client</scope><name>disconnect</name></member>
+      <member refid="class_client_1a369f7b5fbcaaa5bf47e7415336a1b82f" prot="private" virt="virtual"><scope>Client</scope><name>fileChanged</name></member>
+      <member refid="classjam_1_1File_1_1Watcher_1_1Listener_1a75221307eb1bf0ef2735e9ef80ebf4a4" prot="private" virt="virtual"><scope>Client</scope><name>folderChanged</name></member>
+      <member refid="classjuce_1_1InterprocessConnection_1a3ebcc9ad9ba014c75b924e671f21fb08" prot="public" virt="non-virtual"><scope>Client</scope><name>getConnectedHostName</name></member>
+      <member refid="classjuce_1_1InterprocessConnection_1aff6b2ef445a5ebcb2eb4bae139261687" prot="public" virt="non-virtual"><scope>Client</scope><name>getPipe</name></member>
+      <member refid="classjuce_1_1InterprocessConnection_1a169edde4512b9b8943a95f73e0eaf3c4" prot="public" virt="non-virtual"><scope>Client</scope><name>getSocket</name></member>
+      <member refid="classjuce_1_1InterprocessConnection_1a67bc4b0faef59efedb2f417afd231f88" prot="public" virt="non-virtual"><scope>Client</scope><name>InterprocessConnection</name></member>
+      <member refid="classjuce_1_1InterprocessConnection_1a9159f2606dbc6fb0f971bd12c824fec0" prot="public" virt="non-virtual"><scope>Client</scope><name>isConnected</name></member>
+      <member refid="class_client_1ada497223de332fd90f251dcd387b5181" prot="private" virt="non-virtual"><scope>Client</scope><name>manifestFile</name></member>
+      <member refid="class_client_1a70c485d5d4c5e8ceb24b89e9db1cd4ec" prot="private" virt="virtual"><scope>Client</scope><name>messageReceived</name></member>
+      <member refid="class_client_1a156ea116c333d0160312d53971a2a709" prot="private" virt="non-virtual"><scope>Client</scope><name>model</name></member>
+      <member refid="classjuce_1_1InterprocessConnection_1abc7eed16643d6cef5fc6234a6e32ceee" prot="public" virt="non-virtual"><scope>Client</scope><name>Notify</name></member>
+      <member refid="class_client_1a499e1ec141333118c072fa9954e63922" prot="private" virt="non-virtual"><scope>Client</scope><name>request</name></member>
+      <member refid="classjuce_1_1InterprocessConnection_1ae6ebaa49463c41df97fc81573608e9fb" prot="public" virt="non-virtual"><scope>Client</scope><name>sendMessage</name></member>
+      <member refid="class_client_1a742373e08a80d993d2651b6fff76f5b9" prot="public" virt="non-virtual"><scope>Client</scope><name>start</name></member>
+      <member refid="class_client_1a58e679174623e64752fb4f1111186a36" prot="private" virt="non-virtual"><scope>Client</scope><name>toolchainArgument</name></member>
+      <member refid="class_client_1a5d2b39ff4446a3ff048057293c9e5bb7" prot="private" virt="non-virtual"><scope>Client</scope><name>watcher</name></member>
+      <member refid="class_client_1af96d672ca01fa070cc9489614dab4194" prot="public" virt="non-virtual"><scope>Client</scope><name>~Client</name></member>
+      <member refid="classjuce_1_1InterprocessConnection_1aeb2c3b2db1e00dfbf2c060046fdcaa62" prot="public" virt="virtual"><scope>Client</scope><name>~InterprocessConnection</name></member>
+      <member refid="classjam_1_1File_1_1Watcher_1_1Listener_1a36c31b730e410628b516813e6e0679e7" prot="private" virt="virtual"><scope>Client</scope><name>~Listener</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

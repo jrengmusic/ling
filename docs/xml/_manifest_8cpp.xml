@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="_manifest_8cpp" kind="file" language="C++">
+    <compoundname>Manifest.cpp</compoundname>
+    <includes refid="_manifest_8h" local="yes">Manifest.h</includes>
+    <includes refid="_validator_8h" local="yes">Validator.h</includes>
+    <includes refid="_compiler_manifest_8h" local="yes">CompilerManifest.h</includes>
+    <incdepgraph>
+      <node id="12">
+        <label>CompilerManifest.h</label>
+        <link refid="_compiler_manifest_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>LINGModel.h</label>
+        <link refid="_l_i_n_g_model_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Manifest.cpp</label>
+        <link refid="_manifest_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Manifest.h</label>
+        <link refid="_manifest_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>Validator.h</label>
+        <link refid="_validator_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>Files.h</label>
+        <link refid="_files_8h"/>
+      </node>
+      <node id="4">
+        <label>generated/Generated.h</label>
+        <link refid="_generated_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>HashMaps.h</label>
+        <link refid="_hash_maps_8h"/>
+      </node>
+      <node id="6">
+        <label>Identifiers.h</label>
+        <link refid="_identifiers_8h"/>
+      </node>
+      <node id="5">
+        <label>ProjectInfo.h</label>
+        <link refid="_project_info_8h"/>
+      </node>
+      <node id="7">
+        <label>Text.h</label>
+        <link refid="_text_8h"/>
+      </node>
+      <node id="3">
+        <label>JuceHeader.h</label>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_manifest_8h" kindref="compound">Manifest.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_validator_8h" kindref="compound">Validator.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_compiler_manifest_8h" kindref="compound">CompilerManifest.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5" refid="class_manifest_1a16ddfc76a23f8dae673d0a8f08e41ef1" refkind="member"><highlight class="normal"><ref refid="class_manifest_1a16ddfc76a23f8dae673d0a8f08e41ef1" kindref="member">Manifest::Manifest</ref><sp/>(<ref refid="class_l_i_n_g_model" kindref="compound">LINGModel</ref>&amp;<sp/>newModel)</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/><ref refid="class_manifest_1a87d745097f80d516fa1ebb90bfd89f47" kindref="member">model</ref><sp/>(newModel)</highlight></codeline>
+<codeline lineno="7"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_manifest_1a87d745097f80d516fa1ebb90bfd89f47" kindref="member">model</ref>.<ref refid="classjam_1_1Model_1ae5d4d70e706dcc558cf21923125a9176" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">addListener</ref><sp/>(</highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="9"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11" refid="class_manifest_1afec4bf62f0f4c82ba13506fd2ba6490e" refkind="member"><highlight class="normal"><ref refid="class_manifest_1afec4bf62f0f4c82ba13506fd2ba6490e" kindref="member">Manifest::~Manifest</ref>()</highlight></codeline>
+<codeline lineno="12"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_manifest_1a87d745097f80d516fa1ebb90bfd89f47" kindref="member">model</ref>.<ref refid="classjam_1_1Model_1a688b7625ae8b2a4d4d1f1643a6b3aa41" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">removeListener</ref><sp/>(</highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="class_manifest_1a86e078d9418d29915919effe785bb14a" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_manifest_1a86e078d9418d29915919effe785bb14a" kindref="member">Manifest::valueTreePropertyChanged</ref><sp/>(<ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref>&amp;<sp/>tree,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1Identifier" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref>&amp;<sp/>property)</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(property<sp/>==<sp/><ref refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::manifest</ref><sp/>and<sp/>tree<sp/>==<sp/><ref refid="class_manifest_1a87d745097f80d516fa1ebb90bfd89f47" kindref="member">model</ref>.<ref refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">state</ref>)</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_manifest_1a64ee33ff76020fa298b43994752e5200" kindref="member">addJob</ref>();</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22" refid="class_manifest_1a64ee33ff76020fa298b43994752e5200" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_manifest_1a64ee33ff76020fa298b43994752e5200" kindref="member">Manifest::addJob</ref>()</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_manifest_1a87e7a005eb59055299b2515bd0fca245" kindref="member">pool</ref>.<ref refid="classjuce_1_1ThreadPool_1a1f9f523d52ef5258a72c0c5049306a6a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">addJob</ref><sp/>([</highlight><highlight class="keyword">this</highlight><highlight class="normal">,<sp/>manifestPath<sp/>=<sp/><ref refid="class_manifest_1a87d745097f80d516fa1ebb90bfd89f47" kindref="member">model</ref>.<ref refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">state</ref>[<ref refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::manifest</ref>].toString(),<sp/>toolchainArgument<sp/>=<sp/><ref refid="class_manifest_1a87d745097f80d516fa1ebb90bfd89f47" kindref="member">model</ref>.<ref refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">state</ref>[<ref refid="namespaceId_1ad2d03a036d57999f43066f5737dc8008" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::toolchainArgument</ref>].toString()]</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/>juce::File<sp/>manifestFile<sp/>{<sp/>manifestPath<sp/>};</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>manifest<sp/>{<sp/>jam::ConfigDocument::parse<sp/>(manifestFile.loadFileAsString(),<sp/>manifestFile.getFullPathName())<sp/>};</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>result<sp/>{<sp/>Validator<sp/>{}.<ref refid="classjuce_1_1Identifier_1aa11734917f2bc61608c3bcd3e6611a6c" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">isValid</ref><sp/>(manifest)<sp/>};</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>timeout<sp/>{<sp/>result.wasOk()<sp/>?<sp/>getTimeout<sp/>(manifest)<sp/>:<sp/><ref refid="class_l_i_n_g_model" kindref="compound">LINGModel</ref>::defaultTimeoutMs<sp/>};</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="namespacefiles" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">files</ref><sp/>(result.wasOk()<sp/>?<sp/><ref refid="struct_compiler_manifest_1ac6c023b121716f31f5adc69791ec314f" kindref="member">CompilerManifest::getFiles</ref><sp/>(model,<sp/>manifest,<sp/>manifestFile,<sp/>toolchainArgument)</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref><sp/>{<sp/>jam::Format::toType<sp/>(Id::files)<sp/>});</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(not<sp/>result.wasOk())</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>model.setMessage<sp/>(result.getErrorMessage());</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1MessageManager_1aa34494bcb54b9d4155934c8f53ed1070" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::MessageManager::callAsync</ref><sp/>([</highlight><highlight class="keyword">this</highlight><highlight class="normal">,<sp/><ref refid="namespacefiles" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">files</ref>,<sp/>timeout]<sp/>{<sp/>setFiles<sp/>(<ref refid="namespacefiles" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">files</ref>,<sp/>timeout);<sp/>});</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>});</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40" refid="class_manifest_1af7d5949981f9b11ec9b40ff8c29a9c17" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_manifest_1af7d5949981f9b11ec9b40ff8c29a9c17" kindref="member">Manifest::setFiles</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref>&amp;<sp/><ref refid="namespacefiles" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">files</ref>,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>timeout)</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_manifest_1a87d745097f80d516fa1ebb90bfd89f47" kindref="member">model</ref>.<ref refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">state</ref>.<ref refid="classjuce_1_1ValueTree_1a86de4a6662eb049c21c30c627616fb0e" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">setProperty</ref><sp/>(<ref refid="namespaceId_1ad99de3ca37a30e0bb93696f8de7d2561" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::timeout</ref>,<sp/>timeout,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_manifest_1a87d745097f80d516fa1ebb90bfd89f47" kindref="member">model</ref>.<ref refid="classjam_1_1Model_1acbf5ef1a6e71240468f17fe707532bec" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">removeChild</ref><sp/>(<ref refid="class_manifest_1a87d745097f80d516fa1ebb90bfd89f47" kindref="member">model</ref>.<ref refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">state</ref>.<ref refid="classjuce_1_1ValueTree_1ac9bbcb6db4464f77b512b9bd8bbb8c3f" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">getChildWithName</ref><sp/>(<ref refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Format::toType</ref><sp/>(<ref refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::files</ref>)));</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_manifest_1a87d745097f80d516fa1ebb90bfd89f47" kindref="member">model</ref>.<ref refid="classjam_1_1Model_1ae0cb2cc2b04acb47eb9760d92dcedc46" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">appendChild</ref><sp/>(<ref refid="namespacefiles" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">files</ref>);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="class_manifest_1a52fb4543112732ccd3b5618c5665b01f" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_manifest_1a52fb4543112732ccd3b5618c5665b01f" kindref="member">Manifest::getTimeout</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1ConfigDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::ConfigDocument</ref>&amp;<sp/>manifest)</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">*<sp/>table<sp/>:<sp/>manifest.getTables<sp/>(<ref refid="namespaceId_1ad57a2d4fadbed29a552707db60b01f2a" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::daemon</ref>))</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">*<sp/>row<sp/>{<sp/>manifest.getTableRow<sp/>(*table,<sp/><ref refid="namespaceId_1ad99de3ca37a30e0bb93696f8de7d2561" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::timeout</ref>)<sp/>};<sp/>row<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>manifest.getTableValue<sp/>(*row,<sp/><ref refid="namespaceId_1aa31dd51a36cc1b369f63f498441108e8" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::value</ref>).getIntValue();</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_l_i_n_g_model_1a98c415ab589e5c16c6e98d1a8f0859a5" kindref="member">LINGModel::defaultTimeoutMs</ref>;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="Manifest.cpp"/>
+  </compounddef>
+</doxygen>

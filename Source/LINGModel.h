@@ -4,11 +4,13 @@
 
 /**
  * @class LINGModel
- * @brief The state of one LING run: the files, the message, and the watcher of the file folders.
+ * @brief The state of one LING run: the files, the connections, the message, and the watcher of the file folders.
  *
- * The model reads the manifest path from its state, and it replaces the files
- * child with the rows of the manifest. Each folder of a file row is watched. A
- * change of a watched file sends a path change for its row.
+ * The model holds the rows of one run. A change of the manifest path adds the
+ * folder of the manifest to the watcher. A files child adds the folders of its
+ * rows, and the folders of the compiler manifests and dependency records that it
+ * names. A change of a watched file sends a change to the manifest or to its file
+ * row.
  */
 class LINGModel
     : public jam::Model
@@ -17,10 +19,12 @@ class LINGModel
 {
 public:
     /**
-     * @brief Creates the files child and the overlay row, then starts the watcher.
+     * @brief Creates the state rows of the run, and listens to the watcher.
      *
+     * The rows are the files child, the connections child, and the overlay row.
      * The overlay row holds the message parameter. The application prints each
-     * change of that parameter.
+     * change of that parameter. The constructor also writes defaultTimeoutMs to
+     * Id::timeout, and it sets the coalescing window of the watcher.
      */
     LINGModel();
 
@@ -37,32 +41,68 @@ public:
      */
     void setMessage (const juce::String& text);
 
+    /** @brief The daemon timeout, in milliseconds, when the manifest sets none or fails validation. */
+    static constexpr int defaultTimeoutMs { 60000 };
+
+    /** @brief The window, in milliseconds, in which the watcher merges the events of one file into one event. */
+    static constexpr int coalesceMs { 300 };
+
+    /**
+     * @brief Returns the name of the daemon of a manifest and a toolchain argument.
+     *
+     * The name is the hexadecimal text of a Wyhash hash. The hash covers the full
+     * path of the manifest, a newline, and the toolchain argument. The same
+     * manifest and toolchain argument give the same name.
+     *
+     * @param manifest           The manifest file.
+     * @param toolchainArgument  The toolchain argument. Empty when none is given.
+     * @return The name of the daemon.
+     */
+    static std::string getDaemonName (const juce::File& manifest, std::string_view toolchainArgument);
+
+    /**
+     * @brief Returns the cache folder of LING.
+     *
+     * The folder is in the local application data folder on Windows, and in the
+     * home folder on the other platforms. The function creates no folder. Callers
+     * create the folder before they write to it.
+     *
+     * @return The cache folder.
+     */
+    static juce::File getCacheDirectory();
+
 private:
     /**
-     * @brief Rebuilds the files child from the manifest when the manifest path changes.
+     * @brief Adds the folder of the manifest to the watcher when the manifest path changes.
      *
-     * The toolchain argument is read from the state at the same time. A manifest
-     * that fails validation sets the message, and its files child is empty.
+     * The base class receives the change first.
      *
-     * @param tree      The tree whose property changed.
-     * @param property  The changed property. Only Id::manifest rebuilds the files child.
+     * @param tree      The tree whose property changed. Only the state tree acts.
+     * @param property  The changed property. Only Id::manifest acts.
      */
     void valueTreePropertyChanged (juce::ValueTree& tree, const juce::Identifier& property) override;
 
     /**
-     * @brief Adds the folder of each row of an added files child to the watcher.
+     * @brief Adds the folders of an added files child to the watcher.
      *
-     * Only a folder that exists is watched.
+     * The base class receives the child first. The folder of a file row is the
+     * parent of its path, and the watcher receives it only when it exists. The
+     * parent of each compiler manifest path and each dependency record path is
+     * passed to the watcher without that test, and the watcher asserts that the
+     * folder exists.
      *
      * @param parentTree              The tree that received the child. Passed to the base class.
-     * @param childWhichHasBeenAdded  The added child. Its rows give the folders when it is a files child.
+     * @param childWhichHasBeenAdded  The added child. A files child gives the folders of its rows, its compiler manifests, and its dependency records.
      */
     void valueTreeChildAdded (juce::ValueTree& parentTree, juce::ValueTree& childWhichHasBeenAdded) override;
 
     /**
-     * @brief Sends a path change for the row of a changed file.
+     * @brief Sends a change for a changed file: a manifest change, or a path change of its file row.
      *
-     * The processor parses the file again on that change.
+     * The manifest, a compiler manifest, and a dependency record send a change of
+     * the manifest property, and the manifest reading then runs again. Any other
+     * file sends a change of the path property to its file row, when a row holds
+     * its path. The processor parses the file again on that change.
      *
      * @param file   The changed file.
      * @param event  The kind of change. Not read.
@@ -71,9 +111,6 @@ private:
 
     /** @brief The file watcher. It reports the changes of the files in the watched folders. */
     jam::File::Watcher watcher;
-
-    /** @brief The window, in milliseconds, in which the watcher merges the events of one file into one event. */
-    static constexpr int coalesceMs { 300 };
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LINGModel)
 };

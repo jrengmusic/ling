@@ -3,6 +3,9 @@
 #include "Help.h"
 #include "LINGModel.h"
 #include "Processor.h"
+#include "Server.h"
+#include "Client.h"
+#include "Manifest.h"
 #ifdef _WIN32
 #include <io.h>
 #include <windows.h>
@@ -262,27 +265,26 @@ static int runCommandLine (const juce::StringArray& arguments)
  * @class Application
  * @brief The juce::JUCEApplicationBase of the LING command line, started by START_JUCE_APPLICATION.
  *
- * initialise() starts one of three runs. A manifest run writes the toolchain
- * argument and the manifest path to the model, and the processor parses the
- * files. An operation run adds a request row, and the processor answers it. The
- * application prints the result of the request and quits. Any other command
- * line sets the exit code and quits.
+ * initialise() starts one of three runs: the manifest run, the daemon run, or the operation run.
+ * Any other command line runs the command line, which sets the exit code and quits.
+ *
+ * The manifest run writes the toolchain argument and the manifest path to the model. The processor
+ * and the manifest reading then parse the files, and the application prints the documents and quits.
+ * The daemon run starts the processor, the manifest reading, and the socket server, when it takes
+ * the lock of the daemon. The operation run starts a client that sends one request to the daemon.
  */
 class Application : public juce::JUCEApplicationBase,
                     private juce::ValueTree::Listener
 {
 public:
-    /**
-     * @brief Creates the message attachment, which prints each overlay message as an error line, and listens to the model.
-     */
+    /** @brief Creates the message attachment, which prints each overlay message as an error line. */
     Application()
         : message (*model.getParameter<jam::ParameterText> (jam::Format::toType (Id::overlay), Id::message),
                    [] (const juce::var& text) { printError (jam::Strings::getView (getCommandLineParameterArray()[flagArgIndex]), jam::Strings::getView (text.toString())); })
     {
-        model.addListener (this);
     }
 
-    /** @brief Stops listening to the model. */
+    /** @brief Removes the application from the listeners of the model. */
     ~Application() override
     {
         model.removeListener (this);
@@ -308,13 +310,14 @@ public:
     bool moreThanOneInstanceAllowed() override { return true; }
 
     /**
-     * @brief Starts one of three runs: the manifest run, the operation run, or the command line.
+     * @brief Starts the manifest run, the daemon run, or the operation run. Any other argument list runs the command line.
      *
-     * The manifest run sets the toolchain argument and the manifest path when the
-     * arguments name an existing manifest. The operation run adds a request when
-     * the argument after the first names an existing file. Any other argument list
-     * runs the command line and quits. On Windows, the console output code page
-     * is set to UTF-8. On a terminal, the screen is erased before the run.
+     * The manifest run starts when the first argument names an existing manifest, with at most one
+     * toolchain argument after it. The daemon run starts when the first argument is the daemon word
+     * and the second argument names an existing file. The operation run starts when the second argument
+     * names an existing file and the first argument is not the daemon word. Any other argument list runs
+     * the command line, which sets the exit code and quits. On Windows, the console output code page is
+     * set to UTF-8. On a terminal, the screen is erased first.
      */
     void initialise (const juce::String&) override
     {
@@ -335,11 +338,19 @@ public:
 
         if (isDocument (arguments) and documentFile.existsAsFile())
         {
+            model.addListener (this);
+            processor = std::make_unique<Processor> (model);
+            manifest = std::make_unique<Manifest> (model);
             model.state.setProperty (Id::toolchainArgument, jam::Strings::fromView (getToolchainArgument (arguments, flagArgIndex)), nullptr);
             model.state.setProperty (Id::manifest, documentFile.getFullPathName(), nullptr);
         }
         else if (getDocumentFile (arguments, postFlagArgIndex).existsAsFile())
-            addRequest (arguments);
+        {
+            if (arguments[flagArgIndex].compare (Id::daemon.toString()) == 0)
+                runDaemon (arguments);
+            else
+                runOperation (arguments);
+        }
         else
         {
             setApplicationReturnValue (runCommandLine (arguments));
@@ -366,48 +377,77 @@ public:
 
 private:
     /**
-     * @brief Appends a request row to the model, and writes the manifest and the toolchain argument to the state.
+     * @brief Starts the daemon of the manifest and the toolchain argument, when no other daemon holds its lock.
      *
-     * The first argument is the command. The arguments after the manifest, and
-     * after the toolchain argument when one is present, become the arguments of
-     * the request. The request stores the current working folder, so the processor
-     * resolves its file argument against the folder of the client.
+     * The lock name is the daemon name of the manifest and the toolchain argument. The lock is tried
+     * without a wait. When the lock is taken, the function starts the processor and the manifest reading,
+     * sets the toolchain argument and the manifest path in the model, and starts the socket server. When
+     * the lock is not taken, the application quits.
      *
-     * @param arguments  The command line arguments. The manifest is at postFlagArgIndex.
+     * @param arguments  The command line arguments. Index postFlagArgIndex names the manifest.
      */
-    void addRequest (const juce::StringArray& arguments)
+    void runDaemon (const juce::StringArray& arguments)
     {
+        const auto manifestFile { getDocumentFile (arguments, postFlagArgIndex) };
         const auto toolchainArgument { getToolchainArgument (arguments, postFlagArgIndex) };
-        const int index { postFlagArgIndex + (toolchainArgument.empty() ? flagOnlyArgumentCount : toolchainArgumentCount) };
-        juce::ValueTree request { jam::Format::toType (Id::request) };
 
-        request.setProperty (Id::command, arguments[flagArgIndex], nullptr);
-        request.setProperty (Id::arguments, juce::var (juce::StringArray (arguments.begin() + index, arguments.size() - index)), nullptr);
-        request.setProperty (Id::directory, juce::File::getCurrentWorkingDirectory().getFullPathName(), nullptr);
-        model.appendChild (request);
-        model.state.setProperty (Id::toolchainArgument, jam::Strings::fromView (toolchainArgument), nullptr);
-        model.state.setProperty (Id::manifest, getDocumentFile (arguments, postFlagArgIndex).getFullPathName(), nullptr);
+        lock = std::make_unique<juce::InterProcessLock> (juce::String (LINGModel::getDaemonName (manifestFile, toolchainArgument)));
+
+        if (lock->enter (0))
+        {
+            processor = std::make_unique<Processor> (model);
+            manifest = std::make_unique<Manifest> (model);
+            server = std::make_unique<Server>();
+            model.state.setProperty (Id::toolchainArgument, jam::Strings::fromView (toolchainArgument), nullptr);
+            model.state.setProperty (Id::manifest, manifestFile.getFullPathName(), nullptr);
+            server->start();
+        }
+        else
+        {
+            quit();
+        }
     }
 
     /**
-     * @brief Prints the result of a request and quits, or prints the documents of a manifest run and quits.
+     * @brief Starts a client that sends one request to the daemon of the manifest.
      *
-     * The processor writes Id::documents when the last parse job ends. A change of
-     * Id::documents prints each document in path order, then the documents count,
-     * and quits, when no request row remains. A change of Id::documents with a
-     * request row prints nothing. A change of Id::result prints the JSON, removes
-     * the request row, and quits.
+     * The request is a JSON array. Its first word is the flag argument as typed, its second word is the
+     * working folder, and its other words are the arguments after the manifest and the toolchain argument.
+     * The client starts a daemon when no daemon answers, and it prints the reply.
      *
-     * @param tree      The tree whose property changed. It is the root for Id::documents, and the request row for Id::result.
-     * @param property  The changed property. Only Id::documents and Id::result act.
+     * @param arguments  The command line arguments. Index postFlagArgIndex names the manifest.
      */
-    void valueTreePropertyChanged (juce::ValueTree& tree, const juce::Identifier& property) override
+    void runOperation (const juce::StringArray& arguments)
     {
-        if (property == Id::documents and not model.state.getChildWithName (jam::Format::toType (Id::request)).isValid())
+        const auto toolchainArgument { getToolchainArgument (arguments, postFlagArgIndex) };
+        const int index { postFlagArgIndex + (toolchainArgument.empty() ? flagOnlyArgumentCount : toolchainArgumentCount) };
+        juce::Array<juce::var> words;
+
+        words.add (arguments[flagArgIndex]);
+        words.add (juce::File::getCurrentWorkingDirectory().getFullPathName());
+
+        for (int argumentIndex { index }; argumentIndex < arguments.size(); ++argumentIndex)
+            words.add (arguments[argumentIndex]);
+
+        client = std::make_unique<Client> (getDocumentFile (arguments, postFlagArgIndex), jam::Strings::fromView (toolchainArgument), juce::JSON::toString (juce::var (words), true));
+        client->start();
+    }
+
+    /**
+     * @brief Prints each stored document in path order, then the documents count, and quits.
+     *
+     * Each document prints as its path, its declaration count, and its reference count. The line of the
+     * documents count follows the documents. The function acts only on Id::documents.
+     *
+     * @param property  The changed property. Only Id::documents acts.
+     */
+    void valueTreePropertyChanged (juce::ValueTree&, const juce::Identifier& property) override
+    {
+        if (property == Id::documents)
         {
             std::string rows;
 
-            processor.applyToDocuments ([&rows] (std::string_view path, const jam::CodeDocument& document) { appendDocument (rows, path, document); });
+            processor->applyToDocuments ([&rows] (std::string_view path, const jam::CodeDocument& document) { appendDocument (rows, path, document); });
             jam::Format::appendDecimal (rows, static_cast<int> (model.state[Id::documents]));
             jam::Format::appendUtf8 (rows, Chars::space);
             rows.append (jam::Strings::getView (Id::documents.toString()));
@@ -415,25 +455,22 @@ private:
             fwrite (rows.data(), sizeof (char), rows.size(), stdout);
             quit();
         }
-        else if (property == Id::result)
-        {
-            const auto result { tree[Id::result].toString() };
-            std::string newlineText;
-
-            jam::Format::appendUtf8 (newlineText, Chars::newline);
-            fwrite (jam::Strings::getView (result).data(), sizeof (char), jam::Strings::getView (result).size(), stdout);
-            fwrite (newlineText.data(), sizeof (char), newlineText.size(), stdout);
-            model.removeChild (tree);
-            quit();
-        }
     }
 
     /** @brief The state model of the run. The application owns it. */
     LINGModel model;
     /** @brief The processor that parses the files of the model. It holds the model by reference. */
-    Processor processor { model };
+    std::unique_ptr<Processor> processor;
+    /** @brief The manifest reading. It reads the manifest when the manifest path changes. The manifest run and the daemon run create it. */
+    std::unique_ptr<Manifest> manifest;
     /** @brief The attachment that prints each change of the overlay message to stderr. */
     jam::Model::ParameterAttachment message;
+    /** @brief The inter-process lock of the daemon name. The daemon run takes it, and it stays held while the daemon runs. */
+    std::unique_ptr<juce::InterProcessLock> lock;
+    /** @brief The socket server of the daemon. The daemon run creates it. */
+    std::unique_ptr<Server> server;
+    /** @brief The client of the operation run. It sends the request to the daemon. */
+    std::unique_ptr<Client> client;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Application)
 };

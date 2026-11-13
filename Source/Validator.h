@@ -11,10 +11,12 @@
 struct Validator : jam::MarkdownValidator
 {
     /**
-     * @brief Adds the markdown rules, and the toolchain rule, to the rule set.
+     * @brief Adds the markdown rules, the toolchain rule, and the daemon rule to the rule set.
      *
      * The toolchain rule fails each toolchain table whose header row has no
-     * command column or no flag column.
+     * command column or no flag column. The daemon rule fails each timeout row
+     * whose value is not a positive integer in canonical decimal form: no sign, no
+     * leading zero, and no space.
      *
      * @param rules  The rule set that receives the entries.
      */

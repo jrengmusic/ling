@@ -16,10 +16,10 @@
           <declname>rules</declname>
         </param>
         <briefdescription>
-<para>Adds the markdown rules, and the toolchain rule, to the rule set. </para>
+<para>Adds the markdown rules, the toolchain rule, and the daemon rule to the rule set. </para>
         </briefdescription>
         <detaileddescription>
-<para>The toolchain rule fails each toolchain table whose header row has no command column or no flag column.</para>
+<para>The toolchain rule fails each toolchain table whose header row has no command column or no flag column. The daemon rule fails each timeout row whose value is not a positive integer in canonical decimal form: no sign, no leading zero, and no space.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>rules</parametername>
@@ -33,19 +33,24 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Validator.h" line="21" column="17" bodyfile="Validator.cpp" bodystart="3" bodyend="26"/>
+        <location file="Validator.h" line="23" column="17" bodyfile="Validator.cpp" bodystart="3" bodyend="48"/>
         <references refid="structjam_1_1Function_1_1Map_1ad53732bb862659c66b8112c75f437248">jam::Function::Map&lt; typename KeyType, size_t capacity, typename... Signatures &gt;::add</references>
         <references refid="classjam_1_1Strings_1a9223c1bf16916a52b122ae7e9d871f50">jam::Strings::add</references>
         <references refid="structjam_1_1MarkdownValidator_1ab0e2a87f75380c88eaa06ceba755e901">jam::MarkdownValidator::addRules</references>
         <references refid="namespaceId_1a1538a142ed265f60c8fcf1703a106a7d">Id::command</references>
+        <references refid="classjuce_1_1String_1ae9c98d84e716c102f00330b3f1ccd4be">juce::String::compare</references>
+        <references refid="namespaceId_1ad57a2d4fadbed29a552707db60b01f2a" compoundref="_generated_8cpp" startline="33" endline="33">Id::daemon</references>
         <references refid="namespaceId_1a5e729b9864fd096462b3f08ef1eb4b1a">Id::diagnosticSeparator</references>
-        <references refid="structtext_1_1_diagnostics_1acb39935ba8149723d8a1c9615271f294" compoundref="_text_8h" startline="39" endline="39">text::Diagnostics::failToolchainColumn</references>
-        <references refid="namespaceId_1ac8f84d92cb02638b89abb87149be1caf" compoundref="_generated_8cpp" startline="33" endline="33">Id::flag</references>
+        <references refid="structtext_1_1_diagnostics_1a204d1ed64e1ddb8a0febcd742369a763" compoundref="_text_8h" startline="43" endline="43">text::Diagnostics::failDaemonTimeout</references>
+        <references refid="structtext_1_1_diagnostics_1acb39935ba8149723d8a1c9615271f294" compoundref="_text_8h" startline="40" endline="40">text::Diagnostics::failToolchainColumn</references>
+        <references refid="namespaceId_1ac8f84d92cb02638b89abb87149be1caf" compoundref="_generated_8cpp" startline="42" endline="42">Id::flag</references>
         <references refid="structjam_1_1Document_1_1Validator_1a6a3f64ff32d39935e480ffc593a73af5">jam::Document::Validator::getFailures</references>
         <references refid="structjam_1_1MarkdownValidator_1ac14242a706f2a9509549ab4313ddb371">jam::MarkdownValidator::getLocation</references>
         <references refid="namespaceId_1a383ed3d8cd253c137d67732d175e076b">Id::headerRow</references>
-        <references refid="namespaceId_1a0f9647376c570f4f428258196fa64c61" compoundref="_generated_8cpp" startline="39" endline="39">Id::toolchain</references>
-        <referencedby refid="struct_validator_1a394659562ffe86296738ed5a5b14f80f" compoundref="_validator_8cpp" startline="28" endline="40">getRules</referencedby>
+        <references refid="namespaceId_1ad99de3ca37a30e0bb93696f8de7d2561" compoundref="_generated_8cpp" startline="57" endline="57">Id::timeout</references>
+        <references refid="namespaceId_1a0f9647376c570f4f428258196fa64c61" compoundref="_generated_8cpp" startline="58" endline="58">Id::toolchain</references>
+        <references refid="namespaceId_1aa31dd51a36cc1b369f63f498441108e8">Id::value</references>
+        <referencedby refid="struct_validator_1a394659562ffe86296738ed5a5b14f80f" compoundref="_validator_8cpp" startline="50" endline="62">getRules</referencedby>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -66,8 +71,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Validator.h" line="28" column="17" bodyfile="Validator.cpp" bodystart="28" bodyend="40"/>
-        <references refid="struct_validator_1af387720572933d5519b0597814433c17" compoundref="_validator_8cpp" startline="3" endline="26">addRules</references>
+        <location file="Validator.h" line="30" column="17" bodyfile="Validator.cpp" bodystart="50" bodyend="62"/>
+        <references refid="struct_validator_1af387720572933d5519b0597814433c17" compoundref="_validator_8cpp" startline="3" endline="48">addRules</references>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -112,7 +117,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="Validator.h" line="11" column="1" bodyfile="Validator.h" bodystart="12" bodyend="29"/>
+    <location file="Validator.h" line="11" column="1" bodyfile="Validator.h" bodystart="12" bodyend="31"/>
     <listofallmembers>
       <member refid="struct_validator_1af387720572933d5519b0597814433c17" prot="public" virt="non-virtual"><scope>Validator</scope><name>addRules</name></member>
       <member refid="structjam_1_1MarkdownValidator_1a0e7abdd303fef1bf9ffb1c07338a0997" prot="public" virt="non-virtual"><scope>Validator</scope><name>Element</name></member>

@@ -70,6 +70,10 @@ void CompilerManifest::addCLanguageUnits (LINGModel& model, juce::ValueTree& fil
 
         if (compilerManifest.existsAsFile())
         {
+            auto compilerManifests (files[Id::compilerManifests]);
+            compilerManifests.append (compilerManifest.getFullPathName());
+            files.setProperty (Id::compilerManifests, compilerManifests, nullptr);
+
             const auto entries { juce::JSON::parse (compilerManifest) };
 
             if (const auto* units { entries.getArray() })
@@ -149,14 +153,23 @@ void CompilerManifest::addCLanguageDependencies (LINGModel& model, juce::ValueTr
     finished.wait();
 
     if (exitCode == 0)
-        addCLanguageRecords (model, files, record, directory.getChildFile (getBuildDirectory (flagArguments, text::CLanguage::flagDependencyDirectory)));
+    {
+        const auto buildDirectory { directory.getChildFile (getBuildDirectory (flagArguments, text::CLanguage::flagDependencyDirectory)) };
+        auto dependencyRecords (files[Id::dependencyRecords]);
+
+        addCLanguageRecords (model, files, record, buildDirectory);
+        dependencyRecords.append (buildDirectory.getChildFile (text::CLanguage::dependencyRecord).getFullPathName());
+        files.setProperty (Id::dependencyRecords, dependencyRecords, nullptr);
+    }
     else
+    {
         model.setMessage (command + Chars::space + flag + Id::diagnosticSeparator + text::Diagnostics::failToolchain);
+    }
 }
 
-juce::StringArray CompilerManifest::getDependencyArguments (const juce::String& command, const jam::Strings& flagArguments)
+jam::Strings CompilerManifest::getDependencyArguments (const juce::String& command, const jam::Strings& flagArguments)
 {
-    juce::StringArray arguments { command };
+    jam::Strings arguments { command };
 
     for (const auto& argument : flagArguments)
         arguments.add (argument);

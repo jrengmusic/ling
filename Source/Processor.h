@@ -759,29 +759,17 @@ private:
     void outgoingCalls (juce::ValueTree& request) const;
 
     /**
-     * @brief Starts a parse job for each row of an added files child, or runs an added request.
+     * @brief Starts the parse jobs of an added files child, or runs an added request.
      *
-     * A files child starts one parse job for each row. When no job is pending
-     * after the rows start, the documents count is written at once. A request
-     * child runs when no job is pending and the documents count is written,
-     * because a request reads the stored documents. Any other child is ignored.
+     * A files child first erases each stored document whose path has no row in the
+     * child. It then starts one parse job for each row. When no job is pending, it
+     * writes the documents count. A request child runs at once. Any other child is
+     * ignored.
      *
      * @param parentTree              The tree that received the child. Not read.
      * @param childWhichHasBeenAdded  The added child. A files child starts the parse jobs, and a request child runs.
      */
     void valueTreeChildAdded (juce::ValueTree& parentTree, juce::ValueTree& childWhichHasBeenAdded) override;
-
-    /**
-     * @brief Drops the stored documents of the rows of a removed files child.
-     *
-     * The entries of paths stay. Each document is keyed by the index of its path,
-     * so removing an entry would move the indices of the other documents.
-     *
-     * @param parentTree                     The tree that lost the child. Not read.
-     * @param childWhichHasBeenRemoved       The removed child. Its rows give the documents to drop when it is a files child.
-     * @param indexFromWhichChildWasRemoved  The index of the removed child in its parent. Not read.
-     */
-    void valueTreeChildRemoved (juce::ValueTree& parentTree, juce::ValueTree& childWhichHasBeenRemoved, int indexFromWhichChildWasRemoved) override;
 
     /**
      * @brief Starts a parse job for a file row whose path changes.
@@ -837,11 +825,11 @@ private:
     int getOrCreatePathIndex (const juce::String& path);
 
     /**
-     * @brief Writes the number of stored documents to Id::documents, then runs each request that has no result.
+     * @brief Writes the number of stored documents to Id::documents.
      *
-     * The callers call this only when no job is pending. The application reacts
-     * to each change of Id::documents. When the count is unchanged, the change
-     * message is sent by hand. The requests run from the last child to the first.
+     * The callers call this only when no job is pending. When the count equals the
+     * stored value, the function sends the change message by hand, so that the
+     * listeners of Id::documents still react. Otherwise it sets the property.
      */
     void setDocuments();
 

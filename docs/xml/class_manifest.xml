@@ -1,0 +1,468 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="class_manifest" kind="class" language="C++" prot="public">
+    <compoundname>Manifest</compoundname>
+    <basecompoundref refid="classjuce_1_1ValueTree_1_1Listener" prot="private" virt="non-virtual">juce::ValueTree::Listener</basecompoundref>
+    <includes refid="_manifest_8h" local="no">Manifest.h</includes>
+    <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_manifest_1ad9ba3fd686009e0c081e691f7058d292" prot="private" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int Manifest::threadCount</definition>
+        <argsstring></argsstring>
+        <name>threadCount</name>
+        <qualifiedname>Manifest::threadCount</qualifiedname>
+        <initializer>{ 1 }</initializer>
+        <briefdescription>
+<para>The number of threads of the pool. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>One thread runs the readings one after another. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Manifest.h" line="68" column="26" bodyfile="Manifest.h" bodystart="68" bodyend="68"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_manifest_1a87d745097f80d516fa1ebb90bfd89f47" prot="private" static="no" mutable="no">
+        <type><ref refid="class_l_i_n_g_model" kindref="compound">LINGModel</ref> &amp;</type>
+        <definition>LINGModel&amp; Manifest::model</definition>
+        <argsstring></argsstring>
+        <name>model</name>
+        <qualifiedname>Manifest::model</qualifiedname>
+        <briefdescription>
+<para>The model that the readings read and write. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The application owns it. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Manifest.h" line="71" column="15" bodyfile="Manifest.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="class_manifest_1a64ee33ff76020fa298b43994752e5200" compoundref="_manifest_8cpp" startline="22" endline="38">addJob</referencedby>
+        <referencedby refid="class_manifest_1a16ddfc76a23f8dae673d0a8f08e41ef1" compoundref="_manifest_8cpp" startline="5" endline="9">Manifest</referencedby>
+        <referencedby refid="class_manifest_1af7d5949981f9b11ec9b40ff8c29a9c17" compoundref="_manifest_8cpp" startline="40" endline="45">setFiles</referencedby>
+        <referencedby refid="class_manifest_1a86e078d9418d29915919effe785bb14a" compoundref="_manifest_8cpp" startline="16" endline="20">valueTreePropertyChanged</referencedby>
+        <referencedby refid="class_manifest_1afec4bf62f0f4c82ba13506fd2ba6490e" compoundref="_manifest_8cpp" startline="11" endline="14">~Manifest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_manifest_1a87e7a005eb59055299b2515bd0fca245" prot="private" static="no" mutable="no">
+        <type><ref refid="classjuce_1_1ThreadPool" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ThreadPool</ref></type>
+        <definition>juce::ThreadPool Manifest::pool</definition>
+        <argsstring></argsstring>
+        <name>pool</name>
+        <qualifiedname>Manifest::pool</qualifiedname>
+        <initializer>{ <ref refid="classjuce_1_1ThreadPool_1aedc6466c1f70ff1fcaf782ebfc3b9cd7" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ThreadPool::Options</ref>{}.withNumberOfThreads (<ref refid="class_manifest_1ad9ba3fd686009e0c081e691f7058d292" kindref="member">threadCount</ref>) }</initializer>
+        <briefdescription>
+<para>The thread pool that runs the readings, with threadCount threads. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Manifest.h" line="74" column="22" bodyfile="Manifest.h" bodystart="74" bodyend="74"/>
+        <referencedby refid="class_manifest_1a64ee33ff76020fa298b43994752e5200" compoundref="_manifest_8cpp" startline="22" endline="38">addJob</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_manifest_1a16ddfc76a23f8dae673d0a8f08e41ef1" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Manifest::Manifest</definition>
+        <argsstring>(LINGModel &amp;newModel)</argsstring>
+        <name>Manifest</name>
+        <qualifiedname>Manifest::Manifest</qualifiedname>
+        <param>
+          <type><ref refid="class_l_i_n_g_model" kindref="compound">LINGModel</ref> &amp;</type>
+          <declname>newModel</declname>
+        </param>
+        <briefdescription>
+<para>Listens to the model, so that a change of the manifest path starts a reading. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>newModel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The model whose manifest path starts the readings. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Manifest.h" line="23" column="14" bodyfile="Manifest.cpp" bodystart="5" bodyend="9"/>
+        <references refid="classjam_1_1Model_1ae5d4d70e706dcc558cf21923125a9176">jam::Model::addListener</references>
+        <references refid="class_manifest_1a87d745097f80d516fa1ebb90bfd89f47" compoundref="_manifest_8h" startline="71">model</references>
+      </memberdef>
+      <memberdef kind="function" id="class_manifest_1afec4bf62f0f4c82ba13506fd2ba6490e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Manifest::~Manifest</definition>
+        <argsstring>() override</argsstring>
+        <name>~Manifest</name>
+        <qualifiedname>Manifest::~Manifest</qualifiedname>
+        <briefdescription>
+<para>Removes the manifest from the listeners of the model. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Manifest.h" line="26" column="5" bodyfile="Manifest.cpp" bodystart="11" bodyend="14"/>
+        <references refid="class_manifest_1a87d745097f80d516fa1ebb90bfd89f47" compoundref="_manifest_8h" startline="71">model</references>
+        <references refid="classjam_1_1Model_1a688b7625ae8b2a4d4d1f1643a6b3aa41">jam::Model::removeListener</references>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_manifest_1a86e078d9418d29915919effe785bb14a" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void Manifest::valueTreePropertyChanged</definition>
+        <argsstring>(juce::ValueTree &amp;tree, const juce::Identifier &amp;property) override</argsstring>
+        <name>valueTreePropertyChanged</name>
+        <qualifiedname>Manifest::valueTreePropertyChanged</qualifiedname>
+        <reimplements refid="classjuce_1_1ValueTree_1_1Listener_1a1a5481aafc0faa40aa3404a10c7b3785">valueTreePropertyChanged</reimplements>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>tree</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjuce_1_1Identifier" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref> &amp;</type>
+          <declname>property</declname>
+        </param>
+        <briefdescription>
+<para>Starts a reading when the manifest path of the model changes. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Only a change of <ref refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::manifest</ref> on the state tree of the model starts a reading.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tree</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The tree whose property changed. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>property</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The changed property. Only <ref refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::manifest</ref> starts a reading. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Manifest.h" line="37" column="10" bodyfile="Manifest.cpp" bodystart="16" bodyend="20"/>
+        <references refid="class_manifest_1a64ee33ff76020fa298b43994752e5200" compoundref="_manifest_8cpp" startline="22" endline="38">addJob</references>
+        <references refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" compoundref="_identifiers_8h" startline="53">Id::manifest</references>
+        <references refid="class_manifest_1a87d745097f80d516fa1ebb90bfd89f47" compoundref="_manifest_8h" startline="71">model</references>
+        <references refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857">jam::Model::state</references>
+      </memberdef>
+      <memberdef kind="function" id="class_manifest_1a64ee33ff76020fa298b43994752e5200" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Manifest::addJob</definition>
+        <argsstring>()</argsstring>
+        <name>addJob</name>
+        <qualifiedname>Manifest::addJob</qualifiedname>
+        <briefdescription>
+<para>Starts one reading of the manifest on the pool thread. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The manifest path and the toolchain argument are copied from the model on the calling thread. The job parses and validates the manifest. It takes the timeout from the daemon table when the manifest is valid, and the default timeout otherwise. A failed validation sets the message. The job then sets the files child on the message thread. The dependency command of a toolchain row blocks until its process ends, so the job does not run on the message thread. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Manifest.h" line="49" column="10" bodyfile="Manifest.cpp" bodystart="22" bodyend="38"/>
+        <references refid="classjuce_1_1ThreadPool_1a1f9f523d52ef5258a72c0c5049306a6a">juce::ThreadPool::addJob</references>
+        <references refid="classjuce_1_1Identifier_1aa11734917f2bc61608c3bcd3e6611a6c">juce::Identifier::isValid</references>
+        <references refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" compoundref="_identifiers_8h" startline="53">Id::manifest</references>
+        <references refid="class_manifest_1a87d745097f80d516fa1ebb90bfd89f47" compoundref="_manifest_8h" startline="71">model</references>
+        <references refid="class_manifest_1a87e7a005eb59055299b2515bd0fca245" compoundref="_manifest_8h" startline="74" endline="74">pool</references>
+        <references refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857">jam::Model::state</references>
+        <references refid="namespaceId_1ad2d03a036d57999f43066f5737dc8008" compoundref="_generated_8cpp" startline="59" endline="59">Id::toolchainArgument</references>
+        <referencedby refid="class_manifest_1a86e078d9418d29915919effe785bb14a" compoundref="_manifest_8cpp" startline="16" endline="20">valueTreePropertyChanged</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_manifest_1af7d5949981f9b11ec9b40ff8c29a9c17" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Manifest::setFiles</definition>
+        <argsstring>(const juce::ValueTree &amp;files, int timeout)</argsstring>
+        <name>setFiles</name>
+        <qualifiedname>Manifest::setFiles</qualifiedname>
+        <param>
+          <type>const <ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>files</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>timeout</declname>
+        </param>
+        <briefdescription>
+<para>Sets the timeout of the model, and replaces its files child. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>files</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The files child that replaces the current one. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>timeout</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The timeout, in milliseconds, that <ref refid="namespaceId_1ad99de3ca37a30e0bb93696f8de7d2561" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::timeout</ref> receives. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Manifest.h" line="57" column="10" bodyfile="Manifest.cpp" bodystart="40" bodyend="45"/>
+        <references refid="classjam_1_1Model_1ae0cb2cc2b04acb47eb9760d92dcedc46">jam::Model::appendChild</references>
+        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="40" endline="40">Id::files</references>
+        <references refid="classjuce_1_1ValueTree_1ac9bbcb6db4464f77b512b9bd8bbb8c3f">juce::ValueTree::getChildWithName</references>
+        <references refid="class_manifest_1a87d745097f80d516fa1ebb90bfd89f47" compoundref="_manifest_8h" startline="71">model</references>
+        <references refid="classjam_1_1Model_1acbf5ef1a6e71240468f17fe707532bec">jam::Model::removeChild</references>
+        <references refid="classjuce_1_1ValueTree_1a86de4a6662eb049c21c30c627616fb0e">juce::ValueTree::setProperty</references>
+        <references refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857">jam::Model::state</references>
+        <references refid="namespaceId_1ad99de3ca37a30e0bb93696f8de7d2561" compoundref="_generated_8cpp" startline="57" endline="57">Id::timeout</references>
+        <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="class_manifest_1a52fb4543112732ccd3b5618c5665b01f" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Manifest::getTimeout</definition>
+        <argsstring>(const jam::ConfigDocument &amp;manifest)</argsstring>
+        <name>getTimeout</name>
+        <qualifiedname>Manifest::getTimeout</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1ConfigDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::ConfigDocument</ref> &amp;</type>
+          <declname>manifest</declname>
+        </param>
+        <briefdescription>
+<para>Returns the timeout of the first daemon table row that holds one, or the default timeout when none does. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>manifest</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The parsed manifest. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The timeout, in milliseconds. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Manifest.h" line="65" column="16" bodyfile="Manifest.cpp" bodystart="47" bodyend="54"/>
+        <references refid="namespaceId_1ad57a2d4fadbed29a552707db60b01f2a" compoundref="_generated_8cpp" startline="33" endline="33">Id::daemon</references>
+        <references refid="class_l_i_n_g_model_1a98c415ab589e5c16c6e98d1a8f0859a5" compoundref="_l_i_n_g_model_8h" startline="45" endline="45">LINGModel::defaultTimeoutMs</references>
+        <references refid="namespaceId_1ad99de3ca37a30e0bb93696f8de7d2561" compoundref="_generated_8cpp" startline="57" endline="57">Id::timeout</references>
+        <references refid="namespaceId_1aa31dd51a36cc1b369f63f498441108e8">Id::value</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Reads the manifest on a pool thread, and sets the files child and the timeout of the model. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>A change of the manifest path starts one reading. The reading parses and validates the manifest, then builds the files child from the toolchain rows that match the toolchain argument. A failed validation sets the message, and the files child is empty. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Manifest</label>
+        <link refid="class_manifest"/>
+        <childnode refid="2" relation="private-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>juce::ValueTree::Listener</label>
+        <link refid="classjuce_1_1ValueTree_1_1Listener" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>LINGModel</label>
+        <link refid="class_l_i_n_g_model"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="13" relation="public-inheritance">
+        </childnode>
+        <childnode refid="14" relation="private-inheritance">
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>watcher</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Manifest</label>
+        <link refid="class_manifest"/>
+        <childnode refid="2" relation="private-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>model</edgelabel>
+        </childnode>
+        <childnode refid="22" relation="usage">
+          <edgelabel>pool</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>jam::AnyMap&lt; typename TypeOfCriticalSectionToUse &gt;</label>
+        <link refid="classjam_1_1AnyMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>entries</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>types</edgelabel>
+        </childnode>
+      </node>
+      <node id="15">
+        <label>jam::File::Watcher</label>
+        <link refid="structjam_1_1File_1_1Watcher" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="16" relation="usage">
+          <edgelabel>timers</edgelabel>
+        </childnode>
+        <childnode refid="20" relation="usage">
+          <edgelabel>listeners</edgelabel>
+        </childnode>
+        <childnode refid="21" relation="usage">
+          <edgelabel>watched</edgelabel>
+        </childnode>
+      </node>
+      <node id="19">
+        <label>jam::File::Watcher::CoalesceTimer</label>
+        <link refid="structjam_1_1File_1_1Watcher_1_1CoalesceTimer" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>owner</edgelabel>
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>f</edgelabel>
+        </childnode>
+      </node>
+      <node id="14">
+        <label>jam::File::Watcher::Listener</label>
+        <link refid="classjam_1_1File_1_1Watcher_1_1Listener" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="9">
+        <label>jam::HashMap&lt; juce::Identifier, jam::AnyMap::Trait &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="12">
+        <label>jam::HashMap&lt; juce::Identifier, jam::HashMap&lt; juce::Identifier, std::unique_ptr&lt; ParameterAdapter &gt; &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="8">
+        <label>jam::HashMap&lt; juce::Identifier, std::unique_ptr&lt; void, Deleter &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="13">
+        <label>jam::Instance&lt; LINGModel &gt;</label>
+        <link refid="structjam_1_1Instance" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="4">
+        <label>jam::Model</label>
+        <link refid="classjam_1_1Model" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>params</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>state</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>valueTreeChanging</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>adapters</edgelabel>
+        </childnode>
+      </node>
+      <node id="11">
+        <label>juce::CriticalSection</label>
+        <link refid="classjuce_1_1CriticalSection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="7">
+        <label>juce::DummyCriticalSection</label>
+        <link refid="classjuce_1_1DummyCriticalSection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="17">
+        <label>juce::File</label>
+        <link refid="classjuce_1_1File" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="20">
+        <label>juce::ListenerList&lt; jam::File::Watcher::Listener &gt;</label>
+        <link refid="classjuce_1_1ListenerList" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="21">
+        <label>juce::OwnedArray&lt; Impl &gt;</label>
+        <link refid="classjuce_1_1OwnedArray" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="22">
+        <label>juce::ThreadPool</label>
+        <link refid="classjuce_1_1ThreadPool" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="5">
+        <label>juce::Timer</label>
+        <link refid="classjuce_1_1Timer" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="10">
+        <label>juce::ValueTree</label>
+        <link refid="classjuce_1_1ValueTree" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="2">
+        <label>juce::ValueTree::Listener</label>
+        <link refid="classjuce_1_1ValueTree_1_1Listener" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="16">
+        <label>std::map&lt; juce::File, std::unique_ptr&lt; jam::File::Watcher::CoalesceTimer &gt; &gt;</label>
+        <childnode refid="17" relation="usage">
+          <edgelabel>keys</edgelabel>
+        </childnode>
+        <childnode refid="18" relation="usage">
+          <edgelabel>elements</edgelabel>
+        </childnode>
+      </node>
+      <node id="18">
+        <label>std::unique_ptr&lt; jam::File::Watcher::CoalesceTimer &gt;</label>
+        <childnode refid="19" relation="usage">
+          <edgelabel>ptr</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Manifest.h" line="15" column="1" bodyfile="Manifest.h" bodystart="16" bodyend="77"/>
+    <listofallmembers>
+      <member refid="class_manifest_1a64ee33ff76020fa298b43994752e5200" prot="private" virt="non-virtual"><scope>Manifest</scope><name>addJob</name></member>
+      <member refid="class_manifest_1a52fb4543112732ccd3b5618c5665b01f" prot="private" virt="non-virtual"><scope>Manifest</scope><name>getTimeout</name></member>
+      <member refid="class_manifest_1a16ddfc76a23f8dae673d0a8f08e41ef1" prot="public" virt="non-virtual"><scope>Manifest</scope><name>Manifest</name></member>
+      <member refid="class_manifest_1a87d745097f80d516fa1ebb90bfd89f47" prot="private" virt="non-virtual"><scope>Manifest</scope><name>model</name></member>
+      <member refid="class_manifest_1a87e7a005eb59055299b2515bd0fca245" prot="private" virt="non-virtual"><scope>Manifest</scope><name>pool</name></member>
+      <member refid="class_manifest_1af7d5949981f9b11ec9b40ff8c29a9c17" prot="private" virt="non-virtual"><scope>Manifest</scope><name>setFiles</name></member>
+      <member refid="class_manifest_1ad9ba3fd686009e0c081e691f7058d292" prot="private" virt="non-virtual"><scope>Manifest</scope><name>threadCount</name></member>
+      <member refid="classjuce_1_1ValueTree_1_1Listener_1ac26fa68e6f4625f71b52ab6fe776e0dc" prot="private" virt="virtual"><scope>Manifest</scope><name>valueTreeChildAdded</name></member>
+      <member refid="classjuce_1_1ValueTree_1_1Listener_1a5fb2f9f798c9ebb48235ba15759fd48b" prot="private" virt="virtual"><scope>Manifest</scope><name>valueTreeChildOrderChanged</name></member>
+      <member refid="classjuce_1_1ValueTree_1_1Listener_1a09dc85f9c71389f2801c9a7bc582ae1b" prot="private" virt="virtual"><scope>Manifest</scope><name>valueTreeChildRemoved</name></member>
+      <member refid="classjuce_1_1ValueTree_1_1Listener_1a2e39febd013de0ff7da23a5b574055db" prot="private" virt="virtual"><scope>Manifest</scope><name>valueTreeParentChanged</name></member>
+      <member refid="class_manifest_1a86e078d9418d29915919effe785bb14a" prot="private" virt="virtual"><scope>Manifest</scope><name>valueTreePropertyChanged</name></member>
+      <member refid="classjuce_1_1ValueTree_1_1Listener_1aa46de90c3746a395792a632219e404f2" prot="private" virt="virtual"><scope>Manifest</scope><name>valueTreeRedirected</name></member>
+      <member refid="classjuce_1_1ValueTree_1_1Listener_1ab78745617b47f3b12726c0de220e8d9b" prot="private" virt="virtual"><scope>Manifest</scope><name>~Listener</name></member>
+      <member refid="class_manifest_1afec4bf62f0f4c82ba13506fd2ba6490e" prot="public" virt="non-virtual"><scope>Manifest</scope><name>~Manifest</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

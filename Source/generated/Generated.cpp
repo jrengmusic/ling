@@ -27,8 +27,13 @@ namespace Id
     const juce::Identifier arguments            { juce::String::fromUTF8 ("arguments") };
     const juce::Identifier children             { juce::String::fromUTF8 ("children") };
     const juce::Identifier column               { juce::String::fromUTF8 ("column") };
+    const juce::Identifier compilerManifests    { juce::String::fromUTF8 ("compilerManifests") };
+    const juce::Identifier connection           { juce::String::fromUTF8 ("connection") };
+    const juce::Identifier connections          { juce::String::fromUTF8 ("connections") };
+    const juce::Identifier daemon               { juce::String::fromUTF8 ("daemon") };
     const juce::Identifier declarations         { juce::String::fromUTF8 ("declarations") };
     const juce::Identifier dependencies         { juce::String::fromUTF8 ("dependencies") };
+    const juce::Identifier dependencyRecords    { juce::String::fromUTF8 ("dependencyRecords") };
     const juce::Identifier documents            { juce::String::fromUTF8 ("documents") };
     const juce::Identifier documentSymbol       { juce::String::fromUTF8 ("documentSymbol") };
     const juce::Identifier family               { juce::String::fromUTF8 ("family") };
@@ -49,6 +54,7 @@ namespace Id
     const juce::Identifier request              { juce::String::fromUTF8 ("request") };
     const juce::Identifier result               { juce::String::fromUTF8 ("result") };
     const juce::Identifier scope                { juce::String::fromUTF8 ("scope") };
+    const juce::Identifier timeout              { juce::String::fromUTF8 ("timeout") };
     const juce::Identifier toolchain            { juce::String::fromUTF8 ("toolchain") };
     const juce::Identifier toolchainArgument    { juce::String::fromUTF8 ("toolchainArgument") };
     const juce::Identifier workspaceSymbol      { juce::String::fromUTF8 ("workspaceSymbol") };
@@ -61,7 +67,10 @@ namespace files
 
 /** @brief File names ling reads: help. */
 
-const juce::String lingHelp { juce::String::fromUTF8 ("HELP.md") };
+const juce::String lingCache      { juce::String::fromUTF8 (".cache/ling") };
+const juce::String lingHelp       { juce::String::fromUTF8 ("HELP.md") };
+const juce::String lingLocalCache { juce::String::fromUTF8 ("ling") };
+const juce::String lingPort       { juce::String::fromUTF8 ("port") };
 
 /**______________________________END OF NAMESPACE______________________________*/
 }// namespace files

@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="_manifest_8h" kind="file" language="C++">
+    <compoundname>Manifest.h</compoundname>
+    <includes local="no">JuceHeader.h</includes>
+    <includes refid="_generated_8h" local="yes">generated/Generated.h</includes>
+    <includes refid="_l_i_n_g_model_8h" local="yes">LINGModel.h</includes>
+    <includedby refid="_main_8cpp" local="yes">Main.cpp</includedby>
+    <includedby refid="_manifest_8cpp" local="yes">Manifest.cpp</includedby>
+    <incdepgraph>
+      <node id="9">
+        <label>LINGModel.h</label>
+        <link refid="_l_i_n_g_model_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Manifest.h</label>
+        <link refid="_manifest_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>Files.h</label>
+        <link refid="_files_8h"/>
+      </node>
+      <node id="3">
+        <label>generated/Generated.h</label>
+        <link refid="_generated_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>HashMaps.h</label>
+        <link refid="_hash_maps_8h"/>
+      </node>
+      <node id="5">
+        <label>Identifiers.h</label>
+        <link refid="_identifiers_8h"/>
+      </node>
+      <node id="4">
+        <label>ProjectInfo.h</label>
+        <link refid="_project_info_8h"/>
+      </node>
+      <node id="6">
+        <label>Text.h</label>
+        <link refid="_text_8h"/>
+      </node>
+      <node id="2">
+        <label>JuceHeader.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>Main.cpp</label>
+        <link refid="_main_8cpp"/>
+      </node>
+      <node id="3">
+        <label>Manifest.cpp</label>
+        <link refid="_manifest_8cpp"/>
+      </node>
+      <node id="1">
+        <label>Manifest.h</label>
+        <link refid="_manifest_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_manifest" prot="public">Manifest</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;JuceHeader.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_generated_8h" kindref="compound">generated/Generated.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_l_i_n_g_model_8h" kindref="compound">LINGModel.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15" refid="class_manifest" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_manifest_1a16ddfc76a23f8dae673d0a8f08e41ef1" kindref="member">Manifest</ref><sp/>:<sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1ValueTree_1_1Listener" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree::Listener</ref></highlight></codeline>
+<codeline lineno="16"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="class_manifest_1a16ddfc76a23f8dae673d0a8f08e41ef1" kindref="member">Manifest</ref><sp/>(<ref refid="class_l_i_n_g_model" kindref="compound">LINGModel</ref>&amp;<sp/>newModel);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_manifest_1a16ddfc76a23f8dae673d0a8f08e41ef1" kindref="member">~Manifest</ref>()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_manifest_1a86e078d9418d29915919effe785bb14a" kindref="member">valueTreePropertyChanged</ref><sp/>(<ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref>&amp;<sp/>tree,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1Identifier" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref>&amp;<sp/>property)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_manifest_1a64ee33ff76020fa298b43994752e5200" kindref="member">addJob</ref>();</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_manifest_1af7d5949981f9b11ec9b40ff8c29a9c17" kindref="member">setFiles</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref>&amp;<sp/><ref refid="namespacefiles" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">files</ref>,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>timeout);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_manifest_1a52fb4543112732ccd3b5618c5665b01f" kindref="member">getTimeout</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1ConfigDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::ConfigDocument</ref>&amp;<sp/>manifest);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68" refid="class_manifest_1ad9ba3fd686009e0c081e691f7058d292" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_manifest_1ad9ba3fd686009e0c081e691f7058d292" kindref="member">threadCount</ref><sp/>{<sp/>1<sp/>};</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71" refid="class_manifest_1a87d745097f80d516fa1ebb90bfd89f47" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_l_i_n_g_model" kindref="compound">LINGModel</ref>&amp;<sp/><ref refid="class_manifest_1a87d745097f80d516fa1ebb90bfd89f47" kindref="member">model</ref>;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74" refid="class_manifest_1a87e7a005eb59055299b2515bd0fca245" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1ThreadPool" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ThreadPool</ref><sp/><ref refid="class_manifest_1a87e7a005eb59055299b2515bd0fca245" kindref="member">pool</ref><sp/>{<sp/><ref refid="classjuce_1_1ThreadPool_1aedc6466c1f70ff1fcaf782ebfc3b9cd7" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ThreadPool::Options</ref>{}.<ref refid="structjuce_1_1ThreadPoolOptions_1a421dca68201a06fac763021d0cfdb65c" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">withNumberOfThreads</ref><sp/>(<ref refid="class_manifest_1ad9ba3fd686009e0c081e691f7058d292" kindref="member">threadCount</ref>)<sp/>};</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="juce__PlatformDefs_8h_1a851b02724a8158a7f746c66b5758b3dd" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR</ref><sp/>(<ref refid="class_manifest" kindref="compound">Manifest</ref>)</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="Manifest.h"/>
+  </compounddef>
+</doxygen>

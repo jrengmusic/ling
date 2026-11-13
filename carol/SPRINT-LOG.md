@@ -114,6 +114,66 @@
 <!-- The entry format is in /log (commands/log.md). It is the only source. -->
 <!-- Sprint entries go here, written by PRIMARY agents -->
 
+## Sprint 9: LING Part 8, the shared daemon: lock-free, no wait, no pending request ✅
+
+**Date:** 2026-11-13
+**Duration:** not measured. The sprint ran over two sessions (one compaction).
+
+### Agents Participated
+- COUNSELOR — executed `PLAN-ling-8-daemon.md` Steps 1-6. Updated the PLAN on ARCHITECT's "update the plan" (designs C1-C6). Validated each Engineer return by its own reads. Filtered the 34 Auditor findings and the 4 findings of the doxygen pass. Made the trivial fixes: the empty argument (F4), one spacing fix, one doxygen `@param` fix.
+- Pathfinder — discovery reads and the doxygen pass, with one follow-up.
+- Engineer — Steps 1-6 and the accepted audit fixes.
+- Auditor — one pass over the sprint. It reported 34 findings.
+
+### Files Modified (about 40 total)
+**jam:**
+- `jam_subprocess/subprocess/jam_ChildProcess.h:44-59` — `start` takes `const jam::Strings&`. New `static bool startDetached (const jam::Strings&)`.
+- `native/jam_ChildProcess_posix.cpp` — file-static `getArgumentBytes` and `getArgumentPointers`, shared by `Native` and `startDetached`. `startDetached` uses `posix_spawn` with `POSIX_SPAWN_SETSID` and `/dev/null`. An empty argument is no longer dropped (F4, MANIFESTO B Guard Rule; `jam_Array.h:494` already accepts a count of zero).
+- `native/jam_ChildProcess_windows.cpp` — file-static `getCommandLine`, shared by `start` and `startDetached`. `startDetached` uses `CreateProcessW` with `DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP | CREATE_UNICODE_ENVIRONMENT | CREATE_BREAKAWAY_FROM_JOB`. `getQuotedArgument` quotes an empty argument as `""` (F4).
+- `jam_subprocess/.../jam_Subprocess.h`, `.cpp` — `launch` and `Worker` take `jam::Strings`. `Chars::carriageReturn` at `.cpp:155`.
+- `jam_core/text/jam_Format.h:412`, `.cpp:374-382` — `appendHex (std::string&, std::uint64_t)` with `std::to_chars`.
+
+**scout, cast:**
+- `scout/Source/Toolchain.cpp:21`, `scout/Source/Benchmark.cpp:110`, `cast/Source/Toolchain.cpp:21` — callers pass `jam::Strings { ... }`.
+
+**ling:**
+- `Source/Manifest.h`, `.cpp` (new) — the manifest read on a one-thread pool: parse, validate, `getTimeout`, `CompilerManifest::getFiles`, then `callAsync` to `setFiles`, which writes `Id::timeout` and replaces `FILES`. The `ninja` wait never runs on the message thread (C1, audit #31 split out of `Processor`).
+- `Source/Processor.h`, `.cpp` — a `REQUEST` row runs at once. The pending-request scan and `valueTreeChildRemoved` are deleted. A reload erases only the documents whose path has no row in the new `FILES` row (C2).
+- `Source/LINGModel.h`, `.cpp` — `FILES` and `CONNECTIONS` rows, `Id::timeout`, `defaultTimeoutMs`, `coalesceMs`, `getDaemonName` (Wyhash hex of path, newline, toolchain argument), `getCacheDirectory`. The `Id::manifest` reaction only adds the watcher folder. The watcher covers each compiler manifest and dependency record; `fileChanged` sends `Id::manifest` for them.
+- `Source/Server.h`, `.cpp` (new) — `InterprocessConnectionServer` with no lock: `createConnectionObject` hands ownership to the message thread through `callAsync`. The port file and the timer start at the first `Id::documents`. Each `REQUEST` restarts the timer. The `message` attachment sends each overlay message to every connection as a JSON string (audit #4).
+- `Source/Connection.h`, `.cpp` (new) — one connection row; a message `[operation, folder, args...]` becomes a `REQUEST` row with `Id::directory` (C4). The result goes back and the row is removed in the same event. `connectionLost` removes the object from its owner.
+- `Source/Client.h`, `.cpp` (new) — no timer (C6). Connect, or `startDetached` the daemon; the port file event connects; `connectionMade` sends; a reply that starts with `"` sets the message, any other reply prints and quits; `connectionLost` gives `failDaemonLost`.
+- `Source/CompilerManifest.h`, `.cpp` — `getDependencyArguments` returns `jam::Strings`. The compiler manifest and record paths are appended to `Id::compilerManifests` and `Id::dependencyRecords`.
+- `Source/Validator.h`, `.cpp:27-47` — the `daemon` rule with `failDaemonTimeout`.
+- `Source/Main.cpp` — `runDaemon` (`InterProcessLock` `enter (0)`, then processor, manifest, server), `runOperation` (the client). `model.addListener` only in the manifest run. The in-process request path is deleted.
+- `Source/HELP.md` — the daemon row and the re-padded table.
+- `cast/files.md` (`lingCache`, `lingLocalCache`, `lingPort`), `cast/text.md` (`failDaemonStart`, `failDaemonLost`, `failDaemonTimeout`), `cast/c_language.md` (`dependencyRecord`), `cast/identifiers.md` (`compilerManifests`, `connection`, `connections`, `daemon`, `dependencyRecords`, `timeout`).
+- `PLAN-ling-8-daemon.md` — "The update of 2026-11-13" (C1-C6), the renumbered Steps, Step 7 items, the Names table, Risks, and the audit text for #6, #13, #14, #26. `PLAN-ling-0-tracker.md:26` — Part 8 status.
+
+### Alignment Check
+- [x] BLESSED principles followed. No lock and no wait in LING code on the message thread.
+- [x] NAMES.md adhered. Every new name is in the PLAN-8 Names table with its family.
+- [x] MANIFESTO.md principles applied
+
+### Problems Solved
+- **The locked PLAN broke lock-free, no wait, event driven.** ARCHITECT: "i thought the whole contract is lock-free at hot path, no wait, fully event driven?" and "why Processor wait?". The update removes `connectionsLock`, the pending request, the `ninja` wait on the message thread, and the client timer ("why wait? not event?").
+- **Auditor findings.** Resolved: #1, #2/#10, #3, #4, #7, #11, #12, #21, #23, #26 (`Client::message` renamed `request`), #29, #31 (the `Manifest` split), #34. PLAN text: #6, #13, #14, #26. The others were rejected with reads. ARCHITECT received each one in chat.
+- **Doxygen pass findings.** F4 accepted and fixed (above). F1 rejected: paths are appended only for an existing compiler manifest (`CompilerManifest.cpp:71-75`) or after `ninja` exits 0 (`:155-162`). F2 rejected: after `connectionLost` JUCE touches only the shared `SafeAction` (`juce_InterprocessConnection.cpp:54-60`, `:269-275`). F3 rejected: `ParameterText::setValue` runs on any thread (PLAN C1). Two blocks were corrected (`startDetached` "This object", `Manifest::addJob` "compiler commands"). `Main.cpp` keeps its blocks, because `Application` has no header.
+- **Doxygen warning.** `Main.cpp:442` `@param tree` named an unnamed parameter. The line is deleted.
+
+### State for Continuation
+- ARCHITECT ran cast in `ling/`: `Source/generated/` holds the Step 2 rows (`Files.h:33`, `Text.h:41`, `Identifiers.h:40`). The LING doxygen run reported one warning, `Main.cpp` `@param tree`, now fixed.
+- Step 7 items 2-11 (the runtime checks) and Step 8 (Windows) are ARCHITECT's. No result is reported in this session.
+- The clangd index for JAM is stale: `startDetached` and `appendHex` are not found. Reopen JAM in nvim before an LSP check.
+- PLAN-8 Risks hold the known facts: `connectToSocket` and `sendMessage` are synchronous in JUCE; a daemon message reaches every client; a client waits until Ctrl-C if the daemon dies before its port file; the C2 erase costs documents × rows per reload; the `Manifest` pool destructor waits for `ninja`.
+- Step 2 markdown backups are in the scratchpad `bak/` folder only.
+
+### Debts Paid
+- None
+
+### Debts Deferred
+- Step 8, the Windows build and run (`PLAN-ling-8-daemon.md`, Step 8). It is ARCHITECT's (ruling 78). No `DEBT.md` entry exists.
+
 ## Sprint 8: LING Part 7, the lookups across the documents and the nine operations ✅
 
 **Date:** 2026-11-13
@@ -308,62 +368,6 @@
 
 ### Debts Deferred
 - None
-
-## Sprint 4: LING Part 4, `CLanguageDocument`: tokens and the declaration tree ✅
-
-**Date:** 2026-11-11
-**Duration:** not measured. The sprint is one session.
-
-### Agents Participated
-- COUNSELOR — executed `PLAN-ling-4-language-document.md` Steps 1-8. Validated each Engineer return by its own reads. Filtered the 32 Auditor findings. Made small fixes in `Main.cpp`, `text.md`, `HELP.md`, and the PLAN.
-- Pathfinder — discovery reads, the doxygen pass, and the Step 9 runs of `ling`.
-- Engineer — Steps 1-3, Steps 4-6 (the walk), Steps 7-8, the audit corrections, and the clamp and name corrections.
-- Auditor — one pass over Steps 1-8. It reported 32 findings.
-
-### Files Modified (20 total)
-**jam:**
-- `cast/syntax_tree.md` — `## SyntaxTokenType` rows 5-19 (`identifier` to `macro`). `## CppKeyword` row `tokenDefine` 96. Row `import` renamed `tokenImport` (NAMES Rule 5). Both table briefs rewritten.
-- `generated/jam_SyntaxTree.h` — cast output only.
-- `user-modules-info.md` — four `jam_syntax_tree` submodule rows for `jam_CLanguageDocument` and `jam_CLanguageValidator`.
-- `jam_syntax_tree/jam_syntax_tree.h`, `.cpp` — cast added the include lines.
-- `jam_syntax_tree/document/jam_CodeDocument.h`, `.cpp` — `tokens` and `family` are `protected`. A keyword token holds its key under `Id::key`, and any other word is an `identifier` token (`.cpp:169-178`). A punctuation token is one byte (`.cpp:122-128`). `parse` takes `std::string_view codeText` (ruling 50).
-- `jam_syntax_tree/document/jam_CLanguageDocument.h`, `.cpp` (new) — `parse (std::string_view)`. `build()` runs the statement walk through `statementConstruction` and `punctuationConstruction`. Lookups `declarationTypes` (ruling 80), `scopeTypes`, `depthChanges`, `comparisonPrefixes`, and `declaratorBytes`. `addElement` is the only writer of `Id::type` and `Id::name`.
-- `jam_syntax_tree/document/jam_CLanguageValidator.h`, `.cpp` (new) — the rules `Id::type` and `Id::name` (ruling 31), in the `XmlValidator` form.
-- `jam_core/document/jam_Document.h`, `.cpp:290-293` — `getColumnNumber`. The bare `addChild` comment is now a doxygen block.
-
-**ling:**
-- `Source/Main.cpp` — `runDocument`, `runDocumentNotFound`, `getDocumentFile`, and `postFlagArgIndex`. The file branch prints `<path>:<line>:<column>: <type> <name>`.
-- `cast/text.md` — row `failNotFound`.
-- `Source/HELP.md` — rows for `ling <file>`, the rule failure, `ling <missing>`, and `ling <file> <other>`.
-- `PLAN-ling-4-language-document.md` — the executed names in the Names table, `addBlock` and `addExtern` in The walk, the Declarations item 8 audit correction, the Step 8 validation, and the Risks line on `define`.
-
-### Alignment Check
-- [x] BLESSED principles followed
-- [x] NAMES.md adhered. The PLAN Names table records each new name with its family.
-- [x] MANIFESTO.md principles applied
-- [ ] MANIFESTO L: `jam_CLanguageDocument.cpp` holds about 660 lines. The type has one responsibility (PLAN Language Constraints). `getStatementConstruction` is 32 lines: it is one table.
-
-### Problems Solved
-- **`Token` is not copyable.** Its properties are a `jam::Array` (`jam_Array.h:895`). `build()` moves the tokens into the work array. `getNameTokens` builds each token from `span`.
-- **The PLAN text of item 8 took a member initializer block as the body.** A `{` after an identifier or `>` is now an initializer. The PLAN records this correction.
-- **Auditor findings.** 14, 15, 17, 19, 24, 25, 26, 29 and 31 are resolved. 12 is resolved in the PLAN text. 16, 18, 20, 21, 27 and 30 are partly resolved. 1-11 are rejected: the code follows PLAN Declarations items 1-9 and The walk table. 13, 22, 23 and 28 are rejected with reads. 32 is no finding. ARCHITECT received each one in chat.
-- **Two of my rejections were wrong**, found when I read the contract again. Finding 27 broke CODING.md:1072, so I re-delegated with each local name verbatim. Finding 16 broke MANIFESTO.md:184, so I added `getNextPosition`.
-- **`runDocumentNotFound` had a parameter it did not use.** My spec caused it. The parameter is removed.
-- **`juce::ScopedJuceInitialiser_GUI` in `runDocument`** is removed. My stated cause was wrong. `JUCE v8.0.14` goes to stderr, and it still appears there.
-- Verification by ARCHITECT and Pathfinder: LING builds, "ling 0.1.0 (4139530)". Step 9 items 2-5 pass. The two `SessionView.cpp` outputs are equal (`cmp` 0, 48 lines each). Stdout holds only declaration rows.
-
-### State for Continuation
-- Part 5 is next (tracker `PLAN-ling-0-tracker.md`). The tracker row for Part 4 does not say Done yet.
-- The JAM doxygen XML is stale until ARCHITECT runs `<leader>bd`. The warning count is not measured.
-- COUNSELOR has not read these doxygen blocks against the code: `jam_CLanguageValidator.h`, the two `jam_Document.h` blocks, the `jam_CodeDocument.h` blocks, and the two `syntax_tree.md` briefs.
-- The Step 9 output has rows from Auditor findings 1, 2 and 8: `->` targets, the `(` inside `<...>`, and an unnamed parameter named by its type. They follow the PLAN rules, and a change is a change to the PLAN.
-- `JUCE v8.0.14` is written to stderr on each `ling <file>` run. Its source is not read.
-
-### Debts Paid
-- None
-
-### Debts Deferred
-- Step 10, the Windows build and runs (`PLAN-ling-4-language-document.md`, Step 10). ARCHITECT: "windows deferred". No `DEBT.md` entry exists.
 
 ---
 

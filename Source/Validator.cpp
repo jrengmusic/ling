@@ -23,6 +23,28 @@ void Validator::addRules (Rules& rules)
 
             return getFailures (failures);
         });
+
+    rules.add (Id::daemon.toString(),
+        [] (const juce::String&, const jam::Document& document) -> juce::Result
+        {
+            const auto& config { static_cast<const jam::ConfigDocument&> (document) };
+            jam::Strings failures;
+
+            for (const auto* table : config.getTables (Id::daemon))
+            {
+                if (const auto* row { config.getTableRow (*table, Id::timeout) }; row != nullptr)
+                {
+                    const auto value { config.getTableValue (*row, Id::value) };
+
+                    if (juce::String (value.getIntValue()).compare (value) != 0 or value.getIntValue() <= 0)
+                        failures.add (getLocation (*table, *row, Id::value.toString())
+                                      + Id::diagnosticSeparator
+                                      + text::Diagnostics::failDaemonTimeout);
+                }
+            }
+
+            return getFailures (failures);
+        });
 }
 
 const Validator::Rules& Validator::getRules() const

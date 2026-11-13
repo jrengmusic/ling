@@ -469,23 +469,26 @@ void Processor::valueTreeChildAdded (juce::ValueTree&, juce::ValueTree& childWhi
 {
     if (childWhichHasBeenAdded.hasType (jam::Format::toType (Id::files)))
     {
+        for (auto entry { documents.begin() }; entry != documents.end();)
+        {
+            const auto& [pathIndex, document] { *entry };
+
+            if (childWhichHasBeenAdded.getChildWithProperty (Id::path, paths.at (pathIndex)).isValid())
+                ++entry;
+            else
+                entry = documents.erase (entry);
+        }
+
         for (int rowIndex { 0 }; rowIndex < childWhichHasBeenAdded.getNumChildren(); ++rowIndex)
             addJob (childWhichHasBeenAdded.getChild (rowIndex), rowIndex);
 
         if (pendingJobs == 0)
             setDocuments();
     }
-    else if (childWhichHasBeenAdded.hasType (jam::Format::toType (Id::request)) and pendingJobs == 0 and model.state.hasProperty (Id::documents))
+    else if (childWhichHasBeenAdded.hasType (jam::Format::toType (Id::request)))
     {
         runRequest (childWhichHasBeenAdded);
     }
-}
-
-void Processor::valueTreeChildRemoved (juce::ValueTree&, juce::ValueTree& childWhichHasBeenRemoved, int)
-{
-    if (childWhichHasBeenRemoved.hasType (jam::Format::toType (Id::files)))
-        for (const auto& row : childWhichHasBeenRemoved)
-            documents.erase (paths.indexOf (row[Id::path].toString(), false, 0));
 }
 
 void Processor::valueTreePropertyChanged (juce::ValueTree& tree, const juce::Identifier& property)
@@ -553,12 +556,4 @@ void Processor::setDocuments()
         model.state.sendPropertyChangeMessage (Id::documents);
     else
         model.state.setProperty (Id::documents, count, nullptr);
-
-    for (int index { model.state.getNumChildren() - 1 }; index >= 0; --index)
-    {
-        auto request { model.state.getChild (index) };
-
-        if (request.hasType (jam::Format::toType (Id::request)) and not request.hasProperty (Id::result))
-            runRequest (request);
-    }
 }

@@ -19,8 +19,13 @@
 | @id  | arguments            | `arguments`            |             |
 | @id  | children             | `children`             |             |
 | @id  | column               | `column`               |             |
+| @id  | compilerManifests    | `compilerManifests`    |             |
+| @id  | connection           | `connection`           |             |
+| @id  | connections          | `connections`          |             |
+| @id  | daemon               | `daemon`               |             |
 | @id  | declarations         | `declarations`         |             |
 | @id  | dependencies         | `dependencies`         |             |
+| @id  | dependencyRecords    | `dependencyRecords`    |             |
 | @id  | documents            | `documents`            |             |
 | @id  | documentSymbol       | `documentSymbol`       |             |
 | @id  | family               | `family`               |             |
@@ -41,6 +46,7 @@
 | @id  | request              | `request`              |             |
 | @id  | result               | `result`               |             |
 | @id  | scope                | `scope`                |             |
+| @id  | timeout              | `timeout`              |             |
 | @id  | toolchain            | `toolchain`            |             |
 | @id  | toolchainArgument    | `toolchainArgument`    |             |
 | @id  | workspaceSymbol      | `workspaceSymbol`      |             |

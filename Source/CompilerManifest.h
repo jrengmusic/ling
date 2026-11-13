@@ -54,8 +54,10 @@ private:
     /**
      * @brief Adds a file row for each unit of the compiler manifest in the build folder of the row.
      *
-     * A row whose flag names no build folder adds nothing. A missing compiler
-     * manifest, or one whose root is not an array, sets the message.
+     * A row whose flag names no build folder adds nothing. When the compiler
+     * manifest exists, its path joins the compiler manifests of the files child
+     * before the file is parsed. A missing compiler manifest, or one whose root is
+     * not an array, sets the message.
      *
      * @param model     The model that receives the failure messages.
      * @param files     The files child that receives the rows.
@@ -92,8 +94,10 @@ private:
      * @brief Runs the dependency command of a row, and adds the records that it prints.
      *
      * The command runs in the folder of the manifest, and its output is read as
-     * the record. The call waits for the process to end. A nonzero exit sets the
-     * message, and no record is added.
+     * the record. The call waits for the process to end. A zero exit adds the
+     * records, and the path of the record file in the build folder joins the
+     * dependency records of the files child. A nonzero exit sets the message, and
+     * no record is added.
      *
      * @param model     The model that receives the failure messages.
      * @param files     The files child that receives the rows.
@@ -110,7 +114,7 @@ private:
      * @param flagArguments  The arguments of the flag of the row.
      * @return The argument list of the process.
      */
-    static juce::StringArray getDependencyArguments (const juce::String& command, const jam::Strings& flagArguments);
+    static jam::Strings getDependencyArguments (const juce::String& command, const jam::Strings& flagArguments);
 
     /**
      * @brief Adds the file rows and the dependency lists that a dependency record names.
