@@ -1,0 +1,1739 @@
+```head
+#include "jam_LanguageInterface.h"
+#include <algorithm>
+#include <array>
+#include <cassert>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <filesystem>
+#include <iterator>
+#include <memory>
+#include <string>
+#include <string_view>
+#include <unordered_map>
+#include <vector>
+
+#if defined (_WIN32)
+#if not defined (NOMINMAX)
+#define NOMINMAX
+#endif
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#else
+#include <dlfcn.h>
+#endif
+
+namespace jam
+{
+
+```
+```lookup-table
+template <typename Key, typename Value, int Capacity>
+struct LookupTable
+{
+    struct Entry
+    {
+        Key key;
+        Value value;
+    };
+
+    constexpr LookupTable (std::initializer_list<Entry> entries) noexcept
+        : defaultValue { entries.begin()->value }
+    {
+        for (auto& slot : slots)
+            slot = defaultValue;
+
+        for (const auto& entry : entries)
+            slots.at (static_cast<std::size_t> (entry.key)) = entry.value;
+    }
+
+    constexpr Value operator[] (Key key) const noexcept
+    {
+        return static_cast<std::size_t> (key) < static_cast<std::size_t> (Capacity) ? slots.at (static_cast<std::size_t> (key)) : defaultValue;
+    }
+
+    constexpr const Value* data() const noexcept
+    {
+        return slots.data();
+    }
+
+    Value defaultValue;
+    std::array<Value, static_cast<std::size_t> (Capacity)> slots {};
+};
+
+```
+```types
+using Token = LanguageToken;
+using Tokens = std::vector<Token>;
+using Elements = std::vector<int>;
+
+struct Element
+{
+    int parent;
+    int type;
+    Tokens name;
+    Elements children;
+    bool isMember;
+};
+
+```
+```namespace
+namespace :::name:::
+{
+:::[list]:::
+:::[list]:::
+}
+
+```
+```key-constant
+static constexpr int :::name::: { :::key::: };
+```
+```value-constant
+static constexpr int :::name::: { :::value::: };
+```
+```char
+static constexpr const char* const :::name::: { :::value::: };
+```
+```libclang
+static constexpr int platformNone { 0 };
+static constexpr int platformMac { 1 };
+static constexpr int platformWindows { 2 };
+
+#if defined (_WIN32)
+static constexpr int currentPlatform { platformWindows };
+using LibraryHandle = HMODULE;
+#elif defined (__APPLE__)
+static constexpr int currentPlatform { platformMac };
+using LibraryHandle = void*;
+#else
+static constexpr int currentPlatform { platformNone };
+using LibraryHandle = void*;
+#endif
+
+static LibraryHandle openLibrary (const char* path)
+{
+#if defined (_WIN32)
+    return LoadLibraryA (path);
+#else
+    return dlopen (path, RTLD_NOW | RTLD_LOCAL);
+#endif
+}
+
+static void closeLibrary (LibraryHandle library)
+{
+#if defined (_WIN32)
+    FreeLibrary (library);
+#else
+    dlclose (library);
+#endif
+}
+
+template <typename Function>
+static Function getFunction (LibraryHandle library, const char* name)
+{
+    Function function { nullptr };
+
+    if (library != nullptr)
+    {
+#if defined (_WIN32)
+        function = reinterpret_cast<Function> (GetProcAddress (library, name));
+#else
+        function = reinterpret_cast<Function> (dlsym (library, name));
+#endif
+    }
+
+    return function;
+}
+
+static FILE* openPipe (const char* command)
+{
+#if defined (_WIN32)
+    return _popen (command, ToolchainWord::pipeReadMode);
+#else
+    return popen (command, ToolchainWord::pipeReadMode);
+#endif
+}
+
+static void closePipe (FILE* pipe)
+{
+#if defined (_WIN32)
+    _pclose (pipe);
+#else
+    pclose (pipe);
+#endif
+}
+
+using CXFile = void*;
+using CXIndex = void*;
+using CXIndexAction = void*;
+using CXClientData = void*;
+using CXIdxClientFile = void*;
+using CXIdxClientContainer = void*;
+using CXIdxClientASTFile = void*;
+using CXDiagnosticSet = void*;
+using CXTranslationUnit = void*;
+
+struct CXString
+{
+    const void* data;
+    unsigned privateFlags;
+};
+
+struct CXCursor
+{
+    int kind;
+    int xdata;
+    const void* data[3];
+};
+
+struct CXIdxLoc
+{
+    void* ptrData[2];
+    unsigned intData;
+};
+
+struct CXIdxEntityInfo
+{
+    int kind;
+    int templateKind;
+    int lang;
+    const char* name;
+    const char* USR;
+    CXCursor cursor;
+    const void* const* attributes;
+    unsigned numAttributes;
+};
+
+struct CXIdxDeclInfo
+{
+    const CXIdxEntityInfo* entityInfo;
+    CXCursor cursor;
+    CXIdxLoc loc;
+    const void* semanticContainer;
+    const void* lexicalContainer;
+    int isRedeclaration;
+    int isDefinition;
+    int isContainer;
+    const void* declAsContainer;
+    int isImplicit;
+    const void* const* attributes;
+    unsigned numAttributes;
+    unsigned flags;
+};
+
+struct CXIdxBaseClassInfo
+{
+    const CXIdxEntityInfo* base;
+    CXCursor cursor;
+    CXIdxLoc loc;
+};
+
+struct CXIdxCXXClassDeclInfo
+{
+    const CXIdxDeclInfo* declInfo;
+    const CXIdxBaseClassInfo* const* bases;
+    unsigned numBases;
+};
+
+enum CXSymbolRole
+{
+    CXSymbolRole_None = 0,
+    CXSymbolRole_Declaration = 1 << 0,
+    CXSymbolRole_Definition = 1 << 1,
+    CXSymbolRole_Reference = 1 << 2,
+    CXSymbolRole_Read = 1 << 3,
+    CXSymbolRole_Write = 1 << 4,
+    CXSymbolRole_Call = 1 << 5,
+    CXSymbolRole_Dynamic = 1 << 6,
+    CXSymbolRole_AddressOf = 1 << 7,
+    CXSymbolRole_Implicit = 1 << 8
+};
+
+struct CXIdxEntityRefInfo
+{
+    int kind;
+    CXCursor cursor;
+    CXIdxLoc loc;
+    const CXIdxEntityInfo* referencedEntity;
+    const CXIdxEntityInfo* parentEntity;
+    const void* container;
+    CXSymbolRole role;
+};
+
+enum CXIndexOptFlags
+{
+    CXIndexOpt_None = 0x0,
+    CXIndexOpt_SuppressRedundantRefs = 0x1,
+    CXIndexOpt_IndexFunctionLocalSymbols = 0x2,
+    CXIndexOpt_IndexImplicitTemplateInstantiations = 0x4,
+    CXIndexOpt_SuppressWarnings = 0x8,
+    CXIndexOpt_SkipParsedBodiesInSession = 0x10
+};
+
+struct IndexerCallbacks
+{
+    int (*abortQuery) (CXClientData clientData, void* reserved);
+    void (*diagnostic) (CXClientData clientData, CXDiagnosticSet diagnostics, void* reserved);
+    CXIdxClientFile (*enteredMainFile) (CXClientData clientData, CXFile mainFile, void* reserved);
+    CXIdxClientFile (*ppIncludedFile) (CXClientData clientData, const void* includedFile);
+    CXIdxClientASTFile (*importedASTFile) (CXClientData clientData, const void* importedFile);
+    CXIdxClientContainer (*startedTranslationUnit) (CXClientData clientData, void* reserved);
+    void (*indexDeclaration) (CXClientData clientData, const CXIdxDeclInfo* declaration);
+    void (*indexEntityReference) (CXClientData clientData, const CXIdxEntityRefInfo* reference);
+};
+
+static constexpr unsigned indexOptions { CXIndexOpt_IndexFunctionLocalSymbols };
+
+static constexpr LookupTable<int, int, CXSymbolRole_Call + 1> referenceRoles {
+    {
+        { CXSymbolRole_None, LanguageRole::reference },
+        { CXSymbolRole_Call, LanguageRole::reference | LanguageRole::call }
+    }
+};
+
+struct LibClang
+{
+    using CreateIndex = CXIndex (*) (int excludeDeclarationsFromPCH, int displayDiagnostics);
+    using CreateIndexAction = CXIndexAction (*) (CXIndex index);
+    using IndexSourceFileFullArgv = int (*) (CXIndexAction action, CXClientData clientData, IndexerCallbacks* callbacks, unsigned callbacksSize, unsigned options, const char* sourceFileName, const char* const* commandLineArguments, int commandLineArgumentCount, void* unsavedFiles, unsigned unsavedFileCount, CXTranslationUnit* translationUnit, unsigned translationUnitOptions);
+    using GetCXXClassDeclInfo = const CXIdxCXXClassDeclInfo* (*) (const CXIdxDeclInfo* declaration);
+    using GetFileLocation = void (*) (CXIdxLoc location, CXIdxClientFile* indexFile, CXFile* file, unsigned* line, unsigned* column, unsigned* offset);
+    using GetFileName = CXString (*) (CXFile file);
+    using GetCString = const char* (*) (CXString string);
+    using DisposeString = void (*) (CXString string);
+    using DisposeIndex = void (*) (CXIndex index);
+    using DisposeIndexAction = void (*) (CXIndexAction action);
+
+    explicit LibClang (const std::string& path)
+        : library { openLibrary (path.c_str()), closeLibrary },
+          createIndex { getFunction<CreateIndex> (library.get(), LibClangSymbol::createIndex) },
+          createIndexAction { getFunction<CreateIndexAction> (library.get(), LibClangSymbol::createIndexAction) },
+          indexSourceFileFullArgv { getFunction<IndexSourceFileFullArgv> (library.get(), LibClangSymbol::indexSourceFileFullArgv) },
+          getCXXClassDeclInfo { getFunction<GetCXXClassDeclInfo> (library.get(), LibClangSymbol::getCXXClassDeclInfo) },
+          getFileLocation { getFunction<GetFileLocation> (library.get(), LibClangSymbol::getFileLocation) },
+          getFileName { getFunction<GetFileName> (library.get(), LibClangSymbol::getFileName) },
+          getCString { getFunction<GetCString> (library.get(), LibClangSymbol::getCString) },
+          disposeString { getFunction<DisposeString> (library.get(), LibClangSymbol::disposeString) },
+          disposeIndex { getFunction<DisposeIndex> (library.get(), LibClangSymbol::disposeIndex) },
+          disposeIndexAction { getFunction<DisposeIndexAction> (library.get(), LibClangSymbol::disposeIndexAction) }
+    {
+    }
+
+    LibClang (const LibClang&) = delete;
+    LibClang& operator= (const LibClang&) = delete;
+
+    std::unique_ptr<std::remove_pointer_t<LibraryHandle>, void (*) (LibraryHandle)> library;
+    CreateIndex createIndex;
+    CreateIndexAction createIndexAction;
+    IndexSourceFileFullArgv indexSourceFileFullArgv;
+    GetCXXClassDeclInfo getCXXClassDeclInfo;
+    GetFileLocation getFileLocation;
+    GetFileName getFileName;
+    GetCString getCString;
+    DisposeString disposeString;
+    DisposeIndex disposeIndex;
+    DisposeIndexAction disposeIndexAction;
+};
+
+struct IndexContext
+{
+    const LibClang& libclang;
+    const LanguageCallbacks& callbacks;
+
+    void addSymbol (CXIdxLoc location, const char* symbol, int role) const
+    {
+        CXFile file { nullptr };
+        unsigned line { 0 };
+        unsigned column { 0 };
+
+        libclang.getFileLocation (location, nullptr, &file, &line, &column, nullptr);
+
+        if (file != nullptr and symbol != nullptr and *symbol != Chars::nullCharacter)
+        {
+            const auto path { libclang.getFileName (file) };
+
+            callbacks.addSymbol (callbacks.context, libclang.getCString (path), static_cast<int> (line), static_cast<int> (column), symbol, role);
+            libclang.disposeString (path);
+        }
+    }
+};
+
+```
+```keywords
+static constexpr const char* const keywords[] {
+:::[list]:::
+    nullptr
+};
+
+```
+```text-entry
+:::value:::,
+```
+```code
+static constexpr int byteCount { 256 };
+
+static constexpr LookupTable<int, int, byteCount> code {
+    {
+:::[list]:::
+    }
+};
+
+```
+```entry
+{ :::key:::, :::value::: },
+```
+```roles
+static constexpr LookupTable<int, int, map::SyntaxTokenType::base + 1> roles {
+    {
+:::[list]:::
+    }
+};
+
+```
+```role-entry
+{ :::key:::, :::declaration::: | :::member::: | :::function::: | :::classToken::: | :::constructor::: | :::reference::: | :::call::: | :::base::: },
+```
+```extensionPairs
+static constexpr const char* const extensionPairs[] {
+:::[list]:::
+    nullptr
+};
+
+```
+```extension-entry
+:::key:::, :::value:::,
+```
+```construction-entry
+{ :::key:::, :::construction::: },
+```
+```declaration-entry
+{ :::key:::, { :::functionType:::, :::staticFunctionType:::, :::variableType:::, :::staticVariableType::: } },
+```
+```document-open
+struct CLanguageDocument
+{
+    using Construction = int (*) (const int&, CLanguageDocument&, int, const Tokens&, int, int);
+
+    std::string_view source;
+    Tokens tokens;
+    LanguageCallbacks callbacks;
+    std::vector<Element> elements;
+
+```
+```document-private
+private:
+
+    static constexpr int invalidPosition { -1 };
+    static constexpr int indexFailure { 1 };
+    static constexpr int quoteLength { 1 };
+    static constexpr int qualifierLength { 3 };
+    static constexpr int accessSpecifierLength { 2 };
+    static constexpr int excludeDeclarationsFromPCH { 0 };
+    static constexpr int displayDiagnostics { 0 };
+    static constexpr unsigned unsavedFileCount { 0 };
+    static constexpr unsigned translationUnitOptions { 0 };
+    static constexpr int readBufferSize { 256 };
+
+```
+```document-close
+};
+
+```
+```build
+static int build (const char* source, int sourceSize, const LanguageToken* tokens, int tokenCount, const LanguageCallbacks& callbacks)
+{
+    CLanguageDocument document { std::string_view (source, static_cast<std::size_t> (sourceSize)), {}, callbacks, { Element { invalidPosition, map::SyntaxTokenType::namespaceToken, {}, {}, false } } };
+    Tokens codeTokens;
+
+    std::for_each (tokens, tokens + tokenCount,
+                   [&document, &codeTokens] (const Token& token)
+                   { (token.type == map::SyntaxTokenType::comment ? document.tokens : codeTokens).push_back (token); });
+
+    addStatements (document, 0, codeTokens, 0, static_cast<int> (codeTokens.size()));
+    addLocalLinks (document, 0);
+    return static_cast<int> (document.elements.size());
+}
+
+```
+```index
+static int index (const char* const* arguments, int argumentCount, const char* directory, const LanguageCallbacks& callbacks)
+{
+    assert (argumentCount > 0);
+
+    const auto installDirectory { getVersionInstallDirectory (getCommandOutput (getQuoted (arguments[0]) + static_cast<char> (Chars::space) + ToolchainWord::versionFlag)) };
+
+    if (not installDirectory.empty())
+    {
+        const LibClang libclang ((std::filesystem::path (installDirectory) / getLibraryPaths().at (currentPlatform)).string());
+        const std::initializer_list<const void*> symbols {
+            libclang.library.get(),
+            reinterpret_cast<const void*> (libclang.createIndex),
+            reinterpret_cast<const void*> (libclang.createIndexAction),
+            reinterpret_cast<const void*> (libclang.indexSourceFileFullArgv),
+            reinterpret_cast<const void*> (libclang.getCXXClassDeclInfo),
+            reinterpret_cast<const void*> (libclang.getFileLocation),
+            reinterpret_cast<const void*> (libclang.getFileName),
+            reinterpret_cast<const void*> (libclang.getCString),
+            reinterpret_cast<const void*> (libclang.disposeString),
+            reinterpret_cast<const void*> (libclang.disposeIndex),
+            reinterpret_cast<const void*> (libclang.disposeIndexAction)
+        };
+
+        if (std::all_of (symbols.begin(), symbols.end(), [] (const void* symbol) { return symbol != nullptr; }))
+        {
+            const std::unique_ptr<void, LibClang::DisposeIndex> indexHandle { libclang.createIndex (excludeDeclarationsFromPCH, displayDiagnostics), libclang.disposeIndex };
+            const std::unique_ptr<void, LibClang::DisposeIndexAction> action { libclang.createIndexAction (indexHandle.get()), libclang.disposeIndexAction };
+            const auto commandLine (getArguments (arguments, argumentCount, installDirectory, directory));
+            std::vector<const char*> commandLinePointers (commandLine.size());
+            IndexContext context { libclang, callbacks };
+            IndexerCallbacks indexerCallbacks {
+                [] (CXClientData clientData, void*)
+                {
+                    const auto& indexContext { *static_cast<const IndexContext*> (clientData) };
+
+                    return indexContext.callbacks.shouldExit (indexContext.callbacks.context);
+                },
+                nullptr, nullptr, nullptr, nullptr, nullptr, onDeclaration, onReference
+            };
+
+            std::transform (commandLine.begin(), commandLine.end(), commandLinePointers.begin(),
+                            [] (const std::string& argument) { return argument.c_str(); });
+
+            return libclang.indexSourceFileFullArgv (action.get(), &context, &indexerCallbacks, static_cast<unsigned> (sizeof (IndexerCallbacks)), indexOptions,
+                                                     nullptr, commandLinePointers.data(), static_cast<int> (commandLinePointers.size()),
+                                                     nullptr, unsavedFileCount, nullptr, translationUnitOptions);
+        }
+    }
+
+    return indexFailure;
+}
+
+```
+```isPunctuation
+static bool isPunctuation (std::string_view source, const Token& token, int byte)
+{
+    return token.type == map::SyntaxTokenType::punctuation
+           and static_cast<int> (source.at (token.start)) == byte;
+}
+
+```
+```isKeyword
+static bool isKeyword (const Token& token, int key)
+{
+    return token.type == map::SyntaxTokenType::keyword and token.key == key;
+}
+
+```
+```isSameName
+static bool isSameName (std::string_view source, const Token& name, const Token& otherName)
+{
+    return source.substr (name.start, name.end - name.start)
+               .compare (source.substr (otherName.start, otherName.end - otherName.start))
+           == 0;
+}
+
+```
+```isMemberAccess
+static bool isMemberAccess (std::string_view source, const Tokens& tokens, int namePosition)
+{
+    return (namePosition >= 1 and isPunctuation (source, tokens.at (namePosition - 1), Chars::dot))
+           or (namePosition >= 2 and isPunctuation (source, tokens.at (namePosition - 1), Chars::greaterThan)
+               and isPunctuation (source, tokens.at (namePosition - 2), Chars::dash));
+}
+
+```
+```isLocalReference
+static bool isLocalReference (const Element& reference)
+{
+    const auto type { reference.type };
+
+    return (type == map::SyntaxTokenType::reference or type == map::SyntaxTokenType::call or type == map::SyntaxTokenType::base)
+           and reference.name.size() == 1 and not reference.isMember;
+}
+
+```
+```isSingleColon
+static bool isSingleColon (std::string_view source, const Tokens& tokens, int index, int start, int end)
+{
+    return isPunctuation (source, tokens.at (index), Chars::colon)
+           and not (index > start and isPunctuation (source, tokens.at (index - 1), Chars::colon))
+           and not (index + 1 < end and isPunctuation (source, tokens.at (index + 1), Chars::colon));
+}
+
+```
+```isFunctionScope
+static bool isFunctionScope (const Element& scope)
+{
+    return getScopeType (scope) == map::SyntaxTokenType::function;
+}
+
+```
+```getScopeType
+static int getScopeType (const Element& scope)
+{
+    static constexpr LookupTable<int, int, map::SyntaxTokenType::macro + 1> scopeTypes {
+        {
+:::[list]:::
+        }
+    };
+
+    return scopeTypes[scope.type];
+}
+
+```
+```getDepthChange
+static int getDepthChange (std::string_view source, const Token& token)
+{
+    static constexpr LookupTable<int, int, Chars::closeBrace + 1> depthChanges {
+        {
+:::[list]:::
+        }
+    };
+
+    return token.type == map::SyntaxTokenType::punctuation ? depthChanges[source.at (token.start)] : 0;
+}
+
+```
+```getPreludeEnd
+static int getPreludeEnd (std::string_view source, const Tokens& tokens, int position, int end)
+{
+    int depth { 0 };
+
+    for (int index { position }; index < end; ++index)
+    {
+        const auto& token { tokens.at (index) };
+
+        if (depth == 0 and (isPunctuation (source, token, Chars::semicolon) or isPunctuation (source, token, Chars::openBrace)))
+            return index;
+
+        depth = std::max (0, depth + getDepthChange (source, token));
+    }
+
+    return end;
+}
+
+```
+```getBlockEnd
+static int getBlockEnd (std::string_view source, const Tokens& tokens, int blockStart, int end)
+{
+    int depth { 0 };
+
+    for (int index { blockStart }; index < end; ++index)
+    {
+        depth += getDepthChange (source, tokens.at (index));
+
+        if (depth == 0)
+            return index;
+    }
+
+    return end;
+}
+
+```
+```getBaseStart
+static int getBaseStart (std::string_view source, const Tokens& tokens, int start, int end)
+{
+    for (int index { start }; index < end; ++index)
+        if (isSingleColon (source, tokens, index, start, end))
+            return index;
+
+    return end;
+}
+
+```
+```getCandidateEnd
+static int getCandidateEnd (std::string_view source, const Tokens& tokens, int start, int end)
+{
+    int depth { 0 };
+
+    for (int index { start }; index < end; ++index)
+    {
+        if (depth == 0 and (isPunctuation (source, tokens.at (index), Chars::semicolon) or isSingleColon (source, tokens, index, start, end)))
+            return index;
+
+        depth += getDepthChange (source, tokens.at (index));
+    }
+
+    return end;
+}
+
+```
+```getNextPosition
+static int getNextPosition (int position, int end)
+{
+    return std::min (position + 1, end);
+}
+
+```
+```getStatementEnd
+static int getStatementEnd (std::string_view source, const Tokens& tokens, int position, int end)
+{
+    int statementEnd { getPreludeEnd (source, tokens, position, end) };
+
+    while (statementEnd < end and isPunctuation (source, tokens.at (statementEnd), Chars::openBrace))
+        statementEnd = getPreludeEnd (source, tokens, getBlockEnd (source, tokens, statementEnd, end) + 1, end);
+
+    return getNextPosition (statementEnd, end);
+}
+
+```
+```getStatementStart
+static int getStatementStart (std::string_view source, const Tokens& tokens, int candidateStart)
+{
+    if (candidateStart > 0 and isPunctuation (source, tokens.at (candidateStart - 1), Chars::greaterThan))
+    {
+        int depth { 0 };
+        int open { candidateStart };
+
+        do
+        {
+            --open;
+
+            if (isPunctuation (source, tokens.at (open), Chars::greaterThan)) ++depth;
+            if (isPunctuation (source, tokens.at (open), Chars::lessThan)) --depth;
+        }
+        while (open > 0 and depth > 0);
+
+        if (depth == 0 and open > 0 and isKeyword (tokens.at (open - 1), map::CppKeyword::tokenTemplate))
+            return getStatementStart (source, tokens, open - 1);
+    }
+
+    return candidateStart;
+}
+
+```
+```getLastIdentifierPosition
+static int getLastIdentifierPosition (const Tokens& tokens, int start, int end)
+{
+    for (int index { end - 1 }; index >= start; --index)
+        if (tokens.at (index).type == map::SyntaxTokenType::identifier)
+            return index;
+
+    return invalidPosition;
+}
+
+```
+```addStatements
+static void addStatements (CLanguageDocument& document, int scope, const Tokens& tokens, int start, int end)
+{
+    const auto source { document.source };
+    const auto& statementConstruction { getStatementConstruction() };
+    const auto& punctuationConstruction { getPunctuationConstruction() };
+    int position { start };
+
+    while (position < end)
+    {
+        const auto& token { tokens.at (position) };
+        const bool isKeywordToken { token.type == map::SyntaxTokenType::keyword };
+        const bool isPunctuationToken { token.type == map::SyntaxTokenType::punctuation };
+        const int key { isKeywordToken ? token.key
+                        : isPunctuationToken ? static_cast<int> (source.at (token.start))
+                        : token.type };
+
+        position = isKeywordToken ? statementConstruction[key] (key, document, scope, tokens, position, end)
+                   : isPunctuationToken ? punctuationConstruction[key] (key, document, scope, tokens, position, end)
+                   : addDeclaration (key, document, scope, tokens, position, end);
+    }
+}
+
+```
+```skipStatement
+static int skipStatement (const int&, CLanguageDocument& document, int scope, const Tokens& tokens, int position, int end)
+{
+    const auto statementEnd { getStatementEnd (document.source, tokens, position, end) };
+
+    addReferences (document, scope, tokens, position, statementEnd, map::SyntaxTokenType::reference);
+    return statementEnd;
+}
+
+```
+```skipTemplateParameters
+static int skipTemplateParameters (const int&, CLanguageDocument& document, int scope, const Tokens& tokens, int position, int end)
+{
+    const auto source { document.source };
+
+    if (position + 1 < end and isPunctuation (source, tokens.at (position + 1), Chars::lessThan))
+    {
+        int depth { 0 };
+
+        for (int index { position + 1 }; index < end; ++index)
+        {
+            if (isPunctuation (source, tokens.at (index), Chars::lessThan)) ++depth;
+            if (isPunctuation (source, tokens.at (index), Chars::greaterThan)) --depth;
+
+            if (depth == 0)
+            {
+                addReferences (document, scope, tokens, position + 1, index, map::SyntaxTokenType::reference);
+                return index + 1;
+            }
+        }
+
+        addReferences (document, scope, tokens, position + 1, end, map::SyntaxTokenType::reference);
+        return end;
+    }
+
+    return position + 1;
+}
+
+```
+```addBlock
+static int addBlock (const int&, CLanguageDocument& document, int scope, const Tokens& tokens, int position, int end)
+{
+    const auto blockEnd { getBlockEnd (document.source, tokens, position, end) };
+
+    if (isFunctionScope (document.elements.at (scope)))
+        addStatements (document, scope, tokens, position + 1, blockEnd);
+    else
+        addReferences (document, scope, tokens, position + 1, blockEnd, map::SyntaxTokenType::reference);
+
+    return getNextPosition (blockEnd, end);
+}
+
+```
+```addExtern
+static int addExtern (const int& key, CLanguageDocument& document, int scope, const Tokens& tokens, int position, int end)
+{
+    const auto source { document.source };
+
+    const auto linkage { position + 1 };
+    const auto blockStart { linkage + 1 };
+
+    if (blockStart < end and tokens.at (linkage).type == map::SyntaxTokenType::string
+        and isPunctuation (source, tokens.at (blockStart), Chars::openBrace))
+    {
+        const auto blockEnd { getBlockEnd (source, tokens, blockStart, end) };
+
+        addStatements (document, scope, tokens, blockStart + 1, blockEnd);
+        return getNextPosition (blockEnd, end);
+    }
+
+    return addDeclaration (key, document, scope, tokens, position, end);
+}
+
+```
+```addNamespace
+static int addNamespace (const int& key, CLanguageDocument& document, int scope, const Tokens& tokens, int position, int end)
+{
+    const auto source { document.source };
+    const auto preludeEnd { getPreludeEnd (source, tokens, position + 1, end) };
+
+    if (preludeEnd < end and isPunctuation (source, tokens.at (preludeEnd), Chars::openBrace))
+    {
+        auto namespaceScope { scope };
+
+        for (int index { position + 1 }; index < preludeEnd; ++index)
+        {
+            if (tokens.at (index).type == map::SyntaxTokenType::identifier)
+            {
+                namespaceScope = addElement (document, namespaceScope, getNameTokens (tokens, index, index), map::SyntaxTokenType::namespaceToken);
+                addComment (document, namespaceScope, tokens, position);
+            }
+        }
+
+        const auto blockEnd { getBlockEnd (source, tokens, preludeEnd, end) };
+
+        addStatements (document, namespaceScope, tokens, preludeEnd + 1, blockEnd);
+        return getNextPosition (blockEnd, end);
+    }
+
+    return skipStatement (key, document, scope, tokens, position, end);
+}
+
+```
+```addClass
+static int addClass (const int& key, CLanguageDocument& document, int scope, const Tokens& tokens, int position, int end)
+{
+    const auto source { document.source };
+    const auto preludeEnd { getPreludeEnd (source, tokens, position + 1, end) };
+
+    if (preludeEnd < end and isPunctuation (source, tokens.at (preludeEnd), Chars::openBrace))
+    {
+        const auto baseStart { getBaseStart (source, tokens, position + 1, preludeEnd) };
+        const auto namePosition { getLastIdentifierPosition (tokens, position + 1, baseStart) };
+        const auto blockEnd { getBlockEnd (source, tokens, preludeEnd, end) };
+        const int classType { key == map::CppKeyword::tokenClass ? map::SyntaxTokenType::classToken : map::SyntaxTokenType::structToken };
+
+        if (namePosition != invalidPosition)
+        {
+            const auto classElement { addElement (document, scope, getNameTokens (tokens, namePosition, namePosition), classType) };
+
+            addComment (document, classElement, tokens, position);
+            addReferences (document, classElement, tokens, position + 1, namePosition, map::SyntaxTokenType::reference);
+            addReferences (document, classElement, tokens, namePosition + 1, baseStart, map::SyntaxTokenType::reference);
+            addReferences (document, classElement, tokens, baseStart, preludeEnd, map::SyntaxTokenType::base);
+            addStatements (document, classElement, tokens, preludeEnd + 1, blockEnd);
+        }
+        else
+        {
+            addReferences (document, scope, tokens, baseStart, preludeEnd, map::SyntaxTokenType::base);
+            addReferences (document, scope, tokens, preludeEnd + 1, blockEnd, map::SyntaxTokenType::reference);
+        }
+
+        return skipStatement (key, document, scope, tokens, blockEnd + 1, end);
+    }
+
+    return skipStatement (key, document, scope, tokens, position, end);
+}
+
+```
+```addEnum
+static int addEnum (const int& key, CLanguageDocument& document, int scope, const Tokens& tokens, int position, int end)
+{
+    const auto source { document.source };
+    const auto preludeEnd { getPreludeEnd (source, tokens, position + 1, end) };
+
+    if (preludeEnd < end and isPunctuation (source, tokens.at (preludeEnd), Chars::openBrace))
+    {
+        const auto& first { tokens.at (position + 1) };
+        int nameIndex { position + 1 };
+
+        if (isKeyword (first, map::CppKeyword::tokenClass) or isKeyword (first, map::CppKeyword::tokenStruct))
+            ++nameIndex;
+
+        auto constantScope { scope };
+
+        if (nameIndex < preludeEnd and tokens.at (nameIndex).type == map::SyntaxTokenType::identifier)
+        {
+            constantScope = addElement (document, scope, getNameTokens (tokens, nameIndex, nameIndex), map::SyntaxTokenType::enumToken);
+            addComment (document, constantScope, tokens, position);
+        }
+
+        const auto blockEnd { getBlockEnd (source, tokens, preludeEnd, end) };
+
+        addReferences (document, constantScope, tokens, nameIndex + 1, preludeEnd, map::SyntaxTokenType::reference);
+        addEnumConstants (document, constantScope, tokens, preludeEnd + 1, blockEnd);
+        return skipStatement (key, document, scope, tokens, blockEnd + 1, end);
+    }
+
+    return skipStatement (key, document, scope, tokens, position, end);
+}
+
+```
+```addEnumConstants
+static void addEnumConstants (CLanguageDocument& document, int scope, const Tokens& tokens, int start, int end)
+{
+    const auto source { document.source };
+    int depth { 0 };
+    int referenceStart { start };
+
+    for (int index { start }; index < end; ++index)
+    {
+        const auto& token { tokens.at (index) };
+
+        if (depth == 0 and token.type == map::SyntaxTokenType::identifier
+            and (index == start or isPunctuation (source, tokens.at (index - 1), Chars::comma)))
+        {
+            addReferences (document, scope, tokens, referenceStart, index, map::SyntaxTokenType::reference);
+            addComment (document, addElement (document, scope, getNameTokens (tokens, index, index), map::SyntaxTokenType::enumConstant), tokens, index);
+            referenceStart = index + 1;
+        }
+
+        depth += getDepthChange (source, token);
+    }
+
+    addReferences (document, scope, tokens, referenceStart, end, map::SyntaxTokenType::reference);
+}
+
+```
+```addControl
+static int addControl (const int&, CLanguageDocument& document, int scope, const Tokens& tokens, int position, int end)
+{
+    const auto source { document.source };
+    int open { position + 1 };
+
+    while (open < end and not isPunctuation (source, tokens.at (open), Chars::openParen)
+           and not isPunctuation (source, tokens.at (open), Chars::semicolon)
+           and not isPunctuation (source, tokens.at (open), Chars::openBrace))
+        ++open;
+
+    if (open < end and isPunctuation (source, tokens.at (open), Chars::openParen))
+    {
+        const auto close { getBlockEnd (source, tokens, open, end) };
+        const auto candidateEnd { getCandidateEnd (source, tokens, open + 1, close) };
+
+        addReferences (document, scope, tokens, position + 1, open, map::SyntaxTokenType::reference);
+        addDeclarationCandidate (document, scope, tokens, open + 1, candidateEnd);
+        addReferences (document, scope, tokens, candidateEnd, close, map::SyntaxTokenType::reference);
+        return getNextPosition (close, end);
+    }
+
+    return position + 1;
+}
+
+```
+```addDirective
+static int addDirective (const int&, CLanguageDocument& document, int scope, const Tokens& tokens, int position, int end)
+{
+    const auto row { tokens.at (position).line };
+    int directiveEnd { position + 1 };
+
+    while (directiveEnd < end and tokens.at (directiveEnd).line == row)
+        ++directiveEnd;
+
+    const auto keywordPosition { position + 1 };
+    const auto macroPosition { keywordPosition + 1 };
+
+    if (macroPosition < directiveEnd and isKeyword (tokens.at (keywordPosition), map::CppKeyword::tokenDefine)
+        and tokens.at (macroPosition).type == map::SyntaxTokenType::identifier)
+        addComment (document, addElement (document, scope, getNameTokens (tokens, macroPosition, macroPosition), map::SyntaxTokenType::macro), tokens, position);
+
+    return directiveEnd;
+}
+
+```
+```addDeclaration
+static int addDeclaration (const int&, CLanguageDocument& document, int scope, const Tokens& tokens, int position, int end)
+{
+    const auto source { document.source };
+    const auto preludeEnd { getPreludeEnd (source, tokens, position, end) };
+    const auto element { addDeclarationCandidate (document, scope, tokens, position, preludeEnd) };
+
+    if (element != invalidPosition and isFunctionScope (document.elements.at (element)) and preludeEnd < end
+        and isPunctuation (source, tokens.at (preludeEnd), Chars::openBrace))
+    {
+        const auto bodyStart { getBodyStart (source, tokens, position, preludeEnd, end) };
+
+        if (bodyStart < end and isPunctuation (source, tokens.at (bodyStart), Chars::openBrace))
+        {
+            const auto blockEnd { getBlockEnd (source, tokens, bodyStart, end) };
+
+            addReferences (document, element, tokens, preludeEnd, bodyStart, map::SyntaxTokenType::reference);
+            addStatements (document, element, tokens, bodyStart + 1, blockEnd);
+            return getNextPosition (blockEnd, end);
+        }
+    }
+
+    const auto statementEnd { getStatementEnd (source, tokens, position, end) };
+
+    addReferences (document, getReferenceOwner (document, scope, element), tokens, preludeEnd, statementEnd, map::SyntaxTokenType::reference);
+
+    return statementEnd;
+}
+
+```
+```getBodyStart
+static int getBodyStart (std::string_view source, const Tokens& tokens, int position, int preludeEnd, int end)
+{
+    int depth { 0 };
+
+    for (int index { position }; index < preludeEnd; ++index)
+    {
+        if (depth == 0 and isSingleColon (source, tokens, index, position, preludeEnd))
+        {
+            int bodyStart { preludeEnd };
+
+            while (bodyStart < end and isPunctuation (source, tokens.at (bodyStart), Chars::openBrace)
+                   and (tokens.at (bodyStart - 1).type == map::SyntaxTokenType::identifier
+                        or isPunctuation (source, tokens.at (bodyStart - 1), Chars::greaterThan)))
+                bodyStart = getPreludeEnd (source, tokens, getBlockEnd (source, tokens, bodyStart, end) + 1, end);
+
+            return bodyStart;
+        }
+
+        depth += getDepthChange (source, tokens.at (index));
+    }
+
+    return preludeEnd;
+}
+
+```
+```addDeclarationCandidate
+static int addDeclarationCandidate (CLanguageDocument& document, int scope, const Tokens& tokens, int start, int end)
+{
+    const auto source { document.source };
+    const auto boundary { getBoundary (source, tokens, start, end) };
+    const auto namePosition { getNamePosition (tokens, start, boundary) };
+
+    if (namePosition != invalidPosition)
+    {
+        const auto qualifierStart { getQualifierStart (source, tokens, start, namePosition) };
+
+        const bool isFunctionShape { boundary < end and isPunctuation (source, tokens.at (boundary), Chars::openParen) };
+        const auto type { getDeclarationType (source, document.elements.at (scope), tokens, start, boundary, qualifierStart, namePosition, isFunctionShape) };
+
+        if (isDeclaration (source, tokens, start, qualifierStart)
+            or type == map::SyntaxTokenType::constructor or type == map::SyntaxTokenType::destructor)
+        {
+            const auto element { addElement (document, scope, getNameTokens (tokens, qualifierStart, namePosition), type) };
+
+            addComment (document, element, tokens, start);
+            addReferences (document, getReferenceOwner (document, scope, element), tokens, start, qualifierStart, map::SyntaxTokenType::reference);
+
+            addDeclarationContents (document, scope, element, tokens, namePosition, boundary, end, isFunctionShape, start);
+            return element;
+        }
+    }
+
+    addReferences (document, scope, tokens, start, end, map::SyntaxTokenType::reference);
+    return invalidPosition;
+}
+
+```
+```addDeclarationContents
+static void addDeclarationContents (CLanguageDocument& document, int scope, int element, const Tokens& tokens, int namePosition, int boundary, int end, bool isFunctionShape, int candidateStart)
+{
+    const auto owner { getReferenceOwner (document, scope, element) };
+
+    if (isFunctionShape)
+    {
+        const bool hasParameters { not isFunctionScope (document.elements.at (scope)) };
+        const auto close { hasParameters ? getBlockEnd (document.source, tokens, boundary, end) : boundary - 1 };
+
+        addReferences (document, owner, tokens, namePosition + 1, boundary, map::SyntaxTokenType::reference);
+
+        if (hasParameters)
+            addParameters (document, element, tokens, boundary, close);
+
+        addReferences (document, owner, tokens, close + 1, end, map::SyntaxTokenType::reference);
+    }
+    else
+    {
+        addDeclarators (document, scope, element, tokens, namePosition + 1, end, document.elements.at (element).type, candidateStart);
+    }
+}
+
+```
+```getReferenceOwner
+static int getReferenceOwner (const CLanguageDocument& document, int scope, int element)
+{
+    return element != invalidPosition and not isFunctionScope (document.elements.at (scope)) ? element : scope;
+}
+
+```
+```getBoundary
+static int getBoundary (std::string_view source, const Tokens& tokens, int start, int end)
+{
+    static constexpr LookupTable<int, bool, Chars::greaterThan + 1> comparisonPrefixes {
+        {
+:::[list]:::
+        }
+    };
+
+    if (start + 1 < end and isPunctuation (source, tokens.at (start), Chars::openBracket) and isPunctuation (source, tokens.at (start + 1), Chars::openBracket))
+        return getBoundary (source, tokens, std::min (getBlockEnd (source, tokens, start, end) + 1, end), end);
+
+    int angleDepth { 0 };
+
+    for (int index { start }; index < end; ++index)
+    {
+        const auto& token { tokens.at (index) };
+        const bool hasPreviousOperator { index > start
+                                         and ((tokens.at (index - 1).type == map::SyntaxTokenType::punctuation
+                                               and comparisonPrefixes[source.at (tokens.at (index - 1).start)])
+                                              or isKeyword (tokens.at (index - 1), map::CppKeyword::tokenOperator)) };
+        const bool hasNextEquals { index + 1 < end and isPunctuation (source, tokens.at (index + 1), Chars::equals) };
+
+        if (index > start and isPunctuation (source, token, Chars::lessThan) and tokens.at (index - 1).type == map::SyntaxTokenType::identifier)
+            ++angleDepth;
+        else if (angleDepth > 0 and isPunctuation (source, token, Chars::greaterThan))
+            --angleDepth;
+        else if (angleDepth == 0
+                 and (isPunctuation (source, token, Chars::openParen) or isPunctuation (source, token, Chars::openBracket)
+                      or (isPunctuation (source, token, Chars::equals) and not hasPreviousOperator and not hasNextEquals)))
+            return index;
+    }
+
+    return end;
+}
+
+```
+```getNamePosition
+static int getNamePosition (const Tokens& tokens, int start, int boundary)
+{
+    for (int index { start }; index < boundary; ++index)
+        if (isKeyword (tokens.at (index), map::CppKeyword::tokenOperator))
+            return index;
+
+    return getLastIdentifierPosition (tokens, start, boundary);
+}
+
+```
+```getQualifierStart
+static int getQualifierStart (std::string_view source, const Tokens& tokens, int start, int namePosition)
+{
+    int qualifierStart { namePosition };
+
+    if (qualifierStart - 1 >= start and isPunctuation (source, tokens.at (qualifierStart - 1), Chars::tilde))
+        --qualifierStart;
+
+    while (qualifierStart - qualifierLength >= start
+           and isPunctuation (source, tokens.at (qualifierStart - 1), Chars::colon)
+           and isPunctuation (source, tokens.at (qualifierStart - 2), Chars::colon)
+           and tokens.at (qualifierStart - qualifierLength).type == map::SyntaxTokenType::identifier)
+        qualifierStart -= qualifierLength;
+
+    return qualifierStart;
+}
+
+```
+```getNameTokens
+static Tokens getNameTokens (const Tokens& tokens, int qualifierStart, int namePosition)
+{
+    Tokens nameTokens;
+
+    for (int index { qualifierStart }; index <= namePosition; ++index)
+    {
+        const auto& token { tokens.at (index) };
+
+        if (index == namePosition or token.type == map::SyntaxTokenType::identifier)
+            nameTokens.push_back (Token { token.start, token.end, token.type, -1, 0 });
+    }
+
+    return nameTokens;
+}
+
+```
+```isDeclaration
+static bool isDeclaration (std::string_view source, const Tokens& tokens, int start, int qualifierStart)
+{
+    static constexpr LookupTable<int, bool, Chars::greaterThan + 1> declaratorBytes {
+        {
+:::[list]:::
+        }
+    };
+
+    if (qualifierStart - 1 >= start)
+    {
+        const auto& previous { tokens.at (qualifierStart - 1) };
+
+        return previous.type == map::SyntaxTokenType::identifier or previous.type == map::SyntaxTokenType::keyword
+               or (previous.type == map::SyntaxTokenType::punctuation and declaratorBytes[source.at (previous.start)]);
+    }
+
+    return false;
+}
+
+```
+```isNamedParameter
+static bool isNamedParameter (std::string_view source, const Tokens& tokens, int start, int boundary)
+{
+    return boundary - 1 >= start
+           and tokens.at (boundary - 1).type == map::SyntaxTokenType::identifier
+           and std::any_of (tokens.begin() + start, tokens.begin() + getQualifierStart (source, tokens, start, boundary - 1),
+                            [] (const Token& token)
+                            { return not isKeyword (token, map::CppKeyword::tokenConst) and not isKeyword (token, map::CppKeyword::tokenVolatile); });
+}
+
+```
+```isConstructor
+static bool isConstructor (std::string_view source, const Element& scope, const Tokens& tokens, int qualifierStart, int namePosition, bool hasTilde)
+{
+    const auto scopeType { getScopeType (scope) };
+    const auto& name { tokens.at (namePosition) };
+
+    if (scopeType == map::SyntaxTokenType::classToken)
+        return not hasTilde and isSameName (source, scope.name.back(), name);
+
+    if (scopeType == map::SyntaxTokenType::namespaceToken)
+        return not hasTilde and namePosition - qualifierLength >= qualifierStart and isSameName (source, tokens.at (namePosition - qualifierLength), name);
+
+    return false;
+}
+
+```
+```isDestructor
+static bool isDestructor (std::string_view source, const Element& scope, const Tokens& tokens, int qualifierStart, int namePosition, bool hasTilde)
+{
+    const auto scopeType { getScopeType (scope) };
+    const auto& name { tokens.at (namePosition) };
+
+    if (hasTilde and scopeType == map::SyntaxTokenType::classToken)
+        return true;
+
+    if (hasTilde and scopeType == map::SyntaxTokenType::namespaceToken)
+        return namePosition - qualifierLength - 1 >= qualifierStart and isSameName (source, tokens.at (namePosition - qualifierLength - 1), name);
+
+    return false;
+}
+
+```
+```getDeclarationType
+static int getDeclarationType (std::string_view source, const Element& scope, const Tokens& tokens, int start, int boundary, int qualifierStart, int namePosition, bool isFunctionShape)
+{
+    const auto scopeType { scope.type };
+    const bool hasTilde { namePosition - 1 >= qualifierStart and isPunctuation (source, tokens.at (namePosition - 1), Chars::tilde) };
+
+    if (isFunctionShape and isConstructor (source, scope, tokens, qualifierStart, namePosition, hasTilde)) return map::SyntaxTokenType::constructor;
+    if (isFunctionShape and isDestructor (source, scope, tokens, qualifierStart, namePosition, hasTilde)) return map::SyntaxTokenType::destructor;
+    if (isFunctionShape and qualifierStart < namePosition and scopeType == map::SyntaxTokenType::namespaceToken) return map::SyntaxTokenType::instanceMethod;
+
+    static constexpr LookupTable<int, std::array<int, 4>, map::SyntaxTokenType::macro + 1> declarationTypes {
+        {
+:::[list]:::
+        }
+    };
+
+    const bool hasStaticKeyword { std::any_of (tokens.begin() + start, tokens.begin() + boundary, [] (const Token& token) { return isKeyword (token, map::CppKeyword::tokenStatic); }) };
+    const auto [functionType, staticFunctionType, variableType, staticVariableType] { declarationTypes[scopeType] };
+
+    return isFunctionShape ? (hasStaticKeyword ? staticFunctionType : functionType)
+                           : (hasStaticKeyword ? staticVariableType : variableType);
+}
+
+```
+```addDeclarators
+static void addDeclarators (CLanguageDocument& document, int scope, int element, const Tokens& tokens, int start, int end, int type, int candidateStart)
+{
+    const auto source { document.source };
+    auto declarator { element };
+    int depth { 0 };
+    int referenceStart { start };
+
+    for (int index { start }; index < end; ++index)
+    {
+        if (depth == 0 and isPunctuation (source, tokens.at (index), Chars::comma))
+        {
+            int nameIndex { index + 1 };
+
+            while (nameIndex < end and (isPunctuation (source, tokens.at (nameIndex), Chars::asterisk)
+                                        or isPunctuation (source, tokens.at (nameIndex), Chars::ampersand)))
+                ++nameIndex;
+
+            if (nameIndex < end and tokens.at (nameIndex).type == map::SyntaxTokenType::identifier)
+            {
+                addReferences (document, getReferenceOwner (document, scope, declarator), tokens, referenceStart, nameIndex, map::SyntaxTokenType::reference);
+                declarator = addElement (document, scope, getNameTokens (tokens, nameIndex, nameIndex), type);
+                addComment (document, declarator, tokens, candidateStart);
+                referenceStart = nameIndex + 1;
+            }
+        }
+
+        depth += getDepthChange (source, tokens.at (index));
+    }
+
+    addReferences (document, getReferenceOwner (document, scope, declarator), tokens, referenceStart, end, map::SyntaxTokenType::reference);
+}
+
+```
+```addParameter
+static Token addParameter (CLanguageDocument& document, int function, const Tokens& tokens, int start, int end)
+{
+    const auto boundary { getBoundary (document.source, tokens, start, end) };
+
+    if (isNamedParameter (document.source, tokens, start, boundary))
+    {
+        const auto& name { tokens.at (boundary - 1) };
+
+        addDeclarationCandidate (document, function, tokens, start, end);
+        return Token { name.start, name.end, map::SyntaxTokenType::variable, -1, 0 };
+    }
+
+    const auto lastPosition { boundary > start ? boundary - 1 : end - 1 };
+
+    addReferences (document, function, tokens, start, end, map::SyntaxTokenType::reference);
+    return Token { tokens.at (start).start, tokens.at (lastPosition).end, map::SyntaxTokenType::variable, -1, 0 };
+}
+
+```
+```addParameters
+static void addParameters (CLanguageDocument& document, int function, const Tokens& tokens, int open, int close)
+{
+    const auto source { document.source };
+    int depth { 0 };
+    int partStart { open + 1 };
+    Tokens parameters;
+
+    for (int index { open + 1 }; index < close; ++index)
+    {
+        if (depth == 0 and isPunctuation (source, tokens.at (index), Chars::comma))
+        {
+            if (partStart < index)
+                parameters.push_back (addParameter (document, function, tokens, partStart, index));
+
+            partStart = index + 1;
+        }
+
+        depth += getDepthChange (source, tokens.at (index));
+    }
+
+    if (partStart < close)
+        parameters.push_back (addParameter (document, function, tokens, partStart, close));
+
+    document.callbacks.addParameters (document.callbacks.context, function, parameters.data(), static_cast<int> (parameters.size()));
+}
+
+```
+```addElement
+static int addElement (CLanguageDocument& document, int scope, Tokens nameTokens, int type)
+{
+    const auto element { document.callbacks.addElement (document.callbacks.context, scope, type, nameTokens.data(), static_cast<int> (nameTokens.size())) };
+
+    document.elements.push_back (Element { scope, type, std::move (nameTokens), {}, false });
+    document.elements.at (scope).children.push_back (element);
+    return element;
+}
+
+```
+```addComment
+static void addComment (CLanguageDocument& document, int element, const Tokens& tokens, int candidateStart)
+{
+    const auto statementStart { getStatementStart (document.source, tokens, candidateStart) };
+
+    const auto previousEnd { statementStart > 0 ? tokens.at (statementStart - 1).end : 0 };
+    const auto isBefore { [] (const Token& token, int position) { return token.start < position; } };
+    Tokens commentTokens;
+
+    std::for_each (std::lower_bound (document.tokens.begin(), document.tokens.end(), previousEnd, isBefore),
+                   std::lower_bound (document.tokens.begin(), document.tokens.end(), tokens.at (statementStart).start, isBefore),
+                   [&commentTokens] (const Token& token) { commentTokens.push_back (Token { token.start, token.end, token.type, -1, 0 }); });
+
+    if (not commentTokens.empty())
+        document.callbacks.addComment (document.callbacks.context, element, commentTokens.data(), static_cast<int> (commentTokens.size()));
+}
+
+```
+```addReferences
+static void addReferences (CLanguageDocument& document, int owner, const Tokens& tokens, int start, int end, int type)
+{
+    const auto source { document.source };
+
+    for (int index { start }; index < end; ++index)
+    {
+        if (tokens.at (index).type == map::SyntaxTokenType::identifier)
+        {
+            const auto qualifierStart { index };
+
+            while (index + qualifierLength < end
+                   and isPunctuation (source, tokens.at (index + 1), Chars::colon)
+                   and isPunctuation (source, tokens.at (index + 2), Chars::colon)
+                   and tokens.at (index + qualifierLength).type == map::SyntaxTokenType::identifier)
+                index += qualifierLength;
+
+            const bool isCall { type == map::SyntaxTokenType::reference and index + 1 < static_cast<int> (tokens.size())
+                                and isPunctuation (source, tokens.at (index + 1), Chars::openParen) };
+            const auto reference { addElement (document, owner, getNameTokens (tokens, qualifierStart, index), isCall ? map::SyntaxTokenType::call : type) };
+
+            if (isMemberAccess (source, tokens, qualifierStart))
+            {
+                document.elements.at (reference).isMember = true;
+                document.callbacks.addMember (document.callbacks.context, reference);
+            }
+        }
+    }
+}
+
+```
+```addLocalLinks
+static void addLocalLinks (CLanguageDocument& document, int scope)
+{
+    for (const auto element : document.elements.at (scope).children)
+    {
+        if (isFunctionScope (document.elements.at (element)))
+        {
+            for (const auto reference : document.elements.at (element).children)
+            {
+                if (isLocalReference (document.elements.at (reference)))
+                    addLinkEndpoints (document, reference, getLocalDeclarations (document, element, document.elements.at (reference).name.back()));
+            }
+        }
+
+        addLocalLinks (document, element);
+    }
+}
+
+```
+```getLocalDeclarations
+static Elements getLocalDeclarations (const CLanguageDocument& document, int function, const Token& name)
+{
+    Elements declarations;
+
+    for (const auto declaration : document.elements.at (function).children)
+    {
+        const auto type { document.elements.at (declaration).type };
+
+        if (isSameName (document.source, document.elements.at (declaration).name.back(), name) and (type == map::SyntaxTokenType::variable or type == map::SyntaxTokenType::staticVariable))
+            declarations.push_back (declaration);
+    }
+
+    return declarations;
+}
+
+```
+```addLinkEndpoints
+static void addLinkEndpoints (CLanguageDocument& document, int reference, const Elements& targets)
+{
+    for (const auto target : targets)
+        document.callbacks.addLinkEndpoints (document.callbacks.context, reference, target);
+}
+
+```
+```getStatementConstruction
+static const LookupTable<int, Construction, static_cast<int> (std::size (keywords))>& getStatementConstruction()
+{
+    static constexpr LookupTable<int, Construction, static_cast<int> (std::size (keywords))> statementConstruction {
+        {
+:::[list]:::
+        }
+    };
+
+    return statementConstruction;
+}
+
+```
+```getPunctuationConstruction
+static const LookupTable<int, Construction, byteCount>& getPunctuationConstruction()
+{
+    static constexpr LookupTable<int, Construction, byteCount> punctuationConstruction {
+        {
+:::[list]:::
+        }
+    };
+
+    return punctuationConstruction;
+}
+
+```
+```getLibraryPaths
+static const std::unordered_map<int, const char*>& getLibraryPaths()
+{
+    static const std::unordered_map<int, const char*> libraryPaths {
+:::[list]:::
+    };
+
+    return libraryPaths;
+}
+
+```
+```getSdkCommands
+static const std::unordered_map<int, const char*>& getSdkCommands()
+{
+    static const std::unordered_map<int, const char*> sdkCommands {
+:::[list]:::
+    };
+
+    return sdkCommands;
+}
+
+```
+```getSdkFlags
+static const std::unordered_map<int, const char*>& getSdkFlags()
+{
+    static const std::unordered_map<int, const char*> sdkFlags {
+:::[list]:::
+    };
+
+    return sdkFlags;
+}
+
+```
+```getDrivers
+static const std::unordered_map<std::string_view, const char*>& getDrivers()
+{
+    static const std::unordered_map<std::string_view, const char*> drivers {
+:::[list]:::
+    };
+
+    return drivers;
+}
+
+```
+```getArgumentRemovals
+static const std::unordered_map<std::string_view, int>& getArgumentRemovals()
+{
+    static const std::unordered_map<std::string_view, int> argumentRemovals {
+:::[list]:::
+    };
+
+    return argumentRemovals;
+}
+
+```
+```getCommandOutput
+static std::string getCommandOutput (const std::string& command)
+{
+    std::string output;
+    std::array<char, readBufferSize> buffer;
+    FILE* pipe { openPipe (command.c_str()) };
+
+    if (pipe != nullptr)
+    {
+        while (std::fgets (buffer.data(), readBufferSize, pipe) != nullptr)
+            output += buffer.data();
+
+        closePipe (pipe);
+        output.erase (output.find_last_not_of (static_cast<char> (Chars::newline)) + 1);
+    }
+
+    return output;
+}
+
+```
+```getQuoted
+static std::string getQuoted (const std::string& text)
+{
+    const std::string quote (quoteLength, static_cast<char> (Chars::doubleQuote));
+
+    return quote + text + quote;
+}
+
+```
+```getVersionInstallDirectory
+static std::string getVersionInstallDirectory (const std::string& versionText)
+{
+    const std::string_view prefix { ToolchainWord::installDirectoryPrefix };
+    const auto prefixStart { versionText.find (prefix) };
+    std::string installDirectory;
+
+    if (prefixStart != std::string::npos)
+    {
+        const auto start { versionText.find_first_not_of (static_cast<char> (Chars::space), prefixStart + prefix.size()) };
+
+        if (start != std::string::npos)
+        {
+            const auto end { versionText.find (static_cast<char> (Chars::newline), start) };
+
+            installDirectory = versionText.substr (start, end - start);
+        }
+    }
+
+    return installDirectory;
+}
+
+```
+```getDriver
+static std::string getDriver (const std::string& installDirectory, const char* argument)
+{
+    const std::string name (std::filesystem::path (argument).filename().string());
+
+    if (const auto driver { getDrivers().find (name) }; driver != getDrivers().end())
+    {
+        const auto& [driverName, driverPath] { *driver };
+
+        return (std::filesystem::path (installDirectory) / driverPath).string();
+    }
+
+    return std::string (argument);
+}
+
+```
+```applyPrecompiledHeaders
+static void applyPrecompiledHeaders (std::vector<std::string>& commandLine)
+{
+    const std::string_view suffix { ToolchainWord::precompiledSuffix };
+
+    for (auto position { commandLine.size() }; position-- > 0;)
+    {
+        const std::string_view argument { commandLine.at (position) };
+
+        if (argument.size() >= suffix.size() and argument.compare (argument.size() - suffix.size(), suffix.size(), suffix) == 0)
+        {
+            assert (position + 1 >= static_cast<std::size_t> (ToolchainValue::precompiledArguments));
+
+            const auto first { commandLine.begin() + static_cast<std::ptrdiff_t> (position) + 1 - ToolchainValue::precompiledArguments };
+
+            commandLine.erase (first, first + ToolchainValue::precompiledArguments);
+        }
+    }
+}
+
+```
+```getArguments
+static std::vector<std::string> getArguments (const char* const* arguments, int argumentCount, const std::string& installDirectory, const char* directory)
+{
+    std::vector<std::string> commandLine { getDriver (installDirectory, arguments[0]), ToolchainWord::workingDirectoryFlag, directory };
+
+    for (int position { 1 }; position < argumentCount; ++position)
+    {
+        const std::string_view argument { arguments[position] };
+
+        if (const auto removal { getArgumentRemovals().find (argument) }; removal != getArgumentRemovals().end())
+        {
+            const auto& [removalArgument, removalCount] { *removal };
+
+            position += removalCount;
+        }
+        else
+            commandLine.push_back (std::string (argument));
+    }
+
+    applyPrecompiledHeaders (commandLine);
+
+    if (const auto sdkCommand { getSdkCommands().find (currentPlatform) }; sdkCommand != getSdkCommands().end())
+    {
+        const auto& [sdkPlatform, sdkCommandLine] { *sdkCommand };
+
+        commandLine.push_back (getSdkFlags().at (currentPlatform));
+        commandLine.push_back (getCommandOutput (sdkCommandLine));
+    }
+
+    return commandLine;
+}
+
+```
+```onDeclaration
+static void onDeclaration (CXClientData clientData, const CXIdxDeclInfo* declaration)
+{
+    const auto& context { *static_cast<const IndexContext*> (clientData) };
+    const auto* classInfo { context.libclang.getCXXClassDeclInfo (declaration) };
+
+    context.addSymbol (declaration->loc, declaration->entityInfo->USR, LanguageRole::declaration);
+
+    if (classInfo != nullptr)
+        std::for_each (classInfo->bases, classInfo->bases + classInfo->numBases,
+                       [&context] (const CXIdxBaseClassInfo* base)
+                       {
+                           if (base->base != nullptr)
+                               context.addSymbol (base->loc, base->base->USR, LanguageRole::reference | LanguageRole::base);
+                       });
+}
+
+```
+```onReference
+static void onReference (CXClientData clientData, const CXIdxEntityRefInfo* reference)
+{
+    const auto& context { *static_cast<const IndexContext*> (clientData) };
+
+    context.addSymbol (reference->loc, reference->referencedEntity->USR, referenceRoles[reference->role & CXSymbolRole_Call]);
+}
+
+```
+```export
+#if defined (_WIN32)
+extern "C" __declspec (dllexport) const void* ling_get_language (const char* name);
+#else
+extern "C" __attribute__ ((visibility ("default"))) const void* ling_get_language (const char* name);
+#endif
+
+extern "C" const void* ling_get_language (const char* name)
+{
+    static const std::pair<const char*, const void*> languageEntries[] {
+        { LanguageEntry::build, reinterpret_cast<const void*> (&CLanguageDocument::build) },
+        { LanguageEntry::index, reinterpret_cast<const void*> (&CLanguageDocument::index) },
+        { LanguageEntry::code, code.data() },
+        { LanguageEntry::commentOpen, Chars::cssCommentOpen },
+        { LanguageEntry::commentClose, Chars::cssCommentClose },
+        { LanguageEntry::lineCommentOpen, Chars::doubleSlash },
+        { LanguageEntry::escape, &Chars::backslash },
+        { LanguageEntry::keywords, keywords },
+        { LanguageEntry::roles, roles.data() },
+        { LanguageEntry::extensionPairs, extensionPairs }
+    };
+
+    for (const auto& [entryName, entryValue] : languageEntries)
+        if (std::strcmp (entryName, name) == 0) return entryValue;
+
+    return nullptr;
+}
+
+```
+```tail
+}
+```
+```cmake
+cmake_minimum_required (VERSION 3.20)
+project (language LANGUAGES CXX)
+
+set (CMAKE_CXX_STANDARD 17)
+set (CMAKE_CXX_STANDARD_REQUIRED ON)
+set (CMAKE_CXX_EXTENSIONS OFF)
+set (CMAKE_BUILD_TYPE Release CACHE STRING "")
+set (CMAKE_CXX_VISIBILITY_PRESET hidden)
+set (CMAKE_VISIBILITY_INLINES_HIDDEN ON)
+
+add_library (language SHARED language.cpp)
+target_include_directories (language PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+```
+```member
+:::body:::
+```

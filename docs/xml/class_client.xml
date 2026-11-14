@@ -21,7 +21,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Client.h" line="82" column="26" bodyfile="Client.h" bodystart="82" bodyend="82"/>
-        <referencedby refid="class_client_1a03fbf335433a66624210457ba50f83fb" compoundref="_client_8cpp" startline="39" endline="49">connectToDaemon</referencedby>
+        <referencedby refid="class_client_1a03fbf335433a66624210457ba50f83fb" compoundref="_client_8cpp" startline="41" endline="51">connectToDaemon</referencedby>
       </memberdef>
     </sectiondef>
     <sectiondef kind="private-attrib">
@@ -40,10 +40,10 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Client.h" line="85" column="22" bodyfile="Client.h" bodystart="85" bodyend="-1"/>
-        <referencedby refid="class_client_1aefc3c94434262806f1bc3aafebeae9ea" compoundref="_client_8cpp" startline="3" endline="13">Client</referencedby>
-        <referencedby refid="class_client_1a03fbf335433a66624210457ba50f83fb" compoundref="_client_8cpp" startline="39" endline="49">connectToDaemon</referencedby>
-        <referencedby refid="class_client_1a369f7b5fbcaaa5bf47e7415336a1b82f" compoundref="_client_8cpp" startline="51" endline="57">fileChanged</referencedby>
-        <referencedby refid="class_client_1a742373e08a80d993d2651b6fff76f5b9" compoundref="_client_8cpp" startline="21" endline="37">start</referencedby>
+        <referencedby refid="class_client_1aefc3c94434262806f1bc3aafebeae9ea" compoundref="_client_8cpp" startline="3" endline="15">Client</referencedby>
+        <referencedby refid="class_client_1a03fbf335433a66624210457ba50f83fb" compoundref="_client_8cpp" startline="41" endline="51">connectToDaemon</referencedby>
+        <referencedby refid="class_client_1a369f7b5fbcaaa5bf47e7415336a1b82f" compoundref="_client_8cpp" startline="53" endline="59">fileChanged</referencedby>
+        <referencedby refid="class_client_1a742373e08a80d993d2651b6fff76f5b9" compoundref="_client_8cpp" startline="23" endline="39">start</referencedby>
       </memberdef>
       <memberdef kind="variable" id="class_client_1a58e679174623e64752fb4f1111186a36" prot="private" static="no" mutable="no">
         <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref></type>
@@ -60,10 +60,10 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Client.h" line="88" column="24" bodyfile="Client.h" bodystart="88" bodyend="-1"/>
-        <referencedby refid="class_client_1aefc3c94434262806f1bc3aafebeae9ea" compoundref="_client_8cpp" startline="3" endline="13">Client</referencedby>
-        <referencedby refid="class_client_1a03fbf335433a66624210457ba50f83fb" compoundref="_client_8cpp" startline="39" endline="49">connectToDaemon</referencedby>
-        <referencedby refid="class_client_1a369f7b5fbcaaa5bf47e7415336a1b82f" compoundref="_client_8cpp" startline="51" endline="57">fileChanged</referencedby>
-        <referencedby refid="class_client_1a742373e08a80d993d2651b6fff76f5b9" compoundref="_client_8cpp" startline="21" endline="37">start</referencedby>
+        <referencedby refid="class_client_1aefc3c94434262806f1bc3aafebeae9ea" compoundref="_client_8cpp" startline="3" endline="15">Client</referencedby>
+        <referencedby refid="class_client_1a03fbf335433a66624210457ba50f83fb" compoundref="_client_8cpp" startline="41" endline="51">connectToDaemon</referencedby>
+        <referencedby refid="class_client_1a369f7b5fbcaaa5bf47e7415336a1b82f" compoundref="_client_8cpp" startline="53" endline="59">fileChanged</referencedby>
+        <referencedby refid="class_client_1a742373e08a80d993d2651b6fff76f5b9" compoundref="_client_8cpp" startline="23" endline="39">start</referencedby>
       </memberdef>
       <memberdef kind="variable" id="class_client_1a499e1ec141333118c072fa9954e63922" prot="private" static="no" mutable="no">
         <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref></type>
@@ -80,8 +80,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Client.h" line="91" column="24" bodyfile="Client.h" bodystart="91" bodyend="-1"/>
-        <referencedby refid="class_client_1aefc3c94434262806f1bc3aafebeae9ea" compoundref="_client_8cpp" startline="3" endline="13">Client</referencedby>
-        <referencedby refid="class_client_1aa5def1c21072f5ed6f70a8859489d2da" compoundref="_client_8cpp" startline="59" endline="62">connectionMade</referencedby>
+        <referencedby refid="class_client_1aefc3c94434262806f1bc3aafebeae9ea" compoundref="_client_8cpp" startline="3" endline="15">Client</referencedby>
+        <referencedby refid="class_client_1aa5def1c21072f5ed6f70a8859489d2da" compoundref="_client_8cpp" startline="61" endline="64">connectionMade</referencedby>
       </memberdef>
       <memberdef kind="variable" id="class_client_1a156ea116c333d0160312d53971a2a709" prot="private" static="no" mutable="no">
         <type><ref refid="class_l_i_n_g_model" kindref="compound">LINGModel</ref> &amp;</type>
@@ -99,9 +99,9 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Client.h" line="94" column="15" bodyfile="Client.h" bodystart="94" bodyend="94"/>
-        <referencedby refid="class_client_1af9ec2edf06d69e92a25c53ce4260fa27" compoundref="_client_8cpp" startline="64" endline="69">connectionLost</referencedby>
-        <referencedby refid="class_client_1a70c485d5d4c5e8ceb24b89e9db1cd4ec" compoundref="_client_8cpp" startline="71" endline="90">messageReceived</referencedby>
-        <referencedby refid="class_client_1a742373e08a80d993d2651b6fff76f5b9" compoundref="_client_8cpp" startline="21" endline="37">start</referencedby>
+        <referencedby refid="class_client_1af9ec2edf06d69e92a25c53ce4260fa27" compoundref="_client_8cpp" startline="66" endline="71">connectionLost</referencedby>
+        <referencedby refid="class_client_1a70c485d5d4c5e8ceb24b89e9db1cd4ec" compoundref="_client_8cpp" startline="73" endline="88">messageReceived</referencedby>
+        <referencedby refid="class_client_1a742373e08a80d993d2651b6fff76f5b9" compoundref="_client_8cpp" startline="23" endline="39">start</referencedby>
       </memberdef>
       <memberdef kind="variable" id="class_client_1a5d2b39ff4446a3ff048057293c9e5bb7" prot="private" static="no" mutable="no">
         <type><ref refid="structjam_1_1File_1_1Watcher" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::File::Watcher</ref></type>
@@ -118,9 +118,9 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Client.h" line="97" column="24" bodyfile="Client.h" bodystart="97" bodyend="-1"/>
-        <referencedby refid="class_client_1aefc3c94434262806f1bc3aafebeae9ea" compoundref="_client_8cpp" startline="3" endline="13">Client</referencedby>
-        <referencedby refid="class_client_1a03fbf335433a66624210457ba50f83fb" compoundref="_client_8cpp" startline="39" endline="49">connectToDaemon</referencedby>
-        <referencedby refid="class_client_1af96d672ca01fa070cc9489614dab4194" compoundref="_client_8cpp" startline="15" endline="19">~Client</referencedby>
+        <referencedby refid="class_client_1aefc3c94434262806f1bc3aafebeae9ea" compoundref="_client_8cpp" startline="3" endline="15">Client</referencedby>
+        <referencedby refid="class_client_1a03fbf335433a66624210457ba50f83fb" compoundref="_client_8cpp" startline="41" endline="51">connectToDaemon</referencedby>
+        <referencedby refid="class_client_1af96d672ca01fa070cc9489614dab4194" compoundref="_client_8cpp" startline="17" endline="21">~Client</referencedby>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -176,13 +176,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Client.h" line="28" column="5" bodyfile="Client.cpp" bodystart="3" bodyend="13"/>
+        <location file="Client.h" line="28" column="5" bodyfile="Client.cpp" bodystart="3" bodyend="15"/>
         <references refid="structjam_1_1File_1_1Watcher_1af3b174cc017a51839fcfa19d0e9f9cbc">jam::File::Watcher::addFolder</references>
         <references refid="structjam_1_1File_1_1Watcher_1a77218b3dfff2d229f480087e9e30f5c0">jam::File::Watcher::addListener</references>
         <references refid="structjam_1_1File_1_1Watcher_1a5d536adc6fc6ccc3a1636c32ea791c06">jam::File::Watcher::coalesceEvents</references>
         <references refid="class_l_i_n_g_model_1a1c57527a53635e5f4efbcb6d27aa843e" compoundref="_l_i_n_g_model_8h" startline="48" endline="48">LINGModel::coalesceMs</references>
-        <references refid="classjuce_1_1File_1af540d2875c87e47836e7deef02537ea4">juce::File::createDirectory</references>
-        <references refid="class_l_i_n_g_model_1a418ec05ca5a75c35b3187e995a82fb5c" compoundref="_l_i_n_g_model_8cpp" startline="39" endline="46">LINGModel::getCacheDirectory</references>
+        <references refid="classjuce_1_1File_1ab6bec65fbcf19ce10e38cf9d1015770d">juce::File::getParentDirectory</references>
+        <references refid="class_server_1a9cc0faedd6b771c2e6a2e91ddf95e50b" compoundref="_server_8cpp" startline="26" endline="31">Server::getPortFile</references>
+        <references refid="classjam_1_1Strings_1adfb32d159be94dc4a4004c50be876e3c">jam::Strings::getView</references>
         <references refid="classjuce_1_1InterprocessConnection_1a67bc4b0faef59efedb2f417afd231f88">juce::InterprocessConnection::InterprocessConnection</references>
         <references refid="class_client_1ada497223de332fd90f251dcd387b5181" compoundref="_client_8h" startline="85">manifestFile</references>
         <references refid="class_client_1a499e1ec141333118c072fa9954e63922" compoundref="_client_8h" startline="91">request</references>
@@ -202,7 +203,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Client.h" line="31" column="5" bodyfile="Client.cpp" bodystart="15" bodyend="19"/>
+        <location file="Client.h" line="31" column="5" bodyfile="Client.cpp" bodystart="17" bodyend="21"/>
         <references refid="classjuce_1_1InterprocessConnection_1a2a172e0cafd44584659d2b709678288d">juce::InterprocessConnection::disconnect</references>
         <references refid="structjam_1_1File_1_1Watcher_1a1a8191122b5b3b011078720b9c50ce6c">jam::File::Watcher::removeListener</references>
         <references refid="class_client_1a5d2b39ff4446a3ff048057293c9e5bb7" compoundref="_client_8h" startline="97">watcher</references>
@@ -221,13 +222,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Client.h" line="40" column="10" bodyfile="Client.cpp" bodystart="21" bodyend="37"/>
+        <location file="Client.h" line="40" column="10" bodyfile="Client.cpp" bodystart="23" bodyend="39"/>
         <references refid="classjam_1_1Strings_1a9223c1bf16916a52b122ae7e9d871f50">jam::Strings::add</references>
-        <references refid="class_client_1a03fbf335433a66624210457ba50f83fb" compoundref="_client_8cpp" startline="39" endline="49">connectToDaemon</references>
+        <references refid="class_client_1a03fbf335433a66624210457ba50f83fb" compoundref="_client_8cpp" startline="41" endline="51">connectToDaemon</references>
         <references refid="classjuce_1_1File_1a6efe0648697f59af5952171d5e7b0317ade952da9c18e615b2ca5e9d63464f7b3">juce::File::currentExecutableFile</references>
-        <references refid="namespaceId_1ad57a2d4fadbed29a552707db60b01f2a" compoundref="_generated_8cpp" startline="34" endline="34">Id::daemon</references>
+        <references refid="namespaceId_1ad57a2d4fadbed29a552707db60b01f2a" compoundref="_generated_8cpp" startline="41" endline="41">Id::daemon</references>
         <references refid="structChars_1a375464038832537822fff69be3285e32">Chars::doubleDash</references>
-        <references refid="structtext_1_1_diagnostics_1a917b125ae6e7f9b56f438fc8a195cdd4" compoundref="_text_8h" startline="41" endline="41">text::Diagnostics::failDaemonStart</references>
+        <references refid="structtext_1_1_diagnostics_1a917b125ae6e7f9b56f438fc8a195cdd4" compoundref="_text_8h" startline="42" endline="42">text::Diagnostics::failDaemonStart</references>
         <references refid="classjuce_1_1File_1a515fa016b189068f365cc875e241e2a1">juce::File::getFullPathName</references>
         <references refid="classjuce_1_1JUCEApplicationBase_1ad202ba9fc825300b11c0d768da48b52a">juce::JUCEApplicationBase::getInstance</references>
         <references refid="classjuce_1_1File_1a3e0950b0d0dbe71a8bc4a7ed3c7ab067">juce::File::getSpecialLocation</references>
@@ -236,7 +237,7 @@
         <references refid="class_client_1a156ea116c333d0160312d53971a2a709" compoundref="_client_8h" startline="94" endline="94">model</references>
         <references refid="classjuce_1_1JUCEApplicationBase_1ae2ba9b90c02361717d997aa26861f2c4">juce::JUCEApplicationBase::quit</references>
         <references refid="classjuce_1_1JUCEApplicationBase_1aa718d56bbc1c7d7271aedbc378eeaffe">juce::JUCEApplicationBase::setApplicationReturnValue</references>
-        <references refid="class_l_i_n_g_model_1afdef5b210be00b4c407239da424c8b3d" compoundref="_l_i_n_g_model_8cpp" startline="18" endline="25">LINGModel::setMessage</references>
+        <references refid="class_l_i_n_g_model_1afdef5b210be00b4c407239da424c8b3d" compoundref="_l_i_n_g_model_8cpp" startline="19" endline="25">LINGModel::setMessage</references>
         <references refid="classjam_1_1ChildProcess_1a733dcf55efb600733fdb2f3c7306fe37">jam::ChildProcess::startDetached</references>
         <references refid="class_client_1a58e679174623e64752fb4f1111186a36" compoundref="_client_8h" startline="88">toolchainArgument</references>
         <references refid="classjuce_1_1Identifier_1ab6f0db1de2c36cacd1a9d7280f73aeeb">juce::Identifier::toString</references>
@@ -260,7 +261,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Client.h" line="50" column="10" bodyfile="Client.cpp" bodystart="39" bodyend="49"/>
+        <location file="Client.h" line="50" column="10" bodyfile="Client.cpp" bodystart="41" bodyend="51"/>
         <references refid="class_client_1a61d2ac7e18277691aa73738a51ed7b89" compoundref="_client_8h" startline="82" endline="82">connectTimeoutMs</references>
         <references refid="classjuce_1_1InterprocessConnection_1afed3ed47a1ddac4428a7a637fb3074c6">juce::InterprocessConnection::connectToSocket</references>
         <references refid="classjuce_1_1String_1aeafb68fbf9400407a73b39fdaef6e0b0">juce::String::getIntValue</references>
@@ -273,8 +274,8 @@
         <references refid="structjam_1_1File_1_1Watcher_1a1a8191122b5b3b011078720b9c50ce6c">jam::File::Watcher::removeListener</references>
         <references refid="class_client_1a58e679174623e64752fb4f1111186a36" compoundref="_client_8h" startline="88">toolchainArgument</references>
         <references refid="class_client_1a5d2b39ff4446a3ff048057293c9e5bb7" compoundref="_client_8h" startline="97">watcher</references>
-        <referencedby refid="class_client_1a369f7b5fbcaaa5bf47e7415336a1b82f" compoundref="_client_8cpp" startline="51" endline="57">fileChanged</referencedby>
-        <referencedby refid="class_client_1a742373e08a80d993d2651b6fff76f5b9" compoundref="_client_8cpp" startline="21" endline="37">start</referencedby>
+        <referencedby refid="class_client_1a369f7b5fbcaaa5bf47e7415336a1b82f" compoundref="_client_8cpp" startline="53" endline="59">fileChanged</referencedby>
+        <referencedby refid="class_client_1a742373e08a80d993d2651b6fff76f5b9" compoundref="_client_8cpp" startline="23" endline="39">start</referencedby>
       </memberdef>
       <memberdef kind="function" id="class_client_1a369f7b5fbcaaa5bf47e7415336a1b82f" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -317,8 +318,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Client.h" line="60" column="10" bodyfile="Client.cpp" bodystart="51" bodyend="57"/>
-        <references refid="class_client_1a03fbf335433a66624210457ba50f83fb" compoundref="_client_8cpp" startline="39" endline="49">connectToDaemon</references>
+        <location file="Client.h" line="60" column="10" bodyfile="Client.cpp" bodystart="53" bodyend="59"/>
+        <references refid="class_client_1a03fbf335433a66624210457ba50f83fb" compoundref="_client_8cpp" startline="41" endline="51">connectToDaemon</references>
         <references refid="class_server_1a4eea4c89de21dd82775cd821d7374010" compoundref="_server_8cpp" startline="21" endline="24">Server::getPortFile</references>
         <references refid="classjam_1_1Strings_1adfb32d159be94dc4a4004c50be876e3c">jam::Strings::getView</references>
         <references refid="classjuce_1_1InterprocessConnection_1a9159f2606dbc6fb0f971bd12c824fec0">juce::InterprocessConnection::isConnected</references>
@@ -339,7 +340,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Client.h" line="63" column="10" bodyfile="Client.cpp" bodystart="59" bodyend="62"/>
+        <location file="Client.h" line="63" column="10" bodyfile="Client.cpp" bodystart="61" bodyend="64"/>
         <references refid="classjuce_1_1String_1a60dc23fc1259cfc4e14bacf6dc40ad47">juce::String::getNumBytesAsUTF8</references>
         <references refid="class_client_1a499e1ec141333118c072fa9954e63922" compoundref="_client_8h" startline="91">request</references>
         <references refid="classjuce_1_1InterprocessConnection_1ae6ebaa49463c41df97fc81573608e9fb">juce::InterprocessConnection::sendMessage</references>
@@ -359,13 +360,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Client.h" line="68" column="10" bodyfile="Client.cpp" bodystart="64" bodyend="69"/>
-        <references refid="structtext_1_1_diagnostics_1a88ef151e729b90b683e17b37f0ca0083" compoundref="_text_8h" startline="42" endline="42">text::Diagnostics::failDaemonLost</references>
+        <location file="Client.h" line="68" column="10" bodyfile="Client.cpp" bodystart="66" bodyend="71"/>
+        <references refid="structtext_1_1_diagnostics_1a88ef151e729b90b683e17b37f0ca0083" compoundref="_text_8h" startline="43" endline="43">text::Diagnostics::failDaemonLost</references>
         <references refid="classjuce_1_1JUCEApplicationBase_1ad202ba9fc825300b11c0d768da48b52a">juce::JUCEApplicationBase::getInstance</references>
         <references refid="class_client_1a156ea116c333d0160312d53971a2a709" compoundref="_client_8h" startline="94" endline="94">model</references>
         <references refid="classjuce_1_1JUCEApplicationBase_1ae2ba9b90c02361717d997aa26861f2c4">juce::JUCEApplicationBase::quit</references>
         <references refid="classjuce_1_1JUCEApplicationBase_1aa718d56bbc1c7d7271aedbc378eeaffe">juce::JUCEApplicationBase::setApplicationReturnValue</references>
-        <references refid="class_l_i_n_g_model_1afdef5b210be00b4c407239da424c8b3d" compoundref="_l_i_n_g_model_8cpp" startline="18" endline="25">LINGModel::setMessage</references>
+        <references refid="class_l_i_n_g_model_1afdef5b210be00b4c407239da424c8b3d" compoundref="_l_i_n_g_model_8cpp" startline="19" endline="25">LINGModel::setMessage</references>
       </memberdef>
       <memberdef kind="function" id="class_client_1a70c485d5d4c5e8ceb24b89e9db1cd4ec" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -396,18 +397,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Client.h" line="79" column="10" bodyfile="Client.cpp" bodystart="71" bodyend="90"/>
-        <references refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4">jam::Format::appendUtf8</references>
+        <location file="Client.h" line="79" column="10" bodyfile="Client.cpp" bodystart="73" bodyend="88"/>
         <references refid="classjuce_1_1InterprocessConnection_1a2a172e0cafd44584659d2b709678288d">juce::InterprocessConnection::disconnect</references>
         <references refid="structChars_1abe1c5ccbb63b51ed046fdf87b71aaf74">Chars::doubleQuote</references>
         <references refid="classjam_1_1Strings_1aca02ec79e3d857bca6f9647dce6415fc">jam::Strings::fromView</references>
         <references refid="classjuce_1_1MemoryBlock_1a692f4e81b72cc79aaa98b6629d4a4dcd">juce::MemoryBlock::getData</references>
         <references refid="classjuce_1_1MemoryBlock_1a8c25cd08391185f1237944fad5d607d8">juce::MemoryBlock::getSize</references>
         <references refid="class_client_1a156ea116c333d0160312d53971a2a709" compoundref="_client_8h" startline="94" endline="94">model</references>
-        <references refid="structChars_1a4691bc69052e757e7325970098922899">Chars::newline</references>
         <references refid="structjam_1_1Document_1a367d65133f164cf9421ff0c3ddf2bbf6">jam::Document::parse</references>
         <references refid="classjuce_1_1JUCEApplicationBase_1ae2ba9b90c02361717d997aa26861f2c4">juce::JUCEApplicationBase::quit</references>
-        <references refid="class_l_i_n_g_model_1afdef5b210be00b4c407239da424c8b3d" compoundref="_l_i_n_g_model_8cpp" startline="18" endline="25">LINGModel::setMessage</references>
+        <references refid="class_l_i_n_g_model_1afdef5b210be00b4c407239da424c8b3d" compoundref="_l_i_n_g_model_8cpp" startline="19" endline="25">LINGModel::setMessage</references>
       </memberdef>
     </sectiondef>
     <briefdescription>

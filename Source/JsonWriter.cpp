@@ -1,11 +1,11 @@
 #include "JsonWriter.h"
 
-void JsonWriter::appendElement (std::string& json, std::string_view path, const jam::CodeDocument& document, const jam::Document::Element& element)
+void JsonWriter::appendElement (std::string& json, std::string_view path, const jam::LanguageDocument& document, const jam::Document::Element& element)
 {
     appendElement (json, path, document, element, [] (std::string&) {});
 }
 
-void JsonWriter::appendComment (std::string& json, const jam::CodeDocument& document, const jam::Document::Element& element)
+void JsonWriter::appendComment (std::string& json, const jam::LanguageDocument& document, const jam::Document::Element& element)
 {
     if (const auto* tokens { element.find<jam::Document::Tokens> (Id::comment) }; tokens != nullptr)
     {
@@ -14,7 +14,7 @@ void JsonWriter::appendComment (std::string& json, const jam::CodeDocument& docu
     }
 }
 
-void JsonWriter::appendSnippet (std::string& json, const jam::CodeDocument& document, const jam::Document::Element& element)
+void JsonWriter::appendSnippet (std::string& json, const jam::LanguageDocument& document, const jam::Document::Element& element)
 {
     const auto& name { element.get<jam::Document::Tokens> (Id::name)->last() };
     const auto& parameters { *element.get<jam::Document::Tokens> (Id::parameters) };
@@ -42,4 +42,13 @@ void JsonWriter::appendSnippet (std::string& json, const jam::CodeDocument& docu
 
     jam::Format::appendUtf8 (json, Chars::closeParen);
     jam::Format::appendUtf8 (json, Chars::doubleQuote);
+}
+
+void JsonWriter::appendParameters (std::string& json, const jam::LanguageDocument& document, const jam::Document::Element& declaration)
+{
+    for (const auto& parameter : *declaration.get<jam::Document::Tokens> (Id::parameters))
+    {
+        jam::JsonWriter::appendSeparator (json);
+        jam::JsonWriter::appendString (json, document.getView (parameter));
+    }
 }

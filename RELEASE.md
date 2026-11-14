@@ -1,4 +1,4 @@
-# ling v0.1.0
+# ling v0.0.1
 
 Language Index Navigation Graph
 

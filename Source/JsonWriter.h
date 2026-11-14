@@ -27,7 +27,7 @@ struct JsonWriter
      * @param appendMembers  The callable that appends the extra members to the same object.
      */
     template <typename Function>
-    static void appendElement (std::string& json, std::string_view path, const jam::CodeDocument& document, const jam::Document::Element& element, const Function& appendMembers)
+    static void appendElement (std::string& json, std::string_view path, const jam::LanguageDocument& document, const jam::Document::Element& element, const Function& appendMembers)
     {
         const auto& token { element.get<jam::Document::Tokens> (Id::name)->last() };
 
@@ -61,7 +61,7 @@ struct JsonWriter
      * @param document  The document that holds the element.
      * @param element   The element to append. It must hold a name.
      */
-    static void appendElement (std::string& json, std::string_view path, const jam::CodeDocument& document, const jam::Document::Element& element);
+    static void appendElement (std::string& json, std::string_view path, const jam::LanguageDocument& document, const jam::Document::Element& element);
 
     /**
      * @brief Appends the comment key: the source text from the first to the last comment token of the element.
@@ -72,7 +72,7 @@ struct JsonWriter
      * @param document  The document whose source holds the comment tokens.
      * @param element   The element whose Id::comment is written.
      */
-    static void appendComment (std::string& json, const jam::CodeDocument& document, const jam::Document::Element& element);
+    static void appendComment (std::string& json, const jam::LanguageDocument& document, const jam::Document::Element& element);
 
     /**
      * @brief Appends the snippet key of a function: its name, then one placeholder for each parameter.
@@ -86,5 +86,16 @@ struct JsonWriter
      * @param document  The document whose source gives the text of the name and the parameters.
      * @param element   The function element. It must hold Id::name and Id::parameters.
      */
-    static void appendSnippet (std::string& json, const jam::CodeDocument& document, const jam::Document::Element& element);
+    static void appendSnippet (std::string& json, const jam::LanguageDocument& document, const jam::Document::Element& element);
+
+    /**
+     * @brief Appends the parameter texts of a function declaration as array entries, with no key.
+     *
+     * The caller opens the array. The function writes no key.
+     *
+     * @param json         The JSON text that receives the entries.
+     * @param document     The document whose source gives the text of each parameter.
+     * @param declaration  The declaration. It must hold Id::parameters.
+     */
+    static void appendParameters (std::string& json, const jam::LanguageDocument& document, const jam::Document::Element& declaration);
 };

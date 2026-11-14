@@ -1,0 +1,3240 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="class_query" kind="class" language="C++" prot="public">
+    <compoundname>Query</compoundname>
+    <includes refid="_query_8h" local="no">Query.h</includes>
+    <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="class_query_1a8c367b5b39b118b9e5bd1d480a50a8fd" prot="private" static="no">
+        <type><ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>&lt; std::tuple&lt; int, int, const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> * &gt; &gt;</type>
+        <definition>using Query::Matches = jam::Array&lt;std::tuple&lt;int, int, const jam::Document::Element*&gt;&gt;</definition>
+        <argsstring></argsstring>
+        <name>Matches</name>
+        <qualifiedname>Query::Matches</qualifiedname>
+        <briefdescription>
+<para>The scored declarations of one lookup: the score, the index of the path, and the element. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="763" column="5" bodyfile="Query.h" bodystart="763" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_query_1a01f72228ea89d98816ae2c8216bae8c1" prot="private" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int Query::fileIndex</definition>
+        <argsstring></argsstring>
+        <name>fileIndex</name>
+        <qualifiedname>Query::fileIndex</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>The index of the file argument of a request. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The line and the column follow it. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="186" column="26" bodyfile="Query.h" bodystart="186" bodyend="186"/>
+        <referencedby refid="class_query_1a2436862865adf7b1e292b123205f154a" compoundref="_query_8cpp" startline="67" endline="70">getFile</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_query_1aceb75f22ecbfcddb2f38db0819540774" prot="private" static="yes" constexpr="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool Query::shouldNormalize</definition>
+        <argsstring></argsstring>
+        <name>shouldNormalize</name>
+        <qualifiedname>Query::shouldNormalize</qualifiedname>
+        <initializer>{ true }</initializer>
+        <briefdescription>
+<para>Whether the fuzzy patterns that the lookups parse normalize diacritics. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="201" column="27" bodyfile="Query.h" bodystart="201" bodyend="201"/>
+        <referencedby refid="class_query_1adf6cde45c991e2c9c4b31f0b3c13f04c" compoundref="_query_8cpp" startline="388" endline="411">completion</referencedby>
+        <referencedby refid="class_query_1a15ad9b779e57720f864388a75863b93b" compoundref="_query_8cpp" startline="363" endline="386">workspaceSymbol</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_query_1aeaf2aeaa609d943719b57443c73ba823" prot="private" static="no" mutable="yes">
+        <type><ref refid="structjam_1_1Fuzzy_1_1Slab" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Fuzzy::Slab</ref></type>
+        <definition>jam::Fuzzy::Slab Query::slab</definition>
+        <argsstring></argsstring>
+        <name>slab</name>
+        <qualifiedname>Query::slab</qualifiedname>
+        <briefdescription>
+<para>The working memory of the fuzzy finder. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The working memory of the fuzzy finder. The lookups that score names are const, so the slab is mutable. Each lookup runs inline in the listener that receives its request row. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="941" column="30" bodyfile="Query.h" bodystart="941" bodyend="-1"/>
+        <referencedby refid="class_query_1ab7eebf153a5c86a2892db5bdd1986759" compoundref="_query_8cpp" startline="307" endline="312">getMatch</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_query_1a60b9acc2d06f83f46736ac4c876d9f23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Query::Query</definition>
+        <argsstring>()=default</argsstring>
+        <name>Query</name>
+        <qualifiedname>Query::Query</qualifiedname>
+        <briefdescription>
+<para>Creates a query. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The only state that it holds is the fuzzy finder slab. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="17" column="5"/>
+        <references refid="class_query_1adf6cde45c991e2c9c4b31f0b3c13f04c" compoundref="_query_8cpp" startline="388" endline="411">completion</references>
+        <references refid="class_query_1a163faae03873f24fd5fb7ba47a310df3" compoundref="_query_8cpp" startline="227" endline="247">documentSymbol</references>
+        <references refid="class_query_1a852e9ede3402713f66bb2abf97ed1436" compoundref="_query_8cpp" startline="179" endline="197">findReferences</references>
+        <references refid="class_query_1a2436862865adf7b1e292b123205f154a" compoundref="_query_8cpp" startline="67" endline="70">getFile</references>
+        <references refid="class_query_1a34c7ee4f15d24026a9aff90e0733c7e8" compoundref="_query_8cpp" startline="72" endline="75">getPathIndex</references>
+        <references refid="class_query_1a35e3fac14102a3b269f3e941595a4e25" compoundref="_query_8cpp" startline="164" endline="177">goToDefinition</references>
+        <references refid="class_query_1a0d3863559c1bdb51563dab006fe940ca" compoundref="_query_8cpp" startline="413" endline="429">goToImplementation</references>
+        <references refid="class_query_1adf9f19baf3d11420d442548886f453a7" compoundref="_query_8cpp" startline="199" endline="225">hover</references>
+        <references refid="class_query_1ac9134cc465d90c1f0528a3db2f9325f9" compoundref="_query_8cpp" startline="443" endline="459">incomingCalls</references>
+        <references refid="class_query_1aad6e5a1c4754d6605f90f30699fc7769" compoundref="_query_8cpp" startline="272" endline="305">inlayHint</references>
+        <references refid="class_query_1adc9652cdecb42aef9e899a2216882f37" compoundref="_query_8cpp" startline="461" endline="478">outgoingCalls</references>
+        <references refid="class_query_1ae2b2672fe36aaace7abcc92845660caa" compoundref="_query_8cpp" startline="431" endline="441">prepareCallHierarchy</references>
+        <references refid="class_query_1a018e73734d5eec33e8483a4179b25216" compoundref="_query_8cpp" startline="3" endline="6">setResult</references>
+        <references refid="class_query_1a19666bfbde437c9035e0324d868a6d28" compoundref="_query_8cpp" startline="249" endline="270">switchSourceHeader</references>
+        <references refid="class_query_1a15ad9b779e57720f864388a75863b93b" compoundref="_query_8cpp" startline="363" endline="386">workspaceSymbol</references>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1a35e3fac14102a3b269f3e941595a4e25" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Query::goToDefinition</definition>
+        <argsstring>(juce::ValueTree &amp;request, const Index &amp;index) const</argsstring>
+        <name>goToDefinition</name>
+        <qualifiedname>Query::goToDefinition</qualifiedname>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>request</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Writes the declarations of the element at the position of a request. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>request</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The request row. Its arguments give the file and the position. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="25" column="10" bodyfile="Query.cpp" bodystart="164" bodyend="177"/>
+        <references refid="classjam_1_1Array_1a11f82d383b72419d9e9624cbe63f7767">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::add</references>
+        <references refid="class_query_1aa4dbc1b2d56916606809ac28736fbbaa" compoundref="_query_8h" startline="233" endline="245">applyToDeclarations</references>
+        <references refid="class_query_1ab799317ea0796e68fce933c28cd0ee8d" compoundref="_query_8h" startline="288" endline="314">applyToPosition</references>
+        <references refid="class_query_1a018e73734d5eec33e8483a4179b25216" compoundref="_query_8cpp" startline="3" endline="6">setResult</references>
+        <referencedby refid="class_query_1a60b9acc2d06f83f46736ac4c876d9f23">Query</referencedby>
+        <referencedby refid="class_processor_1a24b069461f4161553899d2a8f84d3287" compoundref="_processor_8cpp" startline="126" endline="141">Processor::registerEvents</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1a852e9ede3402713f66bb2abf97ed1436" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Query::findReferences</definition>
+        <argsstring>(juce::ValueTree &amp;request, const Index &amp;index) const</argsstring>
+        <name>findReferences</name>
+        <qualifiedname>Query::findReferences</qualifiedname>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>request</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Writes each declaration of the element at the position of a request, and the references to each declaration. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>request</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The request row. Its arguments give the file and the position. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="33" column="10" bodyfile="Query.cpp" bodystart="179" bodyend="197"/>
+        <references refid="classjam_1_1Array_1a11f82d383b72419d9e9624cbe63f7767">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::add</references>
+        <references refid="class_query_1aa4dbc1b2d56916606809ac28736fbbaa" compoundref="_query_8h" startline="233" endline="245">applyToDeclarations</references>
+        <references refid="class_query_1ab799317ea0796e68fce933c28cd0ee8d" compoundref="_query_8h" startline="288" endline="314">applyToPosition</references>
+        <references refid="class_query_1aa225b32e3c5a12601242c6bc88077904" compoundref="_query_8h" startline="259" endline="271">applyToReferences</references>
+        <references refid="class_query_1a018e73734d5eec33e8483a4179b25216" compoundref="_query_8cpp" startline="3" endline="6">setResult</references>
+        <referencedby refid="class_query_1a60b9acc2d06f83f46736ac4c876d9f23">Query</referencedby>
+        <referencedby refid="class_processor_1a24b069461f4161553899d2a8f84d3287" compoundref="_processor_8cpp" startline="126" endline="141">Processor::registerEvents</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1adf9f19baf3d11420d442548886f453a7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Query::hover</definition>
+        <argsstring>(juce::ValueTree &amp;request, const Index &amp;index) const</argsstring>
+        <name>hover</name>
+        <qualifiedname>Query::hover</qualifiedname>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>request</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Writes the declarations at the position of a request, each with its scope. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The scope is the path of the declaration without its last segment. Each JSON element holds the scope as an array of names.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>request</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The request row. Its arguments give the file and the position. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="44" column="10" bodyfile="Query.cpp" bodystart="199" bodyend="225"/>
+        <references refid="classjam_1_1Array_1a11f82d383b72419d9e9624cbe63f7767">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::add</references>
+        <references refid="structjam_1_1JsonWriter_1a7fe57d041d1f26d4458f3827333f7d77">jam::JsonWriter::appendArray</references>
+        <references refid="structjam_1_1JsonWriter_1af8e95b99b0d62f65b3d2885e19eaba93">jam::JsonWriter::appendKey</references>
+        <references refid="structjam_1_1JsonWriter_1acf8da4810f6b5cb1ee80660149a2db25">jam::JsonWriter::appendSeparator</references>
+        <references refid="structjam_1_1JsonWriter_1a41ee48bba1971acba117f12c2d9d7764">jam::JsonWriter::appendString</references>
+        <references refid="class_query_1aa4dbc1b2d56916606809ac28736fbbaa" compoundref="_query_8h" startline="233" endline="245">applyToDeclarations</references>
+        <references refid="class_query_1ab799317ea0796e68fce933c28cd0ee8d" compoundref="_query_8h" startline="288" endline="314">applyToPosition</references>
+        <references refid="class_query_1aa8ff4edd44b5494a0b66665daec5a84d" compoundref="_query_8cpp" startline="29" endline="40">getPath</references>
+        <references refid="namespaceId_1a50459a16b11d00b0269af837b5454d7d" compoundref="_generated_8cpp" startline="80" endline="80">Id::scope</references>
+        <references refid="class_query_1a018e73734d5eec33e8483a4179b25216" compoundref="_query_8cpp" startline="3" endline="6">setResult</references>
+        <referencedby refid="class_query_1a60b9acc2d06f83f46736ac4c876d9f23">Query</referencedby>
+        <referencedby refid="class_processor_1a24b069461f4161553899d2a8f84d3287" compoundref="_processor_8cpp" startline="126" endline="141">Processor::registerEvents</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1a163faae03873f24fd5fb7ba47a310df3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Query::documentSymbol</definition>
+        <argsstring>(juce::ValueTree &amp;request, const Index &amp;index) const</argsstring>
+        <name>documentSymbol</name>
+        <qualifiedname>Query::documentSymbol</qualifiedname>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>request</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Writes the symbols of the file in a request, as a tree. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The request must hold one argument, the file. Each symbol holds its named declarations as children. Unnamed declarations give their children to their parent.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>request</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The request row. Its single argument is the file. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="56" column="10" bodyfile="Query.cpp" bodystart="227" bodyend="247"/>
+        <references refid="structjam_1_1JsonWriter_1a7fe57d041d1f26d4458f3827333f7d77">jam::JsonWriter::appendArray</references>
+        <references refid="class_query_1a17da924f6ba5be7020414fb1260174e3" compoundref="_query_8cpp" startline="128" endline="151">appendDocumentSymbols</references>
+        <references refid="class_query_1acbe7e23b2ef525e32e8f29d970c5af60" compoundref="_query_8h" startline="327" endline="335">applyToFile</references>
+        <references refid="class_query_1a018e73734d5eec33e8483a4179b25216" compoundref="_query_8cpp" startline="3" endline="6">setResult</references>
+        <referencedby refid="class_query_1a60b9acc2d06f83f46736ac4c876d9f23">Query</referencedby>
+        <referencedby refid="class_processor_1a24b069461f4161553899d2a8f84d3287" compoundref="_processor_8cpp" startline="126" endline="141">Processor::registerEvents</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1a19666bfbde437c9035e0324d868a6d28" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Query::switchSourceHeader</definition>
+        <argsstring>(juce::ValueTree &amp;request, const Index &amp;index) const</argsstring>
+        <name>switchSourceHeader</name>
+        <qualifiedname>Query::switchSourceHeader</qualifiedname>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>request</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Writes the counterpart files of the file in a request, each as an object that holds only its path. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>A request that holds other than one argument writes an empty array, and sets the overlay message.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>request</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The request row. Its single argument is the file. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="67" column="10" bodyfile="Query.cpp" bodystart="249" bodyend="270"/>
+        <references refid="structjam_1_1JsonWriter_1a7fe57d041d1f26d4458f3827333f7d77">jam::JsonWriter::appendArray</references>
+        <references refid="structjam_1_1JsonWriter_1af8e95b99b0d62f65b3d2885e19eaba93">jam::JsonWriter::appendKey</references>
+        <references refid="structjam_1_1JsonWriter_1a3919b829ea01c2872b22e97c708f8333">jam::JsonWriter::appendObject</references>
+        <references refid="structjam_1_1JsonWriter_1acf8da4810f6b5cb1ee80660149a2db25">jam::JsonWriter::appendSeparator</references>
+        <references refid="structjam_1_1JsonWriter_1a41ee48bba1971acba117f12c2d9d7764">jam::JsonWriter::appendString</references>
+        <references refid="class_query_1adbe78bd35cf48ffde2213b2db9dae86e" compoundref="_query_8h" startline="350" endline="373">applyToCounterparts</references>
+        <references refid="class_query_1acbe7e23b2ef525e32e8f29d970c5af60" compoundref="_query_8h" startline="327" endline="335">applyToFile</references>
+        <references refid="classjuce_1_1File_1a515fa016b189068f365cc875e241e2a1">juce::File::getFullPathName</references>
+        <references refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab">Id::path</references>
+        <references refid="class_query_1a018e73734d5eec33e8483a4179b25216" compoundref="_query_8cpp" startline="3" endline="6">setResult</references>
+        <references refid="classjuce_1_1String_1a288d9b6ad31a5825d00aa76bfd998ca8">juce::String::toStdString</references>
+        <referencedby refid="class_query_1a60b9acc2d06f83f46736ac4c876d9f23">Query</referencedby>
+        <referencedby refid="class_processor_1a24b069461f4161553899d2a8f84d3287" compoundref="_processor_8cpp" startline="126" endline="141">Processor::registerEvents</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1aad6e5a1c4754d6605f90f30699fc7769" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Query::inlayHint</definition>
+        <argsstring>(juce::ValueTree &amp;request, const Index &amp;index) const</argsstring>
+        <name>inlayHint</name>
+        <qualifiedname>Query::inlayHint</qualifiedname>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>request</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Writes each call reference of the file in a request, with the parameter texts of its first function declaration. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The entries are in result order: path, then position. A call with no function declaration gets an empty parameters array. A request that holds other than one argument writes an empty array, and sets the overlay message.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>request</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The request row. Its single argument is the file. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="79" column="10" bodyfile="Query.cpp" bodystart="272" bodyend="305"/>
+        <references refid="classjam_1_1Array_1a11f82d383b72419d9e9624cbe63f7767">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::add</references>
+        <references refid="structjam_1_1JsonWriter_1a7fe57d041d1f26d4458f3827333f7d77">jam::JsonWriter::appendArray</references>
+        <references refid="structjam_1_1JsonWriter_1af8e95b99b0d62f65b3d2885e19eaba93">jam::JsonWriter::appendKey</references>
+        <references refid="struct_json_writer_1acd4d6daeb2a08c6da4744c5d00bdcdd4" compoundref="_json_writer_8cpp" startline="47" endline="54">JsonWriter::appendParameters</references>
+        <references refid="class_query_1acbe7e23b2ef525e32e8f29d970c5af60" compoundref="_query_8h" startline="327" endline="335">applyToFile</references>
+        <references refid="class_query_1a4dac04bdeac8dc7abc9c4ca57518495d" compoundref="_query_8h" startline="388" endline="403">applyToFirstFunction</references>
+        <references refid="structjam_1_1LanguageRole_1aa57ab486efc0ee9fcf67aff944739560ad7ae813d2336970559fe3dc2d8dc94ba">jam::LanguageRole::call</references>
+        <references refid="namespaceId_1a4169fe20395f8c928b65e9cf01c52fd5">Id::parameters</references>
+        <references refid="class_query_1a018e73734d5eec33e8483a4179b25216" compoundref="_query_8cpp" startline="3" endline="6">setResult</references>
+        <referencedby refid="class_query_1a60b9acc2d06f83f46736ac4c876d9f23">Query</referencedby>
+        <referencedby refid="class_processor_1a24b069461f4161553899d2a8f84d3287" compoundref="_processor_8cpp" startline="126" endline="141">Processor::registerEvents</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1a15ad9b779e57720f864388a75863b93b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Query::workspaceSymbol</definition>
+        <argsstring>(juce::ValueTree &amp;request, const Index &amp;index) const</argsstring>
+        <name>workspaceSymbol</name>
+        <qualifiedname>Query::workspaceSymbol</qualifiedname>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>request</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Writes the declarations whose last name matches the fuzzy query of a request. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The request must hold one argument, the query. Other argument counts set the overlay message.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>request</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The request row. Its single argument is the query. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="90" column="10" bodyfile="Query.cpp" bodystart="363" bodyend="386"/>
+        <references refid="structjam_1_1JsonWriter_1a7fe57d041d1f26d4458f3827333f7d77">jam::JsonWriter::appendArray</references>
+        <references refid="struct_json_writer_1ac47a4044dc4f37cf22533707a96a7335" compoundref="_json_writer_8h" startline="30" endline="54">JsonWriter::appendElement</references>
+        <references refid="namespaceId_1a2333fa49126557436eb1441faf72fd4f" compoundref="_generated_8cpp" startline="27" endline="27">Id::arguments</references>
+        <references refid="structtext_1_1_diagnostics_1ab8e4b15951f8dd3ceb318d7d3e79ff15" compoundref="_text_8h" startline="33" endline="33">text::Diagnostics::failArguments</references>
+        <references refid="class_query_1a2ae4ab02c14df0ad3aaf29d3b46fe8a9" compoundref="_query_8cpp" startline="314" endline="338">getMatches</references>
+        <references refid="structjam_1_1Fuzzy_1_1Pattern_1ace13642c156c4e4e97173fda5d2692fb">jam::Fuzzy::Pattern::parse</references>
+        <references refid="class_query_1a018e73734d5eec33e8483a4179b25216" compoundref="_query_8cpp" startline="3" endline="6">setResult</references>
+        <references refid="class_query_1aceb75f22ecbfcddb2f38db0819540774" compoundref="_query_8h" startline="201" endline="201">shouldNormalize</references>
+        <references refid="classjuce_1_1Identifier_1ab6f0db1de2c36cacd1a9d7280f73aeeb">juce::Identifier::toString</references>
+        <referencedby refid="class_query_1a60b9acc2d06f83f46736ac4c876d9f23">Query</referencedby>
+        <referencedby refid="class_processor_1a24b069461f4161553899d2a8f84d3287" compoundref="_processor_8cpp" startline="126" endline="141">Processor::registerEvents</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1adf6cde45c991e2c9c4b31f0b3c13f04c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Query::completion</definition>
+        <argsstring>(juce::ValueTree &amp;request, const Index &amp;index) const</argsstring>
+        <name>completion</name>
+        <qualifiedname>Query::completion</qualifiedname>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>request</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Writes the completions of the name that ends before the position of a request, as a JSON array. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The position is the cursor after the typed name, so the lookup reads the byte before it. No stored document, no element, or an element of another type gives an empty array. The lookup reads the stored documents and starts no parse.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>request</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The request row. Its arguments give the file, the line, and the column. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="103" column="10" bodyfile="Query.cpp" bodystart="388" bodyend="411"/>
+        <references refid="structjam_1_1JsonWriter_1a7fe57d041d1f26d4458f3827333f7d77">jam::JsonWriter::appendArray</references>
+        <references refid="class_query_1ad1e57bd7ab86fd527f3fc34beeb4cbaa" compoundref="_query_8cpp" startline="153" endline="162">appendCompletion</references>
+        <references refid="class_query_1aa42d3e64bd096855681feb31c3666cd3" compoundref="_query_8h" startline="906" endline="932">applyToCompletions</references>
+        <references refid="class_query_1ab799317ea0796e68fce933c28cd0ee8d" compoundref="_query_8h" startline="288" endline="314">applyToPosition</references>
+        <references refid="classjam_1_1Strings_1aca02ec79e3d857bca6f9647dce6415fc">jam::Strings::fromView</references>
+        <references refid="structjam_1_1Document_1a87bb9275594c8b0da70139d14782597d">jam::Document::getView</references>
+        <references refid="structjam_1_1LanguageDocument_1aadb9f1fa16daa91558f177eb462dfee8">jam::LanguageDocument::hasRole</references>
+        <references refid="classjam_1_1Array_1aa06fe830f5fb147900fc281d30384d77">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::last</references>
+        <references refid="namespaceId_1ab17c6c7afce10ee78699a1e23ac7acdf">Id::name</references>
+        <references refid="structjam_1_1Fuzzy_1_1Pattern_1ace13642c156c4e4e97173fda5d2692fb">jam::Fuzzy::Pattern::parse</references>
+        <references refid="structjam_1_1LanguageRole_1aa57ab486efc0ee9fcf67aff944739560ad7df63664e092d445c3779e56fc8a1bb">jam::LanguageRole::reference</references>
+        <references refid="class_query_1a018e73734d5eec33e8483a4179b25216" compoundref="_query_8cpp" startline="3" endline="6">setResult</references>
+        <references refid="class_query_1aceb75f22ecbfcddb2f38db0819540774" compoundref="_query_8h" startline="201" endline="201">shouldNormalize</references>
+        <referencedby refid="class_query_1a60b9acc2d06f83f46736ac4c876d9f23">Query</referencedby>
+        <referencedby refid="class_processor_1a24b069461f4161553899d2a8f84d3287" compoundref="_processor_8cpp" startline="126" endline="141">Processor::registerEvents</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1a0d3863559c1bdb51563dab006fe940ca" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Query::goToImplementation</definition>
+        <argsstring>(juce::ValueTree &amp;request, const Index &amp;index) const</argsstring>
+        <name>goToImplementation</name>
+        <qualifiedname>Query::goToImplementation</qualifiedname>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>request</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Writes the implementations of the declarations at the position of a request. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>request</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The request row. Its arguments give the file and the position. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="111" column="10" bodyfile="Query.cpp" bodystart="413" bodyend="429"/>
+        <references refid="classjam_1_1Array_1a11f82d383b72419d9e9624cbe63f7767">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::add</references>
+        <references refid="class_query_1aa4dbc1b2d56916606809ac28736fbbaa" compoundref="_query_8h" startline="233" endline="245">applyToDeclarations</references>
+        <references refid="class_query_1a7d98690db81b3e8de810ea6b0bc3b0f7" compoundref="_query_8h" startline="485" endline="511">applyToImplementations</references>
+        <references refid="class_query_1ab799317ea0796e68fce933c28cd0ee8d" compoundref="_query_8h" startline="288" endline="314">applyToPosition</references>
+        <references refid="class_query_1a018e73734d5eec33e8483a4179b25216" compoundref="_query_8cpp" startline="3" endline="6">setResult</references>
+        <referencedby refid="class_query_1a60b9acc2d06f83f46736ac4c876d9f23">Query</referencedby>
+        <referencedby refid="class_processor_1a24b069461f4161553899d2a8f84d3287" compoundref="_processor_8cpp" startline="126" endline="141">Processor::registerEvents</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1ae2b2672fe36aaace7abcc92845660caa" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Query::prepareCallHierarchy</definition>
+        <argsstring>(juce::ValueTree &amp;request, const Index &amp;index) const</argsstring>
+        <name>prepareCallHierarchy</name>
+        <qualifiedname>Query::prepareCallHierarchy</qualifiedname>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>request</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Writes the function declarations at the position of a request, as the start of a call hierarchy. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>request</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The request row. Its arguments give the file and the position. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="119" column="10" bodyfile="Query.cpp" bodystart="431" bodyend="441"/>
+        <references refid="classjam_1_1Array_1a11f82d383b72419d9e9624cbe63f7767">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::add</references>
+        <references refid="class_query_1a0427e42b4765519b5941fb6517a980bb" compoundref="_query_8h" startline="418" endline="428">applyToFunctions</references>
+        <references refid="class_query_1a018e73734d5eec33e8483a4179b25216" compoundref="_query_8cpp" startline="3" endline="6">setResult</references>
+        <referencedby refid="class_query_1a60b9acc2d06f83f46736ac4c876d9f23">Query</referencedby>
+        <referencedby refid="class_processor_1a24b069461f4161553899d2a8f84d3287" compoundref="_processor_8cpp" startline="126" endline="141">Processor::registerEvents</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1ac9134cc465d90c1f0528a3db2f9325f9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Query::incomingCalls</definition>
+        <argsstring>(juce::ValueTree &amp;request, const Index &amp;index) const</argsstring>
+        <name>incomingCalls</name>
+        <qualifiedname>Query::incomingCalls</qualifiedname>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>request</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Writes the parents of the call elements that refer to the function at the position of a request. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>request</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The request row. Its arguments give the file and the position. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="127" column="10" bodyfile="Query.cpp" bodystart="443" bodyend="459"/>
+        <references refid="classjam_1_1Array_1a11f82d383b72419d9e9624cbe63f7767">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::add</references>
+        <references refid="class_query_1a0427e42b4765519b5941fb6517a980bb" compoundref="_query_8h" startline="418" endline="428">applyToFunctions</references>
+        <references refid="class_query_1aa225b32e3c5a12601242c6bc88077904" compoundref="_query_8h" startline="259" endline="271">applyToReferences</references>
+        <references refid="structjam_1_1LanguageRole_1aa57ab486efc0ee9fcf67aff944739560ad7ae813d2336970559fe3dc2d8dc94ba">jam::LanguageRole::call</references>
+        <references refid="structjam_1_1Document_1_1Element_1af0e270107d2689f82a1bb4a2aface885">jam::Document::Element::find</references>
+        <references refid="structjam_1_1LanguageDocument_1aadb9f1fa16daa91558f177eb462dfee8">jam::LanguageDocument::hasRole</references>
+        <references refid="namespaceId_1ab17c6c7afce10ee78699a1e23ac7acdf">Id::name</references>
+        <references refid="structjam_1_1Document_1_1Element_1a5623d0f90f93f35dd68edcd215e75561">jam::Document::Element::parent</references>
+        <references refid="class_query_1a018e73734d5eec33e8483a4179b25216" compoundref="_query_8cpp" startline="3" endline="6">setResult</references>
+        <referencedby refid="class_query_1a60b9acc2d06f83f46736ac4c876d9f23">Query</referencedby>
+        <referencedby refid="class_processor_1a24b069461f4161553899d2a8f84d3287" compoundref="_processor_8cpp" startline="126" endline="141">Processor::registerEvents</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1adc9652cdecb42aef9e899a2216882f37" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Query::outgoingCalls</definition>
+        <argsstring>(juce::ValueTree &amp;request, const Index &amp;index) const</argsstring>
+        <name>outgoingCalls</name>
+        <qualifiedname>Query::outgoingCalls</qualifiedname>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>request</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Writes the declarations that the calls inside the function at the position of a request refer to. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The walk visits each element under the function declaration. Each call element gives the declarations with its symbol.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>request</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The request row. Its arguments give the file and the position. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="138" column="10" bodyfile="Query.cpp" bodystart="461" bodyend="478"/>
+        <references refid="classjam_1_1Array_1a11f82d383b72419d9e9624cbe63f7767">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::add</references>
+        <references refid="class_query_1aa4dbc1b2d56916606809ac28736fbbaa" compoundref="_query_8h" startline="233" endline="245">applyToDeclarations</references>
+        <references refid="class_query_1a0427e42b4765519b5941fb6517a980bb" compoundref="_query_8h" startline="418" endline="428">applyToFunctions</references>
+        <references refid="structjam_1_1LanguageRole_1aa57ab486efc0ee9fcf67aff944739560ad7ae813d2336970559fe3dc2d8dc94ba">jam::LanguageRole::call</references>
+        <references refid="structjam_1_1LanguageDocument_1aadb9f1fa16daa91558f177eb462dfee8">jam::LanguageDocument::hasRole</references>
+        <references refid="class_query_1a018e73734d5eec33e8483a4179b25216" compoundref="_query_8cpp" startline="3" endline="6">setResult</references>
+        <referencedby refid="class_query_1a60b9acc2d06f83f46736ac4c876d9f23">Query</referencedby>
+        <referencedby refid="class_processor_1a24b069461f4161553899d2a8f84d3287" compoundref="_processor_8cpp" startline="126" endline="141">Processor::registerEvents</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1a018e73734d5eec33e8483a4179b25216" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Query::setResult</definition>
+        <argsstring>(juce::ValueTree &amp;request, jam::Array&lt; std::pair&lt; int, const jam::Document::Element * &gt; &gt; results, const Index &amp;index) const</argsstring>
+        <name>setResult</name>
+        <qualifiedname>Query::setResult</qualifiedname>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>request</declname>
+        </param>
+        <param>
+          <type><ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>&lt; std::pair&lt; int, const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> * &gt; &gt;</type>
+          <declname>results</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Stores the results of a request as a JSON array, with no extra members. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>request</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The request row that receives the JSON. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>results</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The pairs of a path index and an element. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="147" column="10" bodyfile="Query.cpp" bodystart="3" bodyend="6"/>
+        <references refid="class_query_1a018e73734d5eec33e8483a4179b25216" compoundref="_query_8cpp" startline="3" endline="6">setResult</references>
+        <referencedby refid="class_processor_1a4ca458a15beaa67c0b76a6cf2d72cc55" compoundref="_processor_8cpp" startline="181" endline="193">Processor::addCheck</referencedby>
+        <referencedby refid="class_query_1adf6cde45c991e2c9c4b31f0b3c13f04c" compoundref="_query_8cpp" startline="388" endline="411">completion</referencedby>
+        <referencedby refid="class_processor_1ae286406f1cd72512c3095c12b15bf03d" compoundref="_processor_8cpp" startline="161" endline="179">Processor::diagnostics</referencedby>
+        <referencedby refid="class_query_1a163faae03873f24fd5fb7ba47a310df3" compoundref="_query_8cpp" startline="227" endline="247">documentSymbol</referencedby>
+        <referencedby refid="class_query_1a852e9ede3402713f66bb2abf97ed1436" compoundref="_query_8cpp" startline="179" endline="197">findReferences</referencedby>
+        <referencedby refid="class_query_1a35e3fac14102a3b269f3e941595a4e25" compoundref="_query_8cpp" startline="164" endline="177">goToDefinition</referencedby>
+        <referencedby refid="class_query_1a0d3863559c1bdb51563dab006fe940ca" compoundref="_query_8cpp" startline="413" endline="429">goToImplementation</referencedby>
+        <referencedby refid="class_query_1adf9f19baf3d11420d442548886f453a7" compoundref="_query_8cpp" startline="199" endline="225">hover</referencedby>
+        <referencedby refid="class_query_1ac9134cc465d90c1f0528a3db2f9325f9" compoundref="_query_8cpp" startline="443" endline="459">incomingCalls</referencedby>
+        <referencedby refid="class_query_1aad6e5a1c4754d6605f90f30699fc7769" compoundref="_query_8cpp" startline="272" endline="305">inlayHint</referencedby>
+        <referencedby refid="class_query_1adc9652cdecb42aef9e899a2216882f37" compoundref="_query_8cpp" startline="461" endline="478">outgoingCalls</referencedby>
+        <referencedby refid="class_query_1ae2b2672fe36aaace7abcc92845660caa" compoundref="_query_8cpp" startline="431" endline="441">prepareCallHierarchy</referencedby>
+        <referencedby refid="class_query_1a60b9acc2d06f83f46736ac4c876d9f23">Query</referencedby>
+        <referencedby refid="class_processor_1a1dcabcb77d254b34ff0c04c9b483028d" compoundref="_processor_8cpp" startline="143" endline="159">Processor::runRequest</referencedby>
+        <referencedby refid="class_query_1a018e73734d5eec33e8483a4179b25216" compoundref="_query_8cpp" startline="3" endline="6">setResult</referencedby>
+        <referencedby refid="class_query_1a19666bfbde437c9035e0324d868a6d28" compoundref="_query_8cpp" startline="249" endline="270">switchSourceHeader</referencedby>
+        <referencedby refid="class_query_1a15ad9b779e57720f864388a75863b93b" compoundref="_query_8cpp" startline="363" endline="386">workspaceSymbol</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1a13f608bd23bb0b5aae60bd3454e1b360" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Query::setResult</definition>
+        <argsstring>(juce::ValueTree &amp;request, std::string_view json) const</argsstring>
+        <name>setResult</name>
+        <qualifiedname>Query::setResult</qualifiedname>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>request</declname>
+        </param>
+        <param>
+          <type>std::string_view</type>
+          <declname>json</declname>
+        </param>
+        <briefdescription>
+<para>Stores a JSON text as the result of a request. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The connection of the row reacts to the change of the result. It sends the text to the client, and it removes the request row.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>request</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The request row that receives the result. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>json</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The JSON text. The property holds a copy of it. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="158" column="10" bodyfile="Query.cpp" bodystart="8" bodyend="11"/>
+        <references refid="classjam_1_1Strings_1aca02ec79e3d857bca6f9647dce6415fc">jam::Strings::fromView</references>
+        <references refid="namespaceId_1a4d0c202389586ef61d84b669241a4739" compoundref="_generated_8cpp" startline="77" endline="77">Id::result</references>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1a34c7ee4f15d24026a9aff90e0733c7e8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Query::getPathIndex</definition>
+        <argsstring>(const juce::ValueTree &amp;request, const Index &amp;index) const</argsstring>
+        <name>getPathIndex</name>
+        <qualifiedname>Query::getPathIndex</qualifiedname>
+        <param>
+          <type>const <ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>request</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Returns the index in paths of the file that a request names. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The file argument resolves against the folder of the client. The request stores that folder in its directory, because this process can run in a different folder.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>request</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The request row. Its directory and its file argument give the path. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The index of the path in paths, or -1 when the path is not stored. </para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="171" column="9" bodyfile="Query.cpp" bodystart="72" bodyend="75"/>
+        <references refid="class_query_1a2436862865adf7b1e292b123205f154a" compoundref="_query_8cpp" startline="67" endline="70">getFile</references>
+        <referencedby refid="class_query_1ab799317ea0796e68fce933c28cd0ee8d" compoundref="_query_8h" startline="288" endline="314">applyToPosition</referencedby>
+        <referencedby refid="class_processor_1ae286406f1cd72512c3095c12b15bf03d" compoundref="_processor_8cpp" startline="161" endline="179">Processor::diagnostics</referencedby>
+        <referencedby refid="class_query_1a60b9acc2d06f83f46736ac4c876d9f23">Query</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_query_1a2436862865adf7b1e292b123205f154a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref></type>
+        <definition>juce::File Query::getFile</definition>
+        <argsstring>(const juce::ValueTree &amp;request)</argsstring>
+        <name>getFile</name>
+        <qualifiedname>Query::getFile</qualifiedname>
+        <param>
+          <type>const <ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>request</declname>
+        </param>
+        <briefdescription>
+<para>Returns the file that a request names, resolved against the folder that the request stores. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This process can run in a different folder from the client, so the request holds the folder of the client in its directory.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>request</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The request row. Its directory and its file argument give the file. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The file named by the file argument, under the directory of the request. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="182" column="23" bodyfile="Query.cpp" bodystart="67" bodyend="70"/>
+        <references refid="namespaceId_1a2333fa49126557436eb1441faf72fd4f" compoundref="_generated_8cpp" startline="27" endline="27">Id::arguments</references>
+        <references refid="namespaceId_1a6669c6bd053caa80ea2d789eddc0de47">Id::directory</references>
+        <references refid="class_query_1a01f72228ea89d98816ae2c8216bae8c1" compoundref="_query_8h" startline="186" endline="186">fileIndex</references>
+        <references refid="classjuce_1_1File_1a57b992aacb19e09ee5905cd0f0e9bb31">juce::File::getChildFile</references>
+        <references refid="classjuce_1_1Identifier_1ab6f0db1de2c36cacd1a9d7280f73aeeb">juce::Identifier::toString</references>
+        <referencedby refid="class_query_1acbe7e23b2ef525e32e8f29d970c5af60" compoundref="_query_8h" startline="327" endline="335">applyToFile</referencedby>
+        <referencedby refid="class_processor_1ae286406f1cd72512c3095c12b15bf03d" compoundref="_processor_8cpp" startline="161" endline="179">Processor::diagnostics</referencedby>
+        <referencedby refid="class_query_1a34c7ee4f15d24026a9aff90e0733c7e8" compoundref="_query_8cpp" startline="72" endline="75">getPathIndex</referencedby>
+        <referencedby refid="class_query_1a60b9acc2d06f83f46736ac4c876d9f23">Query</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="class_query_1a3d758bdc28126e28b5a028ddac9fa20f" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Query::hasName</definition>
+        <argsstring>(const jam::Document::Element &amp;element)</argsstring>
+        <name>hasName</name>
+        <qualifiedname>Query::hasName</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>element</declname>
+        </param>
+        <briefdescription>
+<para>Tells whether the name of an element has at least one token. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The language parse gives <ref refid="namespaceId_1ab17c6c7afce10ee78699a1e23ac7acdf" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::name</ref> to every element that it adds, with zero or more tokens. The lookups read the name of each element that they test, so the element must hold <ref refid="namespaceId_1ab17c6c7afce10ee78699a1e23ac7acdf" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::name</ref>.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>element</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The element to test. It must hold <ref refid="namespaceId_1ab17c6c7afce10ee78699a1e23ac7acdf" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::name</ref>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><computeroutput>true</computeroutput> when the element has at least one name token. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="198" column="17" bodyfile="Query.cpp" bodystart="13" bodyend="16"/>
+        <references refid="namespaceId_1ab17c6c7afce10ee78699a1e23ac7acdf">Id::name</references>
+        <referencedby refid="class_query_1a9b1432685f1c6c3a87f75bd8c460904b" compoundref="_query_8h" startline="445" endline="468">applyToCandidates</referencedby>
+        <referencedby refid="class_query_1a7d98690db81b3e8de810ea6b0bc3b0f7" compoundref="_query_8h" startline="485" endline="511">applyToImplementations</referencedby>
+        <referencedby refid="class_query_1ab7eebf153a5c86a2892db5bdd1986759" compoundref="_query_8cpp" startline="307" endline="312">getMatch</referencedby>
+        <referencedby refid="class_query_1a2ae4ab02c14df0ad3aaf29d3b46fe8a9" compoundref="_query_8cpp" startline="314" endline="338">getMatches</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1aa8ff4edd44b5494a0b66665daec5a84d" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>&lt; std::string_view &gt;</type>
+        <definition>jam::Array&lt; std::string_view &gt; Query::getPath</definition>
+        <argsstring>(const jam::LanguageDocument &amp;document, const jam::Document::Element &amp;element)</argsstring>
+        <name>getPath</name>
+        <qualifiedname>Query::getPath</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref> &amp;</type>
+          <declname>document</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>element</declname>
+        </param>
+        <briefdescription>
+<para>Returns the names of an element and of its ancestors, from the root down. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>document</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The document that holds the element. Its tokens give the names. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>element</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The element whose path is returned. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The names of the enclosing declarations, then the name of the element. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="210" column="23" bodyfile="Query.cpp" bodystart="29" bodyend="40"/>
+        <references refid="class_query_1abf47c27b1ca1e9727c900d49a3f92978" compoundref="_query_8cpp" startline="18" endline="27">getName</references>
+        <references refid="class_query_1aa8ff4edd44b5494a0b66665daec5a84d" compoundref="_query_8cpp" startline="29" endline="40">getPath</references>
+        <referencedby refid="class_query_1a9b1432685f1c6c3a87f75bd8c460904b" compoundref="_query_8h" startline="445" endline="468">applyToCandidates</referencedby>
+        <referencedby refid="class_query_1aa42d3e64bd096855681feb31c3666cd3" compoundref="_query_8h" startline="906" endline="932">applyToCompletions</referencedby>
+        <referencedby refid="class_query_1a912e1c95b7c3da700bd83cfad982ae8a" compoundref="_query_8h" startline="612" endline="651">applyToScopes</referencedby>
+        <referencedby refid="class_query_1aa8ff4edd44b5494a0b66665daec5a84d" compoundref="_query_8cpp" startline="29" endline="40">getPath</referencedby>
+        <referencedby refid="class_query_1adf9f19baf3d11420d442548886f453a7" compoundref="_query_8cpp" startline="199" endline="225">hover</referencedby>
+        <referencedby refid="class_query_1a8f2d8a6040efff8eca0e51df8e8ec4b7" compoundref="_query_8cpp" startline="115" endline="126">isBeforeByPath</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1a614d03dfada21aff258e32a8f1ecebd5" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Query::isSamePath</definition>
+        <argsstring>(const jam::Array&lt; std::string_view &gt; &amp;path, const jam::Array&lt; std::string_view &gt; &amp;otherPath)</argsstring>
+        <name>isSamePath</name>
+        <qualifiedname>Query::isSamePath</qualifiedname>
+        <param>
+          <type>const <ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>&lt; std::string_view &gt; &amp;</type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>&lt; std::string_view &gt; &amp;</type>
+          <declname>otherPath</declname>
+        </param>
+        <briefdescription>
+<para>Tells whether two paths hold the same segments. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The first path. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>otherPath</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The second path. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><computeroutput>true</computeroutput> when both paths have the same count of segments, and each pair of segments has equal text. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="219" column="17" bodyfile="Query.cpp" bodystart="53" bodyend="60"/>
+        <references refid="classjam_1_1Array_1aa5240327dd94267390aefa03215033e1">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::begin</references>
+        <references refid="classjam_1_1Array_1a15af995542610b93595677080ed7672e">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::size</references>
+        <referencedby refid="class_query_1aa42d3e64bd096855681feb31c3666cd3" compoundref="_query_8h" startline="906" endline="932">applyToCompletions</referencedby>
+        <referencedby refid="class_query_1a8f2d8a6040efff8eca0e51df8e8ec4b7" compoundref="_query_8cpp" startline="115" endline="126">isBeforeByPath</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1abf47c27b1ca1e9727c900d49a3f92978" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>&lt; std::string_view &gt;</type>
+        <definition>jam::Array&lt; std::string_view &gt; Query::getName</definition>
+        <argsstring>(const jam::LanguageDocument &amp;document, const jam::Document::Element &amp;element)</argsstring>
+        <name>getName</name>
+        <qualifiedname>Query::getName</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref> &amp;</type>
+          <declname>document</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>element</declname>
+        </param>
+        <briefdescription>
+<para>Returns the text of each name token of an element. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>document</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The document that holds the element. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>element</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The element whose name is returned. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The name segments in order. The list is empty when the element has no name. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="723" column="23" bodyfile="Query.cpp" bodystart="18" bodyend="27"/>
+        <references refid="structjam_1_1Document_1a87bb9275594c8b0da70139d14782597d">jam::Document::getView</references>
+        <references refid="namespaceId_1ab17c6c7afce10ee78699a1e23ac7acdf">Id::name</references>
+        <referencedby refid="class_query_1a9b1432685f1c6c3a87f75bd8c460904b" compoundref="_query_8h" startline="445" endline="468">applyToCandidates</referencedby>
+        <referencedby refid="class_query_1aa8ff4edd44b5494a0b66665daec5a84d" compoundref="_query_8cpp" startline="29" endline="40">getPath</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1aa69509ed4296d3e1b0a49feebf1829f6" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>&lt; std::string_view &gt;</type>
+        <definition>jam::Array&lt; std::string_view &gt; Query::getPath</definition>
+        <argsstring>(const jam::Array&lt; std::string_view &gt; &amp;scope, int size, const jam::Array&lt; std::string_view &gt; &amp;name)</argsstring>
+        <name>getPath</name>
+        <qualifiedname>Query::getPath</qualifiedname>
+        <param>
+          <type>const <ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>&lt; std::string_view &gt; &amp;</type>
+          <declname>scope</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>&lt; std::string_view &gt; &amp;</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+<para>Returns the first size segments of a scope, followed by a name. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>A lookup tries each shorter scope in turn. Each try copies the scope with a smaller size, and then it appends the name.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>scope</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The path whose first segments are copied. Its size is at least <computeroutput>size</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The count of segments of the scope to copy. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The segments that are appended after the copied segments. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The copied segments, then the name segments. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="736" column="23" bodyfile="Query.cpp" bodystart="42" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1ac4c8343e32f31009c6baf0f0ff4f441d" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Query::hasPath</definition>
+        <argsstring>(const jam::Array&lt; jam::Array&lt; std::string_view &gt; &gt; &amp;knownPaths, const jam::Array&lt; std::string_view &gt; &amp;path)</argsstring>
+        <name>hasPath</name>
+        <qualifiedname>Query::hasPath</qualifiedname>
+        <param>
+          <type>const <ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>&lt; <ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>&lt; std::string_view &gt; &gt; &amp;</type>
+          <declname>knownPaths</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>&lt; std::string_view &gt; &amp;</type>
+          <declname>path</declname>
+        </param>
+        <briefdescription>
+<para>Tells whether a list of paths holds a path. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>knownPaths</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The paths to search. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The path to find. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><computeroutput>true</computeroutput> when a known path has the same segments as the path. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="745" column="17" bodyfile="Query.cpp" bodystart="62" bodyend="65"/>
+        <referencedby refid="class_query_1a912e1c95b7c3da700bd83cfad982ae8a" compoundref="_query_8h" startline="612" endline="651">applyToScopes</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_query_1aa4dbc1b2d56916606809ac28736fbbaa" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Function</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void Query::applyToDeclarations</definition>
+        <argsstring>(const jam::Document::Element &amp;element, const Function &amp;function, const Index &amp;index) const</argsstring>
+        <name>applyToDeclarations</name>
+        <qualifiedname>Query::applyToDeclarations</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>element</declname>
+        </param>
+        <param>
+          <type>const Function &amp;</type>
+          <declname>function</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Calls <computeroutput>function</computeroutput> for each declaration that has the symbol of an element. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The lookup reads the declarations that share the symbol of the element. An element without <ref refid="namespaceId_1a1117a23bc746c82b2e9fa021d6937fda" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::symbol</ref> calls nothing.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A callable type that takes (int, const <ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref>&amp;, const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>element</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The element whose declarations are visited. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The callable. It receives the path index, the document, and each declaration. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="233" column="10" bodyfile="Query.h" bodystart="233" bodyend="245"/>
+        <references refid="namespaceId_1a1117a23bc746c82b2e9fa021d6937fda" compoundref="_generated_8cpp" startline="85" endline="85">Id::symbol</references>
+        <referencedby refid="class_query_1a05869a1fa8d68cc560257f867486b8fd" compoundref="_query_8h" startline="705" endline="714">applyToBases</referencedby>
+        <referencedby refid="class_query_1a4dac04bdeac8dc7abc9c4ca57518495d" compoundref="_query_8h" startline="388" endline="403">applyToFirstFunction</referencedby>
+        <referencedby refid="class_query_1a0427e42b4765519b5941fb6517a980bb" compoundref="_query_8h" startline="418" endline="428">applyToFunctions</referencedby>
+        <referencedby refid="class_query_1a7d98690db81b3e8de810ea6b0bc3b0f7" compoundref="_query_8h" startline="485" endline="511">applyToImplementations</referencedby>
+        <referencedby refid="class_query_1a912e1c95b7c3da700bd83cfad982ae8a" compoundref="_query_8h" startline="612" endline="651">applyToScopes</referencedby>
+        <referencedby refid="class_query_1a852e9ede3402713f66bb2abf97ed1436" compoundref="_query_8cpp" startline="179" endline="197">findReferences</referencedby>
+        <referencedby refid="class_query_1a35e3fac14102a3b269f3e941595a4e25" compoundref="_query_8cpp" startline="164" endline="177">goToDefinition</referencedby>
+        <referencedby refid="class_query_1a0d3863559c1bdb51563dab006fe940ca" compoundref="_query_8cpp" startline="413" endline="429">goToImplementation</referencedby>
+        <referencedby refid="class_query_1adf9f19baf3d11420d442548886f453a7" compoundref="_query_8cpp" startline="199" endline="225">hover</referencedby>
+        <referencedby refid="class_query_1adc9652cdecb42aef9e899a2216882f37" compoundref="_query_8cpp" startline="461" endline="478">outgoingCalls</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1aa225b32e3c5a12601242c6bc88077904" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Function</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void Query::applyToReferences</definition>
+        <argsstring>(const jam::Document::Element &amp;declaration, const Function &amp;function, const Index &amp;index) const</argsstring>
+        <name>applyToReferences</name>
+        <qualifiedname>Query::applyToReferences</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>declaration</declname>
+        </param>
+        <param>
+          <type>const Function &amp;</type>
+          <declname>function</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Calls <computeroutput>function</computeroutput> for each reference that has the symbol of a declaration. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The lookup reads the references that share the symbol of the declaration. A declaration without <ref refid="namespaceId_1a1117a23bc746c82b2e9fa021d6937fda" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::symbol</ref> calls nothing.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A callable type that takes (int, const <ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref>&amp;, const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>declaration</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The declaration whose references are visited. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The callable. It receives the path index, the document, and each reference. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="259" column="10" bodyfile="Query.h" bodystart="259" bodyend="271"/>
+        <references refid="namespaceId_1a1117a23bc746c82b2e9fa021d6937fda" compoundref="_generated_8cpp" startline="85" endline="85">Id::symbol</references>
+        <referencedby refid="class_query_1a852e9ede3402713f66bb2abf97ed1436" compoundref="_query_8cpp" startline="179" endline="197">findReferences</referencedby>
+        <referencedby refid="class_query_1ac9134cc465d90c1f0528a3db2f9325f9" compoundref="_query_8cpp" startline="443" endline="459">incomingCalls</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1ab799317ea0796e68fce933c28cd0ee8d" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Function</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void Query::applyToPosition</definition>
+        <argsstring>(juce::ValueTree &amp;request, const Function &amp;function, const Index &amp;index, int columnOffset=0) const</argsstring>
+        <name>applyToPosition</name>
+        <qualifiedname>Query::applyToPosition</qualifiedname>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>request</declname>
+        </param>
+        <param>
+          <type>const Function &amp;</type>
+          <declname>function</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>columnOffset</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Calls <computeroutput>function</computeroutput> for the element at the position of a request. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The arguments hold the file, the line, and the column, in that order. The function runs only when the element covers the position in a stored document. When the arguments are not valid, the overlay message reports the failure.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A callable type that takes (int, const <ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref>&amp;, const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>request</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The request row. Its arguments give the position. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The callable. It receives the path index, the document, and the element. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>columnOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The count of columns that is added to the column before the lookup. completion passes -1, so the position is the last byte of the typed name. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="288" column="10" bodyfile="Query.h" bodystart="288" bodyend="314"/>
+        <references refid="namespaceId_1a2333fa49126557436eb1441faf72fd4f" compoundref="_generated_8cpp" startline="27" endline="27">Id::arguments</references>
+        <references refid="structtext_1_1_diagnostics_1ab8e4b15951f8dd3ceb318d7d3e79ff15" compoundref="_text_8h" startline="33" endline="33">text::Diagnostics::failArguments</references>
+        <references refid="class_query_1a8f848e31463b2c797875dc99860b5c8f" compoundref="_query_8cpp" startline="77" endline="103">getElement</references>
+        <references refid="class_query_1a34c7ee4f15d24026a9aff90e0733c7e8" compoundref="_query_8cpp" startline="72" endline="75">getPathIndex</references>
+        <referencedby refid="class_query_1a0427e42b4765519b5941fb6517a980bb" compoundref="_query_8h" startline="418" endline="428">applyToFunctions</referencedby>
+        <referencedby refid="class_query_1adf6cde45c991e2c9c4b31f0b3c13f04c" compoundref="_query_8cpp" startline="388" endline="411">completion</referencedby>
+        <referencedby refid="class_query_1a852e9ede3402713f66bb2abf97ed1436" compoundref="_query_8cpp" startline="179" endline="197">findReferences</referencedby>
+        <referencedby refid="class_query_1a35e3fac14102a3b269f3e941595a4e25" compoundref="_query_8cpp" startline="164" endline="177">goToDefinition</referencedby>
+        <referencedby refid="class_query_1a0d3863559c1bdb51563dab006fe940ca" compoundref="_query_8cpp" startline="413" endline="429">goToImplementation</referencedby>
+        <referencedby refid="class_query_1adf9f19baf3d11420d442548886f453a7" compoundref="_query_8cpp" startline="199" endline="225">hover</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1acbe7e23b2ef525e32e8f29d970c5af60" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Function</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void Query::applyToFile</definition>
+        <argsstring>(const juce::ValueTree &amp;request, const Function &amp;function, const Index &amp;index) const</argsstring>
+        <name>applyToFile</name>
+        <qualifiedname>Query::applyToFile</qualifiedname>
+        <param>
+          <type>const <ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>request</declname>
+        </param>
+        <param>
+          <type>const Function &amp;</type>
+          <declname>function</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Calls <computeroutput>function</computeroutput> with the file that a request names, when the request holds one argument. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Any other argument count sets the overlay message, and <computeroutput>function</computeroutput> is not called.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A callable type that takes (const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref>&amp;). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>request</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The request row. Its single argument is the file. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The callable. It receives the file. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="327" column="10" bodyfile="Query.h" bodystart="327" bodyend="335"/>
+        <references refid="namespaceId_1a2333fa49126557436eb1441faf72fd4f" compoundref="_generated_8cpp" startline="27" endline="27">Id::arguments</references>
+        <references refid="structtext_1_1_diagnostics_1ab8e4b15951f8dd3ceb318d7d3e79ff15" compoundref="_text_8h" startline="33" endline="33">text::Diagnostics::failArguments</references>
+        <references refid="class_query_1a2436862865adf7b1e292b123205f154a" compoundref="_query_8cpp" startline="67" endline="70">getFile</references>
+        <referencedby refid="class_query_1a163faae03873f24fd5fb7ba47a310df3" compoundref="_query_8cpp" startline="227" endline="247">documentSymbol</referencedby>
+        <referencedby refid="class_query_1aad6e5a1c4754d6605f90f30699fc7769" compoundref="_query_8cpp" startline="272" endline="305">inlayHint</referencedby>
+        <referencedby refid="class_query_1a19666bfbde437c9035e0324d868a6d28" compoundref="_query_8cpp" startline="249" endline="270">switchSourceHeader</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1adbe78bd35cf48ffde2213b2db9dae86e" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Function</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void Query::applyToCounterparts</definition>
+        <argsstring>(const juce::File &amp;file, const Function &amp;function, const Index &amp;index) const</argsstring>
+        <name>applyToCounterparts</name>
+        <qualifiedname>Query::applyToCounterparts</qualifiedname>
+        <param>
+          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type>const Function &amp;</type>
+          <declname>function</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Calls <computeroutput>function</computeroutput> for each file row that pairs with a file under the counterpart table of its language. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The language is the family of the file. A file of a family with no loaded library has no counterparts. A counterpart has the same name without its extension, and an extension that the table pairs with the extension of the file.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A callable type that takes (const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref>&amp;). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The file whose counterparts are visited. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The callable. It receives each counterpart file. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="350" column="10" bodyfile="Query.h" bodystart="350" bodyend="373"/>
+        <references refid="classjuce_1_1String_1ae9c98d84e716c102f00330b3f1ccd4be">juce::String::compare</references>
+        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="53" endline="53">Id::files</references>
+        <references refid="structjam_1_1SyntaxTree_1ab754d45fe51320139c516c80c975ef78">jam::SyntaxTree::getFamily</references>
+        <references refid="classjuce_1_1File_1a2ddaa0281a3af3022c970199950e312e">juce::File::getFileExtension</references>
+        <references refid="classjuce_1_1File_1a6c9a32c828be9af8bd084d8bcfa5e717">juce::File::getFileNameWithoutExtension</references>
+        <references refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab">Id::path</references>
+        <references refid="classjuce_1_1String_1abdadcd93345db39575b8b40b7e96e987">juce::String::substring</references>
+        <references refid="classjuce_1_1Identifier_1ab6f0db1de2c36cacd1a9d7280f73aeeb">juce::Identifier::toString</references>
+        <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
+        <referencedby refid="class_query_1a19666bfbde437c9035e0324d868a6d28" compoundref="_query_8cpp" startline="249" endline="270">switchSourceHeader</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1a4dac04bdeac8dc7abc9c4ca57518495d" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Function</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void Query::applyToFirstFunction</definition>
+        <argsstring>(int pathIndex, const jam::Document::Element &amp;reference, const Function &amp;function, const Index &amp;index) const</argsstring>
+        <name>applyToFirstFunction</name>
+        <qualifiedname>Query::applyToFirstFunction</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>pathIndex</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>reference</declname>
+        </param>
+        <param>
+          <type>const Function &amp;</type>
+          <declname>function</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Calls <computeroutput>function</computeroutput> once for the first function declaration that a reference resolves to. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The first declaration is the one that comes first in the order of isBefore. A reference with no function declaration calls nothing.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A callable type that takes (const <ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref>&amp;, const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pathIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index of the document that holds the reference. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>reference</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The reference whose declarations are visited. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The callable. It receives the document and the first function declaration. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="388" column="10" bodyfile="Query.h" bodystart="388" bodyend="403"/>
+        <references refid="class_query_1aa4dbc1b2d56916606809ac28736fbbaa" compoundref="_query_8h" startline="233" endline="245">applyToDeclarations</references>
+        <references refid="structjam_1_1LanguageRole_1aa57ab486efc0ee9fcf67aff944739560ae02e398cce599c7a9104f79075820c25">jam::LanguageRole::function</references>
+        <references refid="structjam_1_1LanguageDocument_1aadb9f1fa16daa91558f177eb462dfee8">jam::LanguageDocument::hasRole</references>
+        <references refid="class_query_1acf98a8de0ed63be51cbcbbb66d2e2914" compoundref="_query_8cpp" startline="105" endline="113">isBefore</references>
+        <referencedby refid="class_query_1aad6e5a1c4754d6605f90f30699fc7769" compoundref="_query_8cpp" startline="272" endline="305">inlayHint</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1a0427e42b4765519b5941fb6517a980bb" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Function</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void Query::applyToFunctions</definition>
+        <argsstring>(juce::ValueTree &amp;request, const Function &amp;function, const Index &amp;index) const</argsstring>
+        <name>applyToFunctions</name>
+        <qualifiedname>Query::applyToFunctions</qualifiedname>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>request</declname>
+        </param>
+        <param>
+          <type>const Function &amp;</type>
+          <declname>function</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Calls <computeroutput>function</computeroutput> for each function declaration at the position of a request. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>A call hierarchy starts at a callable declaration. The filter keeps each declaration that has the function role of its language, and drops every other declaration at the position.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A callable type that takes (int, const <ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref>&amp;, const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>request</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The request row. Its arguments give the position. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The callable. It receives the path index, the document, and each function declaration. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="418" column="10" bodyfile="Query.h" bodystart="418" bodyend="428"/>
+        <references refid="class_query_1aa4dbc1b2d56916606809ac28736fbbaa" compoundref="_query_8h" startline="233" endline="245">applyToDeclarations</references>
+        <references refid="class_query_1ab799317ea0796e68fce933c28cd0ee8d" compoundref="_query_8h" startline="288" endline="314">applyToPosition</references>
+        <references refid="structjam_1_1LanguageRole_1aa57ab486efc0ee9fcf67aff944739560ae02e398cce599c7a9104f79075820c25">jam::LanguageRole::function</references>
+        <references refid="structjam_1_1LanguageDocument_1aadb9f1fa16daa91558f177eb462dfee8">jam::LanguageDocument::hasRole</references>
+        <referencedby refid="class_query_1ac9134cc465d90c1f0528a3db2f9325f9" compoundref="_query_8cpp" startline="443" endline="459">incomingCalls</referencedby>
+        <referencedby refid="class_query_1adc9652cdecb42aef9e899a2216882f37" compoundref="_query_8cpp" startline="461" endline="478">outgoingCalls</referencedby>
+        <referencedby refid="class_query_1ae2b2672fe36aaace7abcc92845660caa" compoundref="_query_8cpp" startline="431" endline="441">prepareCallHierarchy</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1a9b1432685f1c6c3a87f75bd8c460904b" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Function</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void Query::applyToCandidates</definition>
+        <argsstring>(const jam::LanguageDocument &amp;document, const jam::Document::Element &amp;reference, const Function &amp;function, const Index &amp;index) const</argsstring>
+        <name>applyToCandidates</name>
+        <qualifiedname>Query::applyToCandidates</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref> &amp;</type>
+          <declname>document</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>reference</declname>
+        </param>
+        <param>
+          <type>const Function &amp;</type>
+          <declname>function</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Calls <computeroutput>function</computeroutput> for each declaration that a reference can complete to. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>A member reference gives each member declaration of every stored document. Any other reference gives the named declarations below each scope that applyToScopes visits. The qualifier is the name of the reference without its last segment.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A callable type that takes (int, const <ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref>&amp;, const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>document</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The document that holds the reference. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>reference</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The reference element whose name is completed. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The callable. It receives the path index, the document, and each candidate. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="445" column="10" bodyfile="Query.h" bodystart="445" bodyend="468"/>
+        <references refid="class_query_1a912e1c95b7c3da700bd83cfad982ae8a" compoundref="_query_8h" startline="612" endline="651">applyToScopes</references>
+        <references refid="structjam_1_1Document_1_1Element_1aaa9ae0e5faf4537900f38e201f1a0279">jam::Document::Element::contains</references>
+        <references refid="class_query_1abf47c27b1ca1e9727c900d49a3f92978" compoundref="_query_8cpp" startline="18" endline="27">getName</references>
+        <references refid="class_query_1aa8ff4edd44b5494a0b66665daec5a84d" compoundref="_query_8cpp" startline="29" endline="40">getPath</references>
+        <references refid="class_query_1a3d758bdc28126e28b5a028ddac9fa20f" compoundref="_query_8cpp" startline="13" endline="16">hasName</references>
+        <references refid="structjam_1_1LanguageDocument_1aadb9f1fa16daa91558f177eb462dfee8">jam::LanguageDocument::hasRole</references>
+        <references refid="namespaceId_1afaa623a03cb03eafba3aa5e964f1b1e7">Id::member</references>
+        <references refid="structjam_1_1LanguageRole_1aa57ab486efc0ee9fcf67aff944739560a2bbb8bb8295012518c1c3c898e3f520d">jam::LanguageRole::member</references>
+        <references refid="structjam_1_1Document_1_1Element_1a5623d0f90f93f35dd68edcd215e75561">jam::Document::Element::parent</references>
+        <referencedby refid="class_query_1a38c180b51d092824ab79d074737dc4e3" compoundref="_query_8cpp" startline="340" endline="361">getCompletions</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1a7d98690db81b3e8de810ea6b0bc3b0f7" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Function</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void Query::applyToImplementations</definition>
+        <argsstring>(int pathIndex, const jam::Document::Element &amp;declaration, const Function &amp;function, const Index &amp;index) const</argsstring>
+        <name>applyToImplementations</name>
+        <qualifiedname>Query::applyToImplementations</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>pathIndex</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>declaration</declname>
+        </param>
+        <param>
+          <type>const Function &amp;</type>
+          <declname>function</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Calls <computeroutput>function</computeroutput> for each implementation of a declaration. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>A declaration with the class role has its derived classes as implementations. A declaration whose parent has the class role, which is a member of a class, has the member of the same name in each derived class. Any other declaration has no implementation.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A callable type that takes (int, const <ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref>&amp;, const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pathIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index of the document that holds the declaration. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>declaration</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The declaration whose implementations are visited. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The callable. It receives the path index, the document, and each implementation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="485" column="10" bodyfile="Query.h" bodystart="485" bodyend="511"/>
+        <references refid="class_query_1aa4dbc1b2d56916606809ac28736fbbaa" compoundref="_query_8h" startline="233" endline="245">applyToDeclarations</references>
+        <references refid="class_query_1a3a0d6f4e7d27d8b2744bd6240d291228" compoundref="_query_8h" startline="561" endline="594">applyToDerived</references>
+        <references refid="structjam_1_1LanguageRole_1aa57ab486efc0ee9fcf67aff944739560a8c08cfe5dfd5c9b73c972bd9d30673af">jam::LanguageRole::classToken</references>
+        <references refid="structjam_1_1LanguageRole_1aa57ab486efc0ee9fcf67aff944739560a312e669975fd2c712a8ae31e760279d8">jam::LanguageRole::declaration</references>
+        <references refid="structjam_1_1Document_1a87bb9275594c8b0da70139d14782597d">jam::Document::getView</references>
+        <references refid="class_query_1a3d758bdc28126e28b5a028ddac9fa20f" compoundref="_query_8cpp" startline="13" endline="16">hasName</references>
+        <references refid="structjam_1_1LanguageDocument_1aadb9f1fa16daa91558f177eb462dfee8">jam::LanguageDocument::hasRole</references>
+        <references refid="classjam_1_1Array_1aa06fe830f5fb147900fc281d30384d77">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::last</references>
+        <references refid="namespaceId_1ab17c6c7afce10ee78699a1e23ac7acdf">Id::name</references>
+        <references refid="namespaceId_1a1117a23bc746c82b2e9fa021d6937fda" compoundref="_generated_8cpp" startline="85" endline="85">Id::symbol</references>
+        <referencedby refid="class_query_1a0d3863559c1bdb51563dab006fe940ca" compoundref="_query_8cpp" startline="413" endline="429">goToImplementation</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1a8f848e31463b2c797875dc99860b5c8f" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> *</type>
+        <definition>const jam::Document::Element * Query::getElement</definition>
+        <argsstring>(const jam::LanguageDocument &amp;document, int line, int column) const</argsstring>
+        <name>getElement</name>
+        <qualifiedname>Query::getElement</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref> &amp;</type>
+          <declname>document</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>line</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>column</declname>
+        </param>
+        <briefdescription>
+<para>Returns the first element whose last name token covers a position. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The line and the column are one-based, as a request sends them. The tree walk stops at the first element that covers the position.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>document</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The document to search. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>line</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The one-based line of the position. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The one-based column of the position. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The element that covers the position, or nullptr when no element covers it. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="524" column="34" bodyfile="Query.cpp" bodystart="77" bodyend="103"/>
+        <references refid="structjam_1_1Document_1_1Element_1af406a8362b6277a503c04e9d2bdf8681">jam::Document::Element::applyFunctionRecursively</references>
+        <references refid="structjam_1_1Document_1a86fec10b6cc4ec41143d30bddb906a23">jam::Document::getColumnNumber</references>
+        <references refid="structjam_1_1Document_1afc26cd1da23ba0b9eaaef1548fc2120b">jam::Document::getLineNumber</references>
+        <references refid="namespaceId_1ab17c6c7afce10ee78699a1e23ac7acdf">Id::name</references>
+        <referencedby refid="class_query_1ab799317ea0796e68fce933c28cd0ee8d" compoundref="_query_8h" startline="288" endline="314">applyToPosition</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1ad5ac2748b28141cf9f026bd26f3c9f08" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Function</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void Query::applyToDeclarations</definition>
+        <argsstring>(const jam::Array&lt; std::string_view &gt; &amp;path, const Function &amp;function, const Index &amp;index) const</argsstring>
+        <name>applyToDeclarations</name>
+        <qualifiedname>Query::applyToDeclarations</qualifiedname>
+        <param>
+          <type>const <ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>&lt; std::string_view &gt; &amp;</type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type>const Function &amp;</type>
+          <declname>function</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Calls <computeroutput>function</computeroutput> for each declaration whose path equals <computeroutput>path</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The path is matched in each stored document.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A callable type that takes (int, const <ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref>&amp;, const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The declaration path to match. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The callable. It receives the path index, the document, and each matching declaration. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="537" column="10" bodyfile="Query.h" bodystart="537" bodyend="544"/>
+        <references refid="class_query_1ad1e6dc4d2f9c91a9c05f24bc9f145d31" compoundref="_query_8h" startline="669" endline="691">applyToElements</references>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1a3a0d6f4e7d27d8b2744bd6240d291228" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Function</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void Query::applyToDerived</definition>
+        <argsstring>(const juce::String &amp;symbol, const Function &amp;function, const Index &amp;index) const</argsstring>
+        <name>applyToDerived</name>
+        <qualifiedname>Query::applyToDerived</qualifiedname>
+        <param>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <declname>symbol</declname>
+        </param>
+        <param>
+          <type>const Function &amp;</type>
+          <declname>function</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Calls <computeroutput>function</computeroutput> for each element that derives from a class, directly or through others. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The walk runs over a list of symbols that starts with the symbol of the base class. A reference whose role holds the base bit names a derived class. A <ref refid="namespacejam_1a461a64d893871d46c0baf2056586fad8" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::HashSet</ref> keeps each symbol that the walk has seen, so each derived class is reported once. The walk copies each symbol before it runs, because the walk adds to the list, and the add can move the storage of the list.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A callable type that takes (int, const <ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref>&amp;, const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>symbol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The symbol of the base class. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The callable. It receives the path index, the document, and each derived element. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="561" column="10" bodyfile="Query.h" bodystart="561" bodyend="594"/>
+        <references refid="classjam_1_1Array_1a11f82d383b72419d9e9624cbe63f7767">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::add</references>
+        <references refid="classjam_1_1Array_1a24ad4d6d1444205b79eff834a15e39c7">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::at</references>
+        <references refid="structjam_1_1LanguageRole_1aa57ab486efc0ee9fcf67aff944739560aabe35d8b1f9ede12d4e5cd592dc74854">jam::LanguageRole::base</references>
+        <references refid="classjam_1_1HashMap_1a652692e674a0b76b04df95b4a64394d8">jam::HashMap&lt; typename Key, typename Mapped, typename HashFn, typename KeyEqual, typename AllocatorOrContainer, typename Bucket, typename BucketContainer, bool IsSegmented &gt;::insert</references>
+        <references refid="namespaceId_1aa2febc0d8c19ea0cd03b41d80241f301" compoundref="_generated_8cpp" startline="78" endline="78">Id::role</references>
+        <references refid="classjam_1_1Array_1a15af995542610b93595677080ed7672e">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::size</references>
+        <references refid="namespaceId_1a1117a23bc746c82b2e9fa021d6937fda" compoundref="_generated_8cpp" startline="85" endline="85">Id::symbol</references>
+        <referencedby refid="class_query_1a7d98690db81b3e8de810ea6b0bc3b0f7" compoundref="_query_8h" startline="485" endline="511">applyToImplementations</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1a912e1c95b7c3da700bd83cfad982ae8a" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Function</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void Query::applyToScopes</definition>
+        <argsstring>(const jam::Array&lt; std::string_view &gt; &amp;scope, const jam::Array&lt; std::string_view &gt; &amp;qualifier, const Function &amp;function, const Index &amp;index) const</argsstring>
+        <name>applyToScopes</name>
+        <qualifiedname>Query::applyToScopes</qualifiedname>
+        <param>
+          <type>const <ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>&lt; std::string_view &gt; &amp;</type>
+          <declname>scope</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>&lt; std::string_view &gt; &amp;</type>
+          <declname>qualifier</declname>
+        </param>
+        <param>
+          <type>const Function &amp;</type>
+          <declname>function</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Calls <computeroutput>function</computeroutput> for each declaration that a name can see from a scope. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The scope paths are the first segments of scope, each followed by qualifier, for each count from the full scope down to zero. The walk does not stop at the first scope that has a match. An empty path gives the root of each stored document. Each base class of a visited class adds its paths to the walk once, so a class that names itself as its base ends the walk.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A callable type that takes (int, const <ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref>&amp;, const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>scope</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The path of the scope that holds the reference. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>qualifier</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The segments of a qualified name, without its last segment. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The callable. It receives the path index, the document, and each scope element. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="612" column="10" bodyfile="Query.h" bodystart="612" bodyend="651"/>
+        <references refid="classjam_1_1Array_1a11f82d383b72419d9e9624cbe63f7767">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::add</references>
+        <references refid="class_query_1a05869a1fa8d68cc560257f867486b8fd" compoundref="_query_8h" startline="705" endline="714">applyToBases</references>
+        <references refid="class_query_1aa4dbc1b2d56916606809ac28736fbbaa" compoundref="_query_8h" startline="233" endline="245">applyToDeclarations</references>
+        <references refid="classjam_1_1Array_1a24ad4d6d1444205b79eff834a15e39c7">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::at</references>
+        <references refid="structjam_1_1Document_1_1Element_1af0e270107d2689f82a1bb4a2aface885">jam::Document::Element::find</references>
+        <references refid="class_query_1aa8ff4edd44b5494a0b66665daec5a84d" compoundref="_query_8cpp" startline="29" endline="40">getPath</references>
+        <references refid="class_query_1ac4c8343e32f31009c6baf0f0ff4f441d" compoundref="_query_8cpp" startline="62" endline="65">hasPath</references>
+        <references refid="classjam_1_1Array_1a15af995542610b93595677080ed7672e">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::size</references>
+        <references refid="namespaceId_1a1117a23bc746c82b2e9fa021d6937fda" compoundref="_generated_8cpp" startline="85" endline="85">Id::symbol</references>
+        <referencedby refid="class_query_1a9b1432685f1c6c3a87f75bd8c460904b" compoundref="_query_8h" startline="445" endline="468">applyToCandidates</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1ad1e6dc4d2f9c91a9c05f24bc9f145d31" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Function</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void Query::applyToElements</definition>
+        <argsstring>(const jam::LanguageDocument &amp;document, const jam::Document::Element &amp;parent, const jam::Array&lt; std::string_view &gt; &amp;path, int start, const Function &amp;function) const</argsstring>
+        <name>applyToElements</name>
+        <qualifiedname>Query::applyToElements</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref> &amp;</type>
+          <declname>document</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>parent</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>&lt; std::string_view &gt; &amp;</type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>const Function &amp;</type>
+          <declname>function</declname>
+        </param>
+        <briefdescription>
+<para>Calls <computeroutput>function</computeroutput> for each declaration below a parent whose name matches a path. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>A declaration name can hold more than one token, such as a namespace path. Each name consumes as many path segments as it has tokens. A declaration without a name passes the segments to its children. A declaration whose name ends the path is a match.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A callable type that takes (const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>document</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The document that holds the parent. Its source gives the token text. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>parent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The element whose children are searched. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The path segments to match. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>start</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index of the first path segment that the name must match. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The callable. It receives each matching declaration. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="669" column="10" bodyfile="Query.h" bodystart="669" bodyend="691"/>
+        <references refid="class_query_1ad1e6dc4d2f9c91a9c05f24bc9f145d31" compoundref="_query_8h" startline="669" endline="691">applyToElements</references>
+        <references refid="structjam_1_1LanguageRole_1aa57ab486efc0ee9fcf67aff944739560a312e669975fd2c712a8ae31e760279d8">jam::LanguageRole::declaration</references>
+        <references refid="structjam_1_1LanguageDocument_1aadb9f1fa16daa91558f177eb462dfee8">jam::LanguageDocument::hasRole</references>
+        <references refid="namespaceId_1ab17c6c7afce10ee78699a1e23ac7acdf">Id::name</references>
+        <referencedby refid="class_query_1ad5ac2748b28141cf9f026bd26f3c9f08" compoundref="_query_8h" startline="537" endline="544">applyToDeclarations</referencedby>
+        <referencedby refid="class_query_1ad1e6dc4d2f9c91a9c05f24bc9f145d31" compoundref="_query_8h" startline="669" endline="691">applyToElements</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1a05869a1fa8d68cc560257f867486b8fd" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Function</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void Query::applyToBases</definition>
+        <argsstring>(const jam::Array&lt; std::string_view &gt; &amp;classPath, const Function &amp;function, const Index &amp;index) const</argsstring>
+        <name>applyToBases</name>
+        <qualifiedname>Query::applyToBases</qualifiedname>
+        <param>
+          <type>const <ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>&lt; std::string_view &gt; &amp;</type>
+          <declname>classPath</declname>
+        </param>
+        <param>
+          <type>const Function &amp;</type>
+          <declname>function</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Calls <computeroutput>function</computeroutput> for each base clause of the class at a path. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>A path can have more than one declaration. Each declaration with the class role gives its base clauses, and any other declaration gives none.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A callable type that takes (const <ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref>&amp;, const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>classPath</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The path of the class. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The callable. It receives the document and each base clause. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="705" column="10" bodyfile="Query.h" bodystart="705" bodyend="714"/>
+        <references refid="class_query_1aa4dbc1b2d56916606809ac28736fbbaa" compoundref="_query_8h" startline="233" endline="245">applyToDeclarations</references>
+        <references refid="structjam_1_1LanguageRole_1aa57ab486efc0ee9fcf67aff944739560aabe35d8b1f9ede12d4e5cd592dc74854">jam::LanguageRole::base</references>
+        <references refid="structjam_1_1LanguageRole_1aa57ab486efc0ee9fcf67aff944739560a8c08cfe5dfd5c9b73c972bd9d30673af">jam::LanguageRole::classToken</references>
+        <references refid="structjam_1_1LanguageDocument_1aadb9f1fa16daa91558f177eb462dfee8">jam::LanguageDocument::hasRole</references>
+        <referencedby refid="class_query_1a912e1c95b7c3da700bd83cfad982ae8a" compoundref="_query_8h" startline="612" endline="651">applyToScopes</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1acf98a8de0ed63be51cbcbbb66d2e2914" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Query::isBefore</definition>
+        <argsstring>(int pathIndex, const jam::Document::Element &amp;element, int otherPathIndex, const jam::Document::Element &amp;otherElement, const Index &amp;index) const</argsstring>
+        <name>isBefore</name>
+        <qualifiedname>Query::isBefore</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>pathIndex</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>element</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>otherPathIndex</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>otherElement</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Tells whether one result comes before another in the result order. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The path text gives the first order. For two elements of one path, the byte offset of the last name token gives the order.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pathIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The path index of the first element. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>element</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The first element. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>otherPathIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The path index of the second element. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>otherElement</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The second element. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><computeroutput>true</computeroutput> when the first element comes before the second. </para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="760" column="10" bodyfile="Query.cpp" bodystart="105" bodyend="113"/>
+        <references refid="structjam_1_1Document_1_1Element_1ab848f6cde7ac7d2291f664bbb814ad66">jam::Document::Element::get</references>
+        <references refid="namespaceId_1ab17c6c7afce10ee78699a1e23ac7acdf">Id::name</references>
+        <referencedby refid="class_query_1a4dac04bdeac8dc7abc9c4ca57518495d" compoundref="_query_8h" startline="388" endline="403">applyToFirstFunction</referencedby>
+        <referencedby refid="class_query_1a2ae4ab02c14df0ad3aaf29d3b46fe8a9" compoundref="_query_8cpp" startline="314" endline="338">getMatches</referencedby>
+        <referencedby refid="class_query_1a8f2d8a6040efff8eca0e51df8e8ec4b7" compoundref="_query_8cpp" startline="115" endline="126">isBeforeByPath</referencedby>
+        <referencedby refid="class_query_1a553c2572bb69384fe89a2aa66ad2194b" compoundref="_query_8h" startline="779" endline="803">setResult</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1a553c2572bb69384fe89a2aa66ad2194b" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Function</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void Query::setResult</definition>
+        <argsstring>(juce::ValueTree &amp;request, jam::Array&lt; std::pair&lt; int, const jam::Document::Element * &gt; &gt; results, const Function &amp;appendMembers, const Index &amp;index) const</argsstring>
+        <name>setResult</name>
+        <qualifiedname>Query::setResult</qualifiedname>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>request</declname>
+        </param>
+        <param>
+          <type><ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>&lt; std::pair&lt; int, const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> * &gt; &gt;</type>
+          <declname>results</declname>
+        </param>
+        <param>
+          <type>const Function &amp;</type>
+          <declname>appendMembers</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Stores the results of a request as a JSON array in its result. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The function sorts a copy of the results by isBefore, and it removes each pair that equals the pair before it. The sort gives the JSON the same order for each run, whatever the order of the hash map.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A callable type that takes (std::string&amp;, int, const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>request</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The request row that receives the JSON. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>results</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The pairs of a path index and an element. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>appendMembers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The callable that appends the extra members of each element. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="779" column="10" bodyfile="Query.h" bodystart="779" bodyend="803"/>
+        <references refid="class_query_1acf98a8de0ed63be51cbcbbb66d2e2914" compoundref="_query_8cpp" startline="105" endline="113">isBefore</references>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1a8f2d8a6040efff8eca0e51df8e8ec4b7" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Query::isBeforeByPath</definition>
+        <argsstring>(int pathIndex, const jam::Document::Element &amp;element, int otherPathIndex, const jam::Document::Element &amp;otherElement, const Index &amp;index) const</argsstring>
+        <name>isBeforeByPath</name>
+        <qualifiedname>Query::isBeforeByPath</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>pathIndex</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>element</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>otherPathIndex</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>otherElement</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Tells whether one element comes before another in the order by path. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The path segments give the first order, compared from the first segment. Two elements with the same path are ordered by isBefore.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pathIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The path index of the first element. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>element</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The first element. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>otherPathIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The path index of the second element. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>otherElement</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The second element. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><computeroutput>true</computeroutput> when the first element comes before the second. </para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="818" column="10" bodyfile="Query.cpp" bodystart="115" bodyend="126"/>
+        <references refid="class_query_1aa8ff4edd44b5494a0b66665daec5a84d" compoundref="_query_8cpp" startline="29" endline="40">getPath</references>
+        <references refid="class_query_1acf98a8de0ed63be51cbcbbb66d2e2914" compoundref="_query_8cpp" startline="105" endline="113">isBefore</references>
+        <references refid="class_query_1a614d03dfada21aff258e32a8f1ecebd5" compoundref="_query_8cpp" startline="53" endline="60">isSamePath</references>
+        <referencedby refid="class_query_1a38c180b51d092824ab79d074737dc4e3" compoundref="_query_8cpp" startline="340" endline="361">getCompletions</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1a17da924f6ba5be7020414fb1260174e3" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Query::appendDocumentSymbols</definition>
+        <argsstring>(std::string &amp;json, int pathIndex, const jam::Document::Element &amp;parent, const Index &amp;index) const</argsstring>
+        <name>appendDocumentSymbols</name>
+        <qualifiedname>Query::appendDocumentSymbols</qualifiedname>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>json</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>pathIndex</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>parent</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Appends the declarations below a parent as a tree of JSON elements. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>A declaration without a name has no position. Its declarations become entries of its parent, so the walk appends them to the same JSON text.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>json</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The JSON text that receives the entries. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pathIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index of the document that holds the parent. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>parent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The element whose declarations are appended. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="831" column="10" bodyfile="Query.cpp" bodystart="128" bodyend="151"/>
+        <references refid="class_query_1a17da924f6ba5be7020414fb1260174e3" compoundref="_query_8cpp" startline="128" endline="151">appendDocumentSymbols</references>
+        <references refid="struct_json_writer_1ac47a4044dc4f37cf22533707a96a7335" compoundref="_json_writer_8h" startline="30" endline="54">JsonWriter::appendElement</references>
+        <references refid="structjam_1_1LanguageRole_1aa57ab486efc0ee9fcf67aff944739560a312e669975fd2c712a8ae31e760279d8">jam::LanguageRole::declaration</references>
+        <references refid="classjam_1_1Array_1a4bfdd699e0fa66a471c234797aac5fe1">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::isEmpty</references>
+        <references refid="namespaceId_1ab17c6c7afce10ee78699a1e23ac7acdf">Id::name</references>
+        <referencedby refid="class_query_1a17da924f6ba5be7020414fb1260174e3" compoundref="_query_8cpp" startline="128" endline="151">appendDocumentSymbols</referencedby>
+        <referencedby refid="class_query_1a163faae03873f24fd5fb7ba47a310df3" compoundref="_query_8cpp" startline="227" endline="247">documentSymbol</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1ad1e57bd7ab86fd527f3fc34beeb4cbaa" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Query::appendCompletion</definition>
+        <argsstring>(std::string &amp;json, int pathIndex, const jam::LanguageDocument &amp;declarationDocument, const jam::Document::Element &amp;declaration, const jam::LanguageDocument &amp;commentDocument, const jam::Document::Element &amp;commentDeclaration, const Index &amp;index) const</argsstring>
+        <name>appendCompletion</name>
+        <qualifiedname>Query::appendCompletion</qualifiedname>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>json</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>pathIndex</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref> &amp;</type>
+          <declname>declarationDocument</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>declaration</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref> &amp;</type>
+          <declname>commentDocument</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>commentDeclaration</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Appends one completion entry: the element, its comment, and the snippet of a function. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The comment comes from the comment declaration, which can be another element of the same symbol. The snippet is written only for the function types.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>json</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The JSON text that receives the entry. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pathIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index of the document that holds the declaration. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>declarationDocument</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The document that holds the declaration. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>declaration</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The declaration of the entry. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>commentDocument</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The document that holds the comment declaration. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>commentDeclaration</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The element whose <ref refid="namespaceId_1a72a6f9b7349f6a12453b468ea807b429" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::comment</ref> is written. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="847" column="10" bodyfile="Query.cpp" bodystart="153" bodyend="162"/>
+        <references refid="struct_json_writer_1ac47a4044dc4f37cf22533707a96a7335" compoundref="_json_writer_8h" startline="30" endline="54">JsonWriter::appendElement</references>
+        <referencedby refid="class_query_1adf6cde45c991e2c9c4b31f0b3c13f04c" compoundref="_query_8cpp" startline="388" endline="411">completion</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1a2ae4ab02c14df0ad3aaf29d3b46fe8a9" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_query_1a8c367b5b39b118b9e5bd1d480a50a8fd" kindref="member">Matches</ref></type>
+        <definition>Query::Matches Query::getMatches</definition>
+        <argsstring>(const jam::Fuzzy::Pattern &amp;pattern, const Index &amp;index) const</argsstring>
+        <name>getMatches</name>
+        <qualifiedname>Query::getMatches</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1Fuzzy_1_1Pattern" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Fuzzy::Pattern</ref> &amp;</type>
+          <declname>pattern</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Returns the declarations whose last name matches a fuzzy pattern, with their scores. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Each declaration with a name is scored by the fuzzy finder, with the slab as its working memory. The list is sorted by descending score, then by the result order.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pattern</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The parsed query. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Tuples of the score, the path index, and the element. </para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="860" column="13" bodyfile="Query.cpp" bodystart="314" bodyend="338"/>
+        <references refid="classjam_1_1Array_1a11f82d383b72419d9e9624cbe63f7767">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::add</references>
+        <references refid="classjam_1_1Array_1aa5240327dd94267390aefa03215033e1">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::begin</references>
+        <references refid="structjam_1_1LanguageRole_1aa57ab486efc0ee9fcf67aff944739560a312e669975fd2c712a8ae31e760279d8">jam::LanguageRole::declaration</references>
+        <references refid="classjam_1_1Array_1a7336e35022c8a66e55217a273f0b8808">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::end</references>
+        <references refid="class_query_1ab7eebf153a5c86a2892db5bdd1986759" compoundref="_query_8cpp" startline="307" endline="312">getMatch</references>
+        <references refid="class_query_1a3d758bdc28126e28b5a028ddac9fa20f" compoundref="_query_8cpp" startline="13" endline="16">hasName</references>
+        <references refid="structjam_1_1LanguageDocument_1aadb9f1fa16daa91558f177eb462dfee8">jam::LanguageDocument::hasRole</references>
+        <references refid="class_query_1acf98a8de0ed63be51cbcbbb66d2e2914" compoundref="_query_8cpp" startline="105" endline="113">isBefore</references>
+        <references refid="structjam_1_1Fuzzy_1_1Result_1af32a6f990d1ca645b2139b7e75bd3470">jam::Fuzzy::Result::isMatch</references>
+        <references refid="structjam_1_1Fuzzy_1_1Result_1a7ec9d8be02e3b294eba5d2b4bf49f724">jam::Fuzzy::Result::score</references>
+        <referencedby refid="class_query_1a15ad9b779e57720f864388a75863b93b" compoundref="_query_8cpp" startline="363" endline="386">workspaceSymbol</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1ab7eebf153a5c86a2892db5bdd1986759" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structjam_1_1Fuzzy_1_1Result" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Fuzzy::Result</ref></type>
+        <definition>jam::Fuzzy::Result Query::getMatch</definition>
+        <argsstring>(const jam::Fuzzy::Pattern &amp;pattern, const jam::LanguageDocument &amp;document, const jam::Document::Element &amp;element) const</argsstring>
+        <name>getMatch</name>
+        <qualifiedname>Query::getMatch</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1Fuzzy_1_1Pattern" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Fuzzy::Pattern</ref> &amp;</type>
+          <declname>pattern</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref> &amp;</type>
+          <declname>document</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>element</declname>
+        </param>
+        <briefdescription>
+<para>Scores the last name of an element against a pattern. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The match uses the slab as its working memory.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pattern</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The parsed query. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>document</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The document that holds the element. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>element</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The element to score. It must hold a name. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The result of the match, with its isMatch() and score. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="872" column="24" bodyfile="Query.cpp" bodystart="307" bodyend="312"/>
+        <references refid="classjam_1_1Strings_1aca02ec79e3d857bca6f9647dce6415fc">jam::Strings::fromView</references>
+        <references refid="structjam_1_1Document_1a87bb9275594c8b0da70139d14782597d">jam::Document::getView</references>
+        <references refid="class_query_1a3d758bdc28126e28b5a028ddac9fa20f" compoundref="_query_8cpp" startline="13" endline="16">hasName</references>
+        <references refid="classjam_1_1Array_1aa06fe830f5fb147900fc281d30384d77">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::last</references>
+        <references refid="structjam_1_1Fuzzy_1_1Pattern_1a66ca313d15a77f498119b06a66d0c7b2">jam::Fuzzy::Pattern::match</references>
+        <references refid="namespaceId_1ab17c6c7afce10ee78699a1e23ac7acdf">Id::name</references>
+        <references refid="class_query_1aeaf2aeaa609d943719b57443c73ba823" compoundref="_query_8h" startline="941">slab</references>
+        <referencedby refid="class_query_1a38c180b51d092824ab79d074737dc4e3" compoundref="_query_8cpp" startline="340" endline="361">getCompletions</referencedby>
+        <referencedby refid="class_query_1a2ae4ab02c14df0ad3aaf29d3b46fe8a9" compoundref="_query_8cpp" startline="314" endline="338">getMatches</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1a38c180b51d092824ab79d074737dc4e3" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_query_1a8c367b5b39b118b9e5bd1d480a50a8fd" kindref="member">Matches</ref></type>
+        <definition>Query::Matches Query::getCompletions</definition>
+        <argsstring>(const jam::LanguageDocument &amp;document, const jam::Document::Element &amp;reference, const jam::Fuzzy::Pattern &amp;pattern, const Index &amp;index) const</argsstring>
+        <name>getCompletions</name>
+        <qualifiedname>Query::getCompletions</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref> &amp;</type>
+          <declname>document</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>reference</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Fuzzy_1_1Pattern" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Fuzzy::Pattern</ref> &amp;</type>
+          <declname>pattern</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Returns the declarations that a reference can complete to, with their scores, in completion order. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Each candidate of applyToCandidates whose name matches the pattern is kept. The list is sorted by descending score, then by the path segments of each declaration, then by its file and its position. Entries with the same path are adjacent, because they have the same name, so they have the same score.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>document</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The document that holds the reference. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>reference</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The reference element whose name is completed. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pattern</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The parsed name of the reference. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Tuples of the score, the path index, and the element. </para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="888" column="13" bodyfile="Query.cpp" bodystart="340" bodyend="361"/>
+        <references refid="classjam_1_1Array_1a11f82d383b72419d9e9624cbe63f7767">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::add</references>
+        <references refid="class_query_1a9b1432685f1c6c3a87f75bd8c460904b" compoundref="_query_8h" startline="445" endline="468">applyToCandidates</references>
+        <references refid="classjam_1_1Array_1aa5240327dd94267390aefa03215033e1">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::begin</references>
+        <references refid="classjam_1_1Array_1a7336e35022c8a66e55217a273f0b8808">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::end</references>
+        <references refid="class_query_1ab7eebf153a5c86a2892db5bdd1986759" compoundref="_query_8cpp" startline="307" endline="312">getMatch</references>
+        <references refid="class_query_1a8f2d8a6040efff8eca0e51df8e8ec4b7" compoundref="_query_8cpp" startline="115" endline="126">isBeforeByPath</references>
+        <references refid="structjam_1_1Fuzzy_1_1Result_1af32a6f990d1ca645b2139b7e75bd3470">jam::Fuzzy::Result::isMatch</references>
+        <references refid="structjam_1_1Fuzzy_1_1Result_1a7ec9d8be02e3b294eba5d2b4bf49f724">jam::Fuzzy::Result::score</references>
+        <referencedby refid="class_query_1aa42d3e64bd096855681feb31c3666cd3" compoundref="_query_8h" startline="906" endline="932">applyToCompletions</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_query_1aa42d3e64bd096855681feb31c3666cd3" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Function</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void Query::applyToCompletions</definition>
+        <argsstring>(const jam::LanguageDocument &amp;document, const jam::Document::Element &amp;reference, const jam::Fuzzy::Pattern &amp;pattern, const Function &amp;function, const Index &amp;index) const</argsstring>
+        <name>applyToCompletions</name>
+        <qualifiedname>Query::applyToCompletions</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref> &amp;</type>
+          <declname>document</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>reference</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Fuzzy_1_1Pattern" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Fuzzy::Pattern</ref> &amp;</type>
+          <declname>pattern</declname>
+        </param>
+        <param>
+          <type>const Function &amp;</type>
+          <declname>function</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Calls <computeroutput>function</computeroutput> once for each symbol that a reference can complete to. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Entries with the same path are one symbol. The first entry of a symbol, in the order of getCompletions, is the declaration. The comment is the <ref refid="namespaceId_1a72a6f9b7349f6a12453b468ea807b429" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::comment</ref> of the first entry of the symbol that has one. When no entry has one, the comment element is the first entry, and it holds no <ref refid="namespaceId_1a72a6f9b7349f6a12453b468ea807b429" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::comment</ref>.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A callable type that takes (int, const <ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref>&amp;, const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;, const <ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref>&amp;, const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>document</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The document that holds the reference. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>reference</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The reference element whose name is completed. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pattern</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The parsed name of the reference. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The callable. It receives the path index, the document, and the declaration, then the document and the element that holds the comment. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index that holds the documents and the symbol maps. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Query.h" line="906" column="10" bodyfile="Query.h" bodystart="906" bodyend="932"/>
+        <references refid="namespaceId_1a72a6f9b7349f6a12453b468ea807b429">Id::comment</references>
+        <references refid="class_query_1a38c180b51d092824ab79d074737dc4e3" compoundref="_query_8cpp" startline="340" endline="361">getCompletions</references>
+        <references refid="class_query_1aa8ff4edd44b5494a0b66665daec5a84d" compoundref="_query_8cpp" startline="29" endline="40">getPath</references>
+        <references refid="class_query_1a614d03dfada21aff258e32a8f1ecebd5" compoundref="_query_8cpp" startline="53" endline="60">isSamePath</references>
+        <referencedby refid="class_query_1adf6cde45c991e2c9c4b31f0b3c13f04c" compoundref="_query_8cpp" startline="388" endline="411">completion</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Answers the request rows of the model from an <ref refid="class_index" kindref="compound">Index</ref>, and writes the JSON result of each row. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Each lookup reads the documents and the symbol maps of a const <ref refid="class_index" kindref="compound">Index</ref> in place. The lookup stores its JSON as the result of the row, and it keeps no result. <ref refid="class_query" kindref="compound">Query</ref> holds only the working memory of the fuzzy finder. </para>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>Query</label>
+        <link refid="class_query"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>slab</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>jam::Array&lt; int16_t &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>jam::Array&lt; int32_t &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>jam::Fuzzy::Slab</label>
+        <link refid="structjam_1_1Fuzzy_1_1Slab" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>i16</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>i32</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>juce::DummyCriticalSection</label>
+        <link refid="classjuce_1_1DummyCriticalSection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+    </collaborationgraph>
+    <location file="Query.h" line="13" column="1" bodyfile="Query.h" bodystart="14" bodyend="944"/>
+    <listofallmembers>
+      <member refid="class_query_1ad1e57bd7ab86fd527f3fc34beeb4cbaa" prot="private" virt="non-virtual"><scope>Query</scope><name>appendCompletion</name></member>
+      <member refid="class_query_1a17da924f6ba5be7020414fb1260174e3" prot="private" virt="non-virtual"><scope>Query</scope><name>appendDocumentSymbols</name></member>
+      <member refid="class_query_1a05869a1fa8d68cc560257f867486b8fd" prot="private" virt="non-virtual"><scope>Query</scope><name>applyToBases</name></member>
+      <member refid="class_query_1a9b1432685f1c6c3a87f75bd8c460904b" prot="private" virt="non-virtual"><scope>Query</scope><name>applyToCandidates</name></member>
+      <member refid="class_query_1aa42d3e64bd096855681feb31c3666cd3" prot="private" virt="non-virtual"><scope>Query</scope><name>applyToCompletions</name></member>
+      <member refid="class_query_1adbe78bd35cf48ffde2213b2db9dae86e" prot="private" virt="non-virtual"><scope>Query</scope><name>applyToCounterparts</name></member>
+      <member refid="class_query_1aa4dbc1b2d56916606809ac28736fbbaa" prot="private" virt="non-virtual"><scope>Query</scope><name>applyToDeclarations</name></member>
+      <member refid="class_query_1ad5ac2748b28141cf9f026bd26f3c9f08" prot="private" virt="non-virtual"><scope>Query</scope><name>applyToDeclarations</name></member>
+      <member refid="class_query_1a3a0d6f4e7d27d8b2744bd6240d291228" prot="private" virt="non-virtual"><scope>Query</scope><name>applyToDerived</name></member>
+      <member refid="class_query_1ad1e6dc4d2f9c91a9c05f24bc9f145d31" prot="private" virt="non-virtual"><scope>Query</scope><name>applyToElements</name></member>
+      <member refid="class_query_1acbe7e23b2ef525e32e8f29d970c5af60" prot="private" virt="non-virtual"><scope>Query</scope><name>applyToFile</name></member>
+      <member refid="class_query_1a4dac04bdeac8dc7abc9c4ca57518495d" prot="private" virt="non-virtual"><scope>Query</scope><name>applyToFirstFunction</name></member>
+      <member refid="class_query_1a0427e42b4765519b5941fb6517a980bb" prot="private" virt="non-virtual"><scope>Query</scope><name>applyToFunctions</name></member>
+      <member refid="class_query_1a7d98690db81b3e8de810ea6b0bc3b0f7" prot="private" virt="non-virtual"><scope>Query</scope><name>applyToImplementations</name></member>
+      <member refid="class_query_1ab799317ea0796e68fce933c28cd0ee8d" prot="private" virt="non-virtual"><scope>Query</scope><name>applyToPosition</name></member>
+      <member refid="class_query_1aa225b32e3c5a12601242c6bc88077904" prot="private" virt="non-virtual"><scope>Query</scope><name>applyToReferences</name></member>
+      <member refid="class_query_1a912e1c95b7c3da700bd83cfad982ae8a" prot="private" virt="non-virtual"><scope>Query</scope><name>applyToScopes</name></member>
+      <member refid="class_query_1adf6cde45c991e2c9c4b31f0b3c13f04c" prot="public" virt="non-virtual"><scope>Query</scope><name>completion</name></member>
+      <member refid="class_query_1a163faae03873f24fd5fb7ba47a310df3" prot="public" virt="non-virtual"><scope>Query</scope><name>documentSymbol</name></member>
+      <member refid="class_query_1a01f72228ea89d98816ae2c8216bae8c1" prot="private" virt="non-virtual"><scope>Query</scope><name>fileIndex</name></member>
+      <member refid="class_query_1a852e9ede3402713f66bb2abf97ed1436" prot="public" virt="non-virtual"><scope>Query</scope><name>findReferences</name></member>
+      <member refid="class_query_1a38c180b51d092824ab79d074737dc4e3" prot="private" virt="non-virtual"><scope>Query</scope><name>getCompletions</name></member>
+      <member refid="class_query_1a8f848e31463b2c797875dc99860b5c8f" prot="private" virt="non-virtual"><scope>Query</scope><name>getElement</name></member>
+      <member refid="class_query_1a2436862865adf7b1e292b123205f154a" prot="public" virt="non-virtual"><scope>Query</scope><name>getFile</name></member>
+      <member refid="class_query_1ab7eebf153a5c86a2892db5bdd1986759" prot="private" virt="non-virtual"><scope>Query</scope><name>getMatch</name></member>
+      <member refid="class_query_1a2ae4ab02c14df0ad3aaf29d3b46fe8a9" prot="private" virt="non-virtual"><scope>Query</scope><name>getMatches</name></member>
+      <member refid="class_query_1abf47c27b1ca1e9727c900d49a3f92978" prot="private" virt="non-virtual"><scope>Query</scope><name>getName</name></member>
+      <member refid="class_query_1aa8ff4edd44b5494a0b66665daec5a84d" prot="private" virt="non-virtual"><scope>Query</scope><name>getPath</name></member>
+      <member refid="class_query_1aa69509ed4296d3e1b0a49feebf1829f6" prot="private" virt="non-virtual"><scope>Query</scope><name>getPath</name></member>
+      <member refid="class_query_1a34c7ee4f15d24026a9aff90e0733c7e8" prot="public" virt="non-virtual"><scope>Query</scope><name>getPathIndex</name></member>
+      <member refid="class_query_1a35e3fac14102a3b269f3e941595a4e25" prot="public" virt="non-virtual"><scope>Query</scope><name>goToDefinition</name></member>
+      <member refid="class_query_1a0d3863559c1bdb51563dab006fe940ca" prot="public" virt="non-virtual"><scope>Query</scope><name>goToImplementation</name></member>
+      <member refid="class_query_1a3d758bdc28126e28b5a028ddac9fa20f" prot="private" virt="non-virtual"><scope>Query</scope><name>hasName</name></member>
+      <member refid="class_query_1ac4c8343e32f31009c6baf0f0ff4f441d" prot="private" virt="non-virtual"><scope>Query</scope><name>hasPath</name></member>
+      <member refid="class_query_1adf9f19baf3d11420d442548886f453a7" prot="public" virt="non-virtual"><scope>Query</scope><name>hover</name></member>
+      <member refid="class_query_1ac9134cc465d90c1f0528a3db2f9325f9" prot="public" virt="non-virtual"><scope>Query</scope><name>incomingCalls</name></member>
+      <member refid="class_query_1aad6e5a1c4754d6605f90f30699fc7769" prot="public" virt="non-virtual"><scope>Query</scope><name>inlayHint</name></member>
+      <member refid="class_query_1acf98a8de0ed63be51cbcbbb66d2e2914" prot="private" virt="non-virtual"><scope>Query</scope><name>isBefore</name></member>
+      <member refid="class_query_1a8f2d8a6040efff8eca0e51df8e8ec4b7" prot="private" virt="non-virtual"><scope>Query</scope><name>isBeforeByPath</name></member>
+      <member refid="class_query_1a614d03dfada21aff258e32a8f1ecebd5" prot="private" virt="non-virtual"><scope>Query</scope><name>isSamePath</name></member>
+      <member refid="class_query_1a8c367b5b39b118b9e5bd1d480a50a8fd" prot="private" virt="non-virtual"><scope>Query</scope><name>Matches</name></member>
+      <member refid="class_query_1adc9652cdecb42aef9e899a2216882f37" prot="public" virt="non-virtual"><scope>Query</scope><name>outgoingCalls</name></member>
+      <member refid="class_query_1ae2b2672fe36aaace7abcc92845660caa" prot="public" virt="non-virtual"><scope>Query</scope><name>prepareCallHierarchy</name></member>
+      <member refid="class_query_1a60b9acc2d06f83f46736ac4c876d9f23" prot="public" virt="non-virtual"><scope>Query</scope><name>Query</name></member>
+      <member refid="class_query_1a018e73734d5eec33e8483a4179b25216" prot="public" virt="non-virtual"><scope>Query</scope><name>setResult</name></member>
+      <member refid="class_query_1a13f608bd23bb0b5aae60bd3454e1b360" prot="public" virt="non-virtual"><scope>Query</scope><name>setResult</name></member>
+      <member refid="class_query_1a553c2572bb69384fe89a2aa66ad2194b" prot="private" virt="non-virtual"><scope>Query</scope><name>setResult</name></member>
+      <member refid="class_query_1aceb75f22ecbfcddb2f38db0819540774" prot="private" virt="non-virtual"><scope>Query</scope><name>shouldNormalize</name></member>
+      <member refid="class_query_1aeaf2aeaa609d943719b57443c73ba823" prot="private" virt="non-virtual"><scope>Query</scope><name>slab</name></member>
+      <member refid="class_query_1a19666bfbde437c9035e0324d868a6d28" prot="public" virt="non-virtual"><scope>Query</scope><name>switchSourceHeader</name></member>
+      <member refid="class_query_1a15ad9b779e57720f864388a75863b93b" prot="public" virt="non-virtual"><scope>Query</scope><name>workspaceSymbol</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -2,23 +2,33 @@
 #include <JuceHeader.h>
 #include "generated/Generated.h"
 #include "LINGModel.h"
-#include "JsonWriter.h"
+#include "CompilerManifest.h"
+#include "Index.h"
+#include "Query.h"
 
 /**
  * @class Processor
- * @brief Parses the source files of the model on a pool thread, and keeps the parsed documents.
+ * @brief Runs the parse and index jobs of the source files on a thread pool, and applies their results to the index.
  *
- * Each file row of the model starts one parse job. No ValueTree reaches the
- * pool thread. A job returns its result to the message thread, and the result
- * is kept only when the row still holds the same path and the file still has
- * the modification time that the job read. The documents are keyed by the index
- * of their path in paths.
+ * Each language row starts a build of its language on a subprocess. The library
+ * that the build writes is loaded for the family of the row. Each file row whose
+ * family has a loaded library gets one ParseJob. When a parse gives a document,
+ * each unit row that depends on the file gets an IndexJob. A job is one-shot: the
+ * pool runs it once, and the message thread removes it. A job works on values that
+ * its constructor receives, and it does not read the model. A job signals the
+ * message thread, which applies its result in handleAsyncUpdate. A parse result
+ * reaches the index only when the row still holds the same path, the file still
+ * has the modification time that the job read, and the family still has the library
+ * that the job used. An index job starts only when no parse job remains. The
+ * documents are keyed by the index of their path in paths.
  *
- * The processor also answers the request rows of the model. Each request row
- * runs the entry of events that its command names. The entry writes JSON to the
- * result of the row. The lookups read the documents in place and keep nothing.
+ * The processor also answers the request rows of the model. Each request row runs
+ * the entry of events that its command names, in the listener that receives the row.
+ * The entry writes JSON to the result of the row. The lookups read the index in
+ * place, and they keep no state except the fuzzy finder slab of Query.
  */
-class Processor : public juce::ValueTree::Listener
+class Processor : public juce::ValueTree::Listener,
+                  private juce::AsyncUpdater
 {
 public:
     /**
@@ -39,770 +49,45 @@ public:
     /** @brief Removes the processor from the listeners of the model. */
     ~Processor() override;
 
-    /**
-     * @brief Calls @p function for each stored document, in ascending order of the path bytes.
-     *
-     * The documents are held in a HashMap, which has no order, so the path
-     * indices are sorted first. The view that @p function receives points into
-     * paths, and it is valid during the call.
-     *
-     * @tparam Function  A callable type that takes (std::string_view, const jam::CodeDocument&).
-     * @param function   The callable. It receives the path and the document of each stored entry.
-     */
     template <typename Function>
     void applyToDocuments (const Function& function) const
     {
-        jam::Array<int> pathIndices;
-
-        for (const auto& [pathIndex, document] : documents)
-            pathIndices.add (pathIndex);
-
-        std::sort (pathIndices.begin(), pathIndices.end(), [this] (int left, int right)
-        {
-            return paths.getView (left).compare (paths.getView (right)) < 0;
-        });
-
-        for (const auto pathIndex : pathIndices)
-            function (paths.getView (pathIndex), *documents.at (pathIndex));
+        index.applyToDocuments (function);
     }
-
-    /**
-     * @brief Tells whether an element declares a name.
-     *
-     * The declaration types form one range of the type enumeration, from the
-     * namespace token to the macro token. Every other type is a reference.
-     *
-     * @param element  The element to test.
-     * @return @c true when the type of the element lies in the declaration range.
-     */
-    static bool isDeclaration (const jam::Document::Element& element);
 
 private:
-    /** @brief The scored declarations of one lookup: the score, the index of the path, and the element. */
-    using Matches = jam::Array<std::tuple<int, int, const jam::Document::Element*>>;
+    /**
+     * @brief Tells whether a unit row depends on a file row, which is the row itself or one of its dependencies.
+     *
+     * Only a unit row holds arguments, so a row without arguments depends on nothing.
+     *
+     * @param unit       The row to test.
+     * @param unitIndex  The index of the row to test in the files child.
+     * @param rowIndex   The index of the file row in the files child.
+     * @return @c true when the row holds arguments, and its index or one of its dependencies is rowIndex.
+     */
+    static bool hasDependency (const juce::ValueTree& unit, int unitIndex, int rowIndex);
 
     /**
-     * @brief Tells whether the type of an element is one of the types in a table.
+     * @brief Returns the unit row that compiles a file.
      *
-     * @tparam Types     The table type, a std::array of map::SyntaxTokenType values.
-     * @param types      The table of types.
-     * @param element    The element to test. It must hold Id::type.
-     * @return @c true when the type of the element is in the table.
+     * A file row with arguments is its own unit. Any other file row gives the first
+     * unit row that depends on it.
+     *
+     * @param pathIndex  The index of the file path in paths. A negative index gives no unit.
+     * @return The unit row, or an invalid tree when no unit row depends on the file.
      */
-    template <typename Types>
-    static bool hasType (const Types& types, const jam::Document::Element& element)
-    {
-        return std::find (types.begin(), types.end(), *element.get<int> (Id::type)) != types.end();
-    }
+    juce::ValueTree getUnit (int pathIndex) const;
 
-    /**
-     * @brief Tells whether the name of an element has at least one token.
-     *
-     * The C-family parse gives Id::name to every element that it adds. Every
-     * element that a lookup tests is one of those elements.
-     *
-     * @param element  The element to test. It must hold Id::name.
-     * @return @c true when the element has at least one name token.
-     */
-    static bool hasName (const jam::Document::Element& element);
+    juce::ValueTree getHeaderEntry (const juce::ValueTree& unit) const;
 
-    /** @brief The index of the file argument of a request. The line and the column follow it. */
-    static constexpr int fileIndex { 0 };
+    jam::Array<juce::ValueTree> getHeaderEntries (const juce::ValueTree& files) const;
 
-    /**
-     * @brief The types of a class member: a field, an instance method, a static method, and a static variable.
-     *
-     * The member lookups match only these types.
-     */
-    static constexpr std::array memberTypes { map::SyntaxTokenType::field, map::SyntaxTokenType::instanceMethod, map::SyntaxTokenType::staticMethod, map::SyntaxTokenType::staticVariable };
+    jam::Strings getArguments (const juce::ValueTree& unit, const juce::ValueTree& headerEntry) const;
 
-    /**
-     * @brief The types of a callable declaration: a function, an instance method, a static method, a constructor, and a destructor.
-     *
-     * The call hierarchy keeps these types. A completion writes a snippet only for these types.
-     */
-    static constexpr std::array functionTypes { map::SyntaxTokenType::function, map::SyntaxTokenType::instanceMethod, map::SyntaxTokenType::staticMethod, map::SyntaxTokenType::constructor, map::SyntaxTokenType::destructor };
+    jam::Strings getCheckArguments (const juce::ValueTree& unit) const;
 
-    /** @brief Whether the fuzzy patterns that the lookups parse normalize diacritics. */
-    static constexpr bool shouldNormalize { true };
-
-    /**
-     * @brief Returns the names of an element and of its ancestors, from the root down.
-     *
-     * @param document  The document that holds the element. Its tokens give the names.
-     * @param element   The element whose path is returned.
-     * @return The names of the enclosing declarations, then the name of the element.
-     */
-    static jam::Array<std::string_view> getPath (const jam::CodeDocument& document, const jam::Document::Element& element);
-
-    /**
-     * @brief Returns the first element whose last name token covers a position.
-     *
-     * The line and the column are one-based, as a request sends them. The tree
-     * walk stops at the first element that covers the position.
-     *
-     * @param document  The document to search.
-     * @param line      The one-based line of the position.
-     * @param column    The one-based column of the position.
-     * @return The element that covers the position, or nullptr when no element covers it.
-     */
-    const jam::Document::Element* getElement (const jam::CodeDocument& document, int line, int column) const;
-
-    /**
-     * @brief Calls @p function for each declaration that an element refers to.
-     *
-     * An element with a target list gives its declarations at once. A member
-     * element looks up the members of its class. Any other element resolves its
-     * declaration paths, and each path visits every stored document.
-     *
-     * @tparam Function  A callable type that takes (int, const jam::CodeDocument&, const jam::Document::Element&).
-     * @param pathIndex  The index of the document that holds the element.
-     * @param element    The element whose declarations are visited.
-     * @param function   The callable. It receives the path index, the document, and each declaration.
-     */
-    template <typename Function>
-    void applyToDeclarations (int pathIndex, const jam::Document::Element& element, const Function& function) const
-    {
-        const auto& document { *documents.at (pathIndex) };
-
-        if (const auto* targets { element.find<jam::Document::Elements> (Id::to) }; targets != nullptr)
-        {
-            for (const auto* target : *targets)
-                function (pathIndex, document, *target);
-        }
-        else if (element.contains (Id::member))
-        {
-            applyToMembers (getName (document, element).last(), function);
-        }
-        else
-        {
-            for (const auto& path : getDeclarationPaths (document, element))
-                applyToDeclarations (path, function);
-        }
-    }
-
-    /**
-     * @brief Calls @p function for each declaration whose path equals @p path.
-     *
-     * The path is matched in each stored document.
-     *
-     * @tparam Function  A callable type that takes (int, const jam::CodeDocument&, const jam::Document::Element&).
-     * @param path       The declaration path to match.
-     * @param function   The callable. It receives the path index, the document, and each matching declaration.
-     */
-    template <typename Function>
-    void applyToDeclarations (const jam::Array<std::string_view>& path, const Function& function) const
-    {
-        for (const auto& [pathIndex, document] : documents)
-            applyToElements (*document, *document->getRoot(), path, 0, [&function, pathIndex = pathIndex, document = document.get()] (const jam::Document::Element& declaration)
-            {
-                function (pathIndex, *document, declaration);
-            });
-    }
-
-    /**
-     * @brief Calls @p function for each reference to a declaration.
-     *
-     * A declaration with a reference list gives its references at once. Any other
-     * declaration finds its references by its path, in every stored document.
-     *
-     * @tparam Function   A callable type that takes (int, const jam::CodeDocument&, const jam::Document::Element&).
-     * @param pathIndex    The index of the document that holds the declaration.
-     * @param declaration  The declaration whose references are visited.
-     * @param function     The callable. It receives the path index, the document, and each reference.
-     */
-    template <typename Function>
-    void applyToReferences (int pathIndex, const jam::Document::Element& declaration, const Function& function) const
-    {
-        const auto& document { *documents.at (pathIndex) };
-
-        if (const auto* references { declaration.find<jam::Document::Elements> (Id::in) }; references != nullptr)
-        {
-            for (const auto* reference : *references)
-                function (pathIndex, document, *reference);
-        }
-        else
-        {
-            const auto declarationPath (getPath (document, declaration));
-
-            jassert (not declarationPath.isEmpty());
-
-            applyToReferences (declarationPath, function);
-        }
-    }
-
-    /**
-     * @brief Calls @p function for each element that refers to a declaration path.
-     *
-     * @tparam Function        A callable type that takes (int, const jam::CodeDocument&, const jam::Document::Element&).
-     * @param declarationPath  The path of the declaration.
-     * @param function         The callable. It receives the path index, the document, and each reference.
-     */
-    template <typename Function>
-    void applyToReferences (const jam::Array<std::string_view>& declarationPath, const Function& function) const
-    {
-        applyToElements ([this, &function, &declarationPath] (int pathIndex, const jam::CodeDocument& document, const jam::Document::Element& reference)
-        {
-            if (isReferenceTo (pathIndex, reference, declarationPath))
-                function (pathIndex, document, reference);
-        });
-    }
-
-    /**
-     * @brief Calls @p function for the element at the position of a request.
-     *
-     * The arguments hold the file, the line, and the column, in that order. The
-     * function runs only when the element covers the position in a stored
-     * document. When the arguments are not valid, the overlay message reports
-     * the failure.
-     *
-     * @tparam Function  A callable type that takes (int, const jam::CodeDocument&, const jam::Document::Element&).
-     * @param request    The request row. Its arguments give the position.
-     * @param function      The callable. It receives the path index, the document, and the element.
-     * @param columnOffset  The count of columns that is added to the column before the lookup. completion passes -1, so the position is the last byte of the typed name.
-     */
-    template <typename Function>
-    void applyToPosition (juce::ValueTree& request, const Function& function, int columnOffset = 0) const
-    {
-        static constexpr int positionArgumentCount { 3 };
-        static constexpr int lineIndex { 1 };
-        static constexpr int columnIndex { 2 };
-
-        const auto& arguments { *request[Id::arguments].getArray() };
-        const int line { arguments[lineIndex] };
-        const int column { arguments[columnIndex] };
-
-        if (arguments.size() == positionArgumentCount and line > 0 and column > 0)
-        {
-            const auto pathIndex { getPathIndex (request) };
-
-            if (documents.contains (pathIndex) and column + columnOffset > 0)
-                if (const auto* element { getElement (*documents.at (pathIndex), line, column + columnOffset) }; element != nullptr)
-                    function (pathIndex, *documents.at (pathIndex), *element);
-        }
-        else
-        {
-            model.setMessage (text::Diagnostics::failArguments);
-        }
-    }
-
-    /**
-     * @brief Calls @p function for each function declaration at the position of a request.
-     *
-     * A call hierarchy starts at a callable declaration. The filter keeps the
-     * function, instance method, static method, constructor, and destructor types,
-     * and drops every other declaration at the position.
-     *
-     * @tparam Function  A callable type that takes (int, const jam::CodeDocument&, const jam::Document::Element&).
-     * @param request    The request row. Its arguments give the position.
-     * @param function   The callable. It receives the path index, the document, and each function declaration.
-     */
-    template <typename Function>
-    void applyToFunctions (juce::ValueTree& request, const Function& function) const
-    {
-        applyToPosition (request, [this, &function] (int pathIndex, const jam::CodeDocument&, const jam::Document::Element& element)
-        {
-            applyToDeclarations (pathIndex, element, [&function] (int declarationIndex, const jam::CodeDocument& declarationDocument, const jam::Document::Element& declaration)
-            {
-                if (hasType (functionTypes, declaration))
-                    function (declarationIndex, declarationDocument, declaration);
-            });
-        });
-    }
-
-    /**
-     * @brief Calls @p function for each class or struct that derives from a class, directly or through others.
-     *
-     * The walk runs over a list of class paths, and each derived class is
-     * reported once. The walk copies each path before it runs, because the
-     * callback adds to the list, and the add can move the storage of the list.
-     *
-     * @tparam Function  A callable type that takes (int, const jam::CodeDocument&, const jam::Document::Element&).
-     * @param classPath  The path of the base class.
-     * @param function   The callable. It receives the path index, the document, and each derived class.
-     */
-    template <typename Function>
-    void applyToDerived (const jam::Array<std::string_view>& classPath, const Function& function) const
-    {
-        jam::Array<jam::Array<std::string_view>> classPaths;
-
-        classPaths.add (getPath (classPath, classPath.size(), {}));
-
-        for (int index { 0 }; index < classPaths.size(); ++index)
-        {
-            const auto path (getPath (classPaths.at (index), classPaths.at (index).size(), {}));
-
-            applyToReferences (path, [&function, &classPaths] (int pathIndex, const jam::CodeDocument& document, const jam::Document::Element& reference)
-            {
-                if (*reference.get<int> (Id::type) == map::SyntaxTokenType::base)
-                {
-                    auto derivedPath (getPath (document, *reference.parent));
-
-                    if (not hasPath (classPaths, derivedPath))
-                    {
-                        function (pathIndex, document, *reference.parent);
-                        classPaths.add (std::move (derivedPath));
-                    }
-                }
-            });
-        }
-    }
-
-    /**
-     * @brief Calls @p function for each declaration that a name can see from a scope.
-     *
-     * The scope paths are the first segments of scope, each followed by qualifier,
-     * for each count from the full scope down to zero. The walk does not stop at
-     * the first scope that has a match. An empty path gives the root of each
-     * stored document. Each base class of a visited class adds its paths to the
-     * walk once, so a class that names itself as its base ends the walk.
-     *
-     * @tparam Function  A callable type that takes (int, const jam::CodeDocument&, const jam::Document::Element&).
-     * @param scope      The path of the scope that holds the reference.
-     * @param qualifier  The segments of a qualified name, without its last segment.
-     * @param function   The callable. It receives the path index, the document, and each scope element.
-     */
-    template <typename Function>
-    void applyToScopes (const jam::Array<std::string_view>& scope, const jam::Array<std::string_view>& qualifier, const Function& function) const
-    {
-        jam::Array<jam::Array<std::string_view>> scopePaths;
-
-        for (int size { scope.size() }; size >= 0; --size)
-            scopePaths.add (getPath (scope, size, qualifier));
-
-        for (int index { 0 }; index < scopePaths.size(); ++index)
-        {
-            const auto path (getPath (scopePaths.at (index), scopePaths.at (index).size(), {}));
-
-            if (path.isEmpty())
-            {
-                for (const auto& [pathIndex, document] : documents)
-                    function (pathIndex, *document, *document->getRoot());
-            }
-            else
-            {
-                applyToDeclarations (path, function);
-                applyToBases (path, [this, &path, &scopePaths] (const jam::CodeDocument& baseDocument, const jam::Document::Element& base)
-                {
-                    for (auto& basePath : getDeclarationPaths (path, getName (baseDocument, base), {}))
-                        if (not hasPath (scopePaths, basePath))
-                            scopePaths.add (std::move (basePath));
-                });
-            }
-        }
-    }
-
-    /**
-     * @brief Calls @p function for each declaration that a reference can complete to.
-     *
-     * A member reference gives each member declaration of every stored document.
-     * Any other reference gives the named declarations below each scope that
-     * applyToScopes visits. The qualifier is the name of the reference without its
-     * last segment.
-     *
-     * @tparam Function  A callable type that takes (int, const jam::CodeDocument&, const jam::Document::Element&).
-     * @param document   The document that holds the reference.
-     * @param reference  The reference element whose name is completed.
-     * @param function   The callable. It receives the path index, the document, and each candidate.
-     */
-    template <typename Function>
-    void applyToCandidates (const jam::CodeDocument& document, const jam::Document::Element& reference, const Function& function) const
-    {
-        if (reference.contains (Id::member))
-        {
-            applyToElements ([&function] (int pathIndex, const jam::CodeDocument& declarationDocument, const jam::Document::Element& declaration)
-            {
-                if (hasType (memberTypes, declaration) and hasName (declaration))
-                    function (pathIndex, declarationDocument, declaration);
-            });
-        }
-        else
-        {
-            const auto name (getName (document, reference));
-
-            applyToScopes (getPath (document, *reference.parent), getPath (name, name.size() - 1, {}), [&function] (int pathIndex, const jam::CodeDocument& declarationDocument, const jam::Document::Element& declaration)
-            {
-                for (const auto* child : declaration)
-                {
-                    if (isDeclaration (*child) and hasName (*child))
-                        function (pathIndex, declarationDocument, *child);
-                }
-            });
-        }
-    }
-
-    /**
-     * @brief Calls @p function for each implementation of a declaration.
-     *
-     * A class or a struct has its derived classes as implementations. A member
-     * of a class has the member of the same name in each derived class. Any
-     * other declaration has no implementation.
-     *
-     * @tparam Function    A callable type that takes (int, const jam::CodeDocument&, const jam::Document::Element&).
-     * @param pathIndex    The index of the document that holds the declaration.
-     * @param declaration  The declaration whose implementations are visited.
-     * @param function     The callable. It receives the path index, the document, and each implementation.
-     */
-    template <typename Function>
-    void applyToImplementations (int pathIndex, const jam::Document::Element& declaration, const Function& function) const
-    {
-        const auto& document { *documents.at (pathIndex) };
-        const auto type { *declaration.get<int> (Id::type) };
-        const auto* parentType { declaration.parent->find<int> (Id::type) };
-
-        if (type == map::SyntaxTokenType::classToken or type == map::SyntaxTokenType::structToken)
-        {
-            applyToDerived (getPath (document, declaration), function);
-        }
-        else if (parentType != nullptr and (*parentType == map::SyntaxTokenType::classToken or *parentType == map::SyntaxTokenType::structToken))
-        {
-            jam::Array<std::string_view> memberName;
-
-            memberName.add (getName (document, declaration).last());
-
-            applyToDerived (getPath (document, *declaration.parent), [this, &function, &memberName] (int, const jam::CodeDocument& derivedDocument, const jam::Document::Element& derived)
-            {
-                const auto derivedPath (getPath (derivedDocument, derived));
-
-                applyToDeclarations (getPath (derivedPath, derivedPath.size(), memberName), function);
-            });
-        }
-    }
-
-    /**
-     * @brief Stores the results of a request as a JSON array in its result.
-     *
-     * The function sorts a copy of the results by isBefore, and it removes each
-     * pair that equals the pair before it. The sort gives the JSON the same order
-     * for each run, whatever the order of the hash map.
-     *
-     * @tparam Function      A callable type that takes (std::string&, int, const jam::Document::Element&).
-     * @param request        The request row that receives the JSON.
-     * @param results        The pairs of a path index and an element.
-     * @param appendMembers  The callable that appends the extra members of each element.
-     */
-    template <typename Function>
-    void setResult (juce::ValueTree& request, jam::Array<std::pair<int, const jam::Document::Element*>> results, const Function& appendMembers) const
-    {
-        std::sort (results.begin(), results.end(), [this] (const auto& left, const auto& right)
-        {
-            const auto& [leftIndex, leftElement] { left };
-            const auto& [rightIndex, rightElement] { right };
-            return isBefore (leftIndex, *leftElement, rightIndex, *rightElement);
-        });
-
-        const auto tail { std::unique (results.begin(), results.end()) };
-        std::string json;
-
-        results.removeRange (static_cast<int> (tail - results.begin()), static_cast<int> (results.end() - tail));
-
-        jam::JsonWriter::appendArray (json, [this, &results, &appendMembers] (std::string& entries)
-        {
-            for (const auto& [pathIndex, element] : results)
-                JsonWriter::appendElement (entries, paths.getView (pathIndex), *documents.at (pathIndex), *element, [&appendMembers, pathIndex = pathIndex, element = element] (std::string& members)
-                {
-                    appendMembers (members, pathIndex, *element);
-                });
-        });
-
-        setResult (request, json);
-    }
-
-    /**
-     * @brief Calls @p function for each declaration below a parent whose name matches a path.
-     *
-     * A declaration name can hold more than one token, such as a namespace path.
-     * Each name consumes as many path segments as it has tokens. A declaration
-     * without a name passes the segments to its children. A declaration whose
-     * name ends the path is a match.
-     *
-     * @tparam Function  A callable type that takes (const jam::Document::Element&).
-     * @param document   The document that holds the parent. Its source gives the token text.
-     * @param parent     The element whose children are searched.
-     * @param path       The path segments to match.
-     * @param start      The index of the first path segment that the name must match.
-     * @param function   The callable. It receives each matching declaration.
-     */
-    template <typename Function>
-    static void applyToElements (const jam::CodeDocument& document, const jam::Document::Element& parent, const jam::Array<std::string_view>& path, int start, const Function& function)
-    {
-        for (const auto* child : parent)
-        {
-            if (isDeclaration (*child))
-            {
-                const auto& name { *child->get<jam::Document::Tokens> (Id::name) };
-                const auto count { name.size() };
-
-                if (start + count <= path.size()
-                    and std::equal (name.begin(), name.end(), path.begin() + start, [&document] (const auto& token, std::string_view segment)
-                    {
-                        return document.getView (token).compare (segment) == 0;
-                    }))
-                {
-                    if (count > 0 and start + count == path.size())
-                        function (*child);
-                    else
-                        applyToElements (document, *child, path, start + count, function);
-                }
-            }
-        }
-    }
-
-    /**
-     * @brief Calls @p function for each element of each stored document, at every depth.
-     *
-     * @tparam Function  A callable type that takes (int, const jam::CodeDocument&, const jam::Document::Element&).
-     * @param function   The callable. It receives the path index, the document, and each element.
-     */
-    template <typename Function>
-    void applyToElements (const Function& function) const
-    {
-        for (const auto& [pathIndex, document] : documents)
-            for (const auto* child : *document)
-                child->applyFunctionRecursively ([&function, pathIndex = pathIndex, document = document.get()] (const jam::Document::Element& element)
-                {
-                    function (pathIndex, *document, element);
-                });
-    }
-
-    /**
-     * @brief Calls @p function for each base clause of the class or struct at a path.
-     *
-     * A path can have more than one declaration. Each class or struct declaration
-     * gives its base clauses, and any other declaration gives none.
-     *
-     * @tparam Function  A callable type that takes (const jam::CodeDocument&, const jam::Document::Element&).
-     * @param classPath  The path of the class or struct.
-     * @param function   The callable. It receives the document and each base clause.
-     */
-    template <typename Function>
-    void applyToBases (const jam::Array<std::string_view>& classPath, const Function& function) const
-    {
-        applyToDeclarations (classPath, [&function] (int, const jam::CodeDocument& document, const jam::Document::Element& declaration)
-        {
-            const auto type { *declaration.get<int> (Id::type) };
-
-            if (type == map::SyntaxTokenType::classToken or type == map::SyntaxTokenType::structToken)
-                for (const auto* child : declaration)
-                    if (*child->get<int> (Id::type) == map::SyntaxTokenType::base)
-                        function (document, *child);
-        });
-    }
-
-    /**
-     * @brief Calls @p function for each member named @p name in any stored document.
-     *
-     * A member is a field, an instance method, a static method, or a static
-     * variable. The last name token of the member must equal the name.
-     *
-     * @tparam Function  A callable type that takes (int, const jam::CodeDocument&, const jam::Document::Element&).
-     * @param name       The member name, without its class path.
-     * @param function   The callable. It receives the path index, the document, and each member.
-     */
-    template <typename Function>
-    void applyToMembers (std::string_view name, const Function& function) const
-    {
-        applyToElements ([&function, name] (int pathIndex, const jam::CodeDocument& document, const jam::Document::Element& declaration)
-        {
-            const auto& tokens { *declaration.get<jam::Document::Tokens> (Id::name) };
-
-            if (hasType (memberTypes, declaration) and not tokens.isEmpty()
-                and document.getView (tokens.last()).compare (name) == 0)
-                function (pathIndex, document, declaration);
-        });
-    }
-
-    /**
-     * @brief Returns the text of each name token of an element.
-     *
-     * @param document  The document that holds the element.
-     * @param element   The element whose name is returned.
-     * @return The name segments in order. The list is empty when the element has no name.
-     */
-    static jam::Array<std::string_view> getName (const jam::CodeDocument& document, const jam::Document::Element& element);
-
-    /**
-     * @brief Returns the first size segments of a scope, followed by a name.
-     *
-     * A lookup tries each shorter scope in turn. Each try copies the scope with a
-     * smaller size, and then it appends the name.
-     *
-     * @param scope  The path whose first segments are copied. Its size is at least @p size.
-     * @param size   The count of segments of the scope to copy.
-     * @param name   The segments that are appended after the copied segments.
-     * @return The copied segments, then the name segments.
-     */
-    static jam::Array<std::string_view> getPath (const jam::Array<std::string_view>& scope, int size, const jam::Array<std::string_view>& name);
-
-    /**
-     * @brief Tells whether two paths hold the same segments.
-     *
-     * @param path       The first path.
-     * @param otherPath  The second path.
-     * @return @c true when both paths have the same count of segments, and each pair of segments has equal text.
-     */
-    static bool isSamePath (const jam::Array<std::string_view>& path, const jam::Array<std::string_view>& otherPath);
-
-    /**
-     * @brief Tells whether a list of paths holds a path.
-     *
-     * @param knownPaths  The paths to search.
-     * @param path        The path to find.
-     * @return @c true when a known path has the same segments as the path.
-     */
-    static bool hasPath (const jam::Array<jam::Array<std::string_view>>& knownPaths, const jam::Array<std::string_view>& path);
-
-    /**
-     * @brief Returns the index in paths of the file that a request names.
-     *
-     * The file argument resolves against the folder of the client. The request
-     * stores that folder in its directory, because this process can run in a
-     * different folder.
-     *
-     * @param request  The request row. Its directory and its file argument give the path.
-     * @return The index of the path in paths, or -1 when the path is not stored.
-     */
-    int getPathIndex (const juce::ValueTree& request) const;
-
-    /**
-     * @brief Tells whether a path has a declaration other than a constructor or a destructor.
-     *
-     * A constructor or a destructor carries the name of its class. A lookup that
-     * finds only those declarations reads the name as the class itself, so it
-     * does not accept the name as a member. It searches the bases of the class.
-     *
-     * @param path  The path to test.
-     * @return @c true when at least one declaration at the path is not a constructor or a destructor.
-     */
-    bool hasDeclarations (const jam::Array<std::string_view>& path) const;
-
-    /**
-     * @brief Tells whether a reference element refers to a declaration path.
-     *
-     * The reference must not be a declaration, and its last name token must equal
-     * the last segment of the path. The declarations that the reference resolves
-     * to must then include the path.
-     *
-     * @param referenceIndex   The index of the document that holds the reference.
-     * @param reference        The element to test.
-     * @param declarationPath  The path of the declaration.
-     * @return @c true when the reference resolves to the declaration path.
-     */
-    bool isReferenceTo (int referenceIndex, const jam::Document::Element& reference, const jam::Array<std::string_view>& declarationPath) const;
-
-    /**
-     * @brief Returns the declaration paths that an element names.
-     *
-     * A declaration gives its own path. Any other element resolves its name in
-     * the scope of its parent.
-     *
-     * @param document  The document that holds the element.
-     * @param element   The element to resolve.
-     * @return The declaration paths. The list is empty when no declaration matches.
-     */
-    jam::Array<jam::Array<std::string_view>> getDeclarationPaths (const jam::CodeDocument& document, const jam::Document::Element& element) const;
-
-    /**
-     * @brief Returns the paths of the member named @p name, searched from the full scope outward.
-     *
-     * The full scope is tried first. When no member is found, each shorter scope
-     * is tried in turn, so an inner name hides an outer name.
-     *
-     * @param scope  The scope path. Its innermost segments come last.
-     * @param name   The name segments to find.
-     * @param tried  The class paths that the enclosing walks already visited. It stops a base cycle.
-     * @return The member paths of the first scope that has a match, or an empty list.
-     */
-    jam::Array<jam::Array<std::string_view>> getDeclarationPaths (const jam::Array<std::string_view>& scope, const jam::Array<std::string_view>& name, const jam::Array<const jam::Array<std::string_view>*>& tried) const;
-
-    /**
-     * @brief Returns the paths of the member named @p name in a class, and in each of its bases.
-     *
-     * The guard @p tried stops the walk when a class is its own base, directly or
-     * through other classes. The result is the union over every base. The documents
-     * are held in a hash map with no order, so a first found base would be a guess.
-     * Each path appears once in the result.
-     *
-     * @param classPath  The path of the class.
-     * @param name       The member name segments.
-     * @param tried      The class paths that the walk already visited.
-     * @return The member paths, or an empty list when the class and its bases have no such member.
-     */
-    jam::Array<jam::Array<std::string_view>> getMemberPaths (const jam::Array<std::string_view>& classPath, const jam::Array<std::string_view>& name, const jam::Array<const jam::Array<std::string_view>*>& tried) const;
-
-    /**
-     * @brief Stores the results of a request as a JSON array, with no extra members.
-     *
-     * @param request  The request row that receives the JSON.
-     * @param results  The pairs of a path index and an element.
-     */
-    void setResult (juce::ValueTree& request, jam::Array<std::pair<int, const jam::Document::Element*>> results) const;
-
-    /**
-     * @brief Stores a JSON text as the result of a request.
-     *
-     * The application reacts to the change of the result, prints the text, and
-     * removes the request row.
-     *
-     * @param request  The request row that receives the result.
-     * @param json     The JSON text. The property holds a copy of it.
-     */
-    void setResult (juce::ValueTree& request, std::string_view json) const;
-
-    /**
-     * @brief Tells whether one result comes before another in the result order.
-     *
-     * The path text gives the first order. In one document, the byte offsets of
-     * the last name tokens give the order of the line, then the column.
-     *
-     * @param pathIndex       The path index of the first element.
-     * @param element         The first element.
-     * @param otherPathIndex  The path index of the second element.
-     * @param otherElement    The second element.
-     * @return @c true when the first element comes before the second.
-     */
-    bool isBefore (int pathIndex, const jam::Document::Element& element, int otherPathIndex, const jam::Document::Element& otherElement) const;
-
-    /**
-     * @brief Tells whether one element comes before another in the order by path.
-     *
-     * The path segments give the first order, compared from the first segment. Two
-     * elements with the same path are ordered by isBefore.
-     *
-     * @param pathIndex       The path index of the first element.
-     * @param element         The first element.
-     * @param otherPathIndex  The path index of the second element.
-     * @param otherElement    The second element.
-     * @return @c true when the first element comes before the second.
-     */
-    bool isBeforeByPath (int pathIndex, const jam::Document::Element& element, int otherPathIndex, const jam::Document::Element& otherElement) const;
-
-    /**
-     * @brief Appends the declarations below a parent as a tree of JSON elements.
-     *
-     * A declaration without a name has no position. Its declarations become
-     * entries of its parent, so the walk appends them to the same JSON text.
-     *
-     * @param json       The JSON text that receives the entries.
-     * @param pathIndex  The index of the document that holds the parent.
-     * @param parent     The element whose declarations are appended.
-     */
-    void appendDocumentSymbols (std::string& json, int pathIndex, const jam::Document::Element& parent) const;
-
-    /**
-     * @brief Appends one completion entry: the element, its comment, and the snippet of a function.
-     *
-     * The comment comes from the comment declaration, which can be another element
-     * of the same symbol. The snippet is written only for the function types.
-     *
-     * @param json                The JSON text that receives the entry.
-     * @param pathIndex           The index of the document that holds the declaration.
-     * @param declarationDocument The document that holds the declaration.
-     * @param declaration         The declaration of the entry.
-     * @param commentDocument     The document that holds the comment declaration.
-     * @param commentDeclaration  The element whose Id::comment is written.
-     */
-    void appendCompletion (std::string& json, int pathIndex, const jam::CodeDocument& declarationDocument, const jam::Document::Element& declaration, const jam::CodeDocument& commentDocument, const jam::Document::Element& commentDeclaration) const;
+    juce::File getPrecompiledHeader (const juce::ValueTree& headerEntry) const;
 
     /**
      * @brief Fills events with the operation of each request command.
@@ -824,277 +109,406 @@ private:
      */
     void runRequest (juce::ValueTree& request);
 
-    /**
-     * @brief Writes the declarations of the element at the position of a request.
-     *
-     * @param request  The request row. Its arguments give the file and the position.
-     */
-    void goToDefinition (juce::ValueTree& request) const;
+    void diagnostics (juce::ValueTree& request);
 
     /**
-     * @brief Writes the references to the declarations of the element at the position of a request.
+     * @brief Starts the jobs of an added files child, a language child, or a request child.
      *
-     * @param request  The request row. Its arguments give the file and the position.
-     */
-    void findReferences (juce::ValueTree& request) const;
-
-    /**
-     * @brief Writes the declarations at the position of a request, each with its scope.
-     *
-     * The scope is the path of the declaration without its last segment. Each
-     * JSON element holds the scope as an array of names.
-     *
-     * @param request  The request row. Its arguments give the file and the position.
-     */
-    void hover (juce::ValueTree& request) const;
-
-    /**
-     * @brief Writes the symbols of the file in a request, as a tree.
-     *
-     * The request must hold one argument, the file. Each symbol holds its named
-     * declarations as children. Unnamed declarations give their children to their
-     * parent.
-     *
-     * @param request  The request row. Its single argument is the file.
-     */
-    void documentSymbol (juce::ValueTree& request) const;
-
-    /**
-     * @brief Writes the declarations whose last name matches the fuzzy query of a request.
-     *
-     * The request must hold one argument, the query. Other argument counts set the
-     * overlay message.
-     *
-     * @param request  The request row. Its single argument is the query.
-     */
-    void workspaceSymbol (juce::ValueTree& request) const;
-
-    /**
-     * @brief Writes the completions of the name that ends before the position of a request, as a JSON array.
-     *
-     * The position is the cursor after the typed name, so the lookup reads the
-     * byte before it. No stored document, no element, or an element of another
-     * type gives an empty array. The lookup reads the stored documents and starts
-     * no parse.
-     *
-     * @param request  The request row. Its arguments give the file, the line, and the column.
-     */
-    void completion (juce::ValueTree& request) const;
-
-    /**
-     * @brief Returns the declarations whose last name matches a fuzzy pattern, with their scores.
-     *
-     * Each declaration with a name is scored by the fuzzy finder, with the slab as
-     * its working memory. The list is sorted by descending score, then by the
-     * result order.
-     *
-     * @param pattern  The parsed query.
-     * @return Tuples of the score, the path index, and the element.
-     */
-    Matches getMatches (const jam::Fuzzy::Pattern& pattern) const;
-
-    /**
-     * @brief Scores the last name of an element against a pattern.
-     *
-     * The match uses the slab as its working memory.
-     *
-     * @param pattern   The parsed query.
-     * @param document  The document that holds the element.
-     * @param element   The element to score. It must hold a name.
-     * @return The result of the match, with its isMatch() and score.
-     */
-    jam::Fuzzy::Result getMatch (const jam::Fuzzy::Pattern& pattern, const jam::CodeDocument& document, const jam::Document::Element& element) const;
-
-    /**
-     * @brief Returns the declarations that a reference can complete to, with their scores, in completion order.
-     *
-     * Each candidate of applyToCandidates whose name matches the pattern is kept.
-     * The list is sorted by descending score, then by path, then by file, line, and
-     * column. Entries with the same path are adjacent, because they have the same
-     * name, so they have the same score.
-     *
-     * @param document   The document that holds the reference.
-     * @param reference  The reference element whose name is completed.
-     * @param pattern    The parsed name of the reference.
-     * @return Tuples of the score, the path index, and the element.
-     */
-    Matches getCompletions (const jam::CodeDocument& document, const jam::Document::Element& reference, const jam::Fuzzy::Pattern& pattern) const;
-
-    /**
-     * @brief Calls @p function once for each symbol that a reference can complete to.
-     *
-     * Entries with the same path are one symbol. The first entry of a symbol, in
-     * the order of getCompletions, is the declaration. The comment is the Id::comment
-     * of the first entry of the symbol that has one. When no entry has one, the
-     * comment is absent.
-     *
-     * @tparam Function  A callable type that takes (int, const jam::CodeDocument&, const jam::Document::Element&, const jam::CodeDocument&, const jam::Document::Element&).
-     * @param document   The document that holds the reference.
-     * @param reference  The reference element whose name is completed.
-     * @param pattern    The parsed name of the reference.
-     * @param function   The callable. It receives the path index, the document, and the declaration, then the document and the element that holds the comment.
-     */
-    template <typename Function>
-    void applyToCompletions (const jam::CodeDocument& document, const jam::Document::Element& reference, const jam::Fuzzy::Pattern& pattern, const Function& function) const
-    {
-        const auto completions (getCompletions (document, reference, pattern));
-
-        for (int index { 0 }; index < completions.size();)
-        {
-            const auto& [score, pathIndex, declaration] { completions.at (index) };
-            const auto declarationPath (getPath (*documents.at (pathIndex), *declaration));
-            const auto runEnd { std::find_if (completions.begin() + index, completions.end(), [this, &declarationPath] (const auto& entry)
-            {
-                const auto& [otherScore, otherIndex, otherDeclaration] { entry };
-
-                return not isSamePath (declarationPath, getPath (*documents.at (otherIndex), *otherDeclaration));
-            }) };
-            const auto commentEntry { std::find_if (completions.begin() + index, runEnd, [] (const auto& entry)
-            {
-                const auto& [otherScore, otherIndex, otherDeclaration] { entry };
-
-                return otherDeclaration->contains (Id::comment);
-            }) };
-            const auto& [commentScore, commentIndex, commentDeclaration] { commentEntry == runEnd ? completions.at (index) : *commentEntry };
-
-            function (pathIndex, *documents.at (pathIndex), *declaration, *documents.at (commentIndex), *commentDeclaration);
-
-            index = static_cast<int> (runEnd - completions.begin());
-        }
-    }
-
-    /**
-     * @brief Writes the implementations of the declarations at the position of a request.
-     *
-     * @param request  The request row. Its arguments give the file and the position.
-     */
-    void goToImplementation (juce::ValueTree& request) const;
-
-    /**
-     * @brief Writes the function declarations at the position of a request, as the start of a call hierarchy.
-     *
-     * @param request  The request row. Its arguments give the file and the position.
-     */
-    void prepareCallHierarchy (juce::ValueTree& request) const;
-
-    /**
-     * @brief Writes the parents of the call elements that refer to the function at the position of a request.
-     *
-     * @param request  The request row. Its arguments give the file and the position.
-     */
-    void incomingCalls (juce::ValueTree& request) const;
-
-    /**
-     * @brief Writes the declarations that the calls inside the function at the position of a request refer to.
-     *
-     * The walk visits each element under the function declaration. Each call
-     * element gives the declarations that its name resolves to.
-     *
-     * @param request  The request row. Its arguments give the file and the position.
-     */
-    void outgoingCalls (juce::ValueTree& request) const;
-
-    /**
-     * @brief Starts the parse jobs of an added files child, or runs an added request.
-     *
-     * A files child first erases each stored document whose path has no row in the
-     * child. It then starts one parse job for each row. When no job is pending, it
-     * writes the documents count. A request child runs at once. Any other child is
-     * ignored.
+     * A files child first erases the documents whose path has no row in the child,
+     * and it clears the queued index jobs. It then adds the language rows that its
+     * families need. It starts one parse job for each row whose family has a loaded
+     * library, and one precompile for each header entry. It then requests an update.
+     * A language child starts its build. A request child runs at once. Any other child
+     * is ignored.
      *
      * @param parentTree              The tree that received the child. Not read.
-     * @param childWhichHasBeenAdded  The added child. A files child starts the parse jobs, and a request child runs.
+     * @param childWhichHasBeenAdded  The added child. A files child starts the parse jobs, a language child starts its build, and a request child runs.
      */
     void valueTreeChildAdded (juce::ValueTree& parentTree, juce::ValueTree& childWhichHasBeenAdded) override;
 
     /**
-     * @brief Starts a parse job for a file row whose path changes.
+     * @brief Adds a language row for each file row whose family has no language row.
      *
-     * The model sends a path change for a row when the watcher reports that its
-     * file changed. Only the path of a file row starts a job.
+     * The config folder of a new language is created before the row is appended to
+     * the state. The append starts the build of the language.
      *
-     * @param tree      The tree whose property changed. A file row starts a job.
-     * @param property  The changed property. Only Id::path starts a job.
+     * @param files  The files child whose rows name the families.
+     */
+    void addLanguages (const juce::ValueTree& files);
+
+    /**
+     * @brief Starts the jobs that a changed path or hash of a file or a language row requires.
+     *
+     * A path change of a file row starts a parse job, when its family has a loaded
+     * library. It also deletes the precompiled header of each header entry that
+     * depends on the row, and starts that precompile again. A path change of a
+     * language row starts its build. A hash change of a language row starts a parse
+     * job for each file row of its family. The model sends a path change for a row
+     * when the watcher reports a change of its file.
+     *
+     * @param tree      The tree whose property changed. A file row or a language row starts a job.
+     * @param property  The changed property. Only Id::path and Id::hash start a job.
      */
     void valueTreePropertyChanged (juce::ValueTree& tree, const juce::Identifier& property) override;
 
     /**
-     * @brief Starts a parse job for one file row, on the thread pool.
+     * @brief Starts a parse job for one file row, through setJob.
      *
-     * The job gets the path and the family as values, read on the calling
-     * thread. It reads the file, parses it, and validates it. Then it returns its
-     * result to the message thread through juce::MessageManager::callAsync.
-     * The pending count rises here, and addDocument lowers it.
+     * The path, the family, the swap file, the library of the family, and the hash
+     * of the language row are read on the calling thread, and the job gets them as
+     * values. The swap file folder is created before the job starts. The job reads
+     * the file. A swap file that holds the same source hash and the same language
+     * hash gives the document, and SwapValidator checks it. Otherwise the job parses
+     * the text with the library, and it writes the swap file. A missing file deletes
+     * the swap file. The job signals the message thread, which applies the result in
+     * handleAsyncUpdate.
      *
-     * @param row       The file row. Its path and family are copied for the job.
+     * @param row       The file row. Its path and family are read on the calling thread.
      * @param rowIndex  The index of the row in the files child. addDocument checks the result against this row.
      */
     void addJob (const juce::ValueTree& row, int rowIndex);
 
     /**
-     * @brief Ends a parse job on the message thread, and keeps its document when the row still matches.
+     * @brief A one-shot parse of one file row, run on the pool. It holds its inputs as values.
      *
-     * The result is kept only when the row at rowIndex still has the path, and the
-     * file still has the modification time that the job read. A result that does
-     * not match is dropped with no message. For a match, a document replaces the
-     * stored document of the path, and no document erases it. A failed validation
-     * sets the overlay message. When the last pending job ends, the count of
-     * documents is written.
-     *
-     * @param rowIndex          The index of the row that started the job.
-     * @param path              The path that the job read.
-     * @param modificationTime  The modification time that the job read.
-     * @param document          The parsed document, or nullptr when the file is missing or its family has no parser.
-     * @param result            The validation result. An ok result when there is no document.
+     * The job reads the file on the pool thread. It reads the swap file when the source
+     * hash and the language hash match, and it parses the text otherwise. The message
+     * thread applies the result in handleAsyncUpdate.
      */
-    void addDocument (int rowIndex, const juce::String& path, juce::Time modificationTime, std::unique_ptr<jam::CodeDocument> document, const juce::Result& result);
+    struct ParseJob : public juce::ThreadPoolJob
+    {
+        /**
+         * @brief Creates a parse job for one file row.
+         *
+         * @param ownerToUse         The processor that receives the completion signal.
+         * @param rowIndexToUse      The index of the file row in the files child.
+         * @param pathToUse          The path of the file.
+         * @param swapFileToUse      The swap file of the file.
+         * @param languageToUse      The library of the family.
+         * @param languageHashToUse  The hash of the language row.
+         */
+        ParseJob (Processor& ownerToUse, int rowIndexToUse, const juce::String& pathToUse, const juce::File& swapFileToUse, std::shared_ptr<const jam::LanguageLibrary> languageToUse, juce::int64 languageHashToUse);
+
+        /**
+         * @brief Reads or parses the file, and writes its swap file. Runs on a pool thread.
+         *
+         * @return jobHasFinished, which the pool reads as the end of the job.
+         */
+        JobStatus runJob() override;
+
+        Processor& owner;///< The processor that receives the completion signal. The job signals it when it ends.
+        int rowIndex;///< The index of the file row in the files child. The message thread checks the row against it.
+        juce::String path;///< The path of the file, copied from the row on the calling thread.
+        juce::File swapFile;///< The swap file of the file. The job reads it, or writes it after a parse. A missing file deletes it.
+        std::shared_ptr<const jam::LanguageLibrary> language;///< The library of the family. The shared pointer keeps the library loaded while the job runs.
+        juce::int64 languageHash;///< The hash of the language row. A swap file must hold this hash to give the document.
+        std::unique_ptr<jam::LanguageDocument> document;///< The document that the job read or parsed. The message thread moves it into the index.
+        juce::Result result { juce::Result::ok() };///< The swap validation result, or the parse result. A parse without a document gives the library diagnosis.
+        juce::Time modificationTime;///< The modification time of the file, read before the file is loaded.
+        bool isParsed { false };///< True when the job parsed the text. False when the document came from the swap file, or none was read.
+        std::atomic<bool> isFinished { false };///< Set to true when runJob ends. The message thread reads it with acquire order.
+    };
 
     /**
-     * @brief Returns the index of a path in paths, and adds the path when it is absent.
+     * @brief A one-shot index pass over one unit row, run on the pool. It holds its inputs as values.
      *
-     * The index is the key of the path's document. Nothing removes an entry from
-     * paths, so an index stays the same for the life of the processor.
-     *
-     * @param path  The path text.
-     * @return The index of the path in paths.
+     * The job calls the library index function, and the library reports each symbol
+     * to addSymbol. The message thread applies the records in handleAsyncUpdate.
      */
-    int getOrCreatePathIndex (const juce::String& path);
+    struct IndexJob : public juce::ThreadPoolJob
+    {
+        /**
+         * @brief Creates an index job for one unit row.
+         *
+         * @param ownerToUse      The processor that receives the completion signal.
+         * @param rowIndexToUse   The index of the unit row in the files child.
+         * @param pathToUse       The path of the source file of the unit.
+         * @param directoryToUse  The working folder of the compile.
+         * @param argumentsToUse  The compile arguments, each ended by a null character.
+         * @param languageToUse   The library of the family.
+         */
+        IndexJob (Processor& ownerToUse, int rowIndexToUse, const juce::String& pathToUse, const juce::String& directoryToUse, jam::Array<char> argumentsToUse, std::shared_ptr<const jam::LanguageLibrary> languageToUse);
+
+        /**
+         * @brief Runs the library index function on the source. Runs on a pool thread.
+         *
+         * @return jobHasFinished, which the pool reads as the end of the job.
+         */
+        JobStatus runJob() override;
+
+        /**
+         * @brief Stores one symbol record of the index pass. The first record at a position stays.
+         *
+         * @param context     The index job that receives the record.
+         * @param recordPath  The path of the file of the location.
+         * @param line        The 1-based line of the location.
+         * @param column      The 1-based column of the location.
+         * @param symbol      The symbol text of the entity.
+         * @param role        The role bits of the record.
+         */
+        static void addSymbol (void* context, const char* recordPath, int line, int column, const char* symbol, int role);
+
+        Processor& owner;///< The processor that receives the completion signal. The job signals it when it ends.
+        int rowIndex;///< The index of the unit row in the files child.
+        juce::String path;///< The path of the source file of the unit.
+        juce::String directory;///< The working folder of the compile.
+        jam::Array<char> arguments;///< The compile arguments, each ended by a null character.
+        std::shared_ptr<const jam::LanguageLibrary> language;///< The library of the family. The shared pointer keeps the library loaded while the job runs.
+        Index::Bindings records;///< The symbol records of the pass, keyed by the raw path, the line, and the column.
+        int result { 0 };///< The return value of the library index function. Zero means the pass succeeded.
+        std::atomic<bool> isFinished { false };///< Set to true when runJob ends. The message thread reads it with acquire order.
+    };
 
     /**
-     * @brief Writes the number of stored documents to Id::documents.
+     * @brief The removeJob timeout that waits until the job leaves the pool.
      *
-     * The callers call this only when no job is pending. When the count equals the
-     * stored value, the function sends the change message by hand, so that the
-     * listeners of Id::documents still react. Otherwise it sets the property.
+     * A negative timeout never expires, so the call returns after the job ends.
      */
-    void setDocuments();
+    static constexpr int waitForJob { -1 };
+
+    /**
+     * @brief The removeJob timeout that does not wait.
+     *
+     * A running job is signalled when interruptIfRunning is set, and it stays in the pool.
+     */
+    static constexpr int noWait { 0 };
+
+    /**
+     * @brief Starts a job for a row, or queues it behind the job of the row that runs.
+     *
+     * A row without a job gets the new job, and the pool runs it. The pool drops a
+     * job that has not started, so the new job replaces it. A queued job of the row
+     * is dropped. A running job is signalled and kept, and the new job waits in
+     * nextJobs until the running job ends.
+     *
+     * @tparam Job      The job type, ParseJob or IndexJob.
+     * @param jobs      The running jobs, keyed by row index.
+     * @param nextJobs  The queued jobs, keyed by row index.
+     * @param rowIndex  The index of the row of the job.
+     * @param newJob    The job to start or to queue. The function takes ownership.
+     */
+    template <typename Job>
+    void setJob (jam::HashMap<int, std::unique_ptr<Job>>& jobs, jam::HashMap<int, std::unique_ptr<Job>>& nextJobs, int rowIndex, std::unique_ptr<Job> newJob)
+    {
+        if (const auto running { jobs.find (rowIndex) }; running != jobs.end())
+        {
+            auto& [runningRow, runningJob] { *running };
+
+            if (pool.removeJob (runningJob.get(), true, noWait))
+            {
+                nextJobs.erase (rowIndex);
+                runningJob = std::move (newJob);
+                pool.addJob (runningJob.get(), false);
+            }
+            else
+            {
+                nextJobs.addOrReplace (rowIndex, std::move (newJob));
+            }
+        }
+        else
+        {
+            jobs.addOrReplace (rowIndex, std::move (newJob));
+            pool.addJob (jobs.at (rowIndex).get(), false);
+        }
+    }
+
+    /**
+     * @brief Removes the finished job of a row, and starts the queued job of the row when one waits.
+     *
+     * The call waits until the pool releases the finished job. A row without a
+     * queued job loses its entry.
+     *
+     * @tparam Job      The job type, ParseJob or IndexJob.
+     * @param jobs      The running jobs, keyed by row index.
+     * @param nextJobs  The queued jobs, keyed by row index.
+     * @param rowIndex  The index of the row whose job finished.
+     */
+    template <typename Job>
+    void removeJob (jam::HashMap<int, std::unique_ptr<Job>>& jobs, jam::HashMap<int, std::unique_ptr<Job>>& nextJobs, int rowIndex)
+    {
+        pool.removeJob (jobs.at (rowIndex).get(), true, waitForJob);
+
+        if (const auto queued { nextJobs.find (rowIndex) }; queued != nextJobs.end())
+        {
+            auto& [queuedRow, queuedJob] { *queued };
+
+            jobs.addOrReplace (rowIndex, std::move (queuedJob));
+            nextJobs.erase (queued);
+            pool.addJob (jobs.at (rowIndex).get(), false);
+        }
+        else
+        {
+            jobs.erase (rowIndex);
+        }
+    }
+
+    /**
+     * @brief Queues an index job for a unit row, and signals the running index job of the row.
+     *
+     * The arguments of the row are joined, each ended by a null character. A running
+     * index job is removed when it has not started. Otherwise it is signalled and kept
+     * until it ends. The queued job replaces any earlier queued job of the row.
+     *
+     * @param row       The unit row. Its arguments, directory, path, and family give the job.
+     * @param rowIndex  The index of the unit row in the files child.
+     */
+    void addIndexJob (const juce::ValueTree& row, int rowIndex);
+
+    /**
+     * @brief Starts each queued index job whose row has no running index job.
+     *
+     * A started job moves from the queue to the running map, and the pool runs it.
+     */
+    void addIndexJobs();
+
+    /**
+     * @brief Applies the symbol records of a finished index job to the index, or reports its failure.
+     *
+     * The records move into the index when the row still holds the path of the job
+     * and the library returns zero. Any other result sets the message, and deletes the
+     * swap files of the path and of each dependency row. A job whose row no longer
+     * holds its path drops its records.
+     *
+     * @param job  The finished index job.
+     */
+    void addBindings (IndexJob& job);
+
+    /**
+     * @brief Applies the finished jobs on the message thread, starts the queued index jobs, and writes the symbols when no work remains.
+     *
+     * A finished parse job is applied only when no newer job waits for its row. A
+     * finished index job is applied likewise. The index jobs start only when no parse
+     * job runs. When no parse job, index job, build, or precompile remains, setDocuments runs.
+     */
+    void handleAsyncUpdate() override;
+
+    /**
+     * @brief Starts the parse job of a changed file row, and the precompile of each header entry that depends on it.
+     *
+     * A header entry that depends on the row loses its precompiled header file before
+     * the precompile starts.
+     *
+     * @param file  The file row whose path changed.
+     */
+    void setFile (const juce::ValueTree& file);
+
+    /**
+     * @brief Starts a parse job for each file row of the family of a language row whose hash changed.
+     *
+     * setLanguage loads the library before it sets the hash, so addJob finds the library.
+     *
+     * @param languageRow  The language row whose hash changed.
+     */
+    void setLanguageHash (const juce::ValueTree& languageRow);
+
+    /**
+     * @brief Starts the build of a language row on a subprocess, unless a build of its family runs.
+     *
+     * The config folder of the language is copied to its cache folder. The
+     * subprocess then runs cast with the spell file of the language in that folder.
+     * A failed copy ends the build at once, and applyBuild reports it.
+     *
+     * @param languageRow  The language row. Its family selects the build, and its name and path give the folders.
+     */
+    void addBuild (const juce::ValueTree& languageRow);
+
+    /**
+     * @brief Ends a build on the message thread, and loads its library on success.
+     *
+     * The build of the family is removed first, so a new build can start. An exit
+     * code of zero loads the library. Any other exit code sets the overlay message
+     * with the captured output. When a file directly in the config folder changed
+     * after the start, the build runs again. It then requests an update, which writes the documents count once no work remains.
+     *
+     * @param languageRow  The language row whose build ended.
+     * @param cache        The cache folder of the build.
+     * @param startTime    The time at which the build started.
+     * @param exitCode     The exit code of the subprocess.
+     * @param capture      The captured output of the subprocess.
+     */
+    void applyBuild (const juce::ValueTree& languageRow, const juce::File& cache, juce::Time startTime, int exitCode, const std::string& capture);
+
+    /**
+     * @brief Tells whether a file directly in a folder was modified after a time.
+     *
+     * Files in subfolders are not searched.
+     *
+     * @param folder  The folder whose files are tested.
+     * @param time    The time that a modification must follow.
+     * @return @c true when at least one file of the folder was modified after the time.
+     */
+    static bool isChangedSince (const juce::File& folder, juce::Time time);
+
+    /**
+     * @brief Loads the library that a build wrote, and makes it the library of its family.
+     *
+     * The library is copied to a file that is named by the hash of its bytes, when
+     * that file is absent, and the copy is opened. The system loader returns the
+     * image that it already holds for a path, so a build with new bytes needs a new
+     * path. The loaded library replaces the entry of the family, and the row
+     * receives the hash. A library that fails to load sets the overlay message only.
+     *
+     * @param languageRow  The language row. Its family selects the entry, and its hash receives the hash of the library.
+     * @param cache        The cache folder of the build. It holds the build file.
+     */
+    void setLanguage (juce::ValueTree languageRow, const juce::File& cache);
+
+    void addPrecompile (const juce::ValueTree& headerEntry);
+
+    void addPrecompile (const juce::ValueTree& headerEntry, std::function<void()> onComplete);
+
+    void addCheck (juce::ValueTree& request, const juce::ValueTree& unit);
+
+    /**
+     * @brief Applies a finished parse job to the index, when the job still matches its row.
+     *
+     * The job matches when the row holds the path of the job, the file keeps the
+     * modification time of the job, and the family keeps the library of the job.
+     * A matching job stores its document in the index, and it reports a failed result
+     * to the message. When the job parsed a document, each unit row that depends on the
+     * file, and whose family has a library, gets an index job. A unit row that already
+     * has a queued index job keeps that job. A job that does not match keeps its document
+     * until the message thread removes the job.
+     *
+     * @param job  The finished parse job.
+     */
+    void addDocument (ParseJob& job);
 
     /** @brief The model that this processor listens to. The application owns the model. */
     LINGModel& model;
 
-    /** @brief The path texts. The index of a path in paths is the key of its document. */
-    jam::Strings paths;
+    jam::Owner<jam::Subprocess> checks;
 
-    /** @brief The parsed documents, keyed by the index of their path in paths. */
-    jam::HashMap<int, std::unique_ptr<jam::CodeDocument>> documents;
+    jam::Owner<jam::Subprocess> precompiles;
 
-    /** @brief The parse jobs that started and have not yet ended on the message thread. */
-    int pendingJobs { 0 };
+    /** @brief The language builds that run, keyed by family. A family has at most one build, and applyBuild removes it when the build ends. */
+    jam::HashMap<int, std::unique_ptr<jam::Subprocess>> builds;
 
-    /** @brief The thread pool that runs the parse jobs. */
+    /** @brief The documents, the bindings, and the libraries of the families. The processor writes it, and Query reads it through a const reference. */
+    Index index;
+
+    /** @brief Answers the request rows from the index. Its only state is the fuzzy finder slab. */
+    Query query;
+
+    jam::HashMap<int, std::unique_ptr<ParseJob>> parseJobs;
+
+    jam::HashMap<int, std::unique_ptr<ParseJob>> nextParseJobs;
+
+    jam::HashMap<int, std::unique_ptr<IndexJob>> indexJobs;
+
+    jam::HashMap<int, std::unique_ptr<IndexJob>> nextIndexJobs;
+
+    /**
+     * @brief The thread pool that runs the parse jobs and the index jobs.
+     *
+     * The pool is declared after the job maps. Its destructor signals each job to
+     * exit and waits up to 5000 milliseconds for the running jobs, so the jobs stop
+     * before the maps free them.
+     */
     juce::ThreadPool pool;
 
     /** @brief The operations that answer the request rows, keyed by the command identifier. */
     Events events;
-
-    /**
-     * @brief The working memory of the fuzzy finder.
-     *
-     * The finder takes one slab per thread. Each entry of events runs on the
-     * message thread, so one slab serves every entry. The lookups that score names
-     * are const, so the slab is mutable.
-     */
-    mutable jam::Fuzzy::Slab slab;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Processor)
 };

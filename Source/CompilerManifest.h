@@ -19,23 +19,34 @@ struct CompilerManifest
      *
      * A toolchain argument that matches no toolchain row sets the message.
      *
-     * @param model              The model that receives the failure messages.
      * @param manifest           The parsed manifest.
      * @param manifestFile       The manifest file. Its folder is the base of the relative paths in the rows.
      * @param toolchainArgument  The toolchain argument from the command line. Empty when none is given.
      * @return The files child.
      */
-    static juce::ValueTree getFiles (LINGModel& model, const jam::MarkdownDocument& manifest, const juce::File& manifestFile, const juce::String& toolchainArgument);
+    static juce::ValueTree getFiles (const jam::MarkdownDocument& manifest, const juce::File& manifestFile, const juce::String& toolchainArgument);
+
+    static jam::Strings getCheckFlags (LINGModel& model, int family);
 
 private:
+    static void applyDefaults (const juce::File& folder, const juce::String& name);
+
+    static std::unique_ptr<jam::MarkdownDocument> getConstruction (const juce::File& file);
+
+    static juce::String getWord (juce::ValueTree& files, const jam::MarkdownDocument& construction, const juce::Identifier& word);
+
     /**
-     * @brief Returns the table of the file builders, keyed by language family.
+     * @brief Returns the construction of each family that holds a compiler manifest table, and writes the absent default files.
      *
-     * Built once, on first use. Holds the C-family builder only.
+     * The default files are written only into the folder of the default family, and
+     * each file is written only when it does not exist. A construction without a
+     * compiler manifest table is left out. A construction file that exists and does
+     * not parse sets the message.
      *
-     * @return The family-to-builder table.
+     * @param files  The files child that receives the message.
+     * @return The constructions of the families that hold a compiler manifest table.
      */
-    static const jam::Function::Map<int, jam::Function::pointerCapacity, void (LINGModel&, juce::ValueTree&, const jam::MarkdownDocument&, const jam::MarkdownDocument::Element&, const juce::File&)>& getFilesConstruction();
+    static jam::Owner<jam::MarkdownDocument> getOrCreateConstructions (juce::ValueTree& files);
 
     /**
      * @brief Adds the files of a C-family toolchain row, by the command of the row.
@@ -43,29 +54,29 @@ private:
      * A compiler manifest command adds the units. A dependency command adds the
      * dependency records. Any other command adds nothing.
      *
-     * @param model     The model that receives the failure messages.
-     * @param files     The files child that receives the rows.
-     * @param manifest  The parsed manifest.
-     * @param row       The toolchain row.
-     * @param directory The folder of the manifest.
+     * @param files         The files child that receives the rows.
+     * @param manifest      The parsed manifest.
+     * @param row           The toolchain row.
+     * @param directory     The folder of the manifest.
+     * @param construction  The construction of the family. It holds the command words.
      */
-    static void addCLanguageFiles (const int&, LINGModel& model, juce::ValueTree& files, const jam::MarkdownDocument& manifest, const jam::MarkdownDocument::Element& row, const juce::File& directory);
+    static void addFiles (juce::ValueTree& files, const jam::MarkdownDocument& manifest, const jam::MarkdownDocument::Element& row, const juce::File& directory, const jam::MarkdownDocument& construction);
 
     /**
      * @brief Adds a file row for each unit of the compiler manifest in the build folder of the row.
      *
      * A row whose flag names no build folder adds nothing. When the compiler
      * manifest exists, its path joins the compiler manifests of the files child
-     * before the file is parsed. A missing compiler manifest, or one whose root is
-     * not an array, sets the message.
+     * before the file is parsed. A missing compiler manifest sets the message. A
+     * compiler manifest that does not parse sets the message.
      *
-     * @param model     The model that receives the failure messages.
-     * @param files     The files child that receives the rows.
-     * @param manifest  The parsed manifest.
-     * @param row       The toolchain row whose flag names the build folder.
-     * @param directory The folder of the manifest. The build folder is relative to it.
+     * @param files         The files child that receives the rows.
+     * @param manifest      The parsed manifest.
+     * @param row           The toolchain row whose flag names the build folder.
+     * @param directory     The folder of the manifest. The build folder is relative to it.
+     * @param construction  The construction of the family. It holds the command words.
      */
-    static void addCLanguageUnits (LINGModel& model, juce::ValueTree& files, const jam::MarkdownDocument& manifest, const jam::MarkdownDocument::Element& row, const juce::File& directory);
+    static void addUnits (juce::ValueTree& files, const jam::MarkdownDocument& manifest, const jam::MarkdownDocument::Element& row, const juce::File& directory, const jam::MarkdownDocument& construction);
 
     /**
      * @brief Adds a file row for one unit, when its file exists and no row has its path.
@@ -73,12 +84,11 @@ private:
      * The row gets the path, the family from the file extension, and the output
      * path. A unit whose file does not exist sets the message.
      *
-     * @param model     The model that receives the failure messages.
      * @param files     The files child that receives the row.
      * @param document  The parsed compiler manifest that holds the unit and its text.
      * @param unit      The unit: its directory, file, output, and arguments.
      */
-    static void addCLanguageUnit (LINGModel& model, juce::ValueTree& files, const jam::JsonDocument& document, const jam::Document::Element& unit);
+    static void addUnit (juce::ValueTree& files, const jam::JsonDocument& document, const jam::Document::Element& unit);
 
     /**
      * @brief Returns the arguments of a unit: its arguments array, or its command split into arguments.
@@ -101,34 +111,35 @@ private:
      * dependency records of the files child. A nonzero exit sets the message, and
      * no record is added.
      *
-     * @param model     The model that receives the failure messages.
-     * @param files     The files child that receives the rows.
-     * @param manifest  The parsed manifest.
-     * @param row       The toolchain row whose command and flag run.
-     * @param directory The folder of the manifest, which is the working folder of the process.
+     * @param files         The files child that receives the rows.
+     * @param manifest      The parsed manifest.
+     * @param row           The toolchain row whose command and flag run.
+     * @param directory     The folder of the manifest, which is the working folder of the process.
+     * @param construction  The construction of the family. It holds the command words.
      */
-    static void addCLanguageDependencies (LINGModel& model, juce::ValueTree& files, const jam::MarkdownDocument& manifest, const jam::MarkdownDocument::Element& row, const juce::File& directory);
+    static void addDependencies (juce::ValueTree& files, const jam::MarkdownDocument& manifest, const jam::MarkdownDocument::Element& row, const juce::File& directory, const jam::MarkdownDocument& construction);
 
     /**
      * @brief Returns the argument list of a dependency command: the command, the flag arguments, and the dependency flag.
      *
      * @param command        The command of the toolchain row.
      * @param flagArguments  The arguments of the flag of the row.
+     * @param dependencyFlag The dependency flag of the construction. Its arguments follow the flag arguments.
      * @return The argument list of the process.
      */
-    static jam::Strings getDependencyArguments (const juce::String& command, const jam::Strings& flagArguments);
+    static jam::Strings getDependencyArguments (const juce::String& command, const jam::Strings& flagArguments, const juce::String& dependencyFlag);
 
     /**
      * @brief Adds the file rows and the dependency lists that a dependency record names.
      *
      * A file row with an output and no dependency list after the record sets the message.
      *
-     * @param model           The model that receives the failure messages.
      * @param files           The files child that receives the rows.
      * @param record          The dependency record: the text that the command printed.
      * @param buildDirectory  The folder that the paths of the record are relative to.
+     * @param dependencyHead  The text that marks the output in a head line of the record.
      */
-    static void addCLanguageRecords (LINGModel& model, juce::ValueTree& files, std::string_view record, const juce::File& buildDirectory);
+    static void addRecords (juce::ValueTree& files, std::string_view record, const juce::File& buildDirectory, const juce::String& dependencyHead);
 
     /**
      * @brief Reads one record of a dependency record, and returns the position of the next record.
@@ -141,9 +152,10 @@ private:
      * @param record          The dependency record.
      * @param position        The index of the first byte of the record.
      * @param buildDirectory  The folder that the paths of the record are relative to.
+     * @param dependencyHead  The text that marks the output in a head line of the record.
      * @return The index of the first byte after the record.
      */
-    static size_t addCLanguageRecord (juce::ValueTree& files, jam::Strings& paths, std::string_view record, size_t position, const juce::File& buildDirectory);
+    static size_t addRecord (juce::ValueTree& files, jam::Strings& paths, std::string_view record, size_t position, const juce::File& buildDirectory, const juce::String& dependencyHead);
 
     /**
      * @brief Returns the row index of a file, and appends a row when no row has its path.

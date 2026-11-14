@@ -53,7 +53,11 @@ void Connection::valueTreePropertyChanged (juce::ValueTree& tree, const juce::Id
     {
         const auto result { tree[Id::result].toString() };
 
-        sendMessage (juce::MemoryBlock { result.toRawUTF8(), result.getNumBytesAsUTF8() });
+        const auto newline { static_cast<char> (Chars::newline) };
+        juce::MemoryBlock message { result.toRawUTF8(), result.getNumBytesAsUTF8() };
+
+        message.append (&newline, sizeof (newline));
+        sendMessage (message);
         state.removeChild (tree, nullptr);
     }
 }

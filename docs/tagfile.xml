@@ -85,33 +85,20 @@
     <path>generated/</path>
     <filename>_text_8h.html</filename>
     <class kind="struct">text::Diagnostics</class>
-    <class kind="struct">text::CLanguage</class>
   </compound>
   <compound kind="file">
-    <name>Help.cpp</name>
+    <name>Index.cpp</name>
     <path></path>
-    <filename>_help_8cpp.html</filename>
-    <includes id="_help_8h" name="Help.h" local="yes" import="no" module="no" objc="no">Help.h</includes>
-    <member kind="function">
-      <type>void</type>
-      <name>printHelp</name>
-      <anchorfile>_help_8cpp.html</anchorfile>
-      <anchor>a9b19836bb5ca0e3083ee375706b72664</anchor>
-      <arglist>(std::string_view helpText)</arglist>
-    </member>
+    <filename>_index_8cpp.html</filename>
+    <includes id="_index_8h" name="Index.h" local="yes" import="no" module="no" objc="no">Index.h</includes>
   </compound>
   <compound kind="file">
-    <name>Help.h</name>
+    <name>Index.h</name>
     <path></path>
-    <filename>_help_8h.html</filename>
+    <filename>_index_8h.html</filename>
     <includes id="_generated_8h" name="Generated.h" local="yes" import="no" module="no" objc="no">generated/Generated.h</includes>
-    <member kind="function">
-      <type>void</type>
-      <name>printHelp</name>
-      <anchorfile>_help_8h.html</anchorfile>
-      <anchor>a9b19836bb5ca0e3083ee375706b72664</anchor>
-      <arglist>(std::string_view helpText)</arglist>
-    </member>
+    <includes id="_l_i_n_g_model_8h" name="LINGModel.h" local="yes" import="no" module="no" objc="no">LINGModel.h</includes>
+    <class kind="class">Index</class>
   </compound>
   <compound kind="file">
     <name>JsonWriter.cpp</name>
@@ -144,7 +131,6 @@
     <path></path>
     <filename>_main_8cpp.html</filename>
     <includes id="_generated_8h" name="Generated.h" local="yes" import="no" module="no" objc="no">generated/Generated.h</includes>
-    <includes id="_help_8h" name="Help.h" local="yes" import="no" module="no" objc="no">Help.h</includes>
     <includes id="_l_i_n_g_model_8h" name="LINGModel.h" local="yes" import="no" module="no" objc="no">LINGModel.h</includes>
     <includes id="_processor_8h" name="Processor.h" local="yes" import="no" module="no" objc="no">Processor.h</includes>
     <includes id="_server_8h" name="Server.h" local="yes" import="no" module="no" objc="no">Server.h</includes>
@@ -197,8 +183,8 @@
       <type>static void</type>
       <name>appendDocument</name>
       <anchorfile>_main_8cpp.html</anchorfile>
-      <anchor>a25f21432c4207490fd18b68b4eadd9f2</anchor>
-      <arglist>(std::string &amp;rows, std::string_view path, const jam::CodeDocument &amp;document)</arglist>
+      <anchor>a0c0d73d3ee819150f5aa1b682fca1df6</anchor>
+      <arglist>(std::string &amp;rows, std::string_view path, const jam::LanguageDocument &amp;document)</arglist>
     </member>
     <member kind="function" static="yes">
       <type>static int</type>
@@ -278,6 +264,34 @@
     <includes id="_manifest_8h" name="Manifest.h" local="yes" import="no" module="no" objc="no">Manifest.h</includes>
     <includes id="_validator_8h" name="Validator.h" local="yes" import="no" module="no" objc="no">Validator.h</includes>
     <includes id="_compiler_manifest_8h" name="CompilerManifest.h" local="yes" import="no" module="no" objc="no">CompilerManifest.h</includes>
+    <member kind="function" static="yes">
+      <type>static juce::ValueTree</type>
+      <name>getRoot</name>
+      <anchorfile>_manifest_8cpp.html</anchorfile>
+      <anchor>ab9d58b79491344bb30a558e826a29ea7</anchor>
+      <arglist>(const juce::File &amp;folder, const juce::File &amp;swapFolder)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static juce::ValueTree</type>
+      <name>getProjectRoots</name>
+      <anchorfile>_manifest_8cpp.html</anchorfile>
+      <anchor>aa0e8d8e5a54b35ea73cb28bdf95bcfa8</anchor>
+      <arglist>(const juce::File &amp;manifestFile)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static juce::File</type>
+      <name>getFolder</name>
+      <anchorfile>_manifest_8cpp.html</anchorfile>
+      <anchor>a8b9553943e5e79c962b25284161f2abc</anchor>
+      <arglist>(const jam::MarkdownDocument &amp;manifest, const juce::String &amp;cell, const juce::File &amp;project)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static jam::Strings</type>
+      <name>getPatchFiles</name>
+      <anchorfile>_manifest_8cpp.html</anchorfile>
+      <anchor>a94718f1f234f9aa5ad5210121050652a</anchor>
+      <arglist>(const juce::File &amp;userModules)</arglist>
+    </member>
   </compound>
   <compound kind="file">
     <name>Manifest.h</name>
@@ -286,12 +300,14 @@
     <includes id="_generated_8h" name="Generated.h" local="yes" import="no" module="no" objc="no">generated/Generated.h</includes>
     <includes id="_l_i_n_g_model_8h" name="LINGModel.h" local="yes" import="no" module="no" objc="no">LINGModel.h</includes>
     <class kind="class">Manifest</class>
+    <class kind="struct">Manifest::ManifestJob</class>
   </compound>
   <compound kind="file">
     <name>Processor.cpp</name>
     <path></path>
     <filename>_processor_8cpp.html</filename>
     <includes id="_processor_8h" name="Processor.h" local="yes" import="no" module="no" objc="no">Processor.h</includes>
+    <includes id="_swap_validator_8h" name="SwapValidator.h" local="yes" import="no" module="no" objc="no">SwapValidator.h</includes>
   </compound>
   <compound kind="file">
     <name>Processor.h</name>
@@ -299,8 +315,26 @@
     <filename>_processor_8h.html</filename>
     <includes id="_generated_8h" name="Generated.h" local="yes" import="no" module="no" objc="no">generated/Generated.h</includes>
     <includes id="_l_i_n_g_model_8h" name="LINGModel.h" local="yes" import="no" module="no" objc="no">LINGModel.h</includes>
-    <includes id="_json_writer_8h" name="JsonWriter.h" local="yes" import="no" module="no" objc="no">JsonWriter.h</includes>
+    <includes id="_compiler_manifest_8h" name="CompilerManifest.h" local="yes" import="no" module="no" objc="no">CompilerManifest.h</includes>
+    <includes id="_index_8h" name="Index.h" local="yes" import="no" module="no" objc="no">Index.h</includes>
+    <includes id="_query_8h" name="Query.h" local="yes" import="no" module="no" objc="no">Query.h</includes>
     <class kind="class">Processor</class>
+    <class kind="struct">Processor::ParseJob</class>
+    <class kind="struct">Processor::IndexJob</class>
+  </compound>
+  <compound kind="file">
+    <name>Query.cpp</name>
+    <path></path>
+    <filename>_query_8cpp.html</filename>
+    <includes id="_query_8h" name="Query.h" local="yes" import="no" module="no" objc="no">Query.h</includes>
+  </compound>
+  <compound kind="file">
+    <name>Query.h</name>
+    <path></path>
+    <filename>_query_8h.html</filename>
+    <includes id="_index_8h" name="Index.h" local="yes" import="no" module="no" objc="no">Index.h</includes>
+    <includes id="_json_writer_8h" name="JsonWriter.h" local="yes" import="no" module="no" objc="no">JsonWriter.h</includes>
+    <class kind="class">Query</class>
   </compound>
   <compound kind="file">
     <name>Server.cpp</name>
@@ -316,6 +350,19 @@
     <includes id="_l_i_n_g_model_8h" name="LINGModel.h" local="yes" import="no" module="no" objc="no">LINGModel.h</includes>
     <includes id="_connection_8h" name="Connection.h" local="yes" import="no" module="no" objc="no">Connection.h</includes>
     <class kind="class">Server</class>
+  </compound>
+  <compound kind="file">
+    <name>SwapValidator.cpp</name>
+    <path></path>
+    <filename>_swap_validator_8cpp.html</filename>
+    <includes id="_swap_validator_8h" name="SwapValidator.h" local="yes" import="no" module="no" objc="no">SwapValidator.h</includes>
+  </compound>
+  <compound kind="file">
+    <name>SwapValidator.h</name>
+    <path></path>
+    <filename>_swap_validator_8h.html</filename>
+    <includes id="_generated_8h" name="Generated.h" local="yes" import="no" module="no" objc="no">generated/Generated.h</includes>
+    <class kind="struct">SwapValidator</class>
   </compound>
   <compound kind="file">
     <name>Validator.cpp</name>
@@ -441,6 +488,13 @@
       <arglist>(juce::ValueTree &amp;, const juce::Identifier &amp;property) override</arglist>
     </member>
     <member kind="variable" protection="private">
+      <type>jam::SharedInstance&lt; map::Family &gt;</type>
+      <name>family</name>
+      <anchorfile>class_application.html</anchorfile>
+      <anchor>a993bb13ed72f650c78bb405d94ebd59f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
       <type>LINGModel</type>
       <name>model</name>
       <anchorfile>class_application.html</anchorfile>
@@ -487,66 +541,6 @@
       <name>client</name>
       <anchorfile>class_application.html</anchorfile>
       <anchor>aa4f629c8d5b98131e551eef7300c1201</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
-    <name>text::CLanguage</name>
-    <filename>structtext_1_1_c_language.html</filename>
-    <member kind="variable" static="yes">
-      <type>static constexpr const char *const</type>
-      <name>compilerManifestCommand</name>
-      <anchorfile>structtext_1_1_c_language.html</anchorfile>
-      <anchor>a9be795f2d2883967cc207c7f541ff463</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" static="yes">
-      <type>static constexpr const char *const</type>
-      <name>flagBuildDirectory</name>
-      <anchorfile>structtext_1_1_c_language.html</anchorfile>
-      <anchor>a7fb5fd950f3d94521013128911356798</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" static="yes">
-      <type>static constexpr const char *const</type>
-      <name>compilerManifest</name>
-      <anchorfile>structtext_1_1_c_language.html</anchorfile>
-      <anchor>ae03041f8f1b92f254b9b1389bcc84bcf</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" static="yes">
-      <type>static constexpr const char *const</type>
-      <name>dependencyCommand</name>
-      <anchorfile>structtext_1_1_c_language.html</anchorfile>
-      <anchor>ad1af23c7dc5da52607d788a1a20f3fba</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" static="yes">
-      <type>static constexpr const char *const</type>
-      <name>flagDependencyDirectory</name>
-      <anchorfile>structtext_1_1_c_language.html</anchorfile>
-      <anchor>aa56719167bbba6ef522401dc798cfa32</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" static="yes">
-      <type>static constexpr const char *const</type>
-      <name>dependencyFlag</name>
-      <anchorfile>structtext_1_1_c_language.html</anchorfile>
-      <anchor>ab8bea2ef87db0b9ec4600c8d770462d8</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" static="yes">
-      <type>static constexpr const char *const</type>
-      <name>dependencyHead</name>
-      <anchorfile>structtext_1_1_c_language.html</anchorfile>
-      <anchor>a9643ea126445b0aff1fa5a8ef6bdf829</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" static="yes">
-      <type>static constexpr const char *const</type>
-      <name>dependencyRecord</name>
-      <anchorfile>structtext_1_1_c_language.html</anchorfile>
-      <anchor>a3339c5f83477b96b8b2865d5200cf64f</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -661,36 +655,64 @@
       <type>static juce::ValueTree</type>
       <name>getFiles</name>
       <anchorfile>struct_compiler_manifest.html</anchorfile>
-      <anchor>afae28058303b442370d04c23805a38dd</anchor>
-      <arglist>(LINGModel &amp;model, const jam::MarkdownDocument &amp;manifest, const juce::File &amp;manifestFile, const juce::String &amp;toolchainArgument)</arglist>
+      <anchor>a271ed7330ef1aa3f9ae0363ca6fa3e00</anchor>
+      <arglist>(const jam::MarkdownDocument &amp;manifest, const juce::File &amp;manifestFile, const juce::String &amp;toolchainArgument)</arglist>
     </member>
-    <member kind="function" protection="private" static="yes">
-      <type>static const jam::Function::Map&lt; int, jam::Function::pointerCapacity, void(LINGModel &amp;, juce::ValueTree &amp;, const jam::MarkdownDocument &amp;, const jam::MarkdownDocument::Element &amp;, const juce::File &amp;)&gt; &amp;</type>
-      <name>getFilesConstruction</name>
+    <member kind="function" static="yes">
+      <type>static jam::Strings</type>
+      <name>getCheckFlags</name>
       <anchorfile>struct_compiler_manifest.html</anchorfile>
-      <anchor>a86692835222d24386b1ab5e3c5afc03d</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function" protection="private" static="yes">
-      <type>static void</type>
-      <name>addCLanguageFiles</name>
-      <anchorfile>struct_compiler_manifest.html</anchorfile>
-      <anchor>a19aa5842d058f8a553f44bf2e97d47a6</anchor>
-      <arglist>(const int &amp;, LINGModel &amp;model, juce::ValueTree &amp;files, const jam::MarkdownDocument &amp;manifest, const jam::MarkdownDocument::Element &amp;row, const juce::File &amp;directory)</arglist>
+      <anchor>a57638975938c582f7637f95538b98dce</anchor>
+      <arglist>(LINGModel &amp;model, int family)</arglist>
     </member>
     <member kind="function" protection="private" static="yes">
       <type>static void</type>
-      <name>addCLanguageUnits</name>
+      <name>applyDefaults</name>
       <anchorfile>struct_compiler_manifest.html</anchorfile>
-      <anchor>aae1bdb37a57862b8cc20232aabcbfaa8</anchor>
-      <arglist>(LINGModel &amp;model, juce::ValueTree &amp;files, const jam::MarkdownDocument &amp;manifest, const jam::MarkdownDocument::Element &amp;row, const juce::File &amp;directory)</arglist>
+      <anchor>a2fd65f0d8b5218be4ed742a4209d9bac</anchor>
+      <arglist>(const juce::File &amp;folder, const juce::String &amp;name)</arglist>
+    </member>
+    <member kind="function" protection="private" static="yes">
+      <type>static std::unique_ptr&lt; jam::MarkdownDocument &gt;</type>
+      <name>getConstruction</name>
+      <anchorfile>struct_compiler_manifest.html</anchorfile>
+      <anchor>a43c350f4056f8a93cf130f67ae0ef6f7</anchor>
+      <arglist>(const juce::File &amp;file)</arglist>
+    </member>
+    <member kind="function" protection="private" static="yes">
+      <type>static juce::String</type>
+      <name>getWord</name>
+      <anchorfile>struct_compiler_manifest.html</anchorfile>
+      <anchor>af2c3841ea1c305df6ae7260b9fd91f63</anchor>
+      <arglist>(juce::ValueTree &amp;files, const jam::MarkdownDocument &amp;construction, const juce::Identifier &amp;word)</arglist>
+    </member>
+    <member kind="function" protection="private" static="yes">
+      <type>static jam::Owner&lt; jam::MarkdownDocument &gt;</type>
+      <name>getOrCreateConstructions</name>
+      <anchorfile>struct_compiler_manifest.html</anchorfile>
+      <anchor>a3f1647d792c87937d4918bb5839aea62</anchor>
+      <arglist>(juce::ValueTree &amp;files)</arglist>
     </member>
     <member kind="function" protection="private" static="yes">
       <type>static void</type>
-      <name>addCLanguageUnit</name>
+      <name>addFiles</name>
       <anchorfile>struct_compiler_manifest.html</anchorfile>
-      <anchor>a597cca6e747514d1bf62ada95c2ce80e</anchor>
-      <arglist>(LINGModel &amp;model, juce::ValueTree &amp;files, const jam::JsonDocument &amp;document, const jam::Document::Element &amp;unit)</arglist>
+      <anchor>a5b67735cd6c8c1e564aef844dbe81515</anchor>
+      <arglist>(juce::ValueTree &amp;files, const jam::MarkdownDocument &amp;manifest, const jam::MarkdownDocument::Element &amp;row, const juce::File &amp;directory, const jam::MarkdownDocument &amp;construction)</arglist>
+    </member>
+    <member kind="function" protection="private" static="yes">
+      <type>static void</type>
+      <name>addUnits</name>
+      <anchorfile>struct_compiler_manifest.html</anchorfile>
+      <anchor>aa34f2f6108ed7ee3df144caf200a7a1b</anchor>
+      <arglist>(juce::ValueTree &amp;files, const jam::MarkdownDocument &amp;manifest, const jam::MarkdownDocument::Element &amp;row, const juce::File &amp;directory, const jam::MarkdownDocument &amp;construction)</arglist>
+    </member>
+    <member kind="function" protection="private" static="yes">
+      <type>static void</type>
+      <name>addUnit</name>
+      <anchorfile>struct_compiler_manifest.html</anchorfile>
+      <anchor>a7dedcedc53dea8b5f5bc759cec872054</anchor>
+      <arglist>(juce::ValueTree &amp;files, const jam::JsonDocument &amp;document, const jam::Document::Element &amp;unit)</arglist>
     </member>
     <member kind="function" protection="private" static="yes">
       <type>static jam::Strings</type>
@@ -701,31 +723,31 @@
     </member>
     <member kind="function" protection="private" static="yes">
       <type>static void</type>
-      <name>addCLanguageDependencies</name>
+      <name>addDependencies</name>
       <anchorfile>struct_compiler_manifest.html</anchorfile>
-      <anchor>ad7aa4cb2cc1792abc97dc3fabb307292</anchor>
-      <arglist>(LINGModel &amp;model, juce::ValueTree &amp;files, const jam::MarkdownDocument &amp;manifest, const jam::MarkdownDocument::Element &amp;row, const juce::File &amp;directory)</arglist>
+      <anchor>a64ba94018124741db83926d877d1b58b</anchor>
+      <arglist>(juce::ValueTree &amp;files, const jam::MarkdownDocument &amp;manifest, const jam::MarkdownDocument::Element &amp;row, const juce::File &amp;directory, const jam::MarkdownDocument &amp;construction)</arglist>
     </member>
     <member kind="function" protection="private" static="yes">
       <type>static jam::Strings</type>
       <name>getDependencyArguments</name>
       <anchorfile>struct_compiler_manifest.html</anchorfile>
-      <anchor>a6640f9d6d8fffc3ac4da177d14108db9</anchor>
-      <arglist>(const juce::String &amp;command, const jam::Strings &amp;flagArguments)</arglist>
+      <anchor>af9cf7683ccf72b76c42bd2089bece7f1</anchor>
+      <arglist>(const juce::String &amp;command, const jam::Strings &amp;flagArguments, const juce::String &amp;dependencyFlag)</arglist>
     </member>
     <member kind="function" protection="private" static="yes">
       <type>static void</type>
-      <name>addCLanguageRecords</name>
+      <name>addRecords</name>
       <anchorfile>struct_compiler_manifest.html</anchorfile>
-      <anchor>a35121152e52c7c8d5ad86dad4cd8f1c6</anchor>
-      <arglist>(LINGModel &amp;model, juce::ValueTree &amp;files, std::string_view record, const juce::File &amp;buildDirectory)</arglist>
+      <anchor>a7a936b6a6c37bd638bfb997ddf4b9efa</anchor>
+      <arglist>(juce::ValueTree &amp;files, std::string_view record, const juce::File &amp;buildDirectory, const juce::String &amp;dependencyHead)</arglist>
     </member>
     <member kind="function" protection="private" static="yes">
       <type>static size_t</type>
-      <name>addCLanguageRecord</name>
+      <name>addRecord</name>
       <anchorfile>struct_compiler_manifest.html</anchorfile>
-      <anchor>a744a99f5c065ef4439a7824b80a0ce78</anchor>
-      <arglist>(juce::ValueTree &amp;files, jam::Strings &amp;paths, std::string_view record, size_t position, const juce::File &amp;buildDirectory)</arglist>
+      <anchor>a4ddff2dce32e455815f7da26f60400b5</anchor>
+      <arglist>(juce::ValueTree &amp;files, jam::Strings &amp;paths, std::string_view record, size_t position, const juce::File &amp;buildDirectory, const juce::String &amp;dependencyHead)</arglist>
     </member>
     <member kind="function" protection="private" static="yes">
       <type>static int</type>
@@ -844,6 +866,13 @@
     </member>
     <member kind="variable" static="yes">
       <type>static constexpr const char *const</type>
+      <name>failNoUnit</name>
+      <anchorfile>structtext_1_1_diagnostics.html</anchorfile>
+      <anchor>a5860abb386798bd8f94149ffa570bc34</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr const char *const</type>
       <name>failCompilerManifestInvalid</name>
       <anchorfile>structtext_1_1_diagnostics.html</anchorfile>
       <anchor>a92a2023e448148a2d35ffdcd09f5c242</anchor>
@@ -905,6 +934,295 @@
       <anchor>a204d1ed64e1ddb8a0febcd742369a763</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr const char *const</type>
+      <name>failSwapVersion</name>
+      <anchorfile>structtext_1_1_diagnostics.html</anchorfile>
+      <anchor>a2f45710676ce947b97c6c13fdd411af7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr const char *const</type>
+      <name>failLanguageBuild</name>
+      <anchorfile>structtext_1_1_diagnostics.html</anchorfile>
+      <anchor>a896c8fe0157aed77217523fe8d13119a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr const char *const</type>
+      <name>failLanguageLoad</name>
+      <anchorfile>structtext_1_1_diagnostics.html</anchorfile>
+      <anchor>a80e033dff73412d55aebca931f7dc490</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr const char *const</type>
+      <name>failUnitIndex</name>
+      <anchorfile>structtext_1_1_diagnostics.html</anchorfile>
+      <anchor>a83d689bacb25dd23510f0a605cc89263</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr const char *const</type>
+      <name>failConstructionNotFound</name>
+      <anchorfile>structtext_1_1_diagnostics.html</anchorfile>
+      <anchor>a442b409b3191ecf2bcb010d552a89610</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Index</name>
+    <filename>class_index.html</filename>
+    <member kind="typedef">
+      <type>jam::HashMap&lt; std::string, jam::HashMap&lt; int, jam::HashMap&lt; int, std::pair&lt; std::string, int &gt; &gt; &gt; &gt;</type>
+      <name>Bindings</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>a2d5f5077b253da8f39e621db05b45df3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>Index</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>a30a468468c3692160a846cbe60cd3373</anchor>
+      <arglist>(LINGModel &amp;modelToUse)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>applyToDocuments</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>aab49531fad9100e5e00207727c2ff4a4</anchor>
+      <arglist>(const Function &amp;function) const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>applyToElements</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>a1659a6c05b1816c5c57ed3a200c64c8a</anchor>
+      <arglist>(const Function &amp;function) const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>removeDocuments</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>af58b8b567cb8794478a223cd2873c183</anchor>
+      <arglist>(const juce::ValueTree &amp;files)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setDocuments</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>ae566876115ab63a2462f58e42219598a</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>addDocument</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>a61f81ce7c1efc79f39c8d775b52a51e9</anchor>
+      <arglist>(const juce::String &amp;path, std::unique_ptr&lt; jam::LanguageDocument &gt; document)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>addBindings</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>aef9e6f6e7442820ad3ea7dc067f24d77</anchor>
+      <arglist>(int rowIndex, Bindings records)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static std::unique_ptr&lt; jam::LanguageDocument &gt;</type>
+      <name>readSwapFile</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>a04df0a5bcfea36ba0c2b110a9c10e81b</anchor>
+      <arglist>(const juce::File &amp;swapFile, std::string_view sourceText, const std::shared_ptr&lt; const jam::LanguageLibrary &gt; &amp;language, juce::int64 hash, juce::int64 languageHash)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>writeSwapFile</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>a56e3b969d64fdd71e7067480330f8619</anchor>
+      <arglist>(const juce::File &amp;swapFile, const std::unique_ptr&lt; jam::LanguageDocument &gt; &amp;document, juce::int64 hash, juce::int64 languageHash)</arglist>
+    </member>
+    <member kind="variable">
+      <type>LINGModel &amp;</type>
+      <name>model</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>a33e05434186de020be55979b9682e00a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>jam::Strings</type>
+      <name>paths</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>a787b5943f55b59f85d657a2a0513f0c0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>jam::HashMap&lt; int, std::unique_ptr&lt; jam::LanguageDocument &gt; &gt;</type>
+      <name>documents</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>ad886ab1a735fdcf529b7282180022a0e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>jam::HashMap&lt; int, std::shared_ptr&lt; const jam::LanguageLibrary &gt; &gt;</type>
+      <name>languages</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>a79b6c5fda5aac0cc01d6c317f639f624</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>jam::HashMap&lt; juce::String, jam::Array&lt; std::pair&lt; int, const jam::Document::Element * &gt; &gt; &gt;</type>
+      <name>declarations</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>afdc56579e630b8661abe8abd1c9385cf</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>jam::HashMap&lt; juce::String, jam::Array&lt; std::pair&lt; int, const jam::Document::Element * &gt; &gt; &gt;</type>
+      <name>references</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>a1be2e00538782830f0d0bc9025a5d9d6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef" protection="private">
+      <type>jam::HashMap&lt; int, jam::HashMap&lt; int, jam::Document::Element * &gt; &gt;</type>
+      <name>Positions</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>a7b0fe414ab69d47c30f55a9d5fef0cf8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>jam::Array&lt; int &gt;</type>
+      <name>addSymbols</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>a60e6a79c61b26dc47f0df58425746ed8</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>writeSwapFiles</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>ab5c7af34a9a839463828dfb19d3ffa22</anchor>
+      <arglist>(const jam::Array&lt; int &gt; &amp;pathIndices)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>int</type>
+      <name>getOrCreatePathIndex</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>a8725aaa08ef8a830aad9d38a96b252e7</anchor>
+      <arglist>(const juce::String &amp;path)</arglist>
+    </member>
+    <member kind="function" protection="private" static="yes">
+      <type>static const Positions &amp;</type>
+      <name>getPositions</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>a1917ab1264de0f23b7596ff6da696cc6</anchor>
+      <arglist>(jam::HashMap&lt; int, Positions &gt; &amp;positionTables, jam::LanguageDocument &amp;document, int pathIndex)</arglist>
+    </member>
+    <member kind="function" protection="private" static="yes">
+      <type>static void</type>
+      <name>addOrReplaceProperty</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>acba93456528c3c6356d0141c965df9e6</anchor>
+      <arglist>(jam::Document::Element &amp;element, const juce::Identifier &amp;key, const ValueType &amp;value)</arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>jam::HashMap&lt; int, Bindings &gt;</type>
+      <name>bindings</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>a0276e2e04815269ff606b04706cb6836</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>Processor::IndexJob</name>
+    <filename>struct_processor_1_1_index_job.html</filename>
+    <base>juce::ThreadPoolJob</base>
+    <member kind="function">
+      <type></type>
+      <name>IndexJob</name>
+      <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
+      <anchor>ab44d6d75b0f0c0d74e2f5ac9696c0677</anchor>
+      <arglist>(Processor &amp;ownerToUse, int rowIndexToUse, const juce::String &amp;pathToUse, const juce::String &amp;directoryToUse, jam::Array&lt; char &gt; argumentsToUse, std::shared_ptr&lt; const jam::LanguageLibrary &gt; languageToUse)</arglist>
+    </member>
+    <member kind="function">
+      <type>JobStatus</type>
+      <name>runJob</name>
+      <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
+      <anchor>a714575fe9a266f2b660e53314ddf6c3c</anchor>
+      <arglist>() override</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>addSymbol</name>
+      <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
+      <anchor>ad43614d478425bc204a12eeb7f99983f</anchor>
+      <arglist>(void *context, const char *recordPath, int line, int column, const char *symbol, int role)</arglist>
+    </member>
+    <member kind="variable">
+      <type>Processor &amp;</type>
+      <name>owner</name>
+      <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
+      <anchor>af455bc4a9de8dc8c5f1d95a615f10a8f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>rowIndex</name>
+      <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
+      <anchor>a1c78bf0812e004a0290380644e65f50d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>juce::String</type>
+      <name>path</name>
+      <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
+      <anchor>a9601d544f8b3c501bc6f22edb3d5071e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>juce::String</type>
+      <name>directory</name>
+      <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
+      <anchor>a307f650032fdfa589bc9ca991d63132a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>jam::Array&lt; char &gt;</type>
+      <name>arguments</name>
+      <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
+      <anchor>aad4053b38199eb456c28b0d6ad6ecc11</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::shared_ptr&lt; const jam::LanguageLibrary &gt;</type>
+      <name>language</name>
+      <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
+      <anchor>a5328921aad065907affabda058b46b6e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Index::Bindings</type>
+      <name>records</name>
+      <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
+      <anchor>a1e87882bafecce894f7364f14f16b8a6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>result</name>
+      <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
+      <anchor>af0a42c88170cb5023be3f7be39491216</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::atomic&lt; bool &gt;</type>
+      <name>isFinished</name>
+      <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
+      <anchor>aea230c0f54addd9581378664a91ab74b</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>JsonWriter</name>
@@ -913,29 +1231,36 @@
       <type>static void</type>
       <name>appendElement</name>
       <anchorfile>struct_json_writer.html</anchorfile>
-      <anchor>a8309f189ec1525700f528bc02ba8cbc6</anchor>
-      <arglist>(std::string &amp;json, std::string_view path, const jam::CodeDocument &amp;document, const jam::Document::Element &amp;element, const Function &amp;appendMembers)</arglist>
+      <anchor>ac47a4044dc4f37cf22533707a96a7335</anchor>
+      <arglist>(std::string &amp;json, std::string_view path, const jam::LanguageDocument &amp;document, const jam::Document::Element &amp;element, const Function &amp;appendMembers)</arglist>
     </member>
     <member kind="function" static="yes">
       <type>static void</type>
       <name>appendElement</name>
       <anchorfile>struct_json_writer.html</anchorfile>
-      <anchor>a0f05273b44c4f4479e8cbbe3669a52e3</anchor>
-      <arglist>(std::string &amp;json, std::string_view path, const jam::CodeDocument &amp;document, const jam::Document::Element &amp;element)</arglist>
+      <anchor>af369e3b8c91b1bebaa0b6b2df9190d80</anchor>
+      <arglist>(std::string &amp;json, std::string_view path, const jam::LanguageDocument &amp;document, const jam::Document::Element &amp;element)</arglist>
     </member>
     <member kind="function" static="yes">
       <type>static void</type>
       <name>appendComment</name>
       <anchorfile>struct_json_writer.html</anchorfile>
-      <anchor>a7e051970cb434e650565f01a14af1dc6</anchor>
-      <arglist>(std::string &amp;json, const jam::CodeDocument &amp;document, const jam::Document::Element &amp;element)</arglist>
+      <anchor>a8d77f5bff343cc6d427f45f731cec1c4</anchor>
+      <arglist>(std::string &amp;json, const jam::LanguageDocument &amp;document, const jam::Document::Element &amp;element)</arglist>
     </member>
     <member kind="function" static="yes">
       <type>static void</type>
       <name>appendSnippet</name>
       <anchorfile>struct_json_writer.html</anchorfile>
-      <anchor>abf8dcf767703296d8e5873e659313723</anchor>
-      <arglist>(std::string &amp;json, const jam::CodeDocument &amp;document, const jam::Document::Element &amp;element)</arglist>
+      <anchor>adffdc3ff539797769ffcf2bc428959df</anchor>
+      <arglist>(std::string &amp;json, const jam::LanguageDocument &amp;document, const jam::Document::Element &amp;element)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>appendParameters</name>
+      <anchorfile>struct_json_writer.html</anchorfile>
+      <anchor>acd4d6daeb2a08c6da4744c5d00bdcdd4</anchor>
+      <arglist>(std::string &amp;json, const jam::LanguageDocument &amp;document, const jam::Document::Element &amp;declaration)</arglist>
     </member>
   </compound>
   <compound kind="class">
@@ -965,6 +1290,13 @@
       <anchor>afdef5b210be00b4c407239da424c8b3d</anchor>
       <arglist>(const juce::String &amp;text)</arglist>
     </member>
+    <member kind="function">
+      <type>juce::File</type>
+      <name>getSwapFile</name>
+      <anchorfile>class_l_i_n_g_model.html</anchorfile>
+      <anchor>a3df62ae35213ea5911059e2c0d84b916</anchor>
+      <arglist>(const juce::File &amp;file) const</arglist>
+    </member>
     <member kind="function" static="yes">
       <type>static std::string</type>
       <name>getDaemonName</name>
@@ -978,6 +1310,27 @@
       <anchorfile>class_l_i_n_g_model.html</anchorfile>
       <anchor>a418ec05ca5a75c35b3187e995a82fb5c</anchor>
       <arglist>()</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static juce::File</type>
+      <name>getConfigDirectory</name>
+      <anchorfile>class_l_i_n_g_model.html</anchorfile>
+      <anchor>a0ebd93b9b8bd9a4d665a1e5274410d64</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static juce::File</type>
+      <name>getCacheDirectory</name>
+      <anchorfile>class_l_i_n_g_model.html</anchorfile>
+      <anchor>abf829c79890d961d4b3ac2993aee651b</anchor>
+      <arglist>(const juce::File &amp;manifest, std::string_view toolchainArgument)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static juce::File</type>
+      <name>getPatchedDirectory</name>
+      <anchorfile>class_l_i_n_g_model.html</anchorfile>
+      <anchor>a9f03f6d6767d7e5f88afd5c412e75208</anchor>
+      <arglist>(std::string_view version, const jam::Strings &amp;patchFiles)</arglist>
     </member>
     <member kind="variable" static="yes">
       <type>static constexpr int</type>
@@ -1026,6 +1379,8 @@
     <name>Manifest</name>
     <filename>class_manifest.html</filename>
     <base protection="private">juce::ValueTree::Listener</base>
+    <base protection="private">juce::AsyncUpdater</base>
+    <class kind="struct">Manifest::ManifestJob</class>
     <member kind="function">
       <type></type>
       <name>Manifest</name>
@@ -1056,10 +1411,17 @@
     </member>
     <member kind="function" protection="private">
       <type>void</type>
+      <name>handleAsyncUpdate</name>
+      <anchorfile>class_manifest.html</anchorfile>
+      <anchor>ac7e3db5a39e355c96bc6b06290dda872</anchor>
+      <arglist>() override</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
       <name>setFiles</name>
       <anchorfile>class_manifest.html</anchorfile>
-      <anchor>af7d5949981f9b11ec9b40ff8c29a9c17</anchor>
-      <arglist>(const juce::ValueTree &amp;files, int timeout)</arglist>
+      <anchor>a4ddb143cfb5dc179327fca5bff06cdd0</anchor>
+      <arglist>(const juce::ValueTree &amp;files, const juce::ValueTree &amp;roots, int timeout)</arglist>
     </member>
     <member kind="function" protection="private" static="yes">
       <type>static int</type>
@@ -1068,11 +1430,32 @@
       <anchor>a74869b90c95c6ef6273bd00526a343c3</anchor>
       <arglist>(const jam::MarkdownDocument &amp;manifest)</arglist>
     </member>
+    <member kind="function" protection="private" static="yes">
+      <type>static juce::ValueTree</type>
+      <name>getRoots</name>
+      <anchorfile>class_manifest.html</anchorfile>
+      <anchor>a8d5113738228ea9088627ed4bbba47f7</anchor>
+      <arglist>(const jam::MarkdownDocument &amp;manifest, const juce::File &amp;manifestFile)</arglist>
+    </member>
     <member kind="variable" protection="private">
       <type>LINGModel &amp;</type>
       <name>model</name>
       <anchorfile>class_manifest.html</anchorfile>
       <anchor>a87d745097f80d516fa1ebb90bfd89f47</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::unique_ptr&lt; ManifestJob &gt;</type>
+      <name>job</name>
+      <anchorfile>class_manifest.html</anchorfile>
+      <anchor>a5bef7d0476e8acf8d1ad39cbd4326c28</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::unique_ptr&lt; ManifestJob &gt;</type>
+      <name>nextJob</name>
+      <anchorfile>class_manifest.html</anchorfile>
+      <anchor>a1ffe68e61f67dbae2fb2cfdb049f7a6e</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -1089,11 +1472,192 @@
       <anchor>ad9ba3fd686009e0c081e691f7058d292</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable" protection="private" static="yes">
+      <type>static constexpr int</type>
+      <name>waitForJob</name>
+      <anchorfile>class_manifest.html</anchorfile>
+      <anchor>ab18a00ead2bce2284d0ba72bb0ce9af6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private" static="yes">
+      <type>static constexpr int</type>
+      <name>noWait</name>
+      <anchorfile>class_manifest.html</anchorfile>
+      <anchor>aaeb3295af4b494f526f40f601549f373</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>Manifest::ManifestJob</name>
+    <filename>struct_manifest_1_1_manifest_job.html</filename>
+    <base>juce::ThreadPoolJob</base>
+    <member kind="function">
+      <type></type>
+      <name>ManifestJob</name>
+      <anchorfile>struct_manifest_1_1_manifest_job.html</anchorfile>
+      <anchor>a9c3cb49aa964690620daa1887c2f586f</anchor>
+      <arglist>(Manifest &amp;ownerToUse, const juce::String &amp;manifestPathToUse, const juce::String &amp;toolchainArgumentToUse)</arglist>
+    </member>
+    <member kind="function">
+      <type>JobStatus</type>
+      <name>runJob</name>
+      <anchorfile>struct_manifest_1_1_manifest_job.html</anchorfile>
+      <anchor>a4c14ead10b37a748c85ae35f3b1fc685</anchor>
+      <arglist>() override</arglist>
+    </member>
+    <member kind="variable">
+      <type>Manifest &amp;</type>
+      <name>owner</name>
+      <anchorfile>struct_manifest_1_1_manifest_job.html</anchorfile>
+      <anchor>a1a0284d6cda25e5439fb8b658bece55a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>juce::String</type>
+      <name>manifestPath</name>
+      <anchorfile>struct_manifest_1_1_manifest_job.html</anchorfile>
+      <anchor>a0571d5bac7b172344ab1cf9842e66375</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>juce::String</type>
+      <name>toolchainArgument</name>
+      <anchorfile>struct_manifest_1_1_manifest_job.html</anchorfile>
+      <anchor>a7f1ba1868dd257f50fd1f21cbc55bfad</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>juce::ValueTree</type>
+      <name>files</name>
+      <anchorfile>struct_manifest_1_1_manifest_job.html</anchorfile>
+      <anchor>a222074e537c86a7d2a9248cfc964db95</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>juce::ValueTree</type>
+      <name>roots</name>
+      <anchorfile>struct_manifest_1_1_manifest_job.html</anchorfile>
+      <anchor>a7295046c03cee21bfa8f3e3671d83e7d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>timeout</name>
+      <anchorfile>struct_manifest_1_1_manifest_job.html</anchorfile>
+      <anchor>a1818ea4fcfcb75b29616551771be5212</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::atomic&lt; bool &gt;</type>
+      <name>isFinished</name>
+      <anchorfile>struct_manifest_1_1_manifest_job.html</anchorfile>
+      <anchor>a2e16dcc79759f990a812ce41d85ab39a</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>Processor::ParseJob</name>
+    <filename>struct_processor_1_1_parse_job.html</filename>
+    <base>juce::ThreadPoolJob</base>
+    <member kind="function">
+      <type></type>
+      <name>ParseJob</name>
+      <anchorfile>struct_processor_1_1_parse_job.html</anchorfile>
+      <anchor>ab953344b904be81eade02fd425501580</anchor>
+      <arglist>(Processor &amp;ownerToUse, int rowIndexToUse, const juce::String &amp;pathToUse, const juce::File &amp;swapFileToUse, std::shared_ptr&lt; const jam::LanguageLibrary &gt; languageToUse, juce::int64 languageHashToUse)</arglist>
+    </member>
+    <member kind="function">
+      <type>JobStatus</type>
+      <name>runJob</name>
+      <anchorfile>struct_processor_1_1_parse_job.html</anchorfile>
+      <anchor>a4fcba17ab1079cd05e5cc3108d444ed9</anchor>
+      <arglist>() override</arglist>
+    </member>
+    <member kind="variable">
+      <type>Processor &amp;</type>
+      <name>owner</name>
+      <anchorfile>struct_processor_1_1_parse_job.html</anchorfile>
+      <anchor>ac6b0e76328df00768e732ba7edcae312</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>rowIndex</name>
+      <anchorfile>struct_processor_1_1_parse_job.html</anchorfile>
+      <anchor>ad820192a72b64ba2fea3b2a46c9d28e9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>juce::String</type>
+      <name>path</name>
+      <anchorfile>struct_processor_1_1_parse_job.html</anchorfile>
+      <anchor>af3b0079c17350e1038ffbccbee067dfb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>juce::File</type>
+      <name>swapFile</name>
+      <anchorfile>struct_processor_1_1_parse_job.html</anchorfile>
+      <anchor>a530445cbb37ce67b3ce8a0091c33701d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::shared_ptr&lt; const jam::LanguageLibrary &gt;</type>
+      <name>language</name>
+      <anchorfile>struct_processor_1_1_parse_job.html</anchorfile>
+      <anchor>a73897aff0b405a13640095e1a0913113</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>juce::int64</type>
+      <name>languageHash</name>
+      <anchorfile>struct_processor_1_1_parse_job.html</anchorfile>
+      <anchor>af9d51143498244fb432f62600bef38ed</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::unique_ptr&lt; jam::LanguageDocument &gt;</type>
+      <name>document</name>
+      <anchorfile>struct_processor_1_1_parse_job.html</anchorfile>
+      <anchor>ae85e7fcf174938a5149394c54577ff74</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>juce::Result</type>
+      <name>result</name>
+      <anchorfile>struct_processor_1_1_parse_job.html</anchorfile>
+      <anchor>a87b65a56803d280dc8b3f46e4363eb62</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>juce::Time</type>
+      <name>modificationTime</name>
+      <anchorfile>struct_processor_1_1_parse_job.html</anchorfile>
+      <anchor>a7f1555b30448b64e991e604c056721ce</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>isParsed</name>
+      <anchorfile>struct_processor_1_1_parse_job.html</anchorfile>
+      <anchor>ac33f18ef6c5de033a8da9bd348134542</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::atomic&lt; bool &gt;</type>
+      <name>isFinished</name>
+      <anchorfile>struct_processor_1_1_parse_job.html</anchorfile>
+      <anchor>ab32577587ade8cf16add24211fd909b0</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>Processor</name>
     <filename>class_processor.html</filename>
     <base>juce::ValueTree::Listener</base>
+    <base protection="private">juce::AsyncUpdater</base>
+    <class kind="struct">Processor::ParseJob</class>
+    <class kind="struct">Processor::IndexJob</class>
     <member kind="typedef">
       <type>jam::Function::Map&lt; juce::Identifier, jam::Function::pointerCapacity, void(juce::ValueTree &amp;)&gt;</type>
       <name>Events</name>
@@ -1122,208 +1686,47 @@
       <anchor>a3731df1c2da6bfe84ea3f6945ac9ebe6</anchor>
       <arglist>(const Function &amp;function) const</arglist>
     </member>
-    <member kind="function" static="yes">
-      <type>static bool</type>
-      <name>isDeclaration</name>
+    <member kind="function" protection="private">
+      <type>juce::ValueTree</type>
+      <name>getUnit</name>
       <anchorfile>class_processor.html</anchorfile>
-      <anchor>a606d8536a13ef5193c6d22128cdead0d</anchor>
-      <arglist>(const jam::Document::Element &amp;element)</arglist>
-    </member>
-    <member kind="typedef" protection="private">
-      <type>jam::Array&lt; std::tuple&lt; int, int, const jam::Document::Element * &gt; &gt;</type>
-      <name>Matches</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>a9755494a489ba8d61bd4b19c09e9641a</anchor>
-      <arglist></arglist>
+      <anchor>a735d6984643f7c83a90be9d460db465a</anchor>
+      <arglist>(int pathIndex) const</arglist>
     </member>
     <member kind="function" protection="private">
-      <type>const jam::Document::Element *</type>
-      <name>getElement</name>
+      <type>juce::ValueTree</type>
+      <name>getHeaderEntry</name>
       <anchorfile>class_processor.html</anchorfile>
-      <anchor>a54ce92a0d39f5495a7d3f9f77fef46c7</anchor>
-      <arglist>(const jam::CodeDocument &amp;document, int line, int column) const</arglist>
+      <anchor>a21f1f56db5a2c5afda7fc8b88243035f</anchor>
+      <arglist>(const juce::ValueTree &amp;unit) const</arglist>
     </member>
     <member kind="function" protection="private">
-      <type>void</type>
-      <name>applyToDeclarations</name>
+      <type>jam::Array&lt; juce::ValueTree &gt;</type>
+      <name>getHeaderEntries</name>
       <anchorfile>class_processor.html</anchorfile>
-      <anchor>a0d6b5d441861cd018635af6179201e14</anchor>
-      <arglist>(int pathIndex, const jam::Document::Element &amp;element, const Function &amp;function) const</arglist>
+      <anchor>a858aade2cf1ac101fbe2e31859474a88</anchor>
+      <arglist>(const juce::ValueTree &amp;files) const</arglist>
     </member>
     <member kind="function" protection="private">
-      <type>void</type>
-      <name>applyToDeclarations</name>
+      <type>jam::Strings</type>
+      <name>getArguments</name>
       <anchorfile>class_processor.html</anchorfile>
-      <anchor>abcc722582465e32397f340a166a25c1f</anchor>
-      <arglist>(const jam::Array&lt; std::string_view &gt; &amp;path, const Function &amp;function) const</arglist>
+      <anchor>abc96cfce45bb7702e5e28ea158460e37</anchor>
+      <arglist>(const juce::ValueTree &amp;unit, const juce::ValueTree &amp;headerEntry) const</arglist>
     </member>
     <member kind="function" protection="private">
-      <type>void</type>
-      <name>applyToReferences</name>
+      <type>jam::Strings</type>
+      <name>getCheckArguments</name>
       <anchorfile>class_processor.html</anchorfile>
-      <anchor>a6d1fd19d7bf4b6ff8abe67f2015b97e8</anchor>
-      <arglist>(int pathIndex, const jam::Document::Element &amp;declaration, const Function &amp;function) const</arglist>
+      <anchor>a6ad8791ad376eb7d783fe1a34ddb217a</anchor>
+      <arglist>(const juce::ValueTree &amp;unit) const</arglist>
     </member>
     <member kind="function" protection="private">
-      <type>void</type>
-      <name>applyToReferences</name>
+      <type>juce::File</type>
+      <name>getPrecompiledHeader</name>
       <anchorfile>class_processor.html</anchorfile>
-      <anchor>ae30805f34569b7213ea33ca96eb26589</anchor>
-      <arglist>(const jam::Array&lt; std::string_view &gt; &amp;declarationPath, const Function &amp;function) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>applyToPosition</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>adcb5b196f390b4c80a4037eb92bdc4d8</anchor>
-      <arglist>(juce::ValueTree &amp;request, const Function &amp;function, int columnOffset=0) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>applyToFunctions</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>a01cb035f316137f2d77b006137da518d</anchor>
-      <arglist>(juce::ValueTree &amp;request, const Function &amp;function) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>applyToDerived</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>a7df026eb3acfa2a76afee970a5a55569</anchor>
-      <arglist>(const jam::Array&lt; std::string_view &gt; &amp;classPath, const Function &amp;function) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>applyToScopes</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>ab062b2d31329d4364fbb9ce275f28137</anchor>
-      <arglist>(const jam::Array&lt; std::string_view &gt; &amp;scope, const jam::Array&lt; std::string_view &gt; &amp;qualifier, const Function &amp;function) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>applyToCandidates</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>a0cb61c53fab75a87e4eda5973559c8e7</anchor>
-      <arglist>(const jam::CodeDocument &amp;document, const jam::Document::Element &amp;reference, const Function &amp;function) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>applyToImplementations</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>a14cf38e1d0d7fa6e55c6d0e0d16a9d4b</anchor>
-      <arglist>(int pathIndex, const jam::Document::Element &amp;declaration, const Function &amp;function) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>setResult</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>a070b753c687e76a3b0c59e0de5265074</anchor>
-      <arglist>(juce::ValueTree &amp;request, jam::Array&lt; std::pair&lt; int, const jam::Document::Element * &gt; &gt; results, const Function &amp;appendMembers) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>applyToElements</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>aad6f4ad53229e45f512378e587b5dd1b</anchor>
-      <arglist>(const Function &amp;function) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>applyToBases</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>af2cadd97bf6e9ea4e09fcdc07182bfd8</anchor>
-      <arglist>(const jam::Array&lt; std::string_view &gt; &amp;classPath, const Function &amp;function) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>applyToMembers</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>ac50c3af811a75f325ae8ea0e1488ec78</anchor>
-      <arglist>(std::string_view name, const Function &amp;function) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>int</type>
-      <name>getPathIndex</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>a87ed75b5aea8afc4605c61e6421a8b83</anchor>
-      <arglist>(const juce::ValueTree &amp;request) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>bool</type>
-      <name>hasDeclarations</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>aeb0fc7af6cf060d0e40ef193643ab4e1</anchor>
-      <arglist>(const jam::Array&lt; std::string_view &gt; &amp;path) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>bool</type>
-      <name>isReferenceTo</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>adbc643b1b00712e6d0a8ec73cbde7e83</anchor>
-      <arglist>(int referenceIndex, const jam::Document::Element &amp;reference, const jam::Array&lt; std::string_view &gt; &amp;declarationPath) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>jam::Array&lt; jam::Array&lt; std::string_view &gt; &gt;</type>
-      <name>getDeclarationPaths</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>aff83e5f94e6799a5a3352068b36b6e88</anchor>
-      <arglist>(const jam::CodeDocument &amp;document, const jam::Document::Element &amp;element) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>jam::Array&lt; jam::Array&lt; std::string_view &gt; &gt;</type>
-      <name>getDeclarationPaths</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>a2064cce6ab6b67154182c8db9788f354</anchor>
-      <arglist>(const jam::Array&lt; std::string_view &gt; &amp;scope, const jam::Array&lt; std::string_view &gt; &amp;name, const jam::Array&lt; const jam::Array&lt; std::string_view &gt; * &gt; &amp;tried) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>jam::Array&lt; jam::Array&lt; std::string_view &gt; &gt;</type>
-      <name>getMemberPaths</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>a7501b3d3d0908c6e26357862d6fccc21</anchor>
-      <arglist>(const jam::Array&lt; std::string_view &gt; &amp;classPath, const jam::Array&lt; std::string_view &gt; &amp;name, const jam::Array&lt; const jam::Array&lt; std::string_view &gt; * &gt; &amp;tried) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>setResult</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>afa98f5328d9865f9451b13d3e56298d5</anchor>
-      <arglist>(juce::ValueTree &amp;request, jam::Array&lt; std::pair&lt; int, const jam::Document::Element * &gt; &gt; results) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>setResult</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>a866d72dbac63f0e0b6ef53d9cc144e43</anchor>
-      <arglist>(juce::ValueTree &amp;request, std::string_view json) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>bool</type>
-      <name>isBefore</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>a9ae096e0cf5440070784dabf7d3d6155</anchor>
-      <arglist>(int pathIndex, const jam::Document::Element &amp;element, int otherPathIndex, const jam::Document::Element &amp;otherElement) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>bool</type>
-      <name>isBeforeByPath</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>a777b64957ec51358e5699bd35ed10bb8</anchor>
-      <arglist>(int pathIndex, const jam::Document::Element &amp;element, int otherPathIndex, const jam::Document::Element &amp;otherElement) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>appendDocumentSymbols</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>a1244480684599a457ba6fbb06a2d7c2d</anchor>
-      <arglist>(std::string &amp;json, int pathIndex, const jam::Document::Element &amp;parent) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>appendCompletion</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>ae8c39f97b79806eeee330258a9b441ba</anchor>
-      <arglist>(std::string &amp;json, int pathIndex, const jam::CodeDocument &amp;declarationDocument, const jam::Document::Element &amp;declaration, const jam::CodeDocument &amp;commentDocument, const jam::Document::Element &amp;commentDeclaration) const</arglist>
+      <anchor>ae6b7a30647daabfaa7466d2bd7200d5e</anchor>
+      <arglist>(const juce::ValueTree &amp;headerEntry) const</arglist>
     </member>
     <member kind="function" protection="private">
       <type>void</type>
@@ -1341,101 +1744,10 @@
     </member>
     <member kind="function" protection="private">
       <type>void</type>
-      <name>goToDefinition</name>
+      <name>diagnostics</name>
       <anchorfile>class_processor.html</anchorfile>
-      <anchor>a005c5de5590e9ed58de152e89e167a21</anchor>
-      <arglist>(juce::ValueTree &amp;request) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>findReferences</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>a7463bae14c4c8dc98d8a458c5fa223f9</anchor>
-      <arglist>(juce::ValueTree &amp;request) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>hover</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>a4642ebfb3d4a64e760c5f65f7c355359</anchor>
-      <arglist>(juce::ValueTree &amp;request) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>documentSymbol</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>aed09034a614896ac3c982e0b761b3dbc</anchor>
-      <arglist>(juce::ValueTree &amp;request) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>workspaceSymbol</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>afd85c7b2fe001c412b1c083713c2dc5b</anchor>
-      <arglist>(juce::ValueTree &amp;request) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>completion</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>aa1d468ae2c48d5517b182c4e942d3985</anchor>
-      <arglist>(juce::ValueTree &amp;request) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>Matches</type>
-      <name>getMatches</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>aed5eb8671c7654b552a5acc633e2e85d</anchor>
-      <arglist>(const jam::Fuzzy::Pattern &amp;pattern) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>jam::Fuzzy::Result</type>
-      <name>getMatch</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>aeaf9d8b31ba1fad9da6eabf9f84216f7</anchor>
-      <arglist>(const jam::Fuzzy::Pattern &amp;pattern, const jam::CodeDocument &amp;document, const jam::Document::Element &amp;element) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>Matches</type>
-      <name>getCompletions</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>a93aa5178685723cf1c3c19efeae7b3a8</anchor>
-      <arglist>(const jam::CodeDocument &amp;document, const jam::Document::Element &amp;reference, const jam::Fuzzy::Pattern &amp;pattern) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>applyToCompletions</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>a8ffa8a150333c91c3d81ba95b3e0d0a6</anchor>
-      <arglist>(const jam::CodeDocument &amp;document, const jam::Document::Element &amp;reference, const jam::Fuzzy::Pattern &amp;pattern, const Function &amp;function) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>goToImplementation</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>a3824039159a5ba3d31eb91a28e5ec19d</anchor>
-      <arglist>(juce::ValueTree &amp;request) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>prepareCallHierarchy</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>a2bd557cf911cdc845a53b879d9bae03f</anchor>
-      <arglist>(juce::ValueTree &amp;request) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>incomingCalls</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>a8df9be3881eba1d395befff188fda1b5</anchor>
-      <arglist>(juce::ValueTree &amp;request) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>outgoingCalls</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>a3af6a89c1e83972bbf99bb27531fb6f3</anchor>
-      <arglist>(juce::ValueTree &amp;request) const</arglist>
+      <anchor>ae286406f1cd72512c3095c12b15bf03d</anchor>
+      <arglist>(juce::ValueTree &amp;request)</arglist>
     </member>
     <member kind="function" protection="private">
       <type>void</type>
@@ -1443,6 +1755,13 @@
       <anchorfile>class_processor.html</anchorfile>
       <anchor>a88cdf27664e3bbebb9f25e1f0c868566</anchor>
       <arglist>(juce::ValueTree &amp;parentTree, juce::ValueTree &amp;childWhichHasBeenAdded) override</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>addLanguages</name>
+      <anchorfile>class_processor.html</anchorfile>
+      <anchor>ac0099e5376aad9e5a63b1ca57cca3de6</anchor>
+      <arglist>(const juce::ValueTree &amp;files)</arglist>
     </member>
     <member kind="function" protection="private">
       <type>void</type>
@@ -1460,80 +1779,122 @@
     </member>
     <member kind="function" protection="private">
       <type>void</type>
-      <name>addDocument</name>
+      <name>setJob</name>
       <anchorfile>class_processor.html</anchorfile>
-      <anchor>a382544055777bd6b922918f36a82f6ac</anchor>
-      <arglist>(int rowIndex, const juce::String &amp;path, juce::Time modificationTime, std::unique_ptr&lt; jam::CodeDocument &gt; document, const juce::Result &amp;result)</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>int</type>
-      <name>getOrCreatePathIndex</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>aac757d619a6214a38300e73c93733256</anchor>
-      <arglist>(const juce::String &amp;path)</arglist>
+      <anchor>a17bb81b45a765c891a708ee1aa4c912a</anchor>
+      <arglist>(jam::HashMap&lt; int, std::unique_ptr&lt; Job &gt; &gt; &amp;jobs, jam::HashMap&lt; int, std::unique_ptr&lt; Job &gt; &gt; &amp;nextJobs, int rowIndex, std::unique_ptr&lt; Job &gt; newJob)</arglist>
     </member>
     <member kind="function" protection="private">
       <type>void</type>
-      <name>setDocuments</name>
+      <name>removeJob</name>
       <anchorfile>class_processor.html</anchorfile>
-      <anchor>a76ad4c4456941a5be3d84a6ae4e58d45</anchor>
+      <anchor>aa046274b867fc5529e706abfb61de0a6</anchor>
+      <arglist>(jam::HashMap&lt; int, std::unique_ptr&lt; Job &gt; &gt; &amp;jobs, jam::HashMap&lt; int, std::unique_ptr&lt; Job &gt; &gt; &amp;nextJobs, int rowIndex)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>addIndexJob</name>
+      <anchorfile>class_processor.html</anchorfile>
+      <anchor>ab20331a25e35784eca39d7d2673fe68e</anchor>
+      <arglist>(const juce::ValueTree &amp;row, int rowIndex)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>addIndexJobs</name>
+      <anchorfile>class_processor.html</anchorfile>
+      <anchor>a20cfa778e3c1df0713b19a09c9e5b06b</anchor>
       <arglist>()</arglist>
     </member>
-    <member kind="function" protection="private" static="yes">
-      <type>static bool</type>
-      <name>hasType</name>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>addBindings</name>
       <anchorfile>class_processor.html</anchorfile>
-      <anchor>a4c88bff571b2cbaca719901156ff5602</anchor>
-      <arglist>(const Types &amp;types, const jam::Document::Element &amp;element)</arglist>
+      <anchor>ada6bec4ded26df0af355111366519094</anchor>
+      <arglist>(IndexJob &amp;job)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>handleAsyncUpdate</name>
+      <anchorfile>class_processor.html</anchorfile>
+      <anchor>a6487194419302dd1602150479e2f0259</anchor>
+      <arglist>() override</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>setFile</name>
+      <anchorfile>class_processor.html</anchorfile>
+      <anchor>af27f30c9e90feacde9f5af3c5c8e8722</anchor>
+      <arglist>(const juce::ValueTree &amp;file)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>setLanguageHash</name>
+      <anchorfile>class_processor.html</anchorfile>
+      <anchor>a1a565b59f5f9db00ec4fd60ca30260eb</anchor>
+      <arglist>(const juce::ValueTree &amp;languageRow)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>addBuild</name>
+      <anchorfile>class_processor.html</anchorfile>
+      <anchor>a1bcfc911bdbb91b6ad684c7cf5234bda</anchor>
+      <arglist>(const juce::ValueTree &amp;languageRow)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>applyBuild</name>
+      <anchorfile>class_processor.html</anchorfile>
+      <anchor>af0613cd89403899cbb3ff6839ec1be1b</anchor>
+      <arglist>(const juce::ValueTree &amp;languageRow, const juce::File &amp;cache, juce::Time startTime, int exitCode, const std::string &amp;capture)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>setLanguage</name>
+      <anchorfile>class_processor.html</anchorfile>
+      <anchor>a07f3e1cf01183ca2bdd5f4bba9ddf86e</anchor>
+      <arglist>(juce::ValueTree languageRow, const juce::File &amp;cache)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>addPrecompile</name>
+      <anchorfile>class_processor.html</anchorfile>
+      <anchor>a5392bea4a2b01535f92134954373b933</anchor>
+      <arglist>(const juce::ValueTree &amp;headerEntry)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>addPrecompile</name>
+      <anchorfile>class_processor.html</anchorfile>
+      <anchor>ad775954e96e4def1a2a53170b9348f47</anchor>
+      <arglist>(const juce::ValueTree &amp;headerEntry, std::function&lt; void()&gt; onComplete)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>addCheck</name>
+      <anchorfile>class_processor.html</anchorfile>
+      <anchor>a4ca458a15beaa67c0b76a6cf2d72cc55</anchor>
+      <arglist>(juce::ValueTree &amp;request, const juce::ValueTree &amp;unit)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>addDocument</name>
+      <anchorfile>class_processor.html</anchorfile>
+      <anchor>a87bca016816c718f0b53d670f34e27b0</anchor>
+      <arglist>(ParseJob &amp;job)</arglist>
     </member>
     <member kind="function" protection="private" static="yes">
       <type>static bool</type>
-      <name>hasName</name>
+      <name>hasDependency</name>
       <anchorfile>class_processor.html</anchorfile>
-      <anchor>a6955c660284d5c063ffb122ff26d2e3d</anchor>
-      <arglist>(const jam::Document::Element &amp;element)</arglist>
-    </member>
-    <member kind="function" protection="private" static="yes">
-      <type>static jam::Array&lt; std::string_view &gt;</type>
-      <name>getPath</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>aebef810b360bdf0215775c63fce14f52</anchor>
-      <arglist>(const jam::CodeDocument &amp;document, const jam::Document::Element &amp;element)</arglist>
-    </member>
-    <member kind="function" protection="private" static="yes">
-      <type>static void</type>
-      <name>applyToElements</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>a5d93bea9333ba5ea1367ff32a2cb1785</anchor>
-      <arglist>(const jam::CodeDocument &amp;document, const jam::Document::Element &amp;parent, const jam::Array&lt; std::string_view &gt; &amp;path, int start, const Function &amp;function)</arglist>
-    </member>
-    <member kind="function" protection="private" static="yes">
-      <type>static jam::Array&lt; std::string_view &gt;</type>
-      <name>getName</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>acdd517dbb9fcff4392ac1d30493c31f0</anchor>
-      <arglist>(const jam::CodeDocument &amp;document, const jam::Document::Element &amp;element)</arglist>
-    </member>
-    <member kind="function" protection="private" static="yes">
-      <type>static jam::Array&lt; std::string_view &gt;</type>
-      <name>getPath</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>a46b0efcc2adf83fae2511e9fbb871cf4</anchor>
-      <arglist>(const jam::Array&lt; std::string_view &gt; &amp;scope, int size, const jam::Array&lt; std::string_view &gt; &amp;name)</arglist>
+      <anchor>a6d9ce8bd6a81cdcaa1de9ce979b58664</anchor>
+      <arglist>(const juce::ValueTree &amp;unit, int unitIndex, int rowIndex)</arglist>
     </member>
     <member kind="function" protection="private" static="yes">
       <type>static bool</type>
-      <name>isSamePath</name>
+      <name>isChangedSince</name>
       <anchorfile>class_processor.html</anchorfile>
-      <anchor>aea74ffa685065b894df9e7f53647952f</anchor>
-      <arglist>(const jam::Array&lt; std::string_view &gt; &amp;path, const jam::Array&lt; std::string_view &gt; &amp;otherPath)</arglist>
-    </member>
-    <member kind="function" protection="private" static="yes">
-      <type>static bool</type>
-      <name>hasPath</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>addad64d659e196079557bc2023161f05</anchor>
-      <arglist>(const jam::Array&lt; jam::Array&lt; std::string_view &gt; &gt; &amp;knownPaths, const jam::Array&lt; std::string_view &gt; &amp;path)</arglist>
+      <anchor>afb33c0270352b0384da889b22729106c</anchor>
+      <arglist>(const juce::File &amp;folder, juce::Time time)</arglist>
     </member>
     <member kind="variable" protection="private">
       <type>LINGModel &amp;</type>
@@ -1543,24 +1904,66 @@
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
-      <type>jam::Strings</type>
-      <name>paths</name>
+      <type>jam::Owner&lt; jam::Subprocess &gt;</type>
+      <name>checks</name>
       <anchorfile>class_processor.html</anchorfile>
-      <anchor>ab3ce5f644b8d26fa8641556022228d30</anchor>
+      <anchor>a5b5bfb9a298562c4d296680473ded866</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
-      <type>jam::HashMap&lt; int, std::unique_ptr&lt; jam::CodeDocument &gt; &gt;</type>
-      <name>documents</name>
+      <type>jam::Owner&lt; jam::Subprocess &gt;</type>
+      <name>precompiles</name>
       <anchorfile>class_processor.html</anchorfile>
-      <anchor>aa107851379e6cb122c96dfa591d33061</anchor>
+      <anchor>a3b39b42c657b83b6d489812a40e6a754</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
-      <type>int</type>
-      <name>pendingJobs</name>
+      <type>jam::HashMap&lt; int, std::unique_ptr&lt; jam::Subprocess &gt; &gt;</type>
+      <name>builds</name>
       <anchorfile>class_processor.html</anchorfile>
-      <anchor>a9e4f2c0b182b341e792c25cf8dc965be</anchor>
+      <anchor>a3e51639aaf7576412e559b664c2b903d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>Index</type>
+      <name>index</name>
+      <anchorfile>class_processor.html</anchorfile>
+      <anchor>a876fef51b77ed65bdbb09dd7d1b01d70</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>Query</type>
+      <name>query</name>
+      <anchorfile>class_processor.html</anchorfile>
+      <anchor>a09caad03da06296758fb0ef8cd41facb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>jam::HashMap&lt; int, std::unique_ptr&lt; ParseJob &gt; &gt;</type>
+      <name>parseJobs</name>
+      <anchorfile>class_processor.html</anchorfile>
+      <anchor>adee999697b4865501709efc18f8328ba</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>jam::HashMap&lt; int, std::unique_ptr&lt; ParseJob &gt; &gt;</type>
+      <name>nextParseJobs</name>
+      <anchorfile>class_processor.html</anchorfile>
+      <anchor>a9e0fc0b54eba32378496d8139047ac87</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>jam::HashMap&lt; int, std::unique_ptr&lt; IndexJob &gt; &gt;</type>
+      <name>indexJobs</name>
+      <anchorfile>class_processor.html</anchorfile>
+      <anchor>abd846ea2596951cc35ef6f5c6a635aac</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>jam::HashMap&lt; int, std::unique_ptr&lt; IndexJob &gt; &gt;</type>
+      <name>nextIndexJobs</name>
+      <anchorfile>class_processor.html</anchorfile>
+      <anchor>ac6bf7f40666768cc105cc933b9845a4f</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -1577,39 +1980,379 @@
       <anchor>af66620608b76c59a20b72eec4dab6b2d</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable" protection="private" static="yes">
+      <type>static constexpr int</type>
+      <name>waitForJob</name>
+      <anchorfile>class_processor.html</anchorfile>
+      <anchor>a861e5e618da6d2f24237151c571039d2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private" static="yes">
+      <type>static constexpr int</type>
+      <name>noWait</name>
+      <anchorfile>class_processor.html</anchorfile>
+      <anchor>a4a7e8b1f8969a1a0c50484aec56f9ea7</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Query</name>
+    <filename>class_query.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>Query</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a60b9acc2d06f83f46736ac4c876d9f23</anchor>
+      <arglist>()=default</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>goToDefinition</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a35e3fac14102a3b269f3e941595a4e25</anchor>
+      <arglist>(juce::ValueTree &amp;request, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>findReferences</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a852e9ede3402713f66bb2abf97ed1436</anchor>
+      <arglist>(juce::ValueTree &amp;request, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>hover</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>adf9f19baf3d11420d442548886f453a7</anchor>
+      <arglist>(juce::ValueTree &amp;request, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>documentSymbol</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a163faae03873f24fd5fb7ba47a310df3</anchor>
+      <arglist>(juce::ValueTree &amp;request, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>switchSourceHeader</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a19666bfbde437c9035e0324d868a6d28</anchor>
+      <arglist>(juce::ValueTree &amp;request, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>inlayHint</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>aad6e5a1c4754d6605f90f30699fc7769</anchor>
+      <arglist>(juce::ValueTree &amp;request, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>workspaceSymbol</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a15ad9b779e57720f864388a75863b93b</anchor>
+      <arglist>(juce::ValueTree &amp;request, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>completion</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>adf6cde45c991e2c9c4b31f0b3c13f04c</anchor>
+      <arglist>(juce::ValueTree &amp;request, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>goToImplementation</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a0d3863559c1bdb51563dab006fe940ca</anchor>
+      <arglist>(juce::ValueTree &amp;request, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>prepareCallHierarchy</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>ae2b2672fe36aaace7abcc92845660caa</anchor>
+      <arglist>(juce::ValueTree &amp;request, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>incomingCalls</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>ac9134cc465d90c1f0528a3db2f9325f9</anchor>
+      <arglist>(juce::ValueTree &amp;request, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>outgoingCalls</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>adc9652cdecb42aef9e899a2216882f37</anchor>
+      <arglist>(juce::ValueTree &amp;request, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setResult</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a018e73734d5eec33e8483a4179b25216</anchor>
+      <arglist>(juce::ValueTree &amp;request, jam::Array&lt; std::pair&lt; int, const jam::Document::Element * &gt; &gt; results, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setResult</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a13f608bd23bb0b5aae60bd3454e1b360</anchor>
+      <arglist>(juce::ValueTree &amp;request, std::string_view json) const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>getPathIndex</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a34c7ee4f15d24026a9aff90e0733c7e8</anchor>
+      <arglist>(const juce::ValueTree &amp;request, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static juce::File</type>
+      <name>getFile</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a2436862865adf7b1e292b123205f154a</anchor>
+      <arglist>(const juce::ValueTree &amp;request)</arglist>
+    </member>
+    <member kind="typedef" protection="private">
+      <type>jam::Array&lt; std::tuple&lt; int, int, const jam::Document::Element * &gt; &gt;</type>
+      <name>Matches</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a8c367b5b39b118b9e5bd1d480a50a8fd</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>applyToDeclarations</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>aa4dbc1b2d56916606809ac28736fbbaa</anchor>
+      <arglist>(const jam::Document::Element &amp;element, const Function &amp;function, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>applyToReferences</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>aa225b32e3c5a12601242c6bc88077904</anchor>
+      <arglist>(const jam::Document::Element &amp;declaration, const Function &amp;function, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>applyToPosition</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>ab799317ea0796e68fce933c28cd0ee8d</anchor>
+      <arglist>(juce::ValueTree &amp;request, const Function &amp;function, const Index &amp;index, int columnOffset=0) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>applyToFile</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>acbe7e23b2ef525e32e8f29d970c5af60</anchor>
+      <arglist>(const juce::ValueTree &amp;request, const Function &amp;function, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>applyToCounterparts</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>adbe78bd35cf48ffde2213b2db9dae86e</anchor>
+      <arglist>(const juce::File &amp;file, const Function &amp;function, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>applyToFirstFunction</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a4dac04bdeac8dc7abc9c4ca57518495d</anchor>
+      <arglist>(int pathIndex, const jam::Document::Element &amp;reference, const Function &amp;function, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>applyToFunctions</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a0427e42b4765519b5941fb6517a980bb</anchor>
+      <arglist>(juce::ValueTree &amp;request, const Function &amp;function, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>applyToCandidates</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a9b1432685f1c6c3a87f75bd8c460904b</anchor>
+      <arglist>(const jam::LanguageDocument &amp;document, const jam::Document::Element &amp;reference, const Function &amp;function, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>applyToImplementations</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a7d98690db81b3e8de810ea6b0bc3b0f7</anchor>
+      <arglist>(int pathIndex, const jam::Document::Element &amp;declaration, const Function &amp;function, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>const jam::Document::Element *</type>
+      <name>getElement</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a8f848e31463b2c797875dc99860b5c8f</anchor>
+      <arglist>(const jam::LanguageDocument &amp;document, int line, int column) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>applyToDeclarations</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>ad5ac2748b28141cf9f026bd26f3c9f08</anchor>
+      <arglist>(const jam::Array&lt; std::string_view &gt; &amp;path, const Function &amp;function, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>applyToDerived</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a3a0d6f4e7d27d8b2744bd6240d291228</anchor>
+      <arglist>(const juce::String &amp;symbol, const Function &amp;function, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>applyToScopes</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a912e1c95b7c3da700bd83cfad982ae8a</anchor>
+      <arglist>(const jam::Array&lt; std::string_view &gt; &amp;scope, const jam::Array&lt; std::string_view &gt; &amp;qualifier, const Function &amp;function, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>applyToElements</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>ad1e6dc4d2f9c91a9c05f24bc9f145d31</anchor>
+      <arglist>(const jam::LanguageDocument &amp;document, const jam::Document::Element &amp;parent, const jam::Array&lt; std::string_view &gt; &amp;path, int start, const Function &amp;function) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>applyToBases</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a05869a1fa8d68cc560257f867486b8fd</anchor>
+      <arglist>(const jam::Array&lt; std::string_view &gt; &amp;classPath, const Function &amp;function, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>bool</type>
+      <name>isBefore</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>acf98a8de0ed63be51cbcbbb66d2e2914</anchor>
+      <arglist>(int pathIndex, const jam::Document::Element &amp;element, int otherPathIndex, const jam::Document::Element &amp;otherElement, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>setResult</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a553c2572bb69384fe89a2aa66ad2194b</anchor>
+      <arglist>(juce::ValueTree &amp;request, jam::Array&lt; std::pair&lt; int, const jam::Document::Element * &gt; &gt; results, const Function &amp;appendMembers, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>bool</type>
+      <name>isBeforeByPath</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a8f2d8a6040efff8eca0e51df8e8ec4b7</anchor>
+      <arglist>(int pathIndex, const jam::Document::Element &amp;element, int otherPathIndex, const jam::Document::Element &amp;otherElement, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>appendDocumentSymbols</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a17da924f6ba5be7020414fb1260174e3</anchor>
+      <arglist>(std::string &amp;json, int pathIndex, const jam::Document::Element &amp;parent, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>appendCompletion</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>ad1e57bd7ab86fd527f3fc34beeb4cbaa</anchor>
+      <arglist>(std::string &amp;json, int pathIndex, const jam::LanguageDocument &amp;declarationDocument, const jam::Document::Element &amp;declaration, const jam::LanguageDocument &amp;commentDocument, const jam::Document::Element &amp;commentDeclaration, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>Matches</type>
+      <name>getMatches</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a2ae4ab02c14df0ad3aaf29d3b46fe8a9</anchor>
+      <arglist>(const jam::Fuzzy::Pattern &amp;pattern, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>jam::Fuzzy::Result</type>
+      <name>getMatch</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>ab7eebf153a5c86a2892db5bdd1986759</anchor>
+      <arglist>(const jam::Fuzzy::Pattern &amp;pattern, const jam::LanguageDocument &amp;document, const jam::Document::Element &amp;element) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>Matches</type>
+      <name>getCompletions</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a38c180b51d092824ab79d074737dc4e3</anchor>
+      <arglist>(const jam::LanguageDocument &amp;document, const jam::Document::Element &amp;reference, const jam::Fuzzy::Pattern &amp;pattern, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>applyToCompletions</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>aa42d3e64bd096855681feb31c3666cd3</anchor>
+      <arglist>(const jam::LanguageDocument &amp;document, const jam::Document::Element &amp;reference, const jam::Fuzzy::Pattern &amp;pattern, const Function &amp;function, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function" protection="private" static="yes">
+      <type>static bool</type>
+      <name>hasName</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a3d758bdc28126e28b5a028ddac9fa20f</anchor>
+      <arglist>(const jam::Document::Element &amp;element)</arglist>
+    </member>
+    <member kind="function" protection="private" static="yes">
+      <type>static jam::Array&lt; std::string_view &gt;</type>
+      <name>getPath</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>aa8ff4edd44b5494a0b66665daec5a84d</anchor>
+      <arglist>(const jam::LanguageDocument &amp;document, const jam::Document::Element &amp;element)</arglist>
+    </member>
+    <member kind="function" protection="private" static="yes">
+      <type>static bool</type>
+      <name>isSamePath</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a614d03dfada21aff258e32a8f1ecebd5</anchor>
+      <arglist>(const jam::Array&lt; std::string_view &gt; &amp;path, const jam::Array&lt; std::string_view &gt; &amp;otherPath)</arglist>
+    </member>
+    <member kind="function" protection="private" static="yes">
+      <type>static jam::Array&lt; std::string_view &gt;</type>
+      <name>getName</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>abf47c27b1ca1e9727c900d49a3f92978</anchor>
+      <arglist>(const jam::LanguageDocument &amp;document, const jam::Document::Element &amp;element)</arglist>
+    </member>
+    <member kind="function" protection="private" static="yes">
+      <type>static jam::Array&lt; std::string_view &gt;</type>
+      <name>getPath</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>aa69509ed4296d3e1b0a49feebf1829f6</anchor>
+      <arglist>(const jam::Array&lt; std::string_view &gt; &amp;scope, int size, const jam::Array&lt; std::string_view &gt; &amp;name)</arglist>
+    </member>
+    <member kind="function" protection="private" static="yes">
+      <type>static bool</type>
+      <name>hasPath</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>ac4c8343e32f31009c6baf0f0ff4f441d</anchor>
+      <arglist>(const jam::Array&lt; jam::Array&lt; std::string_view &gt; &gt; &amp;knownPaths, const jam::Array&lt; std::string_view &gt; &amp;path)</arglist>
+    </member>
     <member kind="variable" protection="private">
       <type>jam::Fuzzy::Slab</type>
       <name>slab</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>a6d369e1261916abb42ee5e0871bdd9a5</anchor>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>aeaf2aeaa609d943719b57443c73ba823</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private" static="yes">
       <type>static constexpr int</type>
       <name>fileIndex</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>a46ec5a2c477ab4fdce22e37c64d94a67</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private" static="yes">
-      <type>static constexpr std::array</type>
-      <name>memberTypes</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>ac014ef004fd22d0dc1488666059d98ba</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private" static="yes">
-      <type>static constexpr std::array</type>
-      <name>functionTypes</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>a56668c1c21369f99f2cd6922f8aca802</anchor>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a01f72228ea89d98816ae2c8216bae8c1</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private" static="yes">
       <type>static constexpr bool</type>
       <name>shouldNormalize</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>a9861aa9e73a23117fbcabee778f26ca0</anchor>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>aceb75f22ecbfcddb2f38db0819540774</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -1670,6 +2413,13 @@
     </member>
     <member kind="function" protection="private">
       <type>void</type>
+      <name>valueTreeChildRemoved</name>
+      <anchorfile>class_server.html</anchorfile>
+      <anchor>afc7f2fd63e0532fa9164aa9308f52c4d</anchor>
+      <arglist>(juce::ValueTree &amp;parentTree, juce::ValueTree &amp;childWhichHasBeenRemoved, int indexFromWhichChildWasRemoved) override</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
       <name>timerCallback</name>
       <anchorfile>class_server.html</anchorfile>
       <anchor>a408f595457a668bacb8c44ac186bfaf0</anchor>
@@ -1716,6 +2466,25 @@
       <anchorfile>class_server.html</anchorfile>
       <anchor>a30ea9ecd4c1f78867e08840da331d0df</anchor>
       <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>SwapValidator</name>
+    <filename>struct_swap_validator.html</filename>
+    <base>jam::Document::Validator</base>
+    <member kind="function">
+      <type>const Rules &amp;</type>
+      <name>getRules</name>
+      <anchorfile>struct_swap_validator.html</anchorfile>
+      <anchor>abe28c28edda7b07691d9b273cc7e3b2e</anchor>
+      <arglist>() const override</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>addRules</name>
+      <anchorfile>struct_swap_validator.html</anchorfile>
+      <anchor>a4dd34faa0a529eb6f271de588081117c</anchor>
+      <arglist>(Rules &amp;rules)</arglist>
     </member>
   </compound>
   <compound kind="struct">

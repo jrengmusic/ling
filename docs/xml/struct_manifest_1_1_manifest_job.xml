@@ -1,0 +1,470 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="struct_manifest_1_1_manifest_job" kind="struct" language="C++" prot="private">
+    <compoundname>Manifest::ManifestJob</compoundname>
+    <basecompoundref refid="classjuce_1_1ThreadPoolJob" prot="public" virt="non-virtual">juce::ThreadPoolJob</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_manifest_1_1_manifest_job_1a1a0284d6cda25e5439fb8b658bece55a" prot="public" static="no" mutable="no">
+        <type><ref refid="class_manifest" kindref="compound">Manifest</ref> &amp;</type>
+        <definition>Manifest&amp; Manifest::ManifestJob::owner</definition>
+        <argsstring></argsstring>
+        <name>owner</name>
+        <qualifiedname>Manifest::ManifestJob::owner</qualifiedname>
+        <briefdescription>
+<para>The manifest that owns the reading. The job signals it when it ends. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Manifest.h" line="76" column="18" bodyfile="Manifest.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="struct_manifest_1_1_manifest_job_1a9c3cb49aa964690620daa1887c2f586f" compoundref="_manifest_8cpp" startline="93" endline="99">ManifestJob</referencedby>
+        <referencedby refid="struct_manifest_1_1_manifest_job_1a4c14ead10b37a748c85ae35f3b1fc685" compoundref="_manifest_8cpp" startline="101" endline="120">runJob</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_manifest_1_1_manifest_job_1a0571d5bac7b172344ab1cf9842e66375" prot="public" static="no" mutable="no">
+        <type><ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref></type>
+        <definition>juce::String Manifest::ManifestJob::manifestPath</definition>
+        <argsstring></argsstring>
+        <name>manifestPath</name>
+        <qualifiedname>Manifest::ManifestJob::manifestPath</qualifiedname>
+        <briefdescription>
+<para>The path of the manifest, copied from the model on the calling thread. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Manifest.h" line="77" column="22" bodyfile="Manifest.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="struct_manifest_1_1_manifest_job_1a9c3cb49aa964690620daa1887c2f586f" compoundref="_manifest_8cpp" startline="93" endline="99">ManifestJob</referencedby>
+        <referencedby refid="struct_manifest_1_1_manifest_job_1a4c14ead10b37a748c85ae35f3b1fc685" compoundref="_manifest_8cpp" startline="101" endline="120">runJob</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_manifest_1_1_manifest_job_1a7f1ba1868dd257f50fd1f21cbc55bfad" prot="public" static="no" mutable="no">
+        <type><ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref></type>
+        <definition>juce::String Manifest::ManifestJob::toolchainArgument</definition>
+        <argsstring></argsstring>
+        <name>toolchainArgument</name>
+        <qualifiedname>Manifest::ManifestJob::toolchainArgument</qualifiedname>
+        <briefdescription>
+<para>The toolchain argument, copied from the model on the calling thread. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Manifest.h" line="78" column="22" bodyfile="Manifest.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="struct_manifest_1_1_manifest_job_1a9c3cb49aa964690620daa1887c2f586f" compoundref="_manifest_8cpp" startline="93" endline="99">ManifestJob</referencedby>
+        <referencedby refid="struct_manifest_1_1_manifest_job_1a4c14ead10b37a748c85ae35f3b1fc685" compoundref="_manifest_8cpp" startline="101" endline="120">runJob</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_manifest_1_1_manifest_job_1a222074e537c86a7d2a9248cfc964db95" prot="public" static="no" mutable="no">
+        <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref></type>
+        <definition>juce::ValueTree Manifest::ManifestJob::files</definition>
+        <argsstring></argsstring>
+        <name>files</name>
+        <qualifiedname>Manifest::ManifestJob::files</qualifiedname>
+        <briefdescription>
+<para>The files child that the job builds. It holds the message property when validation fails. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Manifest.h" line="79" column="25" bodyfile="Manifest.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_manifest_1_1_manifest_job_1a7295046c03cee21bfa8f3e3671d83e7d" prot="public" static="no" mutable="no">
+        <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref></type>
+        <definition>juce::ValueTree Manifest::ManifestJob::roots</definition>
+        <argsstring></argsstring>
+        <name>roots</name>
+        <qualifiedname>Manifest::ManifestJob::roots</qualifiedname>
+        <briefdescription>
+<para>The roots child that the job builds. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Manifest.h" line="80" column="25" bodyfile="Manifest.h" bodystart="80" bodyend="-1"/>
+        <referencedby refid="struct_manifest_1_1_manifest_job_1a4c14ead10b37a748c85ae35f3b1fc685" compoundref="_manifest_8cpp" startline="101" endline="120">runJob</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_manifest_1_1_manifest_job_1a1818ea4fcfcb75b29616551771be5212" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Manifest::ManifestJob::timeout</definition>
+        <argsstring></argsstring>
+        <name>timeout</name>
+        <qualifiedname>Manifest::ManifestJob::timeout</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>The timeout in milliseconds, from the daemon table, or the default timeout. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Manifest.h" line="81" column="13" bodyfile="Manifest.h" bodystart="81" bodyend="81"/>
+        <referencedby refid="struct_manifest_1_1_manifest_job_1a4c14ead10b37a748c85ae35f3b1fc685" compoundref="_manifest_8cpp" startline="101" endline="120">runJob</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_manifest_1_1_manifest_job_1a2e16dcc79759f990a812ce41d85ab39a" prot="public" static="no" mutable="no">
+        <type>std::atomic&lt; bool &gt;</type>
+        <definition>std::atomic&lt;bool&gt; Manifest::ManifestJob::isFinished</definition>
+        <argsstring></argsstring>
+        <name>isFinished</name>
+        <qualifiedname>Manifest::ManifestJob::isFinished</qualifiedname>
+        <initializer>{ false }</initializer>
+        <briefdescription>
+<para>Set to true when runJob ends. The message thread reads it with acquire order. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Manifest.h" line="82" column="21" bodyfile="Manifest.h" bodystart="82" bodyend="82"/>
+        <referencedby refid="struct_manifest_1_1_manifest_job_1a4c14ead10b37a748c85ae35f3b1fc685" compoundref="_manifest_8cpp" startline="101" endline="120">runJob</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_manifest_1_1_manifest_job_1a9c3cb49aa964690620daa1887c2f586f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Manifest::ManifestJob::ManifestJob</definition>
+        <argsstring>(Manifest &amp;ownerToUse, const juce::String &amp;manifestPathToUse, const juce::String &amp;toolchainArgumentToUse)</argsstring>
+        <name>ManifestJob</name>
+        <qualifiedname>Manifest::ManifestJob::ManifestJob</qualifiedname>
+        <param>
+          <type><ref refid="class_manifest" kindref="compound">Manifest</ref> &amp;</type>
+          <declname>ownerToUse</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <declname>manifestPathToUse</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <declname>toolchainArgumentToUse</declname>
+        </param>
+        <briefdescription>
+<para>Creates a reading of one manifest. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ownerToUse</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The manifest that owns the reading. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>manifestPathToUse</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The path of the manifest. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>toolchainArgumentToUse</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The toolchain argument. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Manifest.h" line="67" column="9" bodyfile="Manifest.cpp" bodystart="93" bodyend="99"/>
+        <references refid="class_manifest_1a16ddfc76a23f8dae673d0a8f08e41ef1" compoundref="_manifest_8cpp" startline="5" endline="9">Manifest::Manifest</references>
+        <references refid="struct_manifest_1_1_manifest_job_1a0571d5bac7b172344ab1cf9842e66375" compoundref="_manifest_8h" startline="77">manifestPath</references>
+        <references refid="struct_manifest_1_1_manifest_job_1a1a0284d6cda25e5439fb8b658bece55a" compoundref="_manifest_8h" startline="76">owner</references>
+        <references refid="classjuce_1_1ThreadPoolJob_1aff1ded5a73f7e20a65fad92bb62f7c53">juce::ThreadPoolJob::ThreadPoolJob</references>
+        <references refid="struct_manifest_1_1_manifest_job_1a7f1ba1868dd257f50fd1f21cbc55bfad" compoundref="_manifest_8h" startline="78">toolchainArgument</references>
+      </memberdef>
+      <memberdef kind="function" id="struct_manifest_1_1_manifest_job_1a4c14ead10b37a748c85ae35f3b1fc685" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="classjuce_1_1ThreadPoolJob_1a5941c13ff17426d91845c5cd46a0a2d0" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">JobStatus</ref></type>
+        <definition>juce::ThreadPoolJob::JobStatus Manifest::ManifestJob::runJob</definition>
+        <argsstring>() override</argsstring>
+        <name>runJob</name>
+        <qualifiedname>Manifest::ManifestJob::runJob</qualifiedname>
+        <reimplements refid="classjuce_1_1ThreadPoolJob_1ad4061b135a60b6e694b0eb6a9a6113d0">runJob</reimplements>
+        <briefdescription>
+<para>Parses, validates, and reads the manifest. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Runs on a pool thread.</para>
+<para><simplesect kind="return"><para>jobHasFinished, which the pool reads as the end of the job. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Manifest.h" line="74" column="19" bodyfile="Manifest.cpp" bodystart="101" bodyend="120"/>
+        <references refid="class_l_i_n_g_model_1a98c415ab589e5c16c6e98d1a8f0859a5" compoundref="_l_i_n_g_model_8h" startline="45" endline="45">LINGModel::defaultTimeoutMs</references>
+        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="53" endline="53">Id::files</references>
+        <references refid="struct_compiler_manifest_1a271ed7330ef1aa3f9ae0363ca6fa3e00" compoundref="_compiler_manifest_8cpp" startline="3" endline="34">CompilerManifest::getFiles</references>
+        <references refid="_manifest_8cpp_1aa0e8d8e5a54b35ea73cb28bdf95bcfa8" compoundref="_manifest_8cpp" startline="32" endline="40">getProjectRoots</references>
+        <references refid="class_manifest_1a8d5113738228ea9088627ed4bbba47f7" compoundref="_manifest_8cpp" startline="158" endline="183">Manifest::getRoots</references>
+        <references refid="class_manifest_1a74869b90c95c6ef6273bd00526a343c3" compoundref="_manifest_8cpp" startline="149" endline="156">Manifest::getTimeout</references>
+        <references refid="classjam_1_1Strings_1adfb32d159be94dc4a4004c50be876e3c">jam::Strings::getView</references>
+        <references refid="struct_manifest_1_1_manifest_job_1a2e16dcc79759f990a812ce41d85ab39a" compoundref="_manifest_8h" startline="82" endline="82">isFinished</references>
+        <references refid="structjam_1_1Document_1_1Validator_1a1275a95db9c777fcceff5c574c561ae0">jam::Document::Validator::isValid</references>
+        <references refid="structjam_1_1MarkdownDocument_1ad95d41e53a316b9f17d2b0bf6e0f6a45">jam::MarkdownDocument::isValid</references>
+        <references refid="classjuce_1_1ThreadPoolJob_1a5941c13ff17426d91845c5cd46a0a2d0a70f86f0e911e4f6cd3c0ee7b2ccd1b88">juce::ThreadPoolJob::jobHasFinished</references>
+        <references refid="struct_manifest_1_1_manifest_job_1a0571d5bac7b172344ab1cf9842e66375" compoundref="_manifest_8h" startline="77">manifestPath</references>
+        <references refid="namespaceId_1a0e0b9ef1fb687c4c7c73d2bd7213ac01">Id::message</references>
+        <references refid="struct_manifest_1_1_manifest_job_1a1a0284d6cda25e5439fb8b658bece55a" compoundref="_manifest_8h" startline="76">owner</references>
+        <references refid="structjam_1_1Document_1a367d65133f164cf9421ff0c3ddf2bbf6">jam::Document::parse</references>
+        <references refid="struct_manifest_1_1_manifest_job_1a7295046c03cee21bfa8f3e3671d83e7d" compoundref="_manifest_8h" startline="80">roots</references>
+        <references refid="struct_manifest_1_1_manifest_job_1a1818ea4fcfcb75b29616551771be5212" compoundref="_manifest_8h" startline="81" endline="81">timeout</references>
+        <references refid="struct_manifest_1_1_manifest_job_1a7f1ba1868dd257f50fd1f21cbc55bfad" compoundref="_manifest_8h" startline="78">toolchainArgument</references>
+        <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>One reading of the manifest, run on the pool. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>It holds the results until the message thread applies them.</para>
+<para>The job parses and validates the manifest. A valid manifest gives the files child, the roots child, and the timeout of the daemon table. A failed validation gives an empty files child that holds the message, the project roots, and the default timeout. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Manifest::ManifestJob</label>
+        <link refid="struct_manifest_1_1_manifest_job"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>juce::ThreadPoolJob</label>
+        <link refid="classjuce_1_1ThreadPoolJob" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="6">
+        <label>LINGModel</label>
+        <link refid="class_l_i_n_g_model"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+        <childnode refid="16" relation="public-inheritance">
+        </childnode>
+        <childnode refid="17" relation="private-inheritance">
+        </childnode>
+        <childnode refid="18" relation="usage">
+          <edgelabel>watcher</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Manifest</label>
+        <link refid="class_manifest"/>
+        <childnode refid="4" relation="private-inheritance">
+        </childnode>
+        <childnode refid="5" relation="private-inheritance">
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>model</edgelabel>
+        </childnode>
+        <childnode refid="25" relation="usage">
+          <edgelabel>job</edgelabel>
+          <edgelabel>nextJob</edgelabel>
+        </childnode>
+        <childnode refid="26" relation="usage">
+          <edgelabel>pool</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Manifest::ManifestJob</label>
+        <link refid="struct_manifest_1_1_manifest_job"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>owner</edgelabel>
+        </childnode>
+        <childnode refid="27" relation="usage">
+          <edgelabel>manifestPath</edgelabel>
+          <edgelabel>toolchainArgument</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>files</edgelabel>
+          <edgelabel>roots</edgelabel>
+        </childnode>
+        <childnode refid="28" relation="usage">
+          <edgelabel>isFinished</edgelabel>
+        </childnode>
+      </node>
+      <node id="9">
+        <label>jam::AnyMap&lt; typename TypeOfCriticalSectionToUse &gt;</label>
+        <link refid="classjam_1_1AnyMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="10" relation="public-inheritance">
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>entries</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>types</edgelabel>
+        </childnode>
+      </node>
+      <node id="18">
+        <label>jam::File::Watcher</label>
+        <link refid="structjam_1_1File_1_1Watcher" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="19" relation="usage">
+          <edgelabel>timers</edgelabel>
+        </childnode>
+        <childnode refid="23" relation="usage">
+          <edgelabel>listeners</edgelabel>
+        </childnode>
+        <childnode refid="24" relation="usage">
+          <edgelabel>watched</edgelabel>
+        </childnode>
+      </node>
+      <node id="22">
+        <label>jam::File::Watcher::CoalesceTimer</label>
+        <link refid="structjam_1_1File_1_1Watcher_1_1CoalesceTimer" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="8" relation="public-inheritance">
+        </childnode>
+        <childnode refid="18" relation="usage">
+          <edgelabel>owner</edgelabel>
+        </childnode>
+        <childnode refid="20" relation="usage">
+          <edgelabel>f</edgelabel>
+        </childnode>
+      </node>
+      <node id="17">
+        <label>jam::File::Watcher::Listener</label>
+        <link refid="classjam_1_1File_1_1Watcher_1_1Listener" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="12">
+        <label>jam::HashMap&lt; juce::Identifier, jam::AnyMap::Trait &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="15">
+        <label>jam::HashMap&lt; juce::Identifier, jam::HashMap&lt; juce::Identifier, std::unique_ptr&lt; ParameterAdapter &gt; &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="11">
+        <label>jam::HashMap&lt; juce::Identifier, std::unique_ptr&lt; void, Deleter &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="16">
+        <label>jam::Instance&lt; LINGModel &gt;</label>
+        <link refid="structjam_1_1Instance" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="7">
+        <label>jam::Model</label>
+        <link refid="classjam_1_1Model" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="8" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>params</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>state</edgelabel>
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>valueTreeChanging</edgelabel>
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>adapters</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>juce::AsyncUpdater</label>
+        <link refid="classjuce_1_1AsyncUpdater" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="14">
+        <label>juce::CriticalSection</label>
+        <link refid="classjuce_1_1CriticalSection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="10">
+        <label>juce::DummyCriticalSection</label>
+        <link refid="classjuce_1_1DummyCriticalSection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="20">
+        <label>juce::File</label>
+        <link refid="classjuce_1_1File" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="23">
+        <label>juce::ListenerList&lt; jam::File::Watcher::Listener &gt;</label>
+        <link refid="classjuce_1_1ListenerList" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="24">
+        <label>juce::OwnedArray&lt; Impl &gt;</label>
+        <link refid="classjuce_1_1OwnedArray" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="27">
+        <label>juce::String</label>
+        <link refid="classjuce_1_1String" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="26">
+        <label>juce::ThreadPool</label>
+        <link refid="classjuce_1_1ThreadPool" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="2">
+        <label>juce::ThreadPoolJob</label>
+        <link refid="classjuce_1_1ThreadPoolJob" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="8">
+        <label>juce::Timer</label>
+        <link refid="classjuce_1_1Timer" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="13">
+        <label>juce::ValueTree</label>
+        <link refid="classjuce_1_1ValueTree" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="4">
+        <label>juce::ValueTree::Listener</label>
+        <link refid="classjuce_1_1ValueTree_1_1Listener" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="28">
+        <label>std::atomic&lt; bool &gt;</label>
+      </node>
+      <node id="19">
+        <label>std::map&lt; juce::File, std::unique_ptr&lt; jam::File::Watcher::CoalesceTimer &gt; &gt;</label>
+        <childnode refid="20" relation="usage">
+          <edgelabel>keys</edgelabel>
+        </childnode>
+        <childnode refid="21" relation="usage">
+          <edgelabel>elements</edgelabel>
+        </childnode>
+      </node>
+      <node id="25">
+        <label>std::unique_ptr&lt; Manifest::ManifestJob &gt;</label>
+        <childnode refid="1" relation="usage">
+          <edgelabel>ptr</edgelabel>
+        </childnode>
+      </node>
+      <node id="21">
+        <label>std::unique_ptr&lt; jam::File::Watcher::CoalesceTimer &gt;</label>
+        <childnode refid="22" relation="usage">
+          <edgelabel>ptr</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Manifest.h" line="58" column="5" bodyfile="Manifest.h" bodystart="59" bodyend="83"/>
+    <listofallmembers>
+      <member refid="classjuce_1_1ThreadPoolJob_1abf8aa2b476630b7eda4ae0d0de9d6ff1" prot="public" virt="non-virtual"><scope>Manifest::ManifestJob</scope><name>addListener</name></member>
+      <member refid="struct_manifest_1_1_manifest_job_1a222074e537c86a7d2a9248cfc964db95" prot="public" virt="non-virtual"><scope>Manifest::ManifestJob</scope><name>files</name></member>
+      <member refid="classjuce_1_1ThreadPoolJob_1a7582dbbb0c9e6f010a1aac37314a1258" prot="public" virt="non-virtual"><scope>Manifest::ManifestJob</scope><name>getCurrentThreadPoolJob</name></member>
+      <member refid="classjuce_1_1ThreadPoolJob_1a99c2fec7d5e42496cbff8bdf03d04597" prot="public" virt="non-virtual"><scope>Manifest::ManifestJob</scope><name>getJobName</name></member>
+      <member refid="struct_manifest_1_1_manifest_job_1a2e16dcc79759f990a812ce41d85ab39a" prot="public" virt="non-virtual"><scope>Manifest::ManifestJob</scope><name>isFinished</name></member>
+      <member refid="classjuce_1_1ThreadPoolJob_1a9b688c9f5c5be91788cf3f8964199b5d" prot="public" virt="non-virtual"><scope>Manifest::ManifestJob</scope><name>isRunning</name></member>
+      <member refid="classjuce_1_1ThreadPoolJob_1a5941c13ff17426d91845c5cd46a0a2d0a70f86f0e911e4f6cd3c0ee7b2ccd1b88" prot="public" virt="non-virtual"><scope>Manifest::ManifestJob</scope><name>jobHasFinished</name></member>
+      <member refid="classjuce_1_1ThreadPoolJob_1a5941c13ff17426d91845c5cd46a0a2d0afe99654539cfff7938198feffc4cf2d8" prot="public" virt="non-virtual"><scope>Manifest::ManifestJob</scope><name>jobNeedsRunningAgain</name></member>
+      <member refid="classjuce_1_1ThreadPoolJob_1a5941c13ff17426d91845c5cd46a0a2d0" prot="public" virt="non-virtual"><scope>Manifest::ManifestJob</scope><name>JobStatus</name></member>
+      <member refid="struct_manifest_1_1_manifest_job_1a9c3cb49aa964690620daa1887c2f586f" prot="public" virt="non-virtual"><scope>Manifest::ManifestJob</scope><name>ManifestJob</name></member>
+      <member refid="struct_manifest_1_1_manifest_job_1a0571d5bac7b172344ab1cf9842e66375" prot="public" virt="non-virtual"><scope>Manifest::ManifestJob</scope><name>manifestPath</name></member>
+      <member refid="struct_manifest_1_1_manifest_job_1a1a0284d6cda25e5439fb8b658bece55a" prot="public" virt="non-virtual"><scope>Manifest::ManifestJob</scope><name>owner</name></member>
+      <member refid="classjuce_1_1ThreadPoolJob_1aef9382d30328f9cc5b8f14b7f819cc45" prot="public" virt="non-virtual"><scope>Manifest::ManifestJob</scope><name>removeListener</name></member>
+      <member refid="struct_manifest_1_1_manifest_job_1a7295046c03cee21bfa8f3e3671d83e7d" prot="public" virt="non-virtual"><scope>Manifest::ManifestJob</scope><name>roots</name></member>
+      <member refid="struct_manifest_1_1_manifest_job_1a4c14ead10b37a748c85ae35f3b1fc685" prot="public" virt="virtual"><scope>Manifest::ManifestJob</scope><name>runJob</name></member>
+      <member refid="classjuce_1_1ThreadPoolJob_1a960a69646efeb42c5dddf34d91bf9141" prot="public" virt="non-virtual"><scope>Manifest::ManifestJob</scope><name>setJobName</name></member>
+      <member refid="classjuce_1_1ThreadPoolJob_1ace3639b2fc4594189180fad8bc85ca02" prot="public" virt="non-virtual"><scope>Manifest::ManifestJob</scope><name>shouldExit</name></member>
+      <member refid="classjuce_1_1ThreadPoolJob_1a061dd2c1d5e235849ff69898490c1eeb" prot="public" virt="non-virtual"><scope>Manifest::ManifestJob</scope><name>signalJobShouldExit</name></member>
+      <member refid="classjuce_1_1ThreadPoolJob_1aff1ded5a73f7e20a65fad92bb62f7c53" prot="public" virt="non-virtual"><scope>Manifest::ManifestJob</scope><name>ThreadPoolJob</name></member>
+      <member refid="struct_manifest_1_1_manifest_job_1a1818ea4fcfcb75b29616551771be5212" prot="public" virt="non-virtual"><scope>Manifest::ManifestJob</scope><name>timeout</name></member>
+      <member refid="struct_manifest_1_1_manifest_job_1a7f1ba1868dd257f50fd1f21cbc55bfad" prot="public" virt="non-virtual"><scope>Manifest::ManifestJob</scope><name>toolchainArgument</name></member>
+      <member refid="classjuce_1_1ThreadPoolJob_1a11c83ecfc7e5e1452a2482af517037d5" prot="public" virt="virtual"><scope>Manifest::ManifestJob</scope><name>~ThreadPoolJob</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

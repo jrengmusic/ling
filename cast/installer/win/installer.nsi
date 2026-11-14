@@ -19,7 +19,7 @@
 !include "WinCore.nsh"
 
 !define PRODUCT "ling"
-!define VERSION "0.1.0"
+!define VERSION "0.0.1"
 !define PUBLISHER "Jubilant Research of Eclectic Novelty Generation"
 !define COMPANY "JRENG"
 !define THUMBPRINT "8274AC1EA9DEA10AEFF7FD683D5E2BC4B5FAAAF1"
@@ -46,10 +46,6 @@ InstallDir "$PROFILE\.local\bin"
 !system '"${SIGNTOOL}" sign /sha1 ${THUMBPRINT} /fd SHA256 "${ARTEFACT}"' = 0
 !finalize '"${SIGNTOOL}" sign /sha1 ${THUMBPRINT} /fd SHA256 "%1"' = 0
 !uninstfinalize '"${SIGNTOOL}" sign /sha1 ${THUMBPRINT} /fd SHA256 "%1"' = 0
-
-!define MUI_HEADERIMAGE
-!define MUI_HEADERIMAGE_BITMAP "${RESOURCES}\header.bmp"
-!define MUI_WELCOMEFINISHPAGE_BITMAP "${RESOURCES}\welcome.bmp"
 
 !insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_LICENSE "${LICENSE}"

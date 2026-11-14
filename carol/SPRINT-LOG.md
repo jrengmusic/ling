@@ -114,6 +114,192 @@
 <!-- The entry format is in /log (commands/log.md). It is the only source. -->
 <!-- Sprint entries go here, written by PRIMARY agents -->
 
+## Sprint 13: LING Part 13, binding by libclang symbols, owned one-shot jobs, and the Index and Query split ✅
+
+**Date:** 2026-11-15
+**Duration:** Not measured. The work took several sessions, with compactions between them.
+**Scope:**
+- `PLAN-ling-13-binding.md` Steps 1-7, and its Amendment A (approved 2026-11-15).
+- ARCHITECT's rulings this sprint, verbatim:
+  - *"respect the architecture, dont fucking hack and just create workaround. hot path should always lock free, no lock, no wait. unless libclang being called at message thread, then it must be done in parallel, thread pool, ephemeral, one shot, clean up when done, all of it without manual thread management, nor manually handle the state machine, everything is fully event driven, by Model parameters."*
+  - *"EVE already show exactly the pattern. hot path always lock free, FULL THROTTLE no wait. but at seam where we have no control like native TTY, we sync our rhythm so we nothing ever waits. if building AST for index swap genuienely need to be done in parallel then dont call it in hot path, do it in message thread, transport to hot path"*
+  - Audit #11: *"Keep new names"*.
+  - Audit #24: split Processor into Index and Query.
+  - *"proceed until /audit wholesale when all objectives achieved. then /log no gate"*.
+- Added by ARCHITECT this session: *"dont forget to write RFC for machinist at ~/.config/ to wire my nvim with ling to replace clangd."*
+
+### Agents Participated
+- COUNSELOR: Amendment A, every brief, the read of each return, the course corrections, the runtime diagnosis of two failures, the audit filter, the doxygen targets and their check, the RFC, and this log.
+- Engineer (sonnet): A1 and A2, the A4 split, the build fixes, the two job corrections, the two audit fix batches, and the verification runs.
+- Auditor (opus): one audit of the sprint.
+- Pathfinder (haiku): the nvim and runtime reads, the hang reproductions, the git and process checks, and the doxygen pass.
+
+### Files Modified
+**JAM**
+- `jam_syntax_tree/document/jam_LanguageInterface.h` — `LanguageCallbacks::addSymbol` takes the path, the 1-based line and column, the symbol, and the role. New field `shouldExit`. Doxygen for both, and for `LanguageIndex`.
+
+**LING**
+- `language/cLang/language.cast`, `construction.md`, `spell.md`:
+  - Each `index()` call owns its libclang library, its CXIndex and its CXIndexAction, and frees them in reverse order.
+  - The `thread_local` handles, `call_once`, the static caches, `applySdk` and `setEnvironmentVariable` are gone. The SDK goes on the command line through the `sdkFlags` row (`-isysroot`).
+  - A load failure, including an empty install folder, returns `indexFailure`.
+  - The unused `<mutex>` include and `SkipParsedBodiesInSession` are removed. `count` plus `at` became one `find`.
+- `Source/Processor.h`, `.cpp`:
+  - `ParseJob` and `IndexJob` are owned one-shot pool jobs, in EVE's `PreviewComponent` pattern. Processor derives `juce::AsyncUpdater`, and `handleAsyncUpdate` applies the results. `pendingJobs` is gone.
+  - Index jobs start only from a document parsed again. They wait in `nextIndexJobs`, and `addIndexJobs` starts them when no parse job remains.
+  - A new event calls `pool.removeJob (job, true, noWait)`. It replaces a job that has not started, or signals a running one.
+  - `diagnostics`, `getUnit` and `hasDependency (unit, unitIndex, rowIndex)` stay in Processor.
+- `Source/Index.h`, `.cpp` (new):
+  - Index holds the state: paths, documents, languages, declarations, references, and the pending bindings.
+  - It runs the record pass, in row order. The first record wins within the pass (`boundElements`).
+  - It does the swap I/O.
+- `Source/Query.h`, `.cpp` (new): the 12 request operations, the request parsing, and the resolution walks. Each reads `const Index&`. Its only member is `slab`. The lookup is by `Id::symbol` only.
+- `Source/Manifest.h`, `.cpp`: `ManifestJob`, applied in `handleAsyncUpdate`, replaces the `callAsync` return of the pool job.
+- `Source/CompilerManifest.h`, `.cpp`:
+  - The getFiles path sets `failConstructionNotFound` and writes `Id::message` on the files tree.
+  - `getOrCreateConstructions` is the one writer of the defaults. `applyDefaults` is private.
+- `Source/LINGModel.*`, `Source/Main.cpp` (`map::Family` is an Application member), `cast/identifiers.md` (`role`, `checkFlags`), `cast/text.md` (`failConstructionNotFound`), `PLAN-ling-13-binding.md` (Amendment A).
+- `/Users/jreng/.config/RFC-ling-replace-clangd.md` (new): the RFC for MACHINIST, with 8 open questions.
+
+### Alignment Check
+- [x] BLESSED principles followed.
+  - Jobs are owned and one-shot.
+  - The pool is declared after the job maps, so it stops every job before they are freed.
+  - The message thread applies every result.
+  - No lock, no counter, and no manual thread exists.
+- [x] NAMES.md adhered. New names come from existing families: `ParseJob` and `IndexJob` from EVE's `DecodeJob`; `ManifestJob`; `setJob`, `removeJob`, `addIndexJobs`; `waitForJob` and `noWait`. `getOrCreateConstructions` follows Rule 3.
+- [x] MANIFESTO.md principles applied.
+- [ ] MANIFESTO §L: `Processor.cpp` is about 600 lines. The Auditor ladder reached Q5. Each split it tried makes Processor ask whether builds or precompiles remain, so it fails "Tell, don't ask".
+
+### Problems Solved
+- **Index job churn.**
+  - Symptom: the first cold run started 110299 index jobs for 142 units, and did not end within 15 minutes.
+  - Cause: each reparsed document restarted every dependent unit. The index jobs also shared the pool with the parse jobs.
+  - Fix: queue each unit once, and start the queue only when no parse job remains.
+- **A hang at 0% CPU.**
+  - Cause: `juce_ThreadPool.cpp:290-295` (JUCE9) drops a signalled job that has not started, and never runs it. So its row never left the job map, and `setDocuments` never ran.
+  - Trigger: concurrent edits in `jam_terminal` started the restarts (`run7.err:149-222`).
+  - Fix: the locked `removeJob (job, true, noWait)` (`juce_ThreadPool.h:194`).
+- **Audit.** 5 blocking findings and 30 others.
+  - Resolved:
+    - B1: a stale symbol stayed after a dependency change. Replaced per pass.
+    - B2: a lost index was never retried. A failed index now deletes the unit's swaps.
+    - B4: the query logic moved from Index to Query.
+    - B5: the diagnostics precompile path now triggers an update.
+    - N1, N3, N4 (`Manifest.cpp`), N6, N7, N8, N9, N10, N11, N12, N18, N19 (`getOrCreateConstructions`), N20, N21, N22, N23, N24, N28 (`shared_ptr` by reference).
+  - Rejected with a read:
+    - B3: MANIFESTO, "Add and remove operations are state updates".
+    - N2: JAM has no public transparent hash, `jam_Strings.h:690-711`.
+    - N4 at the subprocess sites: `jam_Subprocess.h:16`.
+    - N5: ARCHITECT, "do it in message thread".
+    - N13: a conversion at the store.
+    - N14, N15: `jam_Model.h:1187`.
+    - N16, N17.
+    - N19 for `setFile` and `setDocuments` (named in A2.11).
+    - N19 for `getWord` (it writes its own files tree) and `getCheckFlags` (it alone holds the parse error).
+    - N20 for `runRequest`: `jam::Function::Map` has no single lookup.
+    - N25: named in A1.4.
+    - N26: `HELP.md:44`.
+    - N27: A2.5 limits the stored role to the maps.
+    - N28 for the `juce::String` fields: a JUCE File boundary.
+    - N29, N30: rulings 60, 61, 66 and 76(e).
+  - #33 from the first audit:
+    - The `## compilerManifest` `@brief` is identical to `c_language.md:4` at HEAD, so it moved.
+    - The `## checkFlags mac` `@brief` was new before the audit. It stays as part of the doxygen pass.
+- **Verification.**
+  - Two cold runs of END give `5606 documents` (83.12 s and 83.97 s), with byte-equal swaps (2923 files, 0 differences).
+  - A warm run takes 20.47 s and starts no index job.
+  - `findReferences` on `PluginState.h:41` and `Session.h:85`, and `goToDefinition` on `ENDView.cpp:360`, equal the baselines.
+  - Earlier runs gave `5608`. The other workstream's `jam_terminal` edits changed the file set.
+
+### State for Continuation
+- The doxygen pass left pre-existing members undocumented: `Index::addOrReplaceProperty`, `Index::bindings`, `Processor::diagnostics`, `addPrecompile`, `addCheck`, `Manifest::getRoots`, and `CompilerManifest::getWord`, `applyDefaults`, `getConstruction`, `getCheckFlags`, `getBuildDirectory`.
+- Regenerate the JAM doxygen XML for `jam_LanguageInterface.h` (`<leader>bd`).
+- Stale language config copies are in the scratchpad (`config-cLang-stale*`). Old hash-named libraries stay in `~/.cache/ling/language/cLang`.
+- The first A1+A2 Engineer kept running after its report until it was stopped at about 03:12. A read of `Processor.*` shows only the intended structure. The `jam_terminal` and `TerminalEncoder` edits (mtime 03:02) belong to the parallel session.
+- Windows checks are ARCHITECT's. The open questions of `RFC-ling-replace-clangd.md` and `RFC-ling-nvim.md` are MACHINIST's and ARCHITECT's.
+
+### Debts Paid
+- None
+
+### Debts Deferred
+- None
+
+## Sprint 12: LING Part 12, the language layer as data, the parity operations, and member access by object type ✅
+
+**Date:** 2026-11-14
+**Duration:** Not measured. The work took several sessions, with compactions between them.
+**Scope:** `PLAN-ling-12-language.md`, Steps 1–12, from ARCHITECT's discussion of 2026-11-14 (the PLAN quotes it). After the audit, ARCHITECT added two items:
+- MACHINIST's report on `findReferences` for `PluginState::setRows`. ARCHITECT: *"if machinist report is valid, fix it dont leave it broken"*, then *"DESIGN BY CONTRACT"*.
+- *"proceed until /audit wholesale when all objectives achieved. then /log no gate"*.
+
+### Agents Participated
+- COUNSELOR: the PLAN, every delegation brief, the read of each return, the baseline and runtime scripts, the whatdbg sample specs, the audit filter, the doxygen targets and their check, and this log.
+- Engineer (sonnet): Steps 3–10, the audit fixes, the object links (library, JAM callback, Processor), the template boundary, the brace initializer, and the `applyToDerived` order.
+- Auditor (opus): one wholesale audit as two parallel sweeps, JAM and LING.
+- Pathfinder (haiku): the discovery reads, every runtime and baseline run, three whatdbg samples, and the doxygen passes for LING and JAM.
+
+### Files Modified (about 60 total)
+**JAM**
+- `jam_syntax_tree/document/jam_LanguageInterface.h` (new) — the C boundary of a language library: `LanguageToken`, `LanguageRole`, `LanguageCallbacks` (with `addObject` as its last field, so the layout of the earlier fields stays), `LanguageEntry`, `LanguageBuild`. It has no includes and no JAM or JUCE dependency.
+- `jam_syntax_tree/document/jam_LanguageLibrary.h`, `.cpp` (new) — `getLanguageLibrary` opens the library and asserts every entry. Private `getClasses`, `getKeywords`, `getRoles`, `getCounterparts`.
+- `jam_syntax_tree/document/jam_LanguageDocument.h`, `.cpp` (new) — `parse`, `isValid`, `read`, `hasRole`; the callbacks `addElement`, `addComment`, `addParameters`, `addMember`, `addLinkEndpoints`, `addObject`. `addObject` appends to `Id::object` through `addLinkEndpoint`.
+- `jam_syntax_tree/document/jam_LanguageValidator.h`, `.cpp` (new) — the five rules of the old C validator, with the type range from the library roles.
+- `jam_syntax_tree/document/jam_SyntaxTree.h`, `.cpp` — `parse` and `isValid` are removed. `getFamily` remains. `jam_CodeDocument.h` — `getFamily` is removed, and `getKeywords` is virtual.
+- `jam_CLanguageDocument.*`, `jam_CLanguageValidator.*`, `jam_Language.*` — deleted.
+- `jam_core/document/jam_Document.h:1046` — `getValid` asserts that the document is not nullptr (doxygen-pass finding F1, CODING "Preconditions use assert").
+- `jam_markdown/document/jam_MarkdownDocument.h`, `.cpp` — `isEnabled (key, isAbsentEnabled)`; `getColumnWidths` reads the `column-widths` list; `getColumnFractions` measures, then shares the remainder with `jam::Value::map` and `clipMin`. `cast/markdown.md` gains `columnWidths` and `showMetadata`. JAM is regenerated.
+
+**LING**
+- `project-info.md:30` — version 0.0.1 (`versionNumber` `0x1`).
+- `language/cLang/` (new): `spell.md`, `construction.md` (the tables, the roles, `extensionPairs`), `language.cast` (the procedures of the old C document as plain C++17).
+  - `addReferences` returns the references it adds, and links a member access to the reference before its operator (`getObjectPosition`).
+  - `addObjects` links a declaration to the references that name its type, or to the first initializer reference when it has none. `Element.objects` records the links, as `Element.isMember` records `addMember`.
+  - `getBoundary` ignores a `(`, `[` or `=` inside a template argument list. A `<` opens the list only after an identifier, so `operator<` and comparisons stay as they were.
+- `Source/Processor.h`, `.cpp`:
+  - `jam::LanguageDocument` replaces `jam::CodeDocument`. Roles replace the C types.
+  - New operations: `switchSourceHeader`, `inlayHint`. The library build is one per family. A hash-named copy of each build is opened, because `dlopen` returns the same handle for the same path (`man dlopen`).
+  - `applyToDeclarations`: a member element goes through `getMemberPaths (pathIndex, member)` and `getClassPaths`. When no class is found, it falls back to `applyToMembers` by name (`PLAN-ling-5-links.md:24`).
+  - `findReferences` adds each declaration to its result.
+  - `applyToDerived` tests the base role before `isReferenceTo`.
+- `Source/JsonWriter.*`, `LINGModel.cpp`, `Main.cpp` — the audit fixes. `cast/identifiers.md` gains `cast`, `inlayHint`, `switchSourceHeader`. `cast/c_language.md` — the mac check flags give parseable fix-its.
+- `Source/HELP.md` — frontmatter, the new operation rows, and the `findReferences` row: "Each declaration of the element at the position, and the references to it."
+- `/Users/jreng/.config/RFC-ling-nvim.md` (new) — the RFC for MACHINIST.
+- `cast/signing.md` — the entitlement row `com.apple.security.cs.disable-library-validation`, the same row as `end/cast/signing.md:14`. cast writes it to `entitlements.plist`, and the Release sign step passes that file to codesign (`CMakeLists.txt:434`).
+
+### Alignment Check
+- [x] BLESSED principles followed. The parse links each object at creation, and Processor reads the links in place (MANIFESTO **E**, Complete at Creation).
+- [x] NAMES.md adhered. `LanguageLibrary` is ARCHITECT's name. The object links reuse `Id::object` (`jam/cast/core.md:121`) and the `add*` callback family.
+- [x] MANIFESTO.md principles applied.
+- [ ] MANIFESTO §L: `addJob` is 45 lines. A split needs an out-parameter or a fake carrier, so it stays.
+
+### Problems Solved
+- **MACHINIST's report was valid.** `findReferences` on `PluginState::setRows` gave 4 calls on other classes and no declaration. The by-name rule of `PLAN-ling-5-links.md:24` caused it. The result is now `PluginState.h:41`, `PluginState.cpp:158`, `Session.cpp:40`, which is the true set. clangd misses `Session.cpp:40`. LING keeps it, because the object `pluginStates.at (uuid)` has no resolvable type, and the by-name fallback applies.
+- **Three causes, each read before the fix:**
+  1. No object link. A member access recorded no object (`language.cast` `addReferences`).
+  2. A brace initializer. `getPreludeEnd` stops at `{`, so `auto& session { getSession() }` gave no initializer to `addDeclarators`.
+  3. The template boundary. `getBoundary` took the `(` inside `Map<..., int (...)>` (`jam_ReflowDocument.cpp:192`). `getStatementEnd` then chained every later block, and every declaration after line 191 was lost (`documentSymbol` showed none past line 182).
+- **The goToImplementation regression (before the audit).** A sample put 67% in `HashMap::at`. `LanguageDocument::hasRole` now reads the document's own library: 576–611 s.
+- **goToImplementation after the parse fix.** The run passed the 780 s limit. A sample put 100% of the message thread in `applyToDerived` → `isReferenceTo`. The base role is now tested first. Result: 25 s, against 611 s. The result differs from the last run only by line shifts from the doxygen pass (`jam_MarkdownDocument.h` 554→555, `jam_CodeDocument.h` 82→93) and one recovered implementation (`jam_ReflowDocument.cpp:616`).
+- **Audit.** Two parallel sweeps. The fixes and the rejections are in the session record. The doxygen pass reported F1–F3. F1 is fixed (`jam_Document.h:1046`). F2 is rejected: the sole caller gives a named column a length of zero (`jam_MarkdownDocument.cpp:1102-1114`, `jam_MarkdownBlockParser.cpp:1794`). F3 is rejected: `jam::Array::last` asserts at its owner (`jam_Array.h:308`).
+- **The signed Release build loaded no language.** ARCHITECT's run gave `language library did not load` and `0 documents`. The kernel log: *"AppleMobileFileIntegrity) Library Validation failed: Rejecting '…/-3063693980930219348.dylib' … reason: mapping process and mapped file (non-platform) have different Team IDs"*. The Release binary runs with the hardened runtime and Team ID `9BDSN9TDX3` (`flags=0x10000(runtime)`). The library that cast builds on the machine is ad-hoc signed. Every earlier check used the Debug build, which is ad-hoc signed too, so the check never ran there. With the entitlement, the installed binary gives `5625 documents` on END, and `findReferences` on `PluginState::setRows` gives the 3 true references in 5.2 s.
+- **Verification.** Before the object-link work, each output was equal to the baseline under the filter, and the warm run was byte-equal. `switchSourceHeader`, `inlayHint`, the fix-its, the hot reload with the same daemon PID, and Part 8 Step 7 items 2–8 passed. After the object-link work, the baseline outputs differ only by the doxygen line shifts, the added declarations in `findReferences`, and the recovered declarations.
+
+### State for Continuation
+- **findReferences cost.** `Session::setRows`: 7.40 s before the object links, 25 s after (warm, `scratchpad/sample3`). A sample puts 73% in `getClassPaths`, inside the scope walk (`getDeclarationPaths` → `getMemberPaths` → `applyToBases`). Every unqualified type name walks the bases of each enclosing class. MANIFESTO permits a second structure only with a measurement. The measurement is the sample above.
+- **Objective-C headers.** The template boundary changes the counts of some AppKit headers by one declaration (`NSApplicationScripting.h` 3→2). The C grammar does not model `@interface` or `@property`. The old counts were misparses too.
+- **Unresolved objects fall back to the name.** `this->x`, a call result (`a.b().c`), and an object whose type is a template parameter give every member with the name.
+- **The config copy wins.** `Processor::saveToPath` copies the language files only when absent (`Processor.cpp:838-846`). A machine with an older `~/.config/ling/language/cLang/` keeps the old template and the old interface header, so it gets no object links. Remove that folder to take the new files.
+- Regenerate the doxygen XML of JAM and LING. `jam/docs/xml/index.xml` was 0 bytes at the last read.
+- Old hash-named libraries stay in `~/.cache/ling/language/cLang`. Port files stay after SIGTERM.
+- Windows checks are ARCHITECT's. The open questions of `RFC-ling-nvim.md` are MACHINIST's.
+
+### Debts Paid
+- None
+
+### Debts Deferred
+- None
+
 ## Sprint 11: LING Part 9, completion and snippets from the stored document ✅
 
 **Date:** 2026-11-14
@@ -293,165 +479,6 @@
 
 ### Debts Deferred
 - Step 8, the Windows build and run (`PLAN-ling-8-daemon.md`, Step 8). It is ARCHITECT's (ruling 78). No `DEBT.md` entry exists.
-
-## Sprint 8: LING Part 7, the lookups across the documents and the nine operations ✅
-
-**Date:** 2026-11-13
-**Duration:** not measured. The sprint is one session, with one pause for an API rate limit.
-
-### Agents Participated
-- COUNSELOR — executed `PLAN-ling-7-queries.md` Steps 1-6. Validated each Engineer return by its own reads. Diagnosed the two Step 6 failures. Filtered the 29 Auditor findings and the 3 findings of the doxygen pass. Amended the PLAN for each contract correction, and recorded every new name in its Names table.
-- Pathfinder — discovery reads, the Step 6 runs of `ling` (five rounds), and the doxygen pass.
-- Engineer — Steps 1-5, two Step 2 and Step 5 corrections, the constructor fix, the audit fixes, and the cast builds.
-- Auditor — one pass over the sprint. It reported 29 findings.
-
-### Files Modified (13 total)
-**ling:**
-- `Source/Processor.h`, `.cpp` — the lookups: `getPath`, `getElement`, `applyToDeclarations` (element and path forms), `applyToReferences` (element and path forms), the scope walk (`getDeclarationPaths`, `getMemberPaths`) with the base step (`applyToBases`) and the member lookup (`applyToMembers`). The nine operations are entries of `events` (END's `Events` form), selected by `runRequest`. `applyToPosition`, `applyToFunctions`, `applyToDerived`, `applyToImplementations`, `setResult`, `getMatches` (`jam::Fuzzy`), `appendDocumentSymbols`. A `REQUEST` row runs when no parse is pending, or from `setDocuments`.
-- `Source/JsonWriter.h`, `.cpp` (new) — `appendString` (`juce::JSON::escapeString`), `appendKey`, `appendSeparator`, `appendArray`, `appendElement` (the object of one element, with a members callback). It holds all JSON structure; `Processor` writes no bracket, brace, or comma.
-- `Source/Main.cpp` — the operation run: `addRequest` adds the `REQUEST` row (`Id::command`, `Id::arguments`, `Id::directory`), then writes `Id::toolchainArgument` and `Id::manifest`. The `Id::result` reaction prints the JSON and quits. The `Id::documents` print runs only when the root holds no `REQUEST` row. `getFlags` (a `Function::Map`, the form of `jam_CodeDocument.cpp:27-43`) and `getFlagWord` replace `isVersion`, `isHelp`, `getVersionFlag`, `getHelpFlag`. `getDocumentFile` takes the argument index.
-- `Source/HELP.md` — the operation rows, the `## Operations` table, the entry keys, and `type` as the numeric `map::SyntaxTokenType` value.
-- `cast/identifiers.md` — `children`, `column`, `scope`, the nine operation names, `request`, `result`. `cast/text.md` — `failArguments` `wrong arguments`. `project-info.md` — the `jam_fuzzy` `## user module` row. `Source/generated/*` — cast output.
-- `PLAN-ling-7-queries.md` — the name compare, the base step union, the constructor rule of the scope walk, the path-index signatures, the path overload in place of `getElements`, the unnamed declarations of `documentSymbol`, the request order and `Id::directory`, the `JsonWriter` structure, the Names table, the `jam_Array.h` path, Step 6 item 2 on LING's manifest.
-- `PLAN-ling-0-tracker.md:25` — Part 7 status.
-
-### Alignment Check
-- [x] BLESSED principles followed
-- [x] NAMES.md adhered. Every new name is in the PLAN-7 Names table with its family.
-- [x] MANIFESTO.md principles applied
-- [ ] MANIFESTO §L: `Processor.cpp` is about 560 lines and `Processor.h` about 870 with doxygen. The Auditor ladder (finding 6) found the DRY repeats (findings 1-4, 7), which are resolved. No split was proposed with the checks that the Auditor Lean ladder requires.
-
-### Problems Solved
-- **Step 6 item 2 returned `[]` on END's manifest.** END's build compiles no `jam_syntax_tree` file: `ling end/project-info.md --debug` lists 5600 documents and no `jam_CodeDocument` row. The checks now run on LING's manifest, which compiles `jam_syntax_tree`.
-- **`goToImplementation` on `Document::build` returned `[]`.** The base `Document` of `struct MarkdownDocument : Document` resolved to the constructor `Document::Document` (`jam_Document.h:910`): the try `[jam, Document, Document]` found it. A try whose declarations are all constructors or destructors now gives nothing, so the walk reaches the class. The run then gives the `build` overrides of ten document types.
-- **Contract corrections during the steps:** `isSameName` compares two tokens of one source (`jam_CLanguageDocument.h:54`) and names a language, so names compare as views. The base step takes the union of all bases (a first-found base depends on hash-map order). `applyToReferences` needs the declaration's document. `applyToDeclarations` (35 lines) and `workspaceSymbol` (57 lines) were split by responsibility (`applyToMembers`, `getMatches`). A `.substr` on `std::string` copied in `JsonWriter`.
-- **Auditor findings.** Resolved: 1, 2, 3, 4, 5, 6 (Q1), 7, 8 (`Id::directory`), 9, 11, 13, 14, 16, 17, 21, 23, 24, 25, 26, 29, and the shadowed local `paths` that Engineer flagged. Rejected with a read: 8 (symbolic link: no read shows the row form), 10 (the path arrays hold views; "a view passed by value does not copy the data it names"), 12 (`Pattern::match` takes only `juce::String`, `jam_BonusMatrix.h:242`), 15 (each name was in a delegation prompt and has a family), 18 (one element per identifier, `jam_CLanguageDocument.cpp:756`), 19 and 20 (a reference's owner is the declared element or the scope, `jam_CLanguageDocument.h:420-432`), 22 (no clause), 27 (no CODING clause), 28 (`jam::Format::append*` takes `std::string&`, `jam_Format.h:390`).
-- **Doxygen pass findings.** F1 and F2 (asserts on the name) rejected: the collectors establish the invariant, and a second assert is the MANIFESTO D violation that finding 16 removed. F3 (`callAsync` after destruction) rejected: messages are dispatched only inside `runDispatchLoop` (`juce_ApplicationBase.cpp:277`), which ends before the application is destroyed (`:268`, `:281`).
-- **Verification (Step 6), on LING's manifest, after the audit fixes.** Item 2: `goToDefinition` gives `jam_CodeDocument.h:103` and `.cpp:72`; `findReferences` gives the call `.cpp:33:88` and not the definition; `documentSymbol` gives `jam`, `CodeDocument`, 22 members; `workspaceSymbol CodeDoc` holds `jam_CodeDocument.h:25`; `incomingCalls` gives `getVocabulary` and `getToken`; `goToImplementation` gives the `build` overrides. Item 3: both pairs byte-equal. `hover` adds `scope`. A wrong word or count prints `wrong arguments` and `[]`. Every output is valid JSON. Item 4: `findReferences` on `CodeDocument::parse` gives 9 member calls named `parse` (a member reference gives every member with that name, PLAN Risks); the LSP tool gives only the declaration, because its index does not resolve JAM `.cpp` files.
-
-### State for Continuation
-- Next sprint, ARCHITECT: "we discuss json document next sprint after wrapping up". The design under discussion: a JAM `JsonDocument` with a `std::string` writer, which replaces `jam::json` and `ling/Source/JsonWriter`. Open point: `Document::Writer::getText` returns `juce::String` (`jam_Document.h:891`), and `CssWriter`, `MarkdownWriter`, `MermaidWriter` derive from it.
-- Step 6 item 5 is not run. A scout workload writes a samples file (`~/.carol/skills/profile/SKILL.md:317-324`), and `ling` writes none. The same item of Part 6 is open (Sprint 7).
-- Timing on LING's manifest (4770 documents, Debug): one operation takes about 65 s, which is the parse. `findReferences` on `parse` takes about 115 s. `goToImplementation` on `Document::build` took 435 s alone. PLAN Risks names this cost; Part 8 removes the parse from each call.
-- `ling` has no `doxygen` ninja target (`ninja -t targets all`). A doxygen run over the five changed files gave 0 warnings (`scratchpad/doxcheck/warn.log`).
-- `Fuzzy::Pattern::match` takes only `juce::String` (`jam_BonusMatrix.h:242`), so `workspaceSymbol` makes one `juce::String` per declaration.
-
-### Debts Paid
-- None
-
-### Debts Deferred
-- Step 7, the Windows build and run (`PLAN-ling-7-queries.md`, Step 7). It is ARCHITECT's (ruling 78). No `DEBT.md` entry exists.
-
-## Sprint 7: LING Part 6, the state model: one row per file, parsed in parallel, from the compiler manifest ✅
-
-**Date:** 2026-11-13
-**Duration:** not measured. The sprint ran over two sessions (one compaction).
-
-### Agents Participated
-- COUNSELOR — executed `PLAN-ling-6-manifest.md` Steps 1-7. Validated each Engineer return by its own reads. Ran the ODE diagnosis and the whatdbg attach sample. Filtered the 35 Auditor findings and the 3 points of the doxygen pass. Amended PLAN Parts 4-9 and 11 for the two contract corrections below, and recorded every new name in the PLAN-6 Names table.
-- Pathfinder — discovery reads, the Step 7 runs of `ling` (four rounds), the ninja-against-ling file compare, the whatdbg `sample` run, and the doxygen pass.
-- Engineer — Steps 1-6, the `JUCEApplicationBase` rewrite of `Main.cpp`, the `Id::syntax` change, and two rounds of audit fixes.
-- Auditor — one pass over the sprint. It reported 35 findings.
-
-### Files Modified (about 45 total)
-**jam:**
-- `cast/core.md:2118`, `:2128` — extension rows `cxx`, `mm`. `:140` — identifier `syntax`.
-- `cast/syntax_tree.md:424-425` — `Extensions::cxx`, `Extensions::mm` give `cLang`.
-- `user-modules-info.md:1151-1152` — the `jam_SyntaxTree` submodule rows. `generated/jam_Core.*`, `generated/jam_SyntaxTree.*`, `jam_syntax_tree/jam_syntax_tree.h`, `.cpp` — cast output only.
-- `jam_syntax_tree/document/jam_CodeDocument.h` — `invalidFamily` and `getLanguageFamily` are public.
-- `jam_syntax_tree/document/jam_SyntaxTree.h`, `.cpp` (new) — `struct SyntaxTree`: `getFamily`, `parse`, `isValid`, with the tables `getDocumentConstruction` and `getValidators` keyed by `map::Family`. LING names no language type (ruling 22).
-- `jam_syntax_tree/document/jam_CLanguageDocument.h`, `.cpp` — `addElement` gives every element the id `Id::syntax` (`.cpp:731`). The local links compare names with `isSameName` (`.cpp:764-791`), which is public (`.h:54`).
-- `jam_syntax_tree/document/jam_CLanguageValidator.h`, `.cpp` — the `link` rule compares names. The failure text gives the name read from the source.
-- `jam_subprocess/subprocess/jam_ChildProcess.h:59`, `native/jam_ChildProcess_posix.cpp:211-254`, `native/jam_ChildProcess_windows.cpp:205-221` — `getArguments`: the clang GNU split on POSIX, `CommandLineToArgvW` on Windows. An empty line gives no argument, and a failed Windows split asserts.
-- `jam_core/text/jam_Strings.h:578`, `.cpp:626-630` — `getView (int)`, taken forward from PLAN-8 Step 1 item 4 (ruling 52).
-
-**ling:**
-- `Source/Main.cpp` — `class Application : juce::JUCEApplicationBase`, started by `START_JUCE_APPLICATION` (`:281`, last line). `initialise` writes `Id::toolchainArgument` and `Id::manifest`, or sets the exit code and calls `quit()`. The `Id::documents` reaction prints the rows and calls `quit()`. The arguments come from `getCommandLineParameterArray()`.
-- `Source/LINGModel.h`, `.cpp` (new) — the state tree, the `Id::message` parameter, the watcher. The `Id::manifest` reaction parses, validates, and replaces the `FILES` row whole.
-- `Source/Validator.h`, `.cpp` (new) — the `toolchain` column rule.
-- `Source/CompilerManifest.h`, `.cpp` (new) — the units from `compile_commands.json`, and the files of each unit from `ninja -t deps`. A path gets one row.
-- `Source/Processor.h`, `.cpp` (new) — one parse job per row on a `juce::ThreadPool`. No `juce::ValueTree` reaches the pool thread. A result is kept only when the row at its index still has its path and the file still has the read's modification time.
-- `Source/HELP.md`; `cast/c_language.md` (new), `cast/spell.md`, `cast/text.md`, `cast/identifiers.md`, `project-info.md` (`jam_subprocess`); `Source/generated/*` — cast output.
-- `PLAN-ling-6-manifest.md` — Step 6 item 1 (the application), Step 3 (`isValid`), the documents paragraph (index, path, time), the Step 6 Validation (`applyToDocuments`), the Names table. `PLAN-ling-4`, `-5`, `-7`, `-9`, `-11` — the element id is `Id::syntax` and every id read becomes a name read. `PLAN-ling-8` Step 1 item 4 is marked done. `PLAN-ling-0-tracker.md:22-24` — status of Parts 4, 5, 6.
-
-### Alignment Check
-- [x] BLESSED principles followed
-- [x] NAMES.md adhered. Every new name is in the PLAN-6 Names table with its family. `Id::syntax` is ARCHITECT's: "Id::syntax? Id::keyword? @NAMES.md", then "/go".
-- [x] MANIFESTO.md principles applied
-- [ ] MANIFESTO §L: `jam_CLanguageDocument.cpp` is about 875 lines. The split that the Auditor offered only relocates one responsibility (MANIFESTO §L, file size), so it is rejected.
-
-### Problems Solved
-- **The message loop never ran on macOS.** The ODE log showed `runDispatchLoop` return at once with no stop message. `runDispatchLoop` is `[NSApp run]` (`juce_MessageManager_mac.mm:323-351`), and only `JUCEApplicationBase::main (argc, argv)` makes the `NSApplication` (`juce_ApplicationBase.cpp:242-244`). ARCHITECT: "juce CAN be used to create CLI and TUI ... what's the established pattern? what's the isomorphic abstraction?" The application is now a `juce::JUCEApplicationBase` (`juce_events`), as tit uses `START_JUCE_APPLICATION`. My first options (an `.mm` file, a forward declaration, `JUCEApplication`) were wrong; ARCHITECT rejected them.
-- **The parse jobs ran one at a time.** A whatdbg attach sample showed ten pool threads in `__psynch_mutexwait` under `juce::Identifier::Identifier` → `StringPool::getPooledString`. `addElement` made one pooled id per element, and the pool has one process-wide lock. The name already lives in `Id::name`, so the id was a second copy (MANIFESTO S). The id is now the tag `Id::syntax`. END `--debug`: 71 s real, 227 s user, against a run that did not end in 120 s.
-- **Two contract findings on the jobs.** F4: a `juce::ValueTree` was copied and destroyed on the pool thread (MANIFESTO B). F6: an older parse could replace a newer one (MANIFESTO D). The job now carries the row index, the path, and the modification time. ARCHITECT: "why always leave ANYTHING HALF-ASSED?"
-- **Auditor findings.** Resolved: F2, F4, F6, F8, F9, F10, F12 (PLAN text), F13, F16, F17, F21, F25, F27, F29, F33, F35. Rejected with a read or a PLAN line: F1, F3, F5, F7, F11, F14, F15, F18, F19, F20, F22, F23, F24, F26, F28, F30, F31, F32, F34. ARCHITECT received each one in chat.
-- **The doxygen pass.** The stale id blocks are corrected. COUNSELOR fixed the `@return` tag and added the why to the `addElement` block. A bad `@returns` replacement gave 6 warnings (`@returnThe`). Fixed, and ARCHITECT's next build ran with no further report.
-- **Verification (Step 7).** `ling end/project-info.md --debug`: 5600 documents. Two runs are byte-equal. The rows for `end/Source/Main.cpp`, `jam_core/document/jam_Document.cpp`, `juce_core.h` and `vector` exist, and no path has two rows. Against `ninja -C Builds/Debug -t deps`, normalised: ling has no path that ninja lacks. The 35 paths that only ninja has are 33 shader files of the `spv` units, which are not in `compile_commands.json`, and 2 files that no longer exist on disk. `--nothing`, the column fixture, and `ling end/Source/Main.cpp` print `0 documents` with the expected diagnostic. `ling end/project-info.md --debug extra` prints `ling: extra: unknown flag`.
-
-### State for Continuation
-- Step 7 item 6 is not run. whatdbg launch takes `program` and `cwd` only, with no arguments (`~/.carol/skills/trace/SKILL.md:93-106`). The attach form works (this sprint's sample ran with a Monitor-started process), but a breakpoint at the return of `getArguments` stops 142 times and the attach must come before `CompilerManifest` runs. ARCHITECT decides the form.
-- Step 7 item 7 is not run. A scout epoch needs a samples file that the command writes (`~/.carol/skills/profile/SKILL.md:80-82`, `:94`), and ling writes none. ARCHITECT decides the form.
-- Step 8 (Windows) is ARCHITECT's (ruling 78). The Auditor raised a possible `\r\n` from ninja on Windows (F11), not observed (`CompilerManifest.cpp`, the record read).
-- A run on the 142 END units with no `ninja` row (`scratchpad/probe/units`) took 31 s before the `Id::syntax` change. It was not timed again.
-- Each run of the one-file probe now takes 0.20 s.
-- `Source/Main.cpp.bak` was a scratchpad backup only. No file in the project holds it.
-
-### Debts Paid
-- None
-
-### Debts Deferred
-- Step 8, the Windows build and run (`PLAN-ling-6-manifest.md`, Step 8). It is ARCHITECT's (ruling 78). No `DEBT.md` entry exists.
-
-## Sprint 6: LING Part 5, references and local links as metadata of the file tree ✅
-
-**Date:** 2026-11-12
-**Duration:** not measured. The sprint is one session.
-
-### Agents Participated
-- COUNSELOR — executed `PLAN-ling-5-links.md` Steps 1-6. Wrote the exact code of each brief. Validated each return by its own reads. Filtered the 24 Auditor findings and the 3 points of the doxygen pass. Made one doxygen line fix and recorded the executed names and the `link` correction in the PLAN.
-- Pathfinder — discovery reads, the doxygen pass, the Step 6 runs of `ling`, and the state of the repos.
-- Engineer — Step 1 and the cast runs with snapshot diffs. Steps 2-3. Steps 4-5. The six accepted audit fixes.
-- Auditor — one pass over Steps 1-5. It reported 24 findings.
-
-### Files Modified (12 total)
-**jam:**
-- `cast/core.md:95`, `:106`, `:111`, `:142` — rows `in`, `link`, `member`, `to`. `in`, `to`, and `link` moved down from `cast/mermaid.md` (PLAN inventory: a row that both modules read moves to `jam_core`).
-- `cast/mermaid.md` `## identifiers` — rows `in`, `link`, `to` removed. `out` stays (`:211`).
-- `cast/syntax_tree.md:63-65` — `SyntaxTokenType` rows `reference` 20, `call` 21, `base` 22. The brief at `:28-40` names the reference types.
-- `generated/jam_Core.h`, `.cpp`, `jam_Mermaid.h`, `.cpp`, `jam_SyntaxTree.h` — cast output only. The snapshot diffs showed no other change.
-- `jam_syntax_tree/document/jam_CLanguageDocument.h`, `.cpp` — `addReferences` makes one reference element for each identifier that is not a declared name. Each handler gives the ranges that it does not walk as statements to `addReferences`. `getReferenceOwner`: inside a function the function owns the references, otherwise the declared element or the scope. `addDeclarationContents`, `getBaseStart`, `getCandidateEnd` hold the reference ranges and keep each function near the limit. `addLocalLinks` runs at the end of `build()` and writes `Id::to` and `Id::in` through `addLinkEndpoint` and `addLinkEndpoints`. `isMemberAccess`, `isLocalReference`, `getLocalDeclarations`. Doxygen pass on every new and changed block.
-- `jam_syntax_tree/document/jam_CLanguageValidator.h`, `.cpp` — the `Id::type` rule accepts keys up to `base`. A new `Id::link` rule. `getElementFailures` holds the walk that the three rules share (Auditor 11, MANIFESTO S).
-
-**ling:**
-- `Source/Main.cpp:88-148` — `appendPosition`, `appendName`, `appendLinks`, `appendDeclaration`. A row prints the `Id::name` tokens joined with `::`, ` member` for a member access, and one `    to <line>:<column>` row for each target.
-- `PLAN-ling-5-links.md` — the executed names in the Names table, and the `link` execution correction in Step 1.
-
-### Alignment Check
-- [x] BLESSED principles followed
-- [x] NAMES.md adhered. Every new name is in a family (NAMES Rule 5). The PLAN Names table records each one.
-- [x] MANIFESTO.md principles applied
-- [ ] MANIFESTO L: `addClass` (`jam_CLanguageDocument.cpp:297-328`) is 32 lines. The Auditor's ladder found no fix for it (finding 22). `jam_CLanguageDocument.cpp` is about 880 lines. The type has one responsibility (PLAN-ling-4 Language Constraints).
-
-### Problems Solved
-- **`Id::link` lived only in `jam_mermaid_diagram`.** The Step 4 rule key is `link`, and `jam_syntax_tree` does not depend on that module. The row moved to `jam_core` with `in` and `to`.
-- **The local link walks top-down.** A function-type element never has a function-type parent (`getDeclarationType`, `jam_CLanguageDocument.cpp:626-667`). Thus the PLAN walk up the parents is one level, and a top-down walk over the mutable children gives the same links. The Auditor confirmed this.
-- **My `scopeTypes` capacity edit was wrong.** `LookupTable::operator[]` gives the default row for a key out of range (`jam_LookupTable.h:157-160`). I reverted the edit.
-- **Auditor findings.** 5, 9, 11, 14, 15 and 18 are resolved. 1, 2, 3, 4, 6, 7, 8, 10, 12, 13, 16, 17, 19, 20, 21, 22, 23 and 24 are rejected with a read or a PLAN line. ARCHITECT received each one in chat.
-- **The doxygen pass.** One line of the `addLocalLinks` block was false ("every element of the subtree of scope"). It is corrected. The pass reported 3 contract points: the `bool` inputs, the two 32-line functions, and the directive inside a declaration. All 3 are rejected.
-- **Verification.** ARCHITECT built LING, END, cast, and scout on macOS clean, and the Windows build is clean up to Part 4. The doxygen output is clean. Step 6: `ling 0.1.0 (a9b659c)`. The four `jam_CodeDocument.cpp` cases hold. Every use of `cursor` in `addStringToken` (`:102-118`) has `to 100:55`. The two `SessionView.cpp` outputs are equal (`cmp` 0, 321 lines each). The validator reports no failure.
-
-### State for Continuation
-- Part 6 is next (`PLAN-ling-6-manifest.md`). `PLAN-ling-0-tracker.md:22-23` still says "Written" for Parts 4 and 5.
-- Known limits that the Step 6 output shows. A statement that starts with `p->x`, `*p`, or `a > b` gives a fake local through the Part 4 declaration test (`jam_CLanguageDocument.cpp:599-619`), and later references can link to it (Auditor 1). A trailing return type after `->` gets `Id::member` (Auditor 2). A lambda parameter can link to an outer local (Auditor 20). A change to any of these is a change to the PLAN.
-- Declaration rows now print the qualified name, for example `CodeDocument::getToken` (`Main.cpp:97-110`).
-- The JUCE banner `JUCE v8.0.17` still goes to stderr on each run.
-- clangd does not resolve the framework `.cpp` files. `findReferences` gives only the header declaration.
-
-### Debts Paid
-- None
-
-### Debts Deferred
-- Step 7, the Windows build and run (`PLAN-ling-5-links.md`, Step 7). ARCHITECT: "it's pointless to test anything on windows, when we're still half assed implementation." No `DEBT.md` entry exists.
 
 ---
 

@@ -20,7 +20,7 @@ void Server::start()
 
 juce::File Server::getPortFile (const juce::File& manifest, std::string_view toolchainArgument)
 {
-    return LINGModel::getCacheDirectory().getChildFile (jam::Format::toFileName (LINGModel::getDaemonName (manifest, toolchainArgument).c_str(), files::lingPort));
+    return LINGModel::getCacheDirectory (manifest, toolchainArgument).getChildFile (jam::Format::toFileName (LINGModel::getDaemonName (manifest, toolchainArgument).c_str(), files::lingPort));
 }
 
 juce::File Server::getPortFile() const
@@ -43,7 +43,7 @@ void Server::valueTreePropertyChanged (juce::ValueTree& tree, const juce::Identi
 {
     if (property == Id::documents and tree == model.state)
     {
-        LINGModel::getCacheDirectory().createDirectory();
+        getPortFile().getParentDirectory().createDirectory();
         getPortFile().replaceWithText (juce::String (getBoundPort()));
         startTimer (model.state[Id::timeout]);
         model.removeListener (this);
@@ -54,6 +54,13 @@ void Server::valueTreePropertyChanged (juce::ValueTree& tree, const juce::Identi
 void Server::valueTreeChildAdded (juce::ValueTree&, juce::ValueTree& childWhichHasBeenAdded)
 {
     if (childWhichHasBeenAdded.hasType (jam::Format::toType (Id::request)))
+        stopTimer();
+}
+
+void Server::valueTreeChildRemoved (juce::ValueTree& parentTree, juce::ValueTree&, int)
+{
+    if ((parentTree == state or parentTree.getParent() == state)
+        and std::none_of (state.begin(), state.end(), [] (const juce::ValueTree& connection) { return connection.getNumChildren() > 0; }))
         startTimer (model.state[Id::timeout]);
 }
 

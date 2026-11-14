@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.18.0" xml:lang="en-US">
   <compound refid="class_application" kind="class"><name>Application</name>
+    <member refid="class_application_1a993bb13ed72f650c78bb405d94ebd59f" kind="variable"><name>family</name></member>
     <member refid="class_application_1ac75f70224a78b1776f74b5a6ab198787" kind="variable"><name>model</name></member>
     <member refid="class_application_1ae19aa36ff244839a964e7068b32e4e74" kind="variable"><name>processor</name></member>
     <member refid="class_application_1a351f2c9dafdfa5277c28dc453b9c252c" kind="variable"><name>manifest</name></member>
@@ -24,16 +25,6 @@
     <member refid="class_application_1ae7a4170563da33f06cb264b12b72108d" kind="function"><name>runOperation</name></member>
     <member refid="class_application_1a6d3a3f1db721639ea4efd49bd6bf4015" kind="function"><name>valueTreePropertyChanged</name></member>
   </compound>
-  <compound refid="structtext_1_1_c_language" kind="struct"><name>text::CLanguage</name>
-    <member refid="structtext_1_1_c_language_1a9be795f2d2883967cc207c7f541ff463" kind="variable"><name>compilerManifestCommand</name></member>
-    <member refid="structtext_1_1_c_language_1a7fb5fd950f3d94521013128911356798" kind="variable"><name>flagBuildDirectory</name></member>
-    <member refid="structtext_1_1_c_language_1ae03041f8f1b92f254b9b1389bcc84bcf" kind="variable"><name>compilerManifest</name></member>
-    <member refid="structtext_1_1_c_language_1ad1af23c7dc5da52607d788a1a20f3fba" kind="variable"><name>dependencyCommand</name></member>
-    <member refid="structtext_1_1_c_language_1aa56719167bbba6ef522401dc798cfa32" kind="variable"><name>flagDependencyDirectory</name></member>
-    <member refid="structtext_1_1_c_language_1ab8bea2ef87db0b9ec4600c8d770462d8" kind="variable"><name>dependencyFlag</name></member>
-    <member refid="structtext_1_1_c_language_1a9643ea126445b0aff1fa5a8ef6bdf829" kind="variable"><name>dependencyHead</name></member>
-    <member refid="structtext_1_1_c_language_1a3339c5f83477b96b8b2865d5200cf64f" kind="variable"><name>dependencyRecord</name></member>
-  </compound>
   <compound refid="class_client" kind="class"><name>Client</name>
     <member refid="class_client_1a61d2ac7e18277691aa73738a51ed7b89" kind="variable"><name>connectTimeoutMs</name></member>
     <member refid="class_client_1ada497223de332fd90f251dcd387b5181" kind="variable"><name>manifestFile</name></member>
@@ -51,16 +42,20 @@
     <member refid="class_client_1a70c485d5d4c5e8ceb24b89e9db1cd4ec" kind="function"><name>messageReceived</name></member>
   </compound>
   <compound refid="struct_compiler_manifest" kind="struct"><name>CompilerManifest</name>
-    <member refid="struct_compiler_manifest_1afae28058303b442370d04c23805a38dd" kind="function"><name>getFiles</name></member>
-    <member refid="struct_compiler_manifest_1a86692835222d24386b1ab5e3c5afc03d" kind="function"><name>getFilesConstruction</name></member>
-    <member refid="struct_compiler_manifest_1a19aa5842d058f8a553f44bf2e97d47a6" kind="function"><name>addCLanguageFiles</name></member>
-    <member refid="struct_compiler_manifest_1aae1bdb37a57862b8cc20232aabcbfaa8" kind="function"><name>addCLanguageUnits</name></member>
-    <member refid="struct_compiler_manifest_1a597cca6e747514d1bf62ada95c2ce80e" kind="function"><name>addCLanguageUnit</name></member>
+    <member refid="struct_compiler_manifest_1a271ed7330ef1aa3f9ae0363ca6fa3e00" kind="function"><name>getFiles</name></member>
+    <member refid="struct_compiler_manifest_1a57638975938c582f7637f95538b98dce" kind="function"><name>getCheckFlags</name></member>
+    <member refid="struct_compiler_manifest_1a2fd65f0d8b5218be4ed742a4209d9bac" kind="function"><name>applyDefaults</name></member>
+    <member refid="struct_compiler_manifest_1a43c350f4056f8a93cf130f67ae0ef6f7" kind="function"><name>getConstruction</name></member>
+    <member refid="struct_compiler_manifest_1af2c3841ea1c305df6ae7260b9fd91f63" kind="function"><name>getWord</name></member>
+    <member refid="struct_compiler_manifest_1a3f1647d792c87937d4918bb5839aea62" kind="function"><name>getOrCreateConstructions</name></member>
+    <member refid="struct_compiler_manifest_1a5b67735cd6c8c1e564aef844dbe81515" kind="function"><name>addFiles</name></member>
+    <member refid="struct_compiler_manifest_1aa34f2f6108ed7ee3df144caf200a7a1b" kind="function"><name>addUnits</name></member>
+    <member refid="struct_compiler_manifest_1a7dedcedc53dea8b5f5bc759cec872054" kind="function"><name>addUnit</name></member>
     <member refid="struct_compiler_manifest_1a24e08cc40e9081d979e22e3680aaeb3b" kind="function"><name>getCommandArguments</name></member>
-    <member refid="struct_compiler_manifest_1ad7aa4cb2cc1792abc97dc3fabb307292" kind="function"><name>addCLanguageDependencies</name></member>
-    <member refid="struct_compiler_manifest_1a6640f9d6d8fffc3ac4da177d14108db9" kind="function"><name>getDependencyArguments</name></member>
-    <member refid="struct_compiler_manifest_1a35121152e52c7c8d5ad86dad4cd8f1c6" kind="function"><name>addCLanguageRecords</name></member>
-    <member refid="struct_compiler_manifest_1a744a99f5c065ef4439a7824b80a0ce78" kind="function"><name>addCLanguageRecord</name></member>
+    <member refid="struct_compiler_manifest_1a64ba94018124741db83926d877d1b58b" kind="function"><name>addDependencies</name></member>
+    <member refid="struct_compiler_manifest_1af9cf7683ccf72b76c42bd2089bece7f1" kind="function"><name>getDependencyArguments</name></member>
+    <member refid="struct_compiler_manifest_1a7a936b6a6c37bd638bfb997ddf4b9efa" kind="function"><name>addRecords</name></member>
+    <member refid="struct_compiler_manifest_1a4ddff2dce32e455815f7da26f60400b5" kind="function"><name>addRecord</name></member>
     <member refid="struct_compiler_manifest_1acf1db0d6d6f7955e16ca1f11721a1b88" kind="function"><name>getOrCreateFileIndex</name></member>
     <member refid="struct_compiler_manifest_1a2ab0bfb600da37c5bdd0453d088d7da4" kind="function"><name>getBuildDirectory</name></member>
   </compound>
@@ -80,6 +75,7 @@
     <member refid="structtext_1_1_diagnostics_1a54030ad642dee1157d22d8255503812d" kind="variable"><name>failFlagUnknown</name></member>
     <member refid="structtext_1_1_diagnostics_1ab8e4b15951f8dd3ceb318d7d3e79ff15" kind="variable"><name>failArguments</name></member>
     <member refid="structtext_1_1_diagnostics_1a970639e94e56dd027f442cb9bf7f89a6" kind="variable"><name>failUnitNotFound</name></member>
+    <member refid="structtext_1_1_diagnostics_1a5860abb386798bd8f94149ffa570bc34" kind="variable"><name>failNoUnit</name></member>
     <member refid="structtext_1_1_diagnostics_1a92a2023e448148a2d35ffdcd09f5c242" kind="variable"><name>failCompilerManifestInvalid</name></member>
     <member refid="structtext_1_1_diagnostics_1a1b230c2f263a740ce68ec009c9e0e5e4" kind="variable"><name>failCompilerManifestNotFound</name></member>
     <member refid="structtext_1_1_diagnostics_1af763ab2fde1f227b356e621789f9dce5" kind="variable"><name>failDependenciesNotFound</name></member>
@@ -89,12 +85,57 @@
     <member refid="structtext_1_1_diagnostics_1a917b125ae6e7f9b56f438fc8a195cdd4" kind="variable"><name>failDaemonStart</name></member>
     <member refid="structtext_1_1_diagnostics_1a88ef151e729b90b683e17b37f0ca0083" kind="variable"><name>failDaemonLost</name></member>
     <member refid="structtext_1_1_diagnostics_1a204d1ed64e1ddb8a0febcd742369a763" kind="variable"><name>failDaemonTimeout</name></member>
+    <member refid="structtext_1_1_diagnostics_1a2f45710676ce947b97c6c13fdd411af7" kind="variable"><name>failSwapVersion</name></member>
+    <member refid="structtext_1_1_diagnostics_1a896c8fe0157aed77217523fe8d13119a" kind="variable"><name>failLanguageBuild</name></member>
+    <member refid="structtext_1_1_diagnostics_1a80e033dff73412d55aebca931f7dc490" kind="variable"><name>failLanguageLoad</name></member>
+    <member refid="structtext_1_1_diagnostics_1a83d689bacb25dd23510f0a605cc89263" kind="variable"><name>failUnitIndex</name></member>
+    <member refid="structtext_1_1_diagnostics_1a442b409b3191ecf2bcb010d552a89610" kind="variable"><name>failConstructionNotFound</name></member>
+  </compound>
+  <compound refid="class_index" kind="class"><name>Index</name>
+    <member refid="class_index_1a2d5f5077b253da8f39e621db05b45df3" kind="typedef"><name>Bindings</name></member>
+    <member refid="class_index_1a7b0fe414ab69d47c30f55a9d5fef0cf8" kind="typedef"><name>Positions</name></member>
+    <member refid="class_index_1a33e05434186de020be55979b9682e00a" kind="variable"><name>model</name></member>
+    <member refid="class_index_1a787b5943f55b59f85d657a2a0513f0c0" kind="variable"><name>paths</name></member>
+    <member refid="class_index_1ad886ab1a735fdcf529b7282180022a0e" kind="variable"><name>documents</name></member>
+    <member refid="class_index_1a79b6c5fda5aac0cc01d6c317f639f624" kind="variable"><name>languages</name></member>
+    <member refid="class_index_1afdc56579e630b8661abe8abd1c9385cf" kind="variable"><name>declarations</name></member>
+    <member refid="class_index_1a1be2e00538782830f0d0bc9025a5d9d6" kind="variable"><name>references</name></member>
+    <member refid="class_index_1a0276e2e04815269ff606b04706cb6836" kind="variable"><name>bindings</name></member>
+    <member refid="class_index_1a30a468468c3692160a846cbe60cd3373" kind="function"><name>Index</name></member>
+    <member refid="class_index_1aab49531fad9100e5e00207727c2ff4a4" kind="function"><name>applyToDocuments</name></member>
+    <member refid="class_index_1a1659a6c05b1816c5c57ed3a200c64c8a" kind="function"><name>applyToElements</name></member>
+    <member refid="class_index_1af58b8b567cb8794478a223cd2873c183" kind="function"><name>removeDocuments</name></member>
+    <member refid="class_index_1ae566876115ab63a2462f58e42219598a" kind="function"><name>setDocuments</name></member>
+    <member refid="class_index_1a61f81ce7c1efc79f39c8d775b52a51e9" kind="function"><name>addDocument</name></member>
+    <member refid="class_index_1aef9e6f6e7442820ad3ea7dc067f24d77" kind="function"><name>addBindings</name></member>
+    <member refid="class_index_1a04df0a5bcfea36ba0c2b110a9c10e81b" kind="function"><name>readSwapFile</name></member>
+    <member refid="class_index_1a56e3b969d64fdd71e7067480330f8619" kind="function"><name>writeSwapFile</name></member>
+    <member refid="class_index_1a1917ab1264de0f23b7596ff6da696cc6" kind="function"><name>getPositions</name></member>
+    <member refid="class_index_1acba93456528c3c6356d0141c965df9e6" kind="function"><name>addOrReplaceProperty</name></member>
+    <member refid="class_index_1a60e6a79c61b26dc47f0df58425746ed8" kind="function"><name>addSymbols</name></member>
+    <member refid="class_index_1ab5c7af34a9a839463828dfb19d3ffa22" kind="function"><name>writeSwapFiles</name></member>
+    <member refid="class_index_1a8725aaa08ef8a830aad9d38a96b252e7" kind="function"><name>getOrCreatePathIndex</name></member>
+  </compound>
+  <compound refid="struct_processor_1_1_index_job" kind="struct"><name>Processor::IndexJob</name>
+    <member refid="struct_processor_1_1_index_job_1af455bc4a9de8dc8c5f1d95a615f10a8f" kind="variable"><name>owner</name></member>
+    <member refid="struct_processor_1_1_index_job_1a1c78bf0812e004a0290380644e65f50d" kind="variable"><name>rowIndex</name></member>
+    <member refid="struct_processor_1_1_index_job_1a9601d544f8b3c501bc6f22edb3d5071e" kind="variable"><name>path</name></member>
+    <member refid="struct_processor_1_1_index_job_1a307f650032fdfa589bc9ca991d63132a" kind="variable"><name>directory</name></member>
+    <member refid="struct_processor_1_1_index_job_1aad4053b38199eb456c28b0d6ad6ecc11" kind="variable"><name>arguments</name></member>
+    <member refid="struct_processor_1_1_index_job_1a5328921aad065907affabda058b46b6e" kind="variable"><name>language</name></member>
+    <member refid="struct_processor_1_1_index_job_1a1e87882bafecce894f7364f14f16b8a6" kind="variable"><name>records</name></member>
+    <member refid="struct_processor_1_1_index_job_1af0a42c88170cb5023be3f7be39491216" kind="variable"><name>result</name></member>
+    <member refid="struct_processor_1_1_index_job_1aea230c0f54addd9581378664a91ab74b" kind="variable"><name>isFinished</name></member>
+    <member refid="struct_processor_1_1_index_job_1ab44d6d75b0f0c0d74e2f5ac9696c0677" kind="function"><name>IndexJob</name></member>
+    <member refid="struct_processor_1_1_index_job_1a714575fe9a266f2b660e53314ddf6c3c" kind="function"><name>runJob</name></member>
+    <member refid="struct_processor_1_1_index_job_1ad43614d478425bc204a12eeb7f99983f" kind="function"><name>addSymbol</name></member>
   </compound>
   <compound refid="struct_json_writer" kind="struct"><name>JsonWriter</name>
-    <member refid="struct_json_writer_1a8309f189ec1525700f528bc02ba8cbc6" kind="function"><name>appendElement</name></member>
-    <member refid="struct_json_writer_1a0f05273b44c4f4479e8cbbe3669a52e3" kind="function"><name>appendElement</name></member>
-    <member refid="struct_json_writer_1a7e051970cb434e650565f01a14af1dc6" kind="function"><name>appendComment</name></member>
-    <member refid="struct_json_writer_1abf8dcf767703296d8e5873e659313723" kind="function"><name>appendSnippet</name></member>
+    <member refid="struct_json_writer_1ac47a4044dc4f37cf22533707a96a7335" kind="function"><name>appendElement</name></member>
+    <member refid="struct_json_writer_1af369e3b8c91b1bebaa0b6b2df9190d80" kind="function"><name>appendElement</name></member>
+    <member refid="struct_json_writer_1a8d77f5bff343cc6d427f45f731cec1c4" kind="function"><name>appendComment</name></member>
+    <member refid="struct_json_writer_1adffdc3ff539797769ffcf2bc428959df" kind="function"><name>appendSnippet</name></member>
+    <member refid="struct_json_writer_1acd4d6daeb2a08c6da4744c5d00bdcdd4" kind="function"><name>appendParameters</name></member>
   </compound>
   <compound refid="class_l_i_n_g_model" kind="class"><name>LINGModel</name>
     <member refid="class_l_i_n_g_model_1a98c415ab589e5c16c6e98d1a8f0859a5" kind="variable"><name>defaultTimeoutMs</name></member>
@@ -103,98 +144,161 @@
     <member refid="class_l_i_n_g_model_1a027340bbc7ee3868a010942469b1f1ec" kind="function"><name>LINGModel</name></member>
     <member refid="class_l_i_n_g_model_1aed5183a1e913ceaaf115ac1d666e89a0" kind="function"><name>~LINGModel</name></member>
     <member refid="class_l_i_n_g_model_1afdef5b210be00b4c407239da424c8b3d" kind="function"><name>setMessage</name></member>
+    <member refid="class_l_i_n_g_model_1a3df62ae35213ea5911059e2c0d84b916" kind="function"><name>getSwapFile</name></member>
     <member refid="class_l_i_n_g_model_1aa8f0468179c1dbd1d51bc903480152db" kind="function"><name>getDaemonName</name></member>
     <member refid="class_l_i_n_g_model_1a418ec05ca5a75c35b3187e995a82fb5c" kind="function"><name>getCacheDirectory</name></member>
+    <member refid="class_l_i_n_g_model_1a0ebd93b9b8bd9a4d665a1e5274410d64" kind="function"><name>getConfigDirectory</name></member>
+    <member refid="class_l_i_n_g_model_1abf829c79890d961d4b3ac2993aee651b" kind="function"><name>getCacheDirectory</name></member>
+    <member refid="class_l_i_n_g_model_1a9f03f6d6767d7e5f88afd5c412e75208" kind="function"><name>getPatchedDirectory</name></member>
     <member refid="class_l_i_n_g_model_1a3cd783d99a31ffc14afb62bdd6abe103" kind="function"><name>valueTreePropertyChanged</name></member>
     <member refid="class_l_i_n_g_model_1a167994bf1e11534308dc0c92299af677" kind="function"><name>valueTreeChildAdded</name></member>
     <member refid="class_l_i_n_g_model_1a69cf1f824a69271ac205f6432f0b8955" kind="function"><name>fileChanged</name></member>
   </compound>
   <compound refid="class_manifest" kind="class"><name>Manifest</name>
     <member refid="class_manifest_1ad9ba3fd686009e0c081e691f7058d292" kind="variable"><name>threadCount</name></member>
+    <member refid="class_manifest_1ab18a00ead2bce2284d0ba72bb0ce9af6" kind="variable"><name>waitForJob</name></member>
+    <member refid="class_manifest_1aaeb3295af4b494f526f40f601549f373" kind="variable"><name>noWait</name></member>
     <member refid="class_manifest_1a87d745097f80d516fa1ebb90bfd89f47" kind="variable"><name>model</name></member>
+    <member refid="class_manifest_1a5bef7d0476e8acf8d1ad39cbd4326c28" kind="variable"><name>job</name></member>
+    <member refid="class_manifest_1a1ffe68e61f67dbae2fb2cfdb049f7a6e" kind="variable"><name>nextJob</name></member>
     <member refid="class_manifest_1a87e7a005eb59055299b2515bd0fca245" kind="variable"><name>pool</name></member>
     <member refid="class_manifest_1a16ddfc76a23f8dae673d0a8f08e41ef1" kind="function"><name>Manifest</name></member>
     <member refid="class_manifest_1afec4bf62f0f4c82ba13506fd2ba6490e" kind="function"><name>~Manifest</name></member>
     <member refid="class_manifest_1a86e078d9418d29915919effe785bb14a" kind="function"><name>valueTreePropertyChanged</name></member>
     <member refid="class_manifest_1a64ee33ff76020fa298b43994752e5200" kind="function"><name>addJob</name></member>
-    <member refid="class_manifest_1af7d5949981f9b11ec9b40ff8c29a9c17" kind="function"><name>setFiles</name></member>
+    <member refid="class_manifest_1ac7e3db5a39e355c96bc6b06290dda872" kind="function"><name>handleAsyncUpdate</name></member>
+    <member refid="class_manifest_1a4ddb143cfb5dc179327fca5bff06cdd0" kind="function"><name>setFiles</name></member>
     <member refid="class_manifest_1a74869b90c95c6ef6273bd00526a343c3" kind="function"><name>getTimeout</name></member>
+    <member refid="class_manifest_1a8d5113738228ea9088627ed4bbba47f7" kind="function"><name>getRoots</name></member>
+  </compound>
+  <compound refid="struct_manifest_1_1_manifest_job" kind="struct"><name>Manifest::ManifestJob</name>
+    <member refid="struct_manifest_1_1_manifest_job_1a1a0284d6cda25e5439fb8b658bece55a" kind="variable"><name>owner</name></member>
+    <member refid="struct_manifest_1_1_manifest_job_1a0571d5bac7b172344ab1cf9842e66375" kind="variable"><name>manifestPath</name></member>
+    <member refid="struct_manifest_1_1_manifest_job_1a7f1ba1868dd257f50fd1f21cbc55bfad" kind="variable"><name>toolchainArgument</name></member>
+    <member refid="struct_manifest_1_1_manifest_job_1a222074e537c86a7d2a9248cfc964db95" kind="variable"><name>files</name></member>
+    <member refid="struct_manifest_1_1_manifest_job_1a7295046c03cee21bfa8f3e3671d83e7d" kind="variable"><name>roots</name></member>
+    <member refid="struct_manifest_1_1_manifest_job_1a1818ea4fcfcb75b29616551771be5212" kind="variable"><name>timeout</name></member>
+    <member refid="struct_manifest_1_1_manifest_job_1a2e16dcc79759f990a812ce41d85ab39a" kind="variable"><name>isFinished</name></member>
+    <member refid="struct_manifest_1_1_manifest_job_1a9c3cb49aa964690620daa1887c2f586f" kind="function"><name>ManifestJob</name></member>
+    <member refid="struct_manifest_1_1_manifest_job_1a4c14ead10b37a748c85ae35f3b1fc685" kind="function"><name>runJob</name></member>
+  </compound>
+  <compound refid="struct_processor_1_1_parse_job" kind="struct"><name>Processor::ParseJob</name>
+    <member refid="struct_processor_1_1_parse_job_1ac6b0e76328df00768e732ba7edcae312" kind="variable"><name>owner</name></member>
+    <member refid="struct_processor_1_1_parse_job_1ad820192a72b64ba2fea3b2a46c9d28e9" kind="variable"><name>rowIndex</name></member>
+    <member refid="struct_processor_1_1_parse_job_1af3b0079c17350e1038ffbccbee067dfb" kind="variable"><name>path</name></member>
+    <member refid="struct_processor_1_1_parse_job_1a530445cbb37ce67b3ce8a0091c33701d" kind="variable"><name>swapFile</name></member>
+    <member refid="struct_processor_1_1_parse_job_1a73897aff0b405a13640095e1a0913113" kind="variable"><name>language</name></member>
+    <member refid="struct_processor_1_1_parse_job_1af9d51143498244fb432f62600bef38ed" kind="variable"><name>languageHash</name></member>
+    <member refid="struct_processor_1_1_parse_job_1ae85e7fcf174938a5149394c54577ff74" kind="variable"><name>document</name></member>
+    <member refid="struct_processor_1_1_parse_job_1a87b65a56803d280dc8b3f46e4363eb62" kind="variable"><name>result</name></member>
+    <member refid="struct_processor_1_1_parse_job_1a7f1555b30448b64e991e604c056721ce" kind="variable"><name>modificationTime</name></member>
+    <member refid="struct_processor_1_1_parse_job_1ac33f18ef6c5de033a8da9bd348134542" kind="variable"><name>isParsed</name></member>
+    <member refid="struct_processor_1_1_parse_job_1ab32577587ade8cf16add24211fd909b0" kind="variable"><name>isFinished</name></member>
+    <member refid="struct_processor_1_1_parse_job_1ab953344b904be81eade02fd425501580" kind="function"><name>ParseJob</name></member>
+    <member refid="struct_processor_1_1_parse_job_1a4fcba17ab1079cd05e5cc3108d444ed9" kind="function"><name>runJob</name></member>
   </compound>
   <compound refid="class_processor" kind="class"><name>Processor</name>
     <member refid="class_processor_1a013bccb8420385e39537d818ad61fea8" kind="typedef"><name>Events</name></member>
-    <member refid="class_processor_1a9755494a489ba8d61bd4b19c09e9641a" kind="typedef"><name>Matches</name></member>
-    <member refid="class_processor_1a46ec5a2c477ab4fdce22e37c64d94a67" kind="variable"><name>fileIndex</name></member>
-    <member refid="class_processor_1ac014ef004fd22d0dc1488666059d98ba" kind="variable"><name>memberTypes</name></member>
-    <member refid="class_processor_1a56668c1c21369f99f2cd6922f8aca802" kind="variable"><name>functionTypes</name></member>
-    <member refid="class_processor_1a9861aa9e73a23117fbcabee778f26ca0" kind="variable"><name>shouldNormalize</name></member>
+    <member refid="class_processor_1a861e5e618da6d2f24237151c571039d2" kind="variable"><name>waitForJob</name></member>
+    <member refid="class_processor_1a4a7e8b1f8969a1a0c50484aec56f9ea7" kind="variable"><name>noWait</name></member>
     <member refid="class_processor_1a221e46c95ba79722accf868ad6e2cacb" kind="variable"><name>model</name></member>
-    <member refid="class_processor_1ab3ce5f644b8d26fa8641556022228d30" kind="variable"><name>paths</name></member>
-    <member refid="class_processor_1aa107851379e6cb122c96dfa591d33061" kind="variable"><name>documents</name></member>
-    <member refid="class_processor_1a9e4f2c0b182b341e792c25cf8dc965be" kind="variable"><name>pendingJobs</name></member>
+    <member refid="class_processor_1a5b5bfb9a298562c4d296680473ded866" kind="variable"><name>checks</name></member>
+    <member refid="class_processor_1a3b39b42c657b83b6d489812a40e6a754" kind="variable"><name>precompiles</name></member>
+    <member refid="class_processor_1a3e51639aaf7576412e559b664c2b903d" kind="variable"><name>builds</name></member>
+    <member refid="class_processor_1a876fef51b77ed65bdbb09dd7d1b01d70" kind="variable"><name>index</name></member>
+    <member refid="class_processor_1a09caad03da06296758fb0ef8cd41facb" kind="variable"><name>query</name></member>
+    <member refid="class_processor_1adee999697b4865501709efc18f8328ba" kind="variable"><name>parseJobs</name></member>
+    <member refid="class_processor_1a9e0fc0b54eba32378496d8139047ac87" kind="variable"><name>nextParseJobs</name></member>
+    <member refid="class_processor_1abd846ea2596951cc35ef6f5c6a635aac" kind="variable"><name>indexJobs</name></member>
+    <member refid="class_processor_1ac6bf7f40666768cc105cc933b9845a4f" kind="variable"><name>nextIndexJobs</name></member>
     <member refid="class_processor_1acac63082f3b21b83ead437326c96fa27" kind="variable"><name>pool</name></member>
     <member refid="class_processor_1af66620608b76c59a20b72eec4dab6b2d" kind="variable"><name>events</name></member>
-    <member refid="class_processor_1a6d369e1261916abb42ee5e0871bdd9a5" kind="variable"><name>slab</name></member>
     <member refid="class_processor_1a3d8bc2958e0972bb7a4a84c29f0581c4" kind="function"><name>Processor</name></member>
     <member refid="class_processor_1a3d7c16d172be09d3bfb4df3519d21b31" kind="function"><name>~Processor</name></member>
     <member refid="class_processor_1a3731df1c2da6bfe84ea3f6945ac9ebe6" kind="function"><name>applyToDocuments</name></member>
-    <member refid="class_processor_1a606d8536a13ef5193c6d22128cdead0d" kind="function"><name>isDeclaration</name></member>
-    <member refid="class_processor_1a4c88bff571b2cbaca719901156ff5602" kind="function"><name>hasType</name></member>
-    <member refid="class_processor_1a6955c660284d5c063ffb122ff26d2e3d" kind="function"><name>hasName</name></member>
-    <member refid="class_processor_1aebef810b360bdf0215775c63fce14f52" kind="function"><name>getPath</name></member>
-    <member refid="class_processor_1a5d93bea9333ba5ea1367ff32a2cb1785" kind="function"><name>applyToElements</name></member>
-    <member refid="class_processor_1acdd517dbb9fcff4392ac1d30493c31f0" kind="function"><name>getName</name></member>
-    <member refid="class_processor_1a46b0efcc2adf83fae2511e9fbb871cf4" kind="function"><name>getPath</name></member>
-    <member refid="class_processor_1aea74ffa685065b894df9e7f53647952f" kind="function"><name>isSamePath</name></member>
-    <member refid="class_processor_1addad64d659e196079557bc2023161f05" kind="function"><name>hasPath</name></member>
-    <member refid="class_processor_1a54ce92a0d39f5495a7d3f9f77fef46c7" kind="function"><name>getElement</name></member>
-    <member refid="class_processor_1a0d6b5d441861cd018635af6179201e14" kind="function"><name>applyToDeclarations</name></member>
-    <member refid="class_processor_1abcc722582465e32397f340a166a25c1f" kind="function"><name>applyToDeclarations</name></member>
-    <member refid="class_processor_1a6d1fd19d7bf4b6ff8abe67f2015b97e8" kind="function"><name>applyToReferences</name></member>
-    <member refid="class_processor_1ae30805f34569b7213ea33ca96eb26589" kind="function"><name>applyToReferences</name></member>
-    <member refid="class_processor_1adcb5b196f390b4c80a4037eb92bdc4d8" kind="function"><name>applyToPosition</name></member>
-    <member refid="class_processor_1a01cb035f316137f2d77b006137da518d" kind="function"><name>applyToFunctions</name></member>
-    <member refid="class_processor_1a7df026eb3acfa2a76afee970a5a55569" kind="function"><name>applyToDerived</name></member>
-    <member refid="class_processor_1ab062b2d31329d4364fbb9ce275f28137" kind="function"><name>applyToScopes</name></member>
-    <member refid="class_processor_1a0cb61c53fab75a87e4eda5973559c8e7" kind="function"><name>applyToCandidates</name></member>
-    <member refid="class_processor_1a14cf38e1d0d7fa6e55c6d0e0d16a9d4b" kind="function"><name>applyToImplementations</name></member>
-    <member refid="class_processor_1a070b753c687e76a3b0c59e0de5265074" kind="function"><name>setResult</name></member>
-    <member refid="class_processor_1aad6f4ad53229e45f512378e587b5dd1b" kind="function"><name>applyToElements</name></member>
-    <member refid="class_processor_1af2cadd97bf6e9ea4e09fcdc07182bfd8" kind="function"><name>applyToBases</name></member>
-    <member refid="class_processor_1ac50c3af811a75f325ae8ea0e1488ec78" kind="function"><name>applyToMembers</name></member>
-    <member refid="class_processor_1a87ed75b5aea8afc4605c61e6421a8b83" kind="function"><name>getPathIndex</name></member>
-    <member refid="class_processor_1aeb0fc7af6cf060d0e40ef193643ab4e1" kind="function"><name>hasDeclarations</name></member>
-    <member refid="class_processor_1adbc643b1b00712e6d0a8ec73cbde7e83" kind="function"><name>isReferenceTo</name></member>
-    <member refid="class_processor_1aff83e5f94e6799a5a3352068b36b6e88" kind="function"><name>getDeclarationPaths</name></member>
-    <member refid="class_processor_1a2064cce6ab6b67154182c8db9788f354" kind="function"><name>getDeclarationPaths</name></member>
-    <member refid="class_processor_1a7501b3d3d0908c6e26357862d6fccc21" kind="function"><name>getMemberPaths</name></member>
-    <member refid="class_processor_1afa98f5328d9865f9451b13d3e56298d5" kind="function"><name>setResult</name></member>
-    <member refid="class_processor_1a866d72dbac63f0e0b6ef53d9cc144e43" kind="function"><name>setResult</name></member>
-    <member refid="class_processor_1a9ae096e0cf5440070784dabf7d3d6155" kind="function"><name>isBefore</name></member>
-    <member refid="class_processor_1a777b64957ec51358e5699bd35ed10bb8" kind="function"><name>isBeforeByPath</name></member>
-    <member refid="class_processor_1a1244480684599a457ba6fbb06a2d7c2d" kind="function"><name>appendDocumentSymbols</name></member>
-    <member refid="class_processor_1ae8c39f97b79806eeee330258a9b441ba" kind="function"><name>appendCompletion</name></member>
+    <member refid="class_processor_1a6d9ce8bd6a81cdcaa1de9ce979b58664" kind="function"><name>hasDependency</name></member>
+    <member refid="class_processor_1afb33c0270352b0384da889b22729106c" kind="function"><name>isChangedSince</name></member>
+    <member refid="class_processor_1a735d6984643f7c83a90be9d460db465a" kind="function"><name>getUnit</name></member>
+    <member refid="class_processor_1a21f1f56db5a2c5afda7fc8b88243035f" kind="function"><name>getHeaderEntry</name></member>
+    <member refid="class_processor_1a858aade2cf1ac101fbe2e31859474a88" kind="function"><name>getHeaderEntries</name></member>
+    <member refid="class_processor_1abc96cfce45bb7702e5e28ea158460e37" kind="function"><name>getArguments</name></member>
+    <member refid="class_processor_1a6ad8791ad376eb7d783fe1a34ddb217a" kind="function"><name>getCheckArguments</name></member>
+    <member refid="class_processor_1ae6b7a30647daabfaa7466d2bd7200d5e" kind="function"><name>getPrecompiledHeader</name></member>
     <member refid="class_processor_1a24b069461f4161553899d2a8f84d3287" kind="function"><name>registerEvents</name></member>
     <member refid="class_processor_1a1dcabcb77d254b34ff0c04c9b483028d" kind="function"><name>runRequest</name></member>
-    <member refid="class_processor_1a005c5de5590e9ed58de152e89e167a21" kind="function"><name>goToDefinition</name></member>
-    <member refid="class_processor_1a7463bae14c4c8dc98d8a458c5fa223f9" kind="function"><name>findReferences</name></member>
-    <member refid="class_processor_1a4642ebfb3d4a64e760c5f65f7c355359" kind="function"><name>hover</name></member>
-    <member refid="class_processor_1aed09034a614896ac3c982e0b761b3dbc" kind="function"><name>documentSymbol</name></member>
-    <member refid="class_processor_1afd85c7b2fe001c412b1c083713c2dc5b" kind="function"><name>workspaceSymbol</name></member>
-    <member refid="class_processor_1aa1d468ae2c48d5517b182c4e942d3985" kind="function"><name>completion</name></member>
-    <member refid="class_processor_1aed5eb8671c7654b552a5acc633e2e85d" kind="function"><name>getMatches</name></member>
-    <member refid="class_processor_1aeaf9d8b31ba1fad9da6eabf9f84216f7" kind="function"><name>getMatch</name></member>
-    <member refid="class_processor_1a93aa5178685723cf1c3c19efeae7b3a8" kind="function"><name>getCompletions</name></member>
-    <member refid="class_processor_1a8ffa8a150333c91c3d81ba95b3e0d0a6" kind="function"><name>applyToCompletions</name></member>
-    <member refid="class_processor_1a3824039159a5ba3d31eb91a28e5ec19d" kind="function"><name>goToImplementation</name></member>
-    <member refid="class_processor_1a2bd557cf911cdc845a53b879d9bae03f" kind="function"><name>prepareCallHierarchy</name></member>
-    <member refid="class_processor_1a8df9be3881eba1d395befff188fda1b5" kind="function"><name>incomingCalls</name></member>
-    <member refid="class_processor_1a3af6a89c1e83972bbf99bb27531fb6f3" kind="function"><name>outgoingCalls</name></member>
+    <member refid="class_processor_1ae286406f1cd72512c3095c12b15bf03d" kind="function"><name>diagnostics</name></member>
     <member refid="class_processor_1a88cdf27664e3bbebb9f25e1f0c868566" kind="function"><name>valueTreeChildAdded</name></member>
+    <member refid="class_processor_1ac0099e5376aad9e5a63b1ca57cca3de6" kind="function"><name>addLanguages</name></member>
     <member refid="class_processor_1a8deb7a1105ec3f6ecb8644f966930903" kind="function"><name>valueTreePropertyChanged</name></member>
     <member refid="class_processor_1a547e161d2e24134f3c95df35019aeddb" kind="function"><name>addJob</name></member>
-    <member refid="class_processor_1a382544055777bd6b922918f36a82f6ac" kind="function"><name>addDocument</name></member>
-    <member refid="class_processor_1aac757d619a6214a38300e73c93733256" kind="function"><name>getOrCreatePathIndex</name></member>
-    <member refid="class_processor_1a76ad4c4456941a5be3d84a6ae4e58d45" kind="function"><name>setDocuments</name></member>
+    <member refid="class_processor_1a17bb81b45a765c891a708ee1aa4c912a" kind="function"><name>setJob</name></member>
+    <member refid="class_processor_1aa046274b867fc5529e706abfb61de0a6" kind="function"><name>removeJob</name></member>
+    <member refid="class_processor_1ab20331a25e35784eca39d7d2673fe68e" kind="function"><name>addIndexJob</name></member>
+    <member refid="class_processor_1a20cfa778e3c1df0713b19a09c9e5b06b" kind="function"><name>addIndexJobs</name></member>
+    <member refid="class_processor_1ada6bec4ded26df0af355111366519094" kind="function"><name>addBindings</name></member>
+    <member refid="class_processor_1a6487194419302dd1602150479e2f0259" kind="function"><name>handleAsyncUpdate</name></member>
+    <member refid="class_processor_1af27f30c9e90feacde9f5af3c5c8e8722" kind="function"><name>setFile</name></member>
+    <member refid="class_processor_1a1a565b59f5f9db00ec4fd60ca30260eb" kind="function"><name>setLanguageHash</name></member>
+    <member refid="class_processor_1a1bcfc911bdbb91b6ad684c7cf5234bda" kind="function"><name>addBuild</name></member>
+    <member refid="class_processor_1af0613cd89403899cbb3ff6839ec1be1b" kind="function"><name>applyBuild</name></member>
+    <member refid="class_processor_1a07f3e1cf01183ca2bdd5f4bba9ddf86e" kind="function"><name>setLanguage</name></member>
+    <member refid="class_processor_1a5392bea4a2b01535f92134954373b933" kind="function"><name>addPrecompile</name></member>
+    <member refid="class_processor_1ad775954e96e4def1a2a53170b9348f47" kind="function"><name>addPrecompile</name></member>
+    <member refid="class_processor_1a4ca458a15beaa67c0b76a6cf2d72cc55" kind="function"><name>addCheck</name></member>
+    <member refid="class_processor_1a87bca016816c718f0b53d670f34e27b0" kind="function"><name>addDocument</name></member>
+  </compound>
+  <compound refid="class_query" kind="class"><name>Query</name>
+    <member refid="class_query_1a8c367b5b39b118b9e5bd1d480a50a8fd" kind="typedef"><name>Matches</name></member>
+    <member refid="class_query_1a01f72228ea89d98816ae2c8216bae8c1" kind="variable"><name>fileIndex</name></member>
+    <member refid="class_query_1aceb75f22ecbfcddb2f38db0819540774" kind="variable"><name>shouldNormalize</name></member>
+    <member refid="class_query_1aeaf2aeaa609d943719b57443c73ba823" kind="variable"><name>slab</name></member>
+    <member refid="class_query_1a60b9acc2d06f83f46736ac4c876d9f23" kind="function"><name>Query</name></member>
+    <member refid="class_query_1a35e3fac14102a3b269f3e941595a4e25" kind="function"><name>goToDefinition</name></member>
+    <member refid="class_query_1a852e9ede3402713f66bb2abf97ed1436" kind="function"><name>findReferences</name></member>
+    <member refid="class_query_1adf9f19baf3d11420d442548886f453a7" kind="function"><name>hover</name></member>
+    <member refid="class_query_1a163faae03873f24fd5fb7ba47a310df3" kind="function"><name>documentSymbol</name></member>
+    <member refid="class_query_1a19666bfbde437c9035e0324d868a6d28" kind="function"><name>switchSourceHeader</name></member>
+    <member refid="class_query_1aad6e5a1c4754d6605f90f30699fc7769" kind="function"><name>inlayHint</name></member>
+    <member refid="class_query_1a15ad9b779e57720f864388a75863b93b" kind="function"><name>workspaceSymbol</name></member>
+    <member refid="class_query_1adf6cde45c991e2c9c4b31f0b3c13f04c" kind="function"><name>completion</name></member>
+    <member refid="class_query_1a0d3863559c1bdb51563dab006fe940ca" kind="function"><name>goToImplementation</name></member>
+    <member refid="class_query_1ae2b2672fe36aaace7abcc92845660caa" kind="function"><name>prepareCallHierarchy</name></member>
+    <member refid="class_query_1ac9134cc465d90c1f0528a3db2f9325f9" kind="function"><name>incomingCalls</name></member>
+    <member refid="class_query_1adc9652cdecb42aef9e899a2216882f37" kind="function"><name>outgoingCalls</name></member>
+    <member refid="class_query_1a018e73734d5eec33e8483a4179b25216" kind="function"><name>setResult</name></member>
+    <member refid="class_query_1a13f608bd23bb0b5aae60bd3454e1b360" kind="function"><name>setResult</name></member>
+    <member refid="class_query_1a34c7ee4f15d24026a9aff90e0733c7e8" kind="function"><name>getPathIndex</name></member>
+    <member refid="class_query_1a2436862865adf7b1e292b123205f154a" kind="function"><name>getFile</name></member>
+    <member refid="class_query_1a3d758bdc28126e28b5a028ddac9fa20f" kind="function"><name>hasName</name></member>
+    <member refid="class_query_1aa8ff4edd44b5494a0b66665daec5a84d" kind="function"><name>getPath</name></member>
+    <member refid="class_query_1a614d03dfada21aff258e32a8f1ecebd5" kind="function"><name>isSamePath</name></member>
+    <member refid="class_query_1abf47c27b1ca1e9727c900d49a3f92978" kind="function"><name>getName</name></member>
+    <member refid="class_query_1aa69509ed4296d3e1b0a49feebf1829f6" kind="function"><name>getPath</name></member>
+    <member refid="class_query_1ac4c8343e32f31009c6baf0f0ff4f441d" kind="function"><name>hasPath</name></member>
+    <member refid="class_query_1aa4dbc1b2d56916606809ac28736fbbaa" kind="function"><name>applyToDeclarations</name></member>
+    <member refid="class_query_1aa225b32e3c5a12601242c6bc88077904" kind="function"><name>applyToReferences</name></member>
+    <member refid="class_query_1ab799317ea0796e68fce933c28cd0ee8d" kind="function"><name>applyToPosition</name></member>
+    <member refid="class_query_1acbe7e23b2ef525e32e8f29d970c5af60" kind="function"><name>applyToFile</name></member>
+    <member refid="class_query_1adbe78bd35cf48ffde2213b2db9dae86e" kind="function"><name>applyToCounterparts</name></member>
+    <member refid="class_query_1a4dac04bdeac8dc7abc9c4ca57518495d" kind="function"><name>applyToFirstFunction</name></member>
+    <member refid="class_query_1a0427e42b4765519b5941fb6517a980bb" kind="function"><name>applyToFunctions</name></member>
+    <member refid="class_query_1a9b1432685f1c6c3a87f75bd8c460904b" kind="function"><name>applyToCandidates</name></member>
+    <member refid="class_query_1a7d98690db81b3e8de810ea6b0bc3b0f7" kind="function"><name>applyToImplementations</name></member>
+    <member refid="class_query_1a8f848e31463b2c797875dc99860b5c8f" kind="function"><name>getElement</name></member>
+    <member refid="class_query_1ad5ac2748b28141cf9f026bd26f3c9f08" kind="function"><name>applyToDeclarations</name></member>
+    <member refid="class_query_1a3a0d6f4e7d27d8b2744bd6240d291228" kind="function"><name>applyToDerived</name></member>
+    <member refid="class_query_1a912e1c95b7c3da700bd83cfad982ae8a" kind="function"><name>applyToScopes</name></member>
+    <member refid="class_query_1ad1e6dc4d2f9c91a9c05f24bc9f145d31" kind="function"><name>applyToElements</name></member>
+    <member refid="class_query_1a05869a1fa8d68cc560257f867486b8fd" kind="function"><name>applyToBases</name></member>
+    <member refid="class_query_1acf98a8de0ed63be51cbcbbb66d2e2914" kind="function"><name>isBefore</name></member>
+    <member refid="class_query_1a553c2572bb69384fe89a2aa66ad2194b" kind="function"><name>setResult</name></member>
+    <member refid="class_query_1a8f2d8a6040efff8eca0e51df8e8ec4b7" kind="function"><name>isBeforeByPath</name></member>
+    <member refid="class_query_1a17da924f6ba5be7020414fb1260174e3" kind="function"><name>appendDocumentSymbols</name></member>
+    <member refid="class_query_1ad1e57bd7ab86fd527f3fc34beeb4cbaa" kind="function"><name>appendCompletion</name></member>
+    <member refid="class_query_1a2ae4ab02c14df0ad3aaf29d3b46fe8a9" kind="function"><name>getMatches</name></member>
+    <member refid="class_query_1ab7eebf153a5c86a2892db5bdd1986759" kind="function"><name>getMatch</name></member>
+    <member refid="class_query_1a38c180b51d092824ab79d074737dc4e3" kind="function"><name>getCompletions</name></member>
+    <member refid="class_query_1aa42d3e64bd096855681feb31c3666cd3" kind="function"><name>applyToCompletions</name></member>
   </compound>
   <compound refid="class_server" kind="class"><name>Server</name>
     <member refid="class_server_1a30ea9ecd4c1f78867e08840da331d0df" kind="variable"><name>anyPort</name></member>
@@ -209,8 +313,13 @@
     <member refid="class_server_1a8804924ac4a75abb23c93872f0f896b7" kind="function"><name>createConnectionObject</name></member>
     <member refid="class_server_1a4dd7b0071ab8e42b970d7ca9474986bc" kind="function"><name>valueTreePropertyChanged</name></member>
     <member refid="class_server_1aa575c0d8d384a8177425d5cd25ea50d0" kind="function"><name>valueTreeChildAdded</name></member>
+    <member refid="class_server_1afc7f2fd63e0532fa9164aa9308f52c4d" kind="function"><name>valueTreeChildRemoved</name></member>
     <member refid="class_server_1a408f595457a668bacb8c44ac186bfaf0" kind="function"><name>timerCallback</name></member>
     <member refid="class_server_1a9cc0faedd6b771c2e6a2e91ddf95e50b" kind="function"><name>getPortFile</name></member>
+  </compound>
+  <compound refid="struct_swap_validator" kind="struct"><name>SwapValidator</name>
+    <member refid="struct_swap_validator_1a4dd34faa0a529eb6f271de588081117c" kind="function"><name>addRules</name></member>
+    <member refid="struct_swap_validator_1abe28c28edda7b07691d9b273cc7e3b2e" kind="function"><name>getRules</name></member>
   </compound>
   <compound refid="struct_validator" kind="struct"><name>Validator</name>
     <member refid="struct_validator_1af387720572933d5519b0597814433c17" kind="function"><name>addRules</name></member>
@@ -255,11 +364,9 @@
   </compound>
   <compound refid="_text_8h" kind="file"><name>Text.h</name>
   </compound>
-  <compound refid="_help_8cpp" kind="file"><name>Help.cpp</name>
-    <member refid="_help_8cpp_1a9b19836bb5ca0e3083ee375706b72664" kind="function"><name>printHelp</name></member>
+  <compound refid="_index_8cpp" kind="file"><name>Index.cpp</name>
   </compound>
-  <compound refid="_help_8h" kind="file"><name>Help.h</name>
-    <member refid="_help_8h_1a9b19836bb5ca0e3083ee375706b72664" kind="function"><name>printHelp</name></member>
+  <compound refid="_index_8h" kind="file"><name>Index.h</name>
   </compound>
   <compound refid="_json_writer_8cpp" kind="file"><name>JsonWriter.cpp</name>
   </compound>
@@ -280,7 +387,7 @@
     <member refid="_main_8cpp_1a6f06085b02e0ad301adcc85196bbb128" kind="function"><name>isTerminalOutput</name></member>
     <member refid="_main_8cpp_1a7f683cefdf7f675f09e36661ce8df7cc" kind="function"><name>printBannerAndHelp</name></member>
     <member refid="_main_8cpp_1ae9d877f9869f83faff0544aedad5fc64" kind="function"><name>getFlags</name></member>
-    <member refid="_main_8cpp_1a25f21432c4207490fd18b68b4eadd9f2" kind="function"><name>appendDocument</name></member>
+    <member refid="_main_8cpp_1a0c0d73d3ee819150f5aa1b682fca1df6" kind="function"><name>appendDocument</name></member>
     <member refid="_main_8cpp_1a71f4a80b69df59cea48bb36733898656" kind="function"><name>runDocumentNotFound</name></member>
     <member refid="_main_8cpp_1aaf2a73f427e61d6d85bf7a401b2c9904" kind="function"><name>getDocumentFile</name></member>
     <member refid="_main_8cpp_1a1e67ae682da8e9bfbdcf6f117d1abcf3" kind="function"><name>getFlagWord</name></member>
@@ -289,6 +396,10 @@
     <member refid="_main_8cpp_1a92f2321886f9537b6a47ade955342c57" kind="function"><name>runCommandLine</name></member>
   </compound>
   <compound refid="_manifest_8cpp" kind="file"><name>Manifest.cpp</name>
+    <member refid="_manifest_8cpp_1ab9d58b79491344bb30a558e826a29ea7" kind="function"><name>getRoot</name></member>
+    <member refid="_manifest_8cpp_1aa0e8d8e5a54b35ea73cb28bdf95bcfa8" kind="function"><name>getProjectRoots</name></member>
+    <member refid="_manifest_8cpp_1a8b9553943e5e79c962b25284161f2abc" kind="function"><name>getFolder</name></member>
+    <member refid="_manifest_8cpp_1a94718f1f234f9aa5ad5210121050652a" kind="function"><name>getPatchFiles</name></member>
   </compound>
   <compound refid="_manifest_8h" kind="file"><name>Manifest.h</name>
   </compound>
@@ -296,9 +407,17 @@
   </compound>
   <compound refid="_processor_8h" kind="file"><name>Processor.h</name>
   </compound>
+  <compound refid="_query_8cpp" kind="file"><name>Query.cpp</name>
+  </compound>
+  <compound refid="_query_8h" kind="file"><name>Query.h</name>
+  </compound>
   <compound refid="_server_8cpp" kind="file"><name>Server.cpp</name>
   </compound>
   <compound refid="_server_8h" kind="file"><name>Server.h</name>
+  </compound>
+  <compound refid="_swap_validator_8cpp" kind="file"><name>SwapValidator.cpp</name>
+  </compound>
+  <compound refid="_swap_validator_8h" kind="file"><name>SwapValidator.h</name>
   </compound>
   <compound refid="_validator_8cpp" kind="file"><name>Validator.cpp</name>
   </compound>

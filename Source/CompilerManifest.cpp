@@ -1,14 +1,15 @@
 #include "CompilerManifest.h"
 
-juce::ValueTree CompilerManifest::getFiles (LINGModel& model, const jam::MarkdownDocument& manifest, const juce::File& manifestFile, const juce::String& toolchainArgument)
+juce::ValueTree CompilerManifest::getFiles (const jam::MarkdownDocument& manifest, const juce::File& manifestFile, const juce::String& toolchainArgument)
 {
-    static const jam::SharedInstance<map::Family> family { std::in_place };
-
-    const auto& filesConstruction { getFilesConstruction() };
-    const auto directory { manifestFile.getParentDirectory() };
     juce::ValueTree files { jam::Format::toType (Id::files) };
+    const auto constructions (getOrCreateConstructions (files));
+    const auto directory { manifestFile.getParentDirectory() };
     const auto tables (manifest.getTables (Id::toolchain));
     const auto isToolchainRow { [&manifest, &toolchainArgument] (const jam::MarkdownDocument::Element* row) { return manifest.getTableValue (*row, Id::argument).compare (toolchainArgument) == 0; } };
+
+    if (constructions.isEmpty())
+        files.setProperty (Id::message, LINGModel::getConfigDirectory().getChildFile (files::language).getFullPathName() + Id::diagnosticSeparator + text::Diagnostics::failConstructionNotFound, nullptr);
 
     for (const auto* table : tables)
     {
@@ -16,9 +17,8 @@ juce::ValueTree CompilerManifest::getFiles (LINGModel& model, const jam::Markdow
         {
             if (isToolchainRow (row))
             {
-                for (const auto& [familyKey, familyName] : map::Family::getInstance()->get())
-                    if (filesConstruction.contains (familyKey))
-                        filesConstruction.get (familyKey, model, files, manifest, *row, directory);
+                for (const auto& construction : constructions)
+                    addFiles (files, manifest, *row, directory, *construction);
             }
         }
     }
@@ -28,45 +28,116 @@ juce::ValueTree CompilerManifest::getFiles (LINGModel& model, const jam::Markdow
                                                               const auto rows (manifest.getTableRows (*table));
                                                               return std::any_of (rows.begin(), rows.end(), isToolchainRow);
                                                           }))
-        model.setMessage (toolchainArgument + Id::diagnosticSeparator + text::Diagnostics::failToolchainArgument);
+        files.setProperty (Id::message, toolchainArgument + Id::diagnosticSeparator + text::Diagnostics::failToolchainArgument, nullptr);
 
     return files;
 }
 
-const jam::Function::Map<int, jam::Function::pointerCapacity, void (LINGModel&, juce::ValueTree&, const jam::MarkdownDocument&, const jam::MarkdownDocument::Element&, const juce::File&)>& CompilerManifest::getFilesConstruction()
+jam::Owner<jam::MarkdownDocument> CompilerManifest::getOrCreateConstructions (juce::ValueTree& files)
 {
-    static const auto filesConstruction (
-        []
+    jam::Owner<jam::MarkdownDocument> constructions;
+
+    for (const auto& [familyKey, familyName] : map::Family::getInstance()->get())
+    {
+        const auto folder { LINGModel::getConfigDirectory().getChildFile (files::language).getChildFile (familyName) };
+        const auto file { folder.getChildFile (files::languageConstruction) };
+
+        applyDefaults (folder, familyName);
+
+        if (auto construction { getConstruction (file) }; construction != nullptr)
         {
-            jam::Function::Map<int, jam::Function::pointerCapacity, void (LINGModel&, juce::ValueTree&, const jam::MarkdownDocument&, const jam::MarkdownDocument::Element&, const juce::File&)> filesConstruction;
+            if (not construction->getTables (Id::compilerManifest).isEmpty())
+                constructions.add (std::move (construction));
+        }
+        else if (file.existsAsFile())
+        {
+            files.setProperty (Id::message, jam::MarkdownDocument::isValid (jam::Strings::getView (file.loadFileAsString()), file.getFullPathName()).getErrorMessage(), nullptr);
+        }
+    }
 
-            filesConstruction.add (map::Family::cLang, addCLanguageFiles);
-
-            return filesConstruction;
-        }()
-    );
-
-    return filesConstruction;
+    return constructions;
 }
 
-void CompilerManifest::addCLanguageFiles (const int&, LINGModel& model, juce::ValueTree& files, const jam::MarkdownDocument& manifest, const jam::MarkdownDocument::Element& row, const juce::File& directory)
+jam::Strings CompilerManifest::getCheckFlags (LINGModel& model, int family)
+{
+#if JUCE_WINDOWS
+    const auto& checkFlags { Id::checkFlagsWindows };
+#else
+    const auto& checkFlags { Id::checkFlagsMac };
+#endif
+
+    const auto familyName { map::Family::getInstance()->get (family) };
+    const auto folder { LINGModel::getConfigDirectory().getChildFile (files::language).getChildFile (familyName) };
+    const auto file { folder.getChildFile (files::languageConstruction) };
+    jam::Strings flags;
+
+    if (const auto construction { getConstruction (file) }; construction != nullptr)
+    {
+        for (const auto* row : construction->getTableRows (checkFlags))
+            flags.add (construction->getTableValue (*row, Id::value));
+    }
+    else if (file.existsAsFile())
+    {
+        model.setMessage (jam::MarkdownDocument::isValid (jam::Strings::getView (file.loadFileAsString()), file.getFullPathName()).getErrorMessage());
+    }
+
+    return flags;
+}
+
+void CompilerManifest::applyDefaults (const juce::File& folder, const juce::String& name)
+{
+    if (juce::Identifier { name } == juce::Identifier { files::defaultLanguage })
+    {
+        folder.createDirectory();
+
+        for (const auto& fileName : { files::languageSpell, files::languageTemplate, files::languageConstruction, files::syntaxTree, files::core, files::languageInterface })
+        {
+            const auto file { folder.getChildFile (fileName) };
+
+            if (not file.exists())
+            {
+                const BinaryData::Raw binary { fileName };
+                file.replaceWithData (binary.data, static_cast<size_t> (binary.size));
+            }
+        }
+    }
+}
+
+std::unique_ptr<jam::MarkdownDocument> CompilerManifest::getConstruction (const juce::File& file)
+{
+    if (file.existsAsFile())
+        return jam::MarkdownDocument::parse (file.loadFileAsString(), file.getFullPathName());
+
+    return nullptr;
+}
+
+juce::String CompilerManifest::getWord (juce::ValueTree& files, const jam::MarkdownDocument& construction, const juce::Identifier& word)
+{
+    if (const auto* row { construction.getTableRow (Id::compilerManifest, word) }; row != nullptr)
+        return construction.getTableValue (*row, Id::value);
+
+    files.setProperty (Id::message, word.toString() + Id::diagnosticSeparator + text::Diagnostics::failNotFound, nullptr);
+    return {};
+}
+
+void CompilerManifest::addFiles (juce::ValueTree& files, const jam::MarkdownDocument& manifest, const jam::MarkdownDocument::Element& row, const juce::File& directory, const jam::MarkdownDocument& construction)
 {
     const auto command { manifest.getTableValue (row, Id::command) };
 
-    if (command.compare (text::CLanguage::compilerManifestCommand) == 0)
-        addCLanguageUnits (model, files, manifest, row, directory);
-    else if (command.compare (text::CLanguage::dependencyCommand) == 0)
-        addCLanguageDependencies (model, files, manifest, row, directory);
+    if (command.compare (getWord (files, construction, Id::compilerManifestCommand)) == 0)
+        addUnits (files, manifest, row, directory, construction);
+    else if (command.compare (getWord (files, construction, Id::dependencyCommand)) == 0)
+        addDependencies (files, manifest, row, directory, construction);
 }
 
-void CompilerManifest::addCLanguageUnits (LINGModel& model, juce::ValueTree& files, const jam::MarkdownDocument& manifest, const jam::MarkdownDocument::Element& row, const juce::File& directory)
+void CompilerManifest::addUnits (juce::ValueTree& files, const jam::MarkdownDocument& manifest, const jam::MarkdownDocument::Element& row, const juce::File& directory, const jam::MarkdownDocument& construction)
 {
     const auto flagArguments (jam::ChildProcess::getArguments (jam::Strings::getView (manifest.getTableValue (row, Id::flag))));
-    const auto buildDirectory { getBuildDirectory (flagArguments, text::CLanguage::flagBuildDirectory) };
+    const auto buildDirectory { getBuildDirectory (flagArguments, getWord (files, construction, Id::flagBuildDirectory)) };
 
     if (buildDirectory.isNotEmpty())
     {
-        const auto compilerManifest { directory.getChildFile (buildDirectory).getChildFile (text::CLanguage::compilerManifest) };
+        const auto compilerManifest { directory.getChildFile (buildDirectory).getChildFile (getWord (files, construction, Id::compilerManifest)) };
 
         if (compilerManifest.existsAsFile())
         {
@@ -77,21 +148,21 @@ void CompilerManifest::addCLanguageUnits (LINGModel& model, juce::ValueTree& fil
             if (const auto document { jam::JsonDocument::parse (compilerManifest) }; document != nullptr)
             {
                 for (const auto* unit : *document->getChildByToken (*document->getRoot(), document->getValue()))
-                    addCLanguageUnit (model, files, *document, *unit);
+                    addUnit (files, *document, *unit);
             }
             else
             {
-                model.setMessage (compilerManifest.getFullPathName() + Id::diagnosticSeparator + text::Diagnostics::failCompilerManifestInvalid + Id::diagnosticSeparator + jam::JsonDocument::isValid (jam::Strings::getView (compilerManifest.loadFileAsString())).getErrorMessage());
+                files.setProperty (Id::message, compilerManifest.getFullPathName() + Id::diagnosticSeparator + text::Diagnostics::failCompilerManifestInvalid + Id::diagnosticSeparator + jam::JsonDocument::isValid (jam::Strings::getView (compilerManifest.loadFileAsString())).getErrorMessage(), nullptr);
             }
         }
         else
         {
-            model.setMessage (compilerManifest.getFullPathName() + Id::diagnosticSeparator + text::Diagnostics::failCompilerManifestNotFound);
+            files.setProperty (Id::message, compilerManifest.getFullPathName() + Id::diagnosticSeparator + text::Diagnostics::failCompilerManifestNotFound, nullptr);
         }
     }
 }
 
-void CompilerManifest::addCLanguageUnit (LINGModel& model, juce::ValueTree& files, const jam::JsonDocument& document, const jam::Document::Element& unit)
+void CompilerManifest::addUnit (juce::ValueTree& files, const jam::JsonDocument& document, const jam::Document::Element& unit)
 {
     const auto getText { [&document, &unit] (const juce::Identifier& key)
     {
@@ -102,7 +173,6 @@ void CompilerManifest::addCLanguageUnit (LINGModel& model, juce::ValueTree& file
 
     const juce::File directory { getText (Id::directory) };
     const auto file { directory.getChildFile (getText (Id::file)) };
-    const auto commandArguments (getCommandArguments (document, unit));
 
     if (file.existsAsFile())
     {
@@ -111,19 +181,26 @@ void CompilerManifest::addCLanguageUnit (LINGModel& model, juce::ValueTree& file
             juce::ValueTree row { jam::Format::toType (Id::file) };
             row.setProperty (Id::path, file.getFullPathName(), nullptr);
             row.setProperty (Id::family, jam::SyntaxTree::getFamily (file), nullptr);
+            juce::Array<juce::var> arguments;
+
+            for (const auto& argument : getCommandArguments (document, unit))
+                arguments.add (argument);
+
             row.setProperty (Id::output, directory.getChildFile (getText (Id::output)).getFullPathName(), nullptr);
+            row.setProperty (Id::directory, directory.getFullPathName(), nullptr);
+            row.setProperty (Id::arguments, arguments, nullptr);
             files.appendChild (row, nullptr);
         }
     }
     else
     {
-        model.setMessage (file.getFullPathName() + Id::diagnosticSeparator + text::Diagnostics::failUnitNotFound);
+        files.setProperty (Id::message, file.getFullPathName() + Id::diagnosticSeparator + text::Diagnostics::failUnitNotFound, nullptr);
     }
 }
 
 jam::Strings CompilerManifest::getCommandArguments (const jam::JsonDocument& document, const jam::Document::Element& unit)
 {
-    if (const auto* arguments { document.find (unit, jam::Strings::getView (Id::arguments.toString())) })
+    if (const auto* arguments { document.find (unit, jam::Strings::getView (Id::arguments.toString())) }; arguments != nullptr)
     {
         jam::Strings commandArguments;
 
@@ -139,7 +216,7 @@ jam::Strings CompilerManifest::getCommandArguments (const jam::JsonDocument& doc
     return jam::ChildProcess::getArguments (commandText);
 }
 
-void CompilerManifest::addCLanguageDependencies (LINGModel& model, juce::ValueTree& files, const jam::MarkdownDocument& manifest, const jam::MarkdownDocument::Element& row, const juce::File& directory)
+void CompilerManifest::addDependencies (juce::ValueTree& files, const jam::MarkdownDocument& manifest, const jam::MarkdownDocument::Element& row, const juce::File& directory, const jam::MarkdownDocument& construction)
 {
     const auto command { manifest.getTableValue (row, Id::command) };
     const auto flag { manifest.getTableValue (row, Id::flag) };
@@ -149,7 +226,7 @@ void CompilerManifest::addCLanguageDependencies (LINGModel& model, juce::ValueTr
     std::string record;
     jam::Subprocess subprocess;
 
-    subprocess.launch (getDependencyArguments (command, flagArguments),
+    subprocess.launch (getDependencyArguments (command, flagArguments, getWord (files, construction, Id::dependencyFlag)),
                        directory,
                        [&finished, &exitCode] (int processExitCode, const std::string&)
                        {
@@ -162,33 +239,33 @@ void CompilerManifest::addCLanguageDependencies (LINGModel& model, juce::ValueTr
 
     if (exitCode == 0)
     {
-        const auto buildDirectory { directory.getChildFile (getBuildDirectory (flagArguments, text::CLanguage::flagDependencyDirectory)) };
+        const auto buildDirectory { directory.getChildFile (getBuildDirectory (flagArguments, getWord (files, construction, Id::flagDependencyDirectory))) };
         auto dependencyRecords (files[Id::dependencyRecords]);
 
-        addCLanguageRecords (model, files, record, buildDirectory);
-        dependencyRecords.append (buildDirectory.getChildFile (text::CLanguage::dependencyRecord).getFullPathName());
+        addRecords (files, record, buildDirectory, getWord (files, construction, Id::dependencyHead));
+        dependencyRecords.append (buildDirectory.getChildFile (getWord (files, construction, Id::dependencyRecord)).getFullPathName());
         files.setProperty (Id::dependencyRecords, dependencyRecords, nullptr);
     }
     else
     {
-        model.setMessage (command + Chars::space + flag + Id::diagnosticSeparator + text::Diagnostics::failToolchain);
+        files.setProperty (Id::message, command + Chars::space + flag + Id::diagnosticSeparator + text::Diagnostics::failToolchain, nullptr);
     }
 }
 
-jam::Strings CompilerManifest::getDependencyArguments (const juce::String& command, const jam::Strings& flagArguments)
+jam::Strings CompilerManifest::getDependencyArguments (const juce::String& command, const jam::Strings& flagArguments, const juce::String& dependencyFlag)
 {
     jam::Strings arguments { command };
 
     for (const auto& argument : flagArguments)
         arguments.add (argument);
 
-    for (const auto& argument : jam::ChildProcess::getArguments (text::CLanguage::dependencyFlag))
+    for (const auto& argument : jam::ChildProcess::getArguments (jam::Strings::getView (dependencyFlag)))
         arguments.add (argument);
 
     return arguments;
 }
 
-void CompilerManifest::addCLanguageRecords (LINGModel& model, juce::ValueTree& files, std::string_view record, const juce::File& buildDirectory)
+void CompilerManifest::addRecords (juce::ValueTree& files, std::string_view record, const juce::File& buildDirectory, const juce::String& dependencyHead)
 {
     jam::Strings paths;
 
@@ -196,18 +273,18 @@ void CompilerManifest::addCLanguageRecords (LINGModel& model, juce::ValueTree& f
         paths.add (file[Id::path].toString());
 
     for (size_t position { 0 }; position < record.size();)
-        position = addCLanguageRecord (files, paths, record, position, buildDirectory);
+        position = addRecord (files, paths, record, position, buildDirectory, dependencyHead);
 
     for (const auto& file : files)
         if (file.hasProperty (Id::output) and not file.hasProperty (Id::dependencies))
-            model.setMessage (file[Id::path].toString() + Id::diagnosticSeparator + text::Diagnostics::failDependenciesNotFound);
+            files.setProperty (Id::message, file[Id::path].toString() + Id::diagnosticSeparator + text::Diagnostics::failDependenciesNotFound, nullptr);
 }
 
-size_t CompilerManifest::addCLanguageRecord (juce::ValueTree& files, jam::Strings& paths, std::string_view record, size_t position, const juce::File& buildDirectory)
+size_t CompilerManifest::addRecord (juce::ValueTree& files, jam::Strings& paths, std::string_view record, size_t position, const juce::File& buildDirectory, const juce::String& dependencyHead)
 {
     const auto headEnd { std::min (record.find (static_cast<char> (Chars::newline), position), record.size()) };
     const auto head { record.substr (position, headEnd - position) };
-    const auto outputEnd { head.find (text::CLanguage::dependencyHead) };
+    const auto outputEnd { head.find (jam::Strings::getView (dependencyHead)) };
     auto unit { outputEnd != std::string_view::npos
                     ? files.getChildWithProperty (Id::output, buildDirectory.getChildFile (jam::Strings::fromView (head.substr (0, outputEnd))).getFullPathName())
                     : juce::ValueTree {} };

@@ -6,8 +6,10 @@ Client::Client (const juce::File& newManifestFile, const juce::String& newToolch
     , toolchainArgument (newToolchainArgument)
     , request (newRequest)
 {
-    LINGModel::getCacheDirectory().createDirectory();
-    watcher.addFolder (LINGModel::getCacheDirectory());
+    const auto portDirectory { Server::getPortFile (manifestFile, jam::Strings::getView (toolchainArgument)).getParentDirectory() };
+
+    portDirectory.createDirectory();
+    watcher.addFolder (portDirectory);
     watcher.coalesceEvents (LINGModel::coalesceMs);
     watcher.addListener (this);
 }
@@ -79,11 +81,7 @@ void Client::messageReceived (const juce::MemoryBlock& reply)
     }
     else
     {
-        std::string newlineText;
-
-        jam::Format::appendUtf8 (newlineText, Chars::newline);
         fwrite (reply.getData(), sizeof (char), reply.getSize(), stdout);
-        fwrite (newlineText.data(), sizeof (char), newlineText.size(), stdout);
         disconnect (-1, juce::InterprocessConnection::Notify::no);
         juce::JUCEApplicationBase::quit();
     }

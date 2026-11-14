@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="struct_swap_validator" kind="struct" language="C++" prot="public">
+    <compoundname>SwapValidator</compoundname>
+    <basecompoundref refid="structjam_1_1Document_1_1Validator" prot="public" virt="non-virtual">jam::Document::Validator</basecompoundref>
+    <includes refid="_swap_validator_8h" local="no">SwapValidator.h</includes>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="struct_swap_validator_1a4dd34faa0a529eb6f271de588081117c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void SwapValidator::addRules</definition>
+        <argsstring>(Rules &amp;rules)</argsstring>
+        <name>addRules</name>
+        <qualifiedname>SwapValidator::addRules</qualifiedname>
+        <param>
+          <type><ref refid="structjam_1_1Document_1_1Validator_1a1b9183befcfa704d9f51497959eecad6" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Rules</ref> &amp;</type>
+          <declname>rules</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SwapValidator.h" line="7" column="17" bodyfile="SwapValidator.cpp" bodystart="3" bodyend="16"/>
+        <references refid="structjam_1_1Function_1_1Map_1ad53732bb862659c66b8112c75f437248">jam::Function::Map&lt; typename KeyType, size_t capacity, typename... Signatures &gt;::add</references>
+        <references refid="classjam_1_1Strings_1a9223c1bf16916a52b122ae7e9d871f50">jam::Strings::add</references>
+        <references refid="structtext_1_1_diagnostics_1a2f45710676ce947b97c6c13fdd411af7" compoundref="_text_8h" startline="45" endline="45">text::Diagnostics::failSwapVersion</references>
+        <references refid="structjam_1_1Document_1_1Element_1af0e270107d2689f82a1bb4a2aface885">jam::Document::Element::find</references>
+        <references refid="structjam_1_1Document_1_1Validator_1a6a3f64ff32d39935e480ffc593a73af5">jam::Document::Validator::getFailures</references>
+        <references refid="structjam_1_1Document_1afa15c06a56937a7195814a2aa2c7521d">jam::Document::getRoot</references>
+        <references refid="namespaceId_1a26b45dcee4122af40c4184ef577e0a0e">Id::version</references>
+        <referencedby refid="struct_swap_validator_1abe28c28edda7b07691d9b273cc7e3b2e" compoundref="_swap_validator_8cpp" startline="18" endline="30">getRules</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_swap_validator_1abe28c28edda7b07691d9b273cc7e3b2e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>const <ref refid="structjam_1_1Document_1_1Validator_1a1b9183befcfa704d9f51497959eecad6" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Rules</ref> &amp;</type>
+        <definition>const SwapValidator::Rules &amp; SwapValidator::getRules</definition>
+        <argsstring>() const override</argsstring>
+        <name>getRules</name>
+        <qualifiedname>SwapValidator::getRules</qualifiedname>
+        <reimplements refid="structjam_1_1Document_1_1Validator_1a291ea29b1f589cb557114afcf8ebc49f">getRules</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SwapValidator.h" line="9" column="17" bodyfile="SwapValidator.cpp" bodystart="18" bodyend="30"/>
+        <references refid="struct_swap_validator_1a4dd34faa0a529eb6f271de588081117c" compoundref="_swap_validator_8cpp" startline="3" endline="16">addRules</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>SwapValidator</label>
+        <link refid="struct_swap_validator"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>jam::Document::Validator</label>
+        <link refid="structjam_1_1Document_1_1Validator" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>SwapValidator</label>
+        <link refid="struct_swap_validator"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>jam::Document::Validator</label>
+        <link refid="structjam_1_1Document_1_1Validator" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+    </collaborationgraph>
+    <location file="SwapValidator.h" line="5" column="1" bodyfile="SwapValidator.h" bodystart="6" bodyend="10"/>
+    <listofallmembers>
+      <member refid="struct_swap_validator_1a4dd34faa0a529eb6f271de588081117c" prot="public" virt="non-virtual"><scope>SwapValidator</scope><name>addRules</name></member>
+      <member refid="structjam_1_1Document_1_1Validator_1a6a3f64ff32d39935e480ffc593a73af5" prot="public" virt="non-virtual"><scope>SwapValidator</scope><name>getFailures</name></member>
+      <member refid="struct_swap_validator_1abe28c28edda7b07691d9b273cc7e3b2e" prot="public" virt="virtual"><scope>SwapValidator</scope><name>getRules</name></member>
+      <member refid="structjam_1_1Document_1_1Validator_1a1275a95db9c777fcceff5c574c561ae0" prot="public" virt="non-virtual"><scope>SwapValidator</scope><name>isValid</name></member>
+      <member refid="structjam_1_1Document_1_1Validator_1a054080969a3ccc5cf7b2fb64792f4707" prot="public" virt="non-virtual"><scope>SwapValidator</scope><name>isValid</name></member>
+      <member refid="structjam_1_1Document_1_1Validator_1a1b9183befcfa704d9f51497959eecad6" prot="public" virt="non-virtual"><scope>SwapValidator</scope><name>Rules</name></member>
+      <member refid="structjam_1_1Document_1_1Validator_1a030f3f652455b0cd156ed8ca131fe79b" prot="public" virt="virtual"><scope>SwapValidator</scope><name>~Validator</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -4,7 +4,7 @@
     <compoundname>JsonWriter</compoundname>
     <includes refid="_json_writer_8h" local="no">JsonWriter.h</includes>
     <sectiondef kind="public-static-func">
-      <memberdef kind="function" id="struct_json_writer_1a8309f189ec1525700f528bc02ba8cbc6" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="struct_json_writer_1ac47a4044dc4f37cf22533707a96a7335" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
             <type>typename Function</type>
@@ -12,7 +12,7 @@
         </templateparamlist>
         <type>void</type>
         <definition>static void JsonWriter::appendElement</definition>
-        <argsstring>(std::string &amp;json, std::string_view path, const jam::CodeDocument &amp;document, const jam::Document::Element &amp;element, const Function &amp;appendMembers)</argsstring>
+        <argsstring>(std::string &amp;json, std::string_view path, const jam::LanguageDocument &amp;document, const jam::Document::Element &amp;element, const Function &amp;appendMembers)</argsstring>
         <name>appendElement</name>
         <qualifiedname>JsonWriter::appendElement</qualifiedname>
         <param>
@@ -24,7 +24,7 @@
           <declname>path</declname>
         </param>
         <param>
-          <type>const <ref refid="structjam_1_1CodeDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::CodeDocument</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref> &amp;</type>
           <declname>document</declname>
         </param>
         <param>
@@ -100,7 +100,7 @@
         <references refid="structjam_1_1JsonWriter_1a3919b829ea01c2872b22e97c708f8333">jam::JsonWriter::appendObject</references>
         <references refid="structjam_1_1JsonWriter_1acf8da4810f6b5cb1ee80660149a2db25">jam::JsonWriter::appendSeparator</references>
         <references refid="structjam_1_1JsonWriter_1a41ee48bba1971acba117f12c2d9d7764">jam::JsonWriter::appendString</references>
-        <references refid="namespaceId_1af2239fe8341ea76506105b6ce8f3b749" compoundref="_generated_8cpp" startline="29" endline="29">Id::column</references>
+        <references refid="namespaceId_1af2239fe8341ea76506105b6ce8f3b749" compoundref="_generated_8cpp" startline="34" endline="34">Id::column</references>
         <references refid="structjam_1_1Document_1a86fec10b6cc4ec41143d30bddb906a23">jam::Document::getColumnNumber</references>
         <references refid="structjam_1_1Document_1afc26cd1da23ba0b9eaaef1548fc2120b">jam::Document::getLineNumber</references>
         <references refid="structjam_1_1Document_1a87bb9275594c8b0da70139d14782597d">jam::Document::getView</references>
@@ -108,15 +108,15 @@
         <references refid="namespaceId_1ab17c6c7afce10ee78699a1e23ac7acdf">Id::name</references>
         <references refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab">Id::path</references>
         <references refid="namespaceId_1ab4956db6d5e735af8b4e202830ac73f7">Id::type</references>
-        <referencedby refid="class_processor_1ae8c39f97b79806eeee330258a9b441ba" compoundref="_processor_8cpp" startline="249" endline="258">Processor::appendCompletion</referencedby>
-        <referencedby refid="class_processor_1a1244480684599a457ba6fbb06a2d7c2d" compoundref="_processor_8cpp" startline="224" endline="247">Processor::appendDocumentSymbols</referencedby>
-        <referencedby refid="struct_json_writer_1a0f05273b44c4f4479e8cbbe3669a52e3" compoundref="_json_writer_8cpp" startline="3" endline="6">appendElement</referencedby>
-        <referencedby refid="class_processor_1afd85c7b2fe001c412b1c083713c2dc5b" compoundref="_processor_8cpp" startline="434" endline="457">Processor::workspaceSymbol</referencedby>
+        <referencedby refid="class_query_1ad1e57bd7ab86fd527f3fc34beeb4cbaa" compoundref="_query_8cpp" startline="153" endline="162">Query::appendCompletion</referencedby>
+        <referencedby refid="class_query_1a17da924f6ba5be7020414fb1260174e3" compoundref="_query_8cpp" startline="128" endline="151">Query::appendDocumentSymbols</referencedby>
+        <referencedby refid="struct_json_writer_1af369e3b8c91b1bebaa0b6b2df9190d80" compoundref="_json_writer_8cpp" startline="3" endline="6">appendElement</referencedby>
+        <referencedby refid="class_query_1a15ad9b779e57720f864388a75863b93b" compoundref="_query_8cpp" startline="363" endline="386">Query::workspaceSymbol</referencedby>
       </memberdef>
-      <memberdef kind="function" id="struct_json_writer_1a0f05273b44c4f4479e8cbbe3669a52e3" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="struct_json_writer_1af369e3b8c91b1bebaa0b6b2df9190d80" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void JsonWriter::appendElement</definition>
-        <argsstring>(std::string &amp;json, std::string_view path, const jam::CodeDocument &amp;document, const jam::Document::Element &amp;element)</argsstring>
+        <argsstring>(std::string &amp;json, std::string_view path, const jam::LanguageDocument &amp;document, const jam::Document::Element &amp;element)</argsstring>
         <name>appendElement</name>
         <qualifiedname>JsonWriter::appendElement</qualifiedname>
         <param>
@@ -128,7 +128,7 @@
           <declname>path</declname>
         </param>
         <param>
-          <type>const <ref refid="structjam_1_1CodeDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::CodeDocument</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref> &amp;</type>
           <declname>document</declname>
         </param>
         <param>
@@ -177,12 +177,12 @@
         <inbodydescription>
         </inbodydescription>
         <location file="JsonWriter.h" line="64" column="17" bodyfile="JsonWriter.cpp" bodystart="3" bodyend="6"/>
-        <references refid="struct_json_writer_1a8309f189ec1525700f528bc02ba8cbc6" compoundref="_json_writer_8h" startline="30" endline="54">appendElement</references>
+        <references refid="struct_json_writer_1ac47a4044dc4f37cf22533707a96a7335" compoundref="_json_writer_8h" startline="30" endline="54">appendElement</references>
       </memberdef>
-      <memberdef kind="function" id="struct_json_writer_1a7e051970cb434e650565f01a14af1dc6" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="struct_json_writer_1a8d77f5bff343cc6d427f45f731cec1c4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void JsonWriter::appendComment</definition>
-        <argsstring>(std::string &amp;json, const jam::CodeDocument &amp;document, const jam::Document::Element &amp;element)</argsstring>
+        <argsstring>(std::string &amp;json, const jam::LanguageDocument &amp;document, const jam::Document::Element &amp;element)</argsstring>
         <name>appendComment</name>
         <qualifiedname>JsonWriter::appendComment</qualifiedname>
         <param>
@@ -190,7 +190,7 @@
           <declname>json</declname>
         </param>
         <param>
-          <type>const <ref refid="structjam_1_1CodeDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::CodeDocument</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref> &amp;</type>
           <declname>document</declname>
         </param>
         <param>
@@ -238,10 +238,10 @@
         <references refid="structmap_1_1SyntaxTokenType_1ad976277d4274ea78e3f211200db0ba6fa58f56755f710fd57916c08d1d3431ccf">map::SyntaxTokenType::comment</references>
         <references refid="structjam_1_1Document_1a87bb9275594c8b0da70139d14782597d">jam::Document::getView</references>
       </memberdef>
-      <memberdef kind="function" id="struct_json_writer_1abf8dcf767703296d8e5873e659313723" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="struct_json_writer_1adffdc3ff539797769ffcf2bc428959df" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void JsonWriter::appendSnippet</definition>
-        <argsstring>(std::string &amp;json, const jam::CodeDocument &amp;document, const jam::Document::Element &amp;element)</argsstring>
+        <argsstring>(std::string &amp;json, const jam::LanguageDocument &amp;document, const jam::Document::Element &amp;element)</argsstring>
         <name>appendSnippet</name>
         <qualifiedname>JsonWriter::appendSnippet</qualifiedname>
         <param>
@@ -249,7 +249,7 @@
           <declname>json</declname>
         </param>
         <param>
-          <type>const <ref refid="structjam_1_1CodeDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::CodeDocument</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref> &amp;</type>
           <declname>document</declname>
         </param>
         <param>
@@ -306,8 +306,67 @@
         <references refid="structChars_1a0e5ec90aededd9f537035dd008a475cf">Chars::openBrace</references>
         <references refid="structChars_1abd3afa51b77bcc972daf75a3a9c7edfa">Chars::openParen</references>
         <references refid="namespaceId_1a4169fe20395f8c928b65e9cf01c52fd5">Id::parameters</references>
-        <references refid="namespaceId_1af233c372f65e2a40ac336745c1be54d4" compoundref="_generated_8cpp" startline="58" endline="58">Id::snippet</references>
+        <references refid="namespaceId_1af233c372f65e2a40ac336745c1be54d4" compoundref="_generated_8cpp" startline="81" endline="81">Id::snippet</references>
         <references refid="structChars_1a04b9b7227a5cdf082413821f7a1c66de">Chars::space</references>
+      </memberdef>
+      <memberdef kind="function" id="struct_json_writer_1acd4d6daeb2a08c6da4744c5d00bdcdd4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void JsonWriter::appendParameters</definition>
+        <argsstring>(std::string &amp;json, const jam::LanguageDocument &amp;document, const jam::Document::Element &amp;declaration)</argsstring>
+        <name>appendParameters</name>
+        <qualifiedname>JsonWriter::appendParameters</qualifiedname>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>json</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref> &amp;</type>
+          <declname>document</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>declaration</declname>
+        </param>
+        <briefdescription>
+<para>Appends the parameter texts of a function declaration as array entries, with no key. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The caller opens the array. The function writes no key.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>json</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The JSON text that receives the entries. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>document</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The document whose source gives the text of each parameter. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>declaration</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The declaration. It must hold <ref refid="namespaceId_1a4169fe20395f8c928b65e9cf01c52fd5" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::parameters</ref>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="JsonWriter.h" line="100" column="17" bodyfile="JsonWriter.cpp" bodystart="47" bodyend="54"/>
+        <references refid="structjam_1_1JsonWriter_1acf8da4810f6b5cb1ee80660149a2db25">jam::JsonWriter::appendSeparator</references>
+        <references refid="structjam_1_1JsonWriter_1a41ee48bba1971acba117f12c2d9d7764">jam::JsonWriter::appendString</references>
+        <references refid="structjam_1_1Document_1a87bb9275594c8b0da70139d14782597d">jam::Document::getView</references>
+        <references refid="namespaceId_1a4169fe20395f8c928b65e9cf01c52fd5">Id::parameters</references>
+        <referencedby refid="class_query_1aad6e5a1c4754d6605f90f30699fc7769" compoundref="_query_8cpp" startline="272" endline="305">Query::inlayHint</referencedby>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -316,12 +375,13 @@
     <detaileddescription>
 <para>The struct holds no state. Each function writes into the string that the caller passes. appendSeparator places each JSON separator, so no caller places one. </para>
     </detaileddescription>
-    <location file="JsonWriter.h" line="12" column="1" bodyfile="JsonWriter.h" bodystart="13" bodyend="90"/>
+    <location file="JsonWriter.h" line="12" column="1" bodyfile="JsonWriter.h" bodystart="13" bodyend="101"/>
     <listofallmembers>
-      <member refid="struct_json_writer_1a7e051970cb434e650565f01a14af1dc6" prot="public" virt="non-virtual"><scope>JsonWriter</scope><name>appendComment</name></member>
-      <member refid="struct_json_writer_1a8309f189ec1525700f528bc02ba8cbc6" prot="public" virt="non-virtual"><scope>JsonWriter</scope><name>appendElement</name></member>
-      <member refid="struct_json_writer_1a0f05273b44c4f4479e8cbbe3669a52e3" prot="public" virt="non-virtual"><scope>JsonWriter</scope><name>appendElement</name></member>
-      <member refid="struct_json_writer_1abf8dcf767703296d8e5873e659313723" prot="public" virt="non-virtual"><scope>JsonWriter</scope><name>appendSnippet</name></member>
+      <member refid="struct_json_writer_1a8d77f5bff343cc6d427f45f731cec1c4" prot="public" virt="non-virtual"><scope>JsonWriter</scope><name>appendComment</name></member>
+      <member refid="struct_json_writer_1ac47a4044dc4f37cf22533707a96a7335" prot="public" virt="non-virtual"><scope>JsonWriter</scope><name>appendElement</name></member>
+      <member refid="struct_json_writer_1af369e3b8c91b1bebaa0b6b2df9190d80" prot="public" virt="non-virtual"><scope>JsonWriter</scope><name>appendElement</name></member>
+      <member refid="struct_json_writer_1acd4d6daeb2a08c6da4744c5d00bdcdd4" prot="public" virt="non-virtual"><scope>JsonWriter</scope><name>appendParameters</name></member>
+      <member refid="struct_json_writer_1adffdc3ff539797769ffcf2bc428959df" prot="public" virt="non-virtual"><scope>JsonWriter</scope><name>appendSnippet</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

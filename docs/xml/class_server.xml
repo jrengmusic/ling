@@ -21,7 +21,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Server.h" line="96" column="26" bodyfile="Server.h" bodystart="96" bodyend="96"/>
+        <location file="Server.h" line="98" column="26" bodyfile="Server.h" bodystart="98" bodyend="98"/>
         <referencedby refid="class_server_1a7eac07d2582fa01c2671362efa955b31" compoundref="_server_8cpp" startline="15" endline="19">start</referencedby>
       </memberdef>
     </sectiondef>
@@ -41,10 +41,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Server.h" line="99" column="15" bodyfile="Server.h" bodystart="99" bodyend="99"/>
+        <location file="Server.h" line="101" column="15" bodyfile="Server.h" bodystart="101" bodyend="101"/>
         <referencedby refid="class_server_1a9cc0faedd6b771c2e6a2e91ddf95e50b" compoundref="_server_8cpp" startline="26" endline="31">getPortFile</referencedby>
         <referencedby refid="class_server_1ad5ec9462b520e59f7ea831e157ee5e59" compoundref="_server_8cpp" startline="3" endline="6">Server</referencedby>
-        <referencedby refid="class_server_1aa575c0d8d384a8177425d5cd25ea50d0" compoundref="_server_8cpp" startline="54" endline="58">valueTreeChildAdded</referencedby>
+        <referencedby refid="class_server_1afc7f2fd63e0532fa9164aa9308f52c4d" compoundref="_server_8cpp" startline="60" endline="65">valueTreeChildRemoved</referencedby>
         <referencedby refid="class_server_1a4dd7b0071ab8e42b970d7ca9474986bc" compoundref="_server_8cpp" startline="42" endline="52">valueTreePropertyChanged</referencedby>
         <referencedby refid="class_server_1af575d2e7efe3b7130dcbffc2c163f5e6" compoundref="_server_8cpp" startline="8" endline="13">~Server</referencedby>
       </memberdef>
@@ -63,7 +63,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Server.h" line="102" column="21" bodyfile="Server.h" bodystart="102" bodyend="102"/>
+        <location file="Server.h" line="104" column="21" bodyfile="Server.h" bodystart="104" bodyend="104"/>
+        <referencedby refid="class_server_1afc7f2fd63e0532fa9164aa9308f52c4d" compoundref="_server_8cpp" startline="60" endline="65">valueTreeChildRemoved</referencedby>
         <referencedby refid="class_server_1a4dd7b0071ab8e42b970d7ca9474986bc" compoundref="_server_8cpp" startline="42" endline="52">valueTreePropertyChanged</referencedby>
         <referencedby refid="class_server_1af575d2e7efe3b7130dcbffc2c163f5e6" compoundref="_server_8cpp" startline="8" endline="13">~Server</referencedby>
       </memberdef>
@@ -81,7 +82,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Server.h" line="105" column="16" bodyfile="Server.h" bodystart="105" bodyend="-1"/>
+        <location file="Server.h" line="107" column="16" bodyfile="Server.h" bodystart="107" bodyend="-1"/>
         <referencedby refid="class_server_1a8804924ac4a75abb23c93872f0f896b7" compoundref="_server_8cpp" startline="33" endline="40">createConnectionObject</referencedby>
       </memberdef>
       <memberdef kind="variable" id="class_server_1a936e80685778b09d3ea8ff61819f2ca0" prot="private" static="no" mutable="no">
@@ -107,7 +108,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Server.h" line="108" column="37" bodyfile="Server.h" bodystart="108" bodyend="117"/>
+        <location file="Server.h" line="110" column="37" bodyfile="Server.h" bodystart="110" bodyend="119"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -126,7 +127,7 @@
         </inbodydescription>
         <location file="Server.h" line="22" column="5" bodyfile="Server.cpp" bodystart="3" bodyend="6"/>
         <references refid="classjam_1_1Model_1ae5d4d70e706dcc558cf21923125a9176">jam::Model::addListener</references>
-        <references refid="class_server_1a6b7140246b55852c84084d5661f3cb63" compoundref="_server_8h" startline="99" endline="99">model</references>
+        <references refid="class_server_1a6b7140246b55852c84084d5661f3cb63" compoundref="_server_8h" startline="101" endline="101">model</references>
       </memberdef>
       <memberdef kind="function" id="class_server_1af575d2e7efe3b7130dcbffc2c163f5e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -142,10 +143,10 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Server.h" line="25" column="5" bodyfile="Server.cpp" bodystart="8" bodyend="13"/>
-        <references refid="class_server_1a6b7140246b55852c84084d5661f3cb63" compoundref="_server_8h" startline="99" endline="99">model</references>
+        <references refid="class_server_1a6b7140246b55852c84084d5661f3cb63" compoundref="_server_8h" startline="101" endline="101">model</references>
         <references refid="classjam_1_1Model_1a688b7625ae8b2a4d4d1f1643a6b3aa41">jam::Model::removeListener</references>
         <references refid="classjuce_1_1ValueTree_1adb77c358216105c3b9c695269025a909">juce::ValueTree::removeListener</references>
-        <references refid="class_server_1a5511e40ed3f13f8c589c653479eaf511" compoundref="_server_8h" startline="102" endline="102">state</references>
+        <references refid="class_server_1a5511e40ed3f13f8c589c653479eaf511" compoundref="_server_8h" startline="104" endline="104">state</references>
         <references refid="classjuce_1_1InterprocessConnectionServer_1ad63c72c9f85387fefd14bc32e2b9bcda">juce::InterprocessConnectionServer::stop</references>
       </memberdef>
       <memberdef kind="function" id="class_server_1a7eac07d2582fa01c2671362efa955b31" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -163,10 +164,10 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Server.h" line="33" column="10" bodyfile="Server.cpp" bodystart="15" bodyend="19"/>
-        <references refid="class_server_1a30ea9ecd4c1f78867e08840da331d0df" compoundref="_server_8h" startline="96" endline="96">anyPort</references>
+        <references refid="class_server_1a30ea9ecd4c1f78867e08840da331d0df" compoundref="_server_8h" startline="98" endline="98">anyPort</references>
         <references refid="classjuce_1_1InterprocessConnectionServer_1a788162146143d8cb50d2fa2859fb2c6d">juce::InterprocessConnectionServer::beginWaitingForSocket</references>
         <references refid="classjuce_1_1IPAddress_1ae4e292fb0e233dadad51919f66ef3951">juce::IPAddress::local</references>
-        <referencedby refid="class_application_1a4de481aad2640107c4adb792347d8a8f" compoundref="_main_8cpp" startline="389" endline="409">Application::runDaemon</referencedby>
+        <referencedby refid="class_application_1a4de481aad2640107c4adb792347d8a8f" compoundref="_main_8cpp" startline="391" endline="411">Application::runDaemon</referencedby>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-static-func">
@@ -216,11 +217,11 @@
         <references refid="class_l_i_n_g_model_1a418ec05ca5a75c35b3187e995a82fb5c" compoundref="_l_i_n_g_model_8cpp" startline="39" endline="46">LINGModel::getCacheDirectory</references>
         <references refid="classjuce_1_1File_1a57b992aacb19e09ee5905cd0f0e9bb31">juce::File::getChildFile</references>
         <references refid="class_l_i_n_g_model_1aa8f0468179c1dbd1d51bc903480152db" compoundref="_l_i_n_g_model_8cpp" startline="27" endline="37">LINGModel::getDaemonName</references>
-        <references refid="namespacefiles_1a0012a17891f00e325b51368b2daaaad2" compoundref="_generated_8cpp" startline="75" endline="75">files::lingPort</references>
+        <references refid="namespacefiles_1a0012a17891f00e325b51368b2daaaad2" compoundref="_generated_8cpp" startline="115" endline="115">files::lingPort</references>
         <references refid="structjam_1_1Format_1a0df527b612e533614787d3aa103c8d2c">jam::Format::toFileName</references>
-        <referencedby refid="class_client_1a369f7b5fbcaaa5bf47e7415336a1b82f" compoundref="_client_8cpp" startline="51" endline="57">Client::fileChanged</referencedby>
+        <referencedby refid="class_client_1a369f7b5fbcaaa5bf47e7415336a1b82f" compoundref="_client_8cpp" startline="53" endline="59">Client::fileChanged</referencedby>
         <referencedby refid="class_server_1a9cc0faedd6b771c2e6a2e91ddf95e50b" compoundref="_server_8cpp" startline="26" endline="31">getPortFile</referencedby>
-        <referencedby refid="class_server_1a408f595457a668bacb8c44ac186bfaf0" compoundref="_server_8cpp" startline="60" endline="68">timerCallback</referencedby>
+        <referencedby refid="class_server_1a408f595457a668bacb8c44ac186bfaf0" compoundref="_server_8cpp" startline="67" endline="75">timerCallback</referencedby>
         <referencedby refid="class_server_1a4dd7b0071ab8e42b970d7ca9474986bc" compoundref="_server_8cpp" startline="42" endline="52">valueTreePropertyChanged</referencedby>
       </memberdef>
     </sectiondef>
@@ -246,7 +247,7 @@
         <location file="Server.h" line="56" column="34" bodyfile="Server.cpp" bodystart="33" bodyend="40"/>
         <references refid="classjam_1_1Owner_1a400b21f3cdddb8f4537f9505a4aac8b4">jam::Owner&lt; typename ObjectClass &gt;::add</references>
         <references refid="classjuce_1_1MessageManager_1aa34494bcb54b9d4155934c8f53ed1070">juce::MessageManager::callAsync</references>
-        <references refid="class_server_1a3a2a4962b7e0ad2886a6ff7bb27b6479" compoundref="_server_8h" startline="105">connections</references>
+        <references refid="class_server_1a3a2a4962b7e0ad2886a6ff7bb27b6479" compoundref="_server_8h" startline="107">connections</references>
       </memberdef>
       <memberdef kind="function" id="class_server_1a4dd7b0071ab8e42b970d7ca9474986bc" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -292,17 +293,17 @@
         <location file="Server.h" line="68" column="10" bodyfile="Server.cpp" bodystart="42" bodyend="52"/>
         <references refid="classjuce_1_1ValueTree_1a91ef4df4f2007e83b137a65b5ea59124">juce::ValueTree::addListener</references>
         <references refid="classjuce_1_1File_1af540d2875c87e47836e7deef02537ea4">juce::File::createDirectory</references>
-        <references refid="namespaceId_1a72f698cea9e6a6c20308661f18254984" compoundref="_generated_8cpp" startline="38" endline="38">Id::documents</references>
+        <references refid="namespaceId_1a72f698cea9e6a6c20308661f18254984" compoundref="_generated_8cpp" startline="51" endline="51">Id::documents</references>
         <references refid="classjuce_1_1InterprocessConnectionServer_1a3ba6b3280b5b2dd0c6af01903f18ed7d">juce::InterprocessConnectionServer::getBoundPort</references>
-        <references refid="class_l_i_n_g_model_1a418ec05ca5a75c35b3187e995a82fb5c" compoundref="_l_i_n_g_model_8cpp" startline="39" endline="46">LINGModel::getCacheDirectory</references>
+        <references refid="classjuce_1_1File_1ab6bec65fbcf19ce10e38cf9d1015770d">juce::File::getParentDirectory</references>
         <references refid="class_server_1a4eea4c89de21dd82775cd821d7374010" compoundref="_server_8cpp" startline="21" endline="24">getPortFile</references>
-        <references refid="class_server_1a6b7140246b55852c84084d5661f3cb63" compoundref="_server_8h" startline="99" endline="99">model</references>
+        <references refid="class_server_1a6b7140246b55852c84084d5661f3cb63" compoundref="_server_8h" startline="101" endline="101">model</references>
         <references refid="classjam_1_1Model_1a688b7625ae8b2a4d4d1f1643a6b3aa41">jam::Model::removeListener</references>
         <references refid="classjuce_1_1File_1a01aa22f7ebb9b06840c2118a5e99964a">juce::File::replaceWithText</references>
         <references refid="classjuce_1_1Timer_1acb43e06d5742106830080af3d50b422d">juce::Timer::startTimer</references>
         <references refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857">jam::Model::state</references>
-        <references refid="class_server_1a5511e40ed3f13f8c589c653479eaf511" compoundref="_server_8h" startline="102" endline="102">state</references>
-        <references refid="namespaceId_1ad99de3ca37a30e0bb93696f8de7d2561" compoundref="_generated_8cpp" startline="59" endline="59">Id::timeout</references>
+        <references refid="class_server_1a5511e40ed3f13f8c589c653479eaf511" compoundref="_server_8h" startline="104" endline="104">state</references>
+        <references refid="namespaceId_1ad99de3ca37a30e0bb93696f8de7d2561" compoundref="_generated_8cpp" startline="86" endline="86">Id::timeout</references>
       </memberdef>
       <memberdef kind="function" id="class_server_1aa575c0d8d384a8177425d5cd25ea50d0" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -347,12 +348,44 @@
         </inbodydescription>
         <location file="Server.h" line="79" column="10" bodyfile="Server.cpp" bodystart="54" bodyend="58"/>
         <references refid="classjuce_1_1ValueTree_1a21ae8143e7abb766a9a3b4961d74be2b">juce::ValueTree::hasType</references>
-        <references refid="class_server_1a6b7140246b55852c84084d5661f3cb63" compoundref="_server_8h" startline="99" endline="99">model</references>
-        <references refid="namespaceId_1af4e71980bee2a5365b2626999eb5bf71" compoundref="_generated_8cpp" startline="55" endline="55">Id::request</references>
+        <references refid="namespaceId_1af4e71980bee2a5365b2626999eb5bf71" compoundref="_generated_8cpp" startline="76" endline="76">Id::request</references>
+        <references refid="classjuce_1_1Timer_1a2ff70b860a8c875658b4baa91c8bcef0">juce::Timer::stopTimer</references>
+        <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1afc7f2fd63e0532fa9164aa9308f52c4d" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void Server::valueTreeChildRemoved</definition>
+        <argsstring>(juce::ValueTree &amp;parentTree, juce::ValueTree &amp;childWhichHasBeenRemoved, int indexFromWhichChildWasRemoved) override</argsstring>
+        <name>valueTreeChildRemoved</name>
+        <qualifiedname>Server::valueTreeChildRemoved</qualifiedname>
+        <reimplements refid="classjuce_1_1ValueTree_1_1Listener_1a09dc85f9c71389f2801c9a7bc582ae1b">valueTreeChildRemoved</reimplements>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>parentTree</declname>
+        </param>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>childWhichHasBeenRemoved</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>indexFromWhichChildWasRemoved</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server.h" line="81" column="10" bodyfile="Server.cpp" bodystart="60" bodyend="65"/>
+        <references refid="classjuce_1_1ValueTree_1a8b730cb3e09cf85af8509f28dce245e2">juce::ValueTree::begin</references>
+        <references refid="classjuce_1_1ValueTree_1a56db829e89e822aa4e309fe8a4604ddc">juce::ValueTree::end</references>
+        <references refid="classjuce_1_1ValueTree_1ab24fd944bc0bc40b8cfb5668c5931634">juce::ValueTree::getParent</references>
+        <references refid="class_server_1a6b7140246b55852c84084d5661f3cb63" compoundref="_server_8h" startline="101" endline="101">model</references>
         <references refid="classjuce_1_1Timer_1acb43e06d5742106830080af3d50b422d">juce::Timer::startTimer</references>
         <references refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857">jam::Model::state</references>
-        <references refid="namespaceId_1ad99de3ca37a30e0bb93696f8de7d2561" compoundref="_generated_8cpp" startline="59" endline="59">Id::timeout</references>
-        <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
+        <references refid="class_server_1a5511e40ed3f13f8c589c653479eaf511" compoundref="_server_8h" startline="104" endline="104">state</references>
+        <references refid="namespaceId_1ad99de3ca37a30e0bb93696f8de7d2561" compoundref="_generated_8cpp" startline="86" endline="86">Id::timeout</references>
       </memberdef>
       <memberdef kind="function" id="class_server_1a408f595457a668bacb8c44ac186bfaf0" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -369,7 +402,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Server.h" line="86" column="10" bodyfile="Server.cpp" bodystart="60" bodyend="68"/>
+        <location file="Server.h" line="88" column="10" bodyfile="Server.cpp" bodystart="67" bodyend="75"/>
         <references refid="classjuce_1_1File_1ae0058be6d755ac686b4b1becf63183ef">juce::File::deleteFile</references>
         <references refid="class_server_1a4eea4c89de21dd82775cd821d7374010" compoundref="_server_8cpp" startline="21" endline="24">getPortFile</references>
         <references refid="classjuce_1_1JUCEApplicationBase_1ae2ba9b90c02361717d997aa26861f2c4">juce::JUCEApplicationBase::quit</references>
@@ -392,14 +425,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Server.h" line="93" column="16" bodyfile="Server.cpp" bodystart="26" bodyend="31"/>
+        <location file="Server.h" line="95" column="16" bodyfile="Server.cpp" bodystart="26" bodyend="31"/>
         <references refid="class_server_1a4eea4c89de21dd82775cd821d7374010" compoundref="_server_8cpp" startline="21" endline="24">getPortFile</references>
         <references refid="classjam_1_1Strings_1adfb32d159be94dc4a4004c50be876e3c">jam::Strings::getView</references>
-        <references refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" compoundref="_identifiers_8h" startline="54">Id::manifest</references>
-        <references refid="class_server_1a6b7140246b55852c84084d5661f3cb63" compoundref="_server_8h" startline="99" endline="99">model</references>
+        <references refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" compoundref="_identifiers_8h" startline="73">Id::manifest</references>
+        <references refid="class_server_1a6b7140246b55852c84084d5661f3cb63" compoundref="_server_8h" startline="101" endline="101">model</references>
         <references refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857">jam::Model::state</references>
-        <references refid="namespaceId_1ad2d03a036d57999f43066f5737dc8008" compoundref="_generated_8cpp" startline="61" endline="61">Id::toolchainArgument</references>
-        <referencedby refid="class_client_1a03fbf335433a66624210457ba50f83fb" compoundref="_client_8cpp" startline="39" endline="49">Client::connectToDaemon</referencedby>
+        <references refid="namespaceId_1ad2d03a036d57999f43066f5737dc8008" compoundref="_generated_8cpp" startline="88" endline="88">Id::toolchainArgument</references>
+        <referencedby refid="class_client_1aefc3c94434262806f1bc3aafebeae9ea" compoundref="_client_8cpp" startline="3" endline="15">Client::Client</referencedby>
+        <referencedby refid="class_client_1a03fbf335433a66624210457ba50f83fb" compoundref="_client_8cpp" startline="41" endline="51">Client::connectToDaemon</referencedby>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -679,7 +713,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="Server.h" line="16" column="1" bodyfile="Server.h" bodystart="19" bodyend="120"/>
+    <location file="Server.h" line="16" column="1" bodyfile="Server.h" bodystart="19" bodyend="122"/>
     <listofallmembers>
       <member refid="classjuce_1_1Thread_1ab6c3e8b12180836f10d32c66f378a71e" prot="private" virt="non-virtual"><scope>Server</scope><name>addListener</name></member>
       <member refid="class_server_1a30ea9ecd4c1f78867e08840da331d0df" prot="private" virt="non-virtual"><scope>Server</scope><name>anyPort</name></member>
@@ -737,7 +771,7 @@
       <member refid="class_server_1a408f595457a668bacb8c44ac186bfaf0" prot="private" virt="virtual"><scope>Server</scope><name>timerCallback</name></member>
       <member refid="class_server_1aa575c0d8d384a8177425d5cd25ea50d0" prot="private" virt="virtual"><scope>Server</scope><name>valueTreeChildAdded</name></member>
       <member refid="classjuce_1_1ValueTree_1_1Listener_1a5fb2f9f798c9ebb48235ba15759fd48b" prot="private" virt="virtual"><scope>Server</scope><name>valueTreeChildOrderChanged</name></member>
-      <member refid="classjuce_1_1ValueTree_1_1Listener_1a09dc85f9c71389f2801c9a7bc582ae1b" prot="private" virt="virtual"><scope>Server</scope><name>valueTreeChildRemoved</name></member>
+      <member refid="class_server_1afc7f2fd63e0532fa9164aa9308f52c4d" prot="private" virt="virtual"><scope>Server</scope><name>valueTreeChildRemoved</name></member>
       <member refid="classjuce_1_1ValueTree_1_1Listener_1a2e39febd013de0ff7da23a5b574055db" prot="private" virt="virtual"><scope>Server</scope><name>valueTreeParentChanged</name></member>
       <member refid="class_server_1a4dd7b0071ab8e42b970d7ca9474986bc" prot="private" virt="virtual"><scope>Server</scope><name>valueTreePropertyChanged</name></member>
       <member refid="classjuce_1_1ValueTree_1_1Listener_1aa46de90c3746a395792a632219e404f2" prot="private" virt="virtual"><scope>Server</scope><name>valueTreeRedirected</name></member>

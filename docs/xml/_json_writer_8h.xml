@@ -5,7 +5,7 @@
     <includes local="no">JuceHeader.h</includes>
     <includes refid="_generated_8h" local="yes">generated/Generated.h</includes>
     <includedby refid="_json_writer_8cpp" local="yes">JsonWriter.cpp</includedby>
-    <includedby refid="_processor_8h" local="yes">Processor.h</includedby>
+    <includedby refid="_query_8h" local="yes">Query.h</includedby>
     <incdepgraph>
       <node id="1">
         <label>JsonWriter.h</label>
@@ -66,20 +66,32 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="4">
+      <node id="5">
         <label>Main.cpp</label>
         <link refid="_main_8cpp"/>
       </node>
-      <node id="5">
+      <node id="6">
         <label>Processor.cpp</label>
         <link refid="_processor_8cpp"/>
       </node>
-      <node id="3">
+      <node id="4">
         <label>Processor.h</label>
         <link refid="_processor_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>Query.cpp</label>
+        <link refid="_query_8cpp"/>
+      </node>
+      <node id="3">
+        <label>Query.h</label>
+        <link refid="_query_8h"/>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="5" relation="include">
+        <childnode refid="7" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -96,7 +108,7 @@
 <codeline lineno="12" refid="struct_json_writer" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_json_writer" kindref="compound">JsonWriter</ref></highlight></codeline>
 <codeline lineno="13"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Function&gt;</highlight></codeline>
-<codeline lineno="30" refid="struct_json_writer_1a8309f189ec1525700f528bc02ba8cbc6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="struct_json_writer_1a8309f189ec1525700f528bc02ba8cbc6" kindref="member">appendElement</ref><sp/>(std::string&amp;<sp/>json,<sp/>std::string_view<sp/>path,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1CodeDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::CodeDocument</ref>&amp;<sp/>document,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;<sp/>element,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Function&amp;<sp/>appendMembers)</highlight></codeline>
+<codeline lineno="30" refid="struct_json_writer_1ac47a4044dc4f37cf22533707a96a7335" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="struct_json_writer_1ac47a4044dc4f37cf22533707a96a7335" kindref="member">appendElement</ref><sp/>(std::string&amp;<sp/>json,<sp/>std::string_view<sp/>path,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref>&amp;<sp/>document,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;<sp/>element,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Function&amp;<sp/>appendMembers)</highlight></codeline>
 <codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>token<sp/>{<sp/>element.get&lt;<ref refid="structjam_1_1Document_1a805d84a9511bbac7e123e95c20c6c32b" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Tokens</ref>&gt;<sp/>(<ref refid="namespaceId_1ab17c6c7afce10ee78699a1e23ac7acdf" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::name</ref>)-&gt;last()<sp/>};</highlight></codeline>
 <codeline lineno="33"><highlight class="normal"></highlight></codeline>
@@ -122,12 +134,14 @@
 <codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>});</highlight></codeline>
 <codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="55"><highlight class="normal"></highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="struct_json_writer_1a8309f189ec1525700f528bc02ba8cbc6" kindref="member">appendElement</ref><sp/>(std::string&amp;<sp/>json,<sp/>std::string_view<sp/>path,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1CodeDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::CodeDocument</ref>&amp;<sp/>document,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;<sp/>element);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="struct_json_writer_1ac47a4044dc4f37cf22533707a96a7335" kindref="member">appendElement</ref><sp/>(std::string&amp;<sp/>json,<sp/>std::string_view<sp/>path,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref>&amp;<sp/>document,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;<sp/>element);</highlight></codeline>
 <codeline lineno="65"><highlight class="normal"></highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="struct_json_writer_1a7e051970cb434e650565f01a14af1dc6" kindref="member">appendComment</ref><sp/>(std::string&amp;<sp/>json,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1CodeDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::CodeDocument</ref>&amp;<sp/>document,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;<sp/>element);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="struct_json_writer_1a8d77f5bff343cc6d427f45f731cec1c4" kindref="member">appendComment</ref><sp/>(std::string&amp;<sp/>json,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref>&amp;<sp/>document,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;<sp/>element);</highlight></codeline>
 <codeline lineno="76"><highlight class="normal"></highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="struct_json_writer_1abf8dcf767703296d8e5873e659313723" kindref="member">appendSnippet</ref><sp/>(std::string&amp;<sp/>json,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1CodeDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::CodeDocument</ref>&amp;<sp/>document,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;<sp/>element);</highlight></codeline>
-<codeline lineno="90"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="struct_json_writer_1adffdc3ff539797769ffcf2bc428959df" kindref="member">appendSnippet</ref><sp/>(std::string&amp;<sp/>json,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref>&amp;<sp/>document,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;<sp/>element);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="struct_json_writer_1acd4d6daeb2a08c6da4744c5d00bdcdd4" kindref="member">appendParameters</ref><sp/>(std::string&amp;<sp/>json,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1LanguageDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageDocument</ref>&amp;<sp/>document,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;<sp/>declaration);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal">};</highlight></codeline>
     </programlisting>
     <location file="JsonWriter.h"/>
   </compounddef>

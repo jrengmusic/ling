@@ -14,7 +14,7 @@
 <para>Project metadata — the <ref refid="namespace_project_info" kindref="compound">ProjectInfo</ref> namespace, generated. </para>
         </briefdescription>
         <detaileddescription>
-<para>Every field is a complete literal; nothing downstream derives, concatenates, or restates a value. Language Index Navigation Graph </para>
+<para>Every field is a complete literal; nothing downstream derives, concatenates, or restates a value. Language <ref refid="class_index" kindref="compound">Index</ref> Navigation Graph </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -58,7 +58,7 @@
         <argsstring></argsstring>
         <name>versionString</name>
         <qualifiedname>ProjectInfo::versionString</qualifiedname>
-        <initializer>{ &quot;0.1.0&quot;                                            }</initializer>
+        <initializer>{ &quot;0.0.1&quot;                                            }</initializer>
         <briefdescription>
 <para>Product version string. </para>
         </briefdescription>
@@ -74,7 +74,7 @@
         <argsstring></argsstring>
         <name>versionNumber</name>
         <qualifiedname>ProjectInfo::versionNumber</qualifiedname>
-        <initializer>{ 0x100                                              }</initializer>
+        <initializer>{ 0x1                                                }</initializer>
         <briefdescription>
 <para>Product version, JUCE hex encoding. </para>
         </briefdescription>

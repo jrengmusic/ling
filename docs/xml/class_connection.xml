@@ -60,7 +60,7 @@
         <referencedby refid="class_connection_1a23c012c1e2740f1e11efe2253220fa1d" compoundref="_connection_8cpp" startline="22" endline="26">connectionLost</referencedby>
         <referencedby refid="class_connection_1a081d3a1c76e234c5da3dd7f011dfe9c2" compoundref="_connection_8cpp" startline="15" endline="20">connectionMade</referencedby>
         <referencedby refid="class_connection_1a3c2abaa7098986a8b534a5433bdb9fcd" compoundref="_connection_8cpp" startline="28" endline="48">messageReceived</referencedby>
-        <referencedby refid="class_connection_1a0d634509374cada8ffd175a382829a1e" compoundref="_connection_8cpp" startline="50" endline="59">valueTreePropertyChanged</referencedby>
+        <referencedby refid="class_connection_1a0d634509374cada8ffd175a382829a1e" compoundref="_connection_8cpp" startline="50" endline="63">valueTreePropertyChanged</referencedby>
         <referencedby refid="class_connection_1a7f2da292b13f5cd23f26bd18b050b2e9" compoundref="_connection_8cpp" startline="9" endline="13">~Connection</referencedby>
       </memberdef>
     </sectiondef>
@@ -134,8 +134,8 @@
         <location file="Connection.h" line="37" column="10" bodyfile="Connection.cpp" bodystart="15" bodyend="20"/>
         <references refid="classjuce_1_1ValueTree_1a91ef4df4f2007e83b137a65b5ea59124">juce::ValueTree::addListener</references>
         <references refid="classjuce_1_1ValueTree_1a98d6f83140f913101a059e611b7dfade">juce::ValueTree::appendChild</references>
-        <references refid="namespaceId_1aec5b34525c30f9236d01d954c002e497" compoundref="_generated_8cpp" startline="32" endline="32">Id::connection</references>
-        <references refid="namespaceId_1a743670993dd005f0f872a89a5d009560" compoundref="_generated_8cpp" startline="33" endline="33">Id::connections</references>
+        <references refid="namespaceId_1aec5b34525c30f9236d01d954c002e497" compoundref="_generated_8cpp" startline="39" endline="39">Id::connection</references>
+        <references refid="namespaceId_1a743670993dd005f0f872a89a5d009560" compoundref="_generated_8cpp" startline="40" endline="40">Id::connections</references>
         <references refid="classjuce_1_1ValueTree_1ac9bbcb6db4464f77b512b9bd8bbb8c3f">juce::ValueTree::getChildWithName</references>
         <references refid="class_connection_1a239a1ae3ddb9efb16f16e5b1bcd48172" compoundref="_connection_8h" startline="72" endline="72">model</references>
         <references refid="class_connection_1a5fc585653ad920f89ad3c6247cb91c55" compoundref="_connection_8h" startline="75">state</references>
@@ -180,7 +180,7 @@
 <para>Turns one client message into a request row below the connection row. </para>
         </briefdescription>
         <detaileddescription>
-<para>The message is a JSON array. Index 0 is the command, index 1 is the working folder, and index 2 onward are the arguments. A message with fewer than two elements adds no request row. The function asserts that the message is an array of at least two elements.</para>
+<para>The message is a JSON array. <ref refid="class_index" kindref="compound">Index</ref> 0 is the command, index 1 is the working folder, and index 2 onward are the arguments. A message with fewer than two elements adds no request row. The function asserts that the message is an array of at least two elements.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>message</parametername>
@@ -201,7 +201,7 @@
         <references refid="namespaceId_1a6669c6bd053caa80ea2d789eddc0de47">Id::directory</references>
         <references refid="classjam_1_1Strings_1aca02ec79e3d857bca6f9647dce6415fc">jam::Strings::fromView</references>
         <references refid="structjam_1_1Document_1a367d65133f164cf9421ff0c3ddf2bbf6">jam::Document::parse</references>
-        <references refid="namespaceId_1af4e71980bee2a5365b2626999eb5bf71" compoundref="_generated_8cpp" startline="55" endline="55">Id::request</references>
+        <references refid="namespaceId_1af4e71980bee2a5365b2626999eb5bf71" compoundref="_generated_8cpp" startline="76" endline="76">Id::request</references>
         <references refid="class_connection_1a5fc585653ad920f89ad3c6247cb91c55" compoundref="_connection_8h" startline="75">state</references>
         <references refid="namespaceId_1a852b83817f32504602a384b9091ed9fb">Id::tokens</references>
         <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
@@ -247,11 +247,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Connection.h" line="66" column="10" bodyfile="Connection.cpp" bodystart="50" bodyend="59"/>
+        <location file="Connection.h" line="66" column="10" bodyfile="Connection.cpp" bodystart="50" bodyend="63"/>
         <references refid="classjuce_1_1ValueTree_1a21ae8143e7abb766a9a3b4961d74be2b">juce::ValueTree::hasType</references>
+        <references refid="structChars_1a4691bc69052e757e7325970098922899">Chars::newline</references>
         <references refid="classjuce_1_1ValueTree_1a290ee6cda9cfffd1ef393a68e8068c5b">juce::ValueTree::removeChild</references>
-        <references refid="namespaceId_1af4e71980bee2a5365b2626999eb5bf71" compoundref="_generated_8cpp" startline="55" endline="55">Id::request</references>
-        <references refid="namespaceId_1a4d0c202389586ef61d84b669241a4739" compoundref="_generated_8cpp" startline="56" endline="56">Id::result</references>
+        <references refid="namespaceId_1af4e71980bee2a5365b2626999eb5bf71" compoundref="_generated_8cpp" startline="76" endline="76">Id::request</references>
+        <references refid="namespaceId_1a4d0c202389586ef61d84b669241a4739" compoundref="_generated_8cpp" startline="77" endline="77">Id::result</references>
         <references refid="classjuce_1_1InterprocessConnection_1ae6ebaa49463c41df97fc81573608e9fb">juce::InterprocessConnection::sendMessage</references>
         <references refid="class_connection_1a5fc585653ad920f89ad3c6247cb91c55" compoundref="_connection_8h" startline="75">state</references>
         <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>

@@ -2,7 +2,7 @@ CompileFlags:
   CompilationDatabase: /Users/jreng/Documents/Poems/dev/ling
   Remove: [--target=*]
   Add:
-    - -DCAST_COMMIT=\"4129e45\"
+    - -DCAST_COMMIT=\"2cece90\"
     - -DDEBUG=1
     - -DDONT_SET_USING_JUCE_NAMESPACE=1
     - -DHAVE_FREETYPE
@@ -25,12 +25,14 @@ CompileFlags:
     - -DJUCE_MODULE_AVAILABLE_jam_subprocess=1
     - -DJUCE_MODULE_AVAILABLE_jam_syntax_tree=1
     - -DJUCE_MODULE_AVAILABLE_jam_terminal=1
+    - -DJUCE_MODULE_AVAILABLE_jam_tui=1
     - -DJUCE_MODULE_AVAILABLE_jam_web=1
     - -DJUCE_MODULE_AVAILABLE_juce_animation=1
     - -DJUCE_MODULE_AVAILABLE_juce_audio_basics=1
     - -DJUCE_MODULE_AVAILABLE_juce_audio_processors=1
     - -DJUCE_MODULE_AVAILABLE_juce_audio_processors_headless=1
     - -DJUCE_MODULE_AVAILABLE_juce_core=1
+    - -DJUCE_MODULE_AVAILABLE_juce_cryptography=1
     - -DJUCE_MODULE_AVAILABLE_juce_data_structures=1
     - -DJUCE_MODULE_AVAILABLE_juce_events=1
     - -DJUCE_MODULE_AVAILABLE_juce_graphics=1

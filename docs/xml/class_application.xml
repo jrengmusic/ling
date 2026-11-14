@@ -5,6 +5,21 @@
     <basecompoundref refid="classjuce_1_1JUCEApplicationBase" prot="public" virt="non-virtual">juce::JUCEApplicationBase</basecompoundref>
     <basecompoundref refid="classjuce_1_1ValueTree_1_1Listener" prot="private" virt="non-virtual">juce::ValueTree::Listener</basecompoundref>
     <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_application_1a993bb13ed72f650c78bb405d94ebd59f" prot="private" static="no" mutable="no">
+        <type><ref refid="classjam_1_1SharedInstance" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::SharedInstance</ref>&lt; <ref refid="structmap_1_1Family" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">map::Family</ref> &gt;</type>
+        <definition>jam::SharedInstance&lt;map::Family&gt; Application::family</definition>
+        <argsstring></argsstring>
+        <name>family</name>
+        <qualifiedname>Application::family</qualifiedname>
+        <initializer>{ std::in_place }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.cpp" line="470" column="25" bodyfile="Main.cpp" bodystart="470" bodyend="470"/>
+      </memberdef>
       <memberdef kind="variable" id="class_application_1ac75f70224a78b1776f74b5a6ab198787" prot="private" static="no" mutable="no">
         <type><ref refid="class_l_i_n_g_model" kindref="compound">LINGModel</ref></type>
         <definition>LINGModel Application::model</definition>
@@ -19,12 +34,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="469" column="15" bodyfile="Main.cpp" bodystart="469" bodyend="-1"/>
-        <referencedby refid="class_application_1afa8cc05ce6b6092be5ecdfdae44e05f8" compoundref="_main_8cpp" startline="281" endline="285">Application</referencedby>
-        <referencedby refid="class_application_1a2f873a3abcc4cc7b154269b80ef7c84f" compoundref="_main_8cpp" startline="322" endline="359">initialise</referencedby>
-        <referencedby refid="class_application_1a4de481aad2640107c4adb792347d8a8f" compoundref="_main_8cpp" startline="389" endline="409">runDaemon</referencedby>
-        <referencedby refid="class_application_1a6d3a3f1db721639ea4efd49bd6bf4015" compoundref="_main_8cpp" startline="452" endline="466">valueTreePropertyChanged</referencedby>
-        <referencedby refid="class_application_1a444b0b6d9162b14d5262b81bd75586df" compoundref="_main_8cpp" startline="288" endline="291">~Application</referencedby>
+        <location file="Main.cpp" line="472" column="15" bodyfile="Main.cpp" bodystart="472" bodyend="-1"/>
+        <referencedby refid="class_application_1afa8cc05ce6b6092be5ecdfdae44e05f8" compoundref="_main_8cpp" startline="283" endline="287">Application</referencedby>
+        <referencedby refid="class_application_1a2f873a3abcc4cc7b154269b80ef7c84f" compoundref="_main_8cpp" startline="324" endline="361">initialise</referencedby>
+        <referencedby refid="class_application_1a4de481aad2640107c4adb792347d8a8f" compoundref="_main_8cpp" startline="391" endline="411">runDaemon</referencedby>
+        <referencedby refid="class_application_1a6d3a3f1db721639ea4efd49bd6bf4015" compoundref="_main_8cpp" startline="454" endline="468">valueTreePropertyChanged</referencedby>
+        <referencedby refid="class_application_1a444b0b6d9162b14d5262b81bd75586df" compoundref="_main_8cpp" startline="290" endline="293">~Application</referencedby>
       </memberdef>
       <memberdef kind="variable" id="class_application_1ae19aa36ff244839a964e7068b32e4e74" prot="private" static="no" mutable="no">
         <type>std::unique_ptr&lt; <ref refid="class_processor" kindref="compound">Processor</ref> &gt;</type>
@@ -40,10 +55,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="471" column="21" bodyfile="Main.cpp" bodystart="471" bodyend="-1"/>
-        <referencedby refid="class_application_1a2f873a3abcc4cc7b154269b80ef7c84f" compoundref="_main_8cpp" startline="322" endline="359">initialise</referencedby>
-        <referencedby refid="class_application_1a4de481aad2640107c4adb792347d8a8f" compoundref="_main_8cpp" startline="389" endline="409">runDaemon</referencedby>
-        <referencedby refid="class_application_1a6d3a3f1db721639ea4efd49bd6bf4015" compoundref="_main_8cpp" startline="452" endline="466">valueTreePropertyChanged</referencedby>
+        <location file="Main.cpp" line="474" column="21" bodyfile="Main.cpp" bodystart="474" bodyend="-1"/>
+        <referencedby refid="class_application_1a2f873a3abcc4cc7b154269b80ef7c84f" compoundref="_main_8cpp" startline="324" endline="361">initialise</referencedby>
+        <referencedby refid="class_application_1a4de481aad2640107c4adb792347d8a8f" compoundref="_main_8cpp" startline="391" endline="411">runDaemon</referencedby>
+        <referencedby refid="class_application_1a6d3a3f1db721639ea4efd49bd6bf4015" compoundref="_main_8cpp" startline="454" endline="468">valueTreePropertyChanged</referencedby>
       </memberdef>
       <memberdef kind="variable" id="class_application_1a351f2c9dafdfa5277c28dc453b9c252c" prot="private" static="no" mutable="no">
         <type>std::unique_ptr&lt; <ref refid="class_manifest" kindref="compound">Manifest</ref> &gt;</type>
@@ -59,9 +74,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="473" column="21" bodyfile="Main.cpp" bodystart="473" bodyend="-1"/>
-        <referencedby refid="class_application_1a2f873a3abcc4cc7b154269b80ef7c84f" compoundref="_main_8cpp" startline="322" endline="359">initialise</referencedby>
-        <referencedby refid="class_application_1a4de481aad2640107c4adb792347d8a8f" compoundref="_main_8cpp" startline="389" endline="409">runDaemon</referencedby>
+        <location file="Main.cpp" line="476" column="21" bodyfile="Main.cpp" bodystart="476" bodyend="-1"/>
+        <referencedby refid="class_application_1a2f873a3abcc4cc7b154269b80ef7c84f" compoundref="_main_8cpp" startline="324" endline="361">initialise</referencedby>
+        <referencedby refid="class_application_1a4de481aad2640107c4adb792347d8a8f" compoundref="_main_8cpp" startline="391" endline="411">runDaemon</referencedby>
       </memberdef>
       <memberdef kind="variable" id="class_application_1afac95b8c59b889fcc00a97c91a9d797c" prot="private" static="no" mutable="no">
         <type><ref refid="classjam_1_1Model_1_1ParameterAttachment" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Model::ParameterAttachment</ref></type>
@@ -76,8 +91,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="475" column="37" bodyfile="Main.cpp" bodystart="475" bodyend="-1"/>
-        <referencedby refid="class_application_1afa8cc05ce6b6092be5ecdfdae44e05f8" compoundref="_main_8cpp" startline="281" endline="285">Application</referencedby>
+        <location file="Main.cpp" line="478" column="37" bodyfile="Main.cpp" bodystart="478" bodyend="-1"/>
+        <referencedby refid="class_application_1afa8cc05ce6b6092be5ecdfdae44e05f8" compoundref="_main_8cpp" startline="283" endline="287">Application</referencedby>
       </memberdef>
       <memberdef kind="variable" id="class_application_1a672a7776d04b2b8d0f5f41703e00c4d3" prot="private" static="no" mutable="no">
         <type>std::unique_ptr&lt; <ref refid="classjuce_1_1InterProcessLock" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::InterProcessLock</ref> &gt;</type>
@@ -93,8 +108,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="477" column="21" bodyfile="Main.cpp" bodystart="477" bodyend="-1"/>
-        <referencedby refid="class_application_1a4de481aad2640107c4adb792347d8a8f" compoundref="_main_8cpp" startline="389" endline="409">runDaemon</referencedby>
+        <location file="Main.cpp" line="480" column="21" bodyfile="Main.cpp" bodystart="480" bodyend="-1"/>
+        <referencedby refid="class_application_1a4de481aad2640107c4adb792347d8a8f" compoundref="_main_8cpp" startline="391" endline="411">runDaemon</referencedby>
       </memberdef>
       <memberdef kind="variable" id="class_application_1acee3b5cdccea2ee2de33484acff4d33a" prot="private" static="no" mutable="no">
         <type>std::unique_ptr&lt; <ref refid="class_server" kindref="compound">Server</ref> &gt;</type>
@@ -110,8 +125,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="479" column="21" bodyfile="Main.cpp" bodystart="479" bodyend="-1"/>
-        <referencedby refid="class_application_1a4de481aad2640107c4adb792347d8a8f" compoundref="_main_8cpp" startline="389" endline="409">runDaemon</referencedby>
+        <location file="Main.cpp" line="482" column="21" bodyfile="Main.cpp" bodystart="482" bodyend="-1"/>
+        <referencedby refid="class_application_1a4de481aad2640107c4adb792347d8a8f" compoundref="_main_8cpp" startline="391" endline="411">runDaemon</referencedby>
       </memberdef>
       <memberdef kind="variable" id="class_application_1aa4f629c8d5b98131e551eef7300c1201" prot="private" static="no" mutable="no">
         <type>std::unique_ptr&lt; <ref refid="class_client" kindref="compound">Client</ref> &gt;</type>
@@ -127,8 +142,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="481" column="21" bodyfile="Main.cpp" bodystart="481" bodyend="-1"/>
-        <referencedby refid="class_application_1ae7a4170563da33f06cb264b12b72108d" compoundref="_main_8cpp" startline="420" endline="442">runOperation</referencedby>
+        <location file="Main.cpp" line="484" column="21" bodyfile="Main.cpp" bodystart="484" bodyend="-1"/>
+        <referencedby refid="class_application_1ae7a4170563da33f06cb264b12b72108d" compoundref="_main_8cpp" startline="422" endline="444">runOperation</referencedby>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -145,13 +160,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="281" column="5" bodyfile="Main.cpp" bodystart="281" bodyend="285"/>
-        <references refid="_main_8cpp_1a7eacf8422a0bf113fc72a4ecc24fac25" compoundref="_main_8cpp" startline="42" endline="42">flagArgIndex</references>
+        <location file="Main.cpp" line="283" column="5" bodyfile="Main.cpp" bodystart="283" bodyend="287"/>
+        <references refid="_main_8cpp_1a7eacf8422a0bf113fc72a4ecc24fac25" compoundref="_main_8cpp" startline="41" endline="41">flagArgIndex</references>
         <references refid="classjuce_1_1JUCEApplicationBase_1a8a2607a3fbc79cc10e9d0feda93c4856">juce::JUCEApplicationBase::getCommandLineParameterArray</references>
         <references refid="classjam_1_1Strings_1adfb32d159be94dc4a4004c50be876e3c">jam::Strings::getView</references>
-        <references refid="class_application_1afac95b8c59b889fcc00a97c91a9d797c" compoundref="_main_8cpp" startline="475">message</references>
-        <references refid="class_application_1ac75f70224a78b1776f74b5a6ab198787" compoundref="_main_8cpp" startline="469">model</references>
-        <references refid="_main_8cpp_1a9e829d663254bc1194b28d474a86f897" compoundref="_main_8cpp" startline="31" endline="40">printError</references>
+        <references refid="class_application_1afac95b8c59b889fcc00a97c91a9d797c" compoundref="_main_8cpp" startline="478">message</references>
+        <references refid="class_application_1ac75f70224a78b1776f74b5a6ab198787" compoundref="_main_8cpp" startline="472">model</references>
+        <references refid="_main_8cpp_1a9e829d663254bc1194b28d474a86f897" compoundref="_main_8cpp" startline="30" endline="39">printError</references>
       </memberdef>
       <memberdef kind="function" id="class_application_1a444b0b6d9162b14d5262b81bd75586df" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -166,8 +181,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="288" column="5" bodyfile="Main.cpp" bodystart="288" bodyend="291"/>
-        <references refid="class_application_1ac75f70224a78b1776f74b5a6ab198787" compoundref="_main_8cpp" startline="469">model</references>
+        <location file="Main.cpp" line="290" column="5" bodyfile="Main.cpp" bodystart="290" bodyend="293"/>
+        <references refid="class_application_1ac75f70224a78b1776f74b5a6ab198787" compoundref="_main_8cpp" startline="472">model</references>
         <references refid="classjam_1_1Model_1a688b7625ae8b2a4d4d1f1643a6b3aa41">jam::Model::removeListener</references>
       </memberdef>
       <memberdef kind="function" id="class_application_1a9ca4a5b1cd128bfdc90020919624f29b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
@@ -187,7 +202,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="298" column="24" bodyfile="Main.cpp" bodystart="298" bodyend="298"/>
+        <location file="Main.cpp" line="300" column="24" bodyfile="Main.cpp" bodystart="300" bodyend="300"/>
       </memberdef>
       <memberdef kind="function" id="class_application_1a871a460a03e9a5a70544681332c409d6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref></type>
@@ -206,7 +221,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="304" column="24" bodyfile="Main.cpp" bodystart="304" bodyend="304"/>
+        <location file="Main.cpp" line="306" column="24" bodyfile="Main.cpp" bodystart="306" bodyend="306"/>
       </memberdef>
       <memberdef kind="function" id="class_application_1a28f20394267183bd8faac2db9bf57b4b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>bool</type>
@@ -225,7 +240,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="310" column="10" bodyfile="Main.cpp" bodystart="310" bodyend="310"/>
+        <location file="Main.cpp" line="312" column="10" bodyfile="Main.cpp" bodystart="312" bodyend="312"/>
       </memberdef>
       <memberdef kind="function" id="class_application_1a2f873a3abcc4cc7b154269b80ef7c84f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>void</type>
@@ -246,31 +261,31 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="322" column="10" bodyfile="Main.cpp" bodystart="322" bodyend="359"/>
+        <location file="Main.cpp" line="324" column="10" bodyfile="Main.cpp" bodystart="324" bodyend="361"/>
         <references refid="classjam_1_1Model_1ae5d4d70e706dcc558cf21923125a9176">jam::Model::addListener</references>
-        <references refid="namespaceId_1ad57a2d4fadbed29a552707db60b01f2a" compoundref="_generated_8cpp" startline="34" endline="34">Id::daemon</references>
-        <references refid="_main_8cpp_1a7eacf8422a0bf113fc72a4ecc24fac25" compoundref="_main_8cpp" startline="42" endline="42">flagArgIndex</references>
+        <references refid="namespaceId_1ad57a2d4fadbed29a552707db60b01f2a" compoundref="_generated_8cpp" startline="41" endline="41">Id::daemon</references>
+        <references refid="_main_8cpp_1a7eacf8422a0bf113fc72a4ecc24fac25" compoundref="_main_8cpp" startline="41" endline="41">flagArgIndex</references>
         <references refid="classjam_1_1Strings_1aca02ec79e3d857bca6f9647dce6415fc">jam::Strings::fromView</references>
         <references refid="classjuce_1_1JUCEApplicationBase_1a8a2607a3fbc79cc10e9d0feda93c4856">juce::JUCEApplicationBase::getCommandLineParameterArray</references>
         <references refid="classjuce_1_1MemoryOutputStream_1a050102f4ce6bec06a6e307434f467635">juce::MemoryOutputStream::getData</references>
         <references refid="classjuce_1_1MemoryOutputStream_1a2ec3b7c88c8eba50d8a45f081dee0529">juce::MemoryOutputStream::getDataSize</references>
-        <references refid="_main_8cpp_1aaf2a73f427e61d6d85bf7a401b2c9904" compoundref="_main_8cpp" startline="176" endline="179">getDocumentFile</references>
-        <references refid="_main_8cpp_1a377607efa51a8618706348a41877acb3" compoundref="_main_8cpp" startline="210" endline="218">getToolchainArgument</references>
-        <references refid="_main_8cpp_1a64793fc03a95d0e57151cc8c62c46d34" compoundref="_main_8cpp" startline="226" endline="230">isDocument</references>
-        <references refid="_main_8cpp_1a6f06085b02e0ad301adcc85196bbb128" compoundref="_main_8cpp" startline="68" endline="75">isTerminalOutput</references>
-        <references refid="class_application_1a351f2c9dafdfa5277c28dc453b9c252c" compoundref="_main_8cpp" startline="473">manifest</references>
-        <references refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" compoundref="_identifiers_8h" startline="54">Id::manifest</references>
-        <references refid="class_application_1ac75f70224a78b1776f74b5a6ab198787" compoundref="_main_8cpp" startline="469">model</references>
-        <references refid="_main_8cpp_1a8d15eab864d23bacb85f66408f136d42" compoundref="_main_8cpp" startline="43" endline="43">postFlagArgIndex</references>
-        <references refid="class_application_1ae19aa36ff244839a964e7068b32e4e74" compoundref="_main_8cpp" startline="471">processor</references>
+        <references refid="_main_8cpp_1aaf2a73f427e61d6d85bf7a401b2c9904" compoundref="_main_8cpp" startline="178" endline="181">getDocumentFile</references>
+        <references refid="_main_8cpp_1a377607efa51a8618706348a41877acb3" compoundref="_main_8cpp" startline="212" endline="220">getToolchainArgument</references>
+        <references refid="_main_8cpp_1a64793fc03a95d0e57151cc8c62c46d34" compoundref="_main_8cpp" startline="228" endline="232">isDocument</references>
+        <references refid="_main_8cpp_1a6f06085b02e0ad301adcc85196bbb128" compoundref="_main_8cpp" startline="67" endline="74">isTerminalOutput</references>
+        <references refid="class_application_1a351f2c9dafdfa5277c28dc453b9c252c" compoundref="_main_8cpp" startline="476">manifest</references>
+        <references refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" compoundref="_identifiers_8h" startline="73">Id::manifest</references>
+        <references refid="class_application_1ac75f70224a78b1776f74b5a6ab198787" compoundref="_main_8cpp" startline="472">model</references>
+        <references refid="_main_8cpp_1a8d15eab864d23bacb85f66408f136d42" compoundref="_main_8cpp" startline="42" endline="42">postFlagArgIndex</references>
+        <references refid="class_application_1ae19aa36ff244839a964e7068b32e4e74" compoundref="_main_8cpp" startline="474">processor</references>
         <references refid="classjuce_1_1JUCEApplicationBase_1ae2ba9b90c02361717d997aa26861f2c4">juce::JUCEApplicationBase::quit</references>
-        <references refid="_main_8cpp_1a92f2321886f9537b6a47ade955342c57" compoundref="_main_8cpp" startline="244" endline="262">runCommandLine</references>
-        <references refid="class_application_1a4de481aad2640107c4adb792347d8a8f" compoundref="_main_8cpp" startline="389" endline="409">runDaemon</references>
-        <references refid="class_application_1ae7a4170563da33f06cb264b12b72108d" compoundref="_main_8cpp" startline="420" endline="442">runOperation</references>
+        <references refid="_main_8cpp_1a92f2321886f9537b6a47ade955342c57" compoundref="_main_8cpp" startline="246" endline="264">runCommandLine</references>
+        <references refid="class_application_1a4de481aad2640107c4adb792347d8a8f" compoundref="_main_8cpp" startline="391" endline="411">runDaemon</references>
+        <references refid="class_application_1ae7a4170563da33f06cb264b12b72108d" compoundref="_main_8cpp" startline="422" endline="444">runOperation</references>
         <references refid="classjuce_1_1JUCEApplicationBase_1aa718d56bbc1c7d7271aedbc378eeaffe">juce::JUCEApplicationBase::setApplicationReturnValue</references>
         <references refid="classjuce_1_1ValueTree_1a86de4a6662eb049c21c30c627616fb0e">juce::ValueTree::setProperty</references>
         <references refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857">jam::Model::state</references>
-        <references refid="namespaceId_1ad2d03a036d57999f43066f5737dc8008" compoundref="_generated_8cpp" startline="61" endline="61">Id::toolchainArgument</references>
+        <references refid="namespaceId_1ad2d03a036d57999f43066f5737dc8008" compoundref="_generated_8cpp" startline="88" endline="88">Id::toolchainArgument</references>
         <references refid="structjam_1_1TerminalEncoder_1a4d55627117d567684bcebe251d818220">jam::TerminalEncoder::writeEraseScreen</references>
       </memberdef>
       <memberdef kind="function" id="class_application_1acd050c59340807685052276fb053787a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
@@ -288,7 +303,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="362" column="10" bodyfile="Main.cpp" bodystart="362" bodyend="362"/>
+        <location file="Main.cpp" line="364" column="10" bodyfile="Main.cpp" bodystart="364" bodyend="364"/>
       </memberdef>
       <memberdef kind="function" id="class_application_1a0bd3fab129fe4edb5e5b4d13cff98bf5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>void</type>
@@ -307,7 +322,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="364" column="10" bodyfile="Main.cpp" bodystart="364" bodyend="364"/>
+        <location file="Main.cpp" line="366" column="10" bodyfile="Main.cpp" bodystart="366" bodyend="366"/>
       </memberdef>
       <memberdef kind="function" id="class_application_1ab8b25a6e9fd026257798d70ce10b060d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>void</type>
@@ -323,7 +338,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="366" column="10" bodyfile="Main.cpp" bodystart="366" bodyend="366"/>
+        <location file="Main.cpp" line="368" column="10" bodyfile="Main.cpp" bodystart="368" bodyend="368"/>
         <references refid="classjuce_1_1JUCEApplicationBase_1ae2ba9b90c02361717d997aa26861f2c4">juce::JUCEApplicationBase::quit</references>
       </memberdef>
       <memberdef kind="function" id="class_application_1a99f9888b785fa3fe7af4f8327c63a095" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
@@ -340,7 +355,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="368" column="10" bodyfile="Main.cpp" bodystart="368" bodyend="368"/>
+        <location file="Main.cpp" line="370" column="10" bodyfile="Main.cpp" bodystart="370" bodyend="370"/>
       </memberdef>
       <memberdef kind="function" id="class_application_1aba26cb2704157414d4f253116443ad7d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>void</type>
@@ -356,7 +371,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="370" column="10" bodyfile="Main.cpp" bodystart="370" bodyend="370"/>
+        <location file="Main.cpp" line="372" column="10" bodyfile="Main.cpp" bodystart="372" bodyend="372"/>
       </memberdef>
       <memberdef kind="function" id="class_application_1a6b9a3c22db32ea0f531d16952c53e06d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>void</type>
@@ -381,7 +396,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="373" column="10" bodyfile="Main.cpp" bodystart="373" bodyend="376"/>
+        <location file="Main.cpp" line="375" column="10" bodyfile="Main.cpp" bodystart="375" bodyend="378"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="private-func">
@@ -405,7 +420,7 @@
 <parametername>arguments</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>The command line arguments. Index postFlagArgIndex names the manifest. </para>
+<para>The command line arguments. <ref refid="class_index" kindref="compound">Index</ref> postFlagArgIndex names the manifest. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -413,25 +428,25 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="389" column="10" bodyfile="Main.cpp" bodystart="389" bodyend="409"/>
+        <location file="Main.cpp" line="391" column="10" bodyfile="Main.cpp" bodystart="391" bodyend="411"/>
         <references refid="classjuce_1_1InterProcessLock_1a902e08aba41baa5a412eaeed9d1f1ca7">juce::InterProcessLock::enter</references>
         <references refid="classjam_1_1Strings_1aca02ec79e3d857bca6f9647dce6415fc">jam::Strings::fromView</references>
         <references refid="class_l_i_n_g_model_1aa8f0468179c1dbd1d51bc903480152db" compoundref="_l_i_n_g_model_8cpp" startline="27" endline="37">LINGModel::getDaemonName</references>
-        <references refid="_main_8cpp_1aaf2a73f427e61d6d85bf7a401b2c9904" compoundref="_main_8cpp" startline="176" endline="179">getDocumentFile</references>
-        <references refid="_main_8cpp_1a377607efa51a8618706348a41877acb3" compoundref="_main_8cpp" startline="210" endline="218">getToolchainArgument</references>
-        <references refid="class_application_1a672a7776d04b2b8d0f5f41703e00c4d3" compoundref="_main_8cpp" startline="477">lock</references>
-        <references refid="class_application_1a351f2c9dafdfa5277c28dc453b9c252c" compoundref="_main_8cpp" startline="473">manifest</references>
-        <references refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" compoundref="_identifiers_8h" startline="54">Id::manifest</references>
-        <references refid="class_application_1ac75f70224a78b1776f74b5a6ab198787" compoundref="_main_8cpp" startline="469">model</references>
-        <references refid="_main_8cpp_1a8d15eab864d23bacb85f66408f136d42" compoundref="_main_8cpp" startline="43" endline="43">postFlagArgIndex</references>
-        <references refid="class_application_1ae19aa36ff244839a964e7068b32e4e74" compoundref="_main_8cpp" startline="471">processor</references>
+        <references refid="_main_8cpp_1aaf2a73f427e61d6d85bf7a401b2c9904" compoundref="_main_8cpp" startline="178" endline="181">getDocumentFile</references>
+        <references refid="_main_8cpp_1a377607efa51a8618706348a41877acb3" compoundref="_main_8cpp" startline="212" endline="220">getToolchainArgument</references>
+        <references refid="class_application_1a672a7776d04b2b8d0f5f41703e00c4d3" compoundref="_main_8cpp" startline="480">lock</references>
+        <references refid="class_application_1a351f2c9dafdfa5277c28dc453b9c252c" compoundref="_main_8cpp" startline="476">manifest</references>
+        <references refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" compoundref="_identifiers_8h" startline="73">Id::manifest</references>
+        <references refid="class_application_1ac75f70224a78b1776f74b5a6ab198787" compoundref="_main_8cpp" startline="472">model</references>
+        <references refid="_main_8cpp_1a8d15eab864d23bacb85f66408f136d42" compoundref="_main_8cpp" startline="42" endline="42">postFlagArgIndex</references>
+        <references refid="class_application_1ae19aa36ff244839a964e7068b32e4e74" compoundref="_main_8cpp" startline="474">processor</references>
         <references refid="classjuce_1_1JUCEApplicationBase_1ae2ba9b90c02361717d997aa26861f2c4">juce::JUCEApplicationBase::quit</references>
-        <references refid="class_application_1acee3b5cdccea2ee2de33484acff4d33a" compoundref="_main_8cpp" startline="479">server</references>
+        <references refid="class_application_1acee3b5cdccea2ee2de33484acff4d33a" compoundref="_main_8cpp" startline="482">server</references>
         <references refid="classjuce_1_1ValueTree_1a86de4a6662eb049c21c30c627616fb0e">juce::ValueTree::setProperty</references>
         <references refid="class_server_1a7eac07d2582fa01c2671362efa955b31" compoundref="_server_8cpp" startline="15" endline="19">Server::start</references>
         <references refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857">jam::Model::state</references>
-        <references refid="namespaceId_1ad2d03a036d57999f43066f5737dc8008" compoundref="_generated_8cpp" startline="61" endline="61">Id::toolchainArgument</references>
-        <referencedby refid="class_application_1a2f873a3abcc4cc7b154269b80ef7c84f" compoundref="_main_8cpp" startline="322" endline="359">initialise</referencedby>
+        <references refid="namespaceId_1ad2d03a036d57999f43066f5737dc8008" compoundref="_generated_8cpp" startline="88" endline="88">Id::toolchainArgument</references>
+        <referencedby refid="class_application_1a2f873a3abcc4cc7b154269b80ef7c84f" compoundref="_main_8cpp" startline="324" endline="361">initialise</referencedby>
       </memberdef>
       <memberdef kind="function" id="class_application_1ae7a4170563da33f06cb264b12b72108d" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -453,7 +468,7 @@
 <parametername>arguments</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>The command line arguments. Index postFlagArgIndex names the manifest. </para>
+<para>The command line arguments. <ref refid="class_index" kindref="compound">Index</ref> postFlagArgIndex names the manifest. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -461,21 +476,21 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="420" column="10" bodyfile="Main.cpp" bodystart="420" bodyend="442"/>
+        <location file="Main.cpp" line="422" column="10" bodyfile="Main.cpp" bodystart="422" bodyend="444"/>
         <references refid="structjam_1_1JsonWriter_1a7fe57d041d1f26d4458f3827333f7d77">jam::JsonWriter::appendArray</references>
         <references refid="structjam_1_1JsonWriter_1acf8da4810f6b5cb1ee80660149a2db25">jam::JsonWriter::appendSeparator</references>
         <references refid="structjam_1_1JsonWriter_1a41ee48bba1971acba117f12c2d9d7764">jam::JsonWriter::appendString</references>
-        <references refid="class_application_1aa4f629c8d5b98131e551eef7300c1201" compoundref="_main_8cpp" startline="481">client</references>
-        <references refid="_main_8cpp_1a7eacf8422a0bf113fc72a4ecc24fac25" compoundref="_main_8cpp" startline="42" endline="42">flagArgIndex</references>
-        <references refid="_main_8cpp_1ab112c8dd220252b8308c8882da65e1b1" compoundref="_main_8cpp" startline="44" endline="44">flagOnlyArgumentCount</references>
+        <references refid="class_application_1aa4f629c8d5b98131e551eef7300c1201" compoundref="_main_8cpp" startline="484">client</references>
+        <references refid="_main_8cpp_1a7eacf8422a0bf113fc72a4ecc24fac25" compoundref="_main_8cpp" startline="41" endline="41">flagArgIndex</references>
+        <references refid="_main_8cpp_1ab112c8dd220252b8308c8882da65e1b1" compoundref="_main_8cpp" startline="43" endline="43">flagOnlyArgumentCount</references>
         <references refid="classjam_1_1Strings_1aca02ec79e3d857bca6f9647dce6415fc">jam::Strings::fromView</references>
         <references refid="classjuce_1_1File_1af57a7a6e83fbd4a6b048e7d0010d7279">juce::File::getCurrentWorkingDirectory</references>
-        <references refid="_main_8cpp_1aaf2a73f427e61d6d85bf7a401b2c9904" compoundref="_main_8cpp" startline="176" endline="179">getDocumentFile</references>
-        <references refid="_main_8cpp_1a377607efa51a8618706348a41877acb3" compoundref="_main_8cpp" startline="210" endline="218">getToolchainArgument</references>
+        <references refid="_main_8cpp_1aaf2a73f427e61d6d85bf7a401b2c9904" compoundref="_main_8cpp" startline="178" endline="181">getDocumentFile</references>
+        <references refid="_main_8cpp_1a377607efa51a8618706348a41877acb3" compoundref="_main_8cpp" startline="212" endline="220">getToolchainArgument</references>
         <references refid="classjam_1_1Strings_1adfb32d159be94dc4a4004c50be876e3c">jam::Strings::getView</references>
-        <references refid="_main_8cpp_1a8d15eab864d23bacb85f66408f136d42" compoundref="_main_8cpp" startline="43" endline="43">postFlagArgIndex</references>
-        <references refid="_main_8cpp_1a44a67bc14d8fdff2eccce0b22ac6ceaf" compoundref="_main_8cpp" startline="45" endline="45">toolchainArgumentCount</references>
-        <referencedby refid="class_application_1a2f873a3abcc4cc7b154269b80ef7c84f" compoundref="_main_8cpp" startline="322" endline="359">initialise</referencedby>
+        <references refid="_main_8cpp_1a8d15eab864d23bacb85f66408f136d42" compoundref="_main_8cpp" startline="42" endline="42">postFlagArgIndex</references>
+        <references refid="_main_8cpp_1a44a67bc14d8fdff2eccce0b22ac6ceaf" compoundref="_main_8cpp" startline="44" endline="44">toolchainArgumentCount</references>
+        <referencedby refid="class_application_1a2f873a3abcc4cc7b154269b80ef7c84f" compoundref="_main_8cpp" startline="324" endline="361">initialise</referencedby>
       </memberdef>
       <memberdef kind="function" id="class_application_1a6d3a3f1db721639ea4efd49bd6bf4015" prot="private" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>void</type>
@@ -509,16 +524,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Main.cpp" line="452" column="10" bodyfile="Main.cpp" bodystart="452" bodyend="466"/>
+        <location file="Main.cpp" line="454" column="10" bodyfile="Main.cpp" bodystart="454" bodyend="468"/>
         <references refid="structjam_1_1Format_1a331fe8c5c824937852d7a87bd6c667c9">jam::Format::appendDecimal</references>
-        <references refid="_main_8cpp_1a25f21432c4207490fd18b68b4eadd9f2" compoundref="_main_8cpp" startline="128" endline="154">appendDocument</references>
+        <references refid="_main_8cpp_1a0c0d73d3ee819150f5aa1b682fca1df6" compoundref="_main_8cpp" startline="130" endline="156">appendDocument</references>
         <references refid="structjam_1_1Format_1a0b7011fda93514e7c66fce483d31b4c4">jam::Format::appendUtf8</references>
-        <references refid="class_processor_1a3731df1c2da6bfe84ea3f6945ac9ebe6" compoundref="_processor_8h" startline="53" endline="67">Processor::applyToDocuments</references>
-        <references refid="namespaceId_1a72f698cea9e6a6c20308661f18254984" compoundref="_generated_8cpp" startline="38" endline="38">Id::documents</references>
+        <references refid="class_processor_1a3731df1c2da6bfe84ea3f6945ac9ebe6" compoundref="_processor_8h" startline="53" endline="56">Processor::applyToDocuments</references>
+        <references refid="namespaceId_1a72f698cea9e6a6c20308661f18254984" compoundref="_generated_8cpp" startline="51" endline="51">Id::documents</references>
         <references refid="classjam_1_1Strings_1adfb32d159be94dc4a4004c50be876e3c">jam::Strings::getView</references>
-        <references refid="class_application_1ac75f70224a78b1776f74b5a6ab198787" compoundref="_main_8cpp" startline="469">model</references>
+        <references refid="class_application_1ac75f70224a78b1776f74b5a6ab198787" compoundref="_main_8cpp" startline="472">model</references>
         <references refid="structChars_1a4691bc69052e757e7325970098922899">Chars::newline</references>
-        <references refid="class_application_1ae19aa36ff244839a964e7068b32e4e74" compoundref="_main_8cpp" startline="471">processor</references>
+        <references refid="class_application_1ae19aa36ff244839a964e7068b32e4e74" compoundref="_main_8cpp" startline="474">processor</references>
         <references refid="classjuce_1_1JUCEApplicationBase_1ae2ba9b90c02361717d997aa26861f2c4">juce::JUCEApplicationBase::quit</references>
         <references refid="structChars_1a04b9b7227a5cdf082413821f7a1c66de">Chars::space</references>
         <references refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857">jam::Model::state</references>
@@ -558,393 +573,501 @@
         <childnode refid="3" relation="private-inheritance">
         </childnode>
         <childnode refid="4" relation="usage">
+          <edgelabel>family</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
           <edgelabel>model</edgelabel>
         </childnode>
-        <childnode refid="23" relation="usage">
+        <childnode refid="25" relation="usage">
           <edgelabel>processor</edgelabel>
         </childnode>
-        <childnode refid="40" relation="usage">
+        <childnode refid="51" relation="usage">
           <edgelabel>manifest</edgelabel>
         </childnode>
-        <childnode refid="42" relation="usage">
+        <childnode refid="58" relation="usage">
           <edgelabel>message</edgelabel>
         </childnode>
-        <childnode refid="50" relation="usage">
+        <childnode refid="64" relation="usage">
           <edgelabel>lock</edgelabel>
         </childnode>
-        <childnode refid="52" relation="usage">
+        <childnode refid="66" relation="usage">
           <edgelabel>server</edgelabel>
         </childnode>
-        <childnode refid="58" relation="usage">
+        <childnode refid="71" relation="usage">
           <edgelabel>client</edgelabel>
         </childnode>
       </node>
-      <node id="59">
+      <node id="72">
         <label>Client</label>
         <link refid="class_client"/>
-        <childnode refid="60" relation="public-inheritance">
+        <childnode refid="73" relation="public-inheritance">
         </childnode>
-        <childnode refid="15" relation="private-inheritance">
+        <childnode refid="17" relation="private-inheritance">
         </childnode>
-        <childnode refid="18" relation="usage">
+        <childnode refid="20" relation="usage">
           <edgelabel>manifestFile</edgelabel>
         </childnode>
-        <childnode refid="61" relation="usage">
+        <childnode refid="56" relation="usage">
           <edgelabel>request</edgelabel>
           <edgelabel>toolchainArgument</edgelabel>
         </childnode>
-        <childnode refid="4" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>model</edgelabel>
         </childnode>
-        <childnode refid="16" relation="usage">
+        <childnode refid="18" relation="usage">
           <edgelabel>watcher</edgelabel>
         </childnode>
       </node>
-      <node id="4">
+      <node id="31">
+        <label>Index</label>
+        <link refid="class_index"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>model</edgelabel>
+        </childnode>
+        <childnode refid="32" relation="usage">
+          <edgelabel>paths</edgelabel>
+        </childnode>
+        <childnode refid="38" relation="usage">
+          <edgelabel>documents</edgelabel>
+        </childnode>
+        <childnode refid="39" relation="usage">
+          <edgelabel>languages</edgelabel>
+        </childnode>
+        <childnode refid="40" relation="usage">
+          <edgelabel>declarations</edgelabel>
+          <edgelabel>references</edgelabel>
+        </childnode>
+        <childnode refid="41" relation="usage">
+          <edgelabel>bindings</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
         <label>LINGModel</label>
         <link refid="class_l_i_n_g_model"/>
-        <childnode refid="5" relation="public-inheritance">
+        <childnode refid="7" relation="public-inheritance">
         </childnode>
-        <childnode refid="14" relation="public-inheritance">
+        <childnode refid="16" relation="public-inheritance">
         </childnode>
-        <childnode refid="15" relation="private-inheritance">
+        <childnode refid="17" relation="private-inheritance">
         </childnode>
-        <childnode refid="16" relation="usage">
+        <childnode refid="18" relation="usage">
           <edgelabel>watcher</edgelabel>
         </childnode>
       </node>
-      <node id="41">
+      <node id="52">
         <label>Manifest</label>
         <link refid="class_manifest"/>
         <childnode refid="3" relation="private-inheritance">
         </childnode>
-        <childnode refid="4" relation="usage">
+        <childnode refid="27" relation="private-inheritance">
+        </childnode>
+        <childnode refid="6" relation="usage">
           <edgelabel>model</edgelabel>
         </childnode>
-        <childnode refid="34" relation="usage">
+        <childnode refid="53" relation="usage">
+          <edgelabel>job</edgelabel>
+          <edgelabel>nextJob</edgelabel>
+        </childnode>
+        <childnode refid="48" relation="usage">
           <edgelabel>pool</edgelabel>
         </childnode>
       </node>
-      <node id="24">
+      <node id="54">
+        <label>Manifest::ManifestJob</label>
+        <link refid="struct_manifest_1_1_manifest_job"/>
+        <childnode refid="55" relation="public-inheritance">
+        </childnode>
+        <childnode refid="52" relation="usage">
+          <edgelabel>owner</edgelabel>
+        </childnode>
+        <childnode refid="56" relation="usage">
+          <edgelabel>manifestPath</edgelabel>
+          <edgelabel>toolchainArgument</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>files</edgelabel>
+          <edgelabel>roots</edgelabel>
+        </childnode>
+        <childnode refid="57" relation="usage">
+          <edgelabel>isFinished</edgelabel>
+        </childnode>
+      </node>
+      <node id="26">
         <label>Processor</label>
         <link refid="class_processor"/>
         <childnode refid="3" relation="public-inheritance">
         </childnode>
-        <childnode refid="25" relation="usage">
-          <edgelabel>functionTypes</edgelabel>
-          <edgelabel>memberTypes</edgelabel>
+        <childnode refid="27" relation="private-inheritance">
         </childnode>
-        <childnode refid="4" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>model</edgelabel>
         </childnode>
-        <childnode refid="27" relation="usage">
-          <edgelabel>paths</edgelabel>
+        <childnode refid="28" relation="usage">
+          <edgelabel>checks</edgelabel>
+          <edgelabel>precompiles</edgelabel>
         </childnode>
-        <childnode refid="33" relation="usage">
-          <edgelabel>documents</edgelabel>
+        <childnode refid="30" relation="usage">
+          <edgelabel>builds</edgelabel>
         </childnode>
-        <childnode refid="34" relation="usage">
-          <edgelabel>pool</edgelabel>
-        </childnode>
-        <childnode refid="35" relation="usage">
-          <edgelabel>events</edgelabel>
-        </childnode>
-        <childnode refid="37" relation="usage">
-          <edgelabel>slab</edgelabel>
-        </childnode>
-      </node>
-      <node id="53">
-        <label>Server</label>
-        <link refid="class_server"/>
-        <childnode refid="54" relation="public-inheritance">
-        </childnode>
-        <childnode refid="6" relation="private-inheritance">
-        </childnode>
-        <childnode refid="3" relation="private-inheritance">
-        </childnode>
-        <childnode refid="4" relation="usage">
-          <edgelabel>model</edgelabel>
-        </childnode>
-        <childnode refid="11" relation="usage">
-          <edgelabel>state</edgelabel>
-        </childnode>
-        <childnode refid="56" relation="usage">
-          <edgelabel>connections</edgelabel>
+        <childnode refid="31" relation="usage">
+          <edgelabel>index</edgelabel>
         </childnode>
         <childnode refid="42" relation="usage">
-          <edgelabel>message</edgelabel>
+          <edgelabel>query</edgelabel>
         </childnode>
-      </node>
-      <node id="26">
-        <label>T</label>
-      </node>
-      <node id="7">
-        <label>jam::AnyMap&lt; typename TypeOfCriticalSectionToUse &gt;</label>
-        <link refid="classjam_1_1AnyMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-        <childnode refid="8" relation="public-inheritance">
+        <childnode refid="46" relation="usage">
+          <edgelabel>nextParseJobs</edgelabel>
+          <edgelabel>parseJobs</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
-          <edgelabel>entries</edgelabel>
+        <childnode refid="47" relation="usage">
+          <edgelabel>indexJobs</edgelabel>
+          <edgelabel>nextIndexJobs</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
-          <edgelabel>types</edgelabel>
+        <childnode refid="48" relation="usage">
+          <edgelabel>pool</edgelabel>
         </childnode>
-      </node>
-      <node id="29">
-        <label>jam::Array&lt; char &gt;</label>
-        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-        <childnode refid="8" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="38">
-        <label>jam::Array&lt; int16_t &gt;</label>
-        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-        <childnode refid="8" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="39">
-        <label>jam::Array&lt; int32_t &gt;</label>
-        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-        <childnode refid="8" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="30">
-        <label>jam::Array&lt; jam::Union&lt; int32_t, int32_t &gt; &gt;</label>
-        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-        <childnode refid="8" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="57">
-        <label>jam::Array&lt; std::unique_ptr&lt; ObjectClass &gt; &gt;</label>
-        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-        <childnode refid="8" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="16">
-        <label>jam::File::Watcher</label>
-        <link refid="structjam_1_1File_1_1Watcher" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-        <childnode refid="17" relation="usage">
-          <edgelabel>timers</edgelabel>
-        </childnode>
-        <childnode refid="21" relation="usage">
-          <edgelabel>listeners</edgelabel>
-        </childnode>
-        <childnode refid="22" relation="usage">
-          <edgelabel>watched</edgelabel>
-        </childnode>
-      </node>
-      <node id="20">
-        <label>jam::File::Watcher::CoalesceTimer</label>
-        <link refid="structjam_1_1File_1_1Watcher_1_1CoalesceTimer" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-        <childnode refid="6" relation="public-inheritance">
-        </childnode>
-        <childnode refid="16" relation="usage">
-          <edgelabel>owner</edgelabel>
-        </childnode>
-        <childnode refid="18" relation="usage">
-          <edgelabel>f</edgelabel>
-        </childnode>
-      </node>
-      <node id="15">
-        <label>jam::File::Watcher::Listener</label>
-        <link refid="classjam_1_1File_1_1Watcher_1_1Listener" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-      </node>
-      <node id="35">
-        <label>jam::Function::Map&lt; juce::Identifier, jam::Function::pointerCapacity, void(juce::ValueTree &amp;)&gt;</label>
-        <link refid="structjam_1_1Function_1_1Map" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-        <childnode refid="36" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="37">
-        <label>jam::Fuzzy::Slab</label>
-        <link refid="structjam_1_1Fuzzy_1_1Slab" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-        <childnode refid="38" relation="usage">
-          <edgelabel>i16</edgelabel>
-        </childnode>
-        <childnode refid="39" relation="usage">
-          <edgelabel>i32</edgelabel>
-        </childnode>
-      </node>
-      <node id="36">
-        <label>jam::HashMap&lt; KeyType, std::variant&lt; Overload&lt; KeyType, capacity, Signatures &gt;::Slot... &gt; &gt;</label>
-        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-      </node>
-      <node id="33">
-        <label>jam::HashMap&lt; int, std::unique_ptr&lt; jam::CodeDocument &gt; &gt;</label>
-        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-      </node>
-      <node id="32">
-        <label>jam::HashMap&lt; jam::Union&lt; int32_t, int32_t &gt;, int, jam::Strings::CaseFoldHash, jam::Strings::CaseFoldEqual &gt;</label>
-        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-      </node>
-      <node id="31">
-        <label>jam::HashMap&lt; jam::Union&lt; int32_t, int32_t &gt;, int, jam::Strings::TransparentHash, jam::Strings::TransparentEqual &gt;</label>
-        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-      </node>
-      <node id="10">
-        <label>jam::HashMap&lt; juce::Identifier, jam::AnyMap::Trait &gt;</label>
-        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-      </node>
-      <node id="13">
-        <label>jam::HashMap&lt; juce::Identifier, jam::HashMap&lt; juce::Identifier, std::unique_ptr&lt; ParameterAdapter &gt; &gt; &gt;</label>
-        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-      </node>
-      <node id="9">
-        <label>jam::HashMap&lt; juce::Identifier, std::unique_ptr&lt; void, Deleter &gt; &gt;</label>
-        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-      </node>
-      <node id="14">
-        <label>jam::Instance&lt; LINGModel &gt;</label>
-        <link refid="structjam_1_1Instance" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-      </node>
-      <node id="5">
-        <label>jam::Model</label>
-        <link refid="classjam_1_1Model" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-        <childnode refid="6" relation="public-inheritance">
-        </childnode>
-        <childnode refid="3" relation="public-inheritance">
-        </childnode>
-        <childnode refid="7" relation="usage">
-          <edgelabel>params</edgelabel>
-        </childnode>
-        <childnode refid="11" relation="usage">
-          <edgelabel>state</edgelabel>
-        </childnode>
-        <childnode refid="12" relation="usage">
-          <edgelabel>valueTreeChanging</edgelabel>
-        </childnode>
-        <childnode refid="13" relation="usage">
-          <edgelabel>adapters</edgelabel>
+        <childnode refid="49" relation="usage">
+          <edgelabel>events</edgelabel>
         </childnode>
       </node>
       <node id="42">
-        <label>jam::Model::ParameterAttachment</label>
-        <link refid="classjam_1_1Model_1_1ParameterAttachment" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-        <childnode refid="43" relation="private-inheritance">
-        </childnode>
-        <childnode refid="44" relation="private-inheritance">
-        </childnode>
-        <childnode refid="45" relation="usage">
-          <edgelabel>parameter</edgelabel>
-        </childnode>
-        <childnode refid="49" relation="usage">
-          <edgelabel>lastValue</edgelabel>
+        <label>Query</label>
+        <link refid="class_query"/>
+        <childnode refid="43" relation="usage">
+          <edgelabel>slab</edgelabel>
         </childnode>
       </node>
-      <node id="56">
-        <label>jam::Owner&lt; Connection &gt;</label>
-        <link refid="classjam_1_1Owner" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-        <childnode refid="57" relation="usage">
+      <node id="67">
+        <label>Server</label>
+        <link refid="class_server"/>
+        <childnode refid="68" relation="public-inheritance">
+        </childnode>
+        <childnode refid="8" relation="private-inheritance">
+        </childnode>
+        <childnode refid="3" relation="private-inheritance">
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>model</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>state</edgelabel>
+        </childnode>
+        <childnode refid="70" relation="usage">
+          <edgelabel>connections</edgelabel>
+        </childnode>
+        <childnode refid="58" relation="usage">
+          <edgelabel>message</edgelabel>
+        </childnode>
+      </node>
+      <node id="9">
+        <label>jam::AnyMap&lt; typename TypeOfCriticalSectionToUse &gt;</label>
+        <link refid="classjam_1_1AnyMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="10" relation="public-inheritance">
+        </childnode>
+        <childnode refid="11" relation="usage">
           <edgelabel>entries</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>types</edgelabel>
+        </childnode>
+      </node>
+      <node id="34">
+        <label>jam::Array&lt; char &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="10" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>jam::Array&lt; int16_t &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="10" relation="public-inheritance">
         </childnode>
       </node>
       <node id="45">
-        <label>jam::ParameterBase</label>
-        <link refid="structjam_1_1ParameterBase" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-        <childnode refid="46" relation="usage">
-          <edgelabel>id</edgelabel>
-          <edgelabel>propertyId</edgelabel>
+        <label>jam::Array&lt; int32_t &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="10" relation="public-inheritance">
         </childnode>
-        <childnode refid="47" relation="usage">
-          <edgelabel>needsUpdate</edgelabel>
+      </node>
+      <node id="35">
+        <label>jam::Array&lt; jam::Union&lt; int32_t, int32_t &gt; &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="10" relation="public-inheritance">
         </childnode>
-        <childnode refid="12" relation="usage">
-          <edgelabel>listenerLock</edgelabel>
+      </node>
+      <node id="29">
+        <label>jam::Array&lt; std::unique_ptr&lt; ObjectClass &gt; &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="10" relation="public-inheritance">
         </childnode>
-        <childnode refid="48" relation="usage">
+      </node>
+      <node id="18">
+        <label>jam::File::Watcher</label>
+        <link refid="structjam_1_1File_1_1Watcher" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="19" relation="usage">
+          <edgelabel>timers</edgelabel>
+        </childnode>
+        <childnode refid="23" relation="usage">
           <edgelabel>listeners</edgelabel>
+        </childnode>
+        <childnode refid="24" relation="usage">
+          <edgelabel>watched</edgelabel>
+        </childnode>
+      </node>
+      <node id="22">
+        <label>jam::File::Watcher::CoalesceTimer</label>
+        <link refid="structjam_1_1File_1_1Watcher_1_1CoalesceTimer" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="8" relation="public-inheritance">
+        </childnode>
+        <childnode refid="18" relation="usage">
+          <edgelabel>owner</edgelabel>
+        </childnode>
+        <childnode refid="20" relation="usage">
+          <edgelabel>f</edgelabel>
+        </childnode>
+      </node>
+      <node id="17">
+        <label>jam::File::Watcher::Listener</label>
+        <link refid="classjam_1_1File_1_1Watcher_1_1Listener" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="49">
+        <label>jam::Function::Map&lt; juce::Identifier, jam::Function::pointerCapacity, void(juce::ValueTree &amp;)&gt;</label>
+        <link refid="structjam_1_1Function_1_1Map" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="50" relation="public-inheritance">
         </childnode>
       </node>
       <node id="43">
+        <label>jam::Fuzzy::Slab</label>
+        <link refid="structjam_1_1Fuzzy_1_1Slab" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="44" relation="usage">
+          <edgelabel>i16</edgelabel>
+        </childnode>
+        <childnode refid="45" relation="usage">
+          <edgelabel>i32</edgelabel>
+        </childnode>
+      </node>
+      <node id="50">
+        <label>jam::HashMap&lt; KeyType, std::variant&lt; Overload&lt; KeyType, capacity, Signatures &gt;::Slot... &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="41">
+        <label>jam::HashMap&lt; int, jam::HashMap&lt; std::string, jam::HashMap&lt; int, jam::HashMap&lt; int, std::pair&lt; std::string, int &gt; &gt; &gt; &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="39">
+        <label>jam::HashMap&lt; int, std::shared_ptr&lt; const jam::LanguageLibrary &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="47">
+        <label>jam::HashMap&lt; int, std::unique_ptr&lt; Processor::IndexJob &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="46">
+        <label>jam::HashMap&lt; int, std::unique_ptr&lt; Processor::ParseJob &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="38">
+        <label>jam::HashMap&lt; int, std::unique_ptr&lt; jam::LanguageDocument &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="30">
+        <label>jam::HashMap&lt; int, std::unique_ptr&lt; jam::Subprocess &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="37">
+        <label>jam::HashMap&lt; jam::Union&lt; int32_t, int32_t &gt;, int, jam::Strings::CaseFoldHash, jam::Strings::CaseFoldEqual &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="36">
+        <label>jam::HashMap&lt; jam::Union&lt; int32_t, int32_t &gt;, int, jam::Strings::TransparentHash, jam::Strings::TransparentEqual &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="12">
+        <label>jam::HashMap&lt; juce::Identifier, jam::AnyMap::Trait &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="15">
+        <label>jam::HashMap&lt; juce::Identifier, jam::HashMap&lt; juce::Identifier, std::unique_ptr&lt; ParameterAdapter &gt; &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="11">
+        <label>jam::HashMap&lt; juce::Identifier, std::unique_ptr&lt; void, Deleter &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="40">
+        <label>jam::HashMap&lt; juce::String, jam::Array&lt; std::pair&lt; int, const jam::Document::Element * &gt; &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="16">
+        <label>jam::Instance&lt; LINGModel &gt;</label>
+        <link refid="structjam_1_1Instance" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="7">
+        <label>jam::Model</label>
+        <link refid="classjam_1_1Model" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="8" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>params</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>state</edgelabel>
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>valueTreeChanging</edgelabel>
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>adapters</edgelabel>
+        </childnode>
+      </node>
+      <node id="58">
+        <label>jam::Model::ParameterAttachment</label>
+        <link refid="classjam_1_1Model_1_1ParameterAttachment" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="59" relation="private-inheritance">
+        </childnode>
+        <childnode refid="27" relation="private-inheritance">
+        </childnode>
+        <childnode refid="60" relation="usage">
+          <edgelabel>parameter</edgelabel>
+        </childnode>
+        <childnode refid="63" relation="usage">
+          <edgelabel>lastValue</edgelabel>
+        </childnode>
+      </node>
+      <node id="70">
+        <label>jam::Owner&lt; Connection &gt;</label>
+        <link refid="classjam_1_1Owner" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="29" relation="usage">
+          <edgelabel>entries</edgelabel>
+        </childnode>
+      </node>
+      <node id="28">
+        <label>jam::Owner&lt; jam::Subprocess &gt;</label>
+        <link refid="classjam_1_1Owner" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="29" relation="usage">
+          <edgelabel>entries</edgelabel>
+        </childnode>
+      </node>
+      <node id="60">
+        <label>jam::ParameterBase</label>
+        <link refid="structjam_1_1ParameterBase" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="61" relation="usage">
+          <edgelabel>id</edgelabel>
+          <edgelabel>propertyId</edgelabel>
+        </childnode>
+        <childnode refid="57" relation="usage">
+          <edgelabel>needsUpdate</edgelabel>
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>listenerLock</edgelabel>
+        </childnode>
+        <childnode refid="62" relation="usage">
+          <edgelabel>listeners</edgelabel>
+        </childnode>
+      </node>
+      <node id="59">
         <label>jam::ParameterBase::Listener</label>
         <link refid="structjam_1_1ParameterBase_1_1Listener" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
       </node>
-      <node id="27">
+      <node id="4">
+        <label>jam::SharedInstance&lt; map::Family &gt;</label>
+        <link refid="classjam_1_1SharedInstance" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>object</edgelabel>
+        </childnode>
+      </node>
+      <node id="32">
         <label>jam::Strings</label>
         <link refid="classjam_1_1Strings" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-        <childnode refid="28" relation="usage">
+        <childnode refid="33" relation="usage">
           <edgelabel>arena</edgelabel>
         </childnode>
-        <childnode refid="30" relation="usage">
+        <childnode refid="35" relation="usage">
           <edgelabel>spans</edgelabel>
         </childnode>
-        <childnode refid="31" relation="usage">
+        <childnode refid="36" relation="usage">
           <edgelabel>exactPositions</edgelabel>
         </childnode>
-        <childnode refid="32" relation="usage">
+        <childnode refid="37" relation="usage">
           <edgelabel>foldedPositions</edgelabel>
         </childnode>
       </node>
-      <node id="48">
+      <node id="62">
         <label>juce::Array&lt; jam::ParameterBase::Listener * &gt;</label>
         <link refid="classjuce_1_1Array" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
       </node>
-      <node id="44">
+      <node id="27">
         <label>juce::AsyncUpdater</label>
         <link refid="classjuce_1_1AsyncUpdater" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
       </node>
-      <node id="12">
+      <node id="14">
         <label>juce::CriticalSection</label>
         <link refid="classjuce_1_1CriticalSection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
       </node>
-      <node id="8">
+      <node id="10">
         <label>juce::DummyCriticalSection</label>
         <link refid="classjuce_1_1DummyCriticalSection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
       </node>
-      <node id="18">
+      <node id="20">
         <label>juce::File</label>
         <link refid="classjuce_1_1File" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
       </node>
-      <node id="46">
+      <node id="61">
         <label>juce::Identifier</label>
         <link refid="classjuce_1_1Identifier" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
-        <childnode refid="46" relation="usage">
+        <childnode refid="61" relation="usage">
           <edgelabel>null</edgelabel>
         </childnode>
       </node>
-      <node id="51">
+      <node id="65">
         <label>juce::InterProcessLock</label>
         <link refid="classjuce_1_1InterProcessLock" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
       </node>
-      <node id="60">
+      <node id="73">
         <label>juce::InterprocessConnection</label>
         <link refid="classjuce_1_1InterprocessConnection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
       </node>
-      <node id="54">
+      <node id="68">
         <label>juce::InterprocessConnectionServer</label>
         <link refid="classjuce_1_1InterprocessConnectionServer" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
-        <childnode refid="55" relation="private-inheritance">
+        <childnode refid="69" relation="private-inheritance">
         </childnode>
       </node>
       <node id="2">
         <label>juce::JUCEApplicationBase</label>
         <link refid="classjuce_1_1JUCEApplicationBase" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
       </node>
-      <node id="21">
+      <node id="23">
         <label>juce::ListenerList&lt; jam::File::Watcher::Listener &gt;</label>
         <link refid="classjuce_1_1ListenerList" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
       </node>
-      <node id="22">
+      <node id="24">
         <label>juce::OwnedArray&lt; Impl &gt;</label>
         <link refid="classjuce_1_1OwnedArray" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
       </node>
-      <node id="61">
+      <node id="56">
         <label>juce::String</label>
         <link refid="classjuce_1_1String" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
       </node>
-      <node id="55">
+      <node id="69">
         <label>juce::Thread</label>
         <link refid="classjuce_1_1Thread" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
       </node>
-      <node id="34">
+      <node id="48">
         <label>juce::ThreadPool</label>
         <link refid="classjuce_1_1ThreadPool" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
       </node>
-      <node id="6">
+      <node id="55">
+        <label>juce::ThreadPoolJob</label>
+        <link refid="classjuce_1_1ThreadPoolJob" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="8">
         <label>juce::Timer</label>
         <link refid="classjuce_1_1Timer" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
       </node>
-      <node id="11">
+      <node id="13">
         <label>juce::ValueTree</label>
         <link refid="classjuce_1_1ValueTree" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
       </node>
@@ -952,77 +1075,81 @@
         <label>juce::ValueTree::Listener</label>
         <link refid="classjuce_1_1ValueTree_1_1Listener" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
       </node>
-      <node id="49">
+      <node id="63">
         <label>juce::var</label>
         <link refid="classjuce_1_1var" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
       </node>
-      <node id="25">
-        <label>std::array&lt; T &gt;</label>
-        <childnode refid="26" relation="usage">
-          <edgelabel>elements</edgelabel>
-        </childnode>
-      </node>
-      <node id="47">
+      <node id="57">
         <label>std::atomic&lt; bool &gt;</label>
       </node>
-      <node id="17">
+      <node id="19">
         <label>std::map&lt; juce::File, std::unique_ptr&lt; jam::File::Watcher::CoalesceTimer &gt; &gt;</label>
-        <childnode refid="18" relation="usage">
+        <childnode refid="20" relation="usage">
           <edgelabel>keys</edgelabel>
         </childnode>
-        <childnode refid="19" relation="usage">
+        <childnode refid="21" relation="usage">
           <edgelabel>elements</edgelabel>
         </childnode>
       </node>
-      <node id="58">
+      <node id="5">
+        <label>std::shared_ptr&lt; ObjectType &gt;</label>
+      </node>
+      <node id="71">
         <label>std::unique_ptr&lt; Client &gt;</label>
-        <childnode refid="59" relation="usage">
+        <childnode refid="72" relation="usage">
           <edgelabel>ptr</edgelabel>
         </childnode>
       </node>
-      <node id="40">
+      <node id="51">
         <label>std::unique_ptr&lt; Manifest &gt;</label>
-        <childnode refid="41" relation="usage">
+        <childnode refid="52" relation="usage">
           <edgelabel>ptr</edgelabel>
         </childnode>
       </node>
-      <node id="23">
+      <node id="53">
+        <label>std::unique_ptr&lt; Manifest::ManifestJob &gt;</label>
+        <childnode refid="54" relation="usage">
+          <edgelabel>ptr</edgelabel>
+        </childnode>
+      </node>
+      <node id="25">
         <label>std::unique_ptr&lt; Processor &gt;</label>
-        <childnode refid="24" relation="usage">
+        <childnode refid="26" relation="usage">
           <edgelabel>ptr</edgelabel>
         </childnode>
       </node>
-      <node id="52">
+      <node id="66">
         <label>std::unique_ptr&lt; Server &gt;</label>
-        <childnode refid="53" relation="usage">
+        <childnode refid="67" relation="usage">
           <edgelabel>ptr</edgelabel>
         </childnode>
       </node>
-      <node id="28">
+      <node id="33">
         <label>std::unique_ptr&lt; jam::Array&lt; char &gt; &gt;</label>
-        <childnode refid="29" relation="usage">
+        <childnode refid="34" relation="usage">
           <edgelabel>ptr</edgelabel>
         </childnode>
       </node>
-      <node id="19">
+      <node id="21">
         <label>std::unique_ptr&lt; jam::File::Watcher::CoalesceTimer &gt;</label>
-        <childnode refid="20" relation="usage">
+        <childnode refid="22" relation="usage">
           <edgelabel>ptr</edgelabel>
         </childnode>
       </node>
-      <node id="50">
+      <node id="64">
         <label>std::unique_ptr&lt; juce::InterProcessLock &gt;</label>
-        <childnode refid="51" relation="usage">
+        <childnode refid="65" relation="usage">
           <edgelabel>ptr</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="Main.cpp" line="276" column="1" bodyfile="Main.cpp" bodystart="278" bodyend="484"/>
+    <location file="Main.cpp" line="278" column="1" bodyfile="Main.cpp" bodystart="280" bodyend="487"/>
     <listofallmembers>
       <member refid="class_application_1a0bd3fab129fe4edb5e5b4d13cff98bf5" prot="public" virt="virtual"><scope>Application</scope><name>anotherInstanceStarted</name></member>
       <member refid="class_application_1afa8cc05ce6b6092be5ecdfdae44e05f8" prot="public" virt="non-virtual"><scope>Application</scope><name>Application</name></member>
       <member refid="classjuce_1_1JUCEApplicationBase_1ac535f3e5c5a6c783efed6e8e86b341f8" prot="public" virt="virtual"><scope>Application</scope><name>backButtonPressed</name></member>
       <member refid="class_application_1aa4f629c8d5b98131e551eef7300c1201" prot="private" virt="non-virtual"><scope>Application</scope><name>client</name></member>
+      <member refid="class_application_1a993bb13ed72f650c78bb405d94ebd59f" prot="private" virt="non-virtual"><scope>Application</scope><name>family</name></member>
       <member refid="class_application_1a9ca4a5b1cd128bfdc90020919624f29b" prot="public" virt="virtual"><scope>Application</scope><name>getApplicationName</name></member>
       <member refid="classjuce_1_1JUCEApplicationBase_1af331db63560821279c1e44baebe9a5e6" prot="public" virt="non-virtual"><scope>Application</scope><name>getApplicationReturnValue</name></member>
       <member refid="class_application_1a871a460a03e9a5a70544681332c409d6" prot="public" virt="virtual"><scope>Application</scope><name>getApplicationVersion</name></member>

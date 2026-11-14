@@ -22,7 +22,6 @@
 | @identifiers     | identifiers.md                    |
 | @Identifiers     | ../Source/generated/Identifiers.h |
 | @text            | text.md                           |
-| @cLanguage       | c_language.md                     |
 | @banner          | banner.md                         |
 | @binaryFiles     | files.md                          |
 | @Text            | ../Source/generated/Text.h        |
@@ -172,13 +171,6 @@
 |                                               |                           |                                               |                  |
 |                                               |                           | @code:struct                                  |                  |
 |                                               |                           | - name: Diagnostics                           |                  |
-|                                               |                           | > - [list]: @code:char                        |                  |
-+-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
-| > - [list]: @cLanguage:cLanguage              |                           | @code:namespace                               | @Text            |
-|                                               |                           | - name: text                                  |                  |
-|                                               |                           |                                               |                  |
-|                                               |                           | @code:struct                                  |                  |
-|                                               |                           | - name: CLanguage                             |                  |
 |                                               |                           | > - [list]: @code:char                        |                  |
 +-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
 | - [list]: @binaryFiles:files                  |                           | @code:namespace                               | @Files           |

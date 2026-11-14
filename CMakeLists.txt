@@ -45,7 +45,7 @@ elseif(WIN32)
 endif()
 
 project(ling
-    VERSION "0.1.0"
+    VERSION "0.0.1"
     LANGUAGES C CXX
     DESCRIPTION "Language Index Navigation Graph"
 )
@@ -236,6 +236,7 @@ juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_gui")              # GUI
 juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_mermaid_diagram")  # Clean-room native mermaid diagram parsing over jam::Document producing the semantic Element tree
 juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_markdown_graphics")# Markdown and mermaid materialisation, layout and view component
 juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_terminal")         # VT read-side engine, TTY, protocol vocabulary, keyboard encoding
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_tui")              # Terminal user interface components, painted through the terminal graphics context
 juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_subprocess")       # JUCE-based subprocess launcher with streaming output and byte-cap truncation
 juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_fuzzy")            # Fuzzy search (Levenshtein) and fzf-algorithm matching engine
 
@@ -243,8 +244,8 @@ message(STATUS "CAST: user modules added from ${CMAKE_CURRENT_SOURCE_DIR}/../jam
 
 juce_add_console_app(${PROJECT_NAME}
     PRODUCT_NAME "ling"
-    VERSION "0.1.0"
-    BUILD_VERSION "0.1.0"
+    VERSION "0.0.1"
+    BUILD_VERSION "0.0.1"
     BUNDLE_ID "com.jrengmusic.ling"
     COMPANY_NAME "JRENG"
     COMPANY_COPYRIGHT "© 2026 JRENG"
@@ -309,6 +310,7 @@ juce_events
 juce_graphics
 juce_gui_basics
 juce_audio_processors
+juce_cryptography
 jam_core
 jam_syntax_tree
 jam_document
@@ -323,6 +325,7 @@ jam_gui
 jam_mermaid_diagram
 jam_markdown_graphics
 jam_terminal
+jam_tui
 jam_subprocess
 jam_fuzzy
     PUBLIC
@@ -353,7 +356,13 @@ target_link_options(${PROJECT_NAME} PRIVATE
 
 file(GLOB CAST_BINARY_FILES CONFIGURE_DEPENDS
 Source/HELP.md
-Source/style.css
+../jam/jam_tui/page/style.css
+language/cLang/spell.md
+language/cLang/language.cast
+language/cLang/construction.md
+../jam/cast/syntax_tree.md
+../jam/cast/core.md
+../jam/jam_syntax_tree/document/jam_LanguageInterface.h
 )
 
 juce_add_binary_data(${PROJECT_NAME}_BinaryData

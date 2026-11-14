@@ -10,13 +10,14 @@
     <includedby refid="_client_8h" local="yes">Client.h</includedby>
     <includedby refid="_compiler_manifest_8h" local="yes">CompilerManifest.h</includedby>
     <includedby refid="_connection_8h" local="yes">Connection.h</includedby>
-    <includedby refid="_help_8h" local="yes">Help.h</includedby>
+    <includedby refid="_index_8h" local="yes">Index.h</includedby>
     <includedby refid="_json_writer_8h" local="yes">JsonWriter.h</includedby>
     <includedby refid="_l_i_n_g_model_8h" local="yes">LINGModel.h</includedby>
     <includedby refid="_main_8cpp" local="yes">Main.cpp</includedby>
     <includedby refid="_manifest_8h" local="yes">Manifest.h</includedby>
     <includedby refid="_processor_8h" local="yes">Processor.h</includedby>
     <includedby refid="_server_8h" local="yes">Server.h</includedby>
+    <includedby refid="_swap_validator_8h" local="yes">SwapValidator.h</includedby>
     <includedby refid="_validator_8h" local="yes">Validator.h</includedby>
     <includedby refid="_generated_8cpp" local="yes">generated/Generated.cpp</includedby>
     <incdepgraph>
@@ -79,65 +80,71 @@
         </childnode>
         <childnode refid="7" relation="include">
         </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
       </node>
-      <node id="9">
+      <node id="11">
         <label>Connection.cpp</label>
         <link refid="_connection_8cpp"/>
       </node>
-      <node id="8">
+      <node id="10">
         <label>Connection.h</label>
         <link refid="_connection_8h"/>
-        <childnode refid="9" relation="include">
+        <childnode refid="11" relation="include">
         </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
-      </node>
-      <node id="13">
-        <label>Help.cpp</label>
-        <link refid="_help_8cpp"/>
-      </node>
-      <node id="12">
-        <label>Help.h</label>
-        <link refid="_help_8h"/>
-        <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
+        <childnode refid="12" relation="include">
         </childnode>
       </node>
       <node id="15">
-        <label>JsonWriter.cpp</label>
-        <link refid="_json_writer_8cpp"/>
+        <label>Index.cpp</label>
+        <link refid="_index_8cpp"/>
       </node>
       <node id="14">
-        <label>JsonWriter.h</label>
-        <link refid="_json_writer_8h"/>
+        <label>Index.h</label>
+        <link refid="_index_8h"/>
         <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
         </childnode>
         <childnode refid="16" relation="include">
         </childnode>
       </node>
       <node id="19">
+        <label>JsonWriter.cpp</label>
+        <link refid="_json_writer_8cpp"/>
+      </node>
+      <node id="18">
+        <label>JsonWriter.h</label>
+        <link refid="_json_writer_8h"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
         <label>LINGModel.cpp</label>
         <link refid="_l_i_n_g_model_8cpp"/>
       </node>
-      <node id="18">
+      <node id="20">
         <label>LINGModel.h</label>
         <link refid="_l_i_n_g_model_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="10" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
+        <childnode refid="22" relation="include">
         </childnode>
-        <childnode refid="16" relation="include">
+        <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="10" relation="include">
+        <childnode refid="12" relation="include">
         </childnode>
       </node>
       <node id="4">
@@ -148,7 +155,7 @@
         <label>Manifest.cpp</label>
         <link refid="_manifest_8cpp"/>
       </node>
-      <node id="20">
+      <node id="22">
         <label>Manifest.h</label>
         <link refid="_manifest_8h"/>
         <childnode refid="4" relation="include">
@@ -156,45 +163,69 @@
         <childnode refid="7" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="9">
         <label>Processor.cpp</label>
         <link refid="_processor_8cpp"/>
       </node>
-      <node id="16">
+      <node id="8">
         <label>Processor.h</label>
         <link refid="_processor_8h"/>
         <childnode refid="4" relation="include">
         </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>Query.cpp</label>
+        <link refid="_query_8cpp"/>
+      </node>
+      <node id="16">
+        <label>Query.h</label>
+        <link refid="_query_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
         <childnode refid="17" relation="include">
         </childnode>
       </node>
-      <node id="11">
+      <node id="13">
         <label>Server.cpp</label>
         <link refid="_server_8cpp"/>
       </node>
-      <node id="10">
+      <node id="12">
         <label>Server.h</label>
         <link refid="_server_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="11" relation="include">
+        <childnode refid="13" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="24">
+        <label>SwapValidator.cpp</label>
+        <link refid="_swap_validator_8cpp"/>
+      </node>
+      <node id="23">
+        <label>SwapValidator.h</label>
+        <link refid="_swap_validator_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
         <label>Validator.cpp</label>
         <link refid="_validator_8cpp"/>
       </node>
-      <node id="21">
+      <node id="25">
         <label>Validator.h</label>
         <link refid="_validator_8h"/>
         <childnode refid="7" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
+        <childnode refid="26" relation="include">
         </childnode>
       </node>
-      <node id="23">
+      <node id="27">
         <label>generated/Generated.cpp</label>
         <link refid="_generated_8cpp"/>
       </node>
@@ -205,25 +236,27 @@
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="12" relation="include">
+        <childnode refid="10" relation="include">
         </childnode>
         <childnode refid="14" relation="include">
         </childnode>
         <childnode refid="18" relation="include">
         </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
         <childnode refid="20" relation="include">
         </childnode>
-        <childnode refid="16" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="10" relation="include">
+        <childnode refid="22" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
         </childnode>
         <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
         </childnode>
       </node>
     </invincdepgraph>

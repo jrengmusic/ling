@@ -78,6 +78,8 @@ private:
      */
     void valueTreeChildAdded (juce::ValueTree& parentTree, juce::ValueTree& childWhichHasBeenAdded) override;
 
+    void valueTreeChildRemoved (juce::ValueTree& parentTree, juce::ValueTree& childWhichHasBeenRemoved, int indexFromWhichChildWasRemoved) override;
+
     /**
      * @brief Stops the socket, deletes the port file, and quits the application.
      *

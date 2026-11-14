@@ -1,6 +1,5 @@
 #include <JuceHeader.h>
 #include "generated/Generated.h"
-#include "Help.h"
 #include "LINGModel.h"
 #include "Processor.h"
 #include "Server.h"
@@ -84,10 +83,14 @@ static void printBannerAndHelp()
     const BinaryData::Raw binary { files::lingHelp };
     std::string newlineText;
     jam::Format::appendUtf8 (newlineText, Chars::newline);
+    jam::TerminalPage page { { BinaryData::fetcher }, jam::Strings { files::styleSheet } };
+    juce::MemoryOutputStream frame;
 
     printBanner();
     fwrite (newlineText.data(), sizeof (char), newlineText.size(), stdout);
-    printHelp (std::string_view (binary.data, static_cast<size_t> (binary.size)));
+    page.setDocument (std::move (*jam::MarkdownDocument::parse (std::string_view (binary.data, static_cast<size_t> (binary.size)), files::lingHelp)));
+    page.writeToStream (frame);
+    fwrite (frame.getData(), sizeof (char), frame.getDataSize(), stdout);
 }
 
 /**
@@ -118,22 +121,21 @@ static const jam::Function::Map<juce::Identifier, jam::Function::pointerCapacity
 /**
  * @brief Appends one report row for a document: its path, its declaration count, and its reference count.
  *
- * An element whose type is below the reference type is a declaration. Every
- * other element is a reference.
+ * An element with the declaration role is a declaration. Every other element is a reference.
  *
  * @param rows      The text that receives the row.
  * @param path      The path of the document.
  * @param document  The document to count.
  */
-static void appendDocument (std::string& rows, std::string_view path, const jam::CodeDocument& document)
+static void appendDocument (std::string& rows, std::string_view path, const jam::LanguageDocument& document)
 {
     int declarations { 0 };
     int references { 0 };
 
     for (const auto* child : document)
-        child->applyFunctionRecursively ([&declarations, &references] (const jam::Document::Element& element)
+        child->applyFunctionRecursively ([&document, &declarations, &references] (const jam::Document::Element& element)
         {
-            if (Processor::isDeclaration (element))
+            if (document.hasRole (element, jam::LanguageRole::declaration))
                 ++declarations;
             else
                 ++references;
@@ -455,7 +457,7 @@ private:
         {
             std::string rows;
 
-            processor->applyToDocuments ([&rows] (std::string_view path, const jam::CodeDocument& document) { appendDocument (rows, path, document); });
+            processor->applyToDocuments ([&rows] (std::string_view path, const jam::LanguageDocument& document) { appendDocument (rows, path, document); });
             jam::Format::appendDecimal (rows, static_cast<int> (model.state[Id::documents]));
             jam::Format::appendUtf8 (rows, Chars::space);
             rows.append (jam::Strings::getView (Id::documents.toString()));
@@ -465,6 +467,7 @@ private:
         }
     }
 
+    jam::SharedInstance<map::Family> family { std::in_place };
     /** @brief The state model of the run. The application owns it. */
     LINGModel model;
     /** @brief The processor that parses the files of the model. It holds the model by reference. */
