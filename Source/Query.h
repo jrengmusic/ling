@@ -48,20 +48,20 @@ public:
      * @param request  The request row. Its arguments give the file and the position.
      * @param index  The index that holds the documents and the symbol maps.
      */
-    void hover (juce::ValueTree& request, const Index& index, int pathIndex, const jam::Document::Element* element, int tokenIndex, const jam::Document::Element* record) const;
+    void hover (juce::ValueTree& request, const Index& index, int pathIndex, const jam::Document::Element* element, int tokenIndex, const SymbolDocument::SymbolRecord* record) const;
 
     template <typename Function>
     bool applyToHover (juce::ValueTree& request, const Index& index, const Function& function) const
     {
         const auto& encodingText { request[Id::positionEncoding].toString() };
         const auto encoding { jam::Strings::getView (encodingText) };
-        const jam::Document::Element* hoverRecord { nullptr };
+        const SymbolDocument::SymbolRecord* hoverRecord { nullptr };
 
         applyToPosition (request, [this, &index, &function, &hoverRecord] (int pathIndex, const jam::Document& document, const jam::Document::Element& element, int tokenIndex)
         {
-            applyToSymbols (pathIndex, document, element, tokenIndex, [&hoverRecord] (const jam::Document::Element& record)
+            applyToSymbols (pathIndex, document, element, tokenIndex, [&hoverRecord] (const SymbolDocument::SymbolRecord& record)
             {
-                if (hoverRecord == nullptr and *record.get<int> (Id::hover) != jam::LanguageCallbacks::noHover)
+                if (hoverRecord == nullptr and record.hover != jam::LanguageCallbacks::noHover)
                     hoverRecord = &record;
             }, index);
 
@@ -245,21 +245,21 @@ private:
     void applyToSymbols (int pathIndex, const jam::Document& document, const jam::Document::Element& element, int tokenIndex, const Function& function, const Index& index) const
     {
         const auto text { document.getView (element.get<jam::Document::Tokens> (Id::nameTokens)->at (tokenIndex)) };
-        const auto isNamed { [&document, text] (const jam::Document::Element& record)
+        const auto isNamed { [&document, text] (const SymbolDocument::SymbolRecord& record)
         {
-            const auto start { document.getByteOffset (static_cast<uint32_t> (*record.get<int> (Id::line)), static_cast<uint32_t> (*record.get<int> (Id::column))) };
-            const auto length { static_cast<uint32_t> (*record.get<int> (Id::nameLength)) };
+            const auto start { document.getByteOffset (static_cast<uint32_t> (record.line), static_cast<uint32_t> (record.column)) };
+            const auto length { static_cast<uint32_t> (record.nameLength) };
 
             return document.getView (jam::Document::Token (start, start + length)).compare (text) == 0;
         } };
         bool hasNamedRecord { false };
 
-        index.applyToRecords (pathIndex, document, element, tokenIndex, [&hasNamedRecord, &isNamed] (const jam::Document::Element& record)
+        index.applyToRecords (pathIndex, document, element, tokenIndex, [&hasNamedRecord, &isNamed] (const SymbolDocument::SymbolRecord& record)
         {
             hasNamedRecord = hasNamedRecord or isNamed (record);
         });
 
-        index.applyToRecords (pathIndex, document, element, tokenIndex, [&function, &isNamed, hasNamedRecord] (const jam::Document::Element& record)
+        index.applyToRecords (pathIndex, document, element, tokenIndex, [&function, &isNamed, hasNamedRecord] (const SymbolDocument::SymbolRecord& record)
         {
             if (not hasNamedRecord or isNamed (record))
                 function (record);
@@ -273,7 +273,7 @@ private:
         {
             const auto& [declarationSymbol, symbolDeclarations] { *entry };
 
-            index.applyToOccurrences (symbolDeclarations, [&function] (int declarationIndex, const jam::Document& declarationDocument, const jam::Document::Element& declaration, int declarationTokenIndex, const jam::Document::Element&)
+            index.applyToOccurrences (symbolDeclarations, [&function] (int declarationIndex, const jam::Document& declarationDocument, const jam::Document::Element& declaration, int declarationTokenIndex, const SymbolDocument::SymbolRecord&)
             {
                 function (declarationIndex, declarationDocument, declaration, declarationTokenIndex);
             });
@@ -283,23 +283,23 @@ private:
     template <typename Function>
     void applyToDeclarations (int pathIndex, const jam::Document& document, const jam::Document::Element& element, int tokenIndex, const Function& function, const Index& index) const
     {
-        applyToSymbols (pathIndex, document, element, tokenIndex, [this, &function, &index] (const jam::Document::Element& record)
+        applyToSymbols (pathIndex, document, element, tokenIndex, [this, &function, &index] (const SymbolDocument::SymbolRecord& record)
         {
-            applyToSymbolDeclarations (*record.get<juce::int64> (Id::symbol), function, index);
+            applyToSymbolDeclarations (record.symbol, function, index);
         }, index);
     }
 
     template <typename Function>
     void applyToScopeSymbols (int pathIndex, const jam::Document& document, const jam::Document::Element& element, int tokenIndex, const Function& function, const Index& index) const
     {
-        const auto applyToScope { [&function, &index] (const jam::Document::Element& record)
+        const auto applyToScope { [&function, &index, pathIndex] (const SymbolDocument::SymbolRecord& record)
         {
-            const auto symbol { *record.get<juce::int64> (Id::symbol) };
+            const auto symbol { record.symbol };
 
             if (index.completions.contains (symbol))
                 function (symbol);
             else
-                for (const auto typeSymbol : *record.get<jam::Document::Integers> (Id::typeSymbols))
+                for (const auto typeSymbol : index.getSymbolDocument (pathIndex).getTypeSymbols (record))
                     function (typeSymbol);
         } };
 
@@ -338,13 +338,13 @@ private:
     template <typename Function>
     void applyToSymbolOccurrences (juce::int64 symbol, int pathIndex, const Function& function, const Index& index) const
     {
-        const auto applyToOccurrenceMap { [symbol, pathIndex, &function, &index] (const jam::HashMap<juce::int64, jam::Array<std::pair<int, const jam::Document::Element*>>>& occurrences)
+        const auto applyToOccurrenceMap { [symbol, pathIndex, &function, &index] (const jam::HashMap<juce::int64, jam::Array<std::pair<int, const SymbolDocument::SymbolRecord*>>>& occurrences)
         {
             if (const auto entry { occurrences.find (symbol) }; entry != occurrences.end())
             {
                 const auto& [occurrenceSymbol, symbolOccurrences] { *entry };
 
-                index.applyToOccurrences (symbolOccurrences, pathIndex, [&function] (int occurrenceIndex, const jam::Document& occurrenceDocument, const jam::Document::Element& occurrence, int occurrenceTokenIndex, const jam::Document::Element&)
+                index.applyToOccurrences (symbolOccurrences, pathIndex, [&function] (int occurrenceIndex, const jam::Document& occurrenceDocument, const jam::Document::Element& occurrence, int occurrenceTokenIndex, const SymbolDocument::SymbolRecord&)
                 {
                     function (occurrenceIndex, occurrenceDocument, occurrence, occurrenceTokenIndex);
                 });
@@ -373,7 +373,7 @@ private:
         {
             const auto& [referenceSymbol, symbolReferences] { *entry };
 
-            index.applyToOccurrences (symbolReferences, [&function] (int referenceIndex, const jam::Document& referenceDocument, const jam::Document::Element& reference, int referenceTokenIndex, const jam::Document::Element&)
+            index.applyToOccurrences (symbolReferences, [&function] (int referenceIndex, const jam::Document& referenceDocument, const jam::Document::Element& reference, int referenceTokenIndex, const SymbolDocument::SymbolRecord&)
             {
                 function (referenceIndex, referenceDocument, reference, referenceTokenIndex);
             });
@@ -394,7 +394,7 @@ private:
             {
                 const auto& [documentIndex, document] { *stored };
 
-                function (*symbolFile, *document);
+                function (*index.symbolDocuments.at (unitRow), *symbolFile, *document);
             }
         }
     }
@@ -518,18 +518,18 @@ private:
 
         if (index.hasRole (document, declaration, jam::LanguageRole::classToken))
         {
-            index.applyToRecords (pathIndex, document, declaration, getLastTokenIndex (declaration), [this, &function, &index] (const jam::Document::Element& record)
+            index.applyToRecords (pathIndex, document, declaration, getLastTokenIndex (declaration), [this, &function, &index] (const SymbolDocument::SymbolRecord& record)
             {
-                applyToDerived (*record.get<juce::int64> (Id::symbol), function, index);
+                applyToDerived (record.symbol, function, index);
             });
         }
         else if (index.hasRole (document, *declaration.parent, jam::LanguageRole::classToken))
         {
             const auto memberName { document.getView (declaration.get<jam::Document::Tokens> (Id::nameTokens)->last()) };
 
-            index.applyToRecords (pathIndex, document, *declaration.parent, getLastTokenIndex (*declaration.parent), [this, &function, &index, memberName] (const jam::Document::Element& record)
+            index.applyToRecords (pathIndex, document, *declaration.parent, getLastTokenIndex (*declaration.parent), [this, &function, &index, memberName] (const SymbolDocument::SymbolRecord& record)
             {
-                applyToDerived (*record.get<juce::int64> (Id::symbol), [this, &function, &index, memberName] (int derivedIndex, const jam::Document& derivedDocument, const jam::Document::Element& derived, int)
+                applyToDerived (record.symbol, [this, &function, &index, memberName] (int derivedIndex, const jam::Document& derivedDocument, const jam::Document::Element& derived, int)
                 {
                     for (const auto* child : derived)
                     {
@@ -558,13 +558,13 @@ private:
         {
             const auto& [referenceSymbol, symbolReferences] { *entry };
 
-            index.applyToOccurrences (symbolReferences, [this, &function, &index, &knownSymbols] (int referenceIndex, const jam::Document& referenceDocument, const jam::Document::Element& reference, int, const jam::Document::Element& record)
+            index.applyToOccurrences (symbolReferences, [this, &function, &index, &knownSymbols] (int referenceIndex, const jam::Document& referenceDocument, const jam::Document::Element& reference, int, const SymbolDocument::SymbolRecord& record)
             {
-                if ((*record.get<int> (Id::role) & jam::LanguageRole::base) != 0)
+                if ((record.role & jam::LanguageRole::base) != 0)
                 {
-                    index.applyToRecords (referenceIndex, referenceDocument, *reference.parent, getLastTokenIndex (*reference.parent), [this, &function, &index, &knownSymbols, referenceIndex, &referenceDocument, &reference] (const jam::Document::Element& derivedRecord)
+                    index.applyToRecords (referenceIndex, referenceDocument, *reference.parent, getLastTokenIndex (*reference.parent), [this, &function, &index, &knownSymbols, referenceIndex, &referenceDocument, &reference] (const SymbolDocument::SymbolRecord& derivedRecord)
                     {
-                        const auto derivedSymbol { *derivedRecord.get<juce::int64> (Id::symbol) };
+                        const auto derivedSymbol { derivedRecord.symbol };
 
                         if (auto [knownEntry, isAdded] { knownSymbols.insert (derivedSymbol) }; isAdded)
                         {
@@ -595,7 +595,7 @@ private:
     /** @brief The scored declarations of one lookup: the score, the index of the path, and the element. */
     using Matches = jam::Array<std::tuple<int, int, const jam::Document::Element*>>;
 
-    using Occurrence = std::pair<int, const jam::Document::Element*>;
+    using Occurrence = std::pair<int, const SymbolDocument::SymbolRecord*>;
 
     using Occurrences = jam::Array<Occurrence>;
 
@@ -617,19 +617,19 @@ private:
 
     static int appendCallRanges (juce::MemoryBlock& ranges, const Index& index, const Occurrences& references, int runStart, const jam::Document::Element& caller, const jam::Document& document, std::string_view encoding);
 
-    static int appendOutlines (juce::MemoryBlock& json, const jam::Document& document, const jam::Document::Tokens& outlines, int parentIndex, int outlineIndex, std::string_view encoding);
+    static int appendOutlines (juce::MemoryBlock& json, const jam::Document& document, SymbolDocument::Span<SymbolDocument::OutlineEntry> outlines, int parentIndex, int outlineIndex, std::string_view encoding);
 
-    static int appendOutline (juce::MemoryBlock& json, const jam::Document& document, const jam::Document::Tokens& outlines, int outlineIndex, std::string_view encoding);
+    static int appendOutline (juce::MemoryBlock& json, const jam::Document& document, SymbolDocument::Span<SymbolDocument::OutlineEntry> outlines, int outlineIndex, std::string_view encoding);
 
     static void appendFileCodeActions (juce::MemoryBlock& json, const juce::File& file, const Index& index, const juce::Array<juce::var>& arguments, std::string_view encoding);
 
-    static void appendFixItActions (juce::MemoryBlock& json, const juce::File& file, const jam::Document& document, const jam::Document::Element& symbolFile, uint32_t rangeStart, uint32_t rangeEnd, std::string_view encoding);
+    static void appendFixItActions (juce::MemoryBlock& json, const juce::File& file, const jam::Document& document, const SymbolDocument& symbolDocument, const SymbolDocument::FileEntry& symbolFile, uint32_t rangeStart, uint32_t rangeEnd, std::string_view encoding);
 
     static void appendCodeAction (juce::MemoryBlock& json, const juce::File& file, const jam::Document& document, const jam::Document::Token& range, std::string_view newText, std::string_view encoding);
 
     void appendScopeCompletions (juce::MemoryBlock& json, juce::int64 scopeSymbol, const jam::Fuzzy::Pattern& pattern, const Language& language, const Index& index) const;
 
-    static void appendCompletionItem (juce::MemoryBlock& json, const jam::Document::Element& completion, const Language& language);
+    static void appendCompletionItem (juce::MemoryBlock& json, const SymbolDocument& symbolDocument, const SymbolDocument::CompletionRecord& completion, const Language& language);
 
     int getRecordType (int pathIndex, const jam::Document& document, const jam::Document::Element& element, int tokenIndex, const Index& index) const;
 

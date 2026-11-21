@@ -56,19 +56,7 @@ std::unique_ptr<jam::Document> Index::readSwapFile (const juce::File& swapFile, 
 
 std::unique_ptr<SymbolDocument> Index::readSwapFile (const juce::File& swapFile, juce::int64 hash, juce::int64 languageHash, int family)
 {
-    const juce::MemoryMappedFile mapped { swapFile, juce::MemoryMappedFile::readOnly };
-    std::unique_ptr<SymbolDocument> document;
-
-    if (mapped.getData() != nullptr)
-    {
-        if (auto read { SymbolDocument::read (std::string_view { static_cast<const char*> (mapped.getData()), mapped.getSize() }) }; read != nullptr)
-        {
-            if (auto stored { jam::Document::getValid (std::move (read), SwapValidator {}) }; stored != nullptr and *stored->getRoot()->get<juce::int64> (Id::hash) == hash and *stored->getRoot()->get<juce::int64> (Id::language) == languageHash and *stored->getRoot()->get<int> (Id::family) == family)
-                document = std::move (stored);
-        }
-    }
-
-    return document;
+    return SymbolDocument::open (swapFile, hash, languageHash, family);
 }
 
 void Index::addStamp (jam::Document& document, juce::int64 hash, juce::int64 languageHash, int family)
@@ -135,9 +123,9 @@ void Index::addBindings (int rowIndex, std::unique_ptr<SymbolDocument> symbolDoc
     const auto row { model.state.getChildWithName (jam::Format::toType (Id::files)).getChild (rowIndex) };
     const juce::File directory { row[Id::directory].toString() };
 
-    for (const auto* file : *symbolDocument)
+    for (const auto& file : symbolDocument->getFiles())
     {
-        const auto path { directory.getChildFile (*file->get<juce::String> (Id::path)).getFullPathName() };
+        const auto path { directory.getChildFile (jam::Strings::fromView (symbolDocument->getString (file.pathOffset, file.pathLength))).getFullPathName() };
         const auto pathIndex { getOrCreatePathIndex (path) };
         const bool isOwner { unitRows.contains (path) ? unitRows.at (path) == rowIndex : not symbolFiles.contains (pathIndex) };
 
@@ -145,8 +133,8 @@ void Index::addBindings (int rowIndex, std::unique_ptr<SymbolDocument> symbolDoc
         {
             if (symbolFiles.contains (pathIndex))
                 removeSymbols (pathIndex);
-            symbolFiles.addOrReplace (pathIndex, std::make_pair (rowIndex, file));
-            addSymbols (pathIndex, *file);
+            symbolFiles.addOrReplace (pathIndex, std::make_pair (rowIndex, &file));
+            addSymbols (pathIndex, *symbolDocument, file);
         }
     }
 
@@ -225,7 +213,7 @@ std::pair<const jam::Document::Element*, int> Index::getElement (const jam::Docu
     return { nullptr, -1 };
 }
 
-std::pair<const jam::Document::Element*, int> Index::getElement (const std::pair<int, const jam::Document::Element*>& occurrence) const
+std::pair<const jam::Document::Element*, int> Index::getElement (const std::pair<int, const SymbolDocument::SymbolRecord*>& occurrence) const
 {
     const auto& [pathIndex, record] { occurrence };
 
@@ -233,7 +221,7 @@ std::pair<const jam::Document::Element*, int> Index::getElement (const std::pair
     {
         const auto& [documentIndex, document] { *stored };
 
-        return getElement (*document, *record->get<int> (Id::line), *record->get<int> (Id::column));
+        return getElement (*document, record->line, record->column);
     }
 
     return { nullptr, -1 };
@@ -314,13 +302,13 @@ void Index::removeSymbols (int pathIndex)
 {
     const auto& [unitRow, file] { symbolFiles.at (pathIndex) };
 
-    removeCompletions (pathIndex, *file);
+    removeCompletions (pathIndex, *symbolDocuments.at (unitRow), *file);
 
     jam::HashSet<juce::int64> removedSymbols;
 
     for (const auto* record : records.at (pathIndex))
     {
-        const auto symbol { *record->get<juce::int64> (Id::symbol) };
+        const auto symbol { record->symbol };
 
         if (const auto [symbolEntry, isInserted] { removedSymbols.insert (symbol) }; isInserted)
         {
@@ -332,7 +320,7 @@ void Index::removeSymbols (int pathIndex)
     records.erase (pathIndex);
 }
 
-void Index::removeOccurrences (jam::HashMap<juce::int64, jam::Array<std::pair<int, const jam::Document::Element*>>>& symbols,
+void Index::removeOccurrences (jam::HashMap<juce::int64, jam::Array<std::pair<int, const SymbolDocument::SymbolRecord*>>>& symbols,
                                juce::int64 symbol,
                                int pathIndex)
 {
@@ -348,18 +336,18 @@ void Index::removeOccurrences (jam::HashMap<juce::int64, jam::Array<std::pair<in
     }
 }
 
-void Index::removeCompletions (int pathIndex, const jam::Document::Element& file)
+void Index::removeCompletions (int pathIndex, const SymbolDocument& symbolDocument, const SymbolDocument::FileEntry& file)
 {
-    SymbolDocument::applyToCompletions (file, [this, pathIndex] (const jam::Document::Element& completion)
+    for (const auto& completion : symbolDocument.getCompletions (file))
     {
-        const auto scopeSymbol { *completion.get<juce::int64> (Id::scope) };
+        const auto scopeSymbol { completion.scope };
 
         if (const auto entry { completions.find (scopeSymbol) }; entry != completions.end())
         {
             auto& [entrySymbol, scopeCompletions] { *entry };
-            const auto tail { std::remove_if (scopeCompletions.begin(), scopeCompletions.end(), [pathIndex] (const std::pair<int, const jam::Document::Element*>& scopeCompletion)
+            const auto tail { std::remove_if (scopeCompletions.begin(), scopeCompletions.end(), [pathIndex] (const std::pair<int, const SymbolDocument::CompletionRecord*>& scopeCompletion)
             {
-                const auto& [completionPathIndex, completionElement] { scopeCompletion };
+                const auto& [completionPathIndex, completionRecord] { scopeCompletion };
 
                 return completionPathIndex == pathIndex;
             }) };
@@ -369,23 +357,23 @@ void Index::removeCompletions (int pathIndex, const jam::Document::Element& file
             if (scopeCompletions.isEmpty())
                 completions.erase (scopeSymbol);
         }
-    });
+    }
 }
 
-void Index::addCompletions (int pathIndex, const jam::Document::Element& file)
+void Index::addCompletions (int pathIndex, const SymbolDocument& symbolDocument, const SymbolDocument::FileEntry& file)
 {
-    SymbolDocument::applyToCompletions (file, [this, pathIndex] (const jam::Document::Element& completion)
+    for (const auto& completion : symbolDocument.getCompletions (file))
     {
-        const auto [scopeEntry, isScopeAdded] { completions.try_emplace (*completion.get<juce::int64> (Id::scope)) };
+        const auto [scopeEntry, isScopeAdded] { completions.try_emplace (completion.scope) };
         auto& [scopeSymbol, scopeCompletions] { *scopeEntry };
 
         scopeCompletions.add ({ pathIndex, &completion });
-    });
+    }
 }
 
-void Index::addOccurrences (jam::HashMap<juce::int64, jam::Array<std::pair<int, const jam::Document::Element*>>>& symbols,
+void Index::addOccurrences (jam::HashMap<juce::int64, jam::Array<std::pair<int, const SymbolDocument::SymbolRecord*>>>& symbols,
                             int pathIndex,
-                            const jam::HashMap<juce::int64, jam::Array<std::pair<int, const jam::Document::Element*>>>& blocks)
+                            const jam::HashMap<juce::int64, jam::Array<std::pair<int, const SymbolDocument::SymbolRecord*>>>& blocks)
 {
     for (const auto& [symbol, block] : blocks)
     {
@@ -396,62 +384,63 @@ void Index::addOccurrences (jam::HashMap<juce::int64, jam::Array<std::pair<int, 
     }
 }
 
-bool Index::isRecordBefore (const jam::Document::Element& record, const jam::Document::Element& otherRecord)
+bool Index::isRecordBefore (const SymbolDocument::SymbolRecord& record, const SymbolDocument::SymbolRecord& otherRecord)
 {
-    return std::make_pair (*record.get<int> (Id::line), *record.get<int> (Id::column)) < std::make_pair (*otherRecord.get<int> (Id::line), *otherRecord.get<int> (Id::column));
+    return std::make_pair (record.line, record.column) < std::make_pair (otherRecord.line, otherRecord.column);
 }
 
-bool Index::isOccurrenceBefore (int leftPathIndex, const jam::Document::Element& left, int rightPathIndex, const jam::Document::Element& right) const
+bool Index::isOccurrenceBefore (int leftPathIndex, const SymbolDocument::SymbolRecord& left, int rightPathIndex, const SymbolDocument::SymbolRecord& right) const
 {
     const auto order { paths.getView (leftPathIndex).compare (paths.getView (rightPathIndex)) };
 
     return order != 0 ? order < 0 : isRecordBefore (left, right);
 }
 
-juce::Range<int> Index::getPathRange (const jam::Array<std::pair<int, const jam::Document::Element*>>& occurrences, int pathIndex) const
+juce::Range<int> Index::getPathRange (const jam::Array<std::pair<int, const SymbolDocument::SymbolRecord*>>& occurrences, int pathIndex) const
 {
-    const auto isPathBefore { [this] (const std::pair<int, const jam::Document::Element*>& left, const std::pair<int, const jam::Document::Element*>& right)
+    const auto isPathBefore { [this] (const std::pair<int, const SymbolDocument::SymbolRecord*>& left, const std::pair<int, const SymbolDocument::SymbolRecord*>& right)
     {
         const auto& [leftPathIndex, leftRecord] { left };
         const auto& [rightPathIndex, rightRecord] { right };
 
         return paths.getView (leftPathIndex).compare (paths.getView (rightPathIndex)) < 0;
     } };
-    const std::pair<int, const jam::Document::Element*> probe { pathIndex, nullptr };
+    const std::pair<int, const SymbolDocument::SymbolRecord*> probe { pathIndex, nullptr };
     const auto [first, last] { std::equal_range (occurrences.begin(), occurrences.end(), probe, isPathBefore) };
 
     return { static_cast<int> (std::distance (occurrences.begin(), first)), static_cast<int> (std::distance (occurrences.begin(), last)) };
 }
 
-void Index::addRecords (int pathIndex, const jam::Document::Element& file)
+void Index::addRecords (int pathIndex, const SymbolDocument& symbolDocument, const SymbolDocument::FileEntry& file)
 {
     jassert (not records.contains (pathIndex));
     records.try_emplace (pathIndex);
     auto& sortedRecords { records.at (pathIndex) };
+    const auto fileSymbols { symbolDocument.getSymbols (file) };
 
-    SymbolDocument::applyToRecords (file, [&sortedRecords] (const jam::Document::Element& record)
-    {
+    sortedRecords.ensureStorageAllocated (static_cast<int> (fileSymbols.size()));
+
+    for (const auto& record : fileSymbols)
         sortedRecords.add (&record);
-    });
 
-    std::stable_sort (sortedRecords.begin(), sortedRecords.end(), [] (const jam::Document::Element* left, const jam::Document::Element* right)
+    std::stable_sort (sortedRecords.begin(), sortedRecords.end(), [] (const SymbolDocument::SymbolRecord* left, const SymbolDocument::SymbolRecord* right)
     {
         return isRecordBefore (*left, *right);
     });
 }
 
-void Index::addSymbols (int pathIndex, const jam::Document::Element& file)
+void Index::addSymbols (int pathIndex, const SymbolDocument& symbolDocument, const SymbolDocument::FileEntry& file)
 {
-    addCompletions (pathIndex, file);
-    addRecords (pathIndex, file);
+    addCompletions (pathIndex, symbolDocument, file);
+    addRecords (pathIndex, symbolDocument, file);
 
-    jam::HashMap<juce::int64, jam::Array<std::pair<int, const jam::Document::Element*>>> declarationBlocks;
-    jam::HashMap<juce::int64, jam::Array<std::pair<int, const jam::Document::Element*>>> referenceBlocks;
+    jam::HashMap<juce::int64, jam::Array<std::pair<int, const SymbolDocument::SymbolRecord*>>> declarationBlocks;
+    jam::HashMap<juce::int64, jam::Array<std::pair<int, const SymbolDocument::SymbolRecord*>>> referenceBlocks;
 
     for (const auto* record : records.at (pathIndex))
     {
-        const auto symbol { *record->get<juce::int64> (Id::symbol) };
-        auto& blocks { (*record->get<int> (Id::role) & jam::LanguageRole::declaration) != 0 ? declarationBlocks : referenceBlocks };
+        const auto symbol { record->symbol };
+        auto& blocks { (record->role & jam::LanguageRole::declaration) != 0 ? declarationBlocks : referenceBlocks };
         const auto [blockEntry, isBlockAdded] { blocks.try_emplace (symbol) };
         auto& [blockSymbol, block] { *blockEntry };
 

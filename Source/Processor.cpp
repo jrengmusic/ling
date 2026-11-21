@@ -9,7 +9,7 @@
 
 static juce::ThreadPool::Options getPoolOptions (int threadCount)
 {
-    return juce::ThreadPool::Options {}.withNumberOfThreads (threadCount).withDesiredThreadPriority (juce::Thread::Priority::low);
+    return juce::ThreadPool::Options {}.withNumberOfThreads (threadCount).withDesiredThreadPriority (juce::Thread::Priority::background);
 }
 
 Processor::Processor (LINGModel& newModel)
@@ -25,6 +25,7 @@ Processor::Processor (LINGModel& newModel)
 Processor::~Processor()
 {
     model.removeListener (this);
+    pool->removeAllJobs (true, waitForJob);
 }
 
 bool Processor::hasDependency (const juce::ValueTree& unit, int unitIndex, int rowIndex)
@@ -358,8 +359,22 @@ void Processor::setUnitIndexed (const juce::ValueTree& unit, int unitIndex)
     setIndexed (unitIndex);
 
     if (const auto* dependencies { unit[Id::dependencies].getArray() }; dependencies != nullptr)
+    {
+        const auto files { model.state.getChildWithName (jam::Format::toType (Id::files)) };
+
         for (const auto& dependency : *dependencies)
-            setIndexed (static_cast<int> (dependency));
+        {
+            const auto rowIndex { static_cast<int> (dependency) };
+
+            if (const auto entry { index.unitRows.find (files.getChild (rowIndex)[Id::path].toString()) }; entry != index.unitRows.end())
+            {
+                const auto& [unitPath, unitRow] { *entry };
+
+                if (unitRow == unitIndex)
+                    setIndexed (rowIndex);
+            }
+        }
+    }
 }
 
 void Processor::setIndexed()
@@ -423,7 +438,7 @@ void Processor::runRequest (juce::ValueTree& request)
 
 void Processor::runHover (juce::ValueTree& request)
 {
-    const auto answer { [this, &request] (int pathIndex, const jam::Document&, const jam::Document::Element& element, int tokenIndex, const jam::Document::Element& record)
+    const auto answer { [this, &request] (int pathIndex, const jam::Document&, const jam::Document::Element& element, int tokenIndex, const SymbolDocument::SymbolRecord& record)
     {
         query.hover (request, index, pathIndex, &element, tokenIndex, &record);
     } };
@@ -818,90 +833,12 @@ juce::ThreadPoolJob::JobStatus Processor::IndexJob::runJob()
     symbols = Index::readSwapFile (symbolSwapFile, hash, languageHash, family);
 
     if (symbols == nullptr)
-    {
-        symbols = std::make_unique<SymbolDocument>();
         addSymbols();
-    }
 
     isFinished.store (true, std::memory_order_release);
     owner.triggerAsyncUpdate();
 
     return jobHasFinished;
-}
-
-template <typename GetKey>
-static void removeDuplicateTokens (jam::Document::Tokens& tokens, const GetKey& getKey)
-{
-    std::sort (tokens.begin(), tokens.end(), [&getKey] (const auto& left, const auto& right) { return getKey (left) < getKey (right); });
-
-    const auto duplicates { std::unique (tokens.begin(), tokens.end(), [&getKey] (const auto& left, const auto& right) { return getKey (left) == getKey (right); }) };
-
-    tokens.removeRange (static_cast<int> (std::distance (tokens.begin(), duplicates)), static_cast<int> (std::distance (duplicates, tokens.end())));
-}
-
-static jam::HashMap<int, jam::Array<int>> getOutlineChildren (const jam::Document::Tokens& outlines)
-{
-    jam::HashMap<int, jam::Array<int>> children;
-
-    for (int outlineIndex { 0 }; outlineIndex < outlines.size(); ++outlineIndex)
-    {
-        const auto [childrenEntry, isChildrenAdded] { children.try_emplace (*outlines.at (outlineIndex).get<int> (Id::parent)) };
-        auto& [parentIndex, parentChildren] { *childrenEntry };
-
-        parentChildren.add (outlineIndex);
-    }
-
-    return children;
-}
-
-static void sortOutlineTokens (jam::Document::Tokens& outlines)
-{
-    const auto children (getOutlineChildren (outlines));
-    jam::Document::Tokens sorted;
-    jam::Array<std::pair<int, int>> pending;
-    const auto addPending { [&children, &pending] (int parentIndex, int sortedParentIndex)
-    {
-        if (const auto entry { children.find (parentIndex) }; entry != children.end())
-        {
-            const auto& [entryParentIndex, parentChildren] { *entry };
-
-            for (auto child { parentChildren.end() }; child != parentChildren.begin();)
-                pending.add ({ *--child, sortedParentIndex });
-        }
-    } };
-
-    sorted.ensureStorageAllocated (outlines.size());
-    addPending (SymbolDocument::noParent, SymbolDocument::noParent);
-
-    while (not pending.isEmpty())
-    {
-        const auto [outlineIndex, sortedParentIndex] { pending.last() };
-        auto& outline { outlines.at (outlineIndex) };
-
-        pending.remove (pending.size() - 1);
-        *outline.get<int> (Id::parent) = sortedParentIndex;
-        sorted.add (std::move (outline));
-        addPending (outlineIndex, sorted.size() - 1);
-    }
-
-    jassert (sorted.size() == outlines.size());
-    outlines = std::move (sorted);
-}
-
-static void sortFileTokens (jam::Document::Element& fileElement)
-{
-    sortOutlineTokens (*fileElement.get<jam::Document::Tokens> (Id::outline));
-
-    removeDuplicateTokens (*fileElement.get<jam::Document::Tokens> (Id::inlayHints), [] (const jam::Document::Token& token)
-    {
-        return std::make_tuple (*token.get<int> (Id::line), *token.get<int> (Id::column), jam::Strings::getView (*token.get<juce::String> (Id::label)));
-    });
-
-    removeDuplicateTokens (*fileElement.get<jam::Document::Tokens> (Id::fixIts), [] (const jam::Document::Token& token)
-    {
-        return std::make_tuple (*token.get<int> (Id::line), *token.get<int> (Id::column), *token.get<int> (Id::endLine), *token.get<int> (Id::endColumn),
-                                jam::Strings::getView (*token.get<juce::String> (Id::text)));
-    });
 }
 
 void Processor::IndexJob::addSymbols()
@@ -932,10 +869,8 @@ void Processor::IndexJob::addSymbols()
 
     if (result == 0)
     {
-        for (auto* fileElement : fileElements)
-            sortFileTokens (*fileElement);
-
-        Index::writeSwapFile (symbolSwapFile, *symbols, hash, languageHash, family);
+        builder.sortAndDeduplicate();
+        symbols = builder.buildToSwap (symbolSwapFile, hash, languageHash, family);
     }
 }
 
@@ -944,104 +879,46 @@ bool Processor::IndexJob::isForeign (const char* recordPath) const
     return foreignPaths.indexOf (juce::StringRef { juce::CharPointer_UTF8 { recordPath } }, false, 0) >= 0;
 }
 
-int Processor::IndexJob::getOrCreatePathIndex (const char* recordPath)
-{
-    if (const auto pathIndex { paths.indexOf (juce::StringRef { juce::CharPointer_UTF8 { recordPath } }, false, 0) }; pathIndex >= 0)
-        return pathIndex;
-
-    auto* element { symbols->addChild (*symbols->getRoot(), Id::file) };
-
-    element->add<juce::String> (Id::path, juce::String::fromUTF8 (recordPath));
-    element->add<jam::Document::Tokens> (Id::inlayHints);
-    element->add<jam::Document::Tokens> (Id::diagnostics);
-    element->add<jam::Document::Tokens> (Id::outline);
-    element->add<jam::Document::Tokens> (Id::fixIts);
-    element->add<jam::Document::Tokens> (Id::hovers);
-    fileElements.add (element);
-    completionContainers.add (symbols->addChild (*element, Id::completions));
-    paths.add (std::string_view { recordPath });
-    return paths.size() - 1;
-}
-
 void Processor::IndexJob::addSymbol (void* context, const char* recordPath, int line, int column, unsigned long long symbol, int nameLength, int role, int type, int hover, const unsigned long long* typeSymbols, int typeCount)
 {
     auto& job { *static_cast<IndexJob*> (context) };
 
     jassert (line > 0 and column > 0);
 
-    const auto pathIndex { job.getOrCreatePathIndex (recordPath) };
-    auto* record { job.symbols->addChild (*job.fileElements.at (pathIndex), Id::symbol) };
+    const auto fileIndex { job.builder.getOrCreateFile (std::string_view { recordPath }) };
 
-    record->add<int> (Id::line, line);
-    record->add<int> (Id::column, column);
-    record->add<int> (Id::nameLength, nameLength);
-    record->add<juce::int64> (Id::symbol, static_cast<juce::int64> (symbol));
-    record->add<int> (Id::role, role);
-    record->add<int> (Id::type, type);
-    record->add<int> (Id::hover, hover);
-
-    auto* types { record->add<jam::Document::Integers> (Id::typeSymbols, typeCount) };
-
-    std::for_each (typeSymbols, typeSymbols + typeCount, [types] (unsigned long long typeSymbol) { types->add (static_cast<juce::int64> (typeSymbol)); });
+    job.builder.addSymbol (fileIndex, static_cast<int64_t> (symbol), line, column, nameLength, role, type, hover, typeSymbols, typeCount);
 }
 
 int Processor::IndexJob::addHover (void* context, const char* recordPath, const char* text, const char* definitionPath, int line, int column, int endLine, int endColumn)
 {
     auto& job { *static_cast<IndexJob*> (context) };
+    const auto fileIndex { job.builder.getOrCreateFile (std::string_view { recordPath }) };
 
-    auto& tokens { *job.fileElements.at (job.getOrCreatePathIndex (recordPath))->get<jam::Document::Tokens> (Id::hovers) };
-    jam::Document::Token token;
-    const auto hoverIndex { tokens.size() };
-
-    token.add<juce::String> (Id::hover, juce::String::fromUTF8 (text));
-    token.add<juce::String> (Id::path, definitionPath != nullptr ? juce::String::fromUTF8 (definitionPath) : juce::String {});
-    token.add<int> (Id::line, line);
-    token.add<int> (Id::column, column);
-    token.add<int> (Id::endLine, endLine);
-    token.add<int> (Id::endColumn, endColumn);
-    tokens.add (std::move (token));
-
-    return hoverIndex;
+    return job.builder.addHover (fileIndex, std::string_view { text }, definitionPath != nullptr ? std::string_view { definitionPath } : std::string_view {}, line, column, endLine, endColumn);
 }
 
 void Processor::IndexJob::addInlayHint (void* context, const char* recordPath, int line, int column, const char* label, int type, int paddingLeft, int paddingRight)
 {
     auto& job { *static_cast<IndexJob*> (context) };
+    const auto fileIndex { job.builder.getOrCreateFile (std::string_view { recordPath }) };
 
-    auto& tokens { *job.fileElements.at (job.getOrCreatePathIndex (recordPath))->get<jam::Document::Tokens> (Id::inlayHints) };
-    jam::Document::Token token;
-
-    token.add<int> (Id::line, line);
-    token.add<int> (Id::column, column);
-    token.add<juce::String> (Id::label, juce::String::fromUTF8 (label));
-    token.add<int> (Id::type, type);
-    token.add<bool> (Id::paddingLeft, paddingLeft != 0);
-    token.add<bool> (Id::paddingRight, paddingRight != 0);
-    tokens.add (std::move (token));
+    job.builder.addInlayHint (fileIndex, line, column, std::string_view { label }, type, paddingLeft != 0, paddingRight != 0);
 }
 
 void Processor::IndexJob::addDiagnostic (void* context, const char* recordPath, int line, int column, int endLine, int endColumn, int severity, const char* message)
 {
     auto& job { *static_cast<IndexJob*> (context) };
+    const auto fileIndex { job.builder.getOrCreateFile (std::string_view { recordPath }) };
 
-    auto& tokens { *job.fileElements.at (job.getOrCreatePathIndex (recordPath))->get<jam::Document::Tokens> (Id::diagnostics) };
-    jam::Document::Token token;
-
-    token.add<int> (Id::line, line);
-    token.add<int> (Id::column, column);
-    token.add<int> (Id::endLine, endLine);
-    token.add<int> (Id::endColumn, endColumn);
-    token.add<int> (Id::severity, severity);
-    token.add<juce::String> (Id::message, juce::String::fromUTF8 (message));
-    tokens.add (std::move (token));
+    job.builder.addDiagnostic (fileIndex, line, column, endLine, endColumn, severity, std::string_view { message });
 }
 
 int Processor::IndexJob::addOutline (void* context, const char* recordPath, int line, int column, int endLine, int endColumn, int nameLength, int qualifierLength, int type, int parent)
 {
     auto& job { *static_cast<IndexJob*> (context) };
-
-    const auto pathIndex { job.getOrCreatePathIndex (recordPath) };
-    const std::array<int, outlineFieldCount> keyFields { pathIndex, line, column, endLine, endColumn, nameLength, qualifierLength, type };
+    const auto fileIndex { job.builder.getOrCreateFile (std::string_view { recordPath }) };
+    const std::array<int, outlineFieldCount> keyFields { fileIndex, line, column, endLine, endColumn, nameLength, qualifierLength, type };
     std::uint64_t keyHash { 0 };
 
     for (const auto keyField : keyFields)
@@ -1049,18 +926,16 @@ int Processor::IndexJob::addOutline (void* context, const char* recordPath, int 
 
     if (const auto known { job.outlineKeys.find (static_cast<juce::int64> (keyHash)) }; known != job.outlineKeys.end())
     {
-        const auto& [knownKey, knownTokenIndex] { *known };
+        const auto& [knownKey, knownOutlineIndex] { *known };
 
-        job.outlineSlots.add ({ pathIndex, knownTokenIndex });
+        job.outlineSlots.add ({ fileIndex, knownOutlineIndex });
     }
     else
     {
-        auto& tokens { *job.fileElements.at (pathIndex)->get<jam::Document::Tokens> (Id::outline) };
-        const auto tokenIndex { tokens.size() };
+        const auto outlineIndex { job.builder.addOutline (fileIndex, line, column, endLine, endColumn, nameLength, qualifierLength, type, job.getOutlineParent (parent, fileIndex)) };
 
-        addOutlineToken (tokens, { line, column, endLine, endColumn, nameLength, qualifierLength, type, job.getOutlineParent (parent, pathIndex) });
-        job.outlineKeys.addOrReplace (static_cast<juce::int64> (keyHash), tokenIndex);
-        job.outlineSlots.add ({ pathIndex, tokenIndex });
+        job.outlineKeys.addOrReplace (static_cast<juce::int64> (keyHash), outlineIndex);
+        job.outlineSlots.add ({ fileIndex, outlineIndex });
     }
 
     return job.outlineSlots.size() - 1;
@@ -1079,54 +954,26 @@ int Processor::IndexJob::getOutlineParent (int parent, int pathIndex) const
     return SymbolDocument::noParent;
 }
 
-void Processor::IndexJob::addOutlineToken (jam::Document::Tokens& tokens, const std::array<int, outlineFieldCount>& fields)
-{
-    jam::Document::Token token;
-
-    token.add<int> (Id::line, fields.at (0));
-    token.add<int> (Id::column, fields.at (1));
-    token.add<int> (Id::endLine, fields.at (2));
-    token.add<int> (Id::endColumn, fields.at (3));
-    token.add<int> (Id::nameLength, fields.at (4));
-    token.add<int> (Id::qualifierLength, fields.at (5));
-    token.add<int> (Id::type, fields.at (6));
-    token.add<int> (Id::parent, fields.at (7));
-    tokens.add (std::move (token));
-}
-
 void Processor::IndexJob::addCompletion (void* context, const char* recordPath, unsigned long long scopeSymbol, unsigned long long symbol, const char* label, const char* insertText, int type)
 {
     auto& job { *static_cast<IndexJob*> (context) };
-
     const auto key { static_cast<juce::int64> (jam::Wyhash::fold (static_cast<std::uint64_t> (scopeSymbol), static_cast<std::uint64_t> (symbol))) };
     auto [keyEntry, isInserted] { job.completionKeys.insert (key) };
 
     if (isInserted)
     {
-        auto* container { job.completionContainers.at (job.getOrCreatePathIndex (recordPath)) };
-        auto* completion { job.symbols->addChild (*container, Id::completion) };
+        const auto fileIndex { job.builder.getOrCreateFile (std::string_view { recordPath }) };
 
-        completion->add<juce::int64> (Id::scope, static_cast<juce::int64> (scopeSymbol));
-        completion->add<juce::int64> (Id::symbol, static_cast<juce::int64> (symbol));
-        completion->add<juce::String> (Id::label, juce::String::fromUTF8 (label));
-        completion->add<juce::String> (Id::snippet, juce::String::fromUTF8 (insertText));
-        completion->add<int> (Id::type, type);
+        job.builder.addCompletion (fileIndex, static_cast<int64_t> (scopeSymbol), static_cast<int64_t> (symbol), std::string_view { label }, std::string_view { insertText }, type);
     }
 }
 
 void Processor::IndexJob::addFixIt (void* context, const char* recordPath, int line, int column, int endLine, int endColumn, const char* text)
 {
     auto& job { *static_cast<IndexJob*> (context) };
+    const auto fileIndex { job.builder.getOrCreateFile (std::string_view { recordPath }) };
 
-    auto& tokens { *job.fileElements.at (job.getOrCreatePathIndex (recordPath))->get<jam::Document::Tokens> (Id::fixIts) };
-    jam::Document::Token token;
-
-    token.add<int> (Id::line, line);
-    token.add<int> (Id::column, column);
-    token.add<int> (Id::endLine, endLine);
-    token.add<int> (Id::endColumn, endColumn);
-    token.add<juce::String> (Id::text, juce::String::fromUTF8 (text));
-    tokens.add (std::move (token));
+    job.builder.addFixIt (fileIndex, line, column, endLine, endColumn, std::string_view { text });
 }
 
 void Processor::addJob (const juce::ValueTree& row, int rowIndex)
@@ -1204,6 +1051,12 @@ void Processor::addIndexJobs()
         if (isFirstRequested != isSecondRequested)
             return isFirstRequested;
 
+        const bool isFirstProducer { files.getChild (first)[Id::output].toString().isNotEmpty() };
+        const bool isSecondProducer { files.getChild (second)[Id::output].toString().isNotEmpty() };
+
+        if (isFirstProducer != isSecondProducer)
+            return isFirstProducer;
+
         return files.getChild (first)[Id::dependencies].size() > files.getChild (second)[Id::dependencies].size();
     });
 
@@ -1212,8 +1065,13 @@ void Processor::addIndexJobs()
         indexJobs.addOrReplace (rowIndex, std::move (nextIndexJobs.at (rowIndex)));
         nextIndexJobs.erase (rowIndex);
         pool->addJob (indexJobs.at (rowIndex).get(), false);
+    }
 
-        if (static_cast<bool> (files.getChild (rowIndex)[Id::isRequested]))
+    for (int i { rows.size() - 1 }; i >= 0; --i)
+    {
+        const auto rowIndex { rows.at (i) };
+
+        if (static_cast<bool> (files.getChild (rowIndex)[Id::isRequested]) or files.getChild (rowIndex)[Id::output].toString().isNotEmpty())
             pool->moveJobToFront (indexJobs.at (rowIndex).get());
     }
 }
@@ -1308,7 +1166,7 @@ void Processor::addBindings (IndexJob& job)
 
     if (row[Id::path].toString().compare (job.path) == 0)
     {
-        if (job.result == 0)
+        if (job.result == 0 and job.symbols != nullptr)
         {
             index.addBindings (job.rowIndex, std::move (job.symbols));
             row.removeProperty (Id::message, nullptr);

@@ -49,32 +49,23 @@ public:
 
     std::unique_ptr<SymbolDocument> getSymbols (const jam::Document& document, const juce::String& path) const override
     {
-        auto symbols { std::make_unique<SymbolDocument>() };
-        auto* file { symbols->addChild (*symbols->getRoot(), Id::file) };
+        SymbolDocument::Builder builder;
+        const auto fileIndex { builder.getOrCreateFile (jam::Strings::getView (path)) };
         const juce::File source { path };
-
-        file->add<juce::String> (Id::path, path);
-        file->add<jam::Document::Tokens> (Id::inlayHints);
-        file->add<jam::Document::Tokens> (Id::diagnostics);
-        file->add<jam::Document::Tokens> (Id::outline);
-        file->add<jam::Document::Tokens> (Id::fixIts);
-        file->add<jam::Document::Tokens> (Id::hovers);
-        symbols->addChild (*file, Id::completions);
-
         std::vector<const jam::Document::Element*> declarations;
 
         for (const auto* child : document)
-            child->applyFunctionRecursively ([this, &symbols, file, &document, &source, &declarations] (const jam::Document::Element& element)
+            child->applyFunctionRecursively ([this, &builder, fileIndex, &document, &source, &declarations] (const jam::Document::Element& element)
             {
-                addRecords (*symbols, *file, document, element, source);
+                addRecords (builder, fileIndex, document, element, source);
 
                 if (hasRole (element, jam::LanguageRole::declaration))
                     declarations.push_back (&element);
             });
 
-        addOutlines (*file, document, declarations);
+        addOutlines (builder, fileIndex, document, declarations);
 
-        return symbols;
+        return builder.buildInMemory (0, 0, 0);
     }
 
     bool hasRole (const jam::Document::Element& element, int role) const override
@@ -184,7 +175,7 @@ private:
         return element.get<jam::Document::Tokens> (Id::nameTokens)->size() - 1;
     }
 
-    void addRecords (SymbolDocument& symbols, jam::Document::Element& file, const jam::Document& document, const jam::Document::Element& element, const juce::File& source) const
+    void addRecords (SymbolDocument::Builder& builder, int fileIndex, const jam::Document& document, const jam::Document::Element& element, const juce::File& source) const
     {
         const auto* names { element.get<jam::Document::Tokens> (Id::nameTokens) };
         const auto& elements { getElements() };
@@ -196,21 +187,22 @@ private:
                 const auto& [key, roleType] { *row };
                 const auto& token { names->at (tokenIndex) };
                 const auto role { static_cast<int> (roleType.template unpack<0>()) };
-                auto* record { symbols.addChild (file, Id::symbol) };
 
-                record->add<int> (Id::line, static_cast<int> (document.getLineNumber (token.offset())));
-                record->add<int> (Id::column, static_cast<int> (document.getColumnNumber (token.offset())));
-                record->add<int> (Id::nameLength, static_cast<int> (token.length()));
-                record->add<juce::int64> (Id::symbol, getSymbol (source, document.getView (token), role));
-                record->add<int> (Id::role, role);
-                record->add<int> (Id::type, static_cast<int> (roleType.template unpack<1>()));
-                record->add<int> (Id::hover, jam::LanguageCallbacks::noHover);
-                record->add<jam::Document::Integers> (Id::typeSymbols);
+                builder.addSymbol (fileIndex,
+                                   getSymbol (source, document.getView (token), role),
+                                   static_cast<int32_t> (document.getLineNumber (token.offset())),
+                                   static_cast<int32_t> (document.getColumnNumber (token.offset())),
+                                   static_cast<int32_t> (token.length()),
+                                   role,
+                                   static_cast<int32_t> (roleType.template unpack<1>()),
+                                   jam::LanguageCallbacks::noHover,
+                                   nullptr,
+                                   0);
             }
         }
     }
 
-    void addOutlines (jam::Document::Element& file, const jam::Document& document, const std::vector<const jam::Document::Element*>& declarations) const
+    void addOutlines (SymbolDocument::Builder& builder, int fileIndex, const jam::Document& document, const std::vector<const jam::Document::Element*>& declarations) const
     {
         jam::HashMap<const jam::Document::Element*, int> declarationIndices;
 
@@ -218,26 +210,24 @@ private:
             declarationIndices.try_emplace (declarations.at (static_cast<size_t> (declarationIndex)), declarationIndex);
 
         for (const auto* declaration : declarations)
-            file.get<jam::Document::Tokens> (Id::outline)->add (getOutline (document, *declaration, declarationIndices));
+            addOutline (builder, fileIndex, document, *declaration, declarationIndices);
     }
 
-    jam::Document::Token getOutline (const jam::Document& document, const jam::Document::Element& element, const jam::HashMap<const jam::Document::Element*, int>& declarationIndices) const
+    void addOutline (SymbolDocument::Builder& builder, int fileIndex, const jam::Document& document, const jam::Document::Element& element, const jam::HashMap<const jam::Document::Element*, int>& declarationIndices) const
     {
         const auto& name { element.get<jam::Document::Tokens> (Id::nameTokens)->last() };
         const auto& range { element.get<jam::Document::Tokens> (Id::range)->at (0) };
         const auto rangeEnd { range.offset() + range.length() };
-        jam::Document::Token outline;
 
-        outline.add<int> (Id::line, static_cast<int> (document.getLineNumber (name.offset())));
-        outline.add<int> (Id::column, static_cast<int> (document.getColumnNumber (name.offset())));
-        outline.add<int> (Id::endLine, static_cast<int> (document.getLineNumber (rangeEnd)));
-        outline.add<int> (Id::endColumn, static_cast<int> (document.getColumnNumber (rangeEnd)));
-        outline.add<int> (Id::nameLength, static_cast<int> (name.length()));
-        outline.add<int> (Id::qualifierLength, noQualifierLength);
-        outline.add<int> (Id::type, getSymbolType (element));
-        outline.add<int> (Id::parent, getParentIndex (element, declarationIndices));
-
-        return outline;
+        builder.addOutline (fileIndex,
+                            static_cast<int32_t> (document.getLineNumber (name.offset())),
+                            static_cast<int32_t> (document.getColumnNumber (name.offset())),
+                            static_cast<int32_t> (document.getLineNumber (rangeEnd)),
+                            static_cast<int32_t> (document.getColumnNumber (rangeEnd)),
+                            static_cast<int32_t> (name.length()),
+                            noQualifierLength,
+                            getSymbolType (element),
+                            getParentIndex (element, declarationIndices));
     }
 
     static int getParentIndex (const jam::Document::Element& element, const jam::HashMap<const jam::Document::Element*, int>& declarationIndices)

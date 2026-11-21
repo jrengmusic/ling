@@ -86,13 +86,18 @@ public:
     static std::pair<const jam::Document::Element*, int>
     getElement (const jam::Document& document, int line, int column);
 
-    std::pair<const jam::Document::Element*, int> getElement (const std::pair<int, const jam::Document::Element*>& occurrence) const;
+    std::pair<const jam::Document::Element*, int> getElement (const std::pair<int, const SymbolDocument::SymbolRecord*>& occurrence) const;
 
-    static bool isRecordBefore (const jam::Document::Element& record, const jam::Document::Element& otherRecord);
+    static bool isRecordBefore (const SymbolDocument::SymbolRecord& record, const SymbolDocument::SymbolRecord& otherRecord);
 
-    bool isOccurrenceBefore (int leftPathIndex, const jam::Document::Element& left, int rightPathIndex, const jam::Document::Element& right) const;
+    bool isOccurrenceBefore (int leftPathIndex, const SymbolDocument::SymbolRecord& left, int rightPathIndex, const SymbolDocument::SymbolRecord& right) const;
 
-    juce::Range<int> getPathRange (const jam::Array<std::pair<int, const jam::Document::Element*>>& occurrences, int pathIndex) const;
+    juce::Range<int> getPathRange (const jam::Array<std::pair<int, const SymbolDocument::SymbolRecord*>>& occurrences, int pathIndex) const;
+
+    const SymbolDocument& getSymbolDocument (int pathIndex) const
+    {
+        return *symbolDocuments.at (symbolFiles.at (pathIndex).first);
+    }
 
     static int getCharacter (const jam::Document& document,
                              uint32_t offset,
@@ -120,12 +125,12 @@ public:
             const auto line { static_cast<int> (document.getLineNumber (token.offset())) };
             const auto column { static_cast<int> (document.getColumnNumber (token.offset())) };
             const auto endColumn { column + static_cast<int> (document.getView (token).size()) };
-            const auto recordPosition { [] (const jam::Document::Element* record)
+            const auto recordPosition { [] (const SymbolDocument::SymbolRecord* record)
             {
-                return std::make_pair (*record->get<int> (Id::line), *record->get<int> (Id::column));
+                return std::make_pair (record->line, record->column);
             } };
             const auto firstRecord { std::lower_bound (sortedRecords.begin(), sortedRecords.end(), std::make_pair (line, column),
-                [&recordPosition] (const jam::Document::Element* record, const std::pair<int, int>& position)
+                [&recordPosition] (const SymbolDocument::SymbolRecord* record, const std::pair<int, int>& position)
                 {
                     return recordPosition (record) < position;
                 }) };
@@ -136,7 +141,7 @@ public:
     }
 
     template<typename Function>
-    void applyToOccurrences (const jam::Array<std::pair<int, const jam::Document::Element*>>& occurrences,
+    void applyToOccurrences (const jam::Array<std::pair<int, const SymbolDocument::SymbolRecord*>>& occurrences,
                              juce::Range<int> range,
                              const Function& function) const
     {
@@ -150,14 +155,14 @@ public:
     }
 
     template<typename Function>
-    void applyToOccurrences (const jam::Array<std::pair<int, const jam::Document::Element*>>& occurrences,
+    void applyToOccurrences (const jam::Array<std::pair<int, const SymbolDocument::SymbolRecord*>>& occurrences,
                              const Function& function) const
     {
         applyToOccurrences (occurrences, juce::Range<int> { 0, occurrences.size() }, function);
     }
 
     template<typename Function>
-    void applyToOccurrences (const jam::Array<std::pair<int, const jam::Document::Element*>>& occurrences,
+    void applyToOccurrences (const jam::Array<std::pair<int, const SymbolDocument::SymbolRecord*>>& occurrences,
                              int pathIndex,
                              const Function& function) const
     {
@@ -227,7 +232,7 @@ public:
      * The elements belong to documents. setDocuments rebuilds this map, and
      * addDocument and removeDocuments clear it.
      */
-    jam::HashMap<juce::int64, jam::Array<std::pair<int, const jam::Document::Element*>>> declarations;
+    jam::HashMap<juce::int64, jam::Array<std::pair<int, const SymbolDocument::SymbolRecord*>>> declarations;
 
     /**
      * @brief The references to each symbol, as pairs of a path index and an element.
@@ -236,15 +241,15 @@ public:
      * bit is a reference. setDocuments rebuilds this map, and addDocument and
      * removeDocuments clear it.
      */
-    jam::HashMap<juce::int64, jam::Array<std::pair<int, const jam::Document::Element*>>> references;
+    jam::HashMap<juce::int64, jam::Array<std::pair<int, const SymbolDocument::SymbolRecord*>>> references;
 
-    jam::HashMap<juce::int64, jam::Array<std::pair<int, const jam::Document::Element*>>> completions;
+    jam::HashMap<juce::int64, jam::Array<std::pair<int, const SymbolDocument::CompletionRecord*>>> completions;
 
     jam::HashMap<int, std::unique_ptr<SymbolDocument>> symbolDocuments;
 
-    jam::HashMap<int, std::pair<int, const jam::Document::Element*>> symbolFiles;
+    jam::HashMap<int, std::pair<int, const SymbolDocument::FileEntry*>> symbolFiles;
 
-    jam::HashMap<int, jam::Array<const jam::Document::Element*>> records;
+    jam::HashMap<int, jam::Array<const SymbolDocument::SymbolRecord*>> records;
 
     jam::HashMap<juce::String, int> unitRows;
 
@@ -257,21 +262,21 @@ private:
 
     void removeSymbols (int pathIndex);
 
-    void removeOccurrences (jam::HashMap<juce::int64, jam::Array<std::pair<int, const jam::Document::Element*>>>& symbols,
+    void removeOccurrences (jam::HashMap<juce::int64, jam::Array<std::pair<int, const SymbolDocument::SymbolRecord*>>>& symbols,
                             juce::int64 symbol,
                             int pathIndex);
 
-    void removeCompletions (int pathIndex, const jam::Document::Element& file);
+    void removeCompletions (int pathIndex, const SymbolDocument& symbolDocument, const SymbolDocument::FileEntry& file);
 
-    void addCompletions (int pathIndex, const jam::Document::Element& file);
+    void addCompletions (int pathIndex, const SymbolDocument& symbolDocument, const SymbolDocument::FileEntry& file);
 
-    void addRecords (int pathIndex, const jam::Document::Element& file);
+    void addRecords (int pathIndex, const SymbolDocument& symbolDocument, const SymbolDocument::FileEntry& file);
 
-    void addSymbols (int pathIndex, const jam::Document::Element& file);
+    void addSymbols (int pathIndex, const SymbolDocument& symbolDocument, const SymbolDocument::FileEntry& file);
 
-    void addOccurrences (jam::HashMap<juce::int64, jam::Array<std::pair<int, const jam::Document::Element*>>>& symbols,
+    void addOccurrences (jam::HashMap<juce::int64, jam::Array<std::pair<int, const SymbolDocument::SymbolRecord*>>>& symbols,
                          int pathIndex,
-                         const jam::HashMap<juce::int64, jam::Array<std::pair<int, const jam::Document::Element*>>>& blocks);
+                         const jam::HashMap<juce::int64, jam::Array<std::pair<int, const SymbolDocument::SymbolRecord*>>>& blocks);
 
     /**
      * @brief Returns the index of a path in paths, and adds the path when it is absent.

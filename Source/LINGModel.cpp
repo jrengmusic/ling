@@ -1,9 +1,5 @@
 #include "LINGModel.h"
 
-static constexpr int threadDivisor { 2 };
-
-const int LINGModel::defaultThreads { std::max (1, juce::SystemStats::getNumCpus() / threadDivisor) };
-
 LINGModel::LINGModel()
     : jam::Model (jam::Format::toType (Id::ling))
 {

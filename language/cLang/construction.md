@@ -356,6 +356,7 @@
 | frontendFlag | `-Xclang` |
 | includeFlag | `-include` |
 | precompiledIncludeFlag | `-include-pch` |
+| noValidatePrecompiledFlag | `-fno-validate-pch` |
 | databaseDriver | `c++` |
 | messageSeparator | `: ` |
 | unitNotFound | `unit file not found` |
@@ -403,6 +404,7 @@
 | createIndexAction       | `clang_IndexAction_create`         | IndexAction (Index index) |
 | parseTranslationUnit2FullArgv | `clang_parseTranslationUnit2FullArgv` | int (Index index, const char\* sourceFileName, const char\* const\* commandLineArguments, int commandLineArgumentCount, void\* unsavedFiles, unsigned unsavedFileCount, unsigned options, TranslationUnit\* translationUnit) |
 | indexTranslationUnit    | `clang_indexTranslationUnit`       | int (IndexAction action, ClientData clientData, IndexerCallbacks\* callbacks, unsigned callbacksSize, unsigned options, TranslationUnit translationUnit) |
+| indexSourceFileFullArgv | `clang_indexSourceFileFullArgv`    | int (IndexAction action, ClientData clientData, IndexerCallbacks\* callbacks, unsigned callbacksSize, unsigned options, const char\* sourceFileName, const char\* const\* commandLineArguments, int commandLineArgumentCount, void\* unsavedFiles, unsigned unsavedFileCount, TranslationUnit\* translationUnit, unsigned translationUnitOptions) |
 | saveTranslationUnit     | `clang_saveTranslationUnit`        | int (TranslationUnit translationUnit, const char\* fileName, unsigned options) |
 | defaultSaveOptions      | `clang_defaultSaveOptions`         | unsigned (TranslationUnit translationUnit) |
 | getNumDiagnostics       | `clang_getNumDiagnostics`          | unsigned (TranslationUnit translationUnit) |
@@ -603,6 +605,31 @@
 | `--target=arm64-apple-macosx`       | platformMac     |
 | `--target=x86_64-pc-windows-msvc`   | platformWindows |
 | `--target=x86_64-unknown-linux-gnu` | platformLinux   |
+
+## platformMacros
+
+| key            | value           |
+| -------------- | --------------- |
+| `JUCE_MAC`     | platformMac     |
+| `JUCE_WINDOWS` | platformWindows |
+| `JUCE_LINUX`   | platformLinux   |
+| `__APPLE__`    | platformMac     |
+| `__MACH__`     | platformMac     |
+| `_WIN32`       | platformWindows |
+| `_WIN64`       | platformWindows |
+| `__linux__`    | platformLinux   |
+
+## ignoredUnits
+
+| key                                          | value |
+| -------------------------------------------- | ----- |
+| `juce_binarydata_`                           | 1     |
+| `juce_graphics_Harfbuzz.cpp`                 | 1     |
+| `juce_graphics_Sheenbidi.c`                  | 1     |
+| `juce_audio_processors_headless_ara.cpp`     | 1     |
+| `juce_audio_processors_headless_lv2_libs.cpp`| 1     |
+| `jam_freetype.mm`                            | 1     |
+| `juce_core_CompilationTime.cpp`              | 1     |
 
 ## conditionActions
 

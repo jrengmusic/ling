@@ -14,6 +14,7 @@
 #include <iterator>
 #include <limits>
 #include <memory>
+#include <mutex>
 #include <optional>
 #include <sstream>
 #include <stdexcept>
@@ -409,7 +410,7 @@ struct IndexerCallbacks
     void (*indexEntityReference) (ClientData clientData, const IndexEntityReferenceInfo* reference);
 };
 
-static constexpr unsigned indexOptions { static_cast<unsigned> (IndexOptionFlags::indexFunctionLocalSymbols) | static_cast<unsigned> (IndexOptionFlags::indexImplicitTemplateInstantiations) };
+static constexpr unsigned indexOptions { static_cast<unsigned> (IndexOptionFlags::indexFunctionLocalSymbols) | static_cast<unsigned> (IndexOptionFlags::indexImplicitTemplateInstantiations) | static_cast<unsigned> (IndexOptionFlags::skipParsedBodiesInSession) };
 
 enum HeaderHint
 {
@@ -459,6 +460,47 @@ struct LibClang
     ling::DynamicLibrary library;
 :::[list]:::
 };
+
+struct IndexSession
+{
+    bool ensureLoaded (const std::string& path, int excludeDeclarationsFromPCH, int displayDiagnostics)
+    {
+        if (libclang == nullptr or libraryPath.compare (path) != 0)
+        {
+            static std::mutex initMutex;
+            const std::scoped_lock<std::mutex> lock { initMutex };
+
+            action.reset();
+            indexHandle.reset();
+            libclang.reset();
+            libraryPath = path;
+
+            auto candidate { std::make_unique<LibClang> (path) };
+
+            if (candidate->isLoaded())
+            {
+                indexHandle = { candidate->createIndex (excludeDeclarationsFromPCH, displayDiagnostics), candidate->disposeIndex };
+                action = { indexHandle != nullptr ? candidate->createIndexAction (indexHandle.get()) : nullptr, candidate->disposeIndexAction };
+                libclang = std::move (candidate);
+            }
+        }
+
+        return libclang != nullptr and indexHandle != nullptr and action != nullptr;
+    }
+
+    std::string libraryPath;
+    std::unique_ptr<LibClang> libclang;
+    std::unique_ptr<void, decltype (LibClang::disposeIndex)> indexHandle { nullptr, nullptr };
+    std::unique_ptr<void, decltype (LibClang::disposeIndexAction)> action { nullptr, nullptr };
+};
+
+static IndexSession& getIndexSession (const std::string& path, int excludeDeclarationsFromPCH, int displayDiagnostics)
+{
+    thread_local IndexSession session;
+
+    session.ensureLoaded (path, excludeDeclarationsFromPCH, displayDiagnostics);
+    return session;
+}
 
 ```
 ```keywords
@@ -663,16 +705,16 @@ static int index (const char* const* arguments, int argumentCount, const char* d
     assert (argumentCount > 0);
 
     const auto installDirectory { std::filesystem::path (arguments[0]).parent_path().string() };
-    const LibClang libclang ((std::filesystem::path (installDirectory) / static_cast<const char*> (getLibraryPaths().getAddress (currentPlatform))).string());
+    auto& session { getIndexSession ((std::filesystem::path (installDirectory) / static_cast<const char*> (getLibraryPaths().getAddress (currentPlatform))).string(), excludeDeclarationsFromPCH, displayDiagnostics) };
 
-    if (libclang.isLoaded())
+    if (session.libclang != nullptr and session.indexHandle != nullptr and session.action != nullptr)
     {
         const auto commandLine (getArguments (arguments, argumentCount, directory));
         const auto precompiledPath { getOutputPath (arguments, argumentCount, directory) };
         int result { indexFailure };
-        auto indexUnit { [&libclang, &commandLine, &callbacks, directory, &precompiledPath, bufferPaths, bufferTexts, bufferCount, &result] { result = indexSource (libclang, commandLine, callbacks, directory, precompiledPath, bufferPaths, bufferTexts, bufferCount); } };
+        auto indexUnit { [&session, &commandLine, &callbacks, directory, &precompiledPath, bufferPaths, bufferTexts, bufferCount, &result] { result = indexSource (session, commandLine, callbacks, directory, precompiledPath, bufferPaths, bufferTexts, bufferCount); } };
 
-        libclang.executeOnThread ([] (void* data) { (*static_cast<decltype (indexUnit)*> (data))(); }, &indexUnit, defaultStackSize);
+        session.libclang->executeOnThread ([] (void* data) { (*static_cast<decltype (indexUnit)*> (data))(); }, &indexUnit, defaultStackSize);
         return result;
     }
 
@@ -2061,6 +2103,28 @@ static const ling::TextMap& getPlatformTargets()
 }
 
 ```
+```getPlatformMacros
+static const ling::TextMap& getPlatformMacros()
+{
+    static const ling::TextMap platformMacros { std::initializer_list<std::pair<std::string_view, int>> {
+:::[list]:::
+    } };
+
+    return platformMacros;
+}
+
+```
+```getIgnoredUnits
+static const ling::TextMap& getIgnoredUnits()
+{
+    static const ling::TextMap ignoredUnits { std::initializer_list<std::pair<std::string_view, int>> {
+:::[list]:::
+    } };
+
+    return ignoredUnits;
+}
+
+```
 ```getConditionActions
 static const ling::TextMap& getConditionActions()
 {
@@ -2436,36 +2500,54 @@ static void addOutputs (const ling::Texts& texts, const ling::Words& unitRows, l
 }
 
 ```
+```isIgnoredUnit
+static bool isIgnoredUnit (std::string_view path)
+{
+    bool isIgnored { false };
+
+    getIgnoredUnits().applyToEntries ([path, &isIgnored] (std::string_view pattern, unsigned long long)
+    {
+        if (not isIgnored and path.find (pattern) != std::string_view::npos)
+            isIgnored = true;
+    });
+
+    return isIgnored;
+}
+
+```
 ```addUnitCommand
 static void addUnitCommand (ling::Texts& texts, ling::Words& unitRows, ling::WordLists& unitArguments, ling::TextMap& paths, const LibClang& libclang, const std::string& installDirectory, const std::string& sdkPath, void* compileCommand, const LanguageCallbacks& callbacks)
 {
     const auto unitDirectory { getText (libclang, libclang.getCompileCommandDirectory (compileCommand)) };
     const auto path { getNormalPath ((std::filesystem::path (unitDirectory) / getText (libclang, libclang.getCompileCommandFilename (compileCommand))).string()) };
 
-    if (std::filesystem::exists (path))
+    if (not isIgnoredUnit (path))
     {
-        if (not paths.contains (path))
+        if (std::filesystem::exists (path))
         {
-            const auto unit { unitRows.size() / unitStride };
-            const auto directoryText { texts.add (unitDirectory) };
+            if (not paths.contains (path))
+            {
+                const auto unit { unitRows.size() / unitStride };
+                const auto directoryText { texts.add (unitDirectory) };
 
-            for (unsigned argumentIndex { 0 }; argumentIndex < libclang.getCompileCommandNumArgs (compileCommand); ++argumentIndex)
-                unitArguments.add (static_cast<unsigned long long> (unit), static_cast<unsigned long long> (texts.add (getText (libclang, libclang.getCompileCommandArg (compileCommand, argumentIndex)))));
+                for (unsigned argumentIndex { 0 }; argumentIndex < libclang.getCompileCommandNumArgs (compileCommand); ++argumentIndex)
+                    unitArguments.add (static_cast<unsigned long long> (unit), static_cast<unsigned long long> (texts.add (getText (libclang, libclang.getCompileCommandArg (compileCommand, argumentIndex)))));
 
-            setArchitecture (texts, unitArguments, unit);
-            setPrecompiledHeader (texts, unitArguments, unit, unitDirectory);
-            setToolchain (texts, unitArguments, unit, installDirectory, sdkPath);
+                setArchitecture (texts, unitArguments, unit);
+                setPrecompiledHeader (texts, unitArguments, unit, unitDirectory);
+                setToolchain (texts, unitArguments, unit, installDirectory, sdkPath);
 
-            const auto outputPosition { getFlagPosition (texts, unitArguments, unit, ToolchainWord::outputFlag) };
-            const auto outputText { outputPosition != invalidPosition ? texts.add (getNormalPath ((std::filesystem::path (unitDirectory) / std::string (texts.get (static_cast<int> (unitArguments.at (static_cast<unsigned long long> (unit), outputPosition))))).string())) : invalidPosition };
+                const auto outputPosition { getFlagPosition (texts, unitArguments, unit, ToolchainWord::outputFlag) };
+                const auto outputText { outputPosition != invalidPosition ? texts.add (getNormalPath ((std::filesystem::path (unitDirectory) / std::string (texts.get (static_cast<int> (unitArguments.at (static_cast<unsigned long long> (unit), outputPosition))))).string())) : invalidPosition };
 
-            paths.add (path, static_cast<unsigned long long> (unit));
-            unitRows.add (ling::HalfWords::pack (texts.add (path), directoryText));
-            unitRows.add (ling::HalfWords::pack (outputText, 0));
+                paths.add (path, static_cast<unsigned long long> (unit));
+                unitRows.add (ling::HalfWords::pack (texts.add (path), directoryText));
+                unitRows.add (ling::HalfWords::pack (outputText, 0));
+            }
         }
+        else
+            callbacks.addMessage (callbacks.context, (path + ToolchainWord::messageSeparator + ToolchainWord::unitNotFound).c_str());
     }
-    else
-        callbacks.addMessage (callbacks.context, (path + ToolchainWord::messageSeparator + ToolchainWord::unitNotFound).c_str());
 }
 
 ```
@@ -2825,24 +2907,42 @@ struct IndexContext
         return position != invalidPosition ? ling::Wyhash::mix (symbolHash, ling::Wyhash::mix (getPathKey (file), keptRanges.at (getPathKey (file), position))) : symbolHash;
     }
 
-    void addPreprocessedFile (SourceFile file)
+    void addPreprocessedFile (SourceFile file, TranslationUnit activeUnit = nullptr)
     {
-        if (file != nullptr and not preprocessedFiles.contains (getFileWord (file)))
+        const auto active { activeUnit != nullptr ? activeUnit : translationUnit };
+
+        if (file != nullptr and active != nullptr and not preprocessedFiles.contains (getFileWord (file)))
         {
             std::size_t size { 0 };
-            const auto* contents { libclang.getFileContents (translationUnit, file, &size) };
+            const auto* contents { libclang.getFileContents (active, file, &size) };
 
             preprocessedFiles.add (getFileWord (file), static_cast<unsigned long long> (reinterpret_cast<std::uintptr_t> (contents)));
             preprocessedFiles.add (getFileWord (file), static_cast<unsigned long long> (size));
         }
     }
 
-    std::string_view getFileContents (SourceFile file) const
+    std::string_view getFileContents (SourceFile file, TranslationUnit activeUnit = nullptr) const
     {
         const auto fileWord { getFileWord (file) };
 
         if (preprocessedFiles.contains (fileWord))
-            return std::string_view (reinterpret_cast<const char*> (static_cast<std::uintptr_t> (preprocessedFiles.at (fileWord, 0))), static_cast<std::size_t> (preprocessedFiles.at (fileWord, 1)));
+        {
+            const auto* stored { reinterpret_cast<const char*> (static_cast<std::uintptr_t> (preprocessedFiles.at (fileWord, 0))) };
+
+            if (stored != nullptr)
+                return std::string_view (stored, static_cast<std::size_t> (preprocessedFiles.at (fileWord, 1)));
+        }
+
+        const auto active { activeUnit != nullptr ? activeUnit : translationUnit };
+
+        if (active != nullptr and file != nullptr)
+        {
+            std::size_t size { 0 };
+            const auto* contents { libclang.getFileContents (active, file, &size) };
+
+            if (contents != nullptr)
+                return std::string_view (contents, size);
+        }
 
         return {};
     }
@@ -2869,6 +2969,7 @@ struct IndexContext
 
             if (not occurrences.contains (occurrence))
             {
+                addPreprocessedFile (file, translationUnit != nullptr ? translationUnit : libclang.getCursorTranslationUnit (entity));
                 const auto contents { getFileContents (file) };
                 const std::size_t end { name != nullptr ? offset + std::strlen (name) : offset };
                 int nameLength { 0 };
@@ -3475,6 +3576,7 @@ static void reportOutline (IndexContext& context, const IndexDeclarationInfo* de
     libclang.getSpellingLocation (libclang.indexLocSourceLocation (declaration->loc), &file, &line, &column, &offset);
     libclang.getSpellingLocation (libclang.getRangeEnd (libclang.getCursorExtent (declaration->cursor)), nullptr, &endLine, &endColumn, nullptr);
 
+    context.addPreprocessedFile (file, context.translationUnit != nullptr ? context.translationUnit : libclang.getCursorTranslationUnit (declaration->cursor));
     const auto contents { context.getFileContents (file) };
     const auto qualifierLength { static_cast<int> (offset) - getOutlineQualifierStart (contents, static_cast<int> (offset)) };
     const auto nameLength { getOutlineNameLength (libclang, declaration->cursor, offset, declaration->entityInfo->name) };
@@ -4463,9 +4565,9 @@ static std::string getHoverComment (const LibClang& libclang, Cursor cursor)
     {
         return getCommentParagraphs (getFormattedComment (getText (libclang, libclang.getRawCommentText (commentCursor))));
     } };
-    const auto comment { getParagraphs (cursor) };
+    const auto comment { getParagraphs (libclang.getCanonicalCursor (cursor)) };
 
-    return comment.empty() ? getParagraphs (libclang.getCanonicalCursor (cursor)) : comment;
+    return comment.empty() ? getParagraphs (cursor) : comment;
 }
 
 ```
@@ -4605,8 +4707,8 @@ static int getOrCreateDefinition (IndexContext& context, Cursor cursor)
     unsigned endLine { 0 };
     unsigned endColumn { 0 };
 
-    context.libclang.getSpellingLocation (context.libclang.getRangeStart (definitionRange), &definitionFile, &line, &column, nullptr);
-    context.libclang.getSpellingLocation (context.libclang.getRangeEnd (definitionRange), nullptr, &endLine, &endColumn, nullptr);
+    context.libclang.getExpansionLocation (context.libclang.getRangeStart (definitionRange), &definitionFile, &line, &column, nullptr);
+    context.libclang.getExpansionLocation (context.libclang.getRangeEnd (definitionRange), nullptr, &endLine, &endColumn, nullptr);
 
     const bool hasDefinition { definitionFile != nullptr and hasDefinitionText (context.libclang, cursor) };
     const auto definition { static_cast<int> (context.definitions.size()) / definitionStride };
@@ -4773,9 +4875,16 @@ static std::string_view getStrippedName (std::string_view text)
 
 ```
 ```getParameterLabel
-static std::string getParameterLabel (const IndexContext& context, Cursor parameter, Cursor argument)
+static std::string getParameterLabel (IndexContext& context, Cursor parameter, Cursor argument)
 {
     const auto& libclang { context.libclang };
+    const auto trimFront { [] (std::string_view text, bool (*isTrimmed) (char))
+    {
+        while (not text.empty() and isTrimmed (text.front()))
+            text.remove_prefix (1);
+
+        return text;
+    } };
     const auto trimBack { [] (std::string_view text, bool (*isTrimmed) (char))
     {
         while (not text.empty() and isTrimmed (text.back()))
@@ -4789,27 +4898,34 @@ static std::string getParameterLabel (const IndexContext& context, Cursor parame
     } };
     const auto isWhitespace { [] (char character) { return std::isspace (static_cast<unsigned char> (character)) != 0; } };
     const auto isIgnored { [] (char character) { return static_cast<int> (character) == Chars::space or static_cast<int> (character) == Chars::equals or static_cast<int> (character) == Chars::dot; } };
-    const auto translationUnit { libclang.getCursorTranslationUnit (argument) };
     const auto parameterName { getText (libclang, libclang.getCursorSpelling (parameter)) };
     const std::string_view name { getStrippedName (parameterName) };
     const auto extent { libclang.getCursorExtent (argument) };
     const auto parameterType { libclang.getCursorType (parameter) };
-    SourceToken* tokens { nullptr };
-    unsigned tokenCount { 0 };
     SourceFile file { nullptr };
+    SourceFile endFile { nullptr };
     unsigned offset { 0 };
+    unsigned endOffset { 0 };
+    bool isSpelledName { false };
     bool isNamedByComment { false };
 
-    libclang.tokenize (translationUnit, extent, &tokens, &tokenCount);
     libclang.getSpellingLocation (libclang.getRangeStart (extent), &file, nullptr, nullptr, &offset);
-
-    const bool isSpelledName { tokenCount == 1 and getText (libclang, libclang.getTokenSpelling (translationUnit, *tokens)).compare (name) == 0 };
-
-    libclang.disposeTokens (translationUnit, tokens, tokenCount);
+    libclang.getSpellingLocation (libclang.getRangeEnd (extent), &endFile, nullptr, nullptr, &endOffset);
 
     if (file != nullptr and not name.empty())
     {
-        auto prefix { trimBack (context.getFileContents (file).substr (0, offset), isWhitespace) };
+        context.addPreprocessedFile (file, libclang.getCursorTranslationUnit (argument));
+
+        const auto contents { context.getFileContents (file) };
+
+        if (file == endFile and endOffset > offset and endOffset <= contents.size())
+        {
+            const auto trimmed { trimBack (trimFront (contents.substr (offset, endOffset - offset), isWhitespace), isWhitespace) };
+
+            isSpelledName = trimmed.compare (name) == 0;
+        }
+
+        auto prefix { trimBack (contents.substr (0, std::min (static_cast<std::size_t> (offset), contents.size())), isWhitespace) };
 
         if (endsWith (prefix, Chars::cssCommentClose))
         {
@@ -4842,11 +4958,11 @@ static void addParameterHints (const LibClang& libclang, IndexContext& context, 
         return offset;
     } };
     const auto calleeName { getText (libclang, libclang.getCursorSpelling (callee)) };
-    const auto parameterName { getText (libclang, libclang.getCursorSpelling (libclang.getArgument (callee, 0))) };
+    const int parameterCount { libclang.getNumArguments (callee) };
+    const auto parameterName { parameterCount == 1 ? getText (libclang, libclang.getCursorSpelling (libclang.getArgument (callee, 0))) : std::string {} };
     const std::string_view name { calleeName };
     const std::string_view operatorName { HoverLabel::operatorName };
     const std::string_view setterPrefix { InlayHintLabel::setterPrefix };
-    const int parameterCount { libclang.getNumArguments (callee) };
     const int objectArgumentCount { static_cast<int> (name.compare (HoverLabel::callOperator) == 0) };
     auto parent { libclang.getCursorSemanticParent (callee) };
 
@@ -5106,6 +5222,10 @@ static ChildVisitResult onCursor (Cursor cursor, Cursor, ClientData clientData)
     };
 
     auto& context { *static_cast<IndexContext*> (clientData) };
+
+    if (context.callbacks.shouldExit != nullptr and context.callbacks.shouldExit (context.callbacks.context) != 0)
+        return ChildVisitResult::visitBreak;
+
     const auto& libclang { context.libclang };
     const auto location { libclang.getCursorLocation (cursor) };
 
@@ -5123,7 +5243,8 @@ static ChildVisitResult onCursor (Cursor cursor, Cursor, ClientData clientData)
                 const bool isImplicit { libclang.getNumArguments (cursor) == 1 and libclang.equalRanges (libclang.getCursorExtent (cursor), libclang.getCursorExtent (libclang.getArgument (cursor, 0))) != 0 };
                 const bool isSkipped { isImplicit or libclang.isVariadic (callee) != 0 or calleeName.compare (0, operatorName.size(), operatorName) == 0 };
 
-                addParameterHints (libclang, context, cursor, callee);
+                if (context.keptRanges.isEmpty())
+                    addParameterHints (libclang, context, cursor, callee);
 
                 for (int index { 0 }; not isSkipped and index < std::min (libclang.getNumArguments (cursor), libclang.getNumArguments (callee)); ++index)
                 {
@@ -5203,7 +5324,7 @@ static void addHovers (const LibClang& libclang, IndexContext& context)
         const auto symbol { context.hoverPositions.at (position + 3) };
         SourceFile definitionFile { nullptr };
 
-        libclang.getSpellingLocation (libclang.getRangeStart (libclang.getCursorExtent (cursor)), &definitionFile, nullptr, nullptr, nullptr);
+        libclang.getExpansionLocation (libclang.getRangeStart (libclang.getCursorExtent (cursor)), &definitionFile, nullptr, nullptr, nullptr);
 
         const bool hasDefinition { definitionFile != nullptr and hasDefinitionText (libclang, cursor) };
         const auto textIndex { passing.empty() ? getOrCreateHoverText (libclang, context, cursor, symbol, file, hasDefinition) : context.texts.add (getHover (context, cursor, passing, context.texts.get (getOrCreateProvider (libclang, context, cursor, symbol, file)), hasDefinition)) };
@@ -5338,14 +5459,15 @@ static ling::WordLists getSkippedRanges (const LibClang& libclang, IndexContext&
     for (unsigned index { 0 }; index < skipped->count; ++index)
     {
         const auto range { *(skipped->ranges + index) };
+        const auto rangeStart { libclang.getRangeStart (range) };
         SourceFile file { nullptr };
         unsigned start { 0 };
         unsigned end { 0 };
 
-        libclang.getSpellingLocation (libclang.getRangeStart (range), &file, nullptr, nullptr, &start);
+        libclang.getSpellingLocation (rangeStart, &file, nullptr, nullptr, &start);
         libclang.getSpellingLocation (libclang.getRangeEnd (range), nullptr, nullptr, nullptr, &end);
 
-        if (file != nullptr and not context.isForeign (file))
+        if (file != nullptr and libclang.isInSystemHeader (rangeStart) == 0 and not context.isForeign (file))
             ranges.add (context.getPathKey (file), ling::HalfWords::pack (static_cast<int> (start), static_cast<int> (end)));
     }
 
@@ -5388,18 +5510,32 @@ static ling::WordLists getRemainingRanges (const ling::WordLists& keptRanges, co
 
 ```
 ```getContextCommandLine
-static ling::Pointers getContextCommandLine (const ling::Pointers& commandLine, const ling::Pointers& flags)
+static ling::Pointers getContextCommandLine (const ling::Pointers& commandLine, const ling::Pointers& flags, bool keepPrecompiled)
 {
     const std::string_view frontendFlag { ToolchainWord::frontendFlag };
     const std::string_view precompiledIncludeFlag { ToolchainWord::precompiledIncludeFlag };
     ling::Pointers contextCommandLine;
+    bool hasPrecompiledInclude { false };
 
     for (int position { 0 }; position < commandLine.size(); ++position)
     {
         if (position + 1 < commandLine.size() and frontendFlag.compare (commandLine.at (position)) == 0 and precompiledIncludeFlag.compare (commandLine.at (position + 1)) == 0)
-            position += static_cast<int> (ToolchainValue::precompiledIncludeWidth) - 1;
+        {
+            hasPrecompiledInclude = true;
+
+            if (keepPrecompiled)
+                contextCommandLine.add (commandLine.at (position));
+            else
+                position += static_cast<int> (ToolchainValue::precompiledIncludeWidth) - 1;
+        }
         else
             contextCommandLine.add (commandLine.at (position));
+    }
+
+    if (keepPrecompiled and hasPrecompiledInclude)
+    {
+        contextCommandLine.add (ToolchainWord::frontendFlag);
+        contextCommandLine.add (ToolchainWord::noValidatePrecompiledFlag);
     }
 
     for (int position { 0 }; position < flags.size(); ++position)
@@ -5487,6 +5623,42 @@ static std::string_view getOpeningDirective (std::string_view contents, unsigned
 }
 
 ```
+```addSkippedDirectives
+static unsigned addSkippedDirectives (IndexContext& mainContext, const ling::WordLists& keptRanges, ling::Texts& directiveTexts, ling::WordMap& directiveEntries)
+{
+    unsigned platformMask { 0 };
+
+    keptRanges.applyToKeys ([&mainContext, &keptRanges, &directiveTexts, &directiveEntries, &platformMask] (unsigned long long pathKey)
+    {
+        const auto contents { mainContext.getFileContents (getSourceFile (mainContext.pathFiles.at (pathKey))) };
+
+        for (int position { 0 }; position < keptRanges.getSize (pathKey); ++position)
+        {
+            const auto range { keptRanges.at (pathKey, position) };
+            const auto start { static_cast<unsigned> (ling::HalfWords::unpackFirst (range)) };
+            const auto line { getDirectiveLine (contents, start) };
+            const auto keyword { getDirectiveKeyword (line) };
+
+            if (getConditionActions().contains (keyword))
+            {
+                const auto action { static_cast<ConditionAction> (getConditionActions().at (keyword)) };
+                const auto sourceLine { action == ConditionAction::invert ? getOpeningDirective (contents, start) : line };
+
+                applyToDirectiveWords (sourceLine, [&platformMask] (std::string_view word)
+                {
+                    if (getPlatformMacros().contains (word))
+                        platformMask |= 1u << static_cast<unsigned> (getPlatformMacros().at (word));
+                });
+
+                directiveEntries.add (ling::Wyhash::mix (pathKey, range), ling::HalfWords::pack (directiveTexts.add (std::string (sourceLine)), static_cast<int> (action)));
+            }
+        }
+    });
+
+    return platformMask;
+}
+
+```
 ```addConditionFlags
 static void addConditionFlags (ling::Texts& flagTexts, ling::Words& flagIndices, std::string_view line, ConditionAction action)
 {
@@ -5495,36 +5667,37 @@ static void addConditionFlags (ling::Texts& flagTexts, ling::Words& flagIndices,
 
     applyToDirectiveWords (line, [&flagTexts, &flagIndices, prefix, keyword] (std::string_view word)
     {
-        if (word.data() != keyword.data() and word.compare (ToolchainWord::definedOperator) != 0)
+        if (word.data() != keyword.data() and word.compare (ToolchainWord::definedOperator) != 0 and not getPlatformMacros().contains (word))
             flagIndices.add (static_cast<unsigned long long> (flagTexts.add (std::string (prefix) + std::string (word))));
     });
 }
 
 ```
 ```getConditionFlags
-static ling::Pointers getConditionFlags (IndexContext& mainContext, const ling::WordLists& keptRanges, ling::Texts& flagTexts, bool isInverted)
+static ling::Pointers getConditionFlags (const ling::WordLists& keptRanges, const ling::Texts& directiveTexts, const ling::WordMap& directiveEntries, ling::Texts& flagTexts, bool isInverted)
 {
     ling::Words flagIndices;
     ling::Pointers flags;
 
-    keptRanges.applyToKeys ([&mainContext, &keptRanges, &flagTexts, &flagIndices, isInverted] (unsigned long long pathKey)
+    keptRanges.applyToKeys ([&keptRanges, &directiveTexts, &directiveEntries, &flagTexts, &flagIndices, isInverted] (unsigned long long pathKey)
     {
-        const auto contents { mainContext.getFileContents (getSourceFile (mainContext.pathFiles.at (pathKey))) };
-
         for (int position { 0 }; position < keptRanges.getSize (pathKey); ++position)
         {
-            const auto start { static_cast<unsigned> (ling::HalfWords::unpackFirst (keptRanges.at (pathKey, position))) };
-            const auto line { getDirectiveLine (contents, start) };
-            const auto keyword { getDirectiveKeyword (line) };
+            const auto key { ling::Wyhash::mix (pathKey, keptRanges.at (pathKey, position)) };
 
-            if (getConditionActions().contains (keyword))
+            if (directiveEntries.contains (key))
             {
-                const auto action { static_cast<ConditionAction> (getConditionActions().at (keyword)) };
-                const auto opening { getOpeningDirective (contents, start) };
-                const auto openingKeyword { getDirectiveKeyword (opening) };
+                const auto entry { directiveEntries.at (key) };
+                const auto line { directiveTexts.get (ling::HalfWords::unpackFirst (entry)) };
+                const auto action { static_cast<ConditionAction> (ling::HalfWords::unpackSecond (entry)) };
 
-                if (isInverted and action == ConditionAction::invert and getConditionActions().contains (openingKeyword))
-                    addConditionFlags (flagTexts, flagIndices, opening, static_cast<ConditionAction> (getConditionActions().at (openingKeyword)) == ConditionAction::define ? ConditionAction::undefine : ConditionAction::define);
+                if (isInverted and action == ConditionAction::invert)
+                {
+                    const auto openingKeyword { getDirectiveKeyword (line) };
+
+                    if (getConditionActions().contains (openingKeyword))
+                        addConditionFlags (flagTexts, flagIndices, line, static_cast<ConditionAction> (getConditionActions().at (openingKeyword)) == ConditionAction::define ? ConditionAction::undefine : ConditionAction::define);
+                }
                 else if (not isInverted and action != ConditionAction::invert)
                     addConditionFlags (flagTexts, flagIndices, line, action);
             }
@@ -5539,67 +5712,80 @@ static ling::Pointers getConditionFlags (IndexContext& mainContext, const ling::
 
 ```
 ```addContextPass
-static ling::WordLists addContextPass (const LibClang& libclang, const ling::Pointers& commandLine, const LanguageCallbacks& callbacks, UnsavedFile* unsavedFiles, int bufferCount, ling::WordLists keptRanges)
+static ling::WordLists addContextPass (const IndexSession& session, const ling::Pointers& commandLine, const LanguageCallbacks& callbacks, UnsavedFile* unsavedFiles, int bufferCount, ling::WordLists keptRanges)
 {
-    const std::unique_ptr<void, decltype (LibClang::disposeIndex)> indexHandle { libclang.createIndex (excludeDeclarationsFromPCH, displayDiagnostics), libclang.disposeIndex };
-    const std::unique_ptr<void, decltype (LibClang::disposeIndexAction)> action { libclang.createIndexAction (indexHandle.get()), libclang.disposeIndexAction };
+    const auto& libclang { *session.libclang };
     TranslationUnit translationUnit { nullptr };
-    const int result { libclang.parseTranslationUnit2FullArgv (indexHandle.get(), nullptr, commandLine.begin(), commandLine.size(), unsavedFiles, static_cast<unsigned> (bufferCount), contextOptions, &translationUnit) };
+    IndexContext context { libclang, callbacks, nullptr };
+    auto indexerCallbacks { getIndexerCallbacks() };
+    int result { 0 };
+    const bool usesPrecompiled { std::any_of (commandLine.begin(), commandLine.begin() + commandLine.size(), [] (const char* argument) { return std::string_view (argument).compare (ToolchainWord::precompiledIncludeFlag) == 0; }) };
+
+    context.keptRanges = std::move (keptRanges);
+
+    if (bufferCount == 0 and not usesPrecompiled)
+        result = libclang.indexSourceFileFullArgv (session.action.get(), &context, &indexerCallbacks, static_cast<unsigned> (sizeof (IndexerCallbacks)), indexOptions, nullptr, commandLine.begin(), commandLine.size(), nullptr, 0, &translationUnit, contextOptions);
+    else
+    {
+        result = libclang.parseTranslationUnit2FullArgv (session.indexHandle.get(), nullptr, commandLine.begin(), commandLine.size(), unsavedFiles, static_cast<unsigned> (bufferCount), contextOptions, &translationUnit);
+
+        if (result == 0 and translationUnit != nullptr)
+        {
+            const std::unique_ptr<void, decltype (LibClang::disposeIndexAction)> localAction { libclang.createIndexAction (session.indexHandle.get()), libclang.disposeIndexAction };
+
+            context.translationUnit = translationUnit;
+            result = libclang.indexTranslationUnit (localAction.get(), &context, &indexerCallbacks, static_cast<unsigned> (sizeof (IndexerCallbacks)), indexOptions, translationUnit);
+        }
+    }
+
     const std::unique_ptr<void, decltype (LibClang::disposeTranslationUnit)> unit { translationUnit, libclang.disposeTranslationUnit };
 
-    if (result == 0)
+    if (result == 0 and translationUnit != nullptr)
     {
-        IndexContext context { libclang, callbacks, translationUnit };
-        auto indexerCallbacks { getIndexerCallbacks() };
-
-        context.keptRanges = std::move (keptRanges);
-
-        if (libclang.indexTranslationUnit (action.get(), &context, &indexerCallbacks, static_cast<unsigned> (sizeof (IndexerCallbacks)), indexOptions, translationUnit) == 0)
-        {
-            addHovers (libclang, context);
-            addChosenSymbols (libclang, context);
-        }
+        context.translationUnit = translationUnit;
+        addCallPassings (libclang, context, translationUnit);
+        addHovers (libclang, context);
+        addChosenSymbols (libclang, context);
 
         return getRemainingRanges (context.keptRanges, getSkippedRanges (libclang, context));
     }
 
-    return keptRanges;
+    return std::move (context.keptRanges);
 }
 
 ```
 ```addContextPasses
-static void addContextPasses (const LibClang& libclang, const ling::Pointers& commandLine, const LanguageCallbacks& callbacks, UnsavedFile* unsavedFiles, int bufferCount, IndexContext& mainContext)
+static void addContextPasses (const IndexSession& session, const ling::Pointers& commandLine, const LanguageCallbacks& callbacks, UnsavedFile* unsavedFiles, int bufferCount, ling::WordLists keptRanges, const ling::Texts& directiveTexts, const ling::WordMap& directiveEntries, unsigned platformMask)
 {
-    auto keptRanges (getSkippedRanges (libclang, mainContext));
-
-    getPlatformTargets().applyToEntries ([&libclang, &commandLine, &callbacks, unsavedFiles, bufferCount, &keptRanges] (std::string_view targetFlag, unsigned long long platform)
+    getPlatformTargets().applyToEntries ([&session, &commandLine, &callbacks, unsavedFiles, bufferCount, &keptRanges, platformMask] (std::string_view targetFlag, unsigned long long platform)
     {
-        if (static_cast<int> (platform) != currentPlatform and not keptRanges.isEmpty())
+        if (static_cast<int> (platform) != currentPlatform and (platformMask & (1u << static_cast<unsigned> (platform))) != 0 and not keptRanges.isEmpty())
         {
             ling::Pointers flags;
 
             flags.add (targetFlag.data());
-            keptRanges = addContextPass (libclang, getContextCommandLine (commandLine, flags), callbacks, unsavedFiles, bufferCount, std::move (keptRanges));
+            keptRanges = addContextPass (session, getContextCommandLine (commandLine, flags, false), callbacks, unsavedFiles, bufferCount, std::move (keptRanges));
         }
     });
 
     for (const bool isInverted : { false, true })
     {
-        ling::Texts flagTexts;
-        const auto flags (getConditionFlags (mainContext, keptRanges, flagTexts, isInverted));
+        if (not keptRanges.isEmpty())
+        {
+            ling::Texts flagTexts;
+            const auto flags (getConditionFlags (keptRanges, directiveTexts, directiveEntries, flagTexts, isInverted));
 
-        if (flags.size() > 0)
-            keptRanges = addContextPass (libclang, getContextCommandLine (commandLine, flags), callbacks, unsavedFiles, bufferCount, std::move (keptRanges));
+            if (flags.size() > 0)
+                keptRanges = addContextPass (session, getContextCommandLine (commandLine, flags, true), callbacks, unsavedFiles, bufferCount, std::move (keptRanges));
+        }
     }
 }
 
 ```
 ```indexSource
-static int indexSource (const LibClang& libclang, const ling::Pointers& commandLine, const LanguageCallbacks& callbacks, const char* directory, const std::string& precompiledPath, const char* const* bufferPaths, const char* const* bufferTexts, int bufferCount)
+static int indexSource (const IndexSession& session, const ling::Pointers& commandLine, const LanguageCallbacks& callbacks, const char* directory, const std::string& precompiledPath, const char* const* bufferPaths, const char* const* bufferTexts, int bufferCount)
 {
-    const std::unique_ptr<void, decltype (LibClang::disposeIndex)> indexHandle { libclang.createIndex (excludeDeclarationsFromPCH, displayDiagnostics), libclang.disposeIndex };
-    const std::unique_ptr<void, decltype (LibClang::disposeIndexAction)> action { libclang.createIndexAction (indexHandle.get()), libclang.disposeIndexAction };
-    TranslationUnit translationUnit { nullptr };
+    const auto& libclang { *session.libclang };
     const auto options { precompiledPath.empty() ? translationUnitOptions : translationUnitOptions | precompiledOptions };
     const auto unsavedFiles { std::make_unique<UnsavedFile[]> (static_cast<size_t> (bufferCount)) };
 
@@ -5610,27 +5796,55 @@ static int indexSource (const LibClang& libclang, const ling::Pointers& commandL
         unsavedFiles[i].length = static_cast<unsigned long> (std::strlen (bufferTexts[i]));
     }
 
-    int result { libclang.parseTranslationUnit2FullArgv (indexHandle.get(), nullptr, commandLine.begin(), commandLine.size(), unsavedFiles.get(), static_cast<unsigned> (bufferCount), options, &translationUnit) };
-    const std::unique_ptr<void, decltype (LibClang::disposeTranslationUnit)> unit { translationUnit, libclang.disposeTranslationUnit };
+    int result { 0 };
+    ling::WordLists keptRanges;
+    ling::Texts directiveTexts;
+    ling::WordMap directiveEntries;
+    unsigned platformMask { 0 };
 
-    if (result == 0)
     {
+        TranslationUnit translationUnit { nullptr };
+        IndexContext context { libclang, callbacks, nullptr };
+        auto indexerCallbacks { getIndexerCallbacks() };
+        const bool usesPrecompiled { std::any_of (commandLine.begin(), commandLine.begin() + commandLine.size(), [] (const char* argument) { return std::string_view (argument).compare (ToolchainWord::precompiledIncludeFlag) == 0; }) };
+
         assert (callbacks.isForeign != nullptr);
 
-        IndexContext context { libclang, callbacks, translationUnit };
-        auto indexerCallbacks { getIndexerCallbacks() };
-
-        result = libclang.indexTranslationUnit (action.get(), &context, &indexerCallbacks, static_cast<unsigned> (sizeof (IndexerCallbacks)), indexOptions, translationUnit);
-
-        if (result == 0 and not precompiledPath.empty())
-            result = libclang.saveTranslationUnit (translationUnit, precompiledPath.c_str(), libclang.defaultSaveOptions (translationUnit));
-
-        if (result == 0)
+        if (bufferCount == 0 and not usesPrecompiled)
+            result = libclang.indexSourceFileFullArgv (session.action.get(), &context, &indexerCallbacks, static_cast<unsigned> (sizeof (IndexerCallbacks)), indexOptions, nullptr, commandLine.begin(), commandLine.size(), nullptr, 0, &translationUnit, options);
+        else
         {
-            addUnitRecords (libclang, context, commandLine, directory, translationUnit);
-            addContextPasses (libclang, commandLine, callbacks, unsavedFiles.get(), bufferCount, context);
+            result = libclang.parseTranslationUnit2FullArgv (session.indexHandle.get(), nullptr, commandLine.begin(), commandLine.size(), unsavedFiles.get(), static_cast<unsigned> (bufferCount), options, &translationUnit);
+
+            if (result == 0 and translationUnit != nullptr)
+            {
+                const std::unique_ptr<void, decltype (LibClang::disposeIndexAction)> localAction { libclang.createIndexAction (session.indexHandle.get()), libclang.disposeIndexAction };
+
+                context.translationUnit = translationUnit;
+                result = libclang.indexTranslationUnit (localAction.get(), &context, &indexerCallbacks, static_cast<unsigned> (sizeof (IndexerCallbacks)), indexOptions, translationUnit);
+            }
+        }
+
+        const std::unique_ptr<void, decltype (LibClang::disposeTranslationUnit)> unit { translationUnit, libclang.disposeTranslationUnit };
+
+        if (result == 0 and translationUnit != nullptr)
+        {
+            context.translationUnit = translationUnit;
+
+            if (not precompiledPath.empty())
+                result = libclang.saveTranslationUnit (translationUnit, precompiledPath.c_str(), libclang.defaultSaveOptions (translationUnit));
+
+            if (result == 0)
+            {
+                addUnitRecords (libclang, context, commandLine, directory, translationUnit);
+                keptRanges = getSkippedRanges (libclang, context);
+                platformMask = addSkippedDirectives (context, keptRanges, directiveTexts, directiveEntries);
+            }
         }
     }
+
+    if (result == 0 and not keptRanges.isEmpty())
+        addContextPasses (session, commandLine, callbacks, unsavedFiles.get(), bufferCount, std::move (keptRanges), directiveTexts, directiveEntries, platformMask);
 
     return result;
 }

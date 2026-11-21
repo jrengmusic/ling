@@ -44,7 +44,7 @@ public:
     /** @brief The daemon timeout, in milliseconds, when the manifest sets none or fails validation. */
     static constexpr int defaultTimeoutMs { 60000 };
 
-    static const int defaultThreads;
+    static constexpr int defaultThreads { 4 };
 
     /** @brief The window, in milliseconds, in which the watcher merges the events of one file into one event. */
     static constexpr int coalesceMs { 300 };

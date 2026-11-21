@@ -177,12 +177,12 @@ ling passes the `command` and `flag` of each row to each language. Each language
 
 The `## daemon` table holds the rows `timeout` and `threads` in its `value` column. Each value is a positive integer. The first `## daemon` table that holds the row sets the value.
 
-| Row       | Meaning                                                                        | Default                        |
-| :-------- | :----------------------------------------------------------------------------- | :----------------------------- |
-| `timeout` | The time in milliseconds that the daemon waits for a client before it ends.    | 60000                          |
-| `threads` | The count of threads for the parse and index jobs.                             | Half the CPU count, at least 1 |
+| Row       | Meaning                                                                        | Default |
+| :-------- | :----------------------------------------------------------------------------- | :------ |
+| `timeout` | The time in milliseconds that the daemon waits for a client before it ends.    | 60000   |
+| `threads` | The count of threads for the parse and index jobs.                             | 4       |
 
-The parse and index threads run at low priority.
+The parse and index threads run at background priority.
 
 ### source glob
 

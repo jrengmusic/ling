@@ -292,11 +292,7 @@ private:
 
         int getOutlineParent (int parent, int pathIndex) const;
 
-        static void addOutlineToken (jam::Document::Tokens& tokens, const std::array<int, outlineFieldCount>& fields);
-
         bool isForeign (const char* recordPath) const;
-
-        int getOrCreatePathIndex (const char* recordPath);
 
         Processor& owner;///< The processor that receives the completion signal. The job signals it when it ends.
         int rowIndex { 0 };///< The index of the unit row in the files child.
@@ -311,13 +307,11 @@ private:
         juce::StringArray bufferPaths;
         juce::StringArray bufferTexts;
         jam::Strings foreignPaths;
+        SymbolDocument::Builder builder;
         std::unique_ptr<SymbolDocument> symbols;
-        jam::Strings paths;
-        jam::Array<jam::Document::Element*> fileElements;
         jam::Array<std::pair<int, int>> outlineSlots;
         jam::HashMap<juce::int64, int> outlineKeys;
         jam::HashSet<juce::int64> completionKeys;
-        jam::Array<jam::Document::Element*> completionContainers;
         int result { 0 };///< The return value of the library index function. Zero means the pass succeeded.
         std::atomic<bool> isFinished { false };///< Set to true when runJob ends. The message thread reads it with acquire order.
     };

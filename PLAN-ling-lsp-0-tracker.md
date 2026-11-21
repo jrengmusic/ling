@@ -504,6 +504,24 @@ Canon ruling 78. Each Windows run is ARCHITECT's, on the Windows host, and it bl
 - The ling Windows build and checks of each part.
 - whatdbg: `benchmark/smoke-windows.md`.
 
+## State of 2026-11-21
+
+- **Plan hygiene:** Deleted completed/superseded plans (`PLAN-ling-runs-from-anywhere.md`, `PLAN-ling-compiler-truth.md`, `PLAN-ling-ast-once.md`, `PLAN-ling-cold-index-load.md`, `PLAN-ling-blessed-index-perf.md`). Active plans: `PLAN-ling-0-tracker.md`, `PLAN-ling-lsp-0-tracker.md`, `PLAN-ling-contract-fix.md` (Steps 15–16 remain).
+- **Cold-index & BLESSED performance sprint (completed & verified 2026-11-21, build `19:47`):**
+  - `language/cLang/construction.md:622-632`: `## ignoredUnits` skips `juce_binarydata_*`, vendored libs (`Harfbuzz`, `Sheenbidi`, `ara`, `lv2_libs`, `jam_freetype.mm`), and `juce_core_CompilationTime.cpp` (0 ignored TUs indexed).
+  - `language/cLang/language.cast`: RAII `thread_local IndexSession` (`LibClang` + `CXIndex` + `CXIndexAction`, mutex-serialized `clang_createIndex`), `clang_indexSourceFileFullArgv` + `CXIndexOpt_SkipParsedBodiesInSession` for non-PCH disk TUs, `parseTranslationUnit2FullArgv` + `indexTranslationUnit` for PCH-consuming and live-buffer (`bufferCount > 0`) TUs (fixes libclang `IndexingConsumer::HandleTopLevelDecl` dangling-stack `SIGSEGV` and `unsaved_files` double-free), per-file `IndexContext::preprocessedFiles` cache (eliminates quadratic `clang_getFileContents` / `SourceManager::translateFile`), direct `getFileContents` slice in `getParameterLabel` (removes per-argument `libclang.tokenize`), and `shouldExit` check in `onCursor`.
+  - `Source/LINGModel.h:47`, `Source/Processor.cpp:10-29, 1214-1244`, `Source/HELP.md:183`: 4 background-priority worker threads, `pool->removeAllJobs (true, waitForJob)` in `~Processor()`, and prerequisite-producer (`Id::output`) priority in `Processor::addIndexJobs`.
+  - `Source/SymbolDocument.h/.cpp`, `Source/BuiltInLanguage.h`, `Source/Index.h/.cpp`, `Source/Processor.h/.cpp`, `Source/Query.h/.cpp`, `Source/SwapValidator.cpp`: flat, 8-byte aligned, pointer-free binary `.symbols` format mapped read-only in place via `juce::MemoryMappedFile` (**Complete at Creation**, **No copy**).
+  - `jam/jam_core/jam_Simd.h`, `jam/jam_core/document/jam_Document.cpp`: single-header `jam::simd` (`findByte`, `findNonPlainByte` across NEON, SSE2, and scalar) with canonical `jam_Css.h` namespace enclosure, wired into `jam::Document::addLineOffsets` and `Document::getTokens`.
+- **Verified runtime results (2026-11-21, `/Users/jreng/.local/bin/ling` `Nov 21 19:47`):**
+  - `ling` cold index: `161.68 s`, peak CPU `416.7%` (was `500%`), peak RSS `3357.5 MB` (was `8.0 GB`), zero crashes.
+  - `END` cold index: `171.21 s`, peak CPU `422.5%` (was `490%`), peak RSS `3958.3 MB` (was `4.57 GB`), settled idle RSS `1375.8 MB` (was `3.7 GB`), zero crashes.
+  - `compare end-definition`: `10.41 s` total, median `0.3325 ms` (p95 `5.2409 ms`), `agree = 171`, `disagree = 10`, `stale = 77`, `lingError = 0` (was `162/19/77`), `jam_FileWatcher.cpp` `14/14` agree, `ENDView.cpp` opened cleanly (`0` `unit index failed`, `0` `daemon connection lost`).
+- **Remaining in `PLAN-ling-contract-fix.md`:**
+  - Step 15: trace/fix `juce_Component.cpp:3531:46` (`bounds`), `:4160:13` (`expectEquals`), `:2364:28` (`getInstance` hover overrun); refresh stale `:jam` / `test/end-positions.json` expectations from code reads; run remaining END suites (`end-methods`, `end-references`, `end-hover`, `end-inlay`, warm repeat) and all 5 KANJUT suites; remove 12 temporary `debug::Log` / `logScope` lines (`Source/Main.cpp`, `Source/Connection.cpp`, `Source/Processor.cpp`).
+  - Step 16: `scout` profile against clangd (T9, T10, T21) and `jam::simd` vs scalar benchmark.
+  - Hold `/audit`, doxygen pass, and `/log` until ARCHITECT explicitly instructs them.
+
 ## BLESSED Alignment
 
 - **B:** one owner for each artefact: ling owns its carried libraries and writes them to the cache; the daemon owns the documents; the harness owns each server process and ends it with `shutdown`.

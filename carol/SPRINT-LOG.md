@@ -655,3 +655,66 @@ Copy this template to your project root as `SPRINT-LOG.md` and customize:
 
 Rock 'n Roll!  
 **JRENG!**
+
+
+## Handoff to COUNSELOR: ling BLESSED Cold-Index Performance & Zero-Copy Mapped SymbolDocument
+
+**From:** COUNSELOR
+**Date:** 2026-11-21
+**Status:** In Progress
+
+### Read First
+- `/Users/jreng/Documents/Poems/dev/ling/PLAN-ling-lsp-0-tracker.md` — master tracker, canon rulings, and updated 2026-11-21 state.
+- `/Users/jreng/Documents/Poems/dev/ling/PLAN-ling-contract-fix.md` — remaining acceptance harness (Step 15) and `scout` profile vs clangd (Step 16).
+- `/Users/jreng/Documents/Poems/dev/ling/DEBT.md` — open debt `DEBT-20261121T005809` (cold-index CPU/RAM load, now verified improved; drain at `/log`).
+
+### Context
+ARCHITECT directed fixing cold-index CPU/RAM load and thermal noise in adherence to `MANIFESTO.md`, `CODING.md`, and `NAMES.md`: ignored generated/vendored TUs, single-pass `clang_indexSourceFileFullArgv` + `CXIndexOpt_SkipParsedBodiesInSession`, background-priority thread pool capped at 4 threads, clean-room single-header `jam::simd` byte scanner in `jam_core`, per-worker `IndexSession`, direct `getParameterLabel` source slicing, priority `.pch` queueing, and zero-copy `juce::MemoryMappedFile` `SymbolDocument`. All changes are built and runtime-verified on `ling` and `END`.
+
+### Completed
+- **Ignored units table:** Added `## ignoredUnits` (7 patterns: `juce_binarydata_`, `Harfbuzz`, `Sheenbidi`, `ara`, `lv2_libs`, `jam_freetype.mm`, `CompilationTime`) in `language/cLang/construction.md:622-632`, wired in `language/cLang/spell.md:382-385, 437-439` and `language/cLang/language.cast:2075-2085, 2461-2510`. Verified 0 ignored TUs indexed on both `ling` and `END`.
+- **Per-worker `IndexSession` + libclang crash fixes:** Added RAII `thread_local IndexSession` (`LibClang` + `CXIndex` + `CXIndexAction`, mutex-serialized `clang_createIndex`) in `language/cLang/language.cast:464-503, 703-722`. Non-PCH disk TUs (`bufferCount == 0 and not usesPrecompiled`) run `clang_indexSourceFileFullArgv` with `CXIndexOpt_SkipParsedBodiesInSession`; PCH-consuming and live-buffer TUs run `parseTranslationUnit2FullArgv` + `indexTranslationUnit` (`language.cast:5715-5848`), eliminating both the `unsaved_files` double-free (`Indexing.cpp:521-533` + `ASTUnit.cpp:244-248`) and the PCH `IndexingConsumer::HandleTopLevelDecl` dangling-stack `SIGSEGV` (`ling-2026-11-21-171351.ips`).
+- **Cached `getFileContents` + direct `getParameterLabel`:** Cached `libclang.getFileContents` per `SourceFile` in `IndexContext::preprocessedFiles` (`language.cast:2868-2931, 3537-3538`), eliminating quadratic `clang::SourceManager::translateFile`. Replaced `libclang.tokenize` in `getParameterLabel` (`language.cast:4878-4946`) with a direct `std::string_view` slice from cached `getFileContents`. Added `shouldExit` check in `onCursor` (`language.cast:5170-5171`) and 1-arg guard in `addParameterHints` (`language.cast:4904-4906`).
+- **Thread pool & PCH scheduling:** Set `LINGModel::defaultThreads { 4 }` (`Source/LINGModel.h:47`), `juce::Thread::Priority::background` (`Source/Processor.cpp:10-13`), `pool->removeAllJobs (true, waitForJob)` in `Processor::~Processor()` (`Source/Processor.cpp:25-29`), prerequisite-producer (`Id::output`) priority in `Processor::addIndexJobs` (`Source/Processor.cpp:1198-1245`), and updated `Source/HELP.md:183`.
+- **Zero-copy mapped `SymbolDocument`:** Replaced `SymbolDocument`'s heap `jam::Document::Element` tree with an 8-byte aligned, pointer-free binary `.symbols` format mapped read-only in place via `juce::MemoryMappedFile` (`Source/SymbolDocument.h:1-259`, `Source/SymbolDocument.cpp:1-640`), updated `Source/BuiltInLanguage.h`, `Source/Index.h/.cpp`, `Source/Processor.h/.cpp`, `Source/Query.h/.cpp`, and `Source/SwapValidator.cpp`.
+- **Single-header `jam::simd` byte scanner:** Implemented `jam::simd::findByte` and `jam::simd::findNonPlainByte` (NEON `vshrn_n_u16` + `vqtbl1q_u8`, SSE2 range masks, scalar fallback) inline in `jam/jam_core/jam_Simd.h:18-351` with canonical `jam_Css.h` namespace enclosure, wired into `jam/jam_core/document/jam_Document.cpp:279-287, 461-521`.
+- **Runtime validation (build `/Users/jreng/.local/bin/ling`, `Nov 21 19:47`):**
+  - `ling` cold index: `161.68 s`, peak CPU `416.7%` (was `500%`), peak RSS `3357.5 MB` (was `8.0 GB`), zero crashes.
+  - `END` cold index: `171.21 s`, peak CPU `422.5%` (was `490%`), peak RSS `3958.3 MB` (was `4.57 GB`), settled idle RSS `1375.8 MB` (was `3.7 GB`), zero crashes.
+  - `compare end-definition`: `10.41 s`, median `0.3325 ms` (p95 `5.2409 ms`), `agree = 171`, `disagree = 10`, `stale = 77`, `lingError = 0` (was `162/19/77`), `jam_FileWatcher.cpp` `14/14` agree, `ENDView.cpp` opened cleanly (`0` `unit index failed`, `0` `daemon connection lost`).
+  - Zero new `ling-*.ips` crash reports.
+- **Plan hygiene:** Deleted 5 completed/superseded plans (`PLAN-ling-runs-from-anywhere.md`, `PLAN-ling-compiler-truth.md`, `PLAN-ling-ast-once.md`, `PLAN-ling-cold-index-load.md`, `PLAN-ling-blessed-index-perf.md`) and updated `PLAN-ling-lsp-0-tracker.md`.
+
+### Remaining
+- **COUNSELOR (`PLAN-ling-contract-fix.md` Step 15):** Trace and fix `juce_Component.cpp:3531:46` (`bounds`), `:4160:13` (`expectEquals`), and `:2364:28` (`getInstance` hover overrun).
+- **COUNSELOR (`PLAN-ling-contract-fix.md` Step 15):** Update remaining stale `:jam` value arrays and 77 stale positions in `test/end-positions.json` and `test/expected/end-*.json` from code reads.
+- **COUNSELOR (`PLAN-ling-contract-fix.md` Step 15):** Run remaining END suites (`end-methods`, `end-references`, `end-hover`, `end-inlay`, warm `end-definition` repeat, T1–T3/T6/T8/T13/T28) and all 5 KANJUT suites via `/private/tmp/claude-501/-Users-jreng-Documents-Poems-dev-ling/27ab850f-6578-4c2a-961e-c63fd0b6cfa1/scratchpad/run_test_long.sh`.
+- **COUNSELOR (Diagnostic cleanup):** Remove temporary `debug::Log` / `logScope` lines (`Source/Main.cpp:419, 512`, `Source/Connection.cpp:51`, and `Source/Processor.cpp` diagnostic log writes).
+- **COUNSELOR (`PLAN-ling-contract-fix.md` Step 16):** Run `scout` profile against clangd (T9, T10, T21) and optional `scout` A/B benchmark of `jam::simd` vs scalar.
+- **COUNSELOR (On ARCHITECT trigger):** Run `/audit`, Pathfinder doxygen pass, and `/log` (drain `DEBT-20261121T005809`).
+
+### Key Decisions
+- *"you dont build. i will build"*
+- *"always delete on disk, let the binary build and replace"* (`/Users/jreng/.config/ling/language/cLang`)
+- *"hold audit and doxygen. until i explicitly said so."*
+- *"jam::Format for string manipulation. dont use juce::String. only use juce::String to communicate with juce native API"*
+- *"reminder: we never write byte-to-byte translation. we always CLEAN ROOM rewrite from scratch BLESSED compliance into our domain"*
+- *"make it 4 thread max"*
+- *"make it single header. also the canon pattern for namespace is with comment separator with its enclosure for example jam_Css"*
+
+### Files Modified
+- `ling/language/cLang/construction.md` — added `## ignoredUnits` and `indexSourceFileFullArgv`.
+- `ling/language/cLang/spell.md` — wired `ignoredUnits` into `getIgnoredUnits` / `isIgnoredUnit`.
+- `ling/language/cLang/language.cast` — ignored-units filter, `IndexSession`, PCH/unsaved routing, cached `getFileContents`, direct `getParameterLabel` slice, `onCursor` exit check, `addParameterHints` 1-arg guard, `reportOutline` cursor TU fallback.
+- `ling/Source/LINGModel.h`, `ling/Source/LINGModel.cpp`, `ling/Source/HELP.md` — `defaultThreads = 4`, background priority docs.
+- `ling/Source/SymbolDocument.h`, `ling/Source/SymbolDocument.cpp` — zero-copy `juce::MemoryMappedFile` binary `.symbols` format and `Builder`.
+- `ling/Source/BuiltInLanguage.h`, `ling/Source/Index.h`, `ling/Source/Index.cpp`, `ling/Source/Processor.h`, `ling/Source/Processor.cpp`, `ling/Source/Query.h`, `ling/Source/Query.cpp`, `ling/Source/SwapValidator.cpp` — zero-copy `SymbolDocument` integration, `~Processor` job wait, priority `.pch` queue.
+- `ling/PLAN-ling-lsp-0-tracker.md` — updated 2026-11-21 state and verified numbers.
+- `ling/test/end-positions.json`, `ling/test/end-references-positions.json`, `ling/test/end-symbols.json`, `ling/test/expected/end-definition.json` — retargeted deleted `jam_Listener.cpp` to `jam_FileWatcher.cpp`.
+- `jam/jam_core/jam_Simd.h`, `jam/jam_core/document/jam_Document.cpp` — single-header `jam::simd` byte scanner (`findByte`, `findNonPlainByte`) wired into `jam::Document`.
+
+### Open Questions
+None.
+
+### Next Steps
+- Resume `PLAN-ling-contract-fix.md` Step 15 (fix `bounds`/`expectEquals`/`getInstance` hover, refresh stale END expectations, run remaining END and KANJUT suites, remove temporary `debug::Log` lines), then Step 16 (`scout` vs clangd). Wait for ARCHITECT's explicit trigger before running `/audit`, doxygen pass, or `/log`.
