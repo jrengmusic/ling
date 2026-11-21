@@ -38,6 +38,8 @@ void Client::start()
 
 bool Client::connectToDaemon()
 {
+    static constexpr int connectTimeoutMs { 200 };
+
     const auto port { Server::getPortFile (manifestFile, jam::Strings::getView (toolchainArgument)).loadFileAsString().getIntValue() };
     const auto isConnected { connectToSocket (juce::IPAddress::local().toString(), port, connectTimeoutMs) };
 

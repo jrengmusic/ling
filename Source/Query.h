@@ -31,102 +31,135 @@ public:
      */
     void findReferences (juce::ValueTree& request, const Index& index) const;
 
+    /**
+     * @brief Writes DocumentHighlight entries for all occurrences of the symbol at the request position within its file.
+     *
+     * @param request  The request row. Its arguments give the file and the position.
+     * @param index    The index that holds the documents and the symbol maps.
+     */
     void documentHighlight (juce::ValueTree& request, const Index& index) const;
 
+    /**
+     * @brief Writes a WorkspaceEdit replacing every occurrence of the symbol at the request position with Id::newName.
+     *
+     * Writes JSON null when the symbol has neither declarations nor references.
+     *
+     * @param request  The request row. Its arguments give the file and position, and Id::newName gives the replacement text.
+     * @param index    The index that holds the documents and the symbol maps.
+     */
     void rename (juce::ValueTree& request, const Index& index) const;
 
+    /**
+     * @brief Writes definition (or declaration) name locations for the type symbols of the element at the request position.
+     *
+     * @param request  The request row. Its arguments give the file and the position.
+     * @param index    The index that holds the documents and the symbol maps.
+     */
     void typeDefinition (juce::ValueTree& request, const Index& index) const;
 
+    /**
+     * @brief Writes quick-fix CodeAction edits for compiler fix-its overlapping the request range.
+     *
+     * @param request  The request row. Its arguments give the file and start/end range coordinates.
+     * @param index    The index that holds the documents and the symbol maps.
+     */
     void codeAction (juce::ValueTree& request, const Index& index) const;
 
     /**
-     * @brief Writes the declarations at the position of a request, each with its scope.
+     * @brief Writes an LSP Hover object for the first symbol record at the request position carrying a hover entry.
      *
-     * The scope is the path of the declaration without its last segment. Each
-     * JSON element holds the scope as an array of names.
+     * Combines the SymbolDocument hover string with the definition span text read
+     * from the definition document when present, paired with the name-token range.
+     * Writes JSON null when no hover record matches.
      *
      * @param request  The request row. Its arguments give the file and the position.
-     * @param index  The index that holds the documents and the symbol maps.
+     * @param index    The index that holds the documents and the symbol maps.
      */
-    void hover (juce::ValueTree& request, const Index& index, int pathIndex, const jam::Document::Element* element, int tokenIndex, const SymbolDocument::SymbolRecord* record) const;
-
-    template <typename Function>
-    bool applyToHover (juce::ValueTree& request, const Index& index, const Function& function) const
-    {
-        const auto& encodingText { request[Id::positionEncoding].toString() };
-        const auto encoding { jam::Strings::getView (encodingText) };
-        const SymbolDocument::SymbolRecord* hoverRecord { nullptr };
-
-        applyToPosition (request, [this, &index, &function, &hoverRecord] (int pathIndex, const jam::Document& document, const jam::Document::Element& element, int tokenIndex)
-        {
-            applyToSymbols (pathIndex, document, element, tokenIndex, [&hoverRecord] (const SymbolDocument::SymbolRecord& record)
-            {
-                if (hoverRecord == nullptr and record.hover != jam::LanguageCallbacks::noHover)
-                    hoverRecord = &record;
-            }, index);
-
-            if (hoverRecord != nullptr)
-                function (pathIndex, document, element, tokenIndex, *hoverRecord);
-        }, index, encoding);
-
-        return hoverRecord != nullptr;
-    }
+    void hover (juce::ValueTree& request, const Index& index) const;
 
     /**
-     * @brief Writes the symbols of the file in a request, as a tree.
+     * @brief Writes the symbols of the file in a request, as a hierarchical DocumentSymbol tree.
      *
-     * The request must hold one argument, the file. Each symbol holds its named
-     * declarations as children. Unnamed declarations give their children to their
-     * parent.
+     * Builds the tree from SymbolDocument::OutlineEntry records using each entry's
+     * parent index.
      *
      * @param request  The request row. Its single argument is the file.
-     * @param index  The index that holds the documents and the symbol maps.
+     * @param index    The index that holds the documents and the symbol maps.
      */
     void documentSymbol (juce::ValueTree& request, const Index& index) const;
 
     /**
-     * @brief Writes the counterpart files of the file in a request, each as an object that holds only its path.
-     *
-     * A request that holds other than one argument writes an empty array, and sets
-     * the overlay message.
+     * @brief Writes the URI string of the counterpart file for the file in a request, or JSON null when none exists.
      *
      * @param request  The request row. Its single argument is the file.
-     * @param index  The index that holds the documents and the symbol maps.
+     * @param index    The index that holds the documents and the symbol maps.
      */
     void switchSourceHeader (juce::ValueTree& request, const Index& index) const;
 
     /**
-     * @brief Writes each call reference of the file in a request, with the parameter texts of its first function declaration.
-     *
-     * The entries are in result order: path, then position. A call with no function
-     * declaration gets an empty parameters array. A request that holds other than one
-     * argument writes an empty array, and sets the overlay message.
+     * @brief Writes all InlayHint entries recorded in SymbolDocument for the file in a request.
      *
      * @param request  The request row. Its single argument is the file.
-     * @param index  The index that holds the documents and the symbol maps.
+     * @param index    The index that holds the documents and the symbol maps.
      */
     void inlayHint (juce::ValueTree& request, const Index& index) const;
 
+    /**
+     * @brief Writes delta-encoded LSP SemanticTokens for the full document in a request, or JSON null when not stored.
+     *
+     * @param request  The request row. Its single argument is the file.
+     * @param index    The index that holds the documents and the symbol maps.
+     */
     void semanticTokens (juce::ValueTree& request, const Index& index) const;
 
+    /**
+     * @brief Writes delta-encoded LSP SemanticTokens covering the byte range of a request, or JSON null when not stored.
+     *
+     * @param request  The request row. Its arguments give the file and start/end range coordinates.
+     * @param index    The index that holds the documents and the symbol maps.
+     */
     void semanticTokensRange (juce::ValueTree& request, const Index& index) const;
 
+    /**
+     * @brief Writes an LSP SelectionRange parent chain from the token or innermost element at the request position.
+     *
+     * @param request  The request row. Its arguments give the file, line, and column.
+     * @param index    The index that holds the documents and the symbol maps.
+     */
     void selectionRange (juce::ValueTree& request, const Index& index) const;
 
+    /**
+     * @brief Writes the Range of the enclosing named text object (function, class, loop, or conditional) at the request position.
+     *
+     * Selects either the full element span or its inner body range according to Id::scope,
+     * writing JSON null when no matching element encloses the position.
+     *
+     * @param request  The request row. Its arguments give the position, and Id::type and Id::scope select the target.
+     * @param index    The index that holds the documents and the symbol maps.
+     */
     void textObject (juce::ValueTree& request, const Index& index) const;
 
+    /**
+     * @brief Writes an array of LSP Diagnostic objects recorded in SymbolDocument for the file in a request.
+     *
+     * @param request  The request row. Its single argument is the file.
+     * @param index    The index that holds the documents and the symbol maps.
+     */
     void diagnostics (juce::ValueTree& request, const Index& index) const;
 
+    /**
+     * @brief Writes an LSP textDocument/publishDiagnostics JSON-RPC notification for the file in a request.
+     *
+     * @param request  The request row. Its single argument is the file.
+     * @param index    The index that holds the documents and the symbol maps.
+     */
     void publishDiagnostics (juce::ValueTree& request, const Index& index) const;
 
     /**
      * @brief Writes the declarations whose last name matches the fuzzy query of a request.
      *
-     * The request must hold one argument, the query. Other argument counts set the
-     * overlay message.
-     *
      * @param request  The request row. Its single argument is the query.
-     * @param index  The index that holds the documents and the symbol maps.
+     * @param index    The index that holds the documents and the symbol maps.
      */
     void workspaceSymbol (juce::ValueTree& request, const Index& index) const;
 
@@ -134,12 +167,11 @@ public:
      * @brief Writes the completions of the name that ends before the position of a request, as a JSON array.
      *
      * The position is the cursor after the typed name, so the lookup reads the
-     * byte before it. No stored document, no element, or an element of another
-     * type gives an empty array. The lookup reads the stored documents and starts
-     * no parse.
+     * byte before it. No stored document, no element, or no matching completion entry
+     * gives an empty array. The lookup reads the stored documents and starts no parse.
      *
      * @param request  The request row. Its arguments give the file, the line, and the column.
-     * @param index  The index that holds the documents and the symbol maps.
+     * @param index    The index that holds the documents and the symbol maps.
      */
     void completion (juce::ValueTree& request, const Index& index) const;
 
@@ -202,6 +234,12 @@ public:
      */
     static juce::File getFile (const juce::ValueTree& request);
 
+    /**
+     * @brief Appends the `"jsonrpc":"2.0"` member pair to a JSON object buffer.
+     *
+     * @tparam Buffer  String or MemoryBlock buffer accepted by jam::JsonWriter.
+     * @param json     Target JSON object members buffer.
+     */
     template <typename Buffer>
     static void appendJsonRpc (Buffer& json)
     {
@@ -209,37 +247,70 @@ public:
         jam::JsonWriter::appendString (json, lsp::Message::jsonrpc);
     }
 
+    /**
+     * @brief Writes a JSON-RPC error response with @p code and the command name onto @p request Id::result.
+     *
+     * @param request  The request row receiving Id::result.
+     * @param code     JSON-RPC error code from lsp::ErrorCodes.
+     */
     static void setError (juce::ValueTree& request, int code);
 
+    /**
+     * @brief Validates that @p request has a known command shape and matching positive position/range arguments.
+     *
+     * @param request  The request row to validate before dispatch.
+     * @return @c true when the command and its argument count and bounds are valid.
+     */
     static bool isValidRequest (const juce::ValueTree& request);
 
+    /**
+     * @brief Returns the parameter shape identifier (position, range, file, or query) for @p operation.
+     *
+     * @param operation  Operation identifier looked up in map::Parameters.
+     * @return Shape identifier, or null identifier when @p operation is unknown.
+     */
     static juce::Identifier getArgumentShape (const juce::Identifier& operation);
 
 private:
     /** @brief The index of the file argument of a request. The line and the column follow it. */
     static constexpr int fileIndex { 0 };
-    static constexpr int lineIndex { 1 };
-    static constexpr int columnIndex { 2 };
-    static constexpr int endLineIndex { 3 };
-    static constexpr int endColumnIndex { 4 };
+    static constexpr int lineIndex { 1 };///< Index of the 1-based start line argument in position/range requests.
+    static constexpr int columnIndex { 2 };///< Index of the 1-based start column argument in position/range requests.
+    static constexpr int endLineIndex { 3 };///< Index of the 1-based end line argument in range requests.
+    static constexpr int endColumnIndex { 4 };///< Index of the 1-based end column argument in range requests.
 
+    /**
+     * @brief Returns the index of the last token in @p element's Id::nameTokens array.
+     *
+     * @param element  Document element carrying Id::nameTokens.
+     * @return Last name-token index.
+     */
     static int getLastTokenIndex (const jam::Document::Element& element);
 
     /** @brief Whether the fuzzy patterns that the lookups parse normalize diacritics. */
     static constexpr bool shouldNormalize { true };
 
+    /**
+     * @brief Resolves the first indexed counterpart file for @p file using its language's counterpart extensions.
+     *
+     * Checks the same directory first, then falls back to stem matches across @p index.
+     *
+     * @param file   Source or header file whose counterpart is sought.
+     * @param index  The index that holds the language map, paths, and stem rows.
+     * @return Matching counterpart file, or an empty juce::File when none is indexed.
+     */
     static juce::File getCounterpart (const juce::File& file, const Index& index);
 
     /**
-     * @brief Calls @p function for each declaration that has the symbol of an element.
+     * @brief Calls @p function for each SymbolRecord covering @p tokenIndex of @p element, preferring exact name matches.
      *
-     * The lookup reads the declarations that share the symbol of the element. An
-     * element without Id::symbol calls nothing.
-     *
-     * @tparam Function  A callable type that takes (int, const jam::LanguageDocument&, const jam::Document::Element&).
-     * @param element    The element whose declarations are visited.
-     * @param function   The callable. It receives the path index, the document, and each declaration.
-     * @param index  The index that holds the documents and the symbol maps.
+     * @tparam Function   Callable taking (const SymbolDocument::SymbolRecord&).
+     * @param pathIndex   Path index of @p document in @p index.
+     * @param document    Parsed document containing @p element.
+     * @param element     Element whose token symbol records are visited.
+     * @param tokenIndex  Index inside @p element's Id::nameTokens.
+     * @param function    Callable invoked for each matching symbol record.
+     * @param index       The index that holds the documents and the symbol maps.
      */
     template <typename Function>
     void applyToSymbols (int pathIndex, const jam::Document& document, const jam::Document::Element& element, int tokenIndex, const Function& function, const Index& index) const
@@ -266,6 +337,14 @@ private:
         });
     }
 
+    /**
+     * @brief Calls @p function for each declaration occurrence of @p symbol in index.declarations.
+     *
+     * @tparam Function  Callable taking (int pathIndex, const jam::Document&, const jam::Document::Element&, int tokenIndex).
+     * @param symbol     64-bit symbol identifier.
+     * @param function   Callable invoked for each declaration occurrence.
+     * @param index      The index that holds the documents and the symbol maps.
+     */
     template <typename Function>
     void applyToSymbolDeclarations (juce::int64 symbol, const Function& function, const Index& index) const
     {
@@ -280,6 +359,17 @@ private:
         }
     }
 
+    /**
+     * @brief Resolves symbol records at (@p element, @p tokenIndex) and visits each matching declaration.
+     *
+     * @tparam Function   Callable taking (int pathIndex, const jam::Document&, const jam::Document::Element&, int tokenIndex).
+     * @param pathIndex   Path index of @p document in @p index.
+     * @param document    Parsed document containing @p element.
+     * @param element     Element whose declarations are visited.
+     * @param tokenIndex  Index inside @p element's Id::nameTokens.
+     * @param function    Callable invoked for each declaration occurrence.
+     * @param index       The index that holds the documents and the symbol maps.
+     */
     template <typename Function>
     void applyToDeclarations (int pathIndex, const jam::Document& document, const jam::Document::Element& element, int tokenIndex, const Function& function, const Index& index) const
     {
@@ -289,6 +379,20 @@ private:
         }, index);
     }
 
+    /**
+     * @brief Calls @p function for each candidate completion scope symbol visible at (@p element, @p tokenIndex).
+     *
+     * Inspects a preceding qualifier token, the receiver before a member access, or
+     * enclosing declaration ancestors plus the global root SymbolDocument::noSymbol.
+     *
+     * @tparam Function   Callable taking (juce::int64 scopeSymbol).
+     * @param pathIndex   Path index of @p document in @p index.
+     * @param document    Parsed document containing @p element.
+     * @param element     Element at the completion position.
+     * @param tokenIndex  Index inside @p element's Id::nameTokens.
+     * @param function    Callable invoked with each scope symbol identifier.
+     * @param index       The index that holds the documents and the symbol maps.
+     */
     template <typename Function>
     void applyToScopeSymbols (int pathIndex, const jam::Document& document, const jam::Document::Element& element, int tokenIndex, const Function& function, const Index& index) const
     {
@@ -328,6 +432,14 @@ private:
         }
     }
 
+    /**
+     * @brief Calls @p function for all declaration and reference occurrences of @p symbol across the index.
+     *
+     * @tparam Function  Callable taking (int pathIndex, const jam::Document&, const jam::Document::Element&, int tokenIndex).
+     * @param symbol     64-bit symbol identifier.
+     * @param function   Callable invoked for each occurrence.
+     * @param index      The index that holds the documents and the symbol maps.
+     */
     template <typename Function>
     void applyToSymbolOccurrences (juce::int64 symbol, const Function& function, const Index& index) const
     {
@@ -335,6 +447,15 @@ private:
         applyToReferences (symbol, function, index);
     }
 
+    /**
+     * @brief Calls @p function for all declaration and reference occurrences of @p symbol within @p pathIndex.
+     *
+     * @tparam Function  Callable taking (int pathIndex, const jam::Document&, const jam::Document::Element&, int tokenIndex).
+     * @param symbol     64-bit symbol identifier.
+     * @param pathIndex  Path index restricting which file's occurrences are visited.
+     * @param function   Callable invoked for each matching occurrence.
+     * @param index      The index that holds the documents and the symbol maps.
+     */
     template <typename Function>
     void applyToSymbolOccurrences (juce::int64 symbol, int pathIndex, const Function& function, const Index& index) const
     {
@@ -356,15 +477,12 @@ private:
     }
 
     /**
-     * @brief Calls @p function for each reference that has the symbol of a declaration.
+     * @brief Calls @p function for each reference occurrence of @p symbol in index.references.
      *
-     * The lookup reads the references that share the symbol of the declaration. A
-     * declaration without Id::symbol calls nothing.
-     *
-     * @tparam Function   A callable type that takes (int, const jam::LanguageDocument&, const jam::Document::Element&).
-     * @param declaration  The declaration whose references are visited.
-     * @param function     The callable. It receives the path index, the document, and each reference.
-     * @param index  The index that holds the documents and the symbol maps.
+     * @tparam Function  Callable taking (int pathIndex, const jam::Document&, const jam::Document::Element&, int tokenIndex).
+     * @param symbol     64-bit symbol identifier.
+     * @param function   Callable invoked for each reference occurrence.
+     * @param index      The index that holds the documents and the symbol maps.
      */
     template <typename Function>
     void applyToReferences (juce::int64 symbol, const Function& function, const Index& index) const
@@ -380,6 +498,14 @@ private:
         }
     }
 
+    /**
+     * @brief Resolves @p file to its SymbolDocument, FileEntry, and stored jam::Document and invokes @p function.
+     *
+     * @tparam Function  Callable taking (const SymbolDocument&, const SymbolDocument::FileEntry&, const jam::Document&).
+     * @param file       Canonical file path to look up in @p index.
+     * @param function   Callable invoked when both symbol file and parsed document exist.
+     * @param index      The index that holds the documents and symbol bindings.
+     */
     template <typename Function>
     static void applyToSymbolFile (const juce::File& file, const Function& function, const Index& index)
     {
@@ -400,18 +526,14 @@ private:
     }
 
     /**
-     * @brief Calls @p function for the element at the position of a request.
+     * @brief Calls @p function for the element covering the 1-based position of @p request.
      *
-     * The arguments hold the file, the line, and the column, in that order. The
-     * function runs only when the element covers the position in a stored
-     * document. When the arguments are not valid, the overlay message reports
-     * the failure.
-     *
-     * @tparam Function  A callable type that takes (int, const jam::LanguageDocument&, const jam::Document::Element&).
-     * @param request    The request row. Its arguments give the position.
-     * @param function      The callable. It receives the path index, the document, and the element.
-     * @param columnOffset  The count of columns that is added to the column before the lookup. completion passes -1, so the position is the last byte of the typed name.
-     * @param index  The index that holds the documents and the symbol maps.
+     * @tparam Function      Callable taking (int pathIndex, const jam::Document&, const jam::Document::Element&, int tokenIndex).
+     * @param request        The request row whose arguments give file, line, and column.
+     * @param function       Callable invoked when a stored document and matching element exist.
+     * @param index          The index that holds the documents and the symbol maps.
+     * @param encoding       Negotiated LSP position encoding (UTF-8 or UTF-16).
+     * @param columnOffset   Byte-column adjustment added before element lookup (completion passes -1).
      */
     template <typename Function>
     void applyToPosition (juce::ValueTree& request, const Function& function, const Index& index, std::string_view encoding, int columnOffset = 0) const
@@ -435,14 +557,11 @@ private:
     }
 
     /**
-     * @brief Calls @p function with the file that a request names, when the request holds one argument.
+     * @brief Resolves the file named by @p request and passes it to @p function.
      *
-     * Any other argument count sets the overlay message, and @p function is not called.
-     *
-     * @tparam Function  A callable type that takes (const juce::File&).
-     * @param request    The request row. Its single argument is the file.
-     * @param function   The callable. It receives the file.
-     * @param index  The index that holds the documents and the symbol maps.
+     * @tparam Function  Callable taking (const juce::File&).
+     * @param request    The request row whose directory and file argument identify the file.
+     * @param function   Callable invoked with the resolved file.
      */
     template <typename Function>
     void applyToFile (const juce::ValueTree& request, const Function& function) const
@@ -450,6 +569,14 @@ private:
         function (getFile (request));
     }
 
+    /**
+     * @brief Writes a document-scoped JSON-RPC result onto @p request, or JSON null when the document is absent.
+     *
+     * @tparam Function  Callable taking (juce::MemoryBlock& message, int pathIndex, const jam::Document&, std::string_view encoding).
+     * @param request    The request row receiving Id::result.
+     * @param index      The index that holds the documents and path table.
+     * @param function   Callable writing the JSON result value when the document exists.
+     */
     template <typename Function>
     void applyToDocument (juce::ValueTree& request, const Index& index, const Function& function) const
     {
@@ -473,16 +600,40 @@ private:
     }
 
     /**
-     * @brief Calls @p function for each function declaration at the position of a request.
+     * @brief Wraps @p function output in a JSON array and writes the JSON-RPC result onto @p request.
      *
-     * A call hierarchy starts at a callable declaration. The filter keeps each
-     * declaration that has the function role of its language, and drops every other
-     * declaration at the position.
+     * Reads Id::positionEncoding from @p request and passes it along with the array
+     * entries buffer to @p function, storing the serialized response via setResult().
      *
-     * @tparam Function  A callable type that takes (int, const jam::LanguageDocument&, const jam::Document::Element&).
-     * @param request    The request row. Its arguments give the position.
-     * @param function   The callable. It receives the path index, the document, and each function declaration.
-     * @param index  The index that holds the documents and the symbol maps.
+     * @tparam Function  Callable taking (juce::MemoryBlock& entries, std::string_view encoding).
+     * @param request    The request row receiving Id::result.
+     * @param function   Callable appending comma-separated JSON array elements into entries.
+     */
+    template <typename Function>
+    void applyToArrayResult (juce::ValueTree& request, const Function& function) const
+    {
+        const auto& encodingText { request[Id::positionEncoding].toString() };
+        const auto encoding { jam::Strings::getView (encodingText) };
+
+        setResult (request, [encoding, &function] (juce::MemoryBlock& message)
+        {
+            jam::JsonWriter::appendArray (message, [encoding, &function] (juce::MemoryBlock& entries)
+            {
+                function (entries, encoding);
+            });
+        });
+    }
+
+    /**
+     * @brief Calls @p function for each function declaration at the position of @p request.
+     *
+     * Filters declarations at the position to those carrying jam::LanguageRole::function.
+     *
+     * @tparam Function  Callable taking (int pathIndex, const jam::Document&, const jam::Document::Element&, int tokenIndex).
+     * @param request    The request row whose arguments give the position.
+     * @param function   Callable invoked for each function declaration.
+     * @param index      The index that holds the documents and the symbol maps.
+     * @param encoding   Negotiated LSP position encoding (UTF-8 or UTF-16).
      */
     template <typename Function>
     void applyToFunctions (juce::ValueTree& request, const Function& function, const Index& index, std::string_view encoding) const
@@ -498,18 +649,16 @@ private:
     }
 
     /**
-     * @brief Calls @p function for each implementation of a declaration.
+     * @brief Calls @p function for each derived-class or overridden-member implementation of @p declaration.
      *
-     * A declaration with the class role has its derived classes as implementations.
-     * A declaration whose parent has the class role, which is a member of a class,
-     * has the member of the same name in each derived class. Any other declaration
-     * has no implementation.
+     * A class declaration visits all derived classes; a member of a class visits
+     * matching-name declarations inside each derived class.
      *
-     * @tparam Function    A callable type that takes (int, const jam::LanguageDocument&, const jam::Document::Element&).
-     * @param pathIndex    The index of the document that holds the declaration.
+     * @tparam Function    Callable taking (int pathIndex, const jam::Document&, const jam::Document::Element&, int tokenIndex).
+     * @param pathIndex    Path index of the document containing @p declaration.
      * @param declaration  The declaration whose implementations are visited.
-     * @param function     The callable. It receives the path index, the document, and each implementation.
-     * @param index  The index that holds the documents and the symbol maps.
+     * @param function     Callable invoked for each implementation declaration.
+     * @param index        The index that holds the documents and the symbol maps.
      */
     template <typename Function>
     void applyToImplementations (int pathIndex, const jam::Document::Element& declaration, const Function& function, const Index& index) const
@@ -542,6 +691,14 @@ private:
         }
     }
 
+    /**
+     * @brief Traverses the inheritance hierarchy rooted at class @p symbol, invoking @p function for each derived class.
+     *
+     * @tparam Function  Callable taking (int pathIndex, const jam::Document&, const jam::Document::Element&, int tokenIndex).
+     * @param symbol     Base class symbol identifier.
+     * @param function   Callable invoked once per unique derived class.
+     * @param index      The index that holds the documents and the symbol maps.
+     */
     template <typename Function>
     void applyToDerived (juce::int64 symbol, const Function& function, const Index& index) const
     {
@@ -551,6 +708,15 @@ private:
         applyToDerivedFrom (symbol, function, knownSymbols, index);
     }
 
+    /**
+     * @brief Recursively visits classes referencing @p symbol with jam::LanguageRole::base, guarding cycles via @p knownSymbols.
+     *
+     * @tparam Function     Callable taking (int pathIndex, const jam::Document&, const jam::Document::Element&, int tokenIndex).
+     * @param symbol        Current base class symbol identifier.
+     * @param function      Callable invoked for each newly discovered derived class.
+     * @param knownSymbols  Set of already visited class symbol identifiers.
+     * @param index         The index that holds the documents and the symbol maps.
+     */
     template <typename Function>
     void applyToDerivedFrom (juce::int64 symbol, const Function& function, jam::HashSet<juce::int64>& knownSymbols, const Index& index) const
     {
@@ -578,87 +744,366 @@ private:
     }
 
     /**
-     * @brief Tells whether one result comes before another in the result order.
+     * @brief Tells whether one element token comes before another in deterministic result order.
      *
-     * The path text gives the first order. For two elements of one path, the byte
-     * offset of the last name token gives the order.
+     * Orders by path string first, then by the byte offset of the specified name token.
      *
-     * @param pathIndex       The path index of the first element.
-     * @param element         The first element.
-     * @param otherPathIndex  The path index of the second element.
-     * @param otherElement    The second element.
+     * @param pathIndex        The path index of @p element.
+     * @param element          The first element.
+     * @param tokenIndex       Name-token index in @p element.
+     * @param otherPathIndex   The path index of @p otherElement.
+     * @param otherElement     The second element.
+     * @param otherTokenIndex  Name-token index in @p otherElement.
+     * @param index            The index that holds the documents and path table.
      * @return @c true when the first element comes before the second.
-     * @param index  The index that holds the documents and the symbol maps.
      */
     bool isBefore (int pathIndex, const jam::Document::Element& element, int tokenIndex, int otherPathIndex, const jam::Document::Element& otherElement, int otherTokenIndex, const Index& index) const;
 
     /** @brief The scored declarations of one lookup: the score, the index of the path, and the element. */
     using Matches = jam::Array<std::tuple<int, int, const jam::Document::Element*>>;
 
+    /** @brief A single indexed symbol occurrence pairing a path index with its SymbolRecord. */
     using Occurrence = std::pair<int, const SymbolDocument::SymbolRecord*>;
 
+    /** @brief Ordered list of indexed symbol occurrences. */
     using Occurrences = jam::Array<Occurrence>;
 
+    /**
+     * @brief Returns the occurrence slice stored under @p symbol in @p map, or an empty slice when absent.
+     *
+     * @param map     Declarations or references occurrence map on Index.
+     * @param symbol  64-bit symbol identifier.
+     * @return Const reference to the matching Occurrences array or a shared empty array.
+     */
     static const Occurrences& getOccurrences (const jam::HashMap<juce::int64, Occurrences>& map, juce::int64 symbol);
 
+    /**
+     * @brief Extracts the path index from an Occurrence pair.
+     *
+     * @param occurrence  Occurrence pair (pathIndex, SymbolRecord*).
+     * @return Path index in Index::paths.
+     */
     static int getOccurrencePath (const Occurrence& occurrence);
 
+    /**
+     * @brief Orders two occurrences by ascending path byte order, then by (line, column).
+     *
+     * @param index  The index providing path comparison and ordering.
+     * @param left   Left occurrence pair.
+     * @param right  Right occurrence pair.
+     * @return @c true when @p left precedes @p right.
+     */
     static bool isOccurrenceBefore (const Index& index, const Occurrence& left, const Occurrence& right);
 
+    /**
+     * @brief Appends a TextEdit JSON object replacing @p occurrence's name token with @p newName.
+     *
+     * @param edits       JSON array buffer receiving the edit object.
+     * @param index       The index holding stored documents.
+     * @param occurrence  Target occurrence to rename.
+     * @param newName     Replacement identifier text.
+     * @param encoding    Negotiated LSP position encoding.
+     */
     static void appendOccurrenceEdit (juce::MemoryBlock& edits, const Index& index, const Occurrence& occurrence, std::string_view newName, std::string_view encoding);
 
+    /**
+     * @brief Resolves a call-site @p occurrence to its AST call element and name-token index.
+     *
+     * Requires the element to have jam::LanguageRole::call and an enclosing parent below root.
+     *
+     * @param index       The index holding documents and language roles.
+     * @param occurrence  Reference occurrence to inspect.
+     * @return Matching (callElement, tokenIndex), or `{ nullptr, -1 }` when not a valid call site.
+     */
     static std::pair<const jam::Document::Element*, int> getCallReference (const Index& index, const Occurrence& occurrence);
 
+    /**
+     * @brief Returns the enclosing caller element for a call-site @p occurrence, or nullptr if invalid.
+     *
+     * @param index       The index holding documents and language roles.
+     * @param occurrence  Reference occurrence to inspect.
+     * @return Parent element enclosing the call, or nullptr.
+     */
     static const jam::Document::Element* getCaller (const Index& index, const Occurrence& occurrence);
 
+    /**
+     * @brief Groups incoming call references to @p symbol by contiguous caller runs and appends CallHierarchyIncomingCall entries.
+     *
+     * @param entries   JSON array buffer receiving CallHierarchyIncomingCall objects.
+     * @param symbol    Target function symbol identifier.
+     * @param index     The index holding references and documents.
+     * @param encoding  Negotiated LSP position encoding.
+     */
     static void appendIncomingRuns (juce::MemoryBlock& entries, juce::int64 symbol, const Index& index, std::string_view encoding);
 
+    /**
+     * @brief Appends one CallHierarchyIncomingCall object for a contiguous run of calls inside @p caller.
+     *
+     * @param entries     JSON array buffer receiving the object.
+     * @param index       The index holding paths and documents.
+     * @param references  Reference occurrences for the target symbol.
+     * @param runStart    Starting index of the run in @p references.
+     * @param caller      Enclosing caller element shared by the run.
+     * @param encoding    Negotiated LSP position encoding.
+     * @return Index in @p references immediately after the run.
+     */
     static int appendIncomingRun (juce::MemoryBlock& entries, const Index& index, const Occurrences& references, int runStart, const jam::Document::Element& caller, std::string_view encoding);
 
+    /**
+     * @brief Appends LSP Range objects for consecutive call references belonging to @p caller starting at @p runStart.
+     *
+     * @param ranges      JSON array buffer receiving Range objects.
+     * @param index       The index holding documents and language roles.
+     * @param references  Reference occurrences for the target symbol.
+     * @param runStart    Starting index of the run in @p references.
+     * @param caller      Enclosing caller element bounding the run.
+     * @param document    Parsed document owning @p caller.
+     * @param encoding    Negotiated LSP position encoding.
+     * @return First index after @p caller's run, or @p references.size().
+     */
     static int appendCallRanges (juce::MemoryBlock& ranges, const Index& index, const Occurrences& references, int runStart, const jam::Document::Element& caller, const jam::Document& document, std::string_view encoding);
 
+    /**
+     * @brief Appends sibling DocumentSymbol entries whose outline parent equals @p parentIndex.
+     *
+     * @param json          JSON array buffer receiving DocumentSymbol objects.
+     * @param document      Parsed document matching @p outlines.
+     * @param outlines      Contiguous outline table for the file.
+     * @param parentIndex   Outline slot index of the enclosing parent, or SymbolDocument::noParent.
+     * @param outlineIndex  First candidate slot index in @p outlines.
+     * @param encoding      Negotiated LSP position encoding.
+     * @return Next outline slot index after all siblings and their subtrees.
+     */
     static int appendOutlines (juce::MemoryBlock& json, const jam::Document& document, SymbolDocument::Span<SymbolDocument::OutlineEntry> outlines, int parentIndex, int outlineIndex, std::string_view encoding);
 
+    /**
+     * @brief Appends the DocumentSymbol fields and recursive children array for @p outlineIndex.
+     *
+     * @param json          JSON object members buffer.
+     * @param document      Parsed document matching @p outlines.
+     * @param outlines      Contiguous outline table for the file.
+     * @param outlineIndex  Slot index of the outline entry to emit.
+     * @param encoding      Negotiated LSP position encoding.
+     * @return Next outline slot index after this entry's subtree.
+     */
     static int appendOutline (juce::MemoryBlock& json, const jam::Document& document, SymbolDocument::Span<SymbolDocument::OutlineEntry> outlines, int outlineIndex, std::string_view encoding);
 
+    /**
+     * @brief Reads the request range arguments and appends matching fix-it CodeAction objects for @p file.
+     *
+     * @param json       JSON array buffer receiving CodeAction objects.
+     * @param file       Target source file.
+     * @param index      The index holding symbol files and documents.
+     * @param arguments  Request arguments holding 1-based start and end line/column coordinates.
+     * @param encoding   Negotiated LSP position encoding.
+     */
     static void appendFileCodeActions (juce::MemoryBlock& json, const juce::File& file, const Index& index, const juce::Array<juce::var>& arguments, std::string_view encoding);
 
+    /**
+     * @brief Appends quick-fix CodeAction objects for fix-its overlapping the byte span [@p rangeStart, @p rangeEnd].
+     *
+     * @param json            JSON array buffer receiving CodeAction objects.
+     * @param file            Source file owning the fix-its.
+     * @param document        Parsed document matching @p symbolFile.
+     * @param symbolDocument  SymbolDocument owning the fix-it entries and string pool.
+     * @param symbolFile      FileEntry slice for @p file.
+     * @param rangeStart      Start byte offset of the requested range.
+     * @param rangeEnd        End byte offset of the requested range.
+     * @param encoding        Negotiated LSP position encoding.
+     */
     static void appendFixItActions (juce::MemoryBlock& json, const juce::File& file, const jam::Document& document, const SymbolDocument& symbolDocument, const SymbolDocument::FileEntry& symbolFile, uint32_t rangeStart, uint32_t rangeEnd, std::string_view encoding);
 
+    /**
+     * @brief Appends one QuickFix CodeAction object replacing @p range in @p file with @p newText.
+     *
+     * @param json      JSON object buffer receiving the CodeAction.
+     * @param file      Source file receiving the edit.
+     * @param document  Parsed document used to convert byte offsets to LSP positions.
+     * @param range     Byte token span replaced by the fix-it.
+     * @param newText   Replacement text string.
+     * @param encoding  Negotiated LSP position encoding.
+     */
     static void appendCodeAction (juce::MemoryBlock& json, const juce::File& file, const jam::Document& document, const jam::Document::Token& range, std::string_view newText, std::string_view encoding);
 
+    /**
+     * @brief Appends CompletionItem entries in @p scopeSymbol whose labels fuzzy-match @p pattern.
+     *
+     * @param json         JSON array buffer receiving CompletionItem objects.
+     * @param scopeSymbol  Scope symbol identifier keying index.completions.
+     * @param pattern      Parsed fuzzy prefix pattern.
+     * @param language     Language backend mapping completion item kinds.
+     * @param index        The index holding completion tables and SymbolDocuments.
+     */
     void appendScopeCompletions (juce::MemoryBlock& json, juce::int64 scopeSymbol, const jam::Fuzzy::Pattern& pattern, const Language& language, const Index& index) const;
 
+    /**
+     * @brief Appends one LSP CompletionItem object for @p completion.
+     *
+     * @param json            JSON array buffer receiving the item.
+     * @param symbolDocument  SymbolDocument owning @p completion's string pool slices.
+     * @param completion      Completion record to serialize.
+     * @param language        Language backend mapping @p completion.type to LSP CompletionItemKind.
+     */
     static void appendCompletionItem (juce::MemoryBlock& json, const SymbolDocument& symbolDocument, const SymbolDocument::CompletionRecord& completion, const Language& language);
 
+    /**
+     * @brief Returns the declaration's token type for semantic highlighting of a reference, or @p element's own type.
+     *
+     * @param pathIndex   Path index of @p document.
+     * @param document    Parsed document containing @p element.
+     * @param element     Element being classified.
+     * @param tokenIndex  Index inside @p element's Id::nameTokens.
+     * @param index       The index holding symbol records and declarations.
+     * @return Grammar token type integer.
+     */
     int getRecordType (int pathIndex, const jam::Document& document, const jam::Document::Element& element, int tokenIndex, const Index& index) const;
 
+    /**
+     * @brief Appends the LSP SemanticTokens `data` array covering byte offsets [@p startOffset, @p endOffset).
+     *
+     * @param json         JSON object buffer receiving the `data` key and integer array.
+     * @param pathIndex    Path index of the target document.
+     * @param index        The index holding documents and language backends.
+     * @param encoding     Negotiated LSP position encoding.
+     * @param startOffset  Start byte offset (inclusive).
+     * @param endOffset    End byte offset (exclusive).
+     */
     void appendSemanticTokens (juce::MemoryBlock& json, int pathIndex, const Index& index, std::string_view encoding, uint32_t startOffset, uint32_t endOffset) const;
 
+    /**
+     * @brief Splits a multi-line token span [@p startOffset, @p endOffset) into single-line LSP semantic token tuples.
+     *
+     * @param json            JSON array buffer receiving 5-integer semantic token tuples.
+     * @param document        Parsed document providing line numbers and character offsets.
+     * @param previousOffset  Byte offset of the previously emitted semantic token segment.
+     * @param startOffset     Start byte offset of the token slice.
+     * @param endOffset       End byte offset of the token slice.
+     * @param type            Semantic token type index in Legend::getTypes().
+     * @param modifiers       Semantic token modifier bitmask in Legend::getModifiers().
+     * @param encoding        Negotiated LSP position encoding.
+     * @return Byte offset of the last emitted segment, becoming the next @p previousOffset.
+     */
     static uint32_t appendTokenLines (juce::MemoryBlock& json, const jam::Document& document, uint32_t previousOffset, uint32_t startOffset, uint32_t endOffset, int type, int modifiers, std::string_view encoding);
 
+    /**
+     * @brief Appends one 5-integer delta-encoded LSP semantic token tuple (`deltaLine`, `deltaStart`, `length`, `type`, `modifiers`).
+     *
+     * @param json            JSON array buffer receiving the five integers.
+     * @param document        Parsed document providing line and character mappings.
+     * @param previousOffset  Byte offset of the previous semantic token segment.
+     * @param startOffset     Start byte offset of this single-line segment.
+     * @param endOffset       End byte offset of this single-line segment.
+     * @param type            Semantic token type index in Legend::getTypes().
+     * @param modifiers       Semantic token modifier bitmask in Legend::getModifiers().
+     * @param encoding        Negotiated LSP position encoding.
+     */
     static void appendSegment (juce::MemoryBlock& json, const jam::Document& document, uint32_t previousOffset, uint32_t startOffset, uint32_t endOffset, int type, int modifiers, std::string_view encoding);
 
+    /**
+     * @brief Converts a 1-based (@p line, @p column) position in @p encoding to a byte offset clamped at source size.
+     *
+     * @param document  Parsed document.
+     * @param line      1-based line number.
+     * @param column    1-based character column in @p encoding.
+     * @param encoding  Negotiated LSP position encoding.
+     * @return Byte offset within @p document's source.
+     */
     static uint32_t getOffset (const jam::Document& document, int line, int column, std::string_view encoding);
 
+    /**
+     * @brief Computes the inner byte range of @p element's Id::body token, trimming whitespace or delimiter bytes.
+     *
+     * @param document    Parsed document owning @p element.
+     * @param element     Element carrying Id::body.
+     * @param delimiters  Number of surrounding delimiter bytes to expand outward, or 0 to trim whitespace.
+     * @return Inner byte range, or empty when body length is zero.
+     */
     static juce::Range<uint32_t> getInnerRange (const jam::Document& document, const jam::Document::Element& element, int delimiters);
 
+    /**
+     * @brief Returns the full source byte span [start, end) from @p element's Id::range token.
+     *
+     * @param element  Document element carrying Id::range.
+     * @return Byte range of @p element.
+     */
     static juce::Range<uint32_t> getElementSpan (const jam::Document::Element& element);
 
+    /**
+     * @brief Finds the direct child of @p element whose span contains byte @p offset.
+     *
+     * @param element  Parent element to search.
+     * @param offset   Target byte offset.
+     * @return Enclosing child element, or nullptr when none contains @p offset.
+     */
     static const jam::Document::Element* getEnclosingChild (const jam::Document::Element& element, uint32_t offset);
 
+    /**
+     * @brief Descends from the root of @p document to the deepest element enclosing @p offset.
+     *
+     * @param document  Parsed document to search.
+     * @param offset    Target byte offset.
+     * @return Deepest enclosing element (or the root element).
+     */
     static const jam::Document::Element* getInnermostElement (const jam::Document& document, uint32_t offset);
 
+    /**
+     * @brief Walks upward from @p element to the nearest ancestor having a strictly wider byte span.
+     *
+     * @param element  Starting element.
+     * @return First ancestor with a different span, or nullptr at root.
+     */
     static const jam::Document::Element* getOuterLevel (const jam::Document::Element& element);
 
+    /**
+     * @brief Finds the deepest non-root element enclosing @p offset that carries @p role in @p language.
+     *
+     * @param element   Subtree root to search.
+     * @param offset    Target byte offset.
+     * @param language  Language backend providing hasRole().
+     * @param role      Bitmask of jam::LanguageRole flags to match.
+     * @return Deepest matching element, or nullptr when none matches.
+     */
     static const jam::Document::Element* getRoleElement (const jam::Document::Element& element, uint32_t offset, const Language& language, int role);
 
+    /**
+     * @brief Appends an LSP SelectionRange object for @p element and recursively links its outer parent chain.
+     *
+     * @param json      JSON object buffer receiving `range` and optional `parent`.
+     * @param document  Parsed document owning @p element.
+     * @param element   Current selection level element.
+     * @param encoding  Negotiated LSP position encoding.
+     */
     static void appendSelectionChain (juce::MemoryBlock& json, const jam::Document& document, const jam::Document::Element& element, std::string_view encoding);
 
+    /**
+     * @brief Appends a SelectionRange entry at @p offset, starting at token level when narrower than the innermost element.
+     *
+     * @param json      JSON array buffer receiving the SelectionRange object.
+     * @param document  Parsed document to inspect.
+     * @param offset    Target byte offset.
+     * @param encoding  Negotiated LSP position encoding.
+     */
     static void appendSelectionRanges (juce::MemoryBlock& json, const jam::Document& document, uint32_t offset, std::string_view encoding);
 
+    /**
+     * @brief Resolves the inner or outer byte range for text object @p typeName (`function`, `class`, `loop`, `conditional`) at @p offset.
+     *
+     * @param document   Parsed document to inspect.
+     * @param language   Language backend providing element roles.
+     * @param typeName   Text object kind name (`function`, `class`, `loop`, or `conditional`).
+     * @param scopeName  Scope selector (`inner` for body range, any other value for full span).
+     * @param offset     Target byte offset.
+     * @return Resolved byte range, or empty when @p typeName is unknown or unmatched.
+     */
     static juce::Range<uint32_t> getTextObjectRange (const jam::Document& document, const Language& language, const juce::String& typeName, const juce::Identifier& scopeName, uint32_t offset);
 
+    /**
+     * @brief Serializes a JSON-RPC response object with @p appendValue as `result` onto @p request Id::result.
+     *
+     * @tparam Function     Callable taking (juce::MemoryBlock& message).
+     * @param request       The request row providing Id::id and receiving Id::result.
+     * @param appendValue   Callable writing the JSON value of the `result` member.
+     */
     template <typename Function>
     void setResult (juce::ValueTree& request, const Function& appendValue) const
     {
@@ -682,6 +1127,14 @@ private:
         request.setProperty (Id::result, juce::var (std::move (json)), nullptr);
     }
 
+    /**
+     * @brief Serializes a JSON-RPC notification object for @p method onto @p request Id::result.
+     *
+     * @tparam Function      Callable taking (juce::MemoryBlock& message).
+     * @param request        The request row receiving Id::result.
+     * @param method         LSP notification method name.
+     * @param appendParams   Callable writing the JSON value of the `params` member.
+     */
     template <typename Function>
     void setNotification (juce::ValueTree& request, std::string_view method, const Function& appendParams) const
     {
@@ -701,26 +1154,124 @@ private:
         request.setProperty (Id::result, juce::var (std::move (json)), nullptr);
     }
 
+    /**
+     * @brief Appends an LSP Position object (`line`, `character`, 0-based) for byte @p offset.
+     *
+     * @param json      JSON object buffer receiving the Position.
+     * @param document  Parsed document providing line and character conversions.
+     * @param offset    Byte offset in @p document.
+     * @param encoding  Negotiated LSP position encoding.
+     */
     static void appendPosition (juce::MemoryBlock& json, const jam::Document& document, uint32_t offset, std::string_view encoding);
 
+    /**
+     * @brief Appends an LSP Range object (`start`, `end`) for byte span [@p startOffset, @p endOffset).
+     *
+     * @param json         JSON object buffer receiving the Range.
+     * @param document     Parsed document providing position conversions.
+     * @param startOffset  Start byte offset.
+     * @param endOffset    End byte offset.
+     * @param encoding     Negotiated LSP position encoding.
+     */
     static void appendRange (juce::MemoryBlock& json, const jam::Document& document, uint32_t startOffset, uint32_t endOffset, std::string_view encoding);
 
+    /**
+     * @brief Appends a quoted `file://` URI string for @p file.
+     *
+     * @param json  JSON buffer receiving the URI string.
+     * @param file  Local file whose URI is written.
+     */
     static void appendUri (juce::MemoryBlock& json, const juce::File& file);
 
+    /**
+     * @brief Appends LSP Diagnostic objects from SymbolDocument for @p file into @p json.
+     *
+     * @param json      JSON array buffer receiving Diagnostic objects.
+     * @param file      Source file whose diagnostics are emitted.
+     * @param index     The index holding symbol files and documents.
+     * @param encoding  Negotiated LSP position encoding.
+     */
     static void appendDiagnostics (juce::MemoryBlock& json, const juce::File& file, const Index& index, std::string_view encoding);
 
+    /**
+     * @brief Appends an LSP Location object (`uri`, `range`) for @p token in @p path.
+     *
+     * @param json      JSON object buffer receiving the Location.
+     * @param path      Canonical source file path.
+     * @param document  Parsed document owning @p token.
+     * @param token     Source token span.
+     * @param encoding  Negotiated LSP position encoding.
+     */
     static void appendLocation (juce::MemoryBlock& json, const juce::String& path, const jam::Document& document, const jam::Document::Token& token, std::string_view encoding);
 
+    /**
+     * @brief Appends an LSP Location for the @p tokenIndex name token of @p element.
+     *
+     * @param json        JSON object buffer receiving the Location.
+     * @param path        Canonical source file path.
+     * @param document    Parsed document owning @p element.
+     * @param element     Element carrying Id::nameTokens.
+     * @param tokenIndex  Index inside @p element's Id::nameTokens.
+     * @param encoding    Negotiated LSP position encoding.
+     */
     static void appendNameLocation (juce::MemoryBlock& json, const juce::String& path, const jam::Document& document, const jam::Document::Element& element, int tokenIndex, std::string_view encoding);
 
+    /**
+     * @brief Appends an LSP CallHierarchyItem object (`name`, `type`, `uri`, `range`, `selectionRange`).
+     *
+     * @param json        JSON object buffer receiving the CallHierarchyItem.
+     * @param path        Canonical source file path.
+     * @param document    Parsed document owning @p element.
+     * @param element     Element carrying Id::nameTokens.
+     * @param tokenIndex  Index inside @p element's Id::nameTokens.
+     * @param index       The index providing symbol type classification.
+     * @param encoding    Negotiated LSP position encoding.
+     */
     static void appendItem (juce::MemoryBlock& json, const juce::String& path, const jam::Document& document, const jam::Document::Element& element, int tokenIndex, const Index& index, std::string_view encoding);
 
+    /**
+     * @brief Appends an LSP DocumentHighlight object (`range`, `type`) for @p token.
+     *
+     * @param json      JSON object buffer receiving the DocumentHighlight.
+     * @param document  Parsed document owning @p token.
+     * @param token     Highlighted name token.
+     * @param encoding  Negotiated LSP position encoding.
+     */
     static void appendHighlight (juce::MemoryBlock& json, const jam::Document& document, const jam::Document::Token& token, std::string_view encoding);
 
+    /**
+     * @brief Appends an LSP TextEdit object (`range`, `newText`) replacing @p token.
+     *
+     * @param json      JSON object buffer receiving the TextEdit.
+     * @param document  Parsed document owning @p token.
+     * @param token     Replaced name token.
+     * @param newName   Replacement text.
+     * @param encoding  Negotiated LSP position encoding.
+     */
     static void appendTextEdit (juce::MemoryBlock& json, const jam::Document& document, const jam::Document::Token& token, std::string_view newName, std::string_view encoding);
 
+    /**
+     * @brief Appends an LSP WorkspaceEdit object wrapping per-file edit changes.
+     *
+     * @param json          JSON object buffer receiving the WorkspaceEdit.
+     * @param index         The index holding paths and documents.
+     * @param declarations  Path-ordered declaration occurrences to rename.
+     * @param references    Path-ordered reference occurrences to rename.
+     * @param newName       Replacement identifier text.
+     * @param encoding      Negotiated LSP position encoding.
+     */
     static void appendWorkspaceEdit (juce::MemoryBlock& json, const Index& index, const Occurrences& declarations, const Occurrences& references, std::string_view newName, std::string_view encoding);
 
+    /**
+     * @brief Merges sorted @p declarations and @p references by file URI into WorkspaceEdit `changes` entries.
+     *
+     * @param json          JSON object members buffer mapping each file URI to its TextEdit array.
+     * @param index         The index holding paths and documents.
+     * @param declarations  Path-ordered declaration occurrences to rename.
+     * @param references    Path-ordered reference occurrences to rename.
+     * @param newName       Replacement identifier text.
+     * @param encoding      Negotiated LSP position encoding.
+     */
     static void appendChanges (juce::MemoryBlock& json, const Index& index, const Occurrences& declarations, const Occurrences& references, std::string_view newName, std::string_view encoding);
 
     /**

@@ -114,6 +114,78 @@
 <!-- The entry format is in /log (commands/log.md). It is the only source. -->
 <!-- Sprint entries go here, written by PRIMARY agents -->
 
+## Sprint 14: LING Part 8 close — contract fixes, profiling vs clangd, full-plan ling + jam audit, and doxygen pass ✅
+
+**Date:** 2026-11-22
+**Duration:** Multi-session sprint (2026-11-21 to 2026-11-22).
+**Scope:**
+- `PLAN-ling-contract-fix.md` Steps 15–16 and `PLAN-ling-lsp-0-tracker.md` Part 8 Steps 1, 3, 4, 6, 7.
+- ARCHITECT directives this session:
+  - *"finish 2 first"* (T21 CPU benchmark vs `clangd`, refresh stale END/KANJUT fixtures)
+  - *"1 until /log"* (Step 3 `/audit`, Step 4 Pathfinder doxygen pass, Step 6 plan hygiene, Step 7 `/log`)
+  - *"include all both jam and ling"* (widen Step 3 audit and Step 4 doxygen to the full `PLAN-ling-lsp` scope across `ling` and `jam`)
+  - *"can you update jam plan mcp tracker to write your understanding especially for scout with lazy mcp to reserve context tax?"* (recorded as R19 in `jam/PLAN-model-context-protocol-0-tracker.md`)
+
+### Agents Participated
+- COUNSELOR: Step 15–16 verification, `scout` profiling, T21 CPU benchmark, Design by Contract filtering across all 61 Auditor findings, Doxygen verification across 40 headers, plan hygiene, `jam` MCP tracker R19, and this log.
+- Auditor (`pro`, 3 runs): Pass 1 (`ling` + recent `jam`, 27 findings), Pass 2 `ling` full-plan + Carry C (14 findings), Pass 2 `jam` full-plan + MCP + parsers + Carry C (20 findings).
+- Engineer (`inherit`): Step 15 fixes, diagnostic cleanup, fixture refresh, all 58 resolved audit fixes across `ling` and `jam`, and `PLAN-ling-contract-fix.md` deletion.
+- Pathfinder (`flash`, 3 runs): Post-audit comprehensive Doxygen pass across 40 headers (20 `ling`, 20 `jam`; 0 doxygen warnings).
+
+### Files Modified
+**LING**
+- `Source/Validator.cpp`, `Manifest.h/.cpp`, `Query.h/.cpp`, `Processor.h/.cpp`, `SymbolDocument.h/.cpp`, `Index.h/.cpp`, `Server.h/.cpp`, `BuiltInLanguage.h`, `Language.h`, `LibraryLanguage.h/.cpp`, `languages/HtmlLanguage.h/.cpp`, `Main.cpp`, `Connection.h/.cpp`, `Relay.h/.cpp`, `Client.h/.cpp`, `Operation.h/.cpp`, `SchemaSuite.h/.cpp`, `StdioClientProbe.h/.cpp`, `SwapValidator.h`, `Legend.h`, `LINGModel.h`.
+- `language/cLang/construction.md`, `language/cLang/spell.md`, `language/cLang/language.cast`, `language/core/core.cast`.
+- `cast/text.md`, `cast/language.md`, `Source/generated/HashMaps.h`.
+- `test/lsp.lua`, `test/buffer.lua`, `test/keymaps.lua`, `test/methods.lua`, `test/builtin.lua`, `test/end-positions.json`, `test/end-references-positions.json`, `test/expected/*`.
+- `benchmark/end-hover-sample-report.md`, `PLAN-ling-lsp-0-tracker.md`, `PLAN-ling-contract-fix.md` (deleted), `carol/SPRINT-LOG.md`.
+
+**JAM**
+- `jam_core/jam_Simd.h`, `jam_core/document/jam_Document.h/.cpp`, `jam_core/document/jam_DocumentIndex.cpp`.
+- `jam_core/json/jam_JsonDocument.h/.cpp`, `jam_core/json/jam_JsonWriter.h/.cpp`, `jam_core/json/jam_JsonValidator.h/.cpp`.
+- `jam_core/xml/jam_Xml.h/.cpp`, `jam_web/html/jam_Html.h/.cpp`, `jam_web/css/jam_Css.h/.cpp`, `jam_terminal/document/jam_AnsiDocument.h/.cpp`.
+- `jam_markdown/document/jam_MarkdownDocument.h/.cpp`, `jam_MarkdownBlockParser.cpp`, `jam_MarkdownInlineParser.cpp`.
+- `jam_syntax_tree/document/jam_LanguageInterface.h`, `jam_LanguageLibrary.h/.cpp`, `jam_LanguageDocument.h/.cpp`, `jam_LanguageValidator.h/.cpp`.
+- `jam_model_context_protocol/protocol/jam_ModelContextProtocol.h/.cpp`, `server/jam_ModelContextServer.h/.cpp`, `schema/jam_JsonSchema.h/.cpp`, `jam_JsonPointer.h/.cpp`, `jam_JsonNumber.h/.cpp`, `jam_UriReference.h/.cpp`.
+- `cast/core.md`, `cast/markdown.md`, `generated/jam_Core.h/.cpp`, `generated/jam_Markdown.h/.cpp`, `PLAN-model-context-protocol-0-tracker.md` (R19).
+
+### Alignment Check
+- [x] BLESSED principles followed: zero-copy `SymbolDocument` mmap, `jam::JsonDocument::read` zero-copy reads, stateless `LanguageValidator`, no `Target&` out-parameters in `SwapReader`, uniform `Query::hover` signature, `jam::Strings` / `jam::Array` / `jam::Format` / `jam::bit_cast` used throughout.
+- [x] NAMES.md adhered: banned `kind` removed from `test/buffer.lua` and `test/keymaps.lua`; `Type` -> `type` on cLang structs; `addPayload` -> `readPayload`.
+- [x] Code Hygiene: comments and doxygen written exclusively in the dedicated post-audit Pathfinder pass (40 headers, 0 doxygen warnings).
+
+### Problems Solved
+- **Step 15 runtime fixes (verified on `2026-11-21 21:29:09` build):**
+  - `getDefinitionRange` (`language/cLang/language.cast`): gated `hasBody` and `definitionRange` on `extentFile` (fixes `getInstance` hover overrun).
+  - `ignoredConditionMacros` (`language/cLang/construction.md`, `spell.md`, `language.cast`): filters `_`-prefixed and function-like macros in `addConditionFlags` (fixes `bounds` and `expectEquals` in `juce_Component.cpp`).
+  - Removed temporary `logScope` and 10 `debug::Log` lines from `Main.cpp`, `Connection.cpp`, `Processor.cpp`.
+  - Verified: warm END `definition` `181/0` (`0.1852 ms` median), `hover` `156/0` (`0.2038 ms` median), `methods` `0 disagree` across 870 checks (`T12`, `T14`, `T15`, `T16`, `T17`, `T20`), `end-buffer` `21/21`, `end-builtin` `markdown`/`css` PASS, Step 15e auto-quit and config reseed PASS.
+- **Step 16 profiling & T21 CPU:**
+  - `scout` `benchmark/end-hover-sample.md`: exit `0`, hover `0.1233 ms` median / `0.5729 ms` p95 vs `clangd` `0.4327 ms` / `6.4326 ms`, `0` libclang samples.
+  - T21 CPU (warm END): active session `ling` daemon `2.11 s` (combined `6.04 s`) vs `clangd` `39.88 s` (**18.9× less daemon CPU**); warm-start `8.34 s` vs `389.97 s`; 60 s idle `0.24 s` vs `0.00 s`.
+- **Audit Pass 1 (27 findings: 26 resolved, 1 rejected):**
+  - Resolved: `#1` `Query.cpp` merged `textObjectRoles`/`innerDelimiters` map with `find`; `#2` `Processor.cpp` boundary `try/catch` in `ParseJob`/`IndexJob`/`UnitsJob`; `#3` `Query.cpp` `fileRow.isValid()` guard; `#4` `language.cast` `addHint` `keptRanges.isEmpty()` gate; `#5` `construction.md` `platformTargets` `WordMap`; `#6` `language.cast` `applyToTranslationUnit`; `#7` `SymbolDocument` `getHeader()` `std::memcpy` + `Span<T>`; `#8` `Query::typeDefinition` single pass; `#9` `Query::getRecordType` `.first()`; `#10` `Index::getSymbolDocument` to `.cpp`; `#11` `Server` lambdas to `.cpp`; `#12` `Server::progressValues` `std::string_view`; `#14` `jam_Simd.h` `findOffset`; `#15` `jam_Simd.h` `or`; `#16` `jam_Document.cpp` `jam::simd::isPlainAsciiByte`; `#17` `jam_LanguageLibrary.cpp` structured bindings; `#18` `BuiltInLanguage.h` `jam::Array`/`jam::Strings`; `#19` `SymbolDocument` `jam::Array<FileBuilder>`; `#20` `core.cast`/`language.cast` `ling::Texts`; `#21` `IndexSession::setLoaded`/`isLoaded`; `#22` `namespace HeaderHint`; `#23` `Type` -> `type`; `#24` `HoverLabel::arrowOperator`; `#25` `Index.cpp` `try_emplace` binding; `#26` `Main.cpp` direct `jam::Strings` + removed nested `#if`; `#27` `Query.cpp` spacing.
+  - Rejected: `#13` (`LINGModel.h:47` `defaultThreads { 4 }`, `Processor.cpp:12` background priority) — explicitly ruled by ARCHITECT (2026-11-21).
+- **Audit Pass 2 — `ling` full-plan + Carry C (14 findings: 14 resolved):**
+  - `#1` `Validator.cpp:15-22` null guard on `headerRow`; `#2` HTML `href="#id"` slot 2 (`cast/language.md`, `HashMaps.h`, `BuiltInLanguage.h`, `HtmlLanguage.*`); `#3` `Manifest.cpp` `jam::Format::toFileExtension`; `#4` `Manifest` `getDaemonValue`; `#5` `Query.cpp` `jam::Format::trim`; `#6` deleted `Processor::runHover`/`Query::applyToHover` + unified `Query::hover`; `#7` `Query::applyToArrayResult` across 14 array handlers; `#8` `ParseJob::runJob` buffered branch skips disk read/hash/swap; `#9` `SchemaSuite.cpp`/`Operation.cpp` `jam::JsonDocument::read`; `#10` `Relay::isSessionActive()` guard on notifications; `#11` moved single-function constants out of 5 headers (`StdioClientProbe`, `SchemaSuite`, `Client`, `Manifest`, `Relay`); `#12` deleted dead `failNoUnit` in `cast/text.md`; `#13` extracted shared Lua helpers to `test/lsp.lua`, removed dead `legendTypes`, renamed `kind` -> `type`/`objectType`; `#14a/b/c` `language.cast` `addCallRecords` in `cursorRecords`, reused `getClosingIndex`, `getUnbracedBodyEnd` `ling::AddressTable` + `getControlEnd`.
+- **Audit Pass 2 — `jam` full-plan + MCP + parsers + Carry C (20 findings: 18 resolved, 1 rejected, 1 scope-held):**
+  - Resolved: `#1` `ModelContextServer::listTools` single-line `JsonWriter::appendValue` (fixes `"["` bug); `#2` `ModelContextServer` client token-type/container validation + `jassert (object.id == Id::object)` in `JsonDocument`; `#3` `jassert (onInputClosed != nullptr)` + `if (onCancelled != nullptr)`; `#5` `Id::range` in `XmlDocument`/`HtmlDocument::getStructuralKeys()`; `#6` `CssDocument::addSection` skips `Id::range` + deleted `addWindow`; `#7` moved `Id::href` to `jam_Core` + `HtmlDocument::addAttributes` slot 2 + skip zero-length placeholder in `Document::addNameTokens`; `#9` `SwapReader::readValue`/`readPayload` value returns (removed `Target&` out-parameters); `#10` `jam::bit_cast` in `SwapReader::read<double>`; `#11` removed public `Document::getArena()`; `#12` `JsonValidator::getContainerFailures` uses `applyFunctionRecursively`; `#13` stateless `LanguageValidator::addRules`; `#14` `LanguageLibrary::counterparts` `jam::Strings` + coordinated `ling` callers; `#15` `HtmlDocument` `constexpr` lengths, dropped 5 unused params, deleted `getOrCreateAttributes`; `#16` `AnsiDocument` narrowest scope, dropped unused capture, deleted duplicate `private:`; `#17` `JsonNumber` uses `Document::decimalRadix`; `#18` `Document.cpp` `Chars::space`/`lowerZ` + structured bindings; `#19` `CssDocument` direct map population + brace init on `Document.cpp`/`MarkdownDocument.cpp`; `#20` `CODING.md:671` namespace enclosure banners across 29 files.
+  - Rejected: `#8` (remove `JsonDocument::stream` by replacing container `Id::tokens` with `Id::index`) — rejected per Design by Contract Filter because `Relay.cpp:326`, `SchemaSuite.cpp:17, 43`, and external JAM consumers read `container.get<Document::Tokens> (Id::tokens)` directly.
+  - Scope-held for ARCHITECT: `#4` (`jam_MermaidDiagram` 3,953-line class split across 30+ diagram-family `.cpp` files in `jam_mermaid_diagram/`, outside this sprint's file set).
+
+### State for Continuation
+- All 58 post-audit code fixes and 40 doxygen-updated headers across `ling` and `jam` are on disk and **awaiting ARCHITECT's build** to compile-verify (plus `cast doc` for JAM doxygen XML regen).
+- Open items for next sprint(s):
+  - ARCHITECT scope ruling on Auditor 2 Finding `#4` (`jam_MermaidDiagram` 30+ files).
+  - T21 60 s idle CPU (`0.24 s` vs `0.00 s` clangd), T10 cold/restart first-answer wall time, `jam::simd` benchmark, re-running KANJUT suites and remaining T28 built-ins (`json`/`xml`/`html`/`mermaid`), and refreshing the 63 shifted target lines in `test/expected/end-definition.json`.
+  - Next planned work per locked order: MCP Parts 6–8 (`ling --mcp`, `whatdbg --mcp`, `scout --mcp`) and `RFC-ling-runs-from-anywhere.md`.
+
+### Debts Paid
+- `DEBT-20261121T005809`: Cold-index CPU/memory spike fixed via `SymbolDocument` zero-copy mmap, `ignoredUnits`, `SkipParsedBodiesInSession`, `ignoredConditionMacros`, `jam::simd`, and 4 background worker threads (verified: `ling` peak RSS `8.0 GB -> 3.36 GB`, `END` idle RSS `3.7 GB -> 1.38 GB`, active session CPU `18.9×` below `clangd`, hover `3.5×` faster median / `11.2×` faster p95).
+
+### Debts Deferred
+- None
+
 ## Handoff to COUNSELOR: ling contract fix, Step 15 acceptance harness in progress
 
 **From:** COUNSELOR

@@ -168,14 +168,14 @@ struct OwnedString
 
 struct Cursor
 {
-    CursorType Type;
+    CursorType type;
     int xdata;
     const void* data[3];
 };
 
 struct ValueType
 {
-    ValueCategory Type;
+    ValueCategory type;
     const void* data[2];
 };
 
@@ -317,7 +317,7 @@ enum class IndexEntityType
 
 struct IndexEntityInfo
 {
-    IndexEntityType Type;
+    IndexEntityType type;
     int templateKind;
     int lang;
     const char* name;
@@ -379,7 +379,7 @@ enum class SymbolRole
 
 struct IndexEntityReferenceInfo
 {
-    int Type;
+    int type;
     Cursor cursor;
     IndexLocation loc;
     const IndexEntityInfo* referencedEntity;
@@ -412,13 +412,13 @@ struct IndexerCallbacks
 
 static constexpr unsigned indexOptions { static_cast<unsigned> (IndexOptionFlags::indexFunctionLocalSymbols) | static_cast<unsigned> (IndexOptionFlags::indexImplicitTemplateInstantiations) | static_cast<unsigned> (IndexOptionFlags::skipParsedBodiesInSession) };
 
-enum HeaderHint
+namespace HeaderHint
 {
-    HeaderHint_Origin = 1,
-    HeaderHint_Preferred = 2,
-    HeaderHint_Complete = 4,
-    HeaderHint_Public = 8
-};
+static constexpr int origin { 1 };
+static constexpr int preferred { 2 };
+static constexpr int complete { 4 };
+static constexpr int publicHeader { 8 };
+}
 
 namespace SearchGroup
 {
@@ -463,7 +463,7 @@ struct LibClang
 
 struct IndexSession
 {
-    bool ensureLoaded (const std::string& path, int excludeDeclarationsFromPCH, int displayDiagnostics)
+    void setLoaded (const std::string& path, int excludeDeclarationsFromPCH, int displayDiagnostics)
     {
         if (libclang == nullptr or libraryPath.compare (path) != 0)
         {
@@ -484,7 +484,10 @@ struct IndexSession
                 libclang = std::move (candidate);
             }
         }
+    }
 
+    bool isLoaded() const noexcept
+    {
         return libclang != nullptr and indexHandle != nullptr and action != nullptr;
     }
 
@@ -498,7 +501,7 @@ static IndexSession& getIndexSession (const std::string& path, int excludeDeclar
 {
     thread_local IndexSession session;
 
-    session.ensureLoaded (path, excludeDeclarationsFromPCH, displayDiagnostics);
+    session.setLoaded (path, excludeDeclarationsFromPCH, displayDiagnostics);
     return session;
 }
 
@@ -707,7 +710,7 @@ static int index (const char* const* arguments, int argumentCount, const char* d
     const auto installDirectory { std::filesystem::path (arguments[0]).parent_path().string() };
     auto& session { getIndexSession ((std::filesystem::path (installDirectory) / static_cast<const char*> (getLibraryPaths().getAddress (currentPlatform))).string(), excludeDeclarationsFromPCH, displayDiagnostics) };
 
-    if (session.libclang != nullptr and session.indexHandle != nullptr and session.action != nullptr)
+    if (session.isLoaded())
     {
         const auto commandLine (getArguments (arguments, argumentCount, directory));
         const auto precompiledPath { getOutputPath (arguments, argumentCount, directory) };
@@ -857,7 +860,7 @@ static int getScopeType (const CLanguageDocument& document, int scope)
 
 ```
 ```getEntityType
-static int getEntityType (int Type)
+static int getEntityType (int type)
 {
     static const ling::LookupTable entityTypes {
         {
@@ -865,7 +868,7 @@ static int getEntityType (int Type)
         }
     };
 
-    return entityTypes[Type];
+    return entityTypes[type];
 }
 
 ```
@@ -1003,18 +1006,22 @@ static int getBodyEnd (std::string_view source, const ling::Tokens& tokens, int 
 ```getUnbracedBodyEnd
 static int getUnbracedBodyEnd (std::string_view source, const ling::Tokens& tokens, int bodyStart, int end)
 {
-    if (bodyStart < end and isKeyword (tokens.at (bodyStart), map::CppKeyword::tokenIf))
-        return getConditionalEnd (source, tokens, bodyStart, end);
+    using BodyEnd = int (*) (std::string_view, const ling::Tokens&, int, int);
 
-    if (bodyStart < end and isKeyword (tokens.at (bodyStart), map::CppKeyword::tokenDo))
-        return getDoLoopEnd (source, tokens, bodyStart, end);
+    static const ling::AddressTable bodyEnds {
+        {
+            { 0, reinterpret_cast<const void*> (static_cast<BodyEnd> (getStatementEnd)) },
+            { map::CppKeyword::tokenIf, reinterpret_cast<const void*> (static_cast<BodyEnd> (getConditionalEnd)) },
+            { map::CppKeyword::tokenDo, reinterpret_cast<const void*> (static_cast<BodyEnd> (getDoLoopEnd)) },
+            { map::CppKeyword::tokenFor, reinterpret_cast<const void*> (static_cast<BodyEnd> (getControlEnd)) },
+            { map::CppKeyword::tokenWhile, reinterpret_cast<const void*> (static_cast<BodyEnd> (getControlEnd)) },
+            { map::CppKeyword::tokenSwitch, reinterpret_cast<const void*> (static_cast<BodyEnd> (getControlEnd)) },
+        }
+    };
 
-    if (bodyStart < end and (isKeyword (tokens.at (bodyStart), map::CppKeyword::tokenFor)
-                             or isKeyword (tokens.at (bodyStart), map::CppKeyword::tokenWhile)
-                             or isKeyword (tokens.at (bodyStart), map::CppKeyword::tokenSwitch)))
-        return getBodyEnd (source, tokens, getControlBodyStart (source, tokens, bodyStart, end), end);
-
-    return getStatementEnd (source, tokens, bodyStart, end);
+    return bodyStart < end and tokens.at (bodyStart).type == map::SyntaxTokenType::keyword
+           ? reinterpret_cast<BodyEnd> (reinterpret_cast<std::uintptr_t> (bodyEnds[tokens.at (bodyStart).key])) (source, tokens, bodyStart, end)
+           : getStatementEnd (source, tokens, bodyStart, end);
 }
 
 ```
@@ -1022,6 +1029,13 @@ static int getUnbracedBodyEnd (std::string_view source, const ling::Tokens& toke
 static int getDoLoopEnd (std::string_view source, const ling::Tokens& tokens, int position, int end)
 {
     return getStatementEnd (source, tokens, getBodyEnd (source, tokens, position + 1, end), end);
+}
+
+```
+```getControlEnd
+static int getControlEnd (std::string_view source, const ling::Tokens& tokens, int position, int end)
+{
+    return getBodyEnd (source, tokens, getControlBodyStart (source, tokens, position, end), end);
 }
 
 ```
@@ -1345,7 +1359,7 @@ static int addLoop (const int& key, CLanguageDocument& document, int scope, cons
 ```getConditionalEnd
 static int getConditionalEnd (std::string_view source, const ling::Tokens& tokens, int position, int end)
 {
-    const auto bodyEnd { getBodyEnd (source, tokens, getControlBodyStart (source, tokens, position, end), end) };
+    const auto bodyEnd { getControlEnd (source, tokens, position, end) };
 
     if (bodyEnd < end and isKeyword (tokens.at (bodyEnd), map::CppKeyword::tokenElse))
     {
@@ -2093,11 +2107,11 @@ static const ling::TextMap& getArgumentAdditions()
 
 ```
 ```getPlatformTargets
-static const ling::TextMap& getPlatformTargets()
+static const ling::WordMap& getPlatformTargets()
 {
-    static const ling::TextMap platformTargets { std::initializer_list<std::pair<std::string_view, int>> {
+    static const ling::WordMap platformTargets {
 :::[list]:::
-    } };
+    };
 
     return platformTargets;
 }
@@ -2122,6 +2136,17 @@ static const ling::TextMap& getIgnoredUnits()
     } };
 
     return ignoredUnits;
+}
+
+```
+```getIgnoredConditionMacros
+static const ling::TextMap& getIgnoredConditionMacros()
+{
+    static const ling::TextMap ignoredConditionMacros { std::initializer_list<std::pair<std::string_view, int>> {
+:::[list]:::
+    } };
+
+    return ignoredConditionMacros;
 }
 
 ```
@@ -2309,9 +2334,9 @@ static std::string_view getModuleDeclaration (std::string_view headerText)
 
 ```
 ```getModuleClosure
-static std::vector<std::string> getModuleClosure (std::string_view declaration, const std::filesystem::path& moduleParent, const std::string& juceModulesPath)
+static ling::Texts getModuleClosure (std::string_view declaration, const std::filesystem::path& moduleParent, const std::string& juceModulesPath)
 {
-    std::vector<std::string> closure;
+    ling::Texts closure;
     const std::string_view dependencyText { getFieldValue (declaration, ToolchainWord::moduleDependenciesField) };
     const std::string_view separators { ToolchainWord::dependencySeparators };
     const std::string_view prefix { ToolchainWord::juceModulePrefix };
@@ -2325,12 +2350,14 @@ static std::vector<std::string> getModuleClosure (std::string_view declaration, 
         const std::string dependencyHeaderText { ling::File ((dependencyFolder / (dependencyName + ToolchainWord::headerExtension)).string().c_str()).loadFileAsString() };
         const std::string dependencyFolderText { dependencyFolder.string() };
 
-        if (std::find (closure.begin(), closure.end(), dependencyFolderText) == closure.end())
-            closure.push_back (dependencyFolderText);
+        if (not closure.contains (dependencyFolderText))
+            closure.add (dependencyFolderText);
 
-        for (const auto& nestedFolder : getModuleClosure (getModuleDeclaration (dependencyHeaderText), dependencyFolder.parent_path(), juceModulesPath))
-            if (std::find (closure.begin(), closure.end(), nestedFolder) == closure.end())
-                closure.push_back (nestedFolder);
+        const auto nestedClosure { getModuleClosure (getModuleDeclaration (dependencyHeaderText), dependencyFolder.parent_path(), juceModulesPath) };
+
+        for (int index { 0 }; index < nestedClosure.size(); ++index)
+            if (not closure.contains (nestedClosure.get (index)))
+                closure.add (nestedClosure.get (index));
 
         start = dependencyText.find_first_not_of (separators, end);
     }
@@ -2340,39 +2367,39 @@ static std::vector<std::string> getModuleClosure (std::string_view declaration, 
 
 ```
 ```getModuleArguments
-static std::vector<std::string> getModuleArguments (std::string_view declaration, const std::filesystem::path& moduleFolder, std::string_view moduleId, const std::string& juceModulesPath, const std::string& installDirectory, const std::string& sdkPath)
+static ling::Texts getModuleArguments (std::string_view declaration, const std::filesystem::path& moduleFolder, std::string_view moduleId, const std::string& juceModulesPath, const std::string& installDirectory, const std::string& sdkPath)
 {
-    std::vector<std::string> arguments;
+    ling::Texts arguments;
     const std::string_view declaredStandard { getFieldValue (declaration, ToolchainWord::moduleStandardField) };
     const std::string_view standardValue { declaredStandard.empty() ? std::string_view (static_cast<const char*> (getCppStandards().getAddress (currentPlatform))) : declaredStandard };
     const auto closure { getModuleClosure (declaration, moduleFolder.parent_path(), juceModulesPath) };
     const std::string juceModulesFlag { std::string (ToolchainWord::includeDirectoryFlag) + juceModulesPath };
 
-    arguments.push_back (getDriver (installDirectory, ToolchainWord::databaseDriver));
-    arguments.push_back (std::string (ToolchainWord::standardFlag) + std::string (standardValue));
-    arguments.push_back (std::string (ToolchainWord::includeDirectoryFlag) + moduleFolder.parent_path().string());
+    arguments.add (getDriver (installDirectory, ToolchainWord::databaseDriver));
+    arguments.add (std::string (ToolchainWord::standardFlag) + std::string (standardValue));
+    arguments.add (std::string (ToolchainWord::includeDirectoryFlag) + moduleFolder.parent_path().string());
 
-    if (std::find (arguments.begin(), arguments.end(), juceModulesFlag) == arguments.end())
-        arguments.push_back (juceModulesFlag);
+    if (not arguments.contains (juceModulesFlag))
+        arguments.add (juceModulesFlag);
 
-    arguments.push_back (std::string (ToolchainWord::moduleAvailableDefine) + std::string (moduleId) + ToolchainWord::moduleAvailableValue);
-    arguments.push_back (ToolchainWord::moduleSettingsDefine);
+    arguments.add (std::string (ToolchainWord::moduleAvailableDefine) + std::string (moduleId) + ToolchainWord::moduleAvailableValue);
+    arguments.add (ToolchainWord::moduleSettingsDefine);
 
-    for (const auto& dependencyFolder : closure)
+    for (int index { 0 }; index < closure.size(); ++index)
     {
-        const std::filesystem::path dependencyPath (dependencyFolder);
+        const std::filesystem::path dependencyPath (closure.get (index));
         const std::string dependencyIncludeFlag { std::string (ToolchainWord::includeDirectoryFlag) + dependencyPath.parent_path().string() };
 
-        if (std::find (arguments.begin(), arguments.end(), dependencyIncludeFlag) == arguments.end())
-            arguments.push_back (dependencyIncludeFlag);
+        if (not arguments.contains (dependencyIncludeFlag))
+            arguments.add (dependencyIncludeFlag);
 
-        arguments.push_back (std::string (ToolchainWord::moduleAvailableDefine) + dependencyPath.filename().string() + ToolchainWord::moduleAvailableValue);
+        arguments.add (std::string (ToolchainWord::moduleAvailableDefine) + dependencyPath.filename().string() + ToolchainWord::moduleAvailableValue);
     }
 
     if (getSdkFlags().contains (currentPlatform) and not sdkPath.empty())
     {
-        arguments.push_back (static_cast<const char*> (getSdkFlags().getAddress (currentPlatform)));
-        arguments.push_back (sdkPath);
+        arguments.add (static_cast<const char*> (getSdkFlags().getAddress (currentPlatform)));
+        arguments.add (sdkPath);
     }
 
     return arguments;
@@ -2380,9 +2407,9 @@ static std::vector<std::string> getModuleArguments (std::string_view declaration
 
 ```
 ```getModuleFiles
-static std::vector<std::string> getModuleFiles (const std::filesystem::path& moduleFolder, const std::filesystem::path& unitPath)
+static ling::Texts getModuleFiles (const std::filesystem::path& moduleFolder, const std::filesystem::path& unitPath)
 {
-    std::vector<std::string> moduleFiles;
+    ling::Texts moduleFiles;
 
     for (const auto& entry : std::filesystem::recursive_directory_iterator (moduleFolder))
     {
@@ -2395,7 +2422,7 @@ static std::vector<std::string> getModuleFiles (const std::filesystem::path& mod
             {
                 if (std::string_view (*name).compare (extensionName) == 0)
                 {
-                    if (entry.path() != unitPath) moduleFiles.push_back (entry.path().string());
+                    if (entry.path() != unitPath) moduleFiles.add (entry.path().string());
                     break;
                 }
             }
@@ -2407,17 +2434,17 @@ static std::vector<std::string> getModuleFiles (const std::filesystem::path& mod
 
 ```
 ```getModuleCandidates
-static std::vector<std::string> getModuleCandidates (const char* directory)
+static ling::Texts getModuleCandidates (const char* directory)
 {
-    std::vector<std::string> candidates;
+    ling::Texts candidates;
 
     for (const auto& entry : std::filesystem::directory_iterator (directory))
-        if (entry.is_directory()) candidates.push_back (entry.path().string());
+        if (entry.is_directory()) candidates.add (entry.path().string());
 
-    candidates.push_back (directory);
+    candidates.add (directory);
 
     for (std::filesystem::path ancestor { directory }; ancestor != ancestor.parent_path(); ancestor = ancestor.parent_path())
-        candidates.push_back (ancestor.parent_path().string());
+        candidates.add (ancestor.parent_path().string());
 
     return candidates;
 }
@@ -2429,10 +2456,11 @@ static void addModuleUnits (const std::string& installDirectory, const std::stri
     const char* const homeDirectory { std::getenv (static_cast<const char*> (getHomeVariables().getAddress (currentPlatform))) };
     assert (homeDirectory != nullptr);
     const std::string juceModulesPath { (std::filesystem::path (homeDirectory) / static_cast<const char*> (getJuceModulePaths().getAddress (currentPlatform))).string() };
+    const auto candidates { getModuleCandidates (directory) };
 
-    for (const auto& candidate : getModuleCandidates (directory))
+    for (int candidateIndex { 0 }; candidateIndex < candidates.size(); ++candidateIndex)
     {
-        const std::filesystem::path moduleFolder (candidate);
+        const std::filesystem::path moduleFolder (candidates.get (candidateIndex));
         const std::string headerText { ling::File ((moduleFolder / (moduleFolder.filename().string() + ToolchainWord::headerExtension)).string().c_str()).loadFileAsString() };
         const auto declaration { getModuleDeclaration (headerText) };
         const auto moduleId { getFieldValue (declaration, ToolchainWord::moduleIdField) };
@@ -2444,13 +2472,13 @@ static void addModuleUnits (const std::string& installDirectory, const std::stri
             const auto moduleFiles (getModuleFiles (moduleFolder, unitPath));
             ling::Pointers commandLine;
             ling::Pointers dependencies;
-            arguments.push_back (unitPath.string());
+            arguments.add (unitPath.string());
 
-            for (const auto& argument : arguments) commandLine.add (argument.c_str());
+            for (int index { 0 }; index < arguments.size(); ++index) commandLine.add (arguments.getPointer (index));
 
-            for (const auto& moduleFile : moduleFiles) dependencies.add (moduleFile.c_str());
+            for (int index { 0 }; index < moduleFiles.size(); ++index) dependencies.add (moduleFiles.getPointer (index));
 
-            callbacks.addUnit (callbacks.context, commandLine.at (commandLine.size() - 1), candidate.c_str(), "", commandLine.begin(), commandLine.size(), dependencies.begin(), dependencies.size(), nullptr, 0);
+            callbacks.addUnit (callbacks.context, commandLine.at (commandLine.size() - 1), candidates.getPointer (candidateIndex), "", commandLine.begin(), commandLine.size(), dependencies.begin(), dependencies.size(), nullptr, 0);
         }
     }
 }
@@ -3049,7 +3077,7 @@ struct IndexContext
 
         libclang.getSpellingLocation (location, &file, &line, &column, nullptr);
 
-        if (file != nullptr and isOutsideMacro (location) and not isForeign (file))
+        if (file != nullptr and isOutsideMacro (location) and not isForeign (file) and keptRanges.isEmpty())
         {
             const auto path { libclang.getFileName (file) };
             const auto normalPath { getNormalPath (libclang.getCString (path)) };
@@ -3224,16 +3252,16 @@ static const char* getStandardHeader (const LibClang& libclang, Cursor cursor)
     auto parent { libclang.getCursorSemanticParent (cursor) };
     std::string scope;
 
-    for (; libclang.isInvalid (static_cast<int> (parent.Type)) == 0 and parent.Type != CursorType::cursorNamespace and parent.Type != CursorType::translationUnit; parent = libclang.getCursorSemanticParent (parent))
+    for (; libclang.isInvalid (static_cast<int> (parent.type)) == 0 and parent.type != CursorType::cursorNamespace and parent.type != CursorType::translationUnit; parent = libclang.getCursorSemanticParent (parent))
     {
         const auto owner { getText (libclang, libclang.getCursorSpelling (parent)) };
 
         if (libclang.isAnonymous (parent) == 0 and not owner.empty()) name = owner;
     }
 
-    const bool isAnonymousScope { parent.Type == CursorType::cursorNamespace and libclang.isAnonymous (parent) != 0 };
+    const bool isAnonymousScope { parent.type == CursorType::cursorNamespace and libclang.isAnonymous (parent) != 0 };
 
-    for (; libclang.isInvalid (static_cast<int> (parent.Type)) == 0 and parent.Type == CursorType::cursorNamespace; parent = libclang.getCursorSemanticParent (parent))
+    for (; libclang.isInvalid (static_cast<int> (parent.type)) == 0 and parent.type == CursorType::cursorNamespace; parent = libclang.getCursorSemanticParent (parent))
         if (libclang.isInlineNamespace (parent) == 0 and libclang.isAnonymous (parent) == 0)
             scope = getText (libclang, libclang.getCursorSpelling (parent)) + HoverLabel::scopeSeparator + scope;
 
@@ -3320,7 +3348,7 @@ static std::string getSpelledHeader (const IndexContext& context, SourceFile hea
 ```addPhysicalHeaders
 static void addPhysicalHeaders (const IndexContext& context, ling::Words& headers, SourceFile file, bool isComplete, SourceFile mainFile)
 {
-    int origin { HeaderHint_Origin };
+    int origin { HeaderHint::origin };
     const auto addHeader { [&headers] (int hint, SourceFile candidate)
     {
         int found { invalidPosition };
@@ -3342,7 +3370,7 @@ static void addPhysicalHeaders (const IndexContext& context, ling::Words& header
         const bool isPublic { isSelfContained (context, file) };
         SourceFile next { nullptr };
 
-        addHeader ((isPublic ? HeaderHint_Public : 0) | origin | (isComplete ? HeaderHint_Complete : 0), file);
+        addHeader ((isPublic ? HeaderHint::publicHeader : 0) | origin | (isComplete ? HeaderHint::complete : 0), file);
         origin = 0;
 
         if (not (isPublic or file == mainFile) and context.includers.contains (getFileWord (file)))
@@ -3381,7 +3409,7 @@ static ling::Words getRankedHeaders (const LibClang& libclang, const IndexContex
 
     if (standardHeader != nullptr)
     {
-        headers.add (static_cast<unsigned long long> (HeaderHint_Public | HeaderHint_Origin | HeaderHint_Preferred | HeaderHint_Complete));
+        headers.add (static_cast<unsigned long long> (HeaderHint::publicHeader | HeaderHint::origin | HeaderHint::preferred | HeaderHint::complete));
         headers.add (getFileWord (nullptr));
         headers.add (static_cast<unsigned long long> (reinterpret_cast<std::uintptr_t> (standardHeader)));
     }
@@ -3395,7 +3423,7 @@ static ling::Words getRankedHeaders (const LibClang& libclang, const IndexContex
     {
         const auto file { getSourceFile (headers.at (position + 1)) };
 
-        if (file != nullptr and (headers.at (position) & HeaderHint_Origin) != 0 and isPreferredHeader (libclang, file, symbolName)) headers.set (position, headers.at (position) | HeaderHint_Preferred);
+        if (file != nullptr and (headers.at (position) & HeaderHint::origin) != 0 and isPreferredHeader (libclang, file, symbolName)) headers.set (position, headers.at (position) | HeaderHint::preferred);
     }
 
     ling::Words order;
@@ -3426,7 +3454,7 @@ static ling::Words getRankedHeaders (const LibClang& libclang, const IndexContex
 ```getHoverProvider
 static std::string getHoverProvider (const LibClang& libclang, const IndexContext& context, Cursor cursor, unsigned long long symbol, SourceFile mainFile)
 {
-    const auto headers (cursor.Type == CursorType::cursorNamespace ? ling::Words() : getRankedHeaders (libclang, context, cursor, symbol, mainFile));
+    const auto headers (cursor.type == CursorType::cursorNamespace ? ling::Words() : getRankedHeaders (libclang, context, cursor, symbol, mainFile));
     const auto includer { getFileWord (mainFile) };
     const auto getMatch { [&context, includer] (SourceFile file, const char* standardName)
     {
@@ -3532,7 +3560,7 @@ static int getOutlineNameLength (const LibClang& libclang, Cursor cursor, unsign
 static int getOutlineType (const LibClang& libclang, Cursor cursor, int type)
 {
     const auto parent { libclang.getCursorLexicalParent (cursor) };
-    const bool isStaticMember { type == map::SyntaxTokenType::staticVariable and (parent.Type == CursorType::classDeclaration or parent.Type == CursorType::structDeclaration) };
+    const bool isStaticMember { type == map::SyntaxTokenType::staticVariable and (parent.type == CursorType::classDeclaration or parent.type == CursorType::structDeclaration) };
 
     return isStaticMember ? lsp::SymbolType::Property : symbolTypes[type];
 }
@@ -3543,7 +3571,7 @@ static bool isOutlineParent (const IndexContext& context, const IndexDeclaration
 {
     const auto parent { declaration->lexicalContainer->cursor };
 
-    return parent.Type == CursorType::translationUnit or context.outlines.contains (static_cast<unsigned long long> (context.libclang.hashCursor (parent)));
+    return parent.type == CursorType::translationUnit or context.outlines.contains (static_cast<unsigned long long> (context.libclang.hashCursor (parent)));
 }
 
 ```
@@ -3552,7 +3580,7 @@ static int getOutlineParent (const IndexContext& context, const IndexDeclaration
 {
     const auto parent { declaration->lexicalContainer->cursor };
 
-    return parent.Type == CursorType::translationUnit ? invalidPosition : static_cast<int> (context.outlines.at (static_cast<unsigned long long> (context.libclang.hashCursor (parent))));
+    return parent.type == CursorType::translationUnit ? invalidPosition : static_cast<int> (context.outlines.at (static_cast<unsigned long long> (context.libclang.hashCursor (parent))));
 }
 
 ```
@@ -3605,11 +3633,11 @@ static bool isNamedDeclaration (const IndexDeclarationInfo* declaration)
 static void addOutline (IndexContext& context, const IndexDeclarationInfo* declaration)
 {
     SourceFile file { nullptr };
-    const auto type { getEntityType (static_cast<int> (declaration->entityInfo->Type)) };
+    const auto type { getEntityType (static_cast<int> (declaration->entityInfo->type)) };
 
     context.libclang.getSpellingLocation (context.libclang.indexLocSourceLocation (declaration->loc), &file, nullptr, nullptr, nullptr);
 
-    if (file != nullptr and context.libclang.isInSystemHeader (context.libclang.indexLocSourceLocation (declaration->loc)) == 0 and (roles[type] & LanguageRole::declaration) != 0 and declaration->cursor.Type != CursorType::parameterDeclaration and isNamedDeclaration (declaration) and isOutlineParent (context, declaration))
+    if (file != nullptr and context.libclang.isInSystemHeader (context.libclang.indexLocSourceLocation (declaration->loc)) == 0 and (roles[type] & LanguageRole::declaration) != 0 and declaration->cursor.type != CursorType::parameterDeclaration and isNamedDeclaration (declaration) and isOutlineParent (context, declaration))
         reportOutline (context, declaration, type);
 }
 
@@ -3617,7 +3645,7 @@ static void addOutline (IndexContext& context, const IndexDeclarationInfo* decla
 ```isArrowOperator
 static bool isArrowOperator (const LibClang& libclang, Cursor cursor)
 {
-    return cursor.Type == CursorType::cxxMethod and not libclang.isStaticMethod (cursor) and getText (libclang, libclang.getCursorSpelling (cursor)).compare ("operator->") == 0;
+    return cursor.type == CursorType::cxxMethod and not libclang.isStaticMethod (cursor) and getText (libclang, libclang.getCursorSpelling (cursor)).compare (HoverLabel::arrowOperator) == 0;
 }
 
 ```
@@ -3649,7 +3677,7 @@ static void reportTypeSymbol (IndexContext& context, int record, Cursor typeCurs
     const auto usr { libclang.getCursorUSR (typeCursor) };
     const char* usrText { libclang.getCString (usr) };
 
-    if (libclang.isInvalid (static_cast<int> (typeCursor.Type)) == 0 and usrText != nullptr and *usrText != Chars::nullCharacter)
+    if (libclang.isInvalid (static_cast<int> (typeCursor.type)) == 0 and usrText != nullptr and *usrText != Chars::nullCharacter)
     {
         const auto row { record * recordStride + 5 };
         const auto start { ling::HalfWords::unpackFirst (context.recordRows.at (row)) };
@@ -3678,11 +3706,11 @@ static void reportTypeOf (IndexContext& context, int record, ValueType type)
     const auto declaration { libclang.getTypeDeclaration (type) };
     const auto canonical { libclang.getCanonicalType (type) };
 
-    if (indirectTypes[static_cast<int> (type.Type)] != 0)
+    if (indirectTypes[static_cast<int> (type.type)] != 0)
     {
         reportTypeOf (context, record, libclang.getPointeeType (type));
     }
-    else if (libclang.isInvalid (static_cast<int> (declaration.Type)) != 0 and canonical.Type != type.Type)
+    else if (libclang.isInvalid (static_cast<int> (declaration.type)) != 0 and canonical.type != type.type)
     {
         reportTypeOf (context, record, canonical);
     }
@@ -3692,7 +3720,7 @@ static void reportTypeOf (IndexContext& context, int record, ValueType type)
 
         reportTypeSymbol (context, record, getTemplatePattern (context, declaration));
 
-        if (pointee.Type != ValueCategory::invalid)
+        if (pointee.type != ValueCategory::invalid)
             reportTypeOf (context, record, pointee);
     }
 }
@@ -3701,7 +3729,7 @@ static void reportTypeOf (IndexContext& context, int record, ValueType type)
 ```getDeclarationValueType
 static ValueType getDeclarationValueType (const LibClang& libclang, Cursor cursor)
 {
-    if (cursor.Type == CursorType::functionDeclaration or cursor.Type == CursorType::cxxMethod)
+    if (cursor.type == CursorType::functionDeclaration or cursor.type == CursorType::cxxMethod)
         return libclang.getCursorResultType (cursor);
 
     return libclang.getCursorType (cursor);
@@ -3716,7 +3744,7 @@ static Cursor getMemberPattern (IndexContext& context, Cursor parentPattern, Cur
 
     applyToChildren (libclang, parentPattern, [&libclang, &pattern, member] (Cursor child)
     {
-        if (child.Type == member.Type and libclang.equalLocations (libclang.getCursorLocation (child), libclang.getCursorLocation (member)) != 0)
+        if (child.type == member.type and libclang.equalLocations (libclang.getCursorLocation (child), libclang.getCursorLocation (member)) != 0)
         {
             pattern = child;
             return ChildVisitResult::visitBreak;
@@ -3736,10 +3764,10 @@ static Cursor getTemplatePattern (IndexContext& context, Cursor cursor)
     const auto pattern { libclang.getSpecializedCursorTemplate (cursor) };
     const auto parentPattern { libclang.getSpecializedCursorTemplate (libclang.getCursorSemanticParent (cursor)) };
 
-    if (libclang.isInvalid (static_cast<int> (pattern.Type)) == 0)
+    if (libclang.isInvalid (static_cast<int> (pattern.type)) == 0)
         return pattern;
 
-    if (libclang.isInvalid (static_cast<int> (parentPattern.Type)) == 0)
+    if (libclang.isInvalid (static_cast<int> (parentPattern.type)) == 0)
         return getMemberPattern (context, parentPattern, cursor);
 
     return cursor;
@@ -3762,10 +3790,10 @@ static void addTypeDefinition (IndexContext& context, int record, Cursor cursor)
 
     if (record != invalidPosition)
     {
-        if (typedDeclarationTypes[static_cast<int> (cursor.Type)] != 0)
+        if (typedDeclarationTypes[static_cast<int> (cursor.type)] != 0)
             reportTypeOf (context, record, getDeclarationValueType (context.libclang, cursor));
 
-        if (selfTypeDeclarationTypes[static_cast<int> (cursor.Type)] != 0)
+        if (selfTypeDeclarationTypes[static_cast<int> (cursor.type)] != 0)
             reportTypeSymbol (context, record, getTemplatePattern (context, cursor));
     }
 }
@@ -3784,7 +3812,7 @@ static unsigned long long getScopeSymbol (const LibClang& libclang, Cursor paren
 {
     const auto usr { getText (libclang, libclang.getCursorUSR (parent)) };
 
-    return parent.Type == CursorType::translationUnit ? 0 : ling::Wyhash::hashBytes (usr.data(), usr.size());
+    return parent.type == CursorType::translationUnit ? 0 : ling::Wyhash::hashBytes (usr.data(), usr.size());
 }
 
 ```
@@ -3846,7 +3874,7 @@ static void storeEnumeratorScope (IndexContext& context, const IndexDeclarationI
 {
     const auto enclosing { context.libclang.getCursorLexicalParent (enumeration) };
 
-    if (context.libclang.isScopedEnum (enumeration) == 0 and completionScopeTypes[static_cast<int> (enclosing.Type)] != 0)
+    if (context.libclang.isScopedEnum (enumeration) == 0 and completionScopeTypes[static_cast<int> (enclosing.type)] != 0)
         storeCompletion (context, declaration, enclosing, type, file);
 }
 
@@ -3861,7 +3889,7 @@ static void addMacroCompletion (IndexContext& context, Cursor cursor)
 
     libclang.getSpellingLocation (libclang.getCursorLocation (cursor), &file, nullptr, nullptr, nullptr);
 
-    if (cursor.Type == CursorType::macroDefinition)
+    if (cursor.type == CursorType::macroDefinition)
         addCompletionRow (context, 0, ling::Wyhash::hashBytes (usr.data(), usr.size()), name, name, map::SyntaxTokenType::macro, 0, file);
 }
 
@@ -3870,13 +3898,13 @@ static void addMacroCompletion (IndexContext& context, Cursor cursor)
 static void addCompletionRecord (IndexContext& context, const IndexDeclarationInfo* declaration, SourceFile file)
 {
     const auto parent { context.libclang.getCursorLexicalParent (declaration->cursor) };
-    const auto type { getEntityType (static_cast<int> (declaration->entityInfo->Type)) };
+    const auto type { getEntityType (static_cast<int> (declaration->entityInfo->type)) };
 
-    if (completionScopeTypes[static_cast<int> (parent.Type)] != 0 and (roles[type] & LanguageRole::declaration) != 0 and isNamedDeclaration (declaration))
+    if (completionScopeTypes[static_cast<int> (parent.type)] != 0 and (roles[type] & LanguageRole::declaration) != 0 and isNamedDeclaration (declaration))
     {
         storeCompletion (context, declaration, parent, type, file);
 
-        if (type == map::SyntaxTokenType::enumConstant and parent.Type == CursorType::enumerationDeclaration)
+        if (type == map::SyntaxTokenType::enumConstant and parent.type == CursorType::enumerationDeclaration)
             storeEnumeratorScope (context, declaration, parent, type, file);
     }
 }
@@ -3974,9 +4002,9 @@ static void onDeclaration (ClientData clientData, const IndexDeclarationInfo* de
     SourceFile file { nullptr };
 
     const auto symbolHash { context.getSymbolHash (declaration->entityInfo->USR, declaration->cursor) };
-    const bool isComplete { declaration->isDefinition != 0 or definitionTypes[static_cast<int> (declaration->cursor.Type)] == 0 };
+    const bool isComplete { declaration->isDefinition != 0 or definitionTypes[static_cast<int> (declaration->cursor.type)] == 0 };
 
-    const auto record { context.addSymbol (declaration->loc, declaration->entityInfo->USR, declaration->cursor, LanguageRole::declaration | (isComplete ? LanguageRole::definition : 0), getEntityType (static_cast<int> (declaration->entityInfo->Type)), declaration->entityInfo->name, context.addHover (declaration->loc, declaration->entityInfo->USR, declaration->cursor)) };
+    const auto record { context.addSymbol (declaration->loc, declaration->entityInfo->USR, declaration->cursor, LanguageRole::declaration | (isComplete ? LanguageRole::definition : 0), getEntityType (static_cast<int> (declaration->entityInfo->type)), declaration->entityInfo->name, context.addHover (declaration->loc, declaration->entityInfo->USR, declaration->cursor)) };
     context.libclang.getSpellingLocation (context.libclang.indexLocSourceLocation (declaration->loc), &file, nullptr, nullptr, nullptr);
     context.declarationFiles.add (symbolHash, getFileWord (file));
     context.declarationFiles.add (symbolHash, static_cast<unsigned long long> (isComplete ? 1 : 0));
@@ -3991,7 +4019,7 @@ static void onDeclaration (ClientData clientData, const IndexDeclarationInfo* de
                        {
                            if (base->base != nullptr)
                            {
-                               context.addSymbol (base->loc, base->base->USR, context.libclang.getCursorReferenced (base->cursor), LanguageRole::reference | LanguageRole::base, getEntityType (static_cast<int> (base->base->Type)), base->base->name, context.addHover (base->loc, base->base->USR, context.libclang.getCursorReferenced (base->cursor)));
+                               context.addSymbol (base->loc, base->base->USR, context.libclang.getCursorReferenced (base->cursor), LanguageRole::reference | LanguageRole::base, getEntityType (static_cast<int> (base->base->type)), base->base->name, context.addHover (base->loc, base->base->USR, context.libclang.getCursorReferenced (base->cursor)));
                            }
                        });
 }
@@ -4002,19 +4030,19 @@ static void onReference (ClientData clientData, const IndexEntityReferenceInfo* 
 {
     auto& context { *static_cast<IndexContext*> (clientData) };
 
-    const int role { referenceRoles[static_cast<int> (reference->role) & static_cast<int> (SymbolRole::call)] | (reference->cursor.Type == CursorType::usingDeclaration ? LanguageRole::declaration : 0) };
+    const int role { referenceRoles[static_cast<int> (reference->role) & static_cast<int> (SymbolRole::call)] | (reference->cursor.type == CursorType::usingDeclaration ? LanguageRole::declaration : 0) };
 
     const auto referencedCursor { context.libclang.isInvalid (static_cast<int> (context.libclang.getCursorKind (context.libclang.getCursorReferenced (reference->cursor)))) == 0 ? context.libclang.getCursorReferenced (reference->cursor) : reference->referencedEntity->cursor };
 
     const auto entityCursor { reference->referencedEntity->cursor };
     const auto memberPattern { context.libclang.getSpecializedCursorTemplate (entityCursor) };
-    const bool isMemberTemplate { (entityCursor.Type == CursorType::functionTemplate or entityCursor.Type == CursorType::classTemplate) and context.libclang.isInvalid (static_cast<int> (memberPattern.Type)) == 0 };
+    const bool isMemberTemplate { (entityCursor.type == CursorType::functionTemplate or entityCursor.type == CursorType::classTemplate) and context.libclang.isInvalid (static_cast<int> (memberPattern.type)) == 0 };
     const std::string patternSymbol { isMemberTemplate ? getText (context.libclang, context.libclang.getCursorUSR (memberPattern)) : std::string {} };
     const char* symbol { isMemberTemplate ? patternSymbol.c_str() : reference->referencedEntity->USR };
 
-    if (context.libclang.getCursorReferenced (reference->cursor).Type != CursorType::overloadedDeclarationReference)
+    if (context.libclang.getCursorReferenced (reference->cursor).type != CursorType::overloadedDeclarationReference)
     {
-        const auto record { context.addSymbol (reference->loc, symbol, referencedCursor, role, getEntityType (static_cast<int> (reference->referencedEntity->Type)), reference->referencedEntity->name, context.addHover (reference->loc, symbol, referencedCursor)) };
+        const auto record { context.addSymbol (reference->loc, symbol, referencedCursor, role, getEntityType (static_cast<int> (reference->referencedEntity->type)), reference->referencedEntity->name, context.addHover (reference->loc, symbol, referencedCursor)) };
         addTypeDefinition (context, record, context.libclang.getCursorReferenced (reference->cursor));
     }
 }
@@ -4051,7 +4079,7 @@ static int addCursor (ling::Words& cursors, Cursor cursor)
 {
     const auto position { cursors.size() / cursorStride };
 
-    cursors.add (ling::HalfWords::pack (static_cast<int> (cursor.Type), cursor.xdata));
+    cursors.add (ling::HalfWords::pack (static_cast<int> (cursor.type), cursor.xdata));
     cursors.add (static_cast<unsigned long long> (reinterpret_cast<std::uintptr_t> (cursor.data[0])));
     cursors.add (static_cast<unsigned long long> (reinterpret_cast<std::uintptr_t> (cursor.data[1])));
     cursors.add (static_cast<unsigned long long> (reinterpret_cast<std::uintptr_t> (cursor.data[2])));
@@ -4132,7 +4160,7 @@ static std::string getHoverOwnerName (const LibClang& libclang, Cursor owner)
 
     if (libclang.isAnonymous (owner) == 0)
         name = getText (libclang, libclang.getCursorSpelling (owner));
-    else if (owner.Type != CursorType::enumerationDeclaration)
+    else if (owner.type != CursorType::enumerationDeclaration)
         name = std::string (HoverLabel::anonymous) + static_cast<char> (Chars::space) + std::string (getHoverWord (libclang, owner)) + HoverLabel::anonymousClose;
 
     return name;
@@ -4159,10 +4187,10 @@ static std::string getHoverScope (const LibClang& libclang, Cursor cursor)
         return joined;
     } };
 
-    for (auto parent { libclang.getCursorSemanticParent (cursor) }; libclang.isInvalid (static_cast<int> (parent.Type)) == 0 and parent.Type != CursorType::translationUnit; parent = libclang.getCursorSemanticParent (parent))
+    for (auto parent { libclang.getCursorSemanticParent (cursor) }; libclang.isInvalid (static_cast<int> (parent.type)) == 0 and parent.type != CursorType::translationUnit; parent = libclang.getCursorSemanticParent (parent))
     {
-        if (parent.Type == CursorType::cursorNamespace) { if (libclang.isInlineNamespace (parent) == 0) namespaceNames.add (getText (libclang, libclang.getCursorSpelling (parent))); }
-        else if (static_cast<HoverScope> (hoverScopes[static_cast<int> (parent.Type)]) != HoverScope::none) ownerNames.add (getHoverOwnerName (libclang, parent));
+        if (parent.type == CursorType::cursorNamespace) { if (libclang.isInlineNamespace (parent) == 0) namespaceNames.add (getText (libclang, libclang.getCursorSpelling (parent))); }
+        else if (static_cast<HoverScope> (hoverScopes[static_cast<int> (parent.type)]) != HoverScope::none) ownerNames.add (getHoverOwnerName (libclang, parent));
     }
 
     const auto owners { getJoined (ownerNames) };
@@ -4285,7 +4313,7 @@ static unsigned getInitializerTokenCount (IndexContext& context, Cursor variable
 
     applyToChildren (context.libclang, variable, [&context, &tokenCount, variable] (Cursor child)
     {
-        if (child.Type >= CursorType::unexposedExpression and child.Type < CursorType::firstStatement)
+        if (child.type >= CursorType::unexposedExpression and child.type < CursorType::firstStatement)
         {
             SourceToken* tokens { nullptr };
             unsigned childTokenCount { 0 };
@@ -4323,18 +4351,32 @@ static SourceRange getDefinitionRange (IndexContext& context, Cursor cursor)
     const auto& libclang { context.libclang };
     const auto translationUnit { libclang.getCursorTranslationUnit (cursor) };
     const auto extent { libclang.getCursorExtent (cursor) };
-    const bool isScopeDefinition { scopeDefinitionTypes[static_cast<int> (cursor.Type)] != 0 };
-    const bool isLongInitializer { cursor.Type == CursorType::variableDeclaration and getInitializerTokenCount (context, cursor) > static_cast<unsigned> (ToolchainValue::initializerTokenLimit) };
-    const bool isObjCInterface { cursor.Type == CursorType::objCInterfaceDeclaration };
+    SourceFile extentFile { nullptr };
+    unsigned extentStart { 0 };
+
+    libclang.getExpansionLocation (libclang.getRangeStart (extent), &extentFile, nullptr, nullptr, &extentStart);
+
+    const bool isScopeDefinition { scopeDefinitionTypes[static_cast<int> (cursor.type)] != 0 };
+    const bool isLongInitializer { cursor.type == CursorType::variableDeclaration and getInitializerTokenCount (context, cursor) > static_cast<unsigned> (ToolchainValue::initializerTokenLimit) };
+    const bool isObjCInterface { cursor.type == CursorType::objCInterfaceDeclaration };
     SourceLocation bodyStart {};
     bool hasBody { false };
 
-    applyToChildren (libclang, cursor, [&libclang, &bodyStart, &hasBody] (Cursor child)
+    applyToChildren (libclang, cursor, [&libclang, extentFile, extentStart, &bodyStart, &hasBody] (Cursor child)
     {
-        if (child.Type == CursorType::compoundStatement)
+        if (child.type == CursorType::compoundStatement)
         {
-            bodyStart = libclang.getRangeStart (libclang.getCursorExtent (child));
-            hasBody = true;
+            const auto start { libclang.getRangeStart (libclang.getCursorExtent (child)) };
+            SourceFile bodyFile { nullptr };
+            unsigned bodyOffset { 0 };
+
+            libclang.getExpansionLocation (start, &bodyFile, nullptr, nullptr, &bodyOffset);
+
+            if (bodyFile == extentFile and bodyOffset > extentStart)
+            {
+                bodyStart = start;
+                hasBody = true;
+            }
         }
 
         return ChildVisitResult::visitContinue;
@@ -4366,15 +4408,7 @@ static SourceRange getDefinitionRange (IndexContext& context, Cursor cursor)
                 if (isTokenByte (libclang, translationUnit, tokens[index], Chars::colon))
                     index += 2;
                 else
-                {
-                    int depth { 0 };
-
-                    do
-                    {
-                        depth += static_cast<int> (isTokenByte (libclang, translationUnit, tokens[index], Chars::lessThan)) - static_cast<int> (isTokenByte (libclang, translationUnit, tokens[index], Chars::greaterThan));
-                        ++index;
-                    } while (depth > 0 and index < tokenCount);
-                }
+                    index = getClosingIndex (libclang, translationUnit, tokens, tokenCount, index, Chars::lessThan, Chars::greaterThan) + 1;
             }
 
             cutIndex = index;
@@ -4392,7 +4426,16 @@ static SourceRange getDefinitionRange (IndexContext& context, Cursor cursor)
 
         assert (cutIndex > 0 or cutIndex == tokenCount);
 
-        definitionRange = cutIndex < tokenCount or (hasBody and tokenCount > 0) ? libclang.getRange (libclang.getRangeStart (extent), libclang.getRangeEnd (libclang.getTokenExtent (translationUnit, tokens[cutIndex - 1]))) : extent;
+        if (cutIndex < tokenCount or (hasBody and tokenCount > 0))
+        {
+            const auto rangeEnd { libclang.getRangeEnd (libclang.getTokenExtent (translationUnit, tokens[cutIndex - 1])) };
+            SourceFile endFile { nullptr };
+
+            libclang.getExpansionLocation (rangeEnd, &endFile, nullptr, nullptr, nullptr);
+
+            if (endFile == extentFile)
+                definitionRange = libclang.getRange (libclang.getRangeStart (extent), rangeEnd);
+        }
 
         libclang.disposeTokens (translationUnit, tokens, tokenCount);
     }
@@ -4455,21 +4498,21 @@ static std::string getHoverDesugaredType (const LibClang& libclang, ValueType ty
 
     while (isDesugaring)
     {
-        const auto underlying { type.Type == ValueCategory::typeDefinition ? libclang.getTypedefDeclUnderlyingType (libclang.getTypeDeclaration (type)) : type };
-        const bool isOpaque { underlying.Type == ValueCategory::vector or underlying.Type == ValueCategory::extendedVector or (underlying.Type == ValueCategory::record and libclang.isAnonymous (libclang.getTypeDeclaration (underlying)) != 0) };
+        const auto underlying { type.type == ValueCategory::typeDefinition ? libclang.getTypedefDeclUnderlyingType (libclang.getTypeDeclaration (type)) : type };
+        const bool isOpaque { underlying.type == ValueCategory::vector or underlying.type == ValueCategory::extendedVector or (underlying.type == ValueCategory::record and libclang.isAnonymous (libclang.getTypeDeclaration (underlying)) != 0) };
 
         isConst = isConst or libclang.isConstQualifiedType (type) != 0;
         isVolatile = isVolatile or libclang.isVolatileQualifiedType (type) != 0;
 
-        if (type.Type == ValueCategory::elaborated) type = libclang.getNamedType (type);
-        else if (type.Type == ValueCategory::attributed) type = libclang.getModifiedType (type);
-        else if (type.Type == ValueCategory::typeDefinition and not isOpaque) { type = underlying; isAka = true; }
+        if (type.type == ValueCategory::elaborated) type = libclang.getNamedType (type);
+        else if (type.type == ValueCategory::attributed) type = libclang.getModifiedType (type);
+        else if (type.type == ValueCategory::typeDefinition and not isOpaque) { type = underlying; isAka = true; }
         else isDesugaring = false;
     }
 
-    const bool isPointerLike { type.Type == ValueCategory::pointer or type.Type == ValueCategory::lValueReference or type.Type == ValueCategory::rValueReference };
+    const bool isPointerLike { type.type == ValueCategory::pointer or type.type == ValueCategory::lValueReference or type.type == ValueCategory::rValueReference };
     const auto pointee { isPointerLike ? getHoverDesugaredType (libclang, libclang.getPointeeType (type)) : std::string() };
-    const char* suffix { type.Type == ValueCategory::pointer ? HoverLabel::akaPointer : type.Type == ValueCategory::lValueReference ? HoverLabel::akaReference : HoverLabel::akaRvalueReference };
+    const char* suffix { type.type == ValueCategory::pointer ? HoverLabel::akaPointer : type.type == ValueCategory::lValueReference ? HoverLabel::akaReference : HoverLabel::akaRvalueReference };
     const auto text { pointee.empty() ? getText (libclang, libclang.getTypeSpelling (libclang.getUnqualifiedType (type))) : pointee + space + suffix };
     const auto qualifiers { (isConst ? std::string (HoverLabel::passedConst) + space : std::string()) + (isVolatile ? std::string (HoverLabel::volatileQualifier) + space : std::string()) };
 
@@ -4481,7 +4524,7 @@ static std::string getHoverDesugaredType (const LibClang& libclang, ValueType ty
 static std::string getHoverType (const LibClang& libclang, ValueType type, bool isAkaShown)
 {
     const char space { static_cast<char> (Chars::space) };
-    const bool isTag { type.Type == ValueCategory::record or type.Type == ValueCategory::enumeration };
+    const bool isTag { type.type == ValueCategory::record or type.type == ValueCategory::enumeration };
     const bool isQualified { libclang.isConstQualifiedType (type) != 0 or libclang.isVolatileQualifiedType (type) != 0 or libclang.isRestrictQualifiedType (type) != 0 };
     const auto spelling { getText (libclang, libclang.getTypeSpelling (type)) };
     const auto aka { isAkaShown ? getHoverDesugaredType (libclang, type) : std::string() };
@@ -4495,10 +4538,10 @@ static std::string getHoverType (const LibClang& libclang, ValueType type, bool 
 static std::string getHoverName (const LibClang& libclang, Cursor cursor)
 {
     const auto lexicalParent { libclang.getCursorLexicalParent (cursor) };
-    const bool isSpecialization { static_cast<HoverScope> (hoverScopes[libclang.getCursorKind (cursor)]) == HoverScope::record and libclang.isInvalid (static_cast<int> (libclang.getSpecializedCursorTemplate (cursor).Type)) == 0 };
+    const bool isSpecialization { static_cast<HoverScope> (hoverScopes[libclang.getCursorKind (cursor)]) == HoverScope::record and libclang.isInvalid (static_cast<int> (libclang.getSpecializedCursorTemplate (cursor).type)) == 0 };
     std::string qualifier;
 
-    for (auto parent { libclang.getCursorSemanticParent (cursor) }; libclang.equalCursors (parent, lexicalParent) == 0 and libclang.isInvalid (static_cast<int> (parent.Type)) == 0 and parent.Type != CursorType::translationUnit; parent = libclang.getCursorSemanticParent (parent))
+    for (auto parent { libclang.getCursorSemanticParent (cursor) }; libclang.equalCursors (parent, lexicalParent) == 0 and libclang.isInvalid (static_cast<int> (parent.type)) == 0 and parent.type != CursorType::translationUnit; parent = libclang.getCursorSemanticParent (parent))
         qualifier = getText (libclang, libclang.getCursorSpelling (parent)) + HoverLabel::scopeSeparator + qualifier;
 
     return qualifier + getText (libclang, isSpecialization ? libclang.getCursorDisplayName (cursor) : libclang.getCursorSpelling (cursor));
@@ -4512,7 +4555,7 @@ static std::string getEnumeratorName (IndexContext& context, Cursor enumeration,
 
     applyToChildren (context.libclang, enumeration, [&context, &enumeratorName, value] (Cursor child)
     {
-        if (child.Type == CursorType::enumerationConstantDeclaration and context.libclang.getEnumConstantDeclValue (child) == value)
+        if (child.type == CursorType::enumerationConstantDeclaration and context.libclang.getEnumConstantDeclValue (child) == value)
         {
             enumeratorName = getText (context.libclang, context.libclang.getCursorSpelling (child));
             return ChildVisitResult::visitBreak;
@@ -4542,7 +4585,7 @@ static std::string getHoverValue (IndexContext& context, Cursor cursor)
             const bool isNegative { not isUnsigned and number < 0 };
             const auto bits { static_cast<unsigned long long> (number) };
             const auto type { context.libclang.getCanonicalType (context.libclang.getCursorType (cursor)) };
-            const auto enumerator { type.Type == ValueCategory::enumeration ? getEnumeratorName (context, context.libclang.getTypeDeclaration (type), number) : std::string() };
+            const auto enumerator { type.type == ValueCategory::enumeration ? getEnumeratorName (context, context.libclang.getTypeDeclaration (type), number) : std::string() };
             const bool isHex { not enumerator.empty() or isNegative or bits >= static_cast<unsigned long long> (ToolchainValue::hexThreshold) };
             std::ostringstream hex;
 
@@ -4624,7 +4667,7 @@ static std::string getHoverBlock (const LibClang& libclang, Cursor cursor, bool 
         const std::string access (static_cast<const char*> (hoverAccess[libclang.getCXXAccessSpecifier (cursor)]));
 
         block = (scope.empty() ? std::string() : scope + newline) + (access.empty() ? std::string() : access + colon + space);
-        block += cursor.Type == CursorType::macroDefinition ? std::string (HoverLabel::define) + space : std::string();
+        block += cursor.type == CursorType::macroDefinition ? std::string (HoverLabel::define) + space : std::string();
     }
 
     return block;
@@ -4656,9 +4699,9 @@ static ChildVisitResult onMacro (Cursor cursor, Cursor, ClientData clientData)
     auto& context { *static_cast<IndexContext*> (clientData) };
     const auto& libclang { context.libclang };
 
-    if ((cursor.Type == CursorType::macroDefinition or cursor.Type == CursorType::macroExpansion) and context.isPreprocessed (libclang.getCursorLocation (cursor)))
+    if ((cursor.type == CursorType::macroDefinition or cursor.type == CursorType::macroExpansion) and context.isPreprocessed (libclang.getCursorLocation (cursor)))
     {
-        const bool isDefinition { cursor.Type == CursorType::macroDefinition };
+        const bool isDefinition { cursor.type == CursorType::macroDefinition };
         const auto hoverCursor { isDefinition ? cursor : libclang.getCursorReferenced (cursor) };
         const auto usr { libclang.getCursorUSR (hoverCursor) };
         const auto spelling { libclang.getCursorSpelling (cursor) };
@@ -4683,7 +4726,7 @@ static void addMacroSymbols (const LibClang& libclang, IndexContext& context, Tr
 ```hasDefinitionText
 static bool hasDefinitionText (const LibClang& libclang, Cursor cursor)
 {
-    return cursor.Type == CursorType::macroDefinition or libclang.equalRanges (libclang.getCursorExtent (cursor), libclang.getSpellingNameRange (cursor, 0, 0)) == 0;
+    return cursor.type == CursorType::macroDefinition or libclang.equalRanges (libclang.getCursorExtent (cursor), libclang.getSpellingNameRange (cursor, 0, 0)) == 0;
 }
 
 ```
@@ -4819,7 +4862,7 @@ static Cursor getInnerArgument (IndexContext& context, Cursor argument)
 
         applyToChildren (context.libclang, previous, [&context, &found, previous] (Cursor child)
         {
-            if (innerArgumentTypes[static_cast<int> (child.Type)] != 0 and context.libclang.equalRanges (context.libclang.getCursorExtent (child), context.libclang.getCursorExtent (previous)) != 0)
+            if (innerArgumentTypes[static_cast<int> (child.type)] != 0 and context.libclang.equalRanges (context.libclang.getCursorExtent (child), context.libclang.getCursorExtent (previous)) != 0)
             {
                 found = child;
                 return ChildVisitResult::visitBreak;
@@ -4827,7 +4870,7 @@ static Cursor getInnerArgument (IndexContext& context, Cursor argument)
 
             return ChildVisitResult::visitContinue;
         });
-    } while (context.libclang.equalCursors (previous, found) == 0 and found.Type != CursorType::declarationReferenceExpression and found.Type != CursorType::memberReferenceExpression);
+    } while (context.libclang.equalCursors (previous, found) == 0 and found.type != CursorType::declarationReferenceExpression and found.type != CursorType::memberReferenceExpression);
 
     return found;
 }
@@ -4836,7 +4879,7 @@ static Cursor getInnerArgument (IndexContext& context, Cursor argument)
 ```getBareType
 static ValueType getBareType (const LibClang& libclang, ValueType type)
 {
-    const bool isReference { type.Type == ValueCategory::lValueReference or type.Type == ValueCategory::rValueReference };
+    const bool isReference { type.type == ValueCategory::lValueReference or type.type == ValueCategory::rValueReference };
 
     return libclang.getUnqualifiedType (libclang.getCanonicalType (isReference ? libclang.getPointeeType (type) : type));
 }
@@ -4856,9 +4899,9 @@ static std::string getHoverPassing (const LibClang& libclang, Cursor parameter, 
     const auto name { getText (libclang, libclang.getCursorSpelling (parameter)) };
     const auto innerType { getBareType (libclang, libclang.getCursorType (inner)) };
     const auto bareType { getBareType (libclang, parameterType) };
-    const int family { typeFamilies[static_cast<int> (bareType.Type)] };
-    const bool isConverted { libclang.equalTypes (innerType, bareType) == 0 and not (family != 0 and family == typeFamilies[static_cast<int> (innerType.Type)]) };
-    const bool isValue { isConverted or not (parameterType.Type == ValueCategory::lValueReference or parameterType.Type == ValueCategory::rValueReference) };
+    const int family { typeFamilies[static_cast<int> (bareType.type)] };
+    const bool isConverted { libclang.equalTypes (innerType, bareType) == 0 and not (family != 0 and family == typeFamilies[static_cast<int> (innerType.type)]) };
+    const bool isValue { isConverted or not (parameterType.type == ValueCategory::lValueReference or parameterType.type == ValueCategory::rValueReference) };
     const auto reference { isValue ? std::string() : std::string (HoverLabel::passedBy) + space + (libclang.isConstQualifiedType (libclang.getPointeeType (parameterType)) != 0 ? std::string (HoverLabel::passedConst) + space : std::string()) + HoverLabel::passedReference + space };
     const auto subject { name.empty() ? (isValue ? std::string (HoverLabel::passedByValue) : std::string()) : std::string (HoverLabel::passedAs) + space + name };
     const auto conversion { isConverted ? space + std::string (HoverLabel::convertedTo) + space + getHoverType (libclang, parameterType, false) + HoverLabel::convertedClose : std::string() };
@@ -4939,7 +4982,7 @@ static std::string getParameterLabel (IndexContext& context, Cursor parameter, C
         }
     }
 
-    const bool isReference { parameterType.Type == ValueCategory::lValueReference and libclang.isConstQualifiedType (libclang.getPointeeType (parameterType)) == 0 };
+    const bool isReference { parameterType.type == ValueCategory::lValueReference and libclang.isConstQualifiedType (libclang.getPointeeType (parameterType)) == 0 };
     const bool hasName { not name.empty() and not isSpelledName and not isNamedByComment };
 
     return isReference or hasName ? std::string (isReference ? std::string_view (InlayHintLabel::reference) : std::string_view {}) + std::string (hasName ? name : std::string_view {}) + InlayHintLabel::parameterSuffix : std::string();
@@ -4947,7 +4990,7 @@ static std::string getParameterLabel (IndexContext& context, Cursor parameter, C
 
 ```
 ```addParameterHints
-static void addParameterHints (const LibClang& libclang, IndexContext& context, Cursor call, Cursor callee)
+static void addParameterHints (const LibClang& libclang, IndexContext& context, Cursor call, Cursor callee, std::string_view name)
 {
     const auto getEndOffset { [&libclang] (Cursor cursor)
     {
@@ -4957,19 +5000,17 @@ static void addParameterHints (const LibClang& libclang, IndexContext& context, 
 
         return offset;
     } };
-    const auto calleeName { getText (libclang, libclang.getCursorSpelling (callee)) };
     const int parameterCount { libclang.getNumArguments (callee) };
     const auto parameterName { parameterCount == 1 ? getText (libclang, libclang.getCursorSpelling (libclang.getArgument (callee, 0))) : std::string {} };
-    const std::string_view name { calleeName };
     const std::string_view operatorName { HoverLabel::operatorName };
     const std::string_view setterPrefix { InlayHintLabel::setterPrefix };
     const int objectArgumentCount { static_cast<int> (name.compare (HoverLabel::callOperator) == 0) };
     auto parent { libclang.getCursorSemanticParent (callee) };
 
-    while (parent.Type == CursorType::cursorNamespace and libclang.isInlineNamespace (parent) != 0)
+    while (parent.type == CursorType::cursorNamespace and libclang.isInlineNamespace (parent) != 0)
         parent = libclang.getCursorSemanticParent (parent);
 
-    const bool isStandard { parent.Type == CursorType::cursorNamespace and getText (libclang, libclang.getCursorSpelling (parent)).compare (InlayHintLabel::standardNamespace) == 0 };
+    const bool isStandard { parent.type == CursorType::cursorNamespace and getText (libclang, libclang.getCursorSpelling (parent)).compare (InlayHintLabel::standardNamespace) == 0 };
     const bool isBuiltin { isStandard and getSimpleBuiltins().contains (name) };
     const bool isOperator { name.compare (0, operatorName.size(), operatorName) == 0 and name.compare (HoverLabel::callOperator) != 0 };
     const bool isCopyOrMove { libclang.isCopyConstructor (callee) != 0 or libclang.isMoveConstructor (callee) != 0 };
@@ -4978,7 +5019,7 @@ static void addParameterHints (const LibClang& libclang, IndexContext& context, 
     const int count { std::min (libclang.getNumArguments (call) - objectArgumentCount, parameterCount) };
     const auto callEndOffset { getEndOffset (call) };
 
-    for (int index { 0 }; isHinted and index < count and libclang.getArgument (call, static_cast<unsigned> (index + objectArgumentCount)).Type != CursorType::packExpansionExpression; ++index)
+    for (int index { 0 }; isHinted and index < count and libclang.getArgument (call, static_cast<unsigned> (index + objectArgumentCount)).type != CursorType::packExpansionExpression; ++index)
     {
         const auto argument { libclang.getArgument (call, static_cast<unsigned> (index + objectArgumentCount)) };
         const auto label { getParameterLabel (context, libclang.getArgument (callee, static_cast<unsigned> (index)), argument) };
@@ -5013,7 +5054,7 @@ static ValueType getPointeeRoot (const LibClang& libclang, ValueType type)
 {
     ValueType root { type };
 
-    while (root.Type == ValueCategory::pointer or root.Type == ValueCategory::lValueReference or root.Type == ValueCategory::rValueReference)
+    while (root.type == ValueCategory::pointer or root.type == ValueCategory::lValueReference or root.type == ValueCategory::rValueReference)
         root = libclang.getPointeeType (root);
 
     return root;
@@ -5024,7 +5065,7 @@ static ValueType getPointeeRoot (const LibClang& libclang, ValueType type)
 static bool isDeducedType (const LibClang& libclang, ValueType type)
 {
     const auto canonical { libclang.getCanonicalType (type) };
-    const bool isDeduced { getPointeeRoot (libclang, type).Type == ValueCategory::typeAuto and getPointeeRoot (libclang, canonical).Type != ValueCategory::typeAuto };
+    const bool isDeduced { getPointeeRoot (libclang, type).type == ValueCategory::typeAuto and getPointeeRoot (libclang, canonical).type != ValueCategory::typeAuto };
 
     return isDeduced and getText (libclang, libclang.getTypeSpelling (canonical)).find (ToolchainWord::templateParameterSpelling) == std::string::npos;
 }
@@ -5098,7 +5139,7 @@ static Cursor getCallOperator (IndexContext& context, Cursor lambda)
 
     applyToChildren (context.libclang, context.libclang.getTypeDeclaration (context.libclang.getCursorType (lambda)), [&context, &callOperator] (Cursor child)
     {
-        if (child.Type == CursorType::cxxMethod and getText (context.libclang, context.libclang.getCursorSpelling (child)).compare (HoverLabel::callOperator) == 0)
+        if (child.type == CursorType::cxxMethod and getText (context.libclang, context.libclang.getCursorSpelling (child)).compare (HoverLabel::callOperator) == 0)
         {
             callOperator = child;
             return ChildVisitResult::visitBreak;
@@ -5168,7 +5209,7 @@ static ChildVisitResult onBinding (Cursor cursor, Cursor, ClientData clientData)
     auto& context { *static_cast<IndexContext*> (clientData) };
     const auto& libclang { context.libclang };
 
-    if (cursor.Type == CursorType::unexposedDeclaration)
+    if (cursor.type == CursorType::unexposedDeclaration)
     {
         const auto usr { libclang.getCursorUSR (cursor) };
         const auto spelling { libclang.getCursorSpelling (cursor) };
@@ -5194,11 +5235,11 @@ static void addBindingSymbols (const LibClang& libclang, IndexContext& context, 
 static void addTemplateParameterSymbols (const LibClang& libclang, IndexContext& context, Cursor cursor)
 {
     const auto parameter { libclang.getCursorReferenced (cursor) };
-    const int type { templateParameterTypes[static_cast<int> (parameter.Type)] };
+    const int type { templateParameterTypes[static_cast<int> (parameter.type)] };
 
     if (type != 0)
     {
-        const int role { parameter.Type == cursor.Type ? LanguageRole::declaration | LanguageRole::definition : LanguageRole::reference };
+        const int role { parameter.type == cursor.type ? LanguageRole::declaration | LanguageRole::definition : LanguageRole::reference };
         const auto usr { libclang.getCursorUSR (parameter) };
         const auto spelling { libclang.getCursorSpelling (parameter) };
 
@@ -5206,6 +5247,32 @@ static void addTemplateParameterSymbols (const LibClang& libclang, IndexContext&
         addTypeDefinition (context, record, parameter);
         libclang.disposeString (spelling);
         libclang.disposeString (usr);
+    }
+}
+
+```
+```addCallRecords
+static void addCallRecords (const LibClang& libclang, IndexContext& context, Cursor cursor)
+{
+    const auto callee { libclang.getCursorReferenced (cursor) };
+    const auto calleeName { getText (libclang, libclang.getCursorSpelling (callee)) };
+    const std::string_view operatorName { HoverLabel::operatorName };
+    const bool isImplicit { libclang.getNumArguments (cursor) == 1 and libclang.equalRanges (libclang.getCursorExtent (cursor), libclang.getCursorExtent (libclang.getArgument (cursor, 0))) != 0 };
+    const bool isSkipped { isImplicit or libclang.isVariadic (callee) != 0 or calleeName.compare (0, operatorName.size(), operatorName) == 0 };
+
+    if (context.keptRanges.isEmpty())
+        addParameterHints (libclang, context, cursor, callee, calleeName);
+
+    for (int index { 0 }; not isSkipped and index < std::min (libclang.getNumArguments (cursor), libclang.getNumArguments (callee)); ++index)
+    {
+        const auto inner { getInnerArgument (context, libclang.getArgument (cursor, static_cast<unsigned> (index))) };
+        SourceFile file { nullptr };
+        unsigned offset { 0 };
+
+        libclang.getSpellingLocation (libclang.getCursorLocation (inner), &file, nullptr, nullptr, &offset);
+
+        if (inner.type == CursorType::declarationReferenceExpression or inner.type == CursorType::memberReferenceExpression)
+            context.passings.set (ling::Wyhash::mix (getFileWord (file), static_cast<unsigned long long> (offset)), static_cast<unsigned long long> (context.texts.add (getHoverPassing (libclang, libclang.getArgument (callee, static_cast<unsigned> (index)), inner))));
     }
 }
 
@@ -5233,31 +5300,7 @@ static ChildVisitResult onCursor (Cursor cursor, Cursor, ClientData clientData)
     {
         if (not context.isForeign (location))
         {
-            const auto addCursorRecord { reinterpret_cast<AddRecord> (reinterpret_cast<std::uintptr_t> (cursorRecords[static_cast<int> (cursor.Type)])) };
-
-            if (cursor.Type == CursorType::callExpression)
-            {
-                const auto callee { libclang.getCursorReferenced (cursor) };
-                const auto calleeName { getText (libclang, libclang.getCursorSpelling (callee)) };
-                const std::string_view operatorName { HoverLabel::operatorName };
-                const bool isImplicit { libclang.getNumArguments (cursor) == 1 and libclang.equalRanges (libclang.getCursorExtent (cursor), libclang.getCursorExtent (libclang.getArgument (cursor, 0))) != 0 };
-                const bool isSkipped { isImplicit or libclang.isVariadic (callee) != 0 or calleeName.compare (0, operatorName.size(), operatorName) == 0 };
-
-                if (context.keptRanges.isEmpty())
-                    addParameterHints (libclang, context, cursor, callee);
-
-                for (int index { 0 }; not isSkipped and index < std::min (libclang.getNumArguments (cursor), libclang.getNumArguments (callee)); ++index)
-                {
-                    const auto inner { getInnerArgument (context, libclang.getArgument (cursor, static_cast<unsigned> (index))) };
-                    SourceFile file { nullptr };
-                    unsigned offset { 0 };
-
-                    libclang.getSpellingLocation (libclang.getCursorLocation (inner), &file, nullptr, nullptr, &offset);
-
-                    if (inner.Type == CursorType::declarationReferenceExpression or inner.Type == CursorType::memberReferenceExpression)
-                        context.passings.set (ling::Wyhash::mix (getFileWord (file), static_cast<unsigned long long> (offset)), static_cast<unsigned long long> (context.texts.add (getHoverPassing (libclang, libclang.getArgument (callee, static_cast<unsigned> (index)), inner))));
-                }
-            }
+            const auto addCursorRecord { reinterpret_cast<AddRecord> (reinterpret_cast<std::uintptr_t> (cursorRecords[static_cast<int> (cursor.type)])) };
 
             if (addCursorRecord != nullptr)
                 addCursorRecord (libclang, context, cursor);
@@ -5665,9 +5708,13 @@ static void addConditionFlags (ling::Texts& flagTexts, ling::Words& flagIndices,
     const std::string_view prefix { action == ConditionAction::define ? ToolchainWord::defineFlag : ToolchainWord::undefineFlag };
     const auto keyword { getDirectiveKeyword (line) };
 
-    applyToDirectiveWords (line, [&flagTexts, &flagIndices, prefix, keyword] (std::string_view word)
+    applyToDirectiveWords (line, [line, &flagTexts, &flagIndices, prefix, keyword] (std::string_view word)
     {
-        if (word.data() != keyword.data() and word.compare (ToolchainWord::definedOperator) != 0 and not getPlatformMacros().contains (word))
+        const auto afterWord { static_cast<std::size_t> (word.data() - line.data()) + word.size() };
+        const auto nextToken { line.find_first_not_of (static_cast<char> (Chars::space), afterWord) };
+        const bool isFunctionLike { nextToken != std::string_view::npos and line.at (nextToken) == static_cast<char> (Chars::openParen) };
+
+        if (word.data() != keyword.data() and word.at (0) != static_cast<char> (Chars::underscore) and not isFunctionLike and word.compare (ToolchainWord::definedOperator) != 0 and not getPlatformMacros().contains (word) and not getIgnoredConditionMacros().contains (word))
             flagIndices.add (static_cast<unsigned long long> (flagTexts.add (std::string (prefix) + std::string (word))));
     });
 }
@@ -5711,23 +5758,20 @@ static ling::Pointers getConditionFlags (const ling::WordLists& keptRanges, cons
 }
 
 ```
-```addContextPass
-static ling::WordLists addContextPass (const IndexSession& session, const ling::Pointers& commandLine, const LanguageCallbacks& callbacks, UnsavedFile* unsavedFiles, int bufferCount, ling::WordLists keptRanges)
+```applyToTranslationUnit
+static int applyToTranslationUnit (const IndexSession& session, const ling::Pointers& commandLine, UnsavedFile* unsavedFiles, int bufferCount, unsigned options, IndexContext& context, const std::function<int (TranslationUnit translationUnit)>& function)
 {
     const auto& libclang { *session.libclang };
     TranslationUnit translationUnit { nullptr };
-    IndexContext context { libclang, callbacks, nullptr };
     auto indexerCallbacks { getIndexerCallbacks() };
     int result { 0 };
     const bool usesPrecompiled { std::any_of (commandLine.begin(), commandLine.begin() + commandLine.size(), [] (const char* argument) { return std::string_view (argument).compare (ToolchainWord::precompiledIncludeFlag) == 0; }) };
 
-    context.keptRanges = std::move (keptRanges);
-
     if (bufferCount == 0 and not usesPrecompiled)
-        result = libclang.indexSourceFileFullArgv (session.action.get(), &context, &indexerCallbacks, static_cast<unsigned> (sizeof (IndexerCallbacks)), indexOptions, nullptr, commandLine.begin(), commandLine.size(), nullptr, 0, &translationUnit, contextOptions);
+        result = libclang.indexSourceFileFullArgv (session.action.get(), &context, &indexerCallbacks, static_cast<unsigned> (sizeof (IndexerCallbacks)), indexOptions, nullptr, commandLine.begin(), commandLine.size(), nullptr, 0, &translationUnit, options);
     else
     {
-        result = libclang.parseTranslationUnit2FullArgv (session.indexHandle.get(), nullptr, commandLine.begin(), commandLine.size(), unsavedFiles, static_cast<unsigned> (bufferCount), contextOptions, &translationUnit);
+        result = libclang.parseTranslationUnit2FullArgv (session.indexHandle.get(), nullptr, commandLine.begin(), commandLine.size(), unsavedFiles, static_cast<unsigned> (bufferCount), options, &translationUnit);
 
         if (result == 0 and translationUnit != nullptr)
         {
@@ -5743,30 +5787,48 @@ static ling::WordLists addContextPass (const IndexSession& session, const ling::
     if (result == 0 and translationUnit != nullptr)
     {
         context.translationUnit = translationUnit;
+        result = function (translationUnit);
+    }
+
+    return result;
+}
+
+```
+```addContextPass
+static ling::WordLists addContextPass (const IndexSession& session, const ling::Pointers& commandLine, const LanguageCallbacks& callbacks, UnsavedFile* unsavedFiles, int bufferCount, ling::WordLists keptRanges)
+{
+    const auto& libclang { *session.libclang };
+    IndexContext context { libclang, callbacks, nullptr };
+    ling::WordLists remaining;
+
+    context.keptRanges = std::move (keptRanges);
+
+    const int result { applyToTranslationUnit (session, commandLine, unsavedFiles, bufferCount, contextOptions, context, [&libclang, &context, &remaining] (TranslationUnit translationUnit)
+    {
         addCallPassings (libclang, context, translationUnit);
         addHovers (libclang, context);
         addChosenSymbols (libclang, context);
+        remaining = getRemainingRanges (context.keptRanges, getSkippedRanges (libclang, context));
+        return 0;
+    }) };
 
-        return getRemainingRanges (context.keptRanges, getSkippedRanges (libclang, context));
-    }
-
-    return std::move (context.keptRanges);
+    return result == 0 and context.translationUnit != nullptr ? std::move (remaining) : std::move (context.keptRanges);
 }
 
 ```
 ```addContextPasses
 static void addContextPasses (const IndexSession& session, const ling::Pointers& commandLine, const LanguageCallbacks& callbacks, UnsavedFile* unsavedFiles, int bufferCount, ling::WordLists keptRanges, const ling::Texts& directiveTexts, const ling::WordMap& directiveEntries, unsigned platformMask)
 {
-    getPlatformTargets().applyToEntries ([&session, &commandLine, &callbacks, unsavedFiles, bufferCount, &keptRanges, platformMask] (std::string_view targetFlag, unsigned long long platform)
+    for (const int platform : { platformMac, platformWindows, platformLinux })
     {
-        if (static_cast<int> (platform) != currentPlatform and (platformMask & (1u << static_cast<unsigned> (platform))) != 0 and not keptRanges.isEmpty())
+        if (platform != currentPlatform and (platformMask & (1u << static_cast<unsigned> (platform))) != 0 and not keptRanges.isEmpty())
         {
             ling::Pointers flags;
 
-            flags.add (targetFlag.data());
+            flags.add (static_cast<const char*> (getPlatformTargets().getAddress (platform)));
             keptRanges = addContextPass (session, getContextCommandLine (commandLine, flags, false), callbacks, unsavedFiles, bufferCount, std::move (keptRanges));
         }
-    });
+    }
 
     for (const bool isInverted : { false, true })
     {
@@ -5803,44 +5865,23 @@ static int indexSource (const IndexSession& session, const ling::Pointers& comma
     unsigned platformMask { 0 };
 
     {
-        TranslationUnit translationUnit { nullptr };
         IndexContext context { libclang, callbacks, nullptr };
-        auto indexerCallbacks { getIndexerCallbacks() };
-        const bool usesPrecompiled { std::any_of (commandLine.begin(), commandLine.begin() + commandLine.size(), [] (const char* argument) { return std::string_view (argument).compare (ToolchainWord::precompiledIncludeFlag) == 0; }) };
 
         assert (callbacks.isForeign != nullptr);
 
-        if (bufferCount == 0 and not usesPrecompiled)
-            result = libclang.indexSourceFileFullArgv (session.action.get(), &context, &indexerCallbacks, static_cast<unsigned> (sizeof (IndexerCallbacks)), indexOptions, nullptr, commandLine.begin(), commandLine.size(), nullptr, 0, &translationUnit, options);
-        else
+        result = applyToTranslationUnit (session, commandLine, unsavedFiles.get(), bufferCount, options, context, [&libclang, &context, &commandLine, directory, &precompiledPath, &keptRanges, &directiveTexts, &directiveEntries, &platformMask] (TranslationUnit translationUnit)
         {
-            result = libclang.parseTranslationUnit2FullArgv (session.indexHandle.get(), nullptr, commandLine.begin(), commandLine.size(), unsavedFiles.get(), static_cast<unsigned> (bufferCount), options, &translationUnit);
+            const int saveResult { precompiledPath.empty() ? 0 : libclang.saveTranslationUnit (translationUnit, precompiledPath.c_str(), libclang.defaultSaveOptions (translationUnit)) };
 
-            if (result == 0 and translationUnit != nullptr)
-            {
-                const std::unique_ptr<void, decltype (LibClang::disposeIndexAction)> localAction { libclang.createIndexAction (session.indexHandle.get()), libclang.disposeIndexAction };
-
-                context.translationUnit = translationUnit;
-                result = libclang.indexTranslationUnit (localAction.get(), &context, &indexerCallbacks, static_cast<unsigned> (sizeof (IndexerCallbacks)), indexOptions, translationUnit);
-            }
-        }
-
-        const std::unique_ptr<void, decltype (LibClang::disposeTranslationUnit)> unit { translationUnit, libclang.disposeTranslationUnit };
-
-        if (result == 0 and translationUnit != nullptr)
-        {
-            context.translationUnit = translationUnit;
-
-            if (not precompiledPath.empty())
-                result = libclang.saveTranslationUnit (translationUnit, precompiledPath.c_str(), libclang.defaultSaveOptions (translationUnit));
-
-            if (result == 0)
+            if (saveResult == 0)
             {
                 addUnitRecords (libclang, context, commandLine, directory, translationUnit);
                 keptRanges = getSkippedRanges (libclang, context);
                 platformMask = addSkippedDirectives (context, keptRanges, directiveTexts, directiveEntries);
             }
-        }
+
+            return saveResult;
+        });
     }
 
     if (result == 0 and not keptRanges.isEmpty())

@@ -6,27 +6,25 @@
 
 /**
  * @class Client
- * @brief Sends one request to the daemon of a manifest, and prints the reply.
+ * @brief Base socket client connecting to the daemon of a manifest, or launching one when absent.
  *
- * The client connects to the daemon through the port file. When no daemon
- * answers, it starts one as a detached process. It watches the cache folder, so
- * that it connects when the port file appears.
+ * Connects to the daemon through the port file. When no daemon answers, it starts
+ * one as a detached process and watches the cache folder so it connects when the
+ * port file appears.
  */
 class Client : public juce::InterprocessConnection,
                private jam::File::Watcher::Listener
 {
 public:
     /**
-     * @brief Stores the manifest, the toolchain argument, and the request, and watches the cache folder for the port file.
+     * @brief Stores the manifest and toolchain argument, creates the port directory, and watches it for the port file.
      *
-     * The constructor creates the cache folder.
-     *
-     * @param newManifestFile       The manifest of the request.
+     * @param newManifestFile       The manifest of the run.
      * @param newToolchainArgument  The toolchain argument. Empty when none is given.
      */
     Client (const juce::File& newManifestFile, const juce::String& newToolchainArgument);
 
-    /** @brief Removes the client from the listeners of the watcher, and disconnects. */
+    /** @brief Removes the client from the listeners of the watcher. */
     ~Client() override;
 
     /**
@@ -49,7 +47,7 @@ private:
     bool connectToDaemon();
 
     /**
-     * @brief Tries to connect when the port file changes.
+     * @brief Records Id::port on model.state and tries to connect when the port file changes.
      *
      * A change of any other file does nothing.
      *
@@ -63,17 +61,14 @@ private:
      */
     void connectionLost() override;
 
-    /** @brief The longest wait, in milliseconds, for one connection attempt. */
-    static constexpr int connectTimeoutMs { 200 };
-
-    /** @brief The manifest of the request. Its path names the port file. */
+    /** @brief The manifest of the run. Its path names the port file. */
     const juce::File manifestFile;
 
-    /** @brief The toolchain argument of the request. Empty when none is given. */
+    /** @brief The toolchain argument of the run. Empty when none is given. */
     const juce::String toolchainArgument;
 
 protected:
-    /** @brief The model of the run. The client writes the overlay messages to it. */
+    /** @brief The model of the run. Holds overlay messages and the daemon port property. */
     LINGModel& model { *LINGModel::getInstance() };
 
 private:

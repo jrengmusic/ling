@@ -8,24 +8,20 @@
 
 /**
  * @class Processor
- * @brief Runs the parse and index jobs of the source files on a thread pool, and applies their results to the index.
+ * @brief Runs unit-discovery, parse, and index jobs on a thread pool, and applies results to the index.
  *
- * Each language row starts a build of its language on a subprocess. The library
- * that the build writes is loaded for the family of the row. Each file row whose
- * family has a loaded library gets one ParseJob. When a parse gives a document,
- * each unit row that depends on the file gets an IndexJob. A job is one-shot: the
- * pool runs it once, and the message thread removes it. A job works on values that
- * its constructor receives, and it does not read the model. A job signals the
- * message thread, which applies its result in handleAsyncUpdate. A parse result
- * reaches the index only when the row still holds the same path, the file still
- * has the modification time that the job read, and the family still has the library
- * that the job used. An index job starts only when no parse job remains. The
- * documents are keyed by the index of their path in paths.
+ * Registers built-in languages and loads dynamic language libraries into index.
+ * When a toolchain tree arrives, UnitsJob discovers compilation units and emits
+ * the files tree. Each file row whose family has a language receives a ParseJob,
+ * which reads or parses the file (or open buffer) and may also produce a
+ * SymbolDocument. Each unit row whose dependencies have no pending ParseJob and
+ * whose language supports indexing receives an IndexJob that builds a
+ * SymbolDocument. Jobs hold inputs by value, run on the pool, and signal the
+ * message thread to apply results in handleAsyncUpdate().
  *
- * The processor also answers the request rows of the model. Each request row runs
- * the entry of events that its command names, in the listener that receives the row.
- * The entry writes JSON to the result of the row. The lookups read the index in
- * place, and they keep no state except the fuzzy finder slab of Query.
+ * The processor also dispatches request rows via @c events to Query and manages
+ * in-memory editor buffers. Unready requests wait until Id::isIndexed turns
+ * true while moveRequestJobsToFront() prioritizes their prerequisite jobs.
  */
 class Processor : public juce::ValueTree::Listener,
                   private juce::AsyncUpdater
@@ -40,17 +36,31 @@ public:
     using Events = jam::Function::Map<juce::Identifier, jam::Function::pointerCapacity, void (juce::ValueTree&)>;
 
     /**
-     * @brief Registers the processor as a listener of the model.
+     * @brief Registers the processor as a listener of @p newModel, populates event tables, and registers languages.
      *
-     * @param newModel  The model whose changes start the parse jobs.
+     * @param newModel  The model whose state changes drive jobs and requests.
      */
     explicit Processor (LINGModel& newModel);
 
-    /** @brief Removes the processor from the listeners of the model. */
+    /** @brief Removes the processor from model listeners and waits for all pool jobs to finish. */
     ~Processor() override;
 
+    /**
+     * @brief Returns the versioned cache directory containing unpacked built-in language archives.
+     *
+     * Unpacks archived language resources from BinaryData when absent and prunes
+     * stale language cache folders.
+     *
+     * @return Directory containing the unpacked built-in language folders.
+     */
     static juce::File getOrCreateLanguages();
 
+    /**
+     * @brief Forwards document iteration to index.applyToDocuments().
+     *
+     * @tparam Function  Callable taking (std::string_view, const jam::Document&, const Index&).
+     * @param function   Callable invoked for each stored document in path order.
+     */
     template <typename Function>
     void applyToDocuments (const Function& function) const
     {
@@ -66,283 +76,500 @@ private:
      * @param unit       The row to test.
      * @param unitIndex  The index of the row to test in the files child.
      * @param rowIndex   The index of the file row in the files child.
-     * @return @c true when the row holds arguments, and its index or one of its dependencies is rowIndex.
+     * @return @c true when the row holds arguments, and its index or one of its dependencies is @p rowIndex.
      */
     static bool hasDependency (const juce::ValueTree& unit, int unitIndex, int rowIndex);
 
+    /**
+     * @brief Tells whether @p unit or any of its dependencies (other than @p rowIndex) has a running or queued ParseJob.
+     *
+     * @param unit       The unit row to check.
+     * @param unitIndex  Index of @p unit in the files child.
+     * @param rowIndex   File row index excluded from the check because its ParseJob just finished.
+     * @return @c true when another required file still has an active or queued ParseJob.
+     */
     bool hasParseJob (const juce::ValueTree& unit, int unitIndex, int rowIndex) const;
 
     /**
-     * @brief Returns the unit row that compiles a file.
+     * @brief Returns the unit row that owns @p path in index.unitRows.
      *
-     * A file row with arguments is its own unit. Any other file row gives the first
-     * unit row that depends on it.
-     *
-     * @param pathIndex  The index of the file path in paths. A negative index gives no unit.
-     * @return The unit row, or an invalid tree when no unit row depends on the file.
+     * @param path  Full file path to look up.
+     * @return The owning unit row, or an invalid ValueTree when @p path has no unit.
      */
     juce::ValueTree getUnit (const juce::String& path) const;
 
+    /**
+     * @brief Packs the Id::arguments array of @p unit into a null-delimited byte buffer.
+     *
+     * @param unit  Translation unit row holding Id::arguments.
+     * @return Contiguous null-delimited argument strings.
+     */
     jam::Array<char> getArguments (const juce::ValueTree& unit) const;
 
+    /**
+     * @brief Appends @p argument and a trailing null byte to @p arguments.
+     *
+     * @param arguments  Destination null-delimited argument buffer.
+     * @param argument   Argument string to append.
+     */
     static void addArgument (jam::Array<char>& arguments, std::string_view argument);
 
+    /**
+     * @brief Builds C-string pointers into a null-delimited @p arguments buffer.
+     *
+     * @param arguments  Null-delimited argument buffer.
+     * @return Pointers to the start of each argument string inside @p arguments.
+     */
     static jam::Array<const char*> getArgumentPointers (const jam::Array<char>& arguments);
 
+    /**
+     * @brief Computes the Wyhash content stamp for @p unit from its arguments, unit file hash, and dependency hashes.
+     *
+     * @param unit       Translation unit row.
+     * @param unitIndex  Index of @p unit in the files child.
+     * @param arguments  Packed null-delimited compile arguments.
+     * @return Combined 64-bit hash key for symbol swap validation.
+     */
     juce::int64 getUnitHash (const juce::ValueTree& unit, int unitIndex, const jam::Array<char>& arguments) const;
 
     /**
-     * @brief Fills events with the operation of each request command.
+     * @brief Populates @c events, @c propertyEvents, and @c childEvents dispatch tables.
      *
-     * The constructor calls this once. The table holds one entry for each command,
-     * so runRequest finds an operation with one lookup.
+     * Called once by the constructor so request, property, and child callbacks
+     * resolve via lookup instead of branch chains.
      */
     void registerEvents();
 
     /**
-     * @brief Runs the operation that the command of a request names.
+     * @brief Executes the request handler for @p request or writes an InvalidParams error.
      *
-     * An empty command word maps to the empty identifier, which the table does
-     * not hold. A juce::Identifier made from an empty string fails an assertion
-     * (juce_Identifier.cpp), so the empty word is tested before the identifier is
-     * made. An unknown command sets the overlay message and writes an empty result.
+     * Clears any Id::isRequested flags on the owning unit and its prerequisites,
+     * forwards unit or language diagnostic messages to @c model, and dispatches
+     * valid commands through @c events.
      *
-     * @param request  The request row. Its command selects the operation, and the operation writes the result.
+     * @param request  The request row whose command selects the operation and receives Id::result.
      */
     void runRequest (juce::ValueTree& request);
 
-    void runHover (juce::ValueTree& request);
-
+    /**
+     * @brief Tells whether the files or unit required by @p request have finished indexing.
+     *
+     * @param request  The request row to check against map::Readiness scope rules.
+     * @return @c true when the request can run immediately.
+     */
     bool isRequestReady (const juce::ValueTree& request) const;
 
+    /**
+     * @brief Marks the target unit requested and moves its blocking parse and index jobs to the front of @c pool.
+     *
+     * @param request  Waiting request row whose target file determines which jobs to prioritize.
+     */
     void moveRequestJobsToFront (const juce::ValueTree& request);
 
+    /**
+     * @brief Scans all connections for queued requests that are now ready and executes them.
+     */
     void runRequests();
 
+    /**
+     * @brief Appends a synthetic publishDiagnostics request to each connection supporting position encoding when @p file finishes indexing.
+     *
+     * @param file  Indexed file row whose path is published.
+     */
     void addDiagnosticRequests (const juce::ValueTree& file);
 
+    /**
+     * @brief Updates Id::isIndexed on file row @p rowIndex from its parse and unit index job state.
+     *
+     * @param rowIndex  Index of the file row in the files child.
+     */
     void setIndexed (int rowIndex);
 
+    /**
+     * @brief Updates Id::isIndexed on @p unit and on every dependency row owned by @p unitIndex.
+     *
+     * @param unit       Translation unit row.
+     * @param unitIndex  Index of @p unit in the files child.
+     */
     void setUnitIndexed (const juce::ValueTree& unit, int unitIndex);
 
+    /**
+     * @brief Updates global Id::isIndexed on the files tree and refreshes overlay jobCount and pendingJobCount parameters.
+     */
     void setIndexed();
 
     /**
-     * @brief Starts the jobs of an added files child, a language child, or a request child.
+     * @brief Dispatches child additions on @c model.state via @c childEvents.
      *
-     * A files child first erases the documents whose path has no row in the child,
-     * and it clears the queued index jobs. It then adds the language rows that its
-     * families need. It starts one parse job for each row whose family has a loaded
-     * library, and one precompile for each header entry. It then requests an update.
-     * A language child starts its build. A request child runs when its file is indexed, and otherwise waits in nextRequests until handleAsyncUpdate finds the file indexed. Any other child
-     * is ignored.
+     * Handles Id::files (starts parse jobs), Id::request (runs immediately or
+     * prioritizes blocking jobs), Id::language (loads the language library and
+     * starts unit discovery), and Id::toolchain (starts unit discovery).
      *
-     * @param parentTree              The tree that received the child. Not read.
-     * @param childWhichHasBeenAdded  The added child. A files child starts the parse jobs, a language child starts its build, and a request child runs.
+     * @param parentTree              Tree that received the child (unused).
+     * @param childWhichHasBeenAdded  Added child tree whose type selects the action.
      */
     void valueTreeChildAdded (juce::ValueTree& parentTree, juce::ValueTree& childWhichHasBeenAdded) override;
 
     /**
-     * @brief Adds a language row for each file row whose family has no language row.
-     *
-     * The config folder of a new language is created before the row is appended to
-     * the state. The append starts the build of the language.
-     *
-     * @param files  The files child whose rows name the families.
+     * @brief Registers built-in languages and appends a language row for each language directory in config.
      */
     void addLanguages();
 
+    /**
+     * @brief Registers the six built-in document languages into @c index.languages and @c model.state.
+     *
+     * @return Next available language family identifier after the built-in languages.
+     */
     int addBuiltInLanguages();
 
+    /**
+     * @brief Prunes stale documents, rebuilds path/unit lookup tables, and starts ParseJobs for @p files.
+     *
+     * @param files  The files child tree added to @c model.state.
+     */
     void addJobs (const juce::ValueTree& files);
 
     /**
-     * @brief Starts the jobs that a changed path or hash of a file or a language row requires.
+     * @brief Dispatches property changes on @c model.state via @c propertyEvents.
      *
-     * A path change of a file row starts a parse job, when its family has a loaded
-     * library. It also deletes the precompiled header of each header entry that
-     * depends on the row, and starts that precompile again. A path change of a
-     * language row starts its build. A hash change of a language row starts a parse
-     * job for each file row of its family. The model sends a path change for a row
-     * when the watcher reports a change of its file.
+     * Handles Id::path on file or language rows, Id::hash on language rows,
+     * Id::isIndexed to drain waiting requests and publish diagnostics, and
+     * Id::threads to rebuild @c pool with the updated thread count.
      *
-     * @param tree      The tree whose property changed. A file row or a language row starts a job.
-     * @param property  The changed property. Only Id::path and Id::hash start a job.
+     * @param tree      Tree whose property changed.
+     * @param property  Identifier of the changed property.
      */
     void valueTreePropertyChanged (juce::ValueTree& tree, const juce::Identifier& property) override;
 
     /**
-     * @brief Starts a parse job for one file row, through setJob.
+     * @brief Starts or queues a ParseJob for file @p row at @p rowIndex, passing any open buffer text.
      *
-     * The path, the family, the swap file, the library of the family, and the hash
-     * of the language row are read on the calling thread, and the job gets them as
-     * values. The swap file folder is created before the job starts. The job reads
-     * the file. A swap file that holds the same source hash and the same language
-     * hash gives the document, and SwapValidator checks it. Otherwise the job parses
-     * the text with the library, and it writes the swap file. A missing file deletes
-     * the swap file. The job signals the message thread, which applies the result in
-     * handleAsyncUpdate.
-     *
-     * @param row       The file row. Its path and family are read on the calling thread.
-     * @param rowIndex  The index of the row in the files child. addDocument checks the result against this row.
+     * @param row       File row whose path and family define the job.
+     * @param rowIndex  Index of @p row in the files child.
      */
     void addJob (const juce::ValueTree& row, int rowIndex);
 
     /**
-     * @brief A one-shot parse of one file row, run on the pool. It holds its inputs as values.
+     * @brief One-shot parse of a single file row (or open buffer) run on the thread pool.
      *
-     * The job reads the file on the pool thread. It reads the swap file when the source
-     * hash and the language hash match, and it parses the text otherwise. The message
-     * thread applies the result in handleAsyncUpdate.
+     * Reads or parses the source, optionally obtains a SymbolDocument from
+     * built-in languages, catches std::exception at the job boundary, and signals
+     * handleAsyncUpdate() on completion.
      */
     struct ParseJob : public juce::ThreadPoolJob
     {
         /**
          * @brief Creates a parse job for one file row.
          *
-         * @param ownerToUse         The processor that receives the completion signal.
-         * @param rowIndexToUse      The index of the file row in the files child.
-         * @param pathToUse          The path of the file.
-         * @param swapFileToUse      The swap file of the file.
-         * @param languageToUse      The library of the family.
-         * @param languageHashToUse  The hash of the language row.
+         * @param ownerToUse         Processor notified when the job finishes.
+         * @param rowIndexToUse      Index of the file row in the files child.
+         * @param pathToUse          Source file path.
+         * @param swapFileToUse      Syntax swap file path.
+         * @param languageToUse      Language instance for the row's family.
+         * @param languageHashToUse  Hash of the language row.
+         * @param familyToUse        Language family identifier.
+         * @param bufferToUse        Optional unsaved editor text overriding disk contents.
          */
         ParseJob (Processor& ownerToUse, int rowIndexToUse, const juce::String& pathToUse, const juce::File& swapFileToUse, std::shared_ptr<const Language> languageToUse, juce::int64 languageHashToUse, int familyToUse, std::optional<juce::String> bufferToUse);
 
         /**
-         * @brief Reads or parses the file, and writes its swap file. Runs on a pool thread.
+         * @brief Loads from swap or parses the source, catches boundary exceptions, and signals the processor.
          *
-         * @return jobHasFinished, which the pool reads as the end of the job.
+         * @return jobHasFinished when complete.
          */
         JobStatus runJob() override;
 
-        Processor& owner;///< The processor that receives the completion signal. The job signals it when it ends.
-        int rowIndex { 0 };///< The index of the file row in the files child. The message thread checks the row against it.
-        juce::String path;///< The path of the file, copied from the row on the calling thread.
-        juce::File swapFile;///< The swap file of the file. The job reads it, or writes it after a parse. A missing file deletes it.
-        std::shared_ptr<const Language> language;///< The library of the family. The shared pointer keeps the library loaded while the job runs.
-        juce::int64 languageHash { 0 };///< The hash of the language row. A swap file must hold this hash to give the document.
-        int family { 0 };
-        std::optional<juce::String> buffer;
-        std::unique_ptr<jam::Document> document;///< The document that the job read or parsed. The message thread moves it into the index.
-        std::unique_ptr<SymbolDocument> symbols;
-        juce::Result result { juce::Result::ok() };///< The swap validation result, or the parse result. A parse without a document gives the library diagnosis.
-        juce::Time modificationTime;///< The modification time of the file, read before the file is loaded.
-        std::atomic<bool> isFinished { false };///< Set to true when runJob ends. The message thread reads it with acquire order.
+        Processor& owner;///< Processor notified via triggerAsyncUpdate() on completion.
+        int rowIndex { 0 };///< Index of the file row in the files child.
+        juce::String path;///< Path of the file copied on the calling thread.
+        juce::File swapFile;///< Syntax swap file read or updated when no buffer override is present.
+        std::shared_ptr<const Language> language;///< Language instance kept alive for the job's duration.
+        juce::int64 languageHash { 0 };///< Language hash required for swap cache hits.
+        int family { 0 };///< Language family identifier stored on swap documents.
+        std::optional<juce::String> buffer;///< Unsaved buffer text overriding disk contents when present.
+        std::unique_ptr<jam::Document> document;///< Parsed syntax document moved into @c index on the message thread.
+        std::unique_ptr<SymbolDocument> symbols;///< Optional SymbolDocument produced directly by built-in languages.
+        juce::Result result { juce::Result::ok() };///< Validation, parse, or exception error result.
+        juce::Time modificationTime;///< File modification timestamp captured before reading from disk.
+        std::atomic<bool> isFinished { false };///< Release-stored completion flag read by handleAsyncUpdate().
     };
 
     /**
-     * @brief A one-shot index pass over one unit row, run on the pool. It holds its inputs as values.
+     * @brief One-shot semantic index pass over one translation unit run on the thread pool.
      *
-     * The job calls the library index function, and the library reports each symbol
-     * to addSymbol. The message thread applies the records in handleAsyncUpdate.
+     * Checks the symbol swap cache first; on a miss, invokes language->index(),
+     * builds a SymbolDocument via Builder, and catches std::exception at the
+     * thread boundary.
      */
     struct IndexJob : public juce::ThreadPoolJob
     {
         /**
-         * @brief Creates an index job for one unit row.
+         * @brief Creates an index job for one translation unit row.
          *
-         * @param ownerToUse      The processor that receives the completion signal.
-         * @param rowIndexToUse   The index of the unit row in the files child.
-         * @param pathToUse       The path of the source file of the unit.
-         * @param directoryToUse  The working folder of the compile.
-         * @param argumentsToUse  The compile arguments, each ended by a null character.
-         * @param symbolSwapFileToUse  The symbol swap file of the unit.
-         * @param languageHashToUse    The hash of the language row.
-         * @param languageToUse   The library of the family.
+         * @param ownerToUse           Processor notified when the job finishes.
+         * @param rowIndexToUse        Index of the unit row in the files child.
+         * @param pathToUse            Source file path of the unit.
+         * @param directoryToUse       Working directory of the compile command.
+         * @param argumentsToUse       Null-delimited compile arguments.
+         * @param hashToUse            Unit content hash including dependencies and output existence.
+         * @param symbolSwapFileToUse  Binary symbol swap file path.
+         * @param languageHashToUse    Hash of the language row.
+         * @param languageToUse        Language instance for the unit's family.
+         * @param familyToUse          Language family identifier.
+         * @param bufferPathsToUse     Open editor buffer paths passed as unsaved overlays.
+         * @param bufferTextsToUse     Open editor buffer contents aligned with @p bufferPathsToUse.
+         * @param foreignPathsToUse    Unit paths owned by other translation units.
          */
         IndexJob (Processor& ownerToUse, int rowIndexToUse, const juce::String& pathToUse, const juce::String& directoryToUse, jam::Array<char> argumentsToUse, juce::int64 hashToUse, const juce::File& symbolSwapFileToUse, juce::int64 languageHashToUse, std::shared_ptr<const Language> languageToUse, int familyToUse, juce::StringArray bufferPathsToUse, juce::StringArray bufferTextsToUse, jam::Strings foreignPathsToUse);
 
         /**
-         * @brief Runs the library index function on the source. Runs on a pool thread.
+         * @brief Opens the symbol swap cache or runs addSymbols(), catching std::exception at the thread boundary.
          *
-         * @return jobHasFinished, which the pool reads as the end of the job.
+         * @return jobHasFinished when complete.
          */
         JobStatus runJob() override;
 
+        /**
+         * @brief Invokes language->index() with builder callbacks and writes the resulting SymbolDocument swap file.
+         */
         void addSymbols();
 
         /**
-         * @brief Stores one symbol record of the index pass. Every record of a position stays.
+         * @brief Callback recording one symbol occurrence into the job's SymbolDocument::Builder.
          *
-         * @param context     The index job that receives the record.
-         * @param recordPath  The path of the file of the location.
-         * @param line        The 1-based line of the location.
-         * @param column      The 1-based column of the location.
-         * @param symbol      The symbol text of the entity.
-         * @param role        The role bits of the record.
-         * @param type        The token type of the entity.
-         * @param name        The entity name. A null name is stored as empty.
+         * @param context      Pointer to the owning IndexJob.
+         * @param recordPath   File path of the occurrence.
+         * @param line         1-based source line.
+         * @param column       1-based byte column.
+         * @param symbol       Unique symbol identifier.
+         * @param nameLength   Byte length of the symbol name.
+         * @param role         Bitmask of jam::LanguageRole flags.
+         * @param type         Token type of the symbol.
+         * @param hover        Per-file HoverEntry index, or jam::LanguageCallbacks::noHover.
+         * @param typeSymbols  Associated type symbol identifiers.
+         * @param typeCount    Count of entries in @p typeSymbols.
          */
         static void addSymbol (void* context, const char* recordPath, int line, int column, unsigned long long symbol, int nameLength, int role, int type, int hover, const unsigned long long* typeSymbols, int typeCount);
 
+        /**
+         * @brief Callback appending one hover entry to the job's SymbolDocument::Builder.
+         *
+         * @param context         Pointer to the owning IndexJob.
+         * @param recordPath      File path owning the hover entry.
+         * @param text            Hover documentation string.
+         * @param definitionPath  Definition file path, or nullptr when unavailable.
+         * @param line            1-based start line.
+         * @param column          1-based start column.
+         * @param endLine         1-based end line.
+         * @param endColumn       1-based end column.
+         * @return Per-file hover index for SymbolRecord::hover.
+         */
         static int addHover (void* context, const char* recordPath, const char* text, const char* definitionPath, int line, int column, int endLine, int endColumn);
 
+        /**
+         * @brief Callback appending one inlay hint to the job's SymbolDocument::Builder.
+         *
+         * @param context       Pointer to the owning IndexJob.
+         * @param recordPath    File path of the hint.
+         * @param line          1-based anchor line.
+         * @param column        1-based anchor column.
+         * @param label         Hint display label.
+         * @param type          LSP inlay hint kind.
+         * @param paddingLeft   Nonzero to request left padding.
+         * @param paddingRight  Nonzero to request right padding.
+         */
         static void addInlayHint (void* context, const char* recordPath, int line, int column, const char* label, int type, int paddingLeft, int paddingRight);
 
+        /**
+         * @brief Callback appending one diagnostic entry to the job's SymbolDocument::Builder.
+         *
+         * @param context     Pointer to the owning IndexJob.
+         * @param recordPath  File path of the diagnostic.
+         * @param line        1-based start line.
+         * @param column      1-based start column.
+         * @param endLine     1-based end line.
+         * @param endColumn   1-based end column.
+         * @param severity    LSP diagnostic severity.
+         * @param message     Diagnostic message text.
+         */
         static void addDiagnostic (void* context, const char* recordPath, int line, int column, int endLine, int endColumn, int severity, const char* message);
 
+        /**
+         * @brief Callback deduplicating and appending one outline entry to the job's SymbolDocument::Builder.
+         *
+         * @param context          Pointer to the owning IndexJob.
+         * @param recordPath       File path of the outline symbol.
+         * @param line             1-based start line.
+         * @param column           1-based start column.
+         * @param endLine          1-based end line.
+         * @param endColumn        1-based end column.
+         * @param nameLength       Byte length of the symbol name.
+         * @param qualifierLength  Byte length of the scope qualifier.
+         * @param type             LSP symbol kind.
+         * @param parent           Slot index returned by a prior addOutline() call, or negative.
+         * @return Slot index for child outlines to reference as @p parent.
+         */
         static int addOutline (void* context, const char* recordPath, int line, int column, int endLine, int endColumn, int nameLength, int qualifierLength, int type, int parent);
 
+        /**
+         * @brief Callback deduplicating and appending one completion candidate to the job's SymbolDocument::Builder.
+         *
+         * @param context      Pointer to the owning IndexJob.
+         * @param recordPath   File path associated with the completion.
+         * @param scopeSymbol  Enclosing scope symbol identifier.
+         * @param symbol       Candidate symbol identifier.
+         * @param label        Display label.
+         * @param insertText   Inserted text or snippet.
+         * @param type         Completion item kind index.
+         */
         static void addCompletion (void* context, const char* recordPath, unsigned long long scopeSymbol, unsigned long long symbol, const char* label, const char* insertText, int type);
 
+        /**
+         * @brief Callback appending one diagnostic fix-it edit to the job's SymbolDocument::Builder.
+         *
+         * @param context     Pointer to the owning IndexJob.
+         * @param recordPath  File path of the edit.
+         * @param line        1-based start line.
+         * @param column      1-based start column.
+         * @param endLine     1-based end line.
+         * @param endColumn   1-based end column.
+         * @param text        Replacement text.
+         */
         static void addFixIt (void* context, const char* recordPath, int line, int column, int endLine, int endColumn, const char* text);
 
+        /** @brief Number of integer fields hashed to deduplicate outline entries. */
         static constexpr int outlineFieldCount { 8 };
 
+        /**
+         * @brief Resolves a callback outline slot index to a per-file parent index when in the same file.
+         *
+         * @param parent     Slot index passed from language->index(), or negative.
+         * @param pathIndex  File index of the child outline entry.
+         * @return Per-file parent index, or SymbolDocument::noParent.
+         */
         int getOutlineParent (int parent, int pathIndex) const;
 
+        /**
+         * @brief Tells whether @p recordPath is a translation unit owned by another IndexJob.
+         *
+         * @param recordPath  File path to test against @c foreignPaths.
+         * @return @c true when @p recordPath belongs to another unit.
+         */
         bool isForeign (const char* recordPath) const;
 
-        Processor& owner;///< The processor that receives the completion signal. The job signals it when it ends.
-        int rowIndex { 0 };///< The index of the unit row in the files child.
-        juce::String path;///< The path of the source file of the unit.
-        juce::String directory;///< The working folder of the compile.
-        jam::Array<char> arguments;///< The compile arguments, each ended by a null character.
-        juce::int64 hash { 0 };
-        juce::File symbolSwapFile;
-        juce::int64 languageHash { 0 };
-        std::shared_ptr<const Language> language;///< The library of the family. The shared pointer keeps the library loaded while the job runs.
-        int family { 0 };
-        juce::StringArray bufferPaths;
-        juce::StringArray bufferTexts;
-        jam::Strings foreignPaths;
-        SymbolDocument::Builder builder;
-        std::unique_ptr<SymbolDocument> symbols;
-        jam::Array<std::pair<int, int>> outlineSlots;
-        jam::HashMap<juce::int64, int> outlineKeys;
-        jam::HashSet<juce::int64> completionKeys;
-        int result { 0 };///< The return value of the library index function. Zero means the pass succeeded.
-        std::atomic<bool> isFinished { false };///< Set to true when runJob ends. The message thread reads it with acquire order.
+        Processor& owner;///< Processor notified via triggerAsyncUpdate() on completion.
+        int rowIndex { 0 };///< Index of the unit row in the files child.
+        juce::String path;///< Source file path of the unit.
+        juce::String directory;///< Working directory of the compile command.
+        jam::Array<char> arguments;///< Null-delimited compile arguments.
+        juce::int64 hash { 0 };///< Unit content hash key for symbol swap validation.
+        juce::File symbolSwapFile;///< Binary SymbolDocument swap file path.
+        juce::int64 languageHash { 0 };///< Language hash required for swap cache hits.
+        std::shared_ptr<const Language> language;///< Language instance kept alive for the job's duration.
+        int family { 0 };///< Language family identifier stored in the SymbolDocument header.
+        juce::StringArray bufferPaths;///< Paths of open editor buffers passed to the indexer.
+        juce::StringArray bufferTexts;///< Text contents of open editor buffers aligned with @c bufferPaths.
+        jam::Strings foreignPaths;///< Paths of other translation units excluded from foreign re-indexing.
+        SymbolDocument::Builder builder;///< Accumulator populated by static indexer callbacks.
+        std::unique_ptr<SymbolDocument> symbols;///< Built or mapped SymbolDocument transferred to @c index.
+        jam::Array<std::pair<int, int>> outlineSlots;///< Maps callback slot indices to (fileIndex, per-file outlineIndex).
+        jam::HashMap<juce::int64, int> outlineKeys;///< Hash set deduplicating identical outline entries.
+        jam::HashSet<juce::int64> completionKeys;///< Hash set deduplicating (scopeSymbol, symbol) completions.
+        int result { 0 };///< Return code from language->index(), or nonzero on failure.
+        std::atomic<bool> isFinished { false };///< Release-stored completion flag read by handleAsyncUpdate().
     };
 
+    /**
+     * @brief One-shot unit discovery job over toolchain commands run on the thread pool.
+     *
+     * Queries each language's units() callback, builds a fresh Id::files ValueTree
+     * with buildFiles, catches std::exception at the job boundary, and signals
+     * handleAsyncUpdate() on completion.
+     */
     struct UnitsJob : public juce::ThreadPoolJob
     {
+        /**
+         * @brief Creates a unit discovery job for the active toolchain.
+         *
+         * @param ownerToUse           Processor notified when the job finishes.
+         * @param argumentsToUse       Null-delimited command arguments across all toolchain rows.
+         * @param argumentCountsToUse  Argument count for each toolchain row.
+         * @param directoryToUse       Project root directory.
+         * @param cacheDirectoryToUse  Project cache directory.
+         * @param languagesToUse       Snapshot of loaded languages by family.
+         * @param familiesToUse        Extension-to-family map built from registered languages.
+         */
         UnitsJob (Processor& ownerToUse, jam::Array<char> argumentsToUse, jam::Array<int> argumentCountsToUse, const juce::String& directoryToUse, const juce::String& cacheDirectoryToUse, jam::HashMap<int, std::shared_ptr<const Language>> languagesToUse, jam::HashMap<juce::String, int> familiesToUse);
 
+        /**
+         * @brief Invokes units() for each language, stores buildFiles, catches boundary exceptions, and signals @c owner.
+         *
+         * @return jobHasFinished when complete.
+         */
         JobStatus runJob() override;
 
+        /**
+         * @brief Callback recording one discovered translation unit and its dependencies into @c files.
+         *
+         * @param context            Pointer to the owning UnitsJob.
+         * @param path               Source file path of the unit.
+         * @param directory          Working directory of the compile command.
+         * @param output             Output artifact path, or empty.
+         * @param arguments          Array of compile argument strings.
+         * @param argumentCount      Number of entries in @p arguments.
+         * @param dependencies       Array of included/dependent file paths.
+         * @param dependencyCount    Number of entries in @p dependencies.
+         * @param prerequisites      Array of prerequisite unit paths.
+         * @param prerequisiteCount  Number of entries in @p prerequisites.
+         */
         static void addUnit (void* context, const char* path, const char* directory, const char* output, const char* const* arguments, int argumentCount, const char* const* dependencies, int dependencyCount, const char* const* prerequisites, int prerequisiteCount);
 
+        /**
+         * @brief Callback appending a build system file path watched for manifest reload.
+         *
+         * @param context  Pointer to the owning UnitsJob.
+         * @param path     Build file path reported by the language.
+         */
         static void addBuildFile (void* context, const char* path);
 
+        /**
+         * @brief Callback storing a diagnostic message on @c files when unit discovery reports an error.
+         *
+         * @param context  Pointer to the owning UnitsJob.
+         * @param text     Diagnostic message text.
+         */
         static void addMessage (void* context, const char* text);
 
+        /**
+         * @brief Returns the row index for @p path in @c files, appending a new Id::file row when absent.
+         *
+         * @param path    File path to intern.
+         * @param family  Language family identifier for newly added rows.
+         * @return Zero-based row index in @c files.
+         */
         int getOrCreatePathIndex (const juce::String& path, int family);
 
+        /**
+         * @brief Converts @p filePathCount C-strings in @p filePaths to an array of @c files row indices.
+         *
+         * @param filePaths      Array of file path strings.
+         * @param filePathCount  Number of paths in @p filePaths.
+         * @param family         Language family identifier used when adding missing rows.
+         * @return Array of integer row indices as juce::var entries.
+         */
         juce::Array<juce::var> getOrCreatePathIndices (const char* const* filePaths, int filePathCount, int family);
 
-        Processor& owner;
-        jam::Array<char> arguments;
-        jam::Array<int> argumentCounts;
-        juce::String directory;
-        juce::String cacheDirectory;
-        jam::HashMap<int, std::shared_ptr<const Language>> languages;
-        jam::HashMap<juce::String, int> families;
-        juce::ValueTree files { jam::Format::toType (Id::files) };
-        jam::Strings paths;
-        juce::Array<juce::var> buildFiles;
-        std::atomic<bool> isFinished { false };
+        Processor& owner;///< Processor notified via triggerAsyncUpdate() on completion.
+        jam::Array<char> arguments;///< Null-delimited command arguments across toolchain rows.
+        jam::Array<int> argumentCounts;///< Number of arguments per toolchain row.
+        juce::String directory;///< Project root directory.
+        juce::String cacheDirectory;///< Project cache directory.
+        jam::HashMap<int, std::shared_ptr<const Language>> languages;///< Snapshot of loaded languages.
+        jam::HashMap<juce::String, int> families;///< Maps file extensions to language family identifiers.
+        juce::ValueTree files { jam::Format::toType (Id::files) };///< Discovered files tree applied to @c model on completion.
+        jam::Strings paths;///< Deduplicated file paths indexed in row order of @c files.
+        juce::Array<juce::var> buildFiles;///< Build system files collected via addBuildFile().
+        std::atomic<bool> isFinished { false };///< Release-stored completion flag read by handleAsyncUpdate().
     };
 
     /**
@@ -360,18 +587,13 @@ private:
     static constexpr int noWait { 0 };
 
     /**
-     * @brief Starts a job for a row, or queues it behind the job of the row that runs.
+     * @brief Starts a job for a row, or queues it behind the running job of that row.
      *
-     * A row without a job gets the new job, and the pool runs it. The pool drops a
-     * job that has not started, so the new job replaces it. A queued job of the row
-     * is dropped. A running job is signalled and kept, and the new job waits in
-     * nextJobs until the running job ends.
-     *
-     * @tparam Job      The job type, ParseJob or IndexJob.
-     * @param jobs      The running jobs, keyed by row index.
-     * @param nextJobs  The queued jobs, keyed by row index.
-     * @param rowIndex  The index of the row of the job.
-     * @param newJob    The job to start or to queue. The function takes ownership.
+     * @tparam Job      The job type (ParseJob, IndexJob, or UnitsJob).
+     * @param jobs      Running jobs keyed by row index.
+     * @param nextJobs  Queued jobs keyed by row index.
+     * @param rowIndex  Index of the row owning the job.
+     * @param newJob    New job to run or queue.
      */
     template <typename Job>
     void setJob (jam::HashMap<int, std::unique_ptr<Job>>& jobs, jam::HashMap<int, std::unique_ptr<Job>>& nextJobs, int rowIndex, std::unique_ptr<Job> newJob)
@@ -399,15 +621,12 @@ private:
     }
 
     /**
-     * @brief Removes the finished job of a row, and starts the queued job of the row when one waits.
+     * @brief Removes the finished job of @p rowIndex and starts its queued replacement when present.
      *
-     * The call waits until the pool releases the finished job. A row without a
-     * queued job loses its entry.
-     *
-     * @tparam Job      The job type, ParseJob or IndexJob.
-     * @param jobs      The running jobs, keyed by row index.
-     * @param nextJobs  The queued jobs, keyed by row index.
-     * @param rowIndex  The index of the row whose job finished.
+     * @tparam Job      The job type (ParseJob, IndexJob, or UnitsJob).
+     * @param jobs      Running jobs keyed by row index.
+     * @param nextJobs  Queued jobs keyed by row index.
+     * @param rowIndex  Index of the row whose job finished.
      */
     template <typename Job>
     void removeJob (jam::HashMap<int, std::unique_ptr<Job>>& jobs, jam::HashMap<int, std::unique_ptr<Job>>& nextJobs, int rowIndex)
@@ -428,6 +647,13 @@ private:
         }
     }
 
+    /**
+     * @brief Returns sorted row indices of jobs in @p jobs whose @c isFinished flag is set.
+     *
+     * @tparam Job  The job type (ParseJob, IndexJob, or UnitsJob).
+     * @param jobs  Active jobs keyed by row index.
+     * @return Ascending array of finished row indices.
+     */
     template <typename Job>
     static jam::Array<int> getFinishedRows (const jam::HashMap<int, std::unique_ptr<Job>>& jobs)
     {
@@ -442,105 +668,105 @@ private:
     }
 
     /**
-     * @brief Queues an index job for a unit row, and signals the running index job of the row.
+     * @brief Queues an IndexJob for unit @p row at @p rowIndex and interrupts any active IndexJob on that row.
      *
-     * The arguments of the row are joined, each ended by a null character. A running
-     * index job is removed when it has not started. Otherwise it is signalled and kept
-     * until it ends. The queued job replaces any earlier queued job of the row.
-     *
-     * @param row       The unit row. Its arguments, directory, path, and family give the job.
-     * @param rowIndex  The index of the unit row in the files child.
+     * @param row       Translation unit row holding arguments, directory, path, output, and family.
+     * @param rowIndex  Index of @p row in the files child.
      */
     void addIndexJob (const juce::ValueTree& row, int rowIndex);
 
     /**
-     * @brief Starts each queued index job whose row has no running index job.
-     *
-     * A started job moves from the queue to the running map, and the pool runs it.
+     * @brief Starts queued IndexJobs whose prerequisite units are idle, prioritizing requested and producer units.
      */
     void addIndexJobs();
 
     /**
-     * @brief Applies the symbol records of a finished index job to the index, or reports its failure.
+     * @brief Applies the SymbolDocument of finished @p job to @c index or records failure diagnostics.
      *
-     * The records move into the index when the row still holds the path of the job
-     * and the library returns zero. Any other result sets the message, and deletes the
-     * swap files of the path and of each dependency row. A job whose row no longer
-     * holds its path drops its records.
+     * Moves @c job.symbols into index.addBindings() when the row path matches and
+     * @c job.result is zero; otherwise sets the overlay and row error messages.
      *
-     * @param job  The finished index job.
+     * @param job  Finished IndexJob.
      */
     void addBindings (IndexJob& job);
 
     /**
-     * @brief Applies the finished jobs on the message thread, starts the queued index jobs, and writes the symbols when no work remains.
-     *
-     * A finished parse job is applied only when no newer job waits for its row. A
-     * finished index job is applied likewise. The index jobs start only when no parse
-     * job runs. When no parse job, index job, build, or precompile remains, setDocuments runs.
+     * @brief Applies finished UnitsJobs, ParseJobs, and IndexJobs on the message thread and notifies @c index when all jobs finish.
      */
     void handleAsyncUpdate() override;
 
     /**
-     * @brief Starts the parse job of a changed file row, and the precompile of each header entry that depends on it.
+     * @brief Starts a ParseJob for changed @p file when its family has a registered language.
      *
-     * A header entry that depends on the row loses its precompiled header file before
-     * the precompile starts.
-     *
-     * @param file  The file row whose path changed.
+     * @param file  File row whose Id::path changed or was invalidated by a buffer update.
      */
     void setFile (const juce::ValueTree& file);
 
+    /**
+     * @brief Stores or updates an unsaved editor buffer for a @c didOpen or @c didChange request.
+     *
+     * @param request  Buffer notification request row.
+     */
     void setBuffer (juce::ValueTree& request);
 
+    /**
+     * @brief Removes an unsaved editor buffer for a @c didClose request.
+     *
+     * @param request  Buffer notification request row.
+     */
     void removeBuffer (juce::ValueTree& request);
 
+    /**
+     * @brief Triggers a re-parse of the file named by @p request and removes @p request from its parent.
+     *
+     * @param request  Buffer notification request row.
+     */
     void setBufferChange (juce::ValueTree& request);
 
     /**
-     * @brief Starts a parse job for each file row of the family of a language row whose hash changed.
+     * @brief Starts a ParseJob for every file row matching the family of @p languageRow.
      *
-     * setLanguage loads the library before it sets the hash, so addJob finds the library.
-     *
-     * @param languageRow  The language row whose hash changed.
+     * @param languageRow  Language row whose Id::hash changed after loading.
      */
     void setLanguageHash (const juce::ValueTree& languageRow);
 
     /**
-     * @brief Loads the library that a build wrote, and makes it the library of its family.
+     * @brief Loads the language library for @p languageRow, caches a content-hashed copy when built locally, and updates Id::hash.
      *
-     * The library is copied to a file that is named by the hash of its bytes, when
-     * that file is absent, and the copy is opened. The system loader returns the
-     * image that it already holds for a path, so a build with new bytes needs a new
-     * path. The loaded library replaces the entry of the family, and the row
-     * receives the hash. A library that fails to load sets the overlay message only.
-     *
-     * @param languageRow  The language row. Its family selects the entry, and its hash receives the hash of the library.
-     * @param cache        The cache folder of the build. It holds the build file.
+     * @param languageRow  Language row whose family receives the loaded LibraryLanguage.
      */
     void setLanguage (juce::ValueTree languageRow);
 
     /**
-     * @brief Applies a finished parse job to the index, when the job still matches its row.
+     * @brief Applies a finished ParseJob to @c index when its path, mtime, and language still match, and schedules ready unit IndexJobs.
      *
-     * The job matches when the row holds the path of the job, the file keeps the
-     * modification time of the job, and the family keeps the library of the job.
-     * A matching job stores its document in the index, and it reports a failed result
-     * to the message. When the job parsed a document, each unit row that depends on the
-     * file, and whose family has a library, gets an index job. A unit row that already
-     * has a queued index job keeps that job. A job that does not match keeps its document
-     * until the message thread removes the job.
-     *
-     * @param job  The finished parse job.
+     * @param job  Finished ParseJob.
      */
     void addDocument (ParseJob& job);
 
+    /**
+     * @brief Starts a UnitsJob for the current Id::toolchain child on @c model.state.
+     */
     void addUnitsJob();
 
+    /**
+     * @brief Builds a UnitsJob configured from @p toolchain and the current registered languages.
+     *
+     * @param toolchain  Toolchain tree containing compiler command rows.
+     * @return Newly constructed UnitsJob.
+     */
     std::unique_ptr<UnitsJob> getUnitsJob (const juce::ValueTree& toolchain);
 
+    /**
+     * @brief Applies finished UnitsJobs by replacing @c model.state's files child and cycling queued UnitsJobs.
+     */
     void setUnitsJobs();
 
+    /**
+     * @brief Reports any unit-discovery error message on @p files and replaces the files child on @c model.state.
+     *
+     * @param files  Discovered files tree from a finished UnitsJob.
+     */
     void setFiles (const juce::ValueTree& files);
 
     /** @brief The model that this processor listens to. The application owns the model. */
@@ -552,32 +778,39 @@ private:
     /** @brief Answers the request rows from the index. Its only state is the fuzzy finder slab. */
     Query query;
 
+    /** @brief Active ParseJob instances keyed by file row index. */
     jam::HashMap<int, std::unique_ptr<ParseJob>> parseJobs;
 
+    /** @brief Queued replacement ParseJob instances waiting for active jobs on the same row index. */
     jam::HashMap<int, std::unique_ptr<ParseJob>> nextParseJobs;
 
+    /** @brief Active IndexJob instances keyed by unit row index. */
     jam::HashMap<int, std::unique_ptr<IndexJob>> indexJobs;
 
+    /** @brief Queued IndexJob instances waiting to run by unit row index. */
     jam::HashMap<int, std::unique_ptr<IndexJob>> nextIndexJobs;
 
+    /** @brief Active UnitsJob instances keyed by toolchain child index. */
     jam::HashMap<int, std::unique_ptr<UnitsJob>> unitsJobs;
 
+    /** @brief Queued replacement UnitsJob instances keyed by toolchain child index. */
     jam::HashMap<int, std::unique_ptr<UnitsJob>> nextUnitsJobs;
 
     /**
-     * @brief The thread pool that runs the parse jobs and the index jobs.
+     * @brief Thread pool executing unit-discovery, parse, and index jobs.
      *
-     * The pool is declared after the job maps. Its destructor signals each job to
-     * exit and waits up to 5000 milliseconds for the running jobs, so the jobs stop
-     * before the maps free them.
+     * Declared after the job maps so jobs finish in ~Processor() via
+     * removeAllJobs(true, waitForJob) before the maps free them.
      */
     std::unique_ptr<juce::ThreadPool> pool;
 
-    /** @brief The operations that answer the request rows, keyed by the command identifier. */
+    /** @brief Request command handlers keyed by command identifier. */
     Events events;
 
+    /** @brief Model property-change handlers keyed by property identifier. */
     Events propertyEvents;
 
+    /** @brief Model child-addition handlers keyed by child tree type. */
     Events childEvents;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Processor)

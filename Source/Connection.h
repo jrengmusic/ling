@@ -6,12 +6,12 @@
 
 /**
  * @class Connection
- * @brief One client connection of the daemon: it reads the requests of the client, and sends each result back.
+ * @brief One client connection of the daemon: reads serialized ValueTree messages from the client and sends each result back.
  *
- * A client message holds a JSON array: the command, the working folder, and the
- * arguments. The connection appends a request row for it below its connection row
- * in the model. When the request row gets its result, the connection sends the
- * result to the client, and it removes the request row.
+ * Deserializes incoming binary ValueTree blocks for connection metadata, request
+ * cancellation, and queued request rows under its Id::connection row in the model.
+ * When a request row receives Id::result, sends the binary JSON-RPC payload to the
+ * client and removes the row.
  */
 class Connection : public juce::InterprocessConnection,
                    private juce::ValueTree::Listener
@@ -45,23 +45,22 @@ private:
     void connectionLost() override;
 
     /**
-     * @brief Turns one client message into a request row below the connection row.
+     * @brief Deserializes a client message ValueTree and updates connection metadata, cancels a request, or queues a request row.
      *
-     * The message is a JSON array. Index 0 is the command, index 1 is the working
-     * folder, and index 2 onward are the arguments. A message with fewer than two
-     * elements adds no request row. The function asserts that the message is an
-     * array of at least two elements.
+     * An Id::connection tree copies its properties onto @c state. An Id::cancel tree
+     * finds the matching pending request child by Id::id and marks it RequestCancelled.
+     * Any other tree (an Id::request) is appended as a child of @c state.
      *
-     * @param message  The bytes of one client message.
+     * @param message  The serialized juce::ValueTree bytes of one client message.
      */
     void messageReceived (const juce::MemoryBlock& message) override;
 
     /**
-     * @brief Sends the result of a request row to the client, then removes the row.
+     * @brief Sends the binary JSON-RPC result of an Id::request row to the client, then removes the row.
      *
-     * Only a change of Id::result on a request row acts.
+     * Only a change of Id::result on an Id::request row acts.
      *
-     * @param tree      The tree whose property changed. Only a request row acts.
+     * @param tree      The tree whose property changed. Only an Id::request row acts.
      * @param property  The changed property. Only Id::result acts.
      */
     void valueTreePropertyChanged (juce::ValueTree& tree, const juce::Identifier& property) override;

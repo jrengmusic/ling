@@ -4,13 +4,12 @@
 
 /**
  * @class LINGModel
- * @brief The state of one LING run: the files, the roots, the connections, the language rows, the message, and the watcher of the folders.
+ * @brief Shared state of one LING run: files, roots, connections, buffers, languages, overlay parameters, and directory watcher.
  *
- * The model holds the rows of one run. A change of the manifest path adds the
- * folder of the manifest to the watcher. A files child adds the folders of its
- * rows, and the folders of the compiler manifests and dependency records that it
- * names. A language child adds its language folder. A change of a watched file
- * sends a change to the manifest, to its file row, or to its language row.
+ * Holds the state trees of one run. Changing Id::manifest watches the manifest
+ * folder; adding Id::files watches row folders and Id::buildFiles folders; adding
+ * Id::language watches the language folder. File changes notify the manifest,
+ * language row, or file row via property change messages.
  */
 class LINGModel
     : public jam::Model
@@ -19,128 +18,170 @@ class LINGModel
 {
 public:
     /**
-     * @brief Creates the state rows of the run, and listens to the watcher.
+     * @brief Initializes state children, overlay parameters, default timeout, and file watcher listener.
      *
-     * The rows are the files child, the roots child, the connections child, and the overlay row.
-     * The overlay row holds the message parameter. The application prints each
-     * change of that parameter. The constructor also writes defaultTimeoutMs to
-     * Id::timeout, and it sets the coalescing window of the watcher.
+     * Creates files, roots, connections, buffers, and overlay (with Id::message,
+     * Id::jobCount, and Id::pendingJobCount), stores defaultTimeoutMs in
+     * Id::timeout, and configures watcher coalescing with coalesceMs.
      */
     LINGModel();
 
-    /** @brief Releases the model. The members release their own resources. */
+    /** @brief Releases the model. Members release their own resources. */
     ~LINGModel() override = default;
 
     /**
-     * @brief Writes text to the message parameter of the overlay row.
+     * @brief Writes @p text to the Id::message parameter of the overlay row.
      *
-     * The manifest reading, the compiler manifest reading, the parse jobs, and the
-     * language builds all report their failures through this function.
-     *
-     * @param text  The message text.
+     * @param text  Diagnostic or status message text.
      */
     void setMessage (const juce::String& text);
 
-    /** @brief The daemon timeout, in milliseconds, when the manifest sets none or fails validation. */
+    /** @brief Default idle daemon timeout in milliseconds when the manifest sets none or fails validation. */
     static constexpr int defaultTimeoutMs { 60000 };
 
+    /** @brief Default worker thread count used at Processor startup and when the manifest sets none or fails validation. */
     static constexpr int defaultThreads { 4 };
 
-    /** @brief The window, in milliseconds, in which the watcher merges the events of one file into one event. */
+    /** @brief Coalescing window in milliseconds for merging repeated watcher events on the same file. */
     static constexpr int coalesceMs { 300 };
 
     /**
-     * @brief Returns the name of the daemon of a manifest and a toolchain argument.
+     * @brief Returns the Wyhash hex identifier for @p manifest and @p toolchainArgument.
      *
-     * The name is the hexadecimal text of a Wyhash hash. The hash covers the full
-     * path of the manifest, a newline, and the toolchain argument. The same
-     * manifest and toolchain argument give the same name.
+     * Hashes the full path of @p manifest, a newline, and @p toolchainArgument.
      *
-     * @param manifest           The manifest file.
-     * @param toolchainArgument  The toolchain argument. Empty when none is given.
-     * @return The name of the daemon.
+     * @param manifest           Manifest file identifying the project.
+     * @param toolchainArgument  Toolchain argument, or empty when none is given.
+     * @return Hexadecimal project identifier string.
      */
     static std::string getProjectName (const juce::File& manifest, std::string_view toolchainArgument);
 
+    /**
+     * @brief Returns the daemon lock and port identifier for @p manifest, @p toolchainArgument, and the current executable.
+     *
+     * Appends the Wyhash hex digest of the running executable to getProjectName()
+     * so rebuilt binaries isolate their daemon lock and port file.
+     *
+     * @param manifest           Manifest file identifying the project.
+     * @param toolchainArgument  Toolchain argument, or empty when none is given.
+     * @return Hexadecimal daemon identifier string.
+     */
     static std::string getDaemonName (const juce::File& manifest, std::string_view toolchainArgument);
 
     /**
-     * @brief Returns the cache folder of LING.
+     * @brief Returns the base LING cache folder.
      *
-     * The folder is in the local application data folder on Windows, and in the
-     * home folder on the other platforms. The function creates no folder. Callers
-     * create the folder before they write to it.
+     * Uses local application data on Windows and the home folder elsewhere. Does
+     * not create the folder on disk.
      *
-     * @return The cache folder.
+     * @return Base cache folder.
      */
     static juce::File getCacheDirectory();
 
     /**
-     * @brief Returns the config folder of LING.
+     * @brief Returns the LING config folder inside the user home directory.
      *
-     * The folder is in the home folder on every platform. The function creates no
-     * folder. The language folders are in the language folder below it, one for each language name.
+     * Does not create the folder on disk. Language subdirectories live under its
+     * language child folder.
      *
-     * @return The config folder.
+     * @return Base config folder.
      */
     static juce::File getConfigDirectory();
 
+    /**
+     * @brief Returns sorted language subdirectories in config that contain a construction file.
+     *
+     * @return Sorted array of valid language folders.
+     */
     static juce::Array<juce::File> getLanguageDirectories();
 
+    /**
+     * @brief Returns language directories, seeding the default language files from BinaryData if none exist.
+     *
+     * @return Sorted array of valid language folders.
+     */
     static juce::Array<juce::File> getOrCreateLanguageDirectories();
 
+    /**
+     * @brief Returns the host platform dynamic library file path inside @p languageFolder.
+     *
+     * @param languageFolder  Language directory containing the built grammar library.
+     * @return Expected dynamic library file for the host OS.
+     */
     static juce::File getLanguageLibrary (const juce::File& languageFolder);
 
+    /**
+     * @brief Returns the per-project cache directory for @p manifest and @p toolchainArgument.
+     *
+     * @param manifest           Manifest file identifying the project.
+     * @param toolchainArgument  Toolchain argument, or empty when none is given.
+     * @return Project cache directory under getCacheDirectory().
+     */
     static juce::File getCacheDirectory (const juce::File& manifest, std::string_view toolchainArgument);
 
+    /**
+     * @brief Returns the project root folder for @p manifest.
+     *
+     * @param manifest  Manifest file or project directory.
+     * @return @p manifest if it is a directory, otherwise its parent directory.
+     */
     static juce::File getProjectDirectory (const juce::File& manifest);
 
+    /**
+     * @brief Returns the patched JUCE cache directory keyed by SHA-256 of @p version and @p patchFiles.
+     *
+     * Strips CR before LF from each patch file so line endings produce stable
+     * hashes across platforms.
+     *
+     * @param version     JUCE version identifier string.
+     * @param patchFiles  Ordered list of patch file paths applied to JUCE.
+     * @return Cache folder for the hashed patch set.
+     */
     static juce::File getPatchedDirectory (std::string_view version, const jam::Strings& patchFiles);
 
+    /**
+     * @brief Returns the swap file path for @p file with @p extension under the longest matching root or project cache.
+     *
+     * @param file       Source file whose swap path is requested.
+     * @param extension  Swap file extension (such as files::lingSwap or files::lingSymbols).
+     * @return Swap file path inside the matching root's swap tree or hashed under the project cache.
+     */
     juce::File getSwapFile (const juce::File& file, juce::StringRef extension) const;
 
 private:
     /**
-     * @brief Adds the folder of the manifest to the watcher when the manifest path changes.
+     * @brief Adds the manifest folder to @c watcher when Id::manifest changes on @c state.
      *
-     * The base class receives the change first.
-     *
-     * @param tree      The tree whose property changed. Only the state tree acts.
-     * @param property  The changed property. Only Id::manifest acts.
+     * @param tree      Tree whose property changed.
+     * @param property  Identifier of the changed property.
      */
     void valueTreePropertyChanged (juce::ValueTree& tree, const juce::Identifier& property) override;
 
     /**
-     * @brief Adds the folders of an added child to the watcher.
+     * @brief Adds watched folders when Id::files or Id::language children are added.
      *
-     * The base class receives the child first. The folder of a file row is the
-     * parent of its path, and the watcher receives it only when it exists. The
-     * parent of each compiler manifest path and each dependency record path is
-     * passed to the watcher without that test, and the watcher asserts that the
-     * folder exists. A language row is the language folder. The processor creates
-     * that folder before it appends the row.
+     * For Id::files, watches existing parent directories of file rows and parent
+     * directories of Id::buildFiles entries. For Id::language with Id::path,
+     * watches the language directory.
      *
-     * @param parentTree              The tree that received the child. Passed to the base class.
-     * @param childWhichHasBeenAdded  The added child. A files child gives the folders of its rows, its compiler manifests, and its dependency records. A language child gives its language folder.
+     * @param parentTree              Tree receiving the child.
+     * @param childWhichHasBeenAdded  Added child tree.
      */
     void valueTreeChildAdded (juce::ValueTree& parentTree, juce::ValueTree& childWhichHasBeenAdded) override;
 
     /**
-     * @brief Sends a change for a changed file, to the manifest, to a language row, or to a file row.
+     * @brief Routes file-system changes to Id::manifest, an Id::language row, or an Id::file row.
      *
-     * The manifest, a compiler manifest, and a dependency record send a change of
-     * the manifest property, and the manifest reading then runs again. A file that
-     * lies directly in the folder of a language row sends a change of the path
-     * property to that row, and the processor starts a build of the language. Any other file
-     * sends a change of the path property to its file row, when a row holds its
-     * path, and the processor parses the file again.
+     * Manifest and Id::buildFiles changes emit Id::manifest; files or compiled
+     * libraries inside a watched language folder emit Id::path on that language
+     * row; matching source paths emit Id::path on their file row.
      *
-     * @param file   The changed file.
-     * @param event  The kind of change. Not read.
+     * @param file   Changed file reported by @c watcher.
+     * @param event  Watcher event kind (unused).
      */
     void fileChanged (const juce::File& file, jam::File::Watcher::Event event) override;
 
-    /** @brief The file watcher. It reports the changes of the files in the watched folders. */
+    /** @brief Directory watcher reporting changes for manifest, build, language, and source files. */
     jam::File::Watcher watcher;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LINGModel)

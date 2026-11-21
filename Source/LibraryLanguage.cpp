@@ -68,7 +68,7 @@ int LibraryLanguage::getCompletionType (int tokenType) const
     return library->getCompletionType (tokenType);
 }
 
-juce::StringArray LibraryLanguage::getCounterparts (const juce::String& extension) const
+jam::Strings LibraryLanguage::getCounterparts (const juce::String& extension) const
 {
     if (const auto pairing { library->counterparts.find (extension) }; pairing != library->counterparts.end())
     {

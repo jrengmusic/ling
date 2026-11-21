@@ -12,13 +12,14 @@ void Validator::addRules (Rules& rules)
 
             for (const auto* table : manifest.getTables (Id::toolchain))
             {
-                const auto* headerRow { manifest.getTableRow (*table, Id::headerRow) };
-
-                if (manifest.getTableCell (*headerRow, Id::command) == nullptr
-                    or manifest.getTableCell (*headerRow, Id::flag) == nullptr)
-                    failures.add (getLocation (*table, *headerRow, Id::toolchain.toString())
-                                  + Id::diagnosticSeparator
-                                  + text::Diagnostics::failToolchainColumn);
+                if (const auto* headerRow { manifest.getTableRow (*table, Id::headerRow) }; headerRow != nullptr)
+                {
+                    if (manifest.getTableCell (*headerRow, Id::command) == nullptr
+                        or manifest.getTableCell (*headerRow, Id::flag) == nullptr)
+                        failures.add (getLocation (*table, *headerRow, Id::toolchain.toString())
+                                      + Id::diagnosticSeparator
+                                      + text::Diagnostics::failToolchainColumn);
+                }
             }
 
             return getFailures (failures);

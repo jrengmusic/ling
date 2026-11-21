@@ -116,13 +116,13 @@ int SymbolDocument::Builder::getOrCreateFile (std::string_view path)
         return fileIndex;
     }
 
-    const auto fileIndex { static_cast<int> (files.size()) };
+    const auto fileIndex { files.size() };
     const auto [pathOffset, pathLength] { addString (path) };
     FileBuilder file;
 
     file.pathOffset = pathOffset;
     file.pathLength = pathLength;
-    files.push_back (std::move (file));
+    files.add (std::move (file));
     pathIndices.try_emplace (std::move (key), fileIndex);
 
     return fileIndex;
@@ -147,12 +147,12 @@ void SymbolDocument::Builder::addSymbol (int fileIndex, int64_t symbol, int32_t 
     record.typeSymbolsStart = typeSymbolsStart;
     record.typeSymbolsCount = static_cast<uint32_t> (typeCount);
 
-    files.at (static_cast<size_t> (fileIndex)).symbols.add (record);
+    files.at (fileIndex).symbols.add (record);
 }
 
 int SymbolDocument::Builder::addHover (int fileIndex, std::string_view text, std::string_view definitionPath, int32_t line, int32_t column, int32_t endLine, int32_t endColumn)
 {
-    auto& hovers { files.at (static_cast<size_t> (fileIndex)).hovers };
+    auto& hovers { files.at (fileIndex).hovers };
     const auto hoverIndex { hovers.size() };
     const auto [hoverOffset, hoverLength] { addString (text) };
     const auto [pathOffset, pathLength] { addString (definitionPath) };
@@ -184,7 +184,7 @@ void SymbolDocument::Builder::addInlayHint (int fileIndex, int32_t line, int32_t
     entry.paddingLeft = paddingLeft ? 1 : 0;
     entry.paddingRight = paddingRight ? 1 : 0;
 
-    files.at (static_cast<size_t> (fileIndex)).inlayHints.add (entry);
+    files.at (fileIndex).inlayHints.add (entry);
 }
 
 void SymbolDocument::Builder::addDiagnostic (int fileIndex, int32_t line, int32_t column, int32_t endLine, int32_t endColumn, int32_t severity, std::string_view message)
@@ -200,12 +200,12 @@ void SymbolDocument::Builder::addDiagnostic (int fileIndex, int32_t line, int32_
     entry.messageOffset = messageOffset;
     entry.messageLength = messageLength;
 
-    files.at (static_cast<size_t> (fileIndex)).diagnostics.add (entry);
+    files.at (fileIndex).diagnostics.add (entry);
 }
 
 int SymbolDocument::Builder::addOutline (int fileIndex, int32_t line, int32_t column, int32_t endLine, int32_t endColumn, int32_t nameLength, int32_t qualifierLength, int32_t type, int32_t parent)
 {
-    auto& outlines { files.at (static_cast<size_t> (fileIndex)).outlines };
+    auto& outlines { files.at (fileIndex).outlines };
     const auto outlineIndex { outlines.size() };
     OutlineEntry entry {};
 
@@ -236,7 +236,7 @@ void SymbolDocument::Builder::addCompletion (int fileIndex, int64_t scopeSymbol,
     record.snippetLength = snippetLength;
     record.type = type;
 
-    files.at (static_cast<size_t> (fileIndex)).completions.add (record);
+    files.at (fileIndex).completions.add (record);
 }
 
 void SymbolDocument::Builder::addFixIt (int fileIndex, int32_t line, int32_t column, int32_t endLine, int32_t endColumn, std::string_view text)
@@ -251,7 +251,7 @@ void SymbolDocument::Builder::addFixIt (int fileIndex, int32_t line, int32_t col
     entry.textOffset = textOffset;
     entry.textLength = textLength;
 
-    files.at (static_cast<size_t> (fileIndex)).fixIts.add (entry);
+    files.at (fileIndex).fixIts.add (entry);
 }
 
 void SymbolDocument::Builder::sortAndDeduplicate()
@@ -494,18 +494,16 @@ bool SymbolDocument::isValidBuffer (const uint8_t* data, size_t size, juce::int6
     if (storedVersion.compare (ProjectInfo::versionString) != 0)
         return false;
 
-    const auto* files { reinterpret_cast<const FileEntry*> (data + header.filesOffset) };
-    const auto* symbols { reinterpret_cast<const SymbolRecord*> (data + header.symbolsOffset) };
-    const auto* completions { reinterpret_cast<const CompletionRecord*> (data + header.completionsOffset) };
-    const auto* hovers { reinterpret_cast<const HoverEntry*> (data + header.hoversOffset) };
-    const auto* inlayHints { reinterpret_cast<const InlayHintEntry*> (data + header.inlayHintsOffset) };
-    const auto* diagnostics { reinterpret_cast<const DiagnosticEntry*> (data + header.diagnosticsOffset) };
-    const auto* fixIts { reinterpret_cast<const FixItEntry*> (data + header.fixItsOffset) };
+    const Span<FileEntry> files { reinterpret_cast<const FileEntry*> (data + header.filesOffset), header.filesCount };
+    const Span<SymbolRecord> symbols { reinterpret_cast<const SymbolRecord*> (data + header.symbolsOffset), header.symbolsCount };
+    const Span<CompletionRecord> completions { reinterpret_cast<const CompletionRecord*> (data + header.completionsOffset), header.completionsCount };
+    const Span<HoverEntry> hovers { reinterpret_cast<const HoverEntry*> (data + header.hoversOffset), header.hoversCount };
+    const Span<InlayHintEntry> inlayHints { reinterpret_cast<const InlayHintEntry*> (data + header.inlayHintsOffset), header.inlayHintsCount };
+    const Span<DiagnosticEntry> diagnostics { reinterpret_cast<const DiagnosticEntry*> (data + header.diagnosticsOffset), header.diagnosticsCount };
+    const Span<FixItEntry> fixIts { reinterpret_cast<const FixItEntry*> (data + header.fixItsOffset), header.fixItsCount };
 
-    for (uint32_t fileIndex { 0 }; fileIndex < header.filesCount; ++fileIndex)
+    for (const auto& file : files)
     {
-        const auto& file { files[fileIndex] };
-
         if (not isRangeValid (file.pathOffset, file.pathLength, header.stringPoolSize)
             or not isRangeValid (file.symbolsStart, file.symbolsCount, header.symbolsCount)
             or not isRangeValid (file.completionsStart, file.completionsCount, header.completionsCount)
@@ -518,7 +516,7 @@ bool SymbolDocument::isValidBuffer (const uint8_t* data, size_t size, juce::int6
 
         for (uint32_t symbolOffset { 0 }; symbolOffset < file.symbolsCount; ++symbolOffset)
         {
-            const auto& record { symbols[file.symbolsStart + symbolOffset] };
+            const auto& record { symbols.at (file.symbolsStart + symbolOffset) };
 
             if (not isRangeValid (record.typeSymbolsStart, record.typeSymbolsCount, header.typeSymbolsCount))
                 return false;
@@ -528,26 +526,26 @@ bool SymbolDocument::isValidBuffer (const uint8_t* data, size_t size, juce::int6
         }
     }
 
-    for (uint32_t i { 0 }; i < header.completionsCount; ++i)
-        if (not isRangeValid (completions[i].labelOffset, completions[i].labelLength, header.stringPoolSize)
-            or not isRangeValid (completions[i].snippetOffset, completions[i].snippetLength, header.stringPoolSize))
+    for (const auto& completion : completions)
+        if (not isRangeValid (completion.labelOffset, completion.labelLength, header.stringPoolSize)
+            or not isRangeValid (completion.snippetOffset, completion.snippetLength, header.stringPoolSize))
             return false;
 
-    for (uint32_t i { 0 }; i < header.hoversCount; ++i)
-        if (not isRangeValid (hovers[i].hoverOffset, hovers[i].hoverLength, header.stringPoolSize)
-            or not isRangeValid (hovers[i].pathOffset, hovers[i].pathLength, header.stringPoolSize))
+    for (const auto& hover : hovers)
+        if (not isRangeValid (hover.hoverOffset, hover.hoverLength, header.stringPoolSize)
+            or not isRangeValid (hover.pathOffset, hover.pathLength, header.stringPoolSize))
             return false;
 
-    for (uint32_t i { 0 }; i < header.inlayHintsCount; ++i)
-        if (not isRangeValid (inlayHints[i].labelOffset, inlayHints[i].labelLength, header.stringPoolSize))
+    for (const auto& inlayHint : inlayHints)
+        if (not isRangeValid (inlayHint.labelOffset, inlayHint.labelLength, header.stringPoolSize))
             return false;
 
-    for (uint32_t i { 0 }; i < header.diagnosticsCount; ++i)
-        if (not isRangeValid (diagnostics[i].messageOffset, diagnostics[i].messageLength, header.stringPoolSize))
+    for (const auto& diagnostic : diagnostics)
+        if (not isRangeValid (diagnostic.messageOffset, diagnostic.messageLength, header.stringPoolSize))
             return false;
 
-    for (uint32_t i { 0 }; i < header.fixItsCount; ++i)
-        if (not isRangeValid (fixIts[i].textOffset, fixIts[i].textLength, header.stringPoolSize))
+    for (const auto& fixIt : fixIts)
+        if (not isRangeValid (fixIt.textOffset, fixIt.textLength, header.stringPoolSize))
             return false;
 
     return true;
@@ -564,77 +562,79 @@ std::unique_ptr<SymbolDocument> SymbolDocument::open (const juce::File& swapFile
     return nullptr;
 }
 
-const SymbolDocument::Header& SymbolDocument::getHeader() const noexcept
+SymbolDocument::Header SymbolDocument::getHeader() const noexcept
 {
-    return *reinterpret_cast<const Header*> (base);
+    Header header {};
+    std::memcpy (&header, base, sizeof (Header));
+    return header;
 }
 
 SymbolDocument::Span<SymbolDocument::FileEntry> SymbolDocument::getFiles() const noexcept
 {
-    const auto& header { getHeader() };
+    const auto header { getHeader() };
 
     return { getTable<FileEntry> (header.filesOffset), header.filesCount };
 }
 
 SymbolDocument::Span<SymbolDocument::SymbolRecord> SymbolDocument::getSymbols (const FileEntry& file) const noexcept
 {
-    const auto& header { getHeader() };
+    const auto header { getHeader() };
 
     return { getTable<SymbolRecord> (header.symbolsOffset) + file.symbolsStart, file.symbolsCount };
 }
 
 SymbolDocument::Span<int64_t> SymbolDocument::getTypeSymbols (const SymbolRecord& record) const noexcept
 {
-    const auto& header { getHeader() };
+    const auto header { getHeader() };
 
     return { getTable<int64_t> (header.typeSymbolsOffset) + record.typeSymbolsStart, record.typeSymbolsCount };
 }
 
 SymbolDocument::Span<SymbolDocument::CompletionRecord> SymbolDocument::getCompletions (const FileEntry& file) const noexcept
 {
-    const auto& header { getHeader() };
+    const auto header { getHeader() };
 
     return { getTable<CompletionRecord> (header.completionsOffset) + file.completionsStart, file.completionsCount };
 }
 
 SymbolDocument::Span<SymbolDocument::HoverEntry> SymbolDocument::getHovers (const FileEntry& file) const noexcept
 {
-    const auto& header { getHeader() };
+    const auto header { getHeader() };
 
     return { getTable<HoverEntry> (header.hoversOffset) + file.hoversStart, file.hoversCount };
 }
 
 SymbolDocument::Span<SymbolDocument::InlayHintEntry> SymbolDocument::getInlayHints (const FileEntry& file) const noexcept
 {
-    const auto& header { getHeader() };
+    const auto header { getHeader() };
 
     return { getTable<InlayHintEntry> (header.inlayHintsOffset) + file.inlayHintsStart, file.inlayHintsCount };
 }
 
 SymbolDocument::Span<SymbolDocument::DiagnosticEntry> SymbolDocument::getDiagnostics (const FileEntry& file) const noexcept
 {
-    const auto& header { getHeader() };
+    const auto header { getHeader() };
 
     return { getTable<DiagnosticEntry> (header.diagnosticsOffset) + file.diagnosticsStart, file.diagnosticsCount };
 }
 
 SymbolDocument::Span<SymbolDocument::OutlineEntry> SymbolDocument::getOutlines (const FileEntry& file) const noexcept
 {
-    const auto& header { getHeader() };
+    const auto header { getHeader() };
 
     return { getTable<OutlineEntry> (header.outlinesOffset) + file.outlinesStart, file.outlinesCount };
 }
 
 SymbolDocument::Span<SymbolDocument::FixItEntry> SymbolDocument::getFixIts (const FileEntry& file) const noexcept
 {
-    const auto& header { getHeader() };
+    const auto header { getHeader() };
 
     return { getTable<FixItEntry> (header.fixItsOffset) + file.fixItsStart, file.fixItsCount };
 }
 
 std::string_view SymbolDocument::getString (uint32_t offset, uint32_t length) const noexcept
 {
-    const auto& header { getHeader() };
+    const auto header { getHeader() };
 
     return std::string_view { reinterpret_cast<const char*> (base + header.stringPoolOffset + offset), length };
 }

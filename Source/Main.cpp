@@ -331,7 +331,7 @@ private:
         int exitCode { EXIT_FAILURE };
         jam::Subprocess subprocess;
 
-        subprocess.launch (jam::Strings { juce::StringArray { Id::cast.toString(), files::languageSpell } },
+        subprocess.launch (jam::Strings { Id::cast.toString(), files::languageSpell },
                            folder,
                            [&finished, &exitCode] (int processExitCode, const std::string&)
                            {
@@ -416,7 +416,6 @@ private:
 
         if (lock->enter (0))
         {
-            logScope = std::make_unique<jam::debug::Log::Scope> (LINGModel::getCacheDirectory().getChildFile ("daemon.log"));
             processor = std::make_unique<Processor> (model);
             manifest = std::make_unique<Manifest> (model);
             server = std::make_unique<Server>();
@@ -486,10 +485,8 @@ private:
             rows.append (jam::Strings::getView (Id::documents.toString()));
             jam::Format::appendUtf8 (rows, Chars::newline);
             fwrite (rows.data(), sizeof (char), rows.size(), stdout);
-#if JAM_USING_PROFILER
             profiler->drain();
             profiler->writeSamples (getManifestFile ({ ProjectInfo::projectName, getCommandLineParameterArray() }, commandIndex), jam::Format::toType (juce::Identifier { ProjectInfo::projectName }));
-#endif
             quit();
         }
     }
@@ -509,7 +506,6 @@ private:
     jam::Model::ParameterAttachment message;
     /** @brief The inter-process lock of the daemon name. The daemon run takes it, and it stays held while the daemon runs. */
     std::unique_ptr<juce::InterProcessLock> lock;
-    std::unique_ptr<jam::debug::Log::Scope> logScope;
     /** @brief The socket server of the daemon. The daemon run creates it. */
     std::unique_ptr<Server> server;
     /** @brief The operation run. It sends the request to the daemon and prints the reply. */

@@ -411,11 +411,18 @@ juce::Range<int> Index::getPathRange (const jam::Array<std::pair<int, const Symb
     return { static_cast<int> (std::distance (occurrences.begin(), first)), static_cast<int> (std::distance (occurrences.begin(), last)) };
 }
 
+const SymbolDocument& Index::getSymbolDocument (int pathIndex) const
+{
+    const auto& [unitRow, file] { symbolFiles.at (pathIndex) };
+
+    return *symbolDocuments.at (unitRow);
+}
+
 void Index::addRecords (int pathIndex, const SymbolDocument& symbolDocument, const SymbolDocument::FileEntry& file)
 {
-    jassert (not records.contains (pathIndex));
-    records.try_emplace (pathIndex);
-    auto& sortedRecords { records.at (pathIndex) };
+    const auto [entry, isAdded] { records.try_emplace (pathIndex) };
+    jassert (isAdded);
+    auto& [recordPathIndex, sortedRecords] { *entry };
     const auto fileSymbols { symbolDocument.getSymbols (file) };
 
     sortedRecords.ensureStorageAllocated (static_cast<int> (fileSymbols.size()));

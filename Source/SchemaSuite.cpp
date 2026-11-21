@@ -1,8 +1,13 @@
 #include "SchemaSuite.h"
 
 #if LING_USING_SCHEMA
+static constexpr std::string_view caseUri { "urn:jam:suite:case" };
+static constexpr std::string_view tests { "tests" };
+
 juce::Result SchemaSuite::run (const juce::File& folder)
 {
+    static constexpr std::string_view failed { " failed" };
+
     auto files (folder.findChildFiles (juce::File::findFiles, false, "*.json"));
     files.sort();
     int numFailures { 0 };
@@ -10,7 +15,7 @@ juce::Result SchemaSuite::run (const juce::File& folder)
     for (const juce::File& file : files)
     {
         const std::string fileText { file.loadFileAsString().toStdString() };
-        const auto suite { jam::JsonDocument::parse (std::string (fileText)) };
+        const auto suite { jam::JsonDocument::read (fileText) };
         jassert (suite != nullptr);
         const auto [casesParent, cases] { jam::JsonPointer::get (*suite, *suite->getRoot(), suite->getValue(), jam::Strings::getView (getPointer ({}, tests))) };
         const jam::Document::Element& casesElement { *suite->getChildByToken (*casesParent, *cases) };
@@ -30,8 +35,11 @@ juce::Result SchemaSuite::run (const juce::File& folder)
 
 int SchemaSuite::runCase (const juce::String& fileName, const std::string& fileText, int caseIndex)
 {
+    static constexpr std::string_view externalSchemas { "externalSchemas" };
+    static constexpr std::string_view schema { "schema" };
+
     jam::JsonSchema schemas;
-    const int index { schemas.add (jam::JsonDocument::parse (std::string (fileText))) };
+    const int index { schemas.add (jam::JsonDocument::read (fileText)) };
     const jam::JsonDocument& document { schemas.getDocument (index) };
     const juce::String casePointer { getPointer (getPointer ({}, tests), jam::Strings::getView (juce::String (caseIndex))) };
     const auto [caseParent, caseToken] { jam::JsonPointer::get (document, *document.getRoot(), document.getValue(), jam::Strings::getView (casePointer)) };
@@ -57,6 +65,10 @@ int SchemaSuite::runCase (const juce::String& fileName, const std::string& fileT
 
 int SchemaSuite::runTests (const jam::JsonSchema& schemas, const jam::JsonDocument& document, const juce::String& fileName, const jam::Document::Element& caseParent, const jam::Document::Token& caseToken)
 {
+    static constexpr std::string_view data { "data" };
+    static constexpr std::string_view valid { "valid" };
+    static constexpr std::string_view description { "description" };
+
     const auto [testsParent, testsToken] { jam::JsonPointer::get (document, caseParent, caseToken, jam::Strings::getView (getPointer ({}, tests))) };
     const jam::Document::Element& testsElement { *document.getChildByToken (*testsParent, *testsToken) };
     const jam::Document::Tokens& testTokens { *testsElement.get<jam::Document::Tokens> (Id::tokens) };
@@ -82,6 +94,8 @@ int SchemaSuite::runTests (const jam::JsonSchema& schemas, const jam::JsonDocume
 
 void SchemaSuite::printFailure (const juce::String& fileName, const jam::JsonDocument& document, const jam::Document::Token& caseDescription, const jam::Document::Token& testDescription)
 {
+    static constexpr std::string_view lineSeparator { ": " };
+
     std::string rows;
     rows.append (jam::Strings::getView (fileName));
     rows.append (lineSeparator);
@@ -99,6 +113,10 @@ juce::String SchemaSuite::getPointer (const juce::String& parentPointer, std::st
 
 bool SchemaSuite::isApplicable (const jam::JsonDocument& suite, const jam::Document::Element& testCase)
 {
+    static constexpr std::string_view formatAssertion { "format-assertion" };
+    static constexpr std::string_view compatibility { "compatibility" };
+    static constexpr std::string_view tags { "tags" };
+
     if (suite.contains (testCase, tags))
     {
         const auto& tagsToken { suite.get (testCase, tags) };
@@ -123,6 +141,10 @@ bool SchemaSuite::isApplicable (const jam::JsonDocument& suite, const jam::Docum
 
 bool SchemaSuite::isCompatible (std::string_view constraints)
 {
+    static constexpr int versionUnderTest { 2020 };
+    static constexpr std::string_view atMost { "<=" };
+    static constexpr std::string_view exactly { "=" };
+
     bool isCompatibleVersion { true };
 
     for (size_t start { 0 }; start <= constraints.size();)

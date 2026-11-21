@@ -109,6 +109,9 @@ Relay::~Relay()
 
 void Relay::start()
 {
+    static constexpr int bufferSize { 1 << 20 };
+    static constexpr double maximumPeriodMilliseconds { 0.0 };
+
     Client::start();
     const bool isOpen { stdio.open (nullptr, bufferSize, maximumPeriodMilliseconds) };
     jassert (isOpen);
@@ -277,13 +280,21 @@ void Relay::initialized()
     requests.appendChild (connection, nullptr);
 }
 
+bool Relay::isSessionActive() const
+{
+    return static_cast<bool> (messages[Id::isInitialized]) and not static_cast<bool> (messages[Id::isShutDown]);
+}
+
 void Relay::cancelRequest (const jam::JsonDocument& document, const jam::Document::Element& root)
 {
-    juce::ValueTree cancel { jam::Format::toType (Id::cancel) };
-    const auto& params { *document.getChildByToken (root, document.get (root, lsp::Member::params)) };
+    if (isSessionActive())
+    {
+        juce::ValueTree cancel { jam::Format::toType (Id::cancel) };
+        const auto& params { *document.getChildByToken (root, document.get (root, lsp::Member::params)) };
 
-    cancel.setProperty (Id::id, jam::Strings::fromView (document.getView (document.get (params, lsp::Member::id))), nullptr);
-    requests.appendChild (cancel, nullptr);
+        cancel.setProperty (Id::id, jam::Strings::fromView (document.getView (document.get (params, lsp::Member::id))), nullptr);
+        requests.appendChild (cancel, nullptr);
+    }
 }
 
 juce::ValueTree Relay::getRequest (const jam::JsonDocument& document, const jam::Document::Element& root, const juce::Identifier& operation) const
@@ -311,31 +322,40 @@ juce::ValueTree Relay::getRequest (const jam::JsonDocument& document, const jam:
 
 void Relay::didOpen (const jam::JsonDocument& document, const jam::Document::Element& root)
 {
-    const auto& params { *document.getChildByToken (root, document.get (root, lsp::Member::params)) };
-    const auto& textDocument { *document.getChildByToken (params, document.get (params, lsp::Member::textDocument)) };
-    auto request { getRequest (document, root, Id::didOpen) };
+    if (isSessionActive())
+    {
+        const auto& params { *document.getChildByToken (root, document.get (root, lsp::Member::params)) };
+        const auto& textDocument { *document.getChildByToken (params, document.get (params, lsp::Member::textDocument)) };
+        auto request { getRequest (document, root, Id::didOpen) };
 
-    request.setProperty (Id::text, jam::Strings::fromView (document.getString (document.get (textDocument, lsp::Member::text))), nullptr);
-    requests.appendChild (request, nullptr);
+        request.setProperty (Id::text, jam::Strings::fromView (document.getString (document.get (textDocument, lsp::Member::text))), nullptr);
+        requests.appendChild (request, nullptr);
+    }
 }
 
 void Relay::didChange (const jam::JsonDocument& document, const jam::Document::Element& root)
 {
-    const auto& params { *document.getChildByToken (root, document.get (root, lsp::Member::params)) };
-    const auto& contentChanges { *document.getChildByToken (params, document.get (params, lsp::Member::contentChanges)) };
-    const auto& changes { *contentChanges.get<jam::Document::Tokens> (Id::tokens) };
-    const auto& change { *document.getChildByToken (contentChanges, changes.at (0)) };
-    auto request { getRequest (document, root, Id::didChange) };
+    if (isSessionActive())
+    {
+        const auto& params { *document.getChildByToken (root, document.get (root, lsp::Member::params)) };
+        const auto& contentChanges { *document.getChildByToken (params, document.get (params, lsp::Member::contentChanges)) };
+        const auto& changes { *contentChanges.get<jam::Document::Tokens> (Id::tokens) };
+        const auto& change { *document.getChildByToken (contentChanges, changes.at (0)) };
+        auto request { getRequest (document, root, Id::didChange) };
 
-    request.setProperty (Id::text, jam::Strings::fromView (document.getString (document.get (change, lsp::Member::text))), nullptr);
-    requests.appendChild (request, nullptr);
+        request.setProperty (Id::text, jam::Strings::fromView (document.getString (document.get (change, lsp::Member::text))), nullptr);
+        requests.appendChild (request, nullptr);
+    }
 }
 
 void Relay::didClose (const jam::JsonDocument& document, const jam::Document::Element& root)
 {
-    auto request { getRequest (document, root, Id::didClose) };
+    if (isSessionActive())
+    {
+        auto request { getRequest (document, root, Id::didClose) };
 
-    requests.appendChild (request, nullptr);
+        requests.appendChild (request, nullptr);
+    }
 }
 
 void Relay::shutdown (const jam::JsonDocument& document, const jam::Document::Token& idToken)

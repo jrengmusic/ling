@@ -4,9 +4,9 @@
 
 /**
  * @struct Validator
- * @brief The validator of a LING manifest: the markdown rules, and the rule for the columns of each toolchain table.
+ * @brief The validator of a LING manifest: the markdown rules, the toolchain column rule, and the daemon settings rule.
  *
- * A toolchain table needs a header row with a command column and a flag column.
+ * Validates toolchain table headers and positive integer daemon settings.
  */
 struct Validator : jam::MarkdownValidator
 {
@@ -14,9 +14,9 @@ struct Validator : jam::MarkdownValidator
      * @brief Adds the markdown rules, the toolchain rule, and the daemon rule to the rule set.
      *
      * The toolchain rule fails each toolchain table whose header row has no
-     * command column or no flag column. The daemon rule fails each timeout row
-     * whose value is not a positive integer in canonical decimal form: no sign, no
-     * leading zero, and no space.
+     * command column or no flag column. The daemon rule fails each timeout and
+     * threads row whose value is not a positive integer in canonical decimal form:
+     * no sign, no leading zero, and no space.
      *
      * @param rules  The rule set that receives the entries.
      */

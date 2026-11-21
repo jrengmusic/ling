@@ -141,6 +141,7 @@ public:
     ~Texts();
 
     int add (std::string_view text);
+    bool contains (std::string_view text) const;
     std::string_view get (int index) const;
     const char* getPointer (int index) const;
     int size() const;
@@ -569,6 +570,11 @@ int Texts::add (std::string_view text)
     implementation->texts.add (juce::String::fromUTF8 (text.data(), static_cast<int> (text.size())));
     implementation->sizes.add (static_cast<int> (implementation->texts.getReference (implementation->texts.size() - 1).getNumBytesAsUTF8()));
     return implementation->texts.size() - 1;
+}
+
+bool Texts::contains (std::string_view text) const
+{
+    return implementation->texts.contains (juce::String::fromUTF8 (text.data(), static_cast<int> (text.size())));
 }
 
 std::string_view Texts::get (int index) const

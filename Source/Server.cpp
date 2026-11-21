@@ -1,6 +1,44 @@
 #include "Server.h"
 
 Server::Server()
+    : message (*model.getParameter<jam::ParameterText> (jam::Format::toType (Id::overlay), Id::message),
+               [this] (const juce::var& text)
+               {
+                   const auto& messageText { text.toString() };
+                   juce::MemoryBlock json;
+
+                   jam::JsonWriter::appendObject (json, [&messageText] (juce::MemoryBlock& notification)
+                   {
+                       Query::appendJsonRpc (notification);
+
+                       jam::JsonWriter::appendKey (notification, lsp::Member::method);
+                       jam::JsonWriter::appendString (notification, lsp::Method::showMessage);
+
+                       jam::JsonWriter::appendKey (notification, lsp::Member::params);
+                       jam::JsonWriter::appendObject (notification, [&messageText] (juce::MemoryBlock& params)
+                       {
+                           jam::JsonWriter::appendKey (params, lsp::Member::messageType);
+                           jam::Format::appendDecimal (params, lsp::MessageType::Error);
+
+                           jam::JsonWriter::appendKey (params, lsp::Member::message);
+                           jam::JsonWriter::appendString (params, jam::Strings::getView (messageText), juce::JSON::Encoding::utf8);
+                       });
+                   });
+
+                   for (const auto& connection : connections)
+                       connection->sendMessage (json);
+               }),
+      progress (*model.getParameter<jam::Parameter<int>> (jam::Format::toType (Id::overlay), Id::pendingJobCount),
+                [this] (const juce::var& pendingValue)
+                {
+                    const auto pendingJobs { static_cast<int> (pendingValue) };
+                    const auto totalJobs { model.getParameter<jam::Parameter<int>> (jam::Format::toType (Id::overlay), Id::jobCount)->getValue() };
+                    const auto progressType { pendingJobs == 0 ? lsp::WorkDoneProgressKind::End : pendingJobs == totalJobs ? lsp::WorkDoneProgressKind::Begin : lsp::WorkDoneProgressKind::Report };
+                    const auto json { getProgress (progressType, pendingJobs, totalJobs) };
+
+                    for (const auto& connection : connections)
+                        connection->sendMessage (json);
+                })
 {
     watcher.addFolder (juce::File::getSpecialLocation (juce::File::currentExecutableFile).getParentDirectory());
     watcher.coalesceEvents (LINGModel::coalesceMs);
@@ -110,9 +148,9 @@ juce::MemoryBlock Server::getProgress (std::string_view progressType, int pendin
 
     static const auto progressValues ([]
     {
-        jam::Function::Map<juce::Identifier, jam::Function::pointerCapacity, void (juce::MemoryBlock&, int, int)> progressValues;
+        jam::Function::Map<std::string_view, jam::Function::pointerCapacity, void (juce::MemoryBlock&, int, int)> progressValues;
 
-        progressValues.add (juce::Identifier { jam::Strings::fromView (lsp::WorkDoneProgressKind::Begin) }, [] (const juce::Identifier&, juce::MemoryBlock& value, int doneJobs, int totalJobs)
+        progressValues.add (lsp::WorkDoneProgressKind::Begin, [] (const std::string_view&, juce::MemoryBlock& value, int doneJobs, int totalJobs)
         {
             jam::JsonWriter::appendKey (value, lsp::Member::title);
             jam::JsonWriter::appendString (value, text::Progress::progressTitle);
@@ -121,7 +159,7 @@ juce::MemoryBlock Server::getProgress (std::string_view progressType, int pendin
             jam::Format::appendDecimal (value, doneJobs * percentageScale / totalJobs);
         });
 
-        progressValues.add (juce::Identifier { jam::Strings::fromView (lsp::WorkDoneProgressKind::Report) }, [] (const juce::Identifier&, juce::MemoryBlock& value, int doneJobs, int totalJobs)
+        progressValues.add (lsp::WorkDoneProgressKind::Report, [] (const std::string_view&, juce::MemoryBlock& value, int doneJobs, int totalJobs)
         {
             jam::JsonWriter::appendKey (value, lsp::Member::percentage);
             jam::Format::appendDecimal (value, doneJobs * percentageScale / totalJobs);
@@ -130,7 +168,7 @@ juce::MemoryBlock Server::getProgress (std::string_view progressType, int pendin
             jam::JsonWriter::appendString (value, jam::Strings::getView (juce::String { doneJobs } + text::Progress::progressSeparator + juce::String { totalJobs }));
         });
 
-        progressValues.add (juce::Identifier { jam::Strings::fromView (lsp::WorkDoneProgressKind::End) }, [] (const juce::Identifier&, juce::MemoryBlock&, int, int) {});
+        progressValues.add (lsp::WorkDoneProgressKind::End, [] (const std::string_view&, juce::MemoryBlock&, int, int) {});
 
         return progressValues;
     }());
@@ -157,7 +195,7 @@ juce::MemoryBlock Server::getProgress (std::string_view progressType, int pendin
                 jam::JsonWriter::appendKey (value, lsp::Member::type);
                 jam::JsonWriter::appendString (value, progressType);
 
-                progressValues.get (juce::Identifier { jam::Strings::fromView (progressType) }, value, doneJobs, totalJobs);
+                progressValues.get (progressType, value, doneJobs, totalJobs);
             });
         });
     });

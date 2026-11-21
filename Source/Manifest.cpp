@@ -82,6 +82,8 @@ static jam::Strings getPatchFiles (const juce::File& userModules)
 
 void Manifest::addJob()
 {
+    static constexpr int noWait { 0 };
+
     auto newJob { std::make_unique<ManifestJob> (*this, model.state[Id::manifest].toString(), model.state[Id::toolchainArgument].toString()) };
 
     if (job != nullptr)
@@ -129,8 +131,8 @@ juce::ThreadPoolJob::JobStatus Manifest::ManifestJob::runJob()
         const auto manifest { jam::MarkdownDocument::parse (text, manifestFile.getFullPathName()) };
         const auto result { manifest != nullptr ? Validator {}.isValid (*manifest) : jam::MarkdownDocument::isValid (jam::Strings::getView (text), manifestFile.getFullPathName()) };
 
-        timeout = result.wasOk() ? getTimeout (*manifest) : LINGModel::defaultTimeoutMs;
-        threads = result.wasOk() ? getThreads (*manifest) : LINGModel::defaultThreads;
+        timeout = result.wasOk() ? getDaemonValue (*manifest, Id::timeout, LINGModel::defaultTimeoutMs) : LINGModel::defaultTimeoutMs;
+        threads = result.wasOk() ? getDaemonValue (*manifest, Id::threads, LINGModel::defaultThreads) : LINGModel::defaultThreads;
         toolchain = result.wasOk() ? getToolchain (*manifest, toolchainArgument, manifestFile)
                                    : juce::ValueTree { jam::Format::toType (Id::toolchain) };
         roots = result.wasOk() ? getRoots (*manifest, manifestFile) : getProjectRoots (manifestFile);
@@ -147,6 +149,8 @@ juce::ThreadPoolJob::JobStatus Manifest::ManifestJob::runJob()
 
 void Manifest::handleAsyncUpdate()
 {
+    static constexpr int waitForJob { -1 };
+
     if (job != nullptr and job->isFinished.load (std::memory_order_acquire))
     {
         if (nextJob == nullptr)
@@ -174,22 +178,13 @@ void Manifest::setToolchain (const juce::ValueTree& toolchain, const juce::Value
     model.appendChild (toolchain);
 }
 
-int Manifest::getTimeout (const jam::MarkdownDocument& manifest)
+int Manifest::getDaemonValue (const jam::MarkdownDocument& manifest, const juce::Identifier& rowId, int defaultValue)
 {
     for (const auto* table : manifest.getTables (Id::daemon))
-        if (const auto* row { manifest.getTableRow (*table, Id::timeout) }; row != nullptr)
+        if (const auto* row { manifest.getTableRow (*table, rowId) }; row != nullptr)
             return manifest.getTableValue (*row, Id::value).getIntValue();
 
-    return LINGModel::defaultTimeoutMs;
-}
-
-int Manifest::getThreads (const jam::MarkdownDocument& manifest)
-{
-    for (const auto* table : manifest.getTables (Id::daemon))
-        if (const auto* row { manifest.getTableRow (*table, Id::threads) }; row != nullptr)
-            return manifest.getTableValue (*row, Id::value).getIntValue();
-
-    return LINGModel::defaultThreads;
+    return defaultValue;
 }
 
 juce::ValueTree Manifest::getRoots (const jam::MarkdownDocument& manifest, const juce::File& manifestFile)
@@ -254,14 +249,12 @@ juce::ValueTree Manifest::getToolchain (const jam::MarkdownDocument& manifest, c
 
 void Manifest::addPatternRows (juce::ValueTree& toolchain, const jam::MarkdownDocument& manifest, const juce::File& manifestFile)
 {
-    static constexpr const char* wildcardPrefix { "*." };
-
     const auto project { LINGModel::getProjectDirectory (manifestFile) };
     const auto userModules { getUserModules (manifest, project) };
 
     for (const auto* table : manifest.getTables (Id::sourceGlob))
         for (const auto* row : manifest.getTableRows (*table))
-            toolchain.appendChild (getPatternRow (Id::sourceGlob, getFolder (manifest, manifest.getTableValue (*row, Id::path), project).getChildFile (juce::String (wildcardPrefix) + manifest.getTableValue (*row, Id::extension)).getFullPathName()), nullptr);
+            toolchain.appendChild (getPatternRow (Id::sourceGlob, getFolder (manifest, manifest.getTableValue (*row, Id::path), project).getChildFile (jam::Format::toFileExtension (manifest.getTableValue (*row, Id::extension))).getFullPathName()), nullptr);
 
     for (const auto* table : manifest.getTables (Id::layoutGlob))
         for (const auto* row : manifest.getTableRows (*table))

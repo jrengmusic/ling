@@ -7,12 +7,14 @@
 
 /**
  * @class Server
- * @brief The socket server of the daemon: it accepts the connections, writes its port file, and ends the daemon after the timeout.
+ * @brief Socket server of the daemon: accepts client connections, writes the port file, broadcasts notifications, and exits when idle or replaced.
  *
- * The server listens on a port that the system chooses. On the change of the
- * documents count, it writes the bound port to the port file of the manifest, and
- * it starts the timeout. Each request restarts the timeout. When the timeout ends,
- * the server deletes the port file and quits the application.
+ * Listens on a system-assigned loopback port. When the files child is added to
+ * the model, writes the bound port (or noPort if empty) to the port file and
+ * starts the idle timer when no connections are open. A connection added to
+ * Id::connections stops the idle timer, and removing the last connection restarts
+ * it. When the timer expires or the running executable changes on disk, the server
+ * stops the socket, deletes the port file, and quits the application.
  */
 class Server : public juce::InterprocessConnectionServer,
                private juce::Timer,
@@ -20,132 +22,119 @@ class Server : public juce::InterprocessConnectionServer,
                private jam::File::Watcher::Listener
 {
 public:
-    /** @brief Listens to the model, so that the change of the documents count reaches the server. */
+    /** @brief Registers message and progress attachments, starts watching the executable directory, and listens to the model. */
     Server();
 
-    /** @brief Stops the socket, and removes the server from the listeners of the model and of the connections child. */
+    /** @brief Removes the watcher listener, stops the socket, and removes the model and state listeners. */
     ~Server() override;
 
     /**
-     * @brief Listens for connections on a port that the system chooses, on the local address of this machine.
+     * @brief Starts listening for connections on a system-assigned loopback port.
      *
-     * A jassert checks that the socket listens. The bound port is read later, on
-     * the change of the documents count.
+     * Asserts that the socket begins listening. The bound port is written to the
+     * port file later, when the files child is added to the model.
      */
     void start();
 
     /**
-     * @brief Returns the port file of a manifest and a toolchain argument.
+     * @brief Returns the port file for @p manifest and @p toolchainArgument.
      *
-     * The port file is in the cache folder. Its name is the daemon name of the
-     * manifest and the toolchain argument, with the port file extension.
+     * Places the file inside the project cache directory using the daemon name
+     * and the port file extension.
      *
-     * @param manifest           The manifest file.
-     * @param toolchainArgument  The toolchain argument. Empty when none is given.
-     * @return The port file.
+     * @param manifest           Manifest file identifying the project.
+     * @param toolchainArgument  Toolchain flag, or empty when none is given.
+     * @return Port file path.
      */
     static juce::File getPortFile (const juce::File& manifest, std::string_view toolchainArgument);
 
+    /** @brief Sentinel written to the port file when the manifest yields zero files. */
     static constexpr int noPort { -1 };
 
 private:
     /**
-     * @brief Creates a Connection for an accepted socket.
+     * @brief Creates a Connection for an accepted client socket.
      *
-     * The function returns a raw pointer to the connection for the socket server.
-     * It moves the owning pointer to the connections owner on the message thread.
+     * Returns a raw pointer required by juce::InterprocessConnectionServer and
+     * transfers ownership to @c connections asynchronously on the message thread.
      *
-     * @return The connection that the socket server runs.
+     * @return Newly created Connection owned by @c connections.
      */
     juce::InterprocessConnection* createConnectionObject() override;
 
     /**
-     * @brief On the files child added to the state of the model, writes the port file, starts the timeout, and listens to the connections child. On a request row below the connections child, stops the timeout timer.
+     * @brief Handles added files and connection rows to manage the port file, idle timer, and initial progress notification.
      *
-     * The files child writes the bound port to the port file in the cache folder,
-     * and starts the timeout timer. It then removes the server from the listeners
-     * of the model, and adds it to the listeners of the connections child.
-     * The listener receives the child additions of its tree and of every subtree.
+     * When Id::files is added to @c model.state, creates the port file directory;
+     * if empty, writes @c noPort, stops, and quits; otherwise writes @c getBoundPort(),
+     * starts the idle timer if @c state has no connections, stops listening to @c model,
+     * and listens to @c state. When a connection child is added to @c state, stops
+     * the idle timer and broadcasts a @c Begin progress notification if jobs are pending.
      *
-     * @param parentTree              The tree that received the child. A files child acts only when it is the state of the model.
-     * @param childWhichHasBeenAdded  The added child. Only a files child and a request row act.
+     * @param parentTree              Tree receiving the child (@c model.state or @c state).
+     * @param childWhichHasBeenAdded  Added files or connection child tree.
      */
     void valueTreeChildAdded (juce::ValueTree& parentTree, juce::ValueTree& childWhichHasBeenAdded) override;
 
+    /**
+     * @brief Restarts the idle timer when the last connection leaves @c state.
+     *
+     * @param parentTree                    Parent tree whose child was removed.
+     * @param childWhichHasBeenRemoved      Removed child tree (unused).
+     * @param indexFromWhichChildWasRemoved Former index of the removed child (unused).
+     */
     void valueTreeChildRemoved (juce::ValueTree& parentTree, juce::ValueTree& childWhichHasBeenRemoved, int indexFromWhichChildWasRemoved) override;
 
     /**
-     * @brief Stops the socket, deletes the port file, and quits the application.
-     *
-     * The timer ends the daemon when no request arrives within the timeout.
+     * @brief Stops the socket, deletes the port file, stops the timer, and quits the application.
      */
     void timerCallback() override;
 
+    /**
+     * @brief Triggers daemon shutdown via timerCallback() when the running executable changes on disk.
+     *
+     * @param file   File reported by the directory watcher.
+     * @param event  File watcher event kind (unused).
+     */
     void fileChanged (const juce::File& file, jam::File::Watcher::Event event) override;
 
     /**
-     * @brief Returns the port file of the manifest and the toolchain argument in the model.
+     * @brief Returns the port file for the manifest and toolchain argument in @c model.
      *
-     * @return The port file.
+     * @return Port file path.
      */
     juce::File getPortFile() const;
 
+    /**
+     * @brief Builds an LSP @c $/progress JSON-RPC notification payload.
+     *
+     * @param progressType  LSP WorkDoneProgressKind string (@c begin, @c report, or @c end).
+     * @param pendingJobs   Number of jobs still running or queued.
+     * @param totalJobs     High-water job count for the current indexing batch.
+     * @return Serialized JSON-RPC notification bytes.
+     */
     static juce::MemoryBlock getProgress (std::string_view progressType, int pendingJobs, int totalJobs);
 
-    /** @brief The port number that asks the system for a free port. */
+    /** @brief Port number asking the OS to bind an ephemeral port. */
     static constexpr int anyPort { 0 };
 
-    /** @brief The model of the run. The server reads its manifest and toolchain argument from it. */
+    /** @brief Shared model for this run; provides manifest, toolchain argument, timeout, and overlay parameters. */
     LINGModel& model { *LINGModel::getInstance() };
 
-    /** @brief The connections child of the model. The server listens to it after the documents count changes. */
+    /** @brief Connections subtree of @c model.state watched after the files child is added. */
     juce::ValueTree state { model.state.getChildWithName (jam::Format::toType (Id::connections)) };
 
-    /** @brief The open connections. A connection that the client loses removes itself from them. */
+    /** @brief Owns all active client Connection instances; lost connections remove themselves. */
     jam::Owner<Connection> connections;
 
+    /** @brief Watches the executable's directory so replacing the binary shuts down the stale daemon. */
     jam::File::Watcher watcher;
 
-    /** @brief The attachment that sends each change of the overlay message to every open connection, as JSON text. */
-    jam::Model::ParameterAttachment message {*model.getParameter<jam::ParameterText> (jam::Format::toType (Id::overlay), Id::message),
-                                              [this] (const juce::var& text)
-                                              {
-                                                  const auto& messageText { text.toString() };
-                                                  juce::MemoryBlock json;
+    /** @brief Parameter attachment broadcasting overlay error messages to all open connections as JSON-RPC notifications. */
+    jam::Model::ParameterAttachment message;
 
-                                                  jam::JsonWriter::appendObject (json, [&messageText] (juce::MemoryBlock& notification)
-                                                  {
-                                                      Query::appendJsonRpc (notification);
-
-                                                      jam::JsonWriter::appendKey (notification, lsp::Member::method);
-                                                      jam::JsonWriter::appendString (notification, lsp::Method::showMessage);
-
-                                                      jam::JsonWriter::appendKey (notification, lsp::Member::params);
-                                                      jam::JsonWriter::appendObject (notification, [&messageText] (juce::MemoryBlock& params)
-                                                      {
-                                                          jam::JsonWriter::appendKey (params, lsp::Member::messageType);
-                                                          jam::Format::appendDecimal (params, lsp::MessageType::Error);
-
-                                                          jam::JsonWriter::appendKey (params, lsp::Member::message);
-                                                          jam::JsonWriter::appendString (params, jam::Strings::getView (messageText), juce::JSON::Encoding::utf8);
-                                                      });
-                                                  });
-
-                                                  for (const auto& connection : connections)
-                                                      connection->sendMessage (json);
-                                              } };
-
-    jam::Model::ParameterAttachment progress {*model.getParameter<jam::Parameter<int>> (jam::Format::toType (Id::overlay), Id::pendingJobCount),
-                                              [this] (const juce::var& pendingValue)
-                                              {
-                                                  const auto pendingJobs { static_cast<int> (pendingValue) };
-                                                  const auto totalJobs { model.getParameter<jam::Parameter<int>> (jam::Format::toType (Id::overlay), Id::jobCount)->getValue() };
-                                                  const auto progressType { pendingJobs == 0 ? lsp::WorkDoneProgressKind::End : pendingJobs == totalJobs ? lsp::WorkDoneProgressKind::Begin : lsp::WorkDoneProgressKind::Report };
-                                                  const auto json { getProgress (progressType, pendingJobs, totalJobs) };
-
-                                                  for (const auto& connection : connections)
-                                                      connection->sendMessage (json);
-                                              } };
+    /** @brief Parameter attachment broadcasting indexing job progress updates to all open connections. */
+    jam::Model::ParameterAttachment progress;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Server)
 };

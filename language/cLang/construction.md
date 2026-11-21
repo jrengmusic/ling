@@ -559,6 +559,14 @@
 | platformMac     | `mm`  |
 | platformWindows | `cpp` |
 
+## platformTargets
+
+| key             | value                               |
+| --------------- | ----------------------------------- |
+| platformMac     | `--target=arm64-apple-macosx`       |
+| platformWindows | `--target=x86_64-pc-windows-msvc`   |
+| platformLinux   | `--target=x86_64-unknown-linux-gnu` |
+
 ## drivers
 
 | key             | value             |
@@ -598,14 +606,6 @@
 | `-fparse-all-comments`    | 0     |
 | `-fretain-comments-from-system-headers` | 0 |
 
-## platformTargets
-
-| key                                 | value           |
-| ----------------------------------- | --------------- |
-| `--target=arm64-apple-macosx`       | platformMac     |
-| `--target=x86_64-pc-windows-msvc`   | platformWindows |
-| `--target=x86_64-unknown-linux-gnu` | platformLinux   |
-
 ## platformMacros
 
 | key            | value           |
@@ -630,6 +630,23 @@
 | `juce_audio_processors_headless_lv2_libs.cpp`| 1     |
 | `jam_freetype.mm`                            | 1     |
 | `juce_core_CompilationTime.cpp`              | 1     |
+
+## ignoredConditionMacros
+
+| key                          | value |
+| ---------------------------- | ----- |
+| `JUCE_IOS`                   | 1     |
+| `JUCE_ANDROID`               | 1     |
+| `JUCE_BSD`                   | 1     |
+| `JUCE_MSVC`                  | 1     |
+| `JUCE_GCC`                   | 1     |
+| `JUCE_INTEL`                 | 1     |
+| `JUCE_BIG_ENDIAN`            | 1     |
+| `TARGET_OS_IPHONE`           | 1     |
+| `TARGET_IPHONE_SIMULATOR`    | 1     |
+| `JUCE_GUI_BASICS_H_INCLUDED` | 1     |
+| `JUCE_APP_CONFIG_HEADER`     | 1     |
+| `DOXYGEN`                    | 1     |
 
 ## conditionActions
 
@@ -704,6 +721,7 @@
 | akaClose       | `)`                  |
 | operatorName   | `operator`           |
 | callOperator   | `operator()`         |
+| arrowOperator  | `operator->`         |
 | volatileQualifier | `volatile`        |
 | akaPointer     | `*`                  |
 | akaReference   | `&`                  |
@@ -791,6 +809,7 @@
 | CursorType::typeReference                  | addTemplateParameterSymbols |
 | CursorType::templateReference              | addTemplateParameterSymbols |
 | CursorType::declarationReferenceExpression | addTemplateParameterSymbols |
+| CursorType::callExpression                 | addCallRecords              |
 
 ## typeFamilies
 

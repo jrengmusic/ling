@@ -86,7 +86,7 @@
 ## htmlElements
 
 ```
-@brief The role and the symbol type of each name token of an html element, by the position of the token. Token 0 is the tag. Token 1 is the value of the id attribute.
+@brief The role and the symbol type of each name token of an html element, by the position of the token. Token 0 is the tag. Token 1 is the value of the id attribute. Token 2 is the value of the href attribute.
 ```
 
 +-----+------------------------------------------------------------------------------------------------+
@@ -94,4 +94,5 @@
 +=====+================================================================================================+
 | 0   | jam::Union<uint8_t, uint8_t>::pack (jam::LanguageRole::declaration, lsp::SymbolType::Object)   |
 | 1   | jam::Union<uint8_t, uint8_t>::pack (jam::LanguageRole::declaration, lsp::SymbolType::Constant) |
+| 2   | jam::Union<uint8_t, uint8_t>::pack (jam::LanguageRole::reference, lsp::SymbolType::String)     |
 +-----+------------------------------------------------------------------------------------------------+

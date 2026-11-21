@@ -115,7 +115,7 @@ void Processor::registerEvents()
 {
     events.add (Id::goToDefinition, [this] (const juce::Identifier&, juce::ValueTree& request) { query.goToDefinition (request, index); });
     events.add (Id::findReferences, [this] (const juce::Identifier&, juce::ValueTree& request) { query.findReferences (request, index); });
-    events.add (Id::hover, [this] (const juce::Identifier&, juce::ValueTree& request) { runHover (request); });
+    events.add (Id::hover, [this] (const juce::Identifier&, juce::ValueTree& request) { query.hover (request, index); });
     events.add (Id::documentSymbol, [this] (const juce::Identifier&, juce::ValueTree& request) { query.documentSymbol (request, index); });
     events.add (Id::workspaceSymbol, [this] (const juce::Identifier&, juce::ValueTree& request) { query.workspaceSymbol (request, index); });
     events.add (Id::completion, [this] (const juce::Identifier&, juce::ValueTree& request) { query.completion (request, index); });
@@ -158,8 +158,6 @@ void Processor::registerEvents()
     });
     propertyEvents.add (Id::isIndexed, [this] (const juce::Identifier&, juce::ValueTree& tree)
     {
-        jam::debug::Log::write ("isIndexedEvent", tree[Id::path].toString(), static_cast<bool> (tree[Id::isIndexed]), tree.hasType (jam::Format::toType (Id::file)));
-
         if (static_cast<bool> (tree[Id::isIndexed]))
         {
             runRequests();
@@ -192,8 +190,6 @@ void Processor::registerEvents()
     });
     childEvents.add (jam::Format::toType (Id::request), [this] (const juce::Identifier&, juce::ValueTree& request)
     {
-        jam::debug::Log::write ("request", request[Id::command].toString(), Query::getFile (request).getFullPathName(), isRequestReady (request));
-
         if (isRequestReady (request))
             runRequest (request);
         else
@@ -316,8 +312,6 @@ void Processor::runRequests()
 
 void Processor::addDiagnosticRequests (const juce::ValueTree& file)
 {
-    jam::debug::Log::write ("addDiagnosticRequests", file[Id::path].toString(), model.state.getChildWithName (jam::Format::toType (Id::connections)).getNumChildren());
-
     const auto directory { juce::File { file[Id::path].toString() }.getParentDirectory().getFullPathName() };
 
     for (auto connection : model.state.getChildWithName (jam::Format::toType (Id::connections)))
@@ -350,7 +344,6 @@ void Processor::setIndexed (int rowIndex)
                 and (index.symbolDocuments.contains (unitRow) or unitTree.hasProperty (Id::message) or not index.languages.contains (static_cast<int> (unitTree[Id::family])));
     }
 
-    jam::debug::Log::write ("setIndexed", row[Id::path].toString(), isIndexed, parseJobs.contains (rowIndex), nextParseJobs.contains (rowIndex));
     row.setProperty (Id::isIndexed, isIndexed, nullptr);
 }
 
@@ -396,7 +389,6 @@ void Processor::setIndexed()
 void Processor::runRequest (juce::ValueTree& request)
 {
     jassert (request[Id::arguments].isArray());
-    jam::debug::Log::write ("runRequest", request[Id::command].toString(), Query::getFile (request).getFullPathName());
 
     if (const auto entry { index.unitRows.find (Query::getFile (request).getFullPathName()) }; entry != index.unitRows.end())
     {
@@ -434,18 +426,6 @@ void Processor::runRequest (juce::ValueTree& request)
     {
         Query::setError (request, lsp::ErrorCodes::InvalidParams);
     }
-}
-
-void Processor::runHover (juce::ValueTree& request)
-{
-    const auto answer { [this, &request] (int pathIndex, const jam::Document&, const jam::Document::Element& element, int tokenIndex, const SymbolDocument::SymbolRecord& record)
-    {
-        query.hover (request, index, pathIndex, &element, tokenIndex, &record);
-    } };
-    const auto isFound { query.applyToHover (request, index, answer) };
-
-    if (not isFound)
-        query.hover (request, index, 0, nullptr, 0, nullptr);
 }
 
 juce::File Processor::getOrCreateLanguages()
@@ -601,7 +581,7 @@ int Processor::addBuiltInLanguages()
     const map::Languages languages;
     const juce::MemoryMappedFile executable { juce::File::getSpecialLocation (juce::File::currentExecutableFile), juce::MemoryMappedFile::readOnly };
     const auto hash { static_cast<juce::int64> (jam::Wyhash::hashBytes (executable.getData(), executable.getSize())) };
-    juce::StringArray extensions;
+    jam::Strings extensions;
 
     for (const auto& [extension, name] : languages)
         extensions.add (extension);
@@ -702,8 +682,6 @@ void Processor::removeBuffer (juce::ValueTree& request)
 
 void Processor::setBufferChange (juce::ValueTree& request)
 {
-    jam::debug::Log::write ("setBufferChange", Query::getFile (request).getFullPathName(), index.pathRows.contains (Query::getFile (request).getFullPathName()));
-
     const auto files { model.state.getChildWithName (jam::Format::toType (Id::files)) };
 
     if (const auto entry { index.pathRows.find (Query::getFile (request).getFullPathName()) }; entry != index.pathRows.end())
@@ -758,24 +736,17 @@ juce::ThreadPoolJob::JobStatus Processor::ParseJob::runJob()
     const jam::Profiler::Zone zone { Id::runParseJob };
 #endif
 
-    const juce::File file { path };
-
-    modificationTime = file.getLastModificationTime();
-
-    if (file.existsAsFile())
+    try
     {
-        const auto diskText { file.loadFileAsString() };
-        const auto diskBytes { jam::Strings::getView (diskText) };
-        const auto hash { static_cast<juce::int64> (jam::Wyhash::hashBytes (diskBytes.data(), diskBytes.size())) };
-        const juce::String& text { buffer.has_value() ? *buffer : diskText };
-        const auto bytes { jam::Strings::getView (text) };
-        const auto decoded { bytes.find (static_cast<char> (Chars::escapeCharacter)) == std::string_view::npos ? std::string {} : jam::AnsiDocument::getText (bytes) };
-        const auto view { decoded.empty() ? bytes : std::string_view { decoded } };
+        const juce::File file { path };
 
-        document = buffer.has_value() ? nullptr : Index::readSwapFile (swapFile, view, language, hash, languageHash, family);
+        modificationTime = file.getLastModificationTime();
 
-        if (document == nullptr)
+        if (buffer.has_value())
         {
+            const auto bytes { jam::Strings::getView (*buffer) };
+            const auto decoded { bytes.find (static_cast<char> (Chars::escapeCharacter)) == std::string_view::npos ? std::string {} : jam::AnsiDocument::getText (bytes) };
+            const auto view { decoded.empty() ? bytes : std::string_view { decoded } };
             auto [parsedDocument, parsedSymbols] { language->parse (view, path) };
 
             document = std::move (parsedDocument);
@@ -783,21 +754,42 @@ juce::ThreadPoolJob::JobStatus Processor::ParseJob::runJob()
             result = document == nullptr ? language->isValid (view) : juce::Result::ok();
 
             if (document != nullptr)
+                Index::addStamp (*document, static_cast<juce::int64> (jam::Wyhash::hashBytes (bytes.data(), bytes.size())), languageHash, family);
+        }
+        else if (file.existsAsFile())
+        {
+            const auto diskText { file.loadFileAsString() };
+            const auto bytes { jam::Strings::getView (diskText) };
+            const auto hash { static_cast<juce::int64> (jam::Wyhash::hashBytes (bytes.data(), bytes.size())) };
+            const auto decoded { bytes.find (static_cast<char> (Chars::escapeCharacter)) == std::string_view::npos ? std::string {} : jam::AnsiDocument::getText (bytes) };
+            const auto view { decoded.empty() ? bytes : std::string_view { decoded } };
+
+            document = Index::readSwapFile (swapFile, view, language, hash, languageHash, family);
+
+            if (document == nullptr)
             {
-                if (buffer.has_value())
-                    Index::addStamp (*document, static_cast<juce::int64> (jam::Wyhash::hashBytes (bytes.data(), bytes.size())), languageHash, family);
-                else
+                auto [parsedDocument, parsedSymbols] { language->parse (view, path) };
+
+                document = std::move (parsedDocument);
+                symbols = std::move (parsedSymbols);
+                result = document == nullptr ? language->isValid (view) : juce::Result::ok();
+
+                if (document != nullptr)
                     Index::writeSwapFile (swapFile, *document, hash, languageHash, family);
+            }
+            else
+            {
+                symbols = language->getSymbols (*document, path);
             }
         }
         else
         {
-            symbols = language->getSymbols (*document, path);
+            swapFile.deleteFile();
         }
     }
-    else
+    catch (const std::exception& error)
     {
-        swapFile.deleteFile();
+        result = juce::Result::fail (error.what());
     }
 
     isFinished.store (true, std::memory_order_release);
@@ -830,10 +822,19 @@ juce::ThreadPoolJob::JobStatus Processor::IndexJob::runJob()
     const jam::Profiler::Zone zone { Id::runIndexJob };
 #endif
 
-    symbols = Index::readSwapFile (symbolSwapFile, hash, languageHash, family);
+    static constexpr int indexFailure { 1 };
 
-    if (symbols == nullptr)
-        addSymbols();
+    try
+    {
+        symbols = Index::readSwapFile (symbolSwapFile, hash, languageHash, family);
+
+        if (symbols == nullptr)
+            addSymbols();
+    }
+    catch (const std::exception&)
+    {
+        result = indexFailure;
+    }
 
     isFinished.store (true, std::memory_order_release);
     owner.triggerAsyncUpdate();
@@ -993,8 +994,6 @@ void Processor::addJob (const juce::ValueTree& row, int rowIndex)
 
 void Processor::addIndexJob (const juce::ValueTree& row, int rowIndex)
 {
-    jam::debug::Log::write ("addIndexJob", row[Id::path].toString(), rowIndex);
-
     auto arguments (getArguments (row));
     juce::StringArray bufferPaths;
     juce::StringArray bufferTexts;
@@ -1114,7 +1113,6 @@ void Processor::addDocument (ParseJob& job)
 {
     const auto files { model.state.getChildWithName (jam::Format::toType (Id::files)) };
     const auto row { files.getChild (job.rowIndex) };
-    jam::debug::Log::write ("addDocument", job.path, job.buffer.has_value(), row[Id::path].toString().compare (job.path) == 0, juce::File { job.path }.getLastModificationTime() == job.modificationTime);
     const auto isIndexReady { [this, &job] (const juce::ValueTree& unit, int unitIndex)
     {
         const auto family { static_cast<int> (unit[Id::family]) };
@@ -1159,8 +1157,6 @@ void Processor::addDocument (ParseJob& job)
 
 void Processor::addBindings (IndexJob& job)
 {
-    jam::debug::Log::write ("addBindings", job.path, job.result);
-
     const auto files { model.state.getChildWithName (jam::Format::toType (Id::files)) };
     auto row { files.getChild (job.rowIndex) };
 
@@ -1257,18 +1253,25 @@ juce::ThreadPoolJob::JobStatus Processor::UnitsJob::runJob()
     const jam::Profiler::Zone zone { Id::getFiles };
 #endif
 
-    const auto pointers (getArgumentPointers (arguments));
-    jam::LanguageCallbacks callbacks {};
+    try
+    {
+        const auto pointers (getArgumentPointers (arguments));
+        jam::LanguageCallbacks callbacks {};
 
-    callbacks.context = this;
-    callbacks.addUnit = &UnitsJob::addUnit;
-    callbacks.addBuildFile = &UnitsJob::addBuildFile;
-    callbacks.addMessage = &UnitsJob::addMessage;
+        callbacks.context = this;
+        callbacks.addUnit = &UnitsJob::addUnit;
+        callbacks.addBuildFile = &UnitsJob::addBuildFile;
+        callbacks.addMessage = &UnitsJob::addMessage;
 
-    for (const auto& [family, language] : languages)
-        language->units (pointers.data(), argumentCounts.data(), argumentCounts.size(), directory.toRawUTF8(), cacheDirectory.toRawUTF8(), callbacks);
+        for (const auto& [family, language] : languages)
+            language->units (pointers.data(), argumentCounts.data(), argumentCounts.size(), directory.toRawUTF8(), cacheDirectory.toRawUTF8(), callbacks);
 
-    files.setProperty (Id::buildFiles, buildFiles, nullptr);
+        files.setProperty (Id::buildFiles, buildFiles, nullptr);
+    }
+    catch (const std::exception& error)
+    {
+        files.setProperty (Id::message, juce::String (error.what()), nullptr);
+    }
 
     isFinished.store (true, std::memory_order_release);
     owner.triggerAsyncUpdate();

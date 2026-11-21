@@ -20,7 +20,7 @@ void Operation::connectionMade()
 
 void Operation::messageReceived (const juce::MemoryBlock& reply)
 {
-    const auto document { jam::JsonDocument::parse (std::string_view { static_cast<const char*> (reply.getData()), reply.getSize() }) };
+    const auto document { jam::JsonDocument::read (std::string_view { static_cast<const char*> (reply.getData()), reply.getSize() }) };
 
     jassert (document != nullptr);
 

@@ -76,29 +76,32 @@ juce::File Query::getCounterpart (const juce::File& file, const Index& index)
         fileRow = fileRows.getChild (rowIndex);
     }
 
-    if (const auto entry { index.languages.find (static_cast<int> (fileRow[Id::family])) }; fileRow.isValid() and entry != index.languages.end())
+    if (fileRow.isValid())
     {
-        const auto& [languageFamily, language] { *entry };
-        const auto extensions { language->getCounterparts (file.getFileExtension().substring (1)) };
-
-        for (const auto& extension : extensions)
+        if (const auto entry { index.languages.find (static_cast<int> (fileRow[Id::family])) }; entry != index.languages.end())
         {
-            const auto sameFolderCandidate { file.withFileExtension (extension) };
+            const auto& [languageFamily, language] { *entry };
+            const auto extensions { language->getCounterparts (file.getFileExtension().substring (1)) };
 
-            if (index.paths.indexOf (sameFolderCandidate.getFullPathName(), false, 0) >= 0)
-                return sameFolderCandidate;
-        }
-
-        if (const auto stemEntry { index.stemRows.find (file.getFileNameWithoutExtension()) }; stemEntry != index.stemRows.end())
-        {
-            const auto& [stem, stemRowIndices] { *stemEntry };
-
-            for (const auto rowIndex : stemRowIndices)
+            for (const auto& extension : extensions)
             {
-                const juce::File candidate { fileRows.getChild (rowIndex)[Id::path].toString() };
+                const auto sameFolderCandidate { file.withFileExtension (extension) };
 
-                if (extensions.contains (candidate.getFileExtension().substring (1)))
-                    return candidate;
+                if (index.paths.indexOf (sameFolderCandidate.getFullPathName(), false, 0) >= 0)
+                    return sameFolderCandidate;
+            }
+
+            if (const auto stemEntry { index.stemRows.find (file.getFileNameWithoutExtension()) }; stemEntry != index.stemRows.end())
+            {
+                const auto& [stem, stemRowIndices] { *stemEntry };
+
+                for (const auto rowIndex : stemRowIndices)
+                {
+                    const juce::File candidate { fileRows.getChild (rowIndex)[Id::path].toString() };
+
+                    if (extensions.contains (candidate.getFileExtension().substring (1), false))
+                        return candidate;
+                }
             }
         }
     }
@@ -322,70 +325,52 @@ void Query::appendChanges (juce::MemoryBlock& json, const Index& index, const Oc
 
 void Query::goToDefinition (juce::ValueTree& request, const Index& index) const
 {
-    const auto& encodingText { request[Id::positionEncoding].toString() };
-    const auto encoding { jam::Strings::getView (encodingText) };
-
-    setResult (request, [this, &index, &request, encoding] (juce::MemoryBlock& message)
+    applyToArrayResult (request, [this, &index, &request] (juce::MemoryBlock& entries, std::string_view encoding)
     {
-        jam::JsonWriter::appendArray (message, [this, &index, &request, encoding] (juce::MemoryBlock& entries)
+        applyToPosition (request, [this, &index, &entries, encoding] (int pathIndex, const jam::Document& document, const jam::Document::Element& element, int tokenIndex)
         {
-            applyToPosition (request, [this, &index, &entries, encoding] (int pathIndex, const jam::Document& document, const jam::Document::Element& element, int tokenIndex)
+            applyToDeclarations (pathIndex, document, element, tokenIndex, [&index, &entries, encoding] (int declarationIndex, const jam::Document& declarationDocument, const jam::Document::Element& declaration, int declarationTokenIndex)
             {
-                applyToDeclarations (pathIndex, document, element, tokenIndex, [&index, &entries, encoding] (int declarationIndex, const jam::Document& declarationDocument, const jam::Document::Element& declaration, int declarationTokenIndex)
-                {
-                    jam::JsonWriter::appendSeparator (entries);
-                    appendNameLocation (entries, index.paths.at (declarationIndex), declarationDocument, declaration, declarationTokenIndex, encoding);
-                }, index);
-            }, index, encoding);
-        });
+                jam::JsonWriter::appendSeparator (entries);
+                appendNameLocation (entries, index.paths.at (declarationIndex), declarationDocument, declaration, declarationTokenIndex, encoding);
+            }, index);
+        }, index, encoding);
     });
 }
 
 void Query::findReferences (juce::ValueTree& request, const Index& index) const
 {
-    const auto& encodingText { request[Id::positionEncoding].toString() };
-    const auto encoding { jam::Strings::getView (encodingText) };
-
-    setResult (request, [this, &index, &request, encoding] (juce::MemoryBlock& message)
+    applyToArrayResult (request, [this, &index, &request] (juce::MemoryBlock& entries, std::string_view encoding)
     {
-        jam::JsonWriter::appendArray (message, [this, &index, &request, encoding] (juce::MemoryBlock& entries)
+        applyToPosition (request, [this, &index, &entries, encoding] (int pathIndex, const jam::Document& document, const jam::Document::Element& element, int tokenIndex)
         {
-            applyToPosition (request, [this, &index, &entries, encoding] (int pathIndex, const jam::Document& document, const jam::Document::Element& element, int tokenIndex)
+            applyToSymbols (pathIndex, document, element, tokenIndex, [this, &index, &entries, encoding] (const SymbolDocument::SymbolRecord& record)
             {
-                applyToSymbols (pathIndex, document, element, tokenIndex, [this, &index, &entries, encoding] (const SymbolDocument::SymbolRecord& record)
+                applyToSymbolOccurrences (record.symbol, [&index, &entries, encoding] (int occurrenceIndex, const jam::Document& occurrenceDocument, const jam::Document::Element& occurrence, int occurrenceTokenIndex)
                 {
-                    applyToSymbolOccurrences (record.symbol, [&index, &entries, encoding] (int occurrenceIndex, const jam::Document& occurrenceDocument, const jam::Document::Element& occurrence, int occurrenceTokenIndex)
-                    {
-                        jam::JsonWriter::appendSeparator (entries);
-                        appendNameLocation (entries, index.paths.at (occurrenceIndex), occurrenceDocument, occurrence, occurrenceTokenIndex, encoding);
-                    }, index);
+                    jam::JsonWriter::appendSeparator (entries);
+                    appendNameLocation (entries, index.paths.at (occurrenceIndex), occurrenceDocument, occurrence, occurrenceTokenIndex, encoding);
                 }, index);
-            }, index, encoding);
-        });
+            }, index);
+        }, index, encoding);
     });
 }
 
 void Query::documentHighlight (juce::ValueTree& request, const Index& index) const
 {
-    const auto& encodingText { request[Id::positionEncoding].toString() };
-    const auto encoding { jam::Strings::getView (encodingText) };
-
-    setResult (request, [this, &index, &request, encoding] (juce::MemoryBlock& message)
+    applyToArrayResult (request, [this, &index, &request] (juce::MemoryBlock& entries, std::string_view encoding)
     {
-        jam::JsonWriter::appendArray (message, [this, &index, &request, encoding] (juce::MemoryBlock& entries)
+        applyToPosition (request, [this, &index, &entries, encoding] (int pathIndex, const jam::Document& document, const jam::Document::Element& element, int tokenIndex)
         {
-            applyToPosition (request, [this, &index, &entries, encoding] (int pathIndex, const jam::Document& document, const jam::Document::Element& element, int tokenIndex)
+            applyToSymbols (pathIndex, document, element, tokenIndex, [this, &index, &entries, encoding, pathIndex] (const SymbolDocument::SymbolRecord& record)
             {
-                applyToSymbols (pathIndex, document, element, tokenIndex, [this, &index, &entries, encoding, pathIndex] (const SymbolDocument::SymbolRecord& record)
+                applyToSymbolOccurrences (record.symbol, pathIndex, [&entries, encoding] (int, const jam::Document& occurrenceDocument, const jam::Document::Element& occurrence, int occurrenceTokenIndex)
                 {
-                    applyToSymbolOccurrences (record.symbol, pathIndex, [&entries, encoding] (int, const jam::Document& occurrenceDocument, const jam::Document::Element& occurrence, int occurrenceTokenIndex)
-                    {
-                        jam::JsonWriter::appendSeparator (entries);
-                        appendHighlight (entries, occurrenceDocument, occurrence.get<jam::Document::Tokens> (Id::nameTokens)->at (occurrenceTokenIndex), encoding);
-                    }, index);
+                    jam::JsonWriter::appendSeparator (entries);
+                    appendHighlight (entries, occurrenceDocument, occurrence.get<jam::Document::Tokens> (Id::nameTokens)->at (occurrenceTokenIndex), encoding);
                 }, index);
-            }, index, encoding);
-        });
+            }, index);
+        }, index, encoding);
     });
 }
 
@@ -418,20 +403,40 @@ void Query::rename (juce::ValueTree& request, const Index& index) const
     });
 }
 
-void Query::hover (juce::ValueTree& request, const Index& index, int pathIndex, const jam::Document::Element* element, int tokenIndex, const SymbolDocument::SymbolRecord* record) const
+void Query::hover (juce::ValueTree& request, const Index& index) const
 {
     const auto& encodingText { request[Id::positionEncoding].toString() };
     const auto encoding { jam::Strings::getView (encodingText) };
+    int hoverPathIndex { 0 };
+    const jam::Document::Element* hoverElement { nullptr };
+    int hoverTokenIndex { 0 };
+    const SymbolDocument::SymbolRecord* hoverRecord { nullptr };
 
-    setResult (request, [&index, pathIndex, element, tokenIndex, record, encoding] (juce::MemoryBlock& message)
+    applyToPosition (request, [this, &index, &hoverPathIndex, &hoverElement, &hoverTokenIndex, &hoverRecord] (int pathIndex, const jam::Document& document, const jam::Document::Element& element, int tokenIndex)
     {
-        if (record != nullptr)
+        applyToSymbols (pathIndex, document, element, tokenIndex, [&hoverRecord] (const SymbolDocument::SymbolRecord& record)
         {
-            const auto& hoverDocument { *index.documents.at (pathIndex) };
-            const auto& hoverToken { element->get<jam::Document::Tokens> (Id::nameTokens)->at (tokenIndex) };
-            const auto& [unitRow, file] { index.symbolFiles.at (pathIndex) };
+            if (hoverRecord == nullptr and record.hover != jam::LanguageCallbacks::noHover)
+                hoverRecord = &record;
+        }, index);
+
+        if (hoverRecord != nullptr)
+        {
+            hoverPathIndex = pathIndex;
+            hoverElement = &element;
+            hoverTokenIndex = tokenIndex;
+        }
+    }, index, encoding);
+
+    setResult (request, [&index, hoverPathIndex, hoverElement, hoverTokenIndex, hoverRecord, encoding] (juce::MemoryBlock& message)
+    {
+        if (hoverRecord != nullptr)
+        {
+            const auto& hoverDocument { *index.documents.at (hoverPathIndex) };
+            const auto& hoverToken { hoverElement->get<jam::Document::Tokens> (Id::nameTokens)->at (hoverTokenIndex) };
+            const auto& [unitRow, file] { index.symbolFiles.at (hoverPathIndex) };
             const auto& symbolDocument { *index.symbolDocuments.at (unitRow) };
-            const auto& hoverEntry { symbolDocument.getHovers (*file).at (static_cast<uint32_t> (record->hover)) };
+            const auto& hoverEntry { symbolDocument.getHovers (*file).at (static_cast<uint32_t> (hoverRecord->hover)) };
             const auto hover { symbolDocument.getString (hoverEntry.hoverOffset, hoverEntry.hoverLength) };
             const auto definitionPath { symbolDocument.getString (hoverEntry.pathOffset, hoverEntry.pathLength) };
             std::string_view definition {};
@@ -542,57 +547,45 @@ void Query::switchSourceHeader (juce::ValueTree& request, const Index& index) co
 
 void Query::inlayHint (juce::ValueTree& request, const Index& index) const
 {
-    const auto& encodingText { request[Id::positionEncoding].toString() };
-    const auto encoding { jam::Strings::getView (encodingText) };
-
-    setResult (request, [this, &index, &request, encoding] (juce::MemoryBlock& message)
+    applyToArrayResult (request, [this, &index, &request] (juce::MemoryBlock& entries, std::string_view encoding)
     {
-        jam::JsonWriter::appendArray (message, [this, &index, &request, encoding] (juce::MemoryBlock& entries)
+        applyToFile (request, [&index, &entries, encoding] (const juce::File& file)
         {
-            applyToFile (request, [&index, &entries, encoding] (const juce::File& file)
+            applyToSymbolFile (file, [&entries, encoding] (const SymbolDocument& symbolDocument, const SymbolDocument::FileEntry& symbolFile, const jam::Document& document)
             {
-                applyToSymbolFile (file, [&entries, encoding] (const SymbolDocument& symbolDocument, const SymbolDocument::FileEntry& symbolFile, const jam::Document& document)
+                for (const auto& hint : symbolDocument.getInlayHints (symbolFile))
                 {
-                    for (const auto& hint : symbolDocument.getInlayHints (symbolFile))
+                    jam::JsonWriter::appendSeparator (entries);
+                    jam::JsonWriter::appendObject (entries, [&symbolDocument, &hint, &document, encoding] (juce::MemoryBlock& object)
                     {
-                        jam::JsonWriter::appendSeparator (entries);
-                        jam::JsonWriter::appendObject (entries, [&symbolDocument, &hint, &document, encoding] (juce::MemoryBlock& object)
-                        {
-                            jam::JsonWriter::appendKey (object, lsp::Member::position);
-                            appendPosition (object, document, document.getByteOffset (static_cast<uint32_t> (hint.line), static_cast<uint32_t> (hint.column)), encoding);
+                        jam::JsonWriter::appendKey (object, lsp::Member::position);
+                        appendPosition (object, document, document.getByteOffset (static_cast<uint32_t> (hint.line), static_cast<uint32_t> (hint.column)), encoding);
 
-                            jam::JsonWriter::appendKey (object, lsp::Member::label);
-                            jam::JsonWriter::appendString (object, symbolDocument.getString (hint.labelOffset, hint.labelLength));
+                        jam::JsonWriter::appendKey (object, lsp::Member::label);
+                        jam::JsonWriter::appendString (object, symbolDocument.getString (hint.labelOffset, hint.labelLength));
 
-                            jam::JsonWriter::appendKey (object, lsp::Member::type);
-                            jam::Format::appendDecimal (object, hint.type);
+                        jam::JsonWriter::appendKey (object, lsp::Member::type);
+                        jam::Format::appendDecimal (object, hint.type);
 
-                            jam::JsonWriter::appendKey (object, lsp::Member::paddingLeft);
-                            jam::JsonWriter::appendBoolean (object, hint.paddingLeft != 0);
+                        jam::JsonWriter::appendKey (object, lsp::Member::paddingLeft);
+                        jam::JsonWriter::appendBoolean (object, hint.paddingLeft != 0);
 
-                            jam::JsonWriter::appendKey (object, lsp::Member::paddingRight);
-                            jam::JsonWriter::appendBoolean (object, hint.paddingRight != 0);
-                        });
-                    }
-                }, index);
-            });
+                        jam::JsonWriter::appendKey (object, lsp::Member::paddingRight);
+                        jam::JsonWriter::appendBoolean (object, hint.paddingRight != 0);
+                    });
+                }
+            }, index);
         });
     });
 }
 
 void Query::diagnostics (juce::ValueTree& request, const Index& index) const
 {
-    const auto& encodingText { request[Id::positionEncoding].toString() };
-    const auto encoding { jam::Strings::getView (encodingText) };
-
-    setResult (request, [this, &index, &request, encoding] (juce::MemoryBlock& message)
+    applyToArrayResult (request, [this, &index, &request] (juce::MemoryBlock& entries, std::string_view encoding)
     {
-        jam::JsonWriter::appendArray (message, [this, &index, &request, encoding] (juce::MemoryBlock& entries)
+        applyToFile (request, [&index, &entries, encoding] (const juce::File& file)
         {
-            applyToFile (request, [&index, &entries, encoding] (const juce::File& file)
-            {
-                appendDiagnostics (entries, file, index, encoding);
-            });
+            appendDiagnostics (entries, file, index, encoding);
         });
     });
 }
@@ -777,51 +770,59 @@ void Query::appendCodeAction (juce::MemoryBlock& json, const juce::File& file, c
 
 void Query::typeDefinition (juce::ValueTree& request, const Index& index) const
 {
-    const auto& encodingText { request[Id::positionEncoding].toString() };
-    const auto encoding { jam::Strings::getView (encodingText) };
-
-    setResult (request, [this, &index, &request, encoding] (juce::MemoryBlock& message)
+    applyToArrayResult (request, [this, &index, &request] (juce::MemoryBlock& entries, std::string_view encoding)
     {
-        jam::JsonWriter::appendArray (message, [this, &index, &request, encoding] (juce::MemoryBlock& entries)
+        applyToPosition (request, [&index, &entries, encoding] (int pathIndex, const jam::Document& document, const jam::Document::Element& element, int tokenIndex)
         {
-            applyToPosition (request, [&index, &entries, encoding] (int pathIndex, const jam::Document& document, const jam::Document::Element& element, int tokenIndex)
+            index.applyToRecords (pathIndex, document, element, tokenIndex, [&index, &entries, pathIndex, encoding] (const SymbolDocument::SymbolRecord& record)
             {
-                index.applyToRecords (pathIndex, document, element, tokenIndex, [&index, &entries, pathIndex, encoding] (const SymbolDocument::SymbolRecord& record)
+                for (const auto typeSymbol : index.getSymbolDocument (pathIndex).getTypeSymbols (record))
                 {
-                    for (const auto typeSymbol : index.getSymbolDocument (pathIndex).getTypeSymbols (record))
+                    if (const auto entry { index.declarations.find (typeSymbol) }; entry != index.declarations.end())
                     {
-                        if (const auto entry { index.declarations.find (typeSymbol) }; entry != index.declarations.end())
+                        const auto& [declarationSymbol, occurrences] { *entry };
+                        int definitionPathIndex { 0 };
+                        const jam::Document* definitionDocument { nullptr };
+                        const jam::Document::Element* definitionElement { nullptr };
+                        int definitionTokenIndex { 0 };
+                        int declarationPathIndex { 0 };
+                        const jam::Document* declarationDocument { nullptr };
+                        const jam::Document::Element* declarationElement { nullptr };
+                        int declarationTokenIndex { 0 };
+
+                        index.applyToOccurrences (occurrences, [&definitionPathIndex, &definitionDocument, &definitionElement, &definitionTokenIndex, &declarationPathIndex, &declarationDocument, &declarationElement, &declarationTokenIndex] (int occurrencePathIndex, const jam::Document& occurrenceDocument, const jam::Document::Element& occurrenceElement, int occurrenceTokenIndex, const SymbolDocument::SymbolRecord& occurrenceRecord)
                         {
-                            const auto& [declarationSymbol, occurrences] { *entry };
-                            const auto hasElement { [&index] (const Occurrence& occurrence)
+                            if (declarationElement == nullptr)
                             {
-                                const auto [element, tokenIndex] { index.getElement (occurrence) };
-
-                                return element != nullptr;
-                            } };
-                            const auto definition { std::find_if (occurrences.begin(), occurrences.end(), [&hasElement] (const Occurrence& occurrence)
-                            {
-                                const auto& [occurrencePathIndex, occurrenceRecord] { occurrence };
-
-                                return (occurrenceRecord->role & jam::LanguageRole::definition) != 0 and hasElement (occurrence);
-                            }) };
-                            const auto target { definition != occurrences.end() ? definition : std::find_if (occurrences.begin(), occurrences.end(), hasElement) };
-
-                            if (target != occurrences.end())
-                            {
-                                const auto targetIndex { static_cast<int> (std::distance (occurrences.begin(), target)) };
-
-                                index.applyToOccurrences (occurrences, juce::Range<int> { targetIndex, targetIndex + 1 }, [&index, &entries, encoding] (int declarationIndex, const jam::Document& declarationDocument, const jam::Document::Element& declaration, int declarationTokenIndex, const SymbolDocument::SymbolRecord&)
-                                {
-                                    jam::JsonWriter::appendSeparator (entries);
-                                    appendNameLocation (entries, index.paths.at (declarationIndex), declarationDocument, declaration, declarationTokenIndex, encoding);
-                                });
+                                declarationPathIndex = occurrencePathIndex;
+                                declarationDocument = &occurrenceDocument;
+                                declarationElement = &occurrenceElement;
+                                declarationTokenIndex = occurrenceTokenIndex;
                             }
+
+                            if (definitionElement == nullptr and (occurrenceRecord.role & jam::LanguageRole::definition) != 0)
+                            {
+                                definitionPathIndex = occurrencePathIndex;
+                                definitionDocument = &occurrenceDocument;
+                                definitionElement = &occurrenceElement;
+                                definitionTokenIndex = occurrenceTokenIndex;
+                            }
+                        });
+
+                        if (definitionElement != nullptr)
+                        {
+                            jam::JsonWriter::appendSeparator (entries);
+                            appendNameLocation (entries, index.paths.at (definitionPathIndex), *definitionDocument, *definitionElement, definitionTokenIndex, encoding);
+                        }
+                        else if (declarationElement != nullptr)
+                        {
+                            jam::JsonWriter::appendSeparator (entries);
+                            appendNameLocation (entries, index.paths.at (declarationPathIndex), *declarationDocument, *declarationElement, declarationTokenIndex, encoding);
                         }
                     }
-                });
-            }, index, encoding);
-        });
+                }
+            });
+        }, index, encoding);
     });
 }
 
@@ -838,38 +839,27 @@ void Query::appendFileCodeActions (juce::MemoryBlock& json, const juce::File& fi
 
 void Query::codeAction (juce::ValueTree& request, const Index& index) const
 {
-    const auto& encodingText { request[Id::positionEncoding].toString() };
-    const auto encoding { jam::Strings::getView (encodingText) };
     const auto& arguments { *request[Id::arguments].getArray() };
 
-    setResult (request, [this, &index, &request, &arguments, encoding] (juce::MemoryBlock& message)
+    applyToArrayResult (request, [this, &index, &request, &arguments] (juce::MemoryBlock& entries, std::string_view encoding)
     {
-        jam::JsonWriter::appendArray (message, [this, &index, &request, &arguments, encoding] (juce::MemoryBlock& entries)
+        applyToFile (request, [&index, &entries, &arguments, encoding] (const juce::File& file)
         {
-            applyToFile (request, [&index, &entries, &arguments, encoding] (const juce::File& file)
-            {
-                appendFileCodeActions (entries, file, index, arguments, encoding);
-            });
+            appendFileCodeActions (entries, file, index, arguments, encoding);
         });
     });
 }
 
 void Query::documentSymbol (juce::ValueTree& request, const Index& index) const
 {
-    const auto& encodingText { request[Id::positionEncoding].toString() };
-    const auto encoding { jam::Strings::getView (encodingText) };
-
-    setResult (request, [this, &index, &request, encoding] (juce::MemoryBlock& message)
+    applyToArrayResult (request, [this, &index, &request] (juce::MemoryBlock& entries, std::string_view encoding)
     {
-        jam::JsonWriter::appendArray (message, [this, &index, &request, encoding] (juce::MemoryBlock& entries)
+        applyToFile (request, [&index, &entries, encoding] (const juce::File& file)
         {
-            applyToFile (request, [&index, &entries, encoding] (const juce::File& file)
+            applyToSymbolFile (file, [&entries, encoding] (const SymbolDocument& symbolDocument, const SymbolDocument::FileEntry& symbolFile, const jam::Document& document)
             {
-                applyToSymbolFile (file, [&entries, encoding] (const SymbolDocument& symbolDocument, const SymbolDocument::FileEntry& symbolFile, const jam::Document& document)
-                {
-                    appendOutlines (entries, document, symbolDocument.getOutlines (symbolFile), SymbolDocument::noParent, 0, encoding);
-                }, index);
-            });
+                appendOutlines (entries, document, symbolDocument.getOutlines (symbolFile), SymbolDocument::noParent, 0, encoding);
+            }, index);
         });
     });
 }
@@ -878,26 +868,20 @@ void Query::completion (juce::ValueTree& request, const Index& index) const
 {
     static constexpr int cursorOffset { -1 };
 
-    const auto& encodingText { request[Id::positionEncoding].toString() };
-    const auto encoding { jam::Strings::getView (encodingText) };
-
-    setResult (request, [this, &index, &request, encoding] (juce::MemoryBlock& message)
+    applyToArrayResult (request, [this, &index, &request] (juce::MemoryBlock& entries, std::string_view encoding)
     {
-        jam::JsonWriter::appendArray (message, [this, &index, &request, encoding] (juce::MemoryBlock& entries)
+        applyToPosition (request, [this, &index, &entries] (int pathIndex, const jam::Document& document, const jam::Document::Element& element, int tokenIndex)
         {
-            applyToPosition (request, [this, &index, &entries] (int pathIndex, const jam::Document& document, const jam::Document::Element& element, int tokenIndex)
-            {
-                std::string prefixQuery (1, static_cast<char> (Chars::caret));
-                prefixQuery.append (document.getView (element.get<jam::Document::Tokens> (Id::nameTokens)->at (tokenIndex)));
-                const auto pattern { jam::Fuzzy::Pattern::parse (prefixQuery, jam::Fuzzy::CaseMode::smart, shouldNormalize, jam::Fuzzy::Scheme::standard) };
-                const auto& language { *index.languages.at (*document.getRoot()->get<int> (Id::family)) };
+            std::string prefixQuery (1, static_cast<char> (Chars::caret));
+            prefixQuery.append (document.getView (element.get<jam::Document::Tokens> (Id::nameTokens)->at (tokenIndex)));
+            const auto pattern { jam::Fuzzy::Pattern::parse (prefixQuery, jam::Fuzzy::CaseMode::smart, shouldNormalize, jam::Fuzzy::Scheme::standard) };
+            const auto& language { *index.languages.at (*document.getRoot()->get<int> (Id::family)) };
 
-                applyToScopeSymbols (pathIndex, document, element, tokenIndex, [this, &index, &entries, &pattern, &language] (juce::int64 scopeSymbol)
-                {
-                    appendScopeCompletions (entries, scopeSymbol, pattern, language, index);
-                }, index);
-            }, index, encoding, cursorOffset);
-        });
+            applyToScopeSymbols (pathIndex, document, element, tokenIndex, [this, &index, &entries, &pattern, &language] (juce::int64 scopeSymbol)
+            {
+                appendScopeCompletions (entries, scopeSymbol, pattern, language, index);
+            }, index);
+        }, index, encoding, cursorOffset);
     });
 }
 
@@ -922,8 +906,8 @@ int Query::getRecordType (int pathIndex, const jam::Document& document, const ja
         {
             const auto& [declarationSymbol, symbolDeclarations] { *entry };
 
-            for (const auto& declarationOccurrence : symbolDeclarations)
-                if (const auto [declaration, declarationTokenIndex] { index.getElement (declarationOccurrence) }; declaration != nullptr)
+            if (not symbolDeclarations.isEmpty())
+                if (const auto [declaration, declarationTokenIndex] { index.getElement (symbolDeclarations.first()) }; declaration != nullptr)
                     return *declaration->get<int> (Id::type);
         }
     }
@@ -1054,29 +1038,28 @@ const jam::Document::Element* Query::getOuterLevel (const jam::Document::Element
 
 juce::Range<uint32_t> Query::getTextObjectRange (const jam::Document& document, const Language& language, const juce::String& typeName, const juce::Identifier& scopeName, uint32_t offset)
 {
-    static const auto textObjectRoles ([]
-    {
-        jam::HashMap<juce::String, int> roles;
-        roles.try_emplace (juce::String { "function" }, jam::LanguageRole::function);
-        roles.try_emplace (juce::String { "class" }, jam::LanguageRole::classToken);
-        roles.try_emplace (juce::String { "loop" }, jam::LanguageRole::loop);
-        roles.try_emplace (juce::String { "conditional" }, jam::LanguageRole::conditional);
-        return roles;
-    } ());
-    static const auto innerDelimiters ([]
-    {
-        jam::HashMap<juce::String, int> delimiters;
-        delimiters.try_emplace (juce::String { "function" }, 0);
-        delimiters.try_emplace (juce::String { "class" }, 1);
-        delimiters.try_emplace (juce::String { "loop" }, 0);
-        delimiters.try_emplace (juce::String { "conditional" }, 0);
-        return delimiters;
-    } ());
+    static constexpr std::string_view functionType { "function" };
+    static constexpr std::string_view classType { "class" };
+    static constexpr std::string_view loopType { "loop" };
+    static constexpr std::string_view conditionalType { "conditional" };
+    static constexpr int noDelimiters { 0 };
+    static constexpr int classDelimiters { 1 };
     static const juce::Identifier innerScope { "inner" };
-    const auto* match { getRoleElement (*document.getRoot(), offset, language, textObjectRoles.at (typeName)) };
+    static const jam::HashMap<std::string_view, jam::Union<int, int>> textObjects {
+        { functionType,    jam::Union<int, int>::pack (jam::LanguageRole::function,    noDelimiters) },
+        { classType,       jam::Union<int, int>::pack (jam::LanguageRole::classToken,  classDelimiters) },
+        { loopType,        jam::Union<int, int>::pack (jam::LanguageRole::loop,        noDelimiters) },
+        { conditionalType, jam::Union<int, int>::pack (jam::LanguageRole::conditional, noDelimiters) }
+    };
 
-    if (match != nullptr)
-        return scopeName == innerScope ? getInnerRange (document, *match, innerDelimiters.at (typeName)) : getElementSpan (*match);
+    if (const auto entry { textObjects.find (jam::Strings::getView (typeName)) }; entry != textObjects.end())
+    {
+        const auto& [entryType, roleDelimiters] { *entry };
+        const auto [role, delimiters] { roleDelimiters };
+
+        if (const auto* match { getRoleElement (*document.getRoot(), offset, language, role) }; match != nullptr)
+            return scopeName == innerScope ? getInnerRange (document, *match, delimiters) : getElementSpan (*match);
+    }
 
     return {};
 }
@@ -1148,13 +1131,10 @@ juce::Range<uint32_t> Query::getInnerRange (const jam::Document& document, const
         return { body.offset() - delimiterCount, body.offset() + body.length() + delimiterCount };
 
     const auto view { document.getView (body) };
-    size_t first { 0 };
-    size_t last { view.size() };
+    const auto trimmed { jam::Format::trim (view) };
+    const auto startOffset { trimmed.empty() ? 0u : static_cast<uint32_t> (trimmed.data() - view.data()) };
 
-    while (first < last and jam::Document::isWhitespace (static_cast<juce::juce_wchar> (view.at (first)))) ++first;
-    while (last > first and jam::Document::isWhitespace (static_cast<juce::juce_wchar> (view.at (last - 1)))) --last;
-
-    return { body.offset() + static_cast<uint32_t> (first), body.offset() + static_cast<uint32_t> (last) };
+    return { body.offset() + startOffset, body.offset() + startOffset + static_cast<uint32_t> (trimmed.size()) };
 }
 
 jam::Fuzzy::Result Query::getMatch (const jam::Fuzzy::Pattern& pattern, const jam::Document& document, const jam::Document::Element& element) const
@@ -1210,79 +1190,62 @@ Query::Matches Query::getMatches (const jam::Fuzzy::Pattern& pattern, const Inde
 
 void Query::workspaceSymbol (juce::ValueTree& request, const Index& index) const
 {
-    const auto& encodingText { request[Id::positionEncoding].toString() };
-    const auto encoding { jam::Strings::getView (encodingText) };
     const auto& arguments { *request[Id::arguments].getArray() };
 
-    setResult (request, [this, &index, &arguments, encoding] (juce::MemoryBlock& message)
+    applyToArrayResult (request, [this, &index, &arguments] (juce::MemoryBlock& entries, std::string_view encoding)
     {
-        jam::JsonWriter::appendArray (message, [this, &index, &arguments, encoding] (juce::MemoryBlock& entries)
+        const auto pattern { jam::Fuzzy::Pattern::parse (jam::Strings::getView (arguments.getFirst().toString()), jam::Fuzzy::CaseMode::smart, shouldNormalize, jam::Fuzzy::Scheme::standard) };
+
+        for (const auto& [score, pathIndex, element] : getMatches (pattern, index))
         {
-            const auto pattern { jam::Fuzzy::Pattern::parse (jam::Strings::getView (arguments.getFirst().toString()),jam::Fuzzy::CaseMode::smart, shouldNormalize, jam::Fuzzy::Scheme::standard) };
+            const auto& path { index.paths.at (pathIndex) };
+            const auto& document { *index.documents.at (pathIndex) };
+            const auto& token { element->get<jam::Document::Tokens> (Id::nameTokens)->at (getLastTokenIndex (*element)) };
+            const auto symbolType { index.getSymbolType (document, *element) };
 
-            for (const auto& [score, pathIndex, element] : getMatches (pattern, index))
+            jam::JsonWriter::appendSeparator (entries);
+            jam::JsonWriter::appendObject (entries, [&path, &document, &token, symbolType, encoding] (juce::MemoryBlock& members)
             {
-                const auto& path { index.paths.at (pathIndex) };
-                const auto& document { *index.documents.at (pathIndex) };
-                const auto& token { element->get<jam::Document::Tokens> (Id::nameTokens)->at (getLastTokenIndex (*element)) };
-                const auto symbolType { index.getSymbolType (document, *element) };
+                jam::JsonWriter::appendKey (members, lsp::Member::name);
+                jam::JsonWriter::appendString (members, document.getView (token));
 
-                jam::JsonWriter::appendSeparator (entries);
-                jam::JsonWriter::appendObject (entries, [&path, &document, &token, symbolType, encoding] (juce::MemoryBlock& members)
-                {
-                    jam::JsonWriter::appendKey (members, lsp::Member::name);
-                    jam::JsonWriter::appendString (members, document.getView (token));
+                jam::JsonWriter::appendKey (members, lsp::Member::type);
+                jam::Format::appendDecimal (members, symbolType);
 
-                    jam::JsonWriter::appendKey (members, lsp::Member::type);
-                    jam::Format::appendDecimal (members, symbolType);
-
-                    jam::JsonWriter::appendKey (members, lsp::Member::location);
-                    appendLocation (members, path, document, token, encoding);
-                });
-            }
-        });
+                jam::JsonWriter::appendKey (members, lsp::Member::location);
+                appendLocation (members, path, document, token, encoding);
+            });
+        }
     });
 }
 
 void Query::goToImplementation (juce::ValueTree& request, const Index& index) const
 {
-    const auto& encodingText { request[Id::positionEncoding].toString() };
-    const auto encoding { jam::Strings::getView (encodingText) };
-
-    setResult (request, [this, &index, &request, encoding] (juce::MemoryBlock& message)
+    applyToArrayResult (request, [this, &index, &request] (juce::MemoryBlock& entries, std::string_view encoding)
     {
-        jam::JsonWriter::appendArray (message, [this, &index, &request, encoding] (juce::MemoryBlock& entries)
+        applyToPosition (request, [this, &index, &entries, encoding] (int pathIndex, const jam::Document& document, const jam::Document::Element& element, int tokenIndex)
         {
-            applyToPosition (request, [this, &index, &entries, encoding] (int pathIndex, const jam::Document& document, const jam::Document::Element& element, int tokenIndex)
+            applyToDeclarations (pathIndex, document, element, tokenIndex, [this, &index, &entries, encoding] (int declarationIndex, const jam::Document&, const jam::Document::Element& declaration, int)
             {
-                applyToDeclarations (pathIndex, document, element, tokenIndex, [this, &index, &entries, encoding] (int declarationIndex, const jam::Document&, const jam::Document::Element& declaration, int)
+                applyToImplementations (declarationIndex, declaration, [&index, &entries, encoding] (int implementationIndex, const jam::Document& implementationDocument, const jam::Document::Element& implementation, int implementationTokenIndex)
                 {
-                    applyToImplementations (declarationIndex, declaration, [&index, &entries, encoding] (int implementationIndex, const jam::Document& implementationDocument, const jam::Document::Element& implementation, int implementationTokenIndex)
-                    {
-                        jam::JsonWriter::appendSeparator (entries);
-                        appendNameLocation (entries, index.paths.at (implementationIndex), implementationDocument, implementation, implementationTokenIndex, encoding);
-                    }, index);
+                    jam::JsonWriter::appendSeparator (entries);
+                    appendNameLocation (entries, index.paths.at (implementationIndex), implementationDocument, implementation, implementationTokenIndex, encoding);
                 }, index);
-            }, index, encoding);
-        });
+            }, index);
+        }, index, encoding);
     });
 }
 
 void Query::prepareCallHierarchy (juce::ValueTree& request, const Index& index) const
 {
-    const auto& encodingText { request[Id::positionEncoding].toString() };
-    const auto encoding { jam::Strings::getView (encodingText) };
-
-    setResult (request, [this, &index, &request, encoding] (juce::MemoryBlock& message)
+    applyToArrayResult (request, [this, &index, &request] (juce::MemoryBlock& entries, std::string_view encoding)
     {
-        jam::JsonWriter::appendArray (message, [this, &index, &request, encoding] (juce::MemoryBlock& entries)
+        applyToFunctions (request, [&index, &entries, encoding] (int declarationIndex, const jam::Document& declarationDocument, const jam::Document::Element& declaration, int declarationTokenIndex)
         {
-            applyToFunctions (request, [&index, &entries, encoding] (int declarationIndex, const jam::Document& declarationDocument, const jam::Document::Element& declaration, int declarationTokenIndex)
-            {
-                jam::JsonWriter::appendSeparator (entries);
-                appendItem (entries, index.paths.at (declarationIndex), declarationDocument, declaration, declarationTokenIndex, index, encoding);
-            }, index, encoding);
-        });
+            jam::JsonWriter::appendSeparator (entries);
+            appendItem (entries, index.paths.at (declarationIndex), declarationDocument, declaration, declarationTokenIndex, index, encoding);
+        }, index, encoding);
     });
 }
 
@@ -1360,60 +1323,48 @@ int Query::appendCallRanges (juce::MemoryBlock& ranges, const Index& index, cons
 
 void Query::incomingCalls (juce::ValueTree& request, const Index& index) const
 {
-    const auto& encodingText { request[Id::positionEncoding].toString() };
-    const auto encoding { jam::Strings::getView (encodingText) };
-
-    setResult (request, [this, &index, &request, encoding] (juce::MemoryBlock& message)
+    applyToArrayResult (request, [this, &index, &request] (juce::MemoryBlock& entries, std::string_view encoding)
     {
-        jam::JsonWriter::appendArray (message, [this, &index, &request, encoding] (juce::MemoryBlock& entries)
+        applyToPosition (request, [this, &index, &entries, encoding] (int pathIndex, const jam::Document& document, const jam::Document::Element& element, int tokenIndex)
         {
-            applyToPosition (request, [this, &index, &entries, encoding] (int pathIndex, const jam::Document& document, const jam::Document::Element& element, int tokenIndex)
+            applyToSymbols (pathIndex, document, element, tokenIndex, [&index, &entries, encoding] (const SymbolDocument::SymbolRecord& record)
             {
-                applyToSymbols (pathIndex, document, element, tokenIndex, [&index, &entries, encoding] (const SymbolDocument::SymbolRecord& record)
-                {
-                    appendIncomingRuns (entries, record.symbol, index, encoding);
-                }, index);
-            }, index, encoding);
-        });
+                appendIncomingRuns (entries, record.symbol, index, encoding);
+            }, index);
+        }, index, encoding);
     });
 }
 
 void Query::outgoingCalls (juce::ValueTree& request, const Index& index) const
 {
-    const auto& encodingText { request[Id::positionEncoding].toString() };
-    const auto encoding { jam::Strings::getView (encodingText) };
-
-    setResult (request, [this, &index, &request, encoding] (juce::MemoryBlock& message)
+    applyToArrayResult (request, [this, &index, &request] (juce::MemoryBlock& entries, std::string_view encoding)
     {
-        jam::JsonWriter::appendArray (message, [this, &index, &request, encoding] (juce::MemoryBlock& entries)
+        applyToFunctions (request, [this, &index, &entries, encoding] (int declarationIndex, const jam::Document& document, const jam::Document::Element& declaration, int)
         {
-            applyToFunctions (request, [this, &index, &entries, encoding] (int declarationIndex, const jam::Document& document, const jam::Document::Element& declaration, int)
+            declaration.applyFunctionRecursively ([this, &index, &entries, &document, declarationIndex, encoding] (const jam::Document::Element& element)
             {
-                declaration.applyFunctionRecursively ([this, &index, &entries, &document, declarationIndex, encoding] (const jam::Document::Element& element)
-                {
-                    const auto callTokenIndex { getLastTokenIndex (element) };
+                const auto callTokenIndex { getLastTokenIndex (element) };
 
-                    if (index.hasRole (document, element, jam::LanguageRole::call))
-                        applyToDeclarations (declarationIndex, document, element, callTokenIndex, [&index, &entries, &document, &element, callTokenIndex, encoding] (int pathIndex, const jam::Document& candidateDocument, const jam::Document::Element& candidate, int candidateTokenIndex)
+                if (index.hasRole (document, element, jam::LanguageRole::call))
+                    applyToDeclarations (declarationIndex, document, element, callTokenIndex, [&index, &entries, &document, &element, callTokenIndex, encoding] (int pathIndex, const jam::Document& candidateDocument, const jam::Document::Element& candidate, int candidateTokenIndex)
+                    {
+                        jam::JsonWriter::appendSeparator (entries);
+                        jam::JsonWriter::appendObject (entries, [&index, &document, &element, &candidate, &candidateDocument, pathIndex, candidateTokenIndex, callTokenIndex, encoding] (juce::MemoryBlock& members)
                         {
-                            jam::JsonWriter::appendSeparator (entries);
-                            jam::JsonWriter::appendObject (entries, [&index, &document, &element, &candidate, &candidateDocument, pathIndex, candidateTokenIndex, callTokenIndex, encoding] (juce::MemoryBlock& members)
+                            jam::JsonWriter::appendKey (members, lsp::Member::to);
+                            appendItem (members, index.paths.at (pathIndex), candidateDocument, candidate, candidateTokenIndex, index, encoding);
+
+                            jam::JsonWriter::appendKey (members, lsp::Member::fromRanges);
+                            jam::JsonWriter::appendArray (members, [&document, &element, callTokenIndex, encoding] (juce::MemoryBlock& ranges)
                             {
-                                jam::JsonWriter::appendKey (members, lsp::Member::to);
-                                appendItem (members, index.paths.at (pathIndex), candidateDocument, candidate, candidateTokenIndex, index, encoding);
+                                const auto& token { element.get<jam::Document::Tokens> (Id::nameTokens)->at (callTokenIndex) };
 
-                                jam::JsonWriter::appendKey (members, lsp::Member::fromRanges);
-                                jam::JsonWriter::appendArray (members, [&document, &element, callTokenIndex, encoding] (juce::MemoryBlock& ranges)
-                                {
-                                    const auto& token { element.get<jam::Document::Tokens> (Id::nameTokens)->at (callTokenIndex) };
-
-                                    jam::JsonWriter::appendSeparator (ranges);
-                                    appendRange (ranges, document, token.span.getStart(), token.span.getEnd(), encoding);
-                                });
+                                jam::JsonWriter::appendSeparator (ranges);
+                                appendRange (ranges, document, token.span.getStart(), token.span.getEnd(), encoding);
                             });
-                        }, index);
-                });
-            }, index, encoding);
-        });
+                        });
+                    }, index);
+            });
+        }, index, encoding);
     });
 }

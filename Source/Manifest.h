@@ -5,12 +5,12 @@
 
 /**
  * @class Manifest
- * @brief Reads the manifest on a pool thread, and sets the files child and the timeout of the model.
+ * @brief Reads the manifest on a pool thread, and sets the toolchain, roots, timeout, and threads of the model.
  *
  * A change of the manifest path starts one reading. The reading parses and
- * validates the manifest, then builds the files child from the toolchain rows that
- * match the toolchain argument. A failed validation sets the message, and the files
- * child is empty.
+ * validates the manifest, then builds the toolchain child from the toolchain rows
+ * matching the toolchain argument and the pattern rows. A failed validation sets
+ * the message, and the toolchain child is empty.
  */
 class Manifest : private juce::ValueTree::Listener,
                  private juce::AsyncUpdater
@@ -42,18 +42,18 @@ private:
      *
      * The manifest path and the toolchain argument are copied from the model on
      * the calling thread. A running reading is removed when it has not started. Otherwise
-     * it is signalled and kept until it ends, and a newer reading waits in nextJob. The
-     * dependency command of a toolchain row blocks until its process ends, so the
-     * reading does not run on the message thread.
+     * it is signalled and kept until it ends, and a newer reading waits in nextJob.
+     * File I/O, parsing, and validation run on the pool so the message thread stays free.
      */
     void addJob();
 
     /**
      * @brief One reading of the manifest, run on the pool. It holds the results until the message thread applies them.
      *
-     * The job parses and validates the manifest. A valid manifest gives the files child,
-     * the roots child, and the timeout of the daemon table. A failed validation gives an
-     * empty files child that holds the message, the project roots, and the default timeout.
+     * The job parses and validates the manifest. A valid manifest gives the toolchain
+     * child, the roots child, and the timeout and threads values from the daemon table.
+     * A failed validation gives an empty toolchain child carrying the message property,
+     * the project roots, and the default timeout and thread count.
      */
     struct ManifestJob : public juce::ThreadPoolJob
     {
@@ -76,10 +76,10 @@ private:
         Manifest& owner;///< The manifest that owns the reading. The job signals it when it ends.
         juce::String manifestPath;///< The path of the manifest, copied from the model on the calling thread.
         juce::String toolchainArgument;///< The toolchain argument, copied from the model on the calling thread.
-        juce::ValueTree toolchain;///< The files child that the job builds. It holds the message property when validation fails.
+        juce::ValueTree toolchain;///< The toolchain child that the job builds. It holds the message property when validation fails.
         juce::ValueTree roots;///< The roots child that the job builds.
         int timeout { 0 };///< The timeout in milliseconds, from the daemon table, or the default timeout.
-        int threads { LINGModel::defaultThreads };
+        int threads { LINGModel::defaultThreads };///< The worker thread count from the daemon table, or defaultThreads.
         std::atomic<bool> isFinished { false };///< Set to true when runJob ends. The message thread reads it with acquire order.
     };
 
@@ -92,28 +92,53 @@ private:
     void handleAsyncUpdate() override;
 
     /**
-     * @brief Sets the timeout of the model, and replaces its files child.
+     * @brief Sets the timeout and thread count of the model, and replaces its roots and toolchain children.
      *
-     * @param files    The files child that replaces the current one.
-     * @param roots    The roots child that replaces the current one.
-     * @param timeout  The timeout, in milliseconds, that Id::timeout receives.
+     * @param toolchain  The toolchain child that replaces the current one.
+     * @param roots      The roots child that replaces the current one.
+     * @param timeout    The timeout, in milliseconds, that Id::timeout receives.
+     * @param threads    The worker thread count that Id::threads receives.
      */
     void setToolchain (const juce::ValueTree& toolchain, const juce::ValueTree& roots, int timeout, int threads);
 
     /**
-     * @brief Returns the timeout of the first daemon table row that holds one, or the default timeout when none does.
+     * @brief Returns an integer setting from the daemon table of @p manifest, or @p defaultValue when absent.
      *
-     * @param manifest  The parsed manifest.
-     * @return The timeout, in milliseconds.
+     * @param manifest      Parsed manifest markdown document.
+     * @param rowId         Row identifier in the daemon table (such as Id::timeout or Id::threads).
+     * @param defaultValue  Fallback integer returned when no daemon table contains @p rowId.
+     * @return The configured integer value, or @p defaultValue.
      */
-    static int getTimeout (const jam::MarkdownDocument& manifest);
+    static int getDaemonValue (const jam::MarkdownDocument& manifest, const juce::Identifier& rowId, int defaultValue);
 
-    static int getThreads (const jam::MarkdownDocument& manifest);
-
+    /**
+     * @brief Builds the roots child holding the project root and any user-module and patched-JUCE roots.
+     *
+     * @param manifest      Parsed manifest markdown document.
+     * @param manifestFile  Manifest file used to resolve relative paths.
+     * @return An Id::roots ValueTree containing one Id::root child per source tree and swap directory.
+     */
     static juce::ValueTree getRoots (const jam::MarkdownDocument& manifest, const juce::File& manifestFile);
 
+    /**
+     * @brief Builds the toolchain child for @p toolchainArgument and appends pattern rows from @p manifest.
+     *
+     * Sets Id::message on the returned tree when a non-empty @p toolchainArgument matches no row.
+     *
+     * @param manifest           Parsed manifest markdown document.
+     * @param toolchainArgument  Toolchain flag selecting matching toolchain rows, or empty.
+     * @param manifestFile       Manifest file used to resolve pattern-row directories.
+     * @return An Id::toolchain ValueTree containing matching command rows and pattern rows.
+     */
     static juce::ValueTree getToolchain (const jam::MarkdownDocument& manifest, const juce::String& toolchainArgument, const juce::File& manifestFile);
 
+    /**
+     * @brief Appends sourceGlob, layoutGlob, and binary pattern rows from @p manifest onto @p toolchain.
+     *
+     * @param toolchain     Target Id::toolchain tree that receives the pattern rows.
+     * @param manifest      Parsed manifest markdown document.
+     * @param manifestFile  Manifest file used to resolve relative directory paths.
+     */
     static void addPatternRows (juce::ValueTree& toolchain, const jam::MarkdownDocument& manifest, const juce::File& manifestFile);
 
     /** @brief The number of threads of the pool. One thread runs the readings one after another. */
@@ -121,20 +146,6 @@ private:
 
     /** @brief The model that the readings read and write. The application owns it. */
     LINGModel& model;
-
-    /**
-     * @brief The removeJob timeout that waits until the reading leaves the pool.
-     *
-     * A negative timeout never expires, so the call returns after the reading ends.
-     */
-    static constexpr int waitForJob { -1 };
-
-    /**
-     * @brief The removeJob timeout that does not wait.
-     *
-     * A running reading is signalled when interruptIfRunning is set, and it stays in the pool.
-     */
-    static constexpr int noWait { 0 };
 
     /** @brief The reading that is in the pool. handleAsyncUpdate applies its results when it finishes. */
     std::unique_ptr<ManifestJob> job;

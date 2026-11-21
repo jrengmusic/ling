@@ -9,7 +9,6 @@
 +==========================+===================================================================+=======================================================================+
 | failNotFound             | `not found`                                                       | A file argument that does not exist.                                  |
 | failFlagUnknown          | `unknown flag`                                                    | Not --help or --version, or a rejected argument after the manifest.   |
-| failNoUnit               | `no unit compiles the file`                                       | A file that no unit of the compiler manifest compiles.                |
 | failToolchainArgument    | `toolchain argument not declared`                                 | A --\<word\> CLI argument matched no toolchain row's argument column. |
 | failToolchainColumn      | `toolchain column not declared`                                   | A ## toolchain table's header row declares no command or flag column. |
 | failDaemonStart          | `daemon did not start`                                            | A daemon that did not start.                                          |

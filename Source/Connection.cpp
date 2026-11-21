@@ -48,7 +48,6 @@ void Connection::valueTreePropertyChanged (juce::ValueTree& tree, const juce::Id
 {
     if (property == Id::result and tree.hasType (jam::Format::toType (Id::request)))
     {
-        jam::debug::Log::write ("send", tree[Id::command].toString(), tree[Id::arguments][0].toString());
         sendMessage (*tree[Id::result].getBinaryData());
         state.removeChild (tree, nullptr);
     }
