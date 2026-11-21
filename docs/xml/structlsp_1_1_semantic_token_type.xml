@@ -1,0 +1,348 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="structlsp_1_1_semantic_token_type" kind="struct" language="C++" prot="public">
+    <compoundname>lsp::SemanticTokenType</compoundname>
+    <basecompoundref refid="classjam_1_1Bimap" prot="public" virt="non-virtual">jam::Bimap&lt; int &gt;</basecompoundref>
+    <includes refid="_lsp_8h" local="no">Lsp.h</includes>
+    <sectiondef kind="public-type">
+      <memberdef kind="enum" id="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064" prot="public" static="no" strong="no">
+        <type>int</type>
+        <name>value</name>
+        <qualifiedname>lsp::SemanticTokenType::value</qualifiedname>
+        <enumvalue id="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ab52c2ffb93c9694b7798ec8b2cbe12c0" prot="public">
+          <name>namespaceToken</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ac3dc8ab25906a96dba5e136ad4d64c7e" prot="public">
+          <name>type</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a6f9b27940a0e12f849999d081659db6b" prot="public">
+          <name>classToken</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064adea86f3fe55de6f9a45fb7dc745147ef" prot="public">
+          <name>enumToken</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a39e25acfab98cb9620696c8f20c901a1" prot="public">
+          <name>interfaceToken</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a010d3f80317ff53fbec6cee52ecb98e4" prot="public">
+          <name>structToken</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a76b1e09a0a8e7ec1fd59a4a79c14f6e6" prot="public">
+          <name>typeParameter</name>
+          <initializer>= 6</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064abc40d373449ad87488652cd330ed2a6d" prot="public">
+          <name>parameter</name>
+          <initializer>= 7</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a4be2d946fdc7e6759e89068efceeda61" prot="public">
+          <name>variable</name>
+          <initializer>= 8</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ad5c7774ae6b0e3bf9bf2ceb545e42fa3" prot="public">
+          <name>property</name>
+          <initializer>= 9</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064add2363358526b33290d176f4b1ab1041" prot="public">
+          <name>enumMember</name>
+          <initializer>= 10</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a6f4a0aa90e90d4aa1268786af7b24c9a" prot="public">
+          <name>event</name>
+          <initializer>= 11</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a2e65c0e134ddc125edb01ba05c51740f" prot="public">
+          <name>function</name>
+          <initializer>= 12</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064aa4a01961b1dc61b47829d57872beaf02" prot="public">
+          <name>method</name>
+          <initializer>= 13</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a977ef2f9610f0f2e78b02f40a1944853" prot="public">
+          <name>macro</name>
+          <initializer>= 14</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a6e252bb9368de1d84f99fcf6671820b6" prot="public">
+          <name>keyword</name>
+          <initializer>= 15</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ab723d715ffe2d77e6a7f644fa7374944" prot="public">
+          <name>modifier</name>
+          <initializer>= 16</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ab21d7b3eb95d326e91ef5e91162e5f13" prot="public">
+          <name>comment</name>
+          <initializer>= 17</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ac381708c72caf355cb6a9b9f31f149f4" prot="public">
+          <name>string</name>
+          <initializer>= 18</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064aa1676f92a8209a09ec5b2ac4d39a9afe" prot="public">
+          <name>number</name>
+          <initializer>= 19</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a5bba10d86d23b6c3cfe6ebd1186a4856" prot="public">
+          <name>regexp</name>
+          <initializer>= 20</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a3aedcef57cd16724b3a135e1b2007c0f" prot="public">
+          <name>operatorToken</name>
+          <initializer>= 21</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ab6440a79a1306dd5c1f18455d4911fda" prot="public">
+          <name>decorator</name>
+          <initializer>= 22</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="304" column="5" bodyfile="generated/Lsp.h" bodystart="305" bodyend="329"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structlsp_1_1_semantic_token_type_1a5681c6df593a7f555ee94c4f76450184" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>lsp::SemanticTokenType::SemanticTokenType</definition>
+        <argsstring>()</argsstring>
+        <name>SemanticTokenType</name>
+        <qualifiedname>lsp::SemanticTokenType::SemanticTokenType</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="278" column="5" bodyfile="generated/Lsp.h" bodystart="278" bodyend="302"/>
+        <references refid="classjam_1_1Bimap_1a0b6d2a3c783749ceaaca233ea1ccec8d">jam::Bimap&lt; int &gt;::Bimap</references>
+        <references refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a6f9b27940a0e12f849999d081659db6b" compoundref="_lsp_8h" startline="308">classToken</references>
+        <references refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ab21d7b3eb95d326e91ef5e91162e5f13" compoundref="_lsp_8h" startline="323">comment</references>
+        <references refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ab6440a79a1306dd5c1f18455d4911fda" compoundref="_lsp_8h" startline="328">decorator</references>
+        <references refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064add2363358526b33290d176f4b1ab1041" compoundref="_lsp_8h" startline="316">enumMember</references>
+        <references refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064adea86f3fe55de6f9a45fb7dc745147ef" compoundref="_lsp_8h" startline="309">enumToken</references>
+        <references refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a6f4a0aa90e90d4aa1268786af7b24c9a" compoundref="_lsp_8h" startline="317">event</references>
+        <references refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223">juce::String::fromUTF8</references>
+        <references refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a2e65c0e134ddc125edb01ba05c51740f" compoundref="_lsp_8h" startline="318">function</references>
+        <references refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a39e25acfab98cb9620696c8f20c901a1" compoundref="_lsp_8h" startline="310">interfaceToken</references>
+        <references refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a6e252bb9368de1d84f99fcf6671820b6" compoundref="_lsp_8h" startline="321">keyword</references>
+        <references refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a977ef2f9610f0f2e78b02f40a1944853" compoundref="_lsp_8h" startline="320">macro</references>
+        <references refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064aa4a01961b1dc61b47829d57872beaf02" compoundref="_lsp_8h" startline="319">method</references>
+        <references refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ab723d715ffe2d77e6a7f644fa7374944" compoundref="_lsp_8h" startline="322">modifier</references>
+        <references refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ab52c2ffb93c9694b7798ec8b2cbe12c0" compoundref="_lsp_8h" startline="306">namespaceToken</references>
+        <references refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064aa1676f92a8209a09ec5b2ac4d39a9afe" compoundref="_lsp_8h" startline="325">number</references>
+        <references refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a3aedcef57cd16724b3a135e1b2007c0f" compoundref="_lsp_8h" startline="327">operatorToken</references>
+        <references refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064abc40d373449ad87488652cd330ed2a6d" compoundref="_lsp_8h" startline="313">parameter</references>
+        <references refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ad5c7774ae6b0e3bf9bf2ceb545e42fa3" compoundref="_lsp_8h" startline="315">property</references>
+        <references refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a5bba10d86d23b6c3cfe6ebd1186a4856" compoundref="_lsp_8h" startline="326">regexp</references>
+        <references refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ac381708c72caf355cb6a9b9f31f149f4" compoundref="_lsp_8h" startline="324">string</references>
+        <references refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a010d3f80317ff53fbec6cee52ecb98e4" compoundref="_lsp_8h" startline="311">structToken</references>
+        <references refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ac3dc8ab25906a96dba5e136ad4d64c7e" compoundref="_lsp_8h" startline="307">type</references>
+        <references refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a76b1e09a0a8e7ec1fd59a4a79c14f6e6" compoundref="_lsp_8h" startline="312">typeParameter</references>
+        <references refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a4be2d946fdc7e6759e89068efceeda61" compoundref="_lsp_8h" startline="314">variable</references>
+        <referencedby refid="structlsp_1_1_semantic_token_type_1acc0b379ae9f7b1a4fe11cbf436355ebc" compoundref="_lsp_8h" startline="331" endline="334">getInstance</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structlsp_1_1_semantic_token_type_1acc0b379ae9f7b1a4fe11cbf436355ebc" prot="public" static="yes" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type><ref refid="structlsp_1_1_semantic_token_type_1a5681c6df593a7f555ee94c4f76450184" kindref="member">SemanticTokenType</ref> *</type>
+        <definition>static SemanticTokenType * lsp::SemanticTokenType::getInstance</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>getInstance</name>
+        <qualifiedname>lsp::SemanticTokenType::getInstance</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="331" column="30" bodyfile="generated/Lsp.h" bodystart="331" bodyend="334"/>
+        <references refid="classjam_1_1SharedInstance_1a00f678ef16ebfd779b3d11585b28e973">jam::SharedInstance&lt; typename ObjectType &gt;::getInstance</references>
+        <references refid="structlsp_1_1_semantic_token_type_1a5681c6df593a7f555ee94c4f76450184" compoundref="_lsp_8h" startline="278" endline="302">SemanticTokenType</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>The LSP 3.17 SemanticTokenTypes predefined values, in legend order. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>jam::Bimap&lt; int &gt;</label>
+        <link refid="classjam_1_1Bimap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="1">
+        <label>lsp::SemanticTokenType</label>
+        <link refid="structlsp_1_1_semantic_token_type"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>jam::Bimap&lt; int &gt;</label>
+        <link refid="classjam_1_1Bimap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>map</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>inverse</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>jam::HashMap&lt; KeyType, ValueType &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="4">
+        <label>jam::HashMap&lt; ValueType, KeyType &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="1">
+        <label>lsp::SemanticTokenType</label>
+        <link refid="structlsp_1_1_semantic_token_type"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="generated/Lsp.h" line="276" column="1" bodyfile="generated/Lsp.h" bodystart="277" bodyend="335"/>
+    <listofallmembers>
+      <member refid="classjam_1_1Bimap_1a7501b0f4d75ed7f108044179e60597fb" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>add</name></member>
+      <member refid="classjam_1_1Bimap_1a0b6d2a3c783749ceaaca233ea1ccec8d" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>Bimap</name></member>
+      <member refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a6f9b27940a0e12f849999d081659db6b" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>classToken</name></member>
+      <member refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ab21d7b3eb95d326e91ef5e91162e5f13" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>comment</name></member>
+      <member refid="classjam_1_1Bimap_1a76e07973f0e99e66a92b5bc856d73ad1" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>contains</name></member>
+      <member refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ab6440a79a1306dd5c1f18455d4911fda" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>decorator</name></member>
+      <member refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064add2363358526b33290d176f4b1ab1041" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>enumMember</name></member>
+      <member refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064adea86f3fe55de6f9a45fb7dc745147ef" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>enumToken</name></member>
+      <member refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a6f4a0aa90e90d4aa1268786af7b24c9a" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>event</name></member>
+      <member refid="classjam_1_1Bimap_1a56764cea841e79acb325f42e4625d94b" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>find</name></member>
+      <member refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a2e65c0e134ddc125edb01ba05c51740f" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>function</name></member>
+      <member refid="classjam_1_1Bimap_1ac808bd5e726f74f35198b371c929558c" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>get</name></member>
+      <member refid="classjam_1_1Bimap_1a8a78d01d2df575b61598ed4d53a5e6fc" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>getDefault</name></member>
+      <member refid="structlsp_1_1_semantic_token_type_1acc0b379ae9f7b1a4fe11cbf436355ebc" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>getInstance</name></member>
+      <member refid="classjam_1_1Bimap_1af0819562408ce706adae6bc69043639f" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>getKeyAt</name></member>
+      <member refid="classjam_1_1Bimap_1af1f7979d3325b425a37886a83a7522fb" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>indexOf</name></member>
+      <member refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a39e25acfab98cb9620696c8f20c901a1" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>interfaceToken</name></member>
+      <member refid="classjam_1_1Bimap_1ae76147a674b1c052a28fcc8a39097580" prot="protected" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>inverse</name></member>
+      <member refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a6e252bb9368de1d84f99fcf6671820b6" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>keyword</name></member>
+      <member refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a977ef2f9610f0f2e78b02f40a1944853" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>macro</name></member>
+      <member refid="classjam_1_1Bimap_1a264d50fe5f19d070fba4bd5c5b728465" prot="protected" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>map</name></member>
+      <member refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064aa4a01961b1dc61b47829d57872beaf02" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>method</name></member>
+      <member refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ab723d715ffe2d77e6a7f644fa7374944" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>modifier</name></member>
+      <member refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ab52c2ffb93c9694b7798ec8b2cbe12c0" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>namespaceToken</name></member>
+      <member refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064aa1676f92a8209a09ec5b2ac4d39a9afe" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>number</name></member>
+      <member refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a3aedcef57cd16724b3a135e1b2007c0f" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>operatorToken</name></member>
+      <member refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064abc40d373449ad87488652cd330ed2a6d" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>parameter</name></member>
+      <member refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ad5c7774ae6b0e3bf9bf2ceb545e42fa3" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>property</name></member>
+      <member refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a5bba10d86d23b6c3cfe6ebd1186a4856" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>regexp</name></member>
+      <member refid="structlsp_1_1_semantic_token_type_1a5681c6df593a7f555ee94c4f76450184" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>SemanticTokenType</name></member>
+      <member refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ac381708c72caf355cb6a9b9f31f149f4" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>string</name></member>
+      <member refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a010d3f80317ff53fbec6cee52ecb98e4" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>structToken</name></member>
+      <member refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ac3dc8ab25906a96dba5e136ad4d64c7e" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>type</name></member>
+      <member refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a76b1e09a0a8e7ec1fd59a4a79c14f6e6" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>typeParameter</name></member>
+      <member refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>value</name></member>
+      <member refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a4be2d946fdc7e6759e89068efceeda61" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenType</scope><name>variable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

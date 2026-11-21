@@ -1,0 +1,218 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="structlsp_1_1_semantic_token_modifier" kind="struct" language="C++" prot="public">
+    <compoundname>lsp::SemanticTokenModifier</compoundname>
+    <basecompoundref refid="classjam_1_1Bimap" prot="public" virt="non-virtual">jam::Bimap&lt; int &gt;</basecompoundref>
+    <includes refid="_lsp_8h" local="no">Lsp.h</includes>
+    <sectiondef kind="public-type">
+      <memberdef kind="enum" id="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365" prot="public" static="no" strong="no">
+        <type>int</type>
+        <name>value</name>
+        <qualifiedname>lsp::SemanticTokenModifier::value</qualifiedname>
+        <enumvalue id="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a648e184b1e5fdf68df2d5e4231764784" prot="public">
+          <name>declaration</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a6c8d03aae6a0be7747cb3500d051c0b3" prot="public">
+          <name>definition</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a249efccf63a08458c9c1c5bba04512c6" prot="public">
+          <name>readonly</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365ac2da1afb724c09e6f9e5581a9d04a89a" prot="public">
+          <name>staticToken</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a625440e6859e0f75c2aed4deaaac3515" prot="public">
+          <name>deprecated</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365ae1199ebfc4f6fed04dc37198212a71f1" prot="public">
+          <name>abstract</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a0cfa578a5f0628599423b6c7d680e37a" prot="public">
+          <name>async</name>
+          <initializer>= 6</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365af4450682b3f945fb89c39dbd6e2f92a0" prot="public">
+          <name>modification</name>
+          <initializer>= 7</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a9aceb07146b24d9ebc2ceecf519bf7ce" prot="public">
+          <name>documentation</name>
+          <initializer>= 8</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a1257ef1eef3ff3507b0772859b477c56" prot="public">
+          <name>defaultLibrary</name>
+          <initializer>= 9</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="352" column="5" bodyfile="generated/Lsp.h" bodystart="353" bodyend="364"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structlsp_1_1_semantic_token_modifier_1aca3d67cc3bbe5250c65ad18f9dd0826b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>lsp::SemanticTokenModifier::SemanticTokenModifier</definition>
+        <argsstring>()</argsstring>
+        <name>SemanticTokenModifier</name>
+        <qualifiedname>lsp::SemanticTokenModifier::SemanticTokenModifier</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="339" column="5" bodyfile="generated/Lsp.h" bodystart="339" bodyend="350"/>
+        <references refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365ae1199ebfc4f6fed04dc37198212a71f1" compoundref="_lsp_8h" startline="359">abstract</references>
+        <references refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a0cfa578a5f0628599423b6c7d680e37a" compoundref="_lsp_8h" startline="360">async</references>
+        <references refid="classjam_1_1Bimap_1a0b6d2a3c783749ceaaca233ea1ccec8d">jam::Bimap&lt; int &gt;::Bimap</references>
+        <references refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a648e184b1e5fdf68df2d5e4231764784" compoundref="_lsp_8h" startline="354">declaration</references>
+        <references refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a1257ef1eef3ff3507b0772859b477c56" compoundref="_lsp_8h" startline="363">defaultLibrary</references>
+        <references refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a6c8d03aae6a0be7747cb3500d051c0b3" compoundref="_lsp_8h" startline="355">definition</references>
+        <references refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a625440e6859e0f75c2aed4deaaac3515" compoundref="_lsp_8h" startline="358">deprecated</references>
+        <references refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a9aceb07146b24d9ebc2ceecf519bf7ce" compoundref="_lsp_8h" startline="362">documentation</references>
+        <references refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223">juce::String::fromUTF8</references>
+        <references refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365af4450682b3f945fb89c39dbd6e2f92a0" compoundref="_lsp_8h" startline="361">modification</references>
+        <references refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a249efccf63a08458c9c1c5bba04512c6" compoundref="_lsp_8h" startline="356">readonly</references>
+        <references refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365ac2da1afb724c09e6f9e5581a9d04a89a" compoundref="_lsp_8h" startline="357">staticToken</references>
+        <referencedby refid="structlsp_1_1_semantic_token_modifier_1a3b339885d3d4d65500838a1b87a6ed06" compoundref="_lsp_8h" startline="366" endline="369">getInstance</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structlsp_1_1_semantic_token_modifier_1a3b339885d3d4d65500838a1b87a6ed06" prot="public" static="yes" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type><ref refid="structlsp_1_1_semantic_token_modifier_1aca3d67cc3bbe5250c65ad18f9dd0826b" kindref="member">SemanticTokenModifier</ref> *</type>
+        <definition>static SemanticTokenModifier * lsp::SemanticTokenModifier::getInstance</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>getInstance</name>
+        <qualifiedname>lsp::SemanticTokenModifier::getInstance</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="366" column="34" bodyfile="generated/Lsp.h" bodystart="366" bodyend="369"/>
+        <references refid="classjam_1_1SharedInstance_1a00f678ef16ebfd779b3d11585b28e973">jam::SharedInstance&lt; typename ObjectType &gt;::getInstance</references>
+        <references refid="structlsp_1_1_semantic_token_modifier_1aca3d67cc3bbe5250c65ad18f9dd0826b" compoundref="_lsp_8h" startline="339" endline="350">SemanticTokenModifier</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>The LSP 3.17 SemanticTokenModifiers predefined values, in legend order. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>jam::Bimap&lt; int &gt;</label>
+        <link refid="classjam_1_1Bimap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="1">
+        <label>lsp::SemanticTokenModifier</label>
+        <link refid="structlsp_1_1_semantic_token_modifier"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>jam::Bimap&lt; int &gt;</label>
+        <link refid="classjam_1_1Bimap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>map</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>inverse</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>jam::HashMap&lt; KeyType, ValueType &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="4">
+        <label>jam::HashMap&lt; ValueType, KeyType &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="1">
+        <label>lsp::SemanticTokenModifier</label>
+        <link refid="structlsp_1_1_semantic_token_modifier"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="generated/Lsp.h" line="337" column="1" bodyfile="generated/Lsp.h" bodystart="338" bodyend="370"/>
+    <listofallmembers>
+      <member refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365ae1199ebfc4f6fed04dc37198212a71f1" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenModifier</scope><name>abstract</name></member>
+      <member refid="classjam_1_1Bimap_1a7501b0f4d75ed7f108044179e60597fb" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenModifier</scope><name>add</name></member>
+      <member refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a0cfa578a5f0628599423b6c7d680e37a" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenModifier</scope><name>async</name></member>
+      <member refid="classjam_1_1Bimap_1a0b6d2a3c783749ceaaca233ea1ccec8d" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenModifier</scope><name>Bimap</name></member>
+      <member refid="classjam_1_1Bimap_1a76e07973f0e99e66a92b5bc856d73ad1" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenModifier</scope><name>contains</name></member>
+      <member refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a648e184b1e5fdf68df2d5e4231764784" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenModifier</scope><name>declaration</name></member>
+      <member refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a1257ef1eef3ff3507b0772859b477c56" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenModifier</scope><name>defaultLibrary</name></member>
+      <member refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a6c8d03aae6a0be7747cb3500d051c0b3" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenModifier</scope><name>definition</name></member>
+      <member refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a625440e6859e0f75c2aed4deaaac3515" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenModifier</scope><name>deprecated</name></member>
+      <member refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a9aceb07146b24d9ebc2ceecf519bf7ce" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenModifier</scope><name>documentation</name></member>
+      <member refid="classjam_1_1Bimap_1a56764cea841e79acb325f42e4625d94b" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenModifier</scope><name>find</name></member>
+      <member refid="classjam_1_1Bimap_1ac808bd5e726f74f35198b371c929558c" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenModifier</scope><name>get</name></member>
+      <member refid="classjam_1_1Bimap_1a8a78d01d2df575b61598ed4d53a5e6fc" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenModifier</scope><name>getDefault</name></member>
+      <member refid="structlsp_1_1_semantic_token_modifier_1a3b339885d3d4d65500838a1b87a6ed06" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenModifier</scope><name>getInstance</name></member>
+      <member refid="classjam_1_1Bimap_1af0819562408ce706adae6bc69043639f" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenModifier</scope><name>getKeyAt</name></member>
+      <member refid="classjam_1_1Bimap_1af1f7979d3325b425a37886a83a7522fb" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenModifier</scope><name>indexOf</name></member>
+      <member refid="classjam_1_1Bimap_1ae76147a674b1c052a28fcc8a39097580" prot="protected" virt="non-virtual"><scope>lsp::SemanticTokenModifier</scope><name>inverse</name></member>
+      <member refid="classjam_1_1Bimap_1a264d50fe5f19d070fba4bd5c5b728465" prot="protected" virt="non-virtual"><scope>lsp::SemanticTokenModifier</scope><name>map</name></member>
+      <member refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365af4450682b3f945fb89c39dbd6e2f92a0" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenModifier</scope><name>modification</name></member>
+      <member refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a249efccf63a08458c9c1c5bba04512c6" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenModifier</scope><name>readonly</name></member>
+      <member refid="structlsp_1_1_semantic_token_modifier_1aca3d67cc3bbe5250c65ad18f9dd0826b" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenModifier</scope><name>SemanticTokenModifier</name></member>
+      <member refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365ac2da1afb724c09e6f9e5581a9d04a89a" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenModifier</scope><name>staticToken</name></member>
+      <member refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365" prot="public" virt="non-virtual"><scope>lsp::SemanticTokenModifier</scope><name>value</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

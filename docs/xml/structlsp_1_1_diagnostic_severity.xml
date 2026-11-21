@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="structlsp_1_1_diagnostic_severity" kind="struct" language="C++" prot="public">
+    <compoundname>lsp::DiagnosticSeverity</compoundname>
+    <includes refid="_lsp_8h" local="no">Lsp.h</includes>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="structlsp_1_1_diagnostic_severity_1ac7a81d2e3d63a0bc669781f3e38b14ae" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::DiagnosticSeverity::Error</definition>
+        <argsstring></argsstring>
+        <name>Error</name>
+        <qualifiedname>lsp::DiagnosticSeverity::Error</qualifiedname>
+        <initializer>{ 1 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="241" column="26" bodyfile="generated/Lsp.h" bodystart="241" bodyend="241"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_diagnostic_severity_1aa2a25034455ca4c0e8a97d3df4d3b208" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::DiagnosticSeverity::Warning</definition>
+        <argsstring></argsstring>
+        <name>Warning</name>
+        <qualifiedname>lsp::DiagnosticSeverity::Warning</qualifiedname>
+        <initializer>{ 2 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="242" column="26" bodyfile="generated/Lsp.h" bodystart="242" bodyend="242"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_diagnostic_severity_1a4b2a1b41108effc94a5f9aa9bd2f2eab" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::DiagnosticSeverity::Information</definition>
+        <argsstring></argsstring>
+        <name>Information</name>
+        <qualifiedname>lsp::DiagnosticSeverity::Information</qualifiedname>
+        <initializer>{ 3 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="243" column="26" bodyfile="generated/Lsp.h" bodystart="243" bodyend="243"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_diagnostic_severity_1a5e22868fb1c33f9c00b7104fcb482fc8" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::DiagnosticSeverity::Hint</definition>
+        <argsstring></argsstring>
+        <name>Hint</name>
+        <qualifiedname>lsp::DiagnosticSeverity::Hint</qualifiedname>
+        <initializer>{ 4 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="244" column="26" bodyfile="generated/Lsp.h" bodystart="244" bodyend="244"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>The LSP 3.17 <ref refid="structlsp_1_1_diagnostic_severity" kindref="compound">DiagnosticSeverity</ref> values. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="generated/Lsp.h" line="239" column="1" bodyfile="generated/Lsp.h" bodystart="240" bodyend="245"/>
+    <listofallmembers>
+      <member refid="structlsp_1_1_diagnostic_severity_1ac7a81d2e3d63a0bc669781f3e38b14ae" prot="public" virt="non-virtual"><scope>lsp::DiagnosticSeverity</scope><name>Error</name></member>
+      <member refid="structlsp_1_1_diagnostic_severity_1a5e22868fb1c33f9c00b7104fcb482fc8" prot="public" virt="non-virtual"><scope>lsp::DiagnosticSeverity</scope><name>Hint</name></member>
+      <member refid="structlsp_1_1_diagnostic_severity_1a4b2a1b41108effc94a5f9aa9bd2f2eab" prot="public" virt="non-virtual"><scope>lsp::DiagnosticSeverity</scope><name>Information</name></member>
+      <member refid="structlsp_1_1_diagnostic_severity_1aa2a25034455ca4c0e8a97d3df4d3b208" prot="public" virt="non-virtual"><scope>lsp::DiagnosticSeverity</scope><name>Warning</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

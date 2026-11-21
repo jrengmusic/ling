@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="structmap_1_1_languages" kind="struct" language="C++" prot="public">
+    <compoundname>map::Languages</compoundname>
+    <basecompoundref refid="classjam_1_1HashMap" prot="public" virt="non-virtual">jam::HashMap&lt; juce::String, juce::String &gt;</basecompoundref>
+    <includes refid="_hash_maps_8h" local="no">HashMaps.h</includes>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structmap_1_1_languages_1a11f1f27280139f161c4d70735357bf4d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>map::Languages::Languages</definition>
+        <argsstring>()</argsstring>
+        <name>Languages</name>
+        <qualifiedname>map::Languages::Languages</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/HashMaps.h" line="133" column="5" bodyfile="generated/HashMaps.h" bodystart="133" bodyend="140"/>
+        <references refid="classjam_1_1HashMap_1ac95cdc1a311104ceb18e4a6d3dea6ea9">jam::HashMap&lt; juce::String, juce::String &gt;::HashMap</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>The extension and the name of each built-in language. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>jam::HashMap&lt; juce::String, juce::String &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="1">
+        <label>map::Languages</label>
+        <link refid="structmap_1_1_languages"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>jam::HashMap&lt; juce::String, juce::String &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="1">
+        <label>map::Languages</label>
+        <link refid="structmap_1_1_languages"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="generated/HashMaps.h" line="131" column="1" bodyfile="generated/HashMaps.h" bodystart="132" bodyend="141"/>
+    <listofallmembers>
+      <member refid="classjam_1_1HashMap_1ae0758a9ff066fc1413514d8e66ed44ed" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>__attribute__</name></member>
+      <member refid="classjam_1_1HashMap_1af20e91310ec8716d1e64de45ef92f1dd" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>addOrReplace</name></member>
+      <member refid="classjam_1_1HashMap_1a0547661b92b435bf86a761e000fe856f" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>allocateBucketsFromShift</name></member>
+      <member refid="classjam_1_1HashMap_1a1441b0e69891b13ad4793ad710c83abc" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>allocator_type</name></member>
+      <member refid="classjam_1_1HashMap_1a5a46d490ce023d9b1d773eccc23a7904" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>at</name></member>
+      <member refid="classjam_1_1HashMap_1a0a9348e8114d8069e2c209ad2e6fb732" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>begin</name></member>
+      <member refid="classjam_1_1HashMap_1a0973fc9d7525aed61a3499e5dabf62ef" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>bucket_alloc</name></member>
+      <member refid="classjam_1_1HashMap_1a7b1189cafcb66d8ad72baa8958c169c4" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>bucket_container_type</name></member>
+      <member refid="classjam_1_1HashMap_1a36818cb8e62e0a7f6aaf09960c16f87e" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>bucket_type</name></member>
+      <member refid="classjam_1_1HashMap_1a68d147abd460a4dc8ce0756457956009" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>bucketIdxFromHash</name></member>
+      <member refid="classjam_1_1HashMap_1a8b155c933de4778f6c62718f10f8bf5f" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>calcNumBuckets</name></member>
+      <member refid="classjam_1_1HashMap_1a1fd3c4f309bcfe98005582d271dd14de" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>calcShiftsForSize</name></member>
+      <member refid="classjam_1_1HashMap_1a261e248201c119267b4a0f294dc87067" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>cbegin</name></member>
+      <member refid="classjam_1_1HashMap_1aa3336f8126e8324e29b1f70bb96dc3da" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>cend</name></member>
+      <member refid="classjam_1_1HashMap_1a8f863e00f5a073d806efe93f46a73e07" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>clear</name></member>
+      <member refid="classjam_1_1HashMap_1a60f7ced0a519d81f2943382aac4a3275" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>clearAndFillBucketsFromValues</name></member>
+      <member refid="classjam_1_1HashMap_1ac57d181509cf0977faea6fe19d52b0d1" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>clearBuckets</name></member>
+      <member refid="classjam_1_1HashMap_1a4849f8a4b3c2aa69fa4d314a4fc1d0e0" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>const_iterator</name></member>
+      <member refid="classjam_1_1HashMap_1a4c6074f7ceec2047627d8abc77a648a2" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>const_pointer</name></member>
+      <member refid="classjam_1_1HashMap_1a41df54d74bac85eda5a73770cb5ed85e" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>const_reference</name></member>
+      <member refid="classjam_1_1HashMap_1a62292e586b9c399c8013b9a18a5b11c8" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>contains</name></member>
+      <member refid="classjam_1_1HashMap_1a4d8914c35933719891a9818fcb6a20c5" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>copyBuckets</name></member>
+      <member refid="classjam_1_1HashMap_1a8b29b8d0ab0bbd7220c5e130f003ba42" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>deallocateBuckets</name></member>
+      <member refid="classjam_1_1HashMap_1a25ad81d4aba5fe677d5b0b5604d7dcb5" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>default_bucket_container_type</name></member>
+      <member refid="classjam_1_1HashMap_1aa89beee85e496be2b703f96f60de3225" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>defaultMaxLoadFactor</name></member>
+      <member refid="classjam_1_1HashMap_1a9fb7bdb14e16270d08cf1a6d5b86de80" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>difference_type</name></member>
+      <member refid="classjam_1_1HashMap_1ad41192b1a76567021152d2c701e261a2" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>dist_and_fingerprint_type</name></member>
+      <member refid="classjam_1_1HashMap_1a5c16b4e4677be14df0d468150857b32e" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>distAndFingerprintFromHash</name></member>
+      <member refid="classjam_1_1HashMap_1a1c3a5fc9a4d551c3fd37e8f9b847a605" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>distDec</name></member>
+      <member refid="classjam_1_1HashMap_1a0d121a0c30ff3a5c5be6ec807730deb5" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>distInc</name></member>
+      <member refid="classjam_1_1HashMap_1abf5902bc3a4621a1eca7172fbbfd6aac" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>doAt</name></member>
+      <member refid="classjam_1_1HashMap_1a9a6bddc051e7296727fb94517eddb39e" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>doErase</name></member>
+      <member refid="classjam_1_1HashMap_1ad19e43c5742c0896a9a843fbf5b75b8b" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>doEraseKey</name></member>
+      <member refid="classjam_1_1HashMap_1a77749dd3c5c75fb4236198cdee4ac999" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>doFind</name></member>
+      <member refid="classjam_1_1HashMap_1a4e35cfda8fa9a7e56444234f9d8b6c61" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>doInsertOrAssign</name></member>
+      <member refid="classjam_1_1HashMap_1a67b0f008952c24485a9ec15184aec2cf" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>doPlaceElement</name></member>
+      <member refid="classjam_1_1HashMap_1a12f24e229df16bde39dde7dd0ab0ed18" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>doTryEmplace</name></member>
+      <member refid="classjam_1_1HashMap_1a60500b2364e1a2a9143cb0638c23e751" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>emplace</name></member>
+      <member refid="classjam_1_1HashMap_1a12fef269acf62439f556963d371cd371" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>emplace_hint</name></member>
+      <member refid="classjam_1_1HashMap_1a06fbefe37841a3eafbbbf8d79c617add" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>empty</name></member>
+      <member refid="classjam_1_1HashMap_1aeb3706b7cb8b6a92790644ed3eb240ea" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>end</name></member>
+      <member refid="classjam_1_1HashMap_1adb3f2fb46725c6e42e36e65b8e4ffaf9" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>equal_range</name></member>
+      <member refid="classjam_1_1HashMap_1a5e682345379d0e9a688741607ee0108b" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>erase</name></member>
+      <member refid="classjam_1_1HashMap_1a442edb3408e66f57559f809ef2ccd7b8" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>eraseAndShiftDown</name></member>
+      <member refid="classjam_1_1HashMap_1a59cd6486a98fba81cdbb9bc0f581bcdb" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>extract</name></member>
+      <member refid="classjam_1_1HashMap_1aa8cd30d951846463b373eb6e82d96a3d" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>find</name></member>
+      <member refid="classjam_1_1HashMap_1a7a2b882f6caedd74ecc028232452d02e" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>get</name></member>
+      <member refid="classjam_1_1HashMap_1abbdfce1e3b24c04e9e998ad23954ce23" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>get_allocator</name></member>
+      <member refid="classjam_1_1HashMap_1a379920576b3efeaf688b0efed8f75cf7" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>getKey</name></member>
+      <member refid="classjam_1_1HashMap_1ae26b65d248e29606c72a3055053b0380" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>hash_function</name></member>
+      <member refid="classjam_1_1HashMap_1aa1cfaabd2a2337f31d97add649fd59d9" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>hasher</name></member>
+      <member refid="classjam_1_1HashMap_1ac95cdc1a311104ceb18e4a6d3dea6ea9" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>HashMap</name></member>
+      <member refid="classjam_1_1HashMap_1a451311bf5b413a65787cecea219026c4" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>increaseSize</name></member>
+      <member refid="classjam_1_1HashMap_1a862acacfcde5b2855b24ff245db4d55b" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>initialShifts</name></member>
+      <member refid="classjam_1_1HashMap_1a652692e674a0b76b04df95b4a64394d8" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>insert</name></member>
+      <member refid="classjam_1_1HashMap_1a6f9dd548f38c600ca3ccb61ba035320f" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>isFull</name></member>
+      <member refid="classjam_1_1HashMap_1a1b3c2bc243b08c7de408735e8d9721f8" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>iterator</name></member>
+      <member refid="classjam_1_1HashMap_1a2e20ccaf332573a1d5e0f03502c4c963" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>key_eq</name></member>
+      <member refid="classjam_1_1HashMap_1ab12cc452b0ad1fc8708f53b782694e7c" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>key_equal</name></member>
+      <member refid="classjam_1_1HashMap_1ae1f54122f8f3c24d76701c3423c90d75" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>key_type</name></member>
+      <member refid="structmap_1_1_languages_1a11f1f27280139f161c4d70735357bf4d" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>Languages</name></member>
+      <member refid="classjam_1_1HashMap_1a4361a16ee7be6799ee8d79fbda64e07c" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>load_factor</name></member>
+      <member refid="classjam_1_1HashMap_1aff23abd42b4abdfc5d41d9201251d79b" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>m_buckets</name></member>
+      <member refid="classjam_1_1HashMap_1a7ea0b8301b60b25ebfa0730646f6ce13" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>m_equal</name></member>
+      <member refid="classjam_1_1HashMap_1a5c2f9fd99334d92d284160eb23eeaecc" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>m_hash</name></member>
+      <member refid="classjam_1_1HashMap_1a1f1d106a196f64f9f17dd3b6b2c5d3d2" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>m_maxBucketCapacity</name></member>
+      <member refid="classjam_1_1HashMap_1ac1b69d8a380c6e7eb9f4073f7c1dcec9" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>m_maxLoadFactor</name></member>
+      <member refid="classjam_1_1HashMap_1a774513805c3a46f9d3540dccd713cc9f" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>m_shifts</name></member>
+      <member refid="classjam_1_1HashMap_1af9b2f9cf93fed51e3cb3b65af85ff26b" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>m_values</name></member>
+      <member refid="classjam_1_1HashMap_1ab15af1b09ad585a9081d6810e851cd24" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>max_load_factor</name></member>
+      <member refid="classjam_1_1HashMap_1a513dac9fe9bc3103a5d93a2f70acb7d7" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>max_num_buckets</name></member>
+      <member refid="classjam_1_1HashMap_1a148556b5b3bd0b9ef10b84d80438d0d5" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>max_size</name></member>
+      <member refid="classjam_1_1HashMap_1ad7e0edaf4a7182baa68a74fa1c32e70e" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>mixedHash</name></member>
+      <member refid="classjam_1_1HashMap_1ac497b2c29f9b8f15f10a1ed5c54f2fa2" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>next</name></member>
+      <member refid="classjam_1_1HashMap_1a7273803402fba67a2e9d586872bca3cc" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>nextWhileLess</name></member>
+      <member refid="classjam_1_1HashMap_1a099f3eab8a09d267da761708f0ad4828" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>num_buckets</name></member>
+      <member refid="classjam_1_1HashMap_1a51d279d214810116b392ea0a71a86387" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>num_entries</name></member>
+      <member refid="classjam_1_1HashMap_1a90e80dd0dc0b72b9ac0c7e7f535b8dd9" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>operator=</name></member>
+      <member refid="classjam_1_1HashMap_1ae0c0e791b9ddf910797dabf72cefcf49" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>operator[]</name></member>
+      <member refid="classjam_1_1HashMap_1aa92f7898d10597b92ef5b0850b150149" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>placeAndShiftUp</name></member>
+      <member refid="classjam_1_1HashMap_1a39d8e01a3751b5edbcc40b9367ca8d56" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>pointer</name></member>
+      <member refid="classjam_1_1HashMap_1af15c6bb32836621468c5dc6470719fef" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>reference</name></member>
+      <member refid="classjam_1_1HashMap_1ab60a789c998c572a0177a126c751bd73" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>rehash</name></member>
+      <member refid="classjam_1_1HashMap_1aa1192acaea21516f404f72802be490c7" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>replace</name></member>
+      <member refid="classjam_1_1HashMap_1a3db285c84727357b41932fa3178d735f" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>replace_key</name></member>
+      <member refid="classjam_1_1HashMap_1a600403aabe23b189dfb729677258c7ca" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>reserve</name></member>
+      <member refid="classjam_1_1HashMap_1a85e610745893eb5c944cc480ed1fa719" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>size</name></member>
+      <member refid="classjam_1_1HashMap_1a2a4a7e9ed2b231e3f1faee7c8e0c791a" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>size_type</name></member>
+      <member refid="classjam_1_1HashMap_1af91a7ae1af81abf1278e49959f9677a1" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>swap</name></member>
+      <member refid="classjam_1_1HashMap_1af3ef015438ac55ee2401cb66441ae4f5" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>try_emplace</name></member>
+      <member refid="classjam_1_1HashMap_1aee2026225690bd80cc1949a989f89b6e" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>underlying_container_type</name></member>
+      <member refid="classjam_1_1HashMap_1ab65e058dfc3e07658357a3c3a734b8a5" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>underlying_value_type</name></member>
+      <member refid="classjam_1_1HashMap_1a3b8303d96e8ce38641761b57f8ecda82" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>value_container_type</name></member>
+      <member refid="classjam_1_1HashMap_1a09187adb9cff9653f1042e1e47ce7d3b" prot="private" virt="non-virtual"><scope>map::Languages</scope><name>value_idx_type</name></member>
+      <member refid="classjam_1_1HashMap_1a91c4fd5f2baff3f8d984d0c51e86d4bb" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>value_type</name></member>
+      <member refid="classjam_1_1HashMap_1a1e47629c4899575a72f3b8bc1927a3c5" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>values</name></member>
+      <member refid="classjam_1_1HashMap_1ab368f3eba5598d190f3087857b6303bb" prot="public" virt="non-virtual"><scope>map::Languages</scope><name>~HashMap</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

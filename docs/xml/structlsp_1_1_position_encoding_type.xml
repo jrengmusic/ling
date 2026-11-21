@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="structlsp_1_1_position_encoding_type" kind="struct" language="C++" prot="public">
+    <compoundname>lsp::PositionEncodingType</compoundname>
+    <includes refid="_lsp_8h" local="no">Lsp.h</includes>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="structlsp_1_1_position_encoding_type_1ae875d06f8f086868426159531f68752d" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::PositionEncodingType::UTF8</definition>
+        <argsstring></argsstring>
+        <name>UTF8</name>
+        <qualifiedname>lsp::PositionEncodingType::UTF8</qualifiedname>
+        <initializer>{ &quot;utf-8&quot;  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="256" column="39" bodyfile="generated/Lsp.h" bodystart="256" bodyend="256"/>
+        <referencedby refid="class_index_1a3cdbf926c197d2b49cd72b9d3e5e5317" compoundref="_index_8cpp" startline="238" endline="258">Index::getByteColumn</referencedby>
+        <referencedby refid="class_index_1a11e1093625f8fd5be26f9ab37b61e23a" compoundref="_index_8cpp" startline="222" endline="236">Index::getCharacter</referencedby>
+        <referencedby refid="class_relay_1a03dcf69baa5a5a38ac638dbc92456a5d" compoundref="_relay_8cpp" startline="329" endline="353">Relay::getPositionEncoding</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_position_encoding_type_1ac06c7e442ba986f346c40b67bdd41f21" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::PositionEncodingType::UTF16</definition>
+        <argsstring></argsstring>
+        <name>UTF16</name>
+        <qualifiedname>lsp::PositionEncodingType::UTF16</qualifiedname>
+        <initializer>{ &quot;utf-16&quot; }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="257" column="39" bodyfile="generated/Lsp.h" bodystart="257" bodyend="257"/>
+        <referencedby refid="class_relay_1a03dcf69baa5a5a38ac638dbc92456a5d" compoundref="_relay_8cpp" startline="329" endline="353">Relay::getPositionEncoding</referencedby>
+        <referencedby refid="class_application_1af60928ca7c22b19ed4436ba17d5a1f7c" compoundref="_main_8cpp" startline="428" endline="452">Application::runOperation</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_position_encoding_type_1a002c4fdb10c6b975fcedfba0e8f94ea5" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::PositionEncodingType::UTF32</definition>
+        <argsstring></argsstring>
+        <name>UTF32</name>
+        <qualifiedname>lsp::PositionEncodingType::UTF32</qualifiedname>
+        <initializer>{ &quot;utf-32&quot; }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="258" column="39" bodyfile="generated/Lsp.h" bodystart="258" bodyend="258"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>The LSP 3.17 PositionEncodingKind values. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>lsp::PositionEncodingType</label>
+        <link refid="structlsp_1_1_position_encoding_type"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>UTF16</edgelabel>
+          <edgelabel>UTF32</edgelabel>
+          <edgelabel>UTF8</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>std::basic_string_view&lt; Char &gt;</label>
+      </node>
+      <node id="2">
+        <label>std::string_view</label>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="generated/Lsp.h" line="254" column="1" bodyfile="generated/Lsp.h" bodystart="255" bodyend="259"/>
+    <listofallmembers>
+      <member refid="structlsp_1_1_position_encoding_type_1ac06c7e442ba986f346c40b67bdd41f21" prot="public" virt="non-virtual"><scope>lsp::PositionEncodingType</scope><name>UTF16</name></member>
+      <member refid="structlsp_1_1_position_encoding_type_1a002c4fdb10c6b975fcedfba0e8f94ea5" prot="public" virt="non-virtual"><scope>lsp::PositionEncodingType</scope><name>UTF32</name></member>
+      <member refid="structlsp_1_1_position_encoding_type_1ae875d06f8f086868426159531f68752d" prot="public" virt="non-virtual"><scope>lsp::PositionEncodingType</scope><name>UTF8</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="class_legend" kind="class" language="C++" prot="public">
+    <compoundname>Legend</compoundname>
+    <includes refid="_legend_8h" local="no">Legend.h</includes>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_legend_1aaa72d339f7385c6cf4462cb6f6c2294b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref> &amp;</type>
+        <definition>const jam::Strings &amp; Legend::getTypes</definition>
+        <argsstring>()</argsstring>
+        <name>getTypes</name>
+        <qualifiedname>Legend::getTypes</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Legend.h" line="7" column="31" bodyfile="Legend.cpp" bodystart="12" bodyend="16"/>
+        <references refid="class_legend_1a77bcffb1b5a3fd73567785c058dbc30c" compoundref="_legend_8cpp" startline="34" endline="48">buildTypes</references>
+        <referencedby refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</referencedby>
+        <referencedby refid="class_legend_1a7b1ca4dddab9afa479bdb78cac0082d0" compoundref="_legend_8cpp" startline="24" endline="27">getTypeIndex</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_legend_1a4bd9db5976be7ca9af8a41b1e8eb72ee" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref> &amp;</type>
+        <definition>const jam::Strings &amp; Legend::getModifiers</definition>
+        <argsstring>()</argsstring>
+        <name>getModifiers</name>
+        <qualifiedname>Legend::getModifiers</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Legend.h" line="8" column="31" bodyfile="Legend.cpp" bodystart="18" bodyend="22"/>
+        <references refid="class_legend_1a2865a46cd9ba7a16b85357d29c08d211" compoundref="_legend_8cpp" startline="50" endline="57">buildModifiers</references>
+        <referencedby refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</referencedby>
+        <referencedby refid="class_legend_1a146d2f8b0cca15bc8557f8515de1b73b" compoundref="_legend_8cpp" startline="29" endline="32">getModifierBit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_legend_1a7b1ca4dddab9afa479bdb78cac0082d0" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Legend::getTypeIndex</definition>
+        <argsstring>(juce::StringRef name)</argsstring>
+        <name>getTypeIndex</name>
+        <qualifiedname>Legend::getTypeIndex</qualifiedname>
+        <param>
+          <type><ref refid="classjuce_1_1StringRef" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::StringRef</ref></type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Legend.h" line="9" column="16" bodyfile="Legend.cpp" bodystart="24" bodyend="27"/>
+        <references refid="_legend_8cpp_1a0fd918f02d51a58416750ae65e6ed41e" compoundref="_legend_8cpp" startline="4" endline="10">getNameIndex</references>
+        <references refid="class_legend_1aaa72d339f7385c6cf4462cb6f6c2294b" compoundref="_legend_8cpp" startline="12" endline="16">getTypes</references>
+        <referencedby refid="class_built_in_language_1ace5ea3608cde10f16f46dba9dfca664d" compoundref="_built_in_language_8h" startline="106" endline="111">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSemanticType</referencedby>
+        <referencedby refid="class_library_language_1a3202d343bec470da47e4eefadd8c3dd7" compoundref="_library_language_8cpp" startline="49" endline="52">LibraryLanguage::getSemanticType</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_legend_1a146d2f8b0cca15bc8557f8515de1b73b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Legend::getModifierBit</definition>
+        <argsstring>(juce::StringRef name)</argsstring>
+        <name>getModifierBit</name>
+        <qualifiedname>Legend::getModifierBit</qualifiedname>
+        <param>
+          <type><ref refid="classjuce_1_1StringRef" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::StringRef</ref></type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Legend.h" line="10" column="16" bodyfile="Legend.cpp" bodystart="29" bodyend="32"/>
+        <references refid="class_legend_1a4bd9db5976be7ca9af8a41b1e8eb72ee" compoundref="_legend_8cpp" startline="18" endline="22">getModifiers</references>
+        <references refid="_legend_8cpp_1a0fd918f02d51a58416750ae65e6ed41e" compoundref="_legend_8cpp" startline="4" endline="10">getNameIndex</references>
+        <referencedby refid="class_library_language_1a76c35a81e58468107899711604caa206" compoundref="_library_language_8cpp" startline="54" endline="64">LibraryLanguage::getSemanticModifiers</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="class_legend_1a77bcffb1b5a3fd73567785c058dbc30c" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref></type>
+        <definition>jam::Strings Legend::buildTypes</definition>
+        <argsstring>()</argsstring>
+        <name>buildTypes</name>
+        <qualifiedname>Legend::buildTypes</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Legend.h" line="13" column="25" bodyfile="Legend.cpp" bodystart="34" bodyend="48"/>
+        <references refid="class_legend_1a811439acbc425230eb96c845cc45be29" compoundref="_legend_8cpp" startline="59" endline="64">addNames</references>
+        <referencedby refid="class_legend_1aaa72d339f7385c6cf4462cb6f6c2294b" compoundref="_legend_8cpp" startline="12" endline="16">getTypes</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_legend_1a2865a46cd9ba7a16b85357d29c08d211" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref></type>
+        <definition>jam::Strings Legend::buildModifiers</definition>
+        <argsstring>()</argsstring>
+        <name>buildModifiers</name>
+        <qualifiedname>Legend::buildModifiers</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Legend.h" line="14" column="25" bodyfile="Legend.cpp" bodystart="50" bodyend="57"/>
+        <references refid="class_legend_1a811439acbc425230eb96c845cc45be29" compoundref="_legend_8cpp" startline="59" endline="64">addNames</references>
+        <referencedby refid="class_legend_1a4bd9db5976be7ca9af8a41b1e8eb72ee" compoundref="_legend_8cpp" startline="18" endline="22">getModifiers</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_legend_1a811439acbc425230eb96c845cc45be29" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Legend::addNames</definition>
+        <argsstring>(jam::Strings &amp;names, const jam::Bimap&lt; int &gt; &amp;tokenNames)</argsstring>
+        <name>addNames</name>
+        <qualifiedname>Legend::addNames</qualifiedname>
+        <param>
+          <type><ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref> &amp;</type>
+          <declname>names</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjam_1_1Bimap" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Bimap</ref>&lt; int &gt; &amp;</type>
+          <declname>tokenNames</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Legend.h" line="15" column="17" bodyfile="Legend.cpp" bodystart="59" bodyend="64"/>
+        <references refid="classjam_1_1Strings_1a9223c1bf16916a52b122ae7e9d871f50">jam::Strings::add</references>
+        <references refid="classjam_1_1Strings_1aeeca185858a68b46a46f361ec3dcad77">jam::Strings::contains</references>
+        <references refid="classjam_1_1Bimap_1ac808bd5e726f74f35198b371c929558c">jam::Bimap&lt; typename KeyType, typename ValueType &gt;::get</references>
+        <referencedby refid="class_legend_1a2865a46cd9ba7a16b85357d29c08d211" compoundref="_legend_8cpp" startline="50" endline="57">buildModifiers</referencedby>
+        <referencedby refid="class_legend_1a77bcffb1b5a3fd73567785c058dbc30c" compoundref="_legend_8cpp" startline="34" endline="48">buildTypes</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Legend.h" line="4" column="1" bodyfile="Legend.h" bodystart="5" bodyend="16"/>
+    <listofallmembers>
+      <member refid="class_legend_1a811439acbc425230eb96c845cc45be29" prot="private" virt="non-virtual"><scope>Legend</scope><name>addNames</name></member>
+      <member refid="class_legend_1a2865a46cd9ba7a16b85357d29c08d211" prot="private" virt="non-virtual"><scope>Legend</scope><name>buildModifiers</name></member>
+      <member refid="class_legend_1a77bcffb1b5a3fd73567785c058dbc30c" prot="private" virt="non-virtual"><scope>Legend</scope><name>buildTypes</name></member>
+      <member refid="class_legend_1a146d2f8b0cca15bc8557f8515de1b73b" prot="public" virt="non-virtual"><scope>Legend</scope><name>getModifierBit</name></member>
+      <member refid="class_legend_1a4bd9db5976be7ca9af8a41b1e8eb72ee" prot="public" virt="non-virtual"><scope>Legend</scope><name>getModifiers</name></member>
+      <member refid="class_legend_1a7b1ca4dddab9afa479bdb78cac0082d0" prot="public" virt="non-virtual"><scope>Legend</scope><name>getTypeIndex</name></member>
+      <member refid="class_legend_1aaa72d339f7385c6cf4462cb6f6c2294b" prot="public" virt="non-virtual"><scope>Legend</scope><name>getTypes</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

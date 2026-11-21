@@ -2,6 +2,9 @@
 #include <JuceHeader.h>
 #include "generated/Generated.h"
 #include "LINGModel.h"
+#include "SymbolDocument.h"
+#include "Language.h"
+#include "SwapValidator.h"
 
 /**
  * @class Index
@@ -16,14 +19,6 @@
 class Index
 {
 public:
-    /**
-     * @brief The symbol records of one index pass, keyed by the raw path, the line, and the column.
-     *
-     * Each record holds the symbol text and the role bits of one declaration or
-     * reference. The raw path is relative to the folder of the unit row.
-     */
-    using Bindings = jam::HashMap<std::string, jam::HashMap<int, jam::HashMap<int, std::pair<std::string, int>>>>;
-
     /**
      * @brief Creates an empty index that reads the files child and the swap files of a model.
      *
@@ -41,38 +36,16 @@ public:
      * @tparam Function  A callable type that takes (std::string_view, const jam::LanguageDocument&).
      * @param function   The callable. It receives the path and the document of each stored entry.
      */
-    template <typename Function>
+    template<typename Function>
     void applyToDocuments (const Function& function) const
     {
-        jam::Array<int> pathIndices;
+        for (const auto pathIndex : pathOrder)
+            if (const auto stored { documents.find (pathIndex) }; stored != documents.end())
+            {
+                const auto& [documentIndex, document] { *stored };
 
-        for (const auto& [pathIndex, document] : documents)
-            pathIndices.add (pathIndex);
-
-        std::sort (pathIndices.begin(), pathIndices.end(), [this] (int left, int right)
-        {
-            return paths.getView (left).compare (paths.getView (right)) < 0;
-        });
-
-        for (const auto pathIndex : pathIndices)
-            function (paths.getView (pathIndex), *documents.at (pathIndex));
-    }
-
-    /**
-     * @brief Calls @p function for each element of each stored document, at every depth.
-     *
-     * @tparam Function  A callable type that takes (int, const jam::LanguageDocument&, const jam::Document::Element&).
-     * @param function   The callable. It receives the path index, the document, and each element.
-     */
-    template <typename Function>
-    void applyToElements (const Function& function) const
-    {
-        for (const auto& [pathIndex, document] : documents)
-            for (const auto* child : *document)
-                child->applyFunctionRecursively ([&function, pathIndex = pathIndex, document = document.get()] (const jam::Document::Element& element)
-                {
-                    function (pathIndex, *document, element);
-                });
+                function (paths.getView (pathIndex), *document, *this);
+            }
     }
 
     /**
@@ -102,17 +75,94 @@ public:
      * @param path      The path text. Its index in paths keys the document.
      * @param document  The document to store, or nullptr to erase the entry.
      */
-    void addDocument (const juce::String& path, std::unique_ptr<jam::LanguageDocument> document);
+    void addDocument (const juce::String& path, std::unique_ptr<jam::Document> document);
 
-    /**
-     * @brief Stores the symbol records of an index pass for a files row, until addSymbols binds them.
-     *
-     * A new call for a row replaces the records of that row.
-     *
-     * @param rowIndex  The index of the files row that the records belong to.
-     * @param records   The records of the pass. The index takes them by value.
-     */
-    void addBindings (int rowIndex, Bindings records);
+    void addBindings (int rowIndex, std::unique_ptr<SymbolDocument> symbolDocument);
+
+    void addPathRows (const juce::ValueTree& files);
+
+    void addUnitRows (const juce::ValueTree& files);
+
+    static std::pair<const jam::Document::Element*, int>
+    getElement (const jam::Document& document, int line, int column);
+
+    std::pair<const jam::Document::Element*, int> getElement (const std::pair<int, const jam::Document::Element*>& occurrence) const;
+
+    static bool isRecordBefore (const jam::Document::Element& record, const jam::Document::Element& otherRecord);
+
+    bool isOccurrenceBefore (int leftPathIndex, const jam::Document::Element& left, int rightPathIndex, const jam::Document::Element& right) const;
+
+    juce::Range<int> getPathRange (const jam::Array<std::pair<int, const jam::Document::Element*>>& occurrences, int pathIndex) const;
+
+    static int getCharacter (const jam::Document& document,
+                             uint32_t offset,
+                             std::string_view encoding);
+
+    static int getByteColumn (const jam::Document& document,
+                              int line,
+                              int column,
+                              std::string_view encoding);
+
+    bool hasRole (const jam::Document& document, const jam::Document::Element& element, int role) const;
+    int getSymbolType (const jam::Document& document, const jam::Document::Element& element) const;
+
+    template<typename Function>
+    void applyToRecords (int pathIndex,
+                         const jam::Document& document,
+                         const jam::Document::Element& element,
+                         int tokenIndex,
+                         const Function& function) const
+    {
+        if (const auto stored { records.find (pathIndex) }; stored != records.end())
+        {
+            const auto& [recordPathIndex, sortedRecords] { *stored };
+            const auto& token { element.get<jam::Document::Tokens> (Id::nameTokens)->at (tokenIndex) };
+            const auto line { static_cast<int> (document.getLineNumber (token.offset())) };
+            const auto column { static_cast<int> (document.getColumnNumber (token.offset())) };
+            const auto endColumn { column + static_cast<int> (document.getView (token).size()) };
+            const auto recordPosition { [] (const jam::Document::Element* record)
+            {
+                return std::make_pair (*record->get<int> (Id::line), *record->get<int> (Id::column));
+            } };
+            const auto firstRecord { std::lower_bound (sortedRecords.begin(), sortedRecords.end(), std::make_pair (line, column),
+                [&recordPosition] (const jam::Document::Element* record, const std::pair<int, int>& position)
+                {
+                    return recordPosition (record) < position;
+                }) };
+
+            for (auto record { firstRecord }; record != sortedRecords.end() and recordPosition (*record) < std::make_pair (line, endColumn); ++record)
+                function (**record);
+        }
+    }
+
+    template<typename Function>
+    void applyToOccurrences (const jam::Array<std::pair<int, const jam::Document::Element*>>& occurrences,
+                             juce::Range<int> range,
+                             const Function& function) const
+    {
+        for (auto occurrence { occurrences.begin() + range.getStart() }; occurrence != occurrences.begin() + range.getEnd(); ++occurrence)
+        {
+            const auto& [pathIndex, record] { *occurrence };
+
+            if (const auto [element, tokenIndex] { getElement (*occurrence) }; element != nullptr)
+                function (pathIndex, *documents.at (pathIndex), *element, tokenIndex, *record);
+        }
+    }
+
+    template<typename Function>
+    void applyToOccurrences (const jam::Array<std::pair<int, const jam::Document::Element*>>& occurrences,
+                             const Function& function) const
+    {
+        applyToOccurrences (occurrences, juce::Range<int> { 0, occurrences.size() }, function);
+    }
+
+    template<typename Function>
+    void applyToOccurrences (const jam::Array<std::pair<int, const jam::Document::Element*>>& occurrences,
+                             int pathIndex,
+                             const Function& function) const
+    {
+        applyToOccurrences (occurrences, getPathRange (occurrences, pathIndex), function);
+    }
 
     /**
      * @brief Reads the document of a swap file, when the file matches the source and the library.
@@ -127,7 +177,16 @@ public:
      * @param languageHash  The hash of the library of the language row.
      * @return The stored document, or nullptr when the file does not match.
      */
-    static std::unique_ptr<jam::LanguageDocument> readSwapFile (const juce::File& swapFile, std::string_view sourceText, const std::shared_ptr<const jam::LanguageLibrary>& language, juce::int64 hash, juce::int64 languageHash);
+    static std::unique_ptr<jam::Document>
+    readSwapFile (const juce::File& swapFile,
+                  std::string_view sourceText,
+                  const std::shared_ptr<const Language>& language,
+                  juce::int64 hash,
+                  juce::int64 languageHash,
+                  int family);
+
+    static std::unique_ptr<SymbolDocument>
+    readSwapFile (const juce::File& swapFile, juce::int64 hash, juce::int64 languageHash, int family);
 
     /**
      * @brief Writes a document to a swap file, with its version, its source hash, and its language hash.
@@ -140,7 +199,13 @@ public:
      * @param hash          The hash of the source text.
      * @param languageHash  The hash of the library of the language row.
      */
-    static void writeSwapFile (const juce::File& swapFile, const std::unique_ptr<jam::LanguageDocument>& document, juce::int64 hash, juce::int64 languageHash);
+    static void writeSwapFile (const juce::File& swapFile,
+                               jam::Document& document,
+                               juce::int64 hash,
+                               juce::int64 languageHash,
+                               int family);
+
+    static void addStamp (jam::Document& document, juce::int64 hash, juce::int64 languageHash, int family);
 
     /** @brief The model. The index reads its files child, and it asks the model for the swap file of each path. */
     LINGModel& model;
@@ -148,11 +213,13 @@ public:
     /** @brief The path texts. The index of a path in paths is the key of its document. */
     jam::Strings paths;
 
+    jam::Array<int> pathOrder;
+
     /** @brief The parsed documents, keyed by the index of their path in paths. */
-    jam::HashMap<int, std::unique_ptr<jam::LanguageDocument>> documents;
+    jam::HashMap<int, std::unique_ptr<jam::Document>> documents;
 
     /** @brief The loaded library of each family, keyed by family. A family without an entry gets no parse job. */
-    jam::HashMap<int, std::shared_ptr<const jam::LanguageLibrary>> languages;
+    jam::HashMap<int, std::shared_ptr<const Language>> languages;
 
     /**
      * @brief The declarations of each symbol, as pairs of a path index and an element.
@@ -160,7 +227,7 @@ public:
      * The elements belong to documents. setDocuments rebuilds this map, and
      * addDocument and removeDocuments clear it.
      */
-    jam::HashMap<juce::String, jam::Array<std::pair<int, const jam::Document::Element*>>> declarations;
+    jam::HashMap<juce::int64, jam::Array<std::pair<int, const jam::Document::Element*>>> declarations;
 
     /**
      * @brief The references to each symbol, as pairs of a path index and an element.
@@ -169,56 +236,42 @@ public:
      * bit is a reference. setDocuments rebuilds this map, and addDocument and
      * removeDocuments clear it.
      */
-    jam::HashMap<juce::String, jam::Array<std::pair<int, const jam::Document::Element*>>> references;
+    jam::HashMap<juce::int64, jam::Array<std::pair<int, const jam::Document::Element*>>> references;
+
+    jam::HashMap<juce::int64, jam::Array<std::pair<int, const jam::Document::Element*>>> completions;
+
+    jam::HashMap<int, std::unique_ptr<SymbolDocument>> symbolDocuments;
+
+    jam::HashMap<int, std::pair<int, const jam::Document::Element*>> symbolFiles;
+
+    jam::HashMap<int, jam::Array<const jam::Document::Element*>> records;
+
+    jam::HashMap<juce::String, int> unitRows;
+
+    jam::HashMap<juce::String, int> pathRows;
+
+    jam::HashMap<juce::String, jam::Array<int>> stemRows;
 
 private:
-    /**
-     * @brief The elements of one document, keyed by the line and then the column of the last token of their name.
-     *
-     * A position holds the first element that is stored at it.
-     */
-    using Positions = jam::HashMap<int, jam::HashMap<int, jam::Document::Element*>>;
+    void removeBindings (int rowIndex);
 
-    /**
-     * @brief Returns the position table of a document, and builds the table on the first call for its path.
-     *
-     * Each element with a name is stored at the line and the column of the last token of its name.
-     * The tables belong to one index pass, so each document is walked once in the pass.
-     *
-     * @param positionTables  The position tables of the pass, keyed by path index.
-     * @param document        The document whose elements are stored.
-     * @param pathIndex       The index of the path of the document in paths.
-     * @return The position table of the document.
-     */
-    static const Positions& getPositions (jam::HashMap<int, Positions>& positionTables, jam::LanguageDocument& document, int pathIndex);
+    void removeSymbols (int pathIndex);
 
-    template <typename ValueType>
-    static void addOrReplaceProperty (jam::Document::Element& element, const juce::Identifier& key, const ValueType& value)
-    {
-        if (auto* stored { element.find<ValueType> (key) }; stored != nullptr)
-            *stored = value;
-        else
-            element.add<ValueType> (key, value);
-    }
+    void removeOccurrences (jam::HashMap<juce::int64, jam::Array<std::pair<int, const jam::Document::Element*>>>& symbols,
+                            juce::int64 symbol,
+                            int pathIndex);
 
-    /**
-     * @brief Binds the pending records to the elements of the documents, and returns the paths that gained a binding.
-     *
-     * The rows of the files child are visited in order, and the records of each row
-     * are bound to the elements at their positions. An element takes the first record
-     * that binds it in the pass, which the pass tracks in boundElements. The function
-     * clears the pending bindings when it ends.
-     *
-     * @return The path indices whose documents gained a bound element, each listed once.
-     */
-    jam::Array<int> addSymbols();
+    void removeCompletions (int pathIndex, const jam::Document::Element& file);
 
-    /**
-     * @brief Writes the swap file of each document of the given paths.
-     *
-     * @param pathIndices  The path indices whose documents are written.
-     */
-    void writeSwapFiles (const jam::Array<int>& pathIndices);
+    void addCompletions (int pathIndex, const jam::Document::Element& file);
+
+    void addRecords (int pathIndex, const jam::Document::Element& file);
+
+    void addSymbols (int pathIndex, const jam::Document::Element& file);
+
+    void addOccurrences (jam::HashMap<juce::int64, jam::Array<std::pair<int, const jam::Document::Element*>>>& symbols,
+                         int pathIndex,
+                         const jam::HashMap<juce::int64, jam::Array<std::pair<int, const jam::Document::Element*>>>& blocks);
 
     /**
      * @brief Returns the index of a path in paths, and adds the path when it is absent.
@@ -231,7 +284,6 @@ private:
      */
     int getOrCreatePathIndex (const juce::String& path);
 
-    jam::HashMap<int, Bindings> bindings;
-
+    //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Index)
 };

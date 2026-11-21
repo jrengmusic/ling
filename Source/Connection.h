@@ -2,6 +2,7 @@
 #include <JuceHeader.h>
 #include "generated/Generated.h"
 #include "LINGModel.h"
+#include "Query.h"
 
 /**
  * @class Connection

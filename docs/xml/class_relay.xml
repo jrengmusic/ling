@@ -1,0 +1,1810 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="class_relay" kind="class" language="C++" prot="public">
+    <compoundname>Relay</compoundname>
+    <basecompoundref refid="class_client" prot="public" virt="non-virtual">Client</basecompoundref>
+    <basecompoundref refid="classjuce_1_1ValueTree_1_1Listener" prot="private" virt="non-virtual">juce::ValueTree::Listener</basecompoundref>
+    <includes refid="_relay_8h" local="no">Relay.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_relay_1a04cfc451ace289f134bf1c4de7103633" prot="private" static="no" mutable="no">
+        <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref></type>
+        <definition>juce::ValueTree Relay::messages</definition>
+        <argsstring></argsstring>
+        <name>messages</name>
+        <qualifiedname>Relay::messages</qualifiedname>
+        <initializer>{ model.state.getOrCreateChildWithName (<ref refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Format::toType</ref> (<ref refid="namespaceId_1aa94654bfc44139367b86107bd92eca97" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::messages</ref>), nullptr) }</initializer>
+        <briefdescription>
+<para>The messages tree of the model. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>It holds the standard input counters and the connection state. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="234" column="21" bodyfile="Relay.h" bodystart="234" bodyend="234"/>
+        <referencedby refid="class_relay_1add3f254b433fb8ba8224dc52308b1c38" compoundref="_relay_8cpp" startline="183" endline="200">addRequest</referencedby>
+        <referencedby refid="class_relay_1a5cdde8ad2025b0988a65f498f532ffa2" compoundref="_relay_8cpp" startline="323" endline="327">exit</referencedby>
+        <referencedby refid="class_relay_1ab1ca96f9eed2a2ac1c3161037219f923" compoundref="_relay_8cpp" startline="265" endline="286">getRequest</referencedby>
+        <referencedby refid="class_relay_1ac1f705eac1ffab6d0fdedca63c0975c0" compoundref="_relay_8cpp" startline="229" endline="246">initialize</referencedby>
+        <referencedby refid="class_relay_1aef9e159914626bcc5cc412ee50a54b14" compoundref="_relay_8cpp" startline="248" endline="254">initialized</referencedby>
+        <referencedby refid="class_relay_1a643442f3307832c873b21d425755b39e" compoundref="_relay_8cpp" startline="76" endline="103">Relay</referencedby>
+        <referencedby refid="class_relay_1a9a70dcfd3b2456116dd23b37c70fa56b" compoundref="_relay_8cpp" startline="317" endline="321">shutdown</referencedby>
+        <referencedby refid="class_relay_1aab902eb5ced9b7066ad912d391ff8b4c" compoundref="_relay_8cpp" startline="141" endline="158">valueTreePropertyChanged</referencedby>
+        <referencedby refid="class_relay_1a6936f44036208c340eb9fd59d1d34b3d" compoundref="_relay_8cpp" startline="105" endline="110">~Relay</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_relay_1a79c121b8878dc6c2f8d371651b4b159b" prot="private" static="no" mutable="no">
+        <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref></type>
+        <definition>juce::ValueTree Relay::requests</definition>
+        <argsstring></argsstring>
+        <name>requests</name>
+        <qualifiedname>Relay::requests</qualifiedname>
+        <initializer>{ model.state.getOrCreateChildWithName (<ref refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Format::toType</ref> (<ref refid="namespaceId_1aba863f05445ed7fb30696b39fc5873c2" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::requests</ref>), nullptr) }</initializer>
+        <briefdescription>
+<para>The request rows that wait for the daemon connection. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="237" column="21" bodyfile="Relay.h" bodystart="237" bodyend="237"/>
+        <referencedby refid="class_relay_1add3f254b433fb8ba8224dc52308b1c38" compoundref="_relay_8cpp" startline="183" endline="200">addRequest</referencedby>
+        <referencedby refid="class_relay_1aaf892c60bc1099a6f42f795a595a64d6" compoundref="_relay_8cpp" startline="256" endline="263">cancelRequest</referencedby>
+        <referencedby refid="class_relay_1a9b874c082f11a66b4ddaa33b00e89e46" compoundref="_relay_8cpp" startline="120" endline="128">connectionMade</referencedby>
+        <referencedby refid="class_relay_1ac8467fe6a84d80cae61f5b436147c8c8" compoundref="_relay_8cpp" startline="298" endline="308">didChange</referencedby>
+        <referencedby refid="class_relay_1a0e68888453bcf8a301bcdd1ddf2fcf75" compoundref="_relay_8cpp" startline="310" endline="315">didClose</referencedby>
+        <referencedby refid="class_relay_1a75c3b886036fc7c0ae314e48990ea00d" compoundref="_relay_8cpp" startline="288" endline="296">didOpen</referencedby>
+        <referencedby refid="class_relay_1aef9e159914626bcc5cc412ee50a54b14" compoundref="_relay_8cpp" startline="248" endline="254">initialized</referencedby>
+        <referencedby refid="class_relay_1a643442f3307832c873b21d425755b39e" compoundref="_relay_8cpp" startline="76" endline="103">Relay</referencedby>
+        <referencedby refid="class_relay_1a2814c0cf0cdc2c402b93b5dbd06d7d1a" compoundref="_relay_8cpp" startline="202" endline="211">sendRequest</referencedby>
+        <referencedby refid="class_relay_1aa7f75ddde371504ecf3b0dfd40f5ed5c" compoundref="_relay_8cpp" startline="135" endline="139">valueTreeChildAdded</referencedby>
+        <referencedby refid="class_relay_1a6936f44036208c340eb9fd59d1d34b3d" compoundref="_relay_8cpp" startline="105" endline="110">~Relay</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_relay_1ac4f60bbabbc38f154aab94be7c70e996" prot="private" static="no" mutable="no">
+        <type><ref refid="classjam_1_1SharedInstance" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::SharedInstance</ref>&lt; <ref refid="structmap_1_1_operations" kindref="compound">map::Operations</ref> &gt;</type>
+        <definition>jam::SharedInstance&lt;map::Operations&gt; Relay::operations</definition>
+        <argsstring></argsstring>
+        <name>operations</name>
+        <qualifiedname>Relay::operations</qualifiedname>
+        <initializer>{ std::in_place }</initializer>
+        <briefdescription>
+<para>The operations table. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Each method name maps to the command name of its request row. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="240" column="25" bodyfile="Relay.h" bodystart="240" bodyend="240"/>
+        <referencedby refid="class_relay_1ade66e70dac5c690a4f35883ceda02a1d" compoundref="_relay_8cpp" startline="160" endline="181">applyMessage</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_relay_1aebca8557b78b99276a29b19eab34a844" prot="private" static="no" mutable="no">
+        <type><ref refid="structjam_1_1Function_1_1Map" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Function::Map</ref>&lt; <ref refid="classjuce_1_1Identifier" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref>, <ref refid="structjam_1_1Function_1ae0c82daeeeb7f4c4eaf062d55601f5cd" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Function::pointerCapacity</ref>, void(const <ref refid="structjam_1_1JsonDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::JsonDocument</ref> &amp;, const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;, const <ref refid="structjam_1_1Document_1_1Token" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Token</ref> &amp;)&gt;</type>
+        <definition>jam::Function::Map&lt;juce::Identifier, jam::Function::pointerCapacity, void (const jam::JsonDocument&amp;, const jam::Document::Element&amp;, const jam::Document::Token&amp;)&gt; Relay::requestMethods</definition>
+        <argsstring></argsstring>
+        <name>requestMethods</name>
+        <qualifiedname>Relay::requestMethods</qualifiedname>
+        <briefdescription>
+<para>The lifecycle handlers, keyed by method name. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Each handler takes the document, the root, and the id token. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="243" column="24" bodyfile="Relay.h" bodystart="243" bodyend="-1"/>
+        <referencedby refid="class_relay_1ade66e70dac5c690a4f35883ceda02a1d" compoundref="_relay_8cpp" startline="160" endline="181">applyMessage</referencedby>
+        <referencedby refid="class_relay_1a643442f3307832c873b21d425755b39e" compoundref="_relay_8cpp" startline="76" endline="103">Relay</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_relay_1afc5d50ddbe2104a9336f9c62bbd1da2d" prot="private" static="no" mutable="no">
+        <type><ref refid="structjam_1_1Function_1_1Map" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Function::Map</ref>&lt; <ref refid="classjuce_1_1Identifier" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref>, <ref refid="structjam_1_1Function_1ae0c82daeeeb7f4c4eaf062d55601f5cd" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Function::pointerCapacity</ref>, void(const <ref refid="structjam_1_1JsonDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::JsonDocument</ref> &amp;, const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;)&gt;</type>
+        <definition>jam::Function::Map&lt;juce::Identifier, jam::Function::pointerCapacity, void (const jam::JsonDocument&amp;, const jam::Document::Element&amp;)&gt; Relay::notificationMethods</definition>
+        <argsstring></argsstring>
+        <name>notificationMethods</name>
+        <qualifiedname>Relay::notificationMethods</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="245" column="24" bodyfile="Relay.h" bodystart="245" bodyend="-1"/>
+        <referencedby refid="class_relay_1ade66e70dac5c690a4f35883ceda02a1d" compoundref="_relay_8cpp" startline="160" endline="181">applyMessage</referencedby>
+        <referencedby refid="class_relay_1a643442f3307832c873b21d425755b39e" compoundref="_relay_8cpp" startline="76" endline="103">Relay</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_relay_1a0aa1dbea8b02a0ae670d9d18abbb229a" prot="private" static="no" mutable="no">
+        <type><ref refid="classjam_1_1Model_1_1ParameterAttachment" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Model::ParameterAttachment</ref></type>
+        <definition>jam::Model::ParameterAttachment Relay::numMessagesAttachment</definition>
+        <argsstring></argsstring>
+        <name>numMessagesAttachment</name>
+        <qualifiedname>Relay::numMessagesAttachment</qualifiedname>
+        <initializer>{ model.createAndAddParameter&lt;<ref refid="structjam_1_1Parameter" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Parameter</ref>&lt;int&gt;&gt; (<ref refid="class_relay_1a04cfc451ace289f134bf1c4de7103633" kindref="member">messages</ref>, <ref refid="namespaceId_1abd823c98b322d39f2bd65d34d8be1513" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::numMessages</ref>, 0), [this] (const <ref refid="classjuce_1_1var" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::var</ref>&amp;) { model.flush(); } }</initializer>
+        <briefdescription>
+<para>Attaches the numMessages property of the messages tree to a parameter with initial value zero. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The callback calls model.flush(). </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="248" column="37" bodyfile="Relay.h" bodystart="248" bodyend="248"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_relay_1a24eac374e2511118858447e8b0d45b46" prot="private" static="no" mutable="no">
+        <type><ref refid="classjam_1_1Model_1_1ParameterAttachment" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Model::ParameterAttachment</ref></type>
+        <definition>jam::Model::ParameterAttachment Relay::isOpenAttachment</definition>
+        <argsstring></argsstring>
+        <name>isOpenAttachment</name>
+        <qualifiedname>Relay::isOpenAttachment</qualifiedname>
+        <initializer>{ model.createAndAddParameter&lt;<ref refid="structjam_1_1Parameter" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Parameter</ref>&lt;int&gt;&gt; (<ref refid="class_relay_1a04cfc451ace289f134bf1c4de7103633" kindref="member">messages</ref>, <ref refid="namespaceId_1a6b2e6737418d84397d6a0b2f2cea31dc" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::isOpen</ref>, 1), [this] (const <ref refid="classjuce_1_1var" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::var</ref>&amp;) { model.flush(); } }</initializer>
+        <briefdescription>
+<para>Attaches the isOpen property of the messages tree to a parameter with initial value one. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The callback calls model.flush(). </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="251" column="37" bodyfile="Relay.h" bodystart="251" bodyend="251"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_relay_1a21757145f215f6bdf8d1718ebc5efc03" prot="private" static="no" mutable="no">
+        <type><ref refid="classjam_1_1StdioServer" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::StdioServer</ref></type>
+        <definition>jam::StdioServer Relay::stdio</definition>
+        <argsstring></argsstring>
+        <name>stdio</name>
+        <qualifiedname>Relay::stdio</qualifiedname>
+        <briefdescription>
+<para>The standard input and the standard output of the process. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="260" column="22" bodyfile="Relay.h" bodystart="260" bodyend="-1"/>
+        <referencedby refid="class_relay_1a2e55863264311af7604f52c7525a4e1c" compoundref="_relay_8cpp" startline="130" endline="133">messageReceived</referencedby>
+        <referencedby refid="class_relay_1a643442f3307832c873b21d425755b39e" compoundref="_relay_8cpp" startline="76" endline="103">Relay</referencedby>
+        <referencedby refid="class_relay_1adbdb1161cdbeeb9221d193ea0115b96d" compoundref="_relay_8h" startline="122" endline="136">sendResponse</referencedby>
+        <referencedby refid="class_relay_1a286bd95d7a74b752fc757aa36e48ef56" compoundref="_relay_8cpp" startline="112" endline="118">start</referencedby>
+        <referencedby refid="class_relay_1aab902eb5ced9b7066ad912d391ff8b4c" compoundref="_relay_8cpp" startline="141" endline="158">valueTreePropertyChanged</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_relay_1a704246e35e7cd159ddd0eb278b50d573" prot="private" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int Relay::bufferSize</definition>
+        <argsstring></argsstring>
+        <name>bufferSize</name>
+        <qualifiedname>Relay::bufferSize</qualifiedname>
+        <initializer>{ 1 &lt;&lt; 20 }</initializer>
+        <briefdescription>
+<para>Size in bytes of each standard input and standard output ring. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="254" column="26" bodyfile="Relay.h" bodystart="254" bodyend="254"/>
+        <referencedby refid="class_relay_1a286bd95d7a74b752fc757aa36e48ef56" compoundref="_relay_8cpp" startline="112" endline="118">start</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_relay_1a722a0bfbae366a49399d9c3f17f6cf93" prot="private" static="yes" constexpr="yes" mutable="no">
+        <type>double</type>
+        <definition>double Relay::maximumPeriodMilliseconds</definition>
+        <argsstring></argsstring>
+        <name>maximumPeriodMilliseconds</name>
+        <qualifiedname>Relay::maximumPeriodMilliseconds</qualifiedname>
+        <initializer>{ 0.0 }</initializer>
+        <briefdescription>
+<para>Longest period, in milliseconds, of the standard input readiness clock. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="257" column="29" bodyfile="Relay.h" bodystart="257" bodyend="257"/>
+        <referencedby refid="class_relay_1a286bd95d7a74b752fc757aa36e48ef56" compoundref="_relay_8cpp" startline="112" endline="118">start</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_relay_1a643442f3307832c873b21d425755b39e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Relay::Relay</definition>
+        <argsstring>(const juce::File &amp;newManifestFile, const juce::String &amp;newToolchainArgument)</argsstring>
+        <name>Relay</name>
+        <qualifiedname>Relay::Relay</qualifiedname>
+        <param>
+          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
+          <declname>newManifestFile</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <declname>newToolchainArgument</declname>
+        </param>
+        <briefdescription>
+<para>Creates the relay for a manifest, and sets the standard input callback. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The callback adds one to numMessages when the read result is zero or more. It sets isOpen to 0 when the read result is negative, which marks the end of input. The constructor also registers the lifecycle methods, and listens to the messages and the requests.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>newManifestFile</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The manifest that the <ref refid="class_client" kindref="compound">Client</ref> base receives. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>newToolchainArgument</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The toolchain argument that the <ref refid="class_client" kindref="compound">Client</ref> base receives. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="32" column="5" bodyfile="Relay.cpp" bodystart="76" bodyend="103"/>
+        <references refid="structjam_1_1Function_1_1Map_1ad53732bb862659c66b8112c75f437248">jam::Function::Map&lt; typename KeyType, size_t capacity, typename... Signatures &gt;::add</references>
+        <references refid="classjuce_1_1ValueTree_1a91ef4df4f2007e83b137a65b5ea59124">juce::ValueTree::addListener</references>
+        <references refid="structlsp_1_1_method_1ad464bf9ad71225da4413336c5dd731d7" compoundref="_lsp_8h" startline="35" endline="35">lsp::Method::cancelRequest</references>
+        <references refid="class_relay_1aaf892c60bc1099a6f42f795a595a64d6" compoundref="_relay_8cpp" startline="256" endline="263">cancelRequest</references>
+        <references refid="class_client_1a5e8ad11b4e80ac1b63a7f419d6dabcd2" compoundref="_client_8cpp" startline="3" endline="14">Client::Client</references>
+        <references refid="structlsp_1_1_method_1a9e414866335f8cc48fc594699d29215a" compoundref="_lsp_8h" startline="37" endline="37">lsp::Method::didChange</references>
+        <references refid="class_relay_1ac8467fe6a84d80cae61f5b436147c8c8" compoundref="_relay_8cpp" startline="298" endline="308">didChange</references>
+        <references refid="structlsp_1_1_method_1a6a26eb4cb886b8aa320b35040ae4ab91" compoundref="_lsp_8h" startline="38" endline="38">lsp::Method::didClose</references>
+        <references refid="class_relay_1a0e68888453bcf8a301bcdd1ddf2fcf75" compoundref="_relay_8cpp" startline="310" endline="315">didClose</references>
+        <references refid="structlsp_1_1_method_1ab4c733fe2cfc7af2dd6c5588e218d6e6" compoundref="_lsp_8h" startline="36" endline="36">lsp::Method::didOpen</references>
+        <references refid="class_relay_1a75c3b886036fc7c0ae314e48990ea00d" compoundref="_relay_8cpp" startline="288" endline="296">didOpen</references>
+        <references refid="structlsp_1_1_method_1a3c25c3b571c1a140b6aa7f0c23288026" compoundref="_lsp_8h" startline="34" endline="34">lsp::Method::exit</references>
+        <references refid="class_relay_1a5cdde8ad2025b0988a65f498f532ffa2" compoundref="_relay_8cpp" startline="323" endline="327">exit</references>
+        <references refid="classjam_1_1Strings_1aca02ec79e3d857bca6f9647dce6415fc">jam::Strings::fromView</references>
+        <references refid="classjam_1_1Model_1a7ec2529e24ab07f42c0bd51be30a8529">jam::Model::getParameter</references>
+        <references refid="structlsp_1_1_method_1a297799c2c8c92b82022aecb3189d46b7" compoundref="_lsp_8h" startline="31" endline="31">lsp::Method::initialize</references>
+        <references refid="class_relay_1ac1f705eac1ffab6d0fdedca63c0975c0" compoundref="_relay_8cpp" startline="229" endline="246">initialize</references>
+        <references refid="structlsp_1_1_method_1ab6634d5cd69a9bb24430ba1d574f30d1" compoundref="_lsp_8h" startline="32" endline="32">lsp::Method::initialized</references>
+        <references refid="class_relay_1aef9e159914626bcc5cc412ee50a54b14" compoundref="_relay_8cpp" startline="248" endline="254">initialized</references>
+        <references refid="namespaceId_1a6b2e6737418d84397d6a0b2f2cea31dc">Id::isOpen</references>
+        <references refid="namespaceId_1aa94654bfc44139367b86107bd92eca97">Id::messages</references>
+        <references refid="class_relay_1a04cfc451ace289f134bf1c4de7103633" compoundref="_relay_8h" startline="234" endline="234">messages</references>
+        <references refid="class_client_1a156ea116c333d0160312d53971a2a709" compoundref="_client_8h" startline="77" endline="77">Client::model</references>
+        <references refid="class_relay_1afc5d50ddbe2104a9336f9c62bbd1da2d" compoundref="_relay_8h" startline="245">notificationMethods</references>
+        <references refid="namespaceId_1abd823c98b322d39f2bd65d34d8be1513">Id::numMessages</references>
+        <references refid="classjam_1_1StdioServer_1a2d110f564e9d9452c867afdf73326942">jam::StdioServer::onBytesReady</references>
+        <references refid="class_relay_1aebca8557b78b99276a29b19eab34a844" compoundref="_relay_8h" startline="243">requestMethods</references>
+        <references refid="class_relay_1a79c121b8878dc6c2f8d371651b4b159b" compoundref="_relay_8h" startline="237" endline="237">requests</references>
+        <references refid="structlsp_1_1_method_1a1e0ff6fe73cd34e45eafaf3d316b122b" compoundref="_lsp_8h" startline="33" endline="33">lsp::Method::shutdown</references>
+        <references refid="class_relay_1a9a70dcfd3b2456116dd23b37c70fa56b" compoundref="_relay_8cpp" startline="317" endline="321">shutdown</references>
+        <references refid="class_relay_1a21757145f215f6bdf8d1718ebc5efc03" compoundref="_relay_8h" startline="260">stdio</references>
+        <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
+      </memberdef>
+      <memberdef kind="function" id="class_relay_1a6936f44036208c340eb9fd59d1d34b3d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Relay::~Relay</definition>
+        <argsstring>() override</argsstring>
+        <name>~Relay</name>
+        <qualifiedname>Relay::~Relay</qualifiedname>
+        <briefdescription>
+<para>Removes the relay as a listener of the messages and the requests, and disconnects. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="35" column="5" bodyfile="Relay.cpp" bodystart="105" bodyend="110"/>
+        <references refid="classjuce_1_1InterprocessConnection_1a2a172e0cafd44584659d2b709678288d">juce::InterprocessConnection::disconnect</references>
+        <references refid="class_relay_1a04cfc451ace289f134bf1c4de7103633" compoundref="_relay_8h" startline="234" endline="234">messages</references>
+        <references refid="classjuce_1_1ValueTree_1adb77c358216105c3b9c695269025a909">juce::ValueTree::removeListener</references>
+        <references refid="class_relay_1a79c121b8878dc6c2f8d371651b4b159b" compoundref="_relay_8h" startline="237" endline="237">requests</references>
+      </memberdef>
+      <memberdef kind="function" id="class_relay_1a286bd95d7a74b752fc757aa36e48ef56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Relay::start</definition>
+        <argsstring>()</argsstring>
+        <name>start</name>
+        <qualifiedname>Relay::start</qualifiedname>
+        <briefdescription>
+<para>Starts the client, and opens the standard input with bufferSize and maximumPeriodMilliseconds. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The open call must succeed (jassert). </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="42" column="10" bodyfile="Relay.cpp" bodystart="112" bodyend="118"/>
+        <references refid="class_relay_1a704246e35e7cd159ddd0eb278b50d573" compoundref="_relay_8h" startline="254" endline="254">bufferSize</references>
+        <references refid="namespacejuce_1a86deae84ff8b95d7e40214a493b3dfe0">juce::ignoreUnused</references>
+        <references refid="class_relay_1a722a0bfbae366a49399d9c3f17f6cf93" compoundref="_relay_8h" startline="257" endline="257">maximumPeriodMilliseconds</references>
+        <references refid="classjam_1_1StdioServer_1a414f3835b01be956dfcc46eb6c5cd010">jam::StdioServer::open</references>
+        <references refid="class_client_1a742373e08a80d993d2651b6fff76f5b9" compoundref="_client_8cpp" startline="21" endline="37">Client::start</references>
+        <references refid="class_relay_1a21757145f215f6bdf8d1718ebc5efc03" compoundref="_relay_8h" startline="260">stdio</references>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_relay_1a9b874c082f11a66b4ddaa33b00e89e46" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void Relay::connectionMade</definition>
+        <argsstring>() override</argsstring>
+        <name>connectionMade</name>
+        <qualifiedname>Relay::connectionMade</qualifiedname>
+        <reimplements refid="classjuce_1_1InterprocessConnection_1a0075c756270e686efa5ede9d8e8871ed">connectionMade</reimplements>
+        <briefdescription>
+<para>Sends each queued request row to the daemon, when the connection is made. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>A row leaves the requests when it is sent. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="50" column="10" bodyfile="Relay.cpp" bodystart="120" bodyend="128"/>
+        <references refid="classjuce_1_1ValueTree_1a4d635ee9293e16a674c1d9c271364ac2">juce::ValueTree::getChild</references>
+        <references refid="classjuce_1_1ValueTree_1a5862b376b4cf88dec5302297a3a0732c">juce::ValueTree::getNumChildren</references>
+        <references refid="class_relay_1a79c121b8878dc6c2f8d371651b4b159b" compoundref="_relay_8h" startline="237" endline="237">requests</references>
+        <references refid="class_relay_1a2814c0cf0cdc2c402b93b5dbd06d7d1a" compoundref="_relay_8cpp" startline="202" endline="211">sendRequest</references>
+      </memberdef>
+      <memberdef kind="function" id="class_relay_1a2e55863264311af7604f52c7525a4e1c" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void Relay::messageReceived</definition>
+        <argsstring>(const juce::MemoryBlock &amp;reply) override</argsstring>
+        <name>messageReceived</name>
+        <qualifiedname>Relay::messageReceived</qualifiedname>
+        <reimplements refid="classjuce_1_1InterprocessConnection_1a028fab1c8d1e18d216a00162dec65686">messageReceived</reimplements>
+        <param>
+          <type>const <ref refid="classjuce_1_1MemoryBlock" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::MemoryBlock</ref> &amp;</type>
+          <declname>reply</declname>
+        </param>
+        <briefdescription>
+<para>Writes a daemon reply to the standard output as one frame. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>reply</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The reply bytes. They form the body of the frame. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="57" column="10" bodyfile="Relay.cpp" bodystart="130" bodyend="133"/>
+        <references refid="classjuce_1_1MemoryBlock_1a692f4e81b72cc79aaa98b6629d4a4dcd">juce::MemoryBlock::getData</references>
+        <references refid="classjuce_1_1MemoryBlock_1a8c25cd08391185f1237944fad5d607d8">juce::MemoryBlock::getSize</references>
+        <references refid="class_relay_1a21757145f215f6bdf8d1718ebc5efc03" compoundref="_relay_8h" startline="260">stdio</references>
+        <references refid="structjam_1_1StdioProtocol_1afb652e5480c56ba15ec0e8487ad287d5">jam::StdioProtocol::writeMessage</references>
+      </memberdef>
+      <memberdef kind="function" id="class_relay_1aa7f75ddde371504ecf3b0dfd40f5ed5c" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void Relay::valueTreeChildAdded</definition>
+        <argsstring>(juce::ValueTree &amp;parentTree, juce::ValueTree &amp;childWhichHasBeenAdded) override</argsstring>
+        <name>valueTreeChildAdded</name>
+        <qualifiedname>Relay::valueTreeChildAdded</qualifiedname>
+        <reimplements refid="classjuce_1_1ValueTree_1_1Listener_1ac26fa68e6f4625f71b52ab6fe776e0dc">valueTreeChildAdded</reimplements>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>parentTree</declname>
+        </param>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>childWhichHasBeenAdded</declname>
+        </param>
+        <briefdescription>
+<para>Sends a child that is added to the requests, when the connection is connected. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>A child added to any other tree does nothing.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>parentTree</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The tree that gained the child. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>childWhichHasBeenAdded</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The added child. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="67" column="10" bodyfile="Relay.cpp" bodystart="135" bodyend="139"/>
+        <references refid="classjuce_1_1InterprocessConnection_1a9159f2606dbc6fb0f971bd12c824fec0">juce::InterprocessConnection::isConnected</references>
+        <references refid="class_relay_1a79c121b8878dc6c2f8d371651b4b159b" compoundref="_relay_8h" startline="237" endline="237">requests</references>
+        <references refid="class_relay_1a2814c0cf0cdc2c402b93b5dbd06d7d1a" compoundref="_relay_8cpp" startline="202" endline="211">sendRequest</references>
+      </memberdef>
+      <memberdef kind="function" id="class_relay_1aab902eb5ced9b7066ad912d391ff8b4c" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void Relay::valueTreePropertyChanged</definition>
+        <argsstring>(juce::ValueTree &amp;tree, const juce::Identifier &amp;property) override</argsstring>
+        <name>valueTreePropertyChanged</name>
+        <qualifiedname>Relay::valueTreePropertyChanged</qualifiedname>
+        <reimplements refid="classjuce_1_1ValueTree_1_1Listener_1a1a5481aafc0faa40aa3404a10c7b3785">valueTreePropertyChanged</reimplements>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>tree</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjuce_1_1Identifier" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref> &amp;</type>
+          <declname>property</declname>
+        </param>
+        <briefdescription>
+<para>Applies the complete frames of the standard input when numMessages changes, and exits when isOpen is false. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Each frame body is parsed with JsonDocument::read, which borrows the bytes. The parse must succeed (jassert). The ring keeps the bytes until the whole callback returns.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tree</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The tree that changed. Only the messages tree acts. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>property</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The property that changed. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="78" column="10" bodyfile="Relay.cpp" bodystart="141" bodyend="158"/>
+        <references refid="class_relay_1ade66e70dac5c690a4f35883ceda02a1d" compoundref="_relay_8cpp" startline="160" endline="181">applyMessage</references>
+        <references refid="structjam_1_1StdioProtocol_1a07c0f05d504d5ac346ac29ba5e524bef">jam::StdioProtocol::applyMessages</references>
+        <references refid="classjam_1_1StdioServer_1a0ebc9b16929b55cd26645b9bd6289bc4">jam::StdioServer::applyPendingData</references>
+        <references refid="class_relay_1a5cdde8ad2025b0988a65f498f532ffa2" compoundref="_relay_8cpp" startline="323" endline="327">exit</references>
+        <references refid="namespaceId_1a6b2e6737418d84397d6a0b2f2cea31dc">Id::isOpen</references>
+        <references refid="class_relay_1a04cfc451ace289f134bf1c4de7103633" compoundref="_relay_8h" startline="234" endline="234">messages</references>
+        <references refid="namespaceId_1abd823c98b322d39f2bd65d34d8be1513">Id::numMessages</references>
+        <references refid="structjam_1_1JsonDocument_1a90799dd13771233d118011eb2f2fdf85">jam::JsonDocument::read</references>
+        <references refid="class_relay_1a21757145f215f6bdf8d1718ebc5efc03" compoundref="_relay_8h" startline="260">stdio</references>
+      </memberdef>
+      <memberdef kind="function" id="class_relay_1ade66e70dac5c690a4f35883ceda02a1d" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Relay::applyMessage</definition>
+        <argsstring>(const jam::JsonDocument &amp;document)</argsstring>
+        <name>applyMessage</name>
+        <qualifiedname>Relay::applyMessage</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1JsonDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::JsonDocument</ref> &amp;</type>
+          <declname>document</declname>
+        </param>
+        <briefdescription>
+<para>Dispatches one parsed message to a lifecycle method, an operation, or an error reply. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>document</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The parsed message. Its root holds the method name and the id. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="85" column="10" bodyfile="Relay.cpp" bodystart="160" bodyend="181"/>
+        <references refid="class_relay_1add3f254b433fb8ba8224dc52308b1c38" compoundref="_relay_8cpp" startline="183" endline="200">addRequest</references>
+        <references refid="classjam_1_1HashMap_1a62292e586b9c399c8013b9a18a5b11c8">jam::HashMap&lt; typename Key, typename Mapped, typename HashFn, typename KeyEqual, typename AllocatorOrContainer, typename Bucket, typename BucketContainer, bool IsSegmented &gt;::contains</references>
+        <references refid="structjam_1_1JsonDocument_1ae74fbd4b7b71ef17ce0ffb9cf8306a61">jam::JsonDocument::contains</references>
+        <references refid="structjam_1_1Function_1_1Map_1af9fdde9da6fe4521cb50e87d02c974be">jam::Function::Map&lt; typename KeyType, size_t capacity, typename... Signatures &gt;::get</references>
+        <references refid="structjam_1_1JsonDocument_1a0dd2a6e56f40f9f1a2e8378ae1aa9f53">jam::JsonDocument::get</references>
+        <references refid="structjam_1_1JsonDocument_1a85465831699f14d38b99629de0b1a713">jam::JsonDocument::getChildByToken</references>
+        <references refid="structjam_1_1Document_1afa15c06a56937a7195814a2aa2c7521d">jam::Document::getRoot</references>
+        <references refid="structjam_1_1JsonDocument_1abd07e9da20184aa266aa577b11a0408d">jam::JsonDocument::getString</references>
+        <references refid="structjam_1_1JsonDocument_1ad84256d417d92277a97b7ea6d36199b1">jam::JsonDocument::getValue</references>
+        <references refid="structlsp_1_1_member_1a7d93bc5b332cdf72fc94c5c7272b7cca" compoundref="_lsp_8h" startline="92" endline="92">lsp::Member::id</references>
+        <references refid="structlsp_1_1_member_1a8413533706e5a2170bfed01445d08bca" compoundref="_lsp_8h" startline="88" endline="88">lsp::Member::method</references>
+        <references refid="structlsp_1_1_error_codes_1abfbff6cd877ac0e1a60c06e41f04da21" compoundref="_lsp_8h" startline="265" endline="265">lsp::ErrorCodes::MethodNotFound</references>
+        <references refid="class_relay_1afc5d50ddbe2104a9336f9c62bbd1da2d" compoundref="_relay_8h" startline="245">notificationMethods</references>
+        <references refid="class_relay_1ac4f60bbabbc38f154aab94be7c70e996" compoundref="_relay_8h" startline="240" endline="240">operations</references>
+        <references refid="class_relay_1aebca8557b78b99276a29b19eab34a844" compoundref="_relay_8h" startline="243">requestMethods</references>
+        <references refid="class_relay_1adfc8d65e761104323bba423f23d4ffb6" compoundref="_relay_8cpp" startline="213" endline="227">sendError</references>
+        <references refid="classjuce_1_1Identifier_1ab6f0db1de2c36cacd1a9d7280f73aeeb">juce::Identifier::toString</references>
+        <referencedby refid="class_relay_1aab902eb5ced9b7066ad912d391ff8b4c" compoundref="_relay_8cpp" startline="141" endline="158">valueTreePropertyChanged</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_relay_1add3f254b433fb8ba8224dc52308b1c38" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Relay::addRequest</definition>
+        <argsstring>(const jam::JsonDocument &amp;document, const jam::Document::Element &amp;root, const jam::Document::Token &amp;idToken, const juce::Identifier &amp;operation)</argsstring>
+        <name>addRequest</name>
+        <qualifiedname>Relay::addRequest</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1JsonDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::JsonDocument</ref> &amp;</type>
+          <declname>document</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>root</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Token" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Token</ref> &amp;</type>
+          <declname>idToken</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjuce_1_1Identifier" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref> &amp;</type>
+          <declname>operation</declname>
+        </param>
+        <briefdescription>
+<para>Appends a request row to the requests, when the server is initialized and not shut down. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>A message after shutdown gets an InvalidRequest error reply. A message before initialization gets a ServerNotInitialized error reply.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>document</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The parsed message. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>root</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The root element of the message. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>idToken</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The id of the message. The row and the error reply both carry it. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>operation</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The command name that the row carries. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="98" column="10" bodyfile="Relay.cpp" bodystart="183" bodyend="200"/>
+        <references refid="classjuce_1_1ValueTree_1a98d6f83140f913101a059e611b7dfade">juce::ValueTree::appendChild</references>
+        <references refid="classjam_1_1Strings_1aca02ec79e3d857bca6f9647dce6415fc">jam::Strings::fromView</references>
+        <references refid="class_relay_1ab1ca96f9eed2a2ac1c3161037219f923" compoundref="_relay_8cpp" startline="265" endline="286">getRequest</references>
+        <references refid="structjam_1_1Document_1a87bb9275594c8b0da70139d14782597d">jam::Document::getView</references>
+        <references refid="namespaceId_1a3f6204ca8d39b2591e10dc6cf112e0fc">Id::id</references>
+        <references refid="structlsp_1_1_error_codes_1adcd7639e3115a72673de2b5c6ecf281e" compoundref="_lsp_8h" startline="264" endline="264">lsp::ErrorCodes::InvalidRequest</references>
+        <references refid="namespaceId_1a3488d4b32e7a3561b75682e6f398175b" compoundref="_generated_8cpp" startline="75" endline="75">Id::isInitialized</references>
+        <references refid="namespaceId_1abaec3712be8d1a5425db41c7d5906494" compoundref="_generated_8cpp" startline="77" endline="77">Id::isShutDown</references>
+        <references refid="class_relay_1a04cfc451ace289f134bf1c4de7103633" compoundref="_relay_8h" startline="234" endline="234">messages</references>
+        <references refid="class_relay_1a79c121b8878dc6c2f8d371651b4b159b" compoundref="_relay_8h" startline="237" endline="237">requests</references>
+        <references refid="class_relay_1adfc8d65e761104323bba423f23d4ffb6" compoundref="_relay_8cpp" startline="213" endline="227">sendError</references>
+        <references refid="structlsp_1_1_error_codes_1a21d62784ce3a5bdd6fa037dd83931fd1" compoundref="_lsp_8h" startline="268" endline="268">lsp::ErrorCodes::ServerNotInitialized</references>
+        <referencedby refid="class_relay_1ade66e70dac5c690a4f35883ceda02a1d" compoundref="_relay_8cpp" startline="160" endline="181">applyMessage</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_relay_1a2814c0cf0cdc2c402b93b5dbd06d7d1a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Relay::sendRequest</definition>
+        <argsstring>(const juce::ValueTree &amp;row)</argsstring>
+        <name>sendRequest</name>
+        <qualifiedname>Relay::sendRequest</qualifiedname>
+        <param>
+          <type>const <ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+<para>Sends a request row to the daemon connection, and removes the row from the requests. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The row is written to a memory block as a tree, and the block is sent as one message.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The request row to send. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="107" column="10" bodyfile="Relay.cpp" bodystart="202" bodyend="211"/>
+        <references refid="classjuce_1_1MemoryOutputStream_1a29766bf3587be1372979a00fbac4680a">juce::MemoryOutputStream::flush</references>
+        <references refid="classjuce_1_1ValueTree_1a290ee6cda9cfffd1ef393a68e8068c5b">juce::ValueTree::removeChild</references>
+        <references refid="class_relay_1a79c121b8878dc6c2f8d371651b4b159b" compoundref="_relay_8h" startline="237" endline="237">requests</references>
+        <references refid="classjuce_1_1InterprocessConnection_1ae6ebaa49463c41df97fc81573608e9fb">juce::InterprocessConnection::sendMessage</references>
+        <referencedby refid="class_relay_1a9b874c082f11a66b4ddaa33b00e89e46" compoundref="_relay_8cpp" startline="120" endline="128">connectionMade</referencedby>
+        <referencedby refid="class_relay_1aa7f75ddde371504ecf3b0dfd40f5ed5c" compoundref="_relay_8cpp" startline="135" endline="139">valueTreeChildAdded</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_relay_1adbdb1161cdbeeb9221d193ea0115b96d" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Function</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void Relay::sendResponse</definition>
+        <argsstring>(const jam::JsonDocument &amp;document, const jam::Document::Token &amp;idToken, std::string_view member, const Function &amp;appendValue)</argsstring>
+        <name>sendResponse</name>
+        <qualifiedname>Relay::sendResponse</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1JsonDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::JsonDocument</ref> &amp;</type>
+          <declname>document</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Token" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Token</ref> &amp;</type>
+          <declname>idToken</declname>
+        </param>
+        <param>
+          <type>std::string_view</type>
+          <declname>member</declname>
+        </param>
+        <param>
+          <type>const Function &amp;</type>
+          <declname>appendValue</declname>
+        </param>
+        <briefdescription>
+<para>Writes a response to the standard output as one frame. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The response holds the members from <ref refid="class_query_1a2c571f5680b49031d21f195688b73598" kindref="member">Query::appendJsonRpc</ref>, the id of the message, and one member. The member name is a name such as result or error.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Callable with the signature <computeroutput>void (std::string&amp; members)</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>document</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The parsed message that holds the id. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>idToken</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The id token that the response copies. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>member</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The name of the member that appendValue fills. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>appendValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Appends the value of the member to the members text. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="122" column="10" bodyfile="Relay.h" bodystart="122" bodyend="136"/>
+        <references refid="structjam_1_1Format_1a03d027c362f8e8e10a4b632c3af60c63">jam::Format::appendBytes</references>
+        <references refid="class_query_1a2c571f5680b49031d21f195688b73598" compoundref="_query_8h" startline="206" endline="210">Query::appendJsonRpc</references>
+        <references refid="structjam_1_1JsonWriter_1a3dd6115b3b48e6a722a2c5bcae0cd70e">jam::JsonWriter::appendKey</references>
+        <references refid="structjam_1_1JsonWriter_1af7e36be58d2d47daf877904d7c6d77e1">jam::JsonWriter::appendObject</references>
+        <references refid="structjam_1_1Document_1a87bb9275594c8b0da70139d14782597d">jam::Document::getView</references>
+        <references refid="structlsp_1_1_member_1a7d93bc5b332cdf72fc94c5c7272b7cca" compoundref="_lsp_8h" startline="92" endline="92">lsp::Member::id</references>
+        <references refid="class_relay_1a21757145f215f6bdf8d1718ebc5efc03" compoundref="_relay_8h" startline="260">stdio</references>
+        <references refid="structjam_1_1StdioProtocol_1afb652e5480c56ba15ec0e8487ad287d5">jam::StdioProtocol::writeMessage</references>
+        <referencedby refid="class_relay_1ac1f705eac1ffab6d0fdedca63c0975c0" compoundref="_relay_8cpp" startline="229" endline="246">initialize</referencedby>
+        <referencedby refid="class_relay_1adfc8d65e761104323bba423f23d4ffb6" compoundref="_relay_8cpp" startline="213" endline="227">sendError</referencedby>
+        <referencedby refid="class_relay_1a9a70dcfd3b2456116dd23b37c70fa56b" compoundref="_relay_8cpp" startline="317" endline="321">shutdown</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_relay_1adfc8d65e761104323bba423f23d4ffb6" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Relay::sendError</definition>
+        <argsstring>(const jam::JsonDocument &amp;document, const jam::Document::Token &amp;idToken, int code)</argsstring>
+        <name>sendError</name>
+        <qualifiedname>Relay::sendError</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1JsonDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::JsonDocument</ref> &amp;</type>
+          <declname>document</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Token" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Token</ref> &amp;</type>
+          <declname>idToken</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>code</declname>
+        </param>
+        <briefdescription>
+<para>Sends an error reply for a message, with the method name as the error message. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>document</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The parsed message. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>idToken</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The id of the message. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>code</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The error code of the reply. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="145" column="10" bodyfile="Relay.cpp" bodystart="213" bodyend="227"/>
+        <references refid="structjam_1_1Format_1a6588bb82effb3fb3138073257057463f">jam::Format::appendDecimal</references>
+        <references refid="structjam_1_1JsonWriter_1a3dd6115b3b48e6a722a2c5bcae0cd70e">jam::JsonWriter::appendKey</references>
+        <references refid="structjam_1_1JsonWriter_1af7e36be58d2d47daf877904d7c6d77e1">jam::JsonWriter::appendObject</references>
+        <references refid="structjam_1_1JsonWriter_1ae7b63750554be1dd1d7bdec0545d14ec">jam::JsonWriter::appendString</references>
+        <references refid="structlsp_1_1_member_1a80bb4b05aba8dc12e50057dd5cd7891e" compoundref="_lsp_8h" startline="94" endline="94">lsp::Member::code</references>
+        <references refid="structlsp_1_1_member_1a86a3bddd064a1d2541fc6b07256eb505" compoundref="_lsp_8h" startline="93" endline="93">lsp::Member::error</references>
+        <references refid="structjam_1_1JsonDocument_1a0dd2a6e56f40f9f1a2e8378ae1aa9f53">jam::JsonDocument::get</references>
+        <references refid="structjam_1_1JsonDocument_1a85465831699f14d38b99629de0b1a713">jam::JsonDocument::getChildByToken</references>
+        <references refid="structjam_1_1Document_1afa15c06a56937a7195814a2aa2c7521d">jam::Document::getRoot</references>
+        <references refid="structjam_1_1JsonDocument_1abd07e9da20184aa266aa577b11a0408d">jam::JsonDocument::getString</references>
+        <references refid="structjam_1_1JsonDocument_1ad84256d417d92277a97b7ea6d36199b1">jam::JsonDocument::getValue</references>
+        <references refid="structlsp_1_1_member_1aa9dc40ea8adab90b093e8f650a57954e" compoundref="_lsp_8h" startline="79" endline="79">lsp::Member::message</references>
+        <references refid="structlsp_1_1_member_1a8413533706e5a2170bfed01445d08bca" compoundref="_lsp_8h" startline="88" endline="88">lsp::Member::method</references>
+        <references refid="class_relay_1adbdb1161cdbeeb9221d193ea0115b96d" compoundref="_relay_8h" startline="122" endline="136">sendResponse</references>
+        <referencedby refid="class_relay_1add3f254b433fb8ba8224dc52308b1c38" compoundref="_relay_8cpp" startline="183" endline="200">addRequest</referencedby>
+        <referencedby refid="class_relay_1ade66e70dac5c690a4f35883ceda02a1d" compoundref="_relay_8cpp" startline="160" endline="181">applyMessage</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_relay_1ac1f705eac1ffab6d0fdedca63c0975c0" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Relay::initialize</definition>
+        <argsstring>(const jam::JsonDocument &amp;document, const jam::Document::Element &amp;root, const jam::Document::Token &amp;idToken)</argsstring>
+        <name>initialize</name>
+        <qualifiedname>Relay::initialize</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1JsonDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::JsonDocument</ref> &amp;</type>
+          <declname>document</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>root</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Token" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Token</ref> &amp;</type>
+          <declname>idToken</declname>
+        </param>
+        <briefdescription>
+<para>Answers the initialize request, and marks the messages tree as initialized. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The reply holds the capabilities and the server info. The stored position encoding comes from the params.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>document</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The parsed message. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>root</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The root element of the message. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>idToken</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The id token of the request. It must not be null (jassert). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="156" column="10" bodyfile="Relay.cpp" bodystart="229" bodyend="246"/>
+        <references refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</references>
+        <references refid="structjam_1_1JsonWriter_1a3dd6115b3b48e6a722a2c5bcae0cd70e">jam::JsonWriter::appendKey</references>
+        <references refid="structjam_1_1JsonWriter_1af7e36be58d2d47daf877904d7c6d77e1">jam::JsonWriter::appendObject</references>
+        <references refid="_relay_8cpp_1a302468b898a8c0cb2ca46887967e83c6" compoundref="_relay_8cpp" startline="65" endline="74">appendServerInfo</references>
+        <references refid="structlsp_1_1_member_1a1d35ad24c7a2c6ec2a5fd383ed25b818" compoundref="_lsp_8h" startline="100" endline="100">lsp::Member::capabilities</references>
+        <references refid="classjam_1_1Strings_1aca02ec79e3d857bca6f9647dce6415fc">jam::Strings::fromView</references>
+        <references refid="class_relay_1a03dcf69baa5a5a38ac638dbc92456a5d" compoundref="_relay_8cpp" startline="329" endline="353">getPositionEncoding</references>
+        <references refid="namespaceId_1a3488d4b32e7a3561b75682e6f398175b" compoundref="_generated_8cpp" startline="75" endline="75">Id::isInitialized</references>
+        <references refid="class_relay_1a04cfc451ace289f134bf1c4de7103633" compoundref="_relay_8h" startline="234" endline="234">messages</references>
+        <references refid="namespaceId_1a80b970ccf73d53a6f802c46bf9e9782b" compoundref="_generated_8cpp" startline="92" endline="92">Id::positionEncoding</references>
+        <references refid="structlsp_1_1_member_1ae9bfa39d11b9fef5e326242f2fef977e" compoundref="_lsp_8h" startline="87" endline="87">lsp::Member::result</references>
+        <references refid="class_relay_1adbdb1161cdbeeb9221d193ea0115b96d" compoundref="_relay_8h" startline="122" endline="136">sendResponse</references>
+        <references refid="structlsp_1_1_member_1a517c75c43107e60d74459b43c2640904" compoundref="_lsp_8h" startline="116" endline="116">lsp::Member::serverInfo</references>
+        <references refid="classjuce_1_1ValueTree_1a86de4a6662eb049c21c30c627616fb0e">juce::ValueTree::setProperty</references>
+        <referencedby refid="class_relay_1a643442f3307832c873b21d425755b39e" compoundref="_relay_8cpp" startline="76" endline="103">Relay</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_relay_1aef9e159914626bcc5cc412ee50a54b14" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Relay::initialized</definition>
+        <argsstring>()</argsstring>
+        <name>initialized</name>
+        <qualifiedname>Relay::initialized</qualifiedname>
+        <briefdescription>
+<para>Queues a connection row for the daemon, with the stored position encoding. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="159" column="10" bodyfile="Relay.cpp" bodystart="248" bodyend="254"/>
+        <references refid="classjuce_1_1ValueTree_1a98d6f83140f913101a059e611b7dfade">juce::ValueTree::appendChild</references>
+        <references refid="namespaceId_1aec5b34525c30f9236d01d954c002e497" compoundref="_generated_8cpp" startline="42" endline="42">Id::connection</references>
+        <references refid="class_relay_1a04cfc451ace289f134bf1c4de7103633" compoundref="_relay_8h" startline="234" endline="234">messages</references>
+        <references refid="namespaceId_1a80b970ccf73d53a6f802c46bf9e9782b" compoundref="_generated_8cpp" startline="92" endline="92">Id::positionEncoding</references>
+        <references refid="class_relay_1a79c121b8878dc6c2f8d371651b4b159b" compoundref="_relay_8h" startline="237" endline="237">requests</references>
+        <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
+        <referencedby refid="class_relay_1a643442f3307832c873b21d425755b39e" compoundref="_relay_8cpp" startline="76" endline="103">Relay</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_relay_1aaf892c60bc1099a6f42f795a595a64d6" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Relay::cancelRequest</definition>
+        <argsstring>(const jam::JsonDocument &amp;document, const jam::Document::Element &amp;root)</argsstring>
+        <name>cancelRequest</name>
+        <qualifiedname>Relay::cancelRequest</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1JsonDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::JsonDocument</ref> &amp;</type>
+          <declname>document</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>root</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="161" column="10" bodyfile="Relay.cpp" bodystart="256" bodyend="263"/>
+        <references refid="classjuce_1_1ValueTree_1a98d6f83140f913101a059e611b7dfade">juce::ValueTree::appendChild</references>
+        <references refid="namespaceId_1a2ba0292ed68c0023b7b4a381b1dd9ffa" compoundref="_generated_8cpp" startline="34" endline="34">Id::cancel</references>
+        <references refid="classjam_1_1Strings_1aca02ec79e3d857bca6f9647dce6415fc">jam::Strings::fromView</references>
+        <references refid="structjam_1_1JsonDocument_1a0dd2a6e56f40f9f1a2e8378ae1aa9f53">jam::JsonDocument::get</references>
+        <references refid="structjam_1_1JsonDocument_1a85465831699f14d38b99629de0b1a713">jam::JsonDocument::getChildByToken</references>
+        <references refid="structjam_1_1Document_1a87bb9275594c8b0da70139d14782597d">jam::Document::getView</references>
+        <references refid="namespaceId_1a3f6204ca8d39b2591e10dc6cf112e0fc">Id::id</references>
+        <references refid="structlsp_1_1_member_1a7d93bc5b332cdf72fc94c5c7272b7cca" compoundref="_lsp_8h" startline="92" endline="92">lsp::Member::id</references>
+        <references refid="structlsp_1_1_member_1ac346c32145b8977fe701d383e98219e5" compoundref="_lsp_8h" startline="89" endline="89">lsp::Member::params</references>
+        <references refid="class_relay_1a79c121b8878dc6c2f8d371651b4b159b" compoundref="_relay_8h" startline="237" endline="237">requests</references>
+        <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
+        <referencedby refid="class_relay_1a643442f3307832c873b21d425755b39e" compoundref="_relay_8cpp" startline="76" endline="103">Relay</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_relay_1a75c3b886036fc7c0ae314e48990ea00d" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Relay::didOpen</definition>
+        <argsstring>(const jam::JsonDocument &amp;document, const jam::Document::Element &amp;root)</argsstring>
+        <name>didOpen</name>
+        <qualifiedname>Relay::didOpen</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1JsonDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::JsonDocument</ref> &amp;</type>
+          <declname>document</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>root</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="163" column="10" bodyfile="Relay.cpp" bodystart="288" bodyend="296"/>
+        <references refid="classjuce_1_1ValueTree_1a98d6f83140f913101a059e611b7dfade">juce::ValueTree::appendChild</references>
+        <references refid="namespaceId_1ab974f34633d4bcb41b781ee4d119468e" compoundref="_generated_8cpp" startline="51" endline="51">Id::didOpen</references>
+        <references refid="classjam_1_1Strings_1aca02ec79e3d857bca6f9647dce6415fc">jam::Strings::fromView</references>
+        <references refid="structjam_1_1JsonDocument_1a0dd2a6e56f40f9f1a2e8378ae1aa9f53">jam::JsonDocument::get</references>
+        <references refid="structjam_1_1JsonDocument_1a85465831699f14d38b99629de0b1a713">jam::JsonDocument::getChildByToken</references>
+        <references refid="class_relay_1ab1ca96f9eed2a2ac1c3161037219f923" compoundref="_relay_8cpp" startline="265" endline="286">getRequest</references>
+        <references refid="structjam_1_1JsonDocument_1abd07e9da20184aa266aa577b11a0408d">jam::JsonDocument::getString</references>
+        <references refid="structlsp_1_1_member_1ac346c32145b8977fe701d383e98219e5" compoundref="_lsp_8h" startline="89" endline="89">lsp::Member::params</references>
+        <references refid="class_relay_1a79c121b8878dc6c2f8d371651b4b159b" compoundref="_relay_8h" startline="237" endline="237">requests</references>
+        <references refid="namespaceId_1a287c150cdfda5a8e2deb30b6d987d638">Id::text</references>
+        <references refid="structlsp_1_1_member_1adcb04ab5b069194f2a73ecbd2cd655e8" compoundref="_lsp_8h" startline="96" endline="96">lsp::Member::text</references>
+        <references refid="structlsp_1_1_member_1a0651cd39cd60a2069caff05e71ba88cc" compoundref="_lsp_8h" startline="95" endline="95">lsp::Member::textDocument</references>
+        <referencedby refid="class_relay_1a643442f3307832c873b21d425755b39e" compoundref="_relay_8cpp" startline="76" endline="103">Relay</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_relay_1ac8467fe6a84d80cae61f5b436147c8c8" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Relay::didChange</definition>
+        <argsstring>(const jam::JsonDocument &amp;document, const jam::Document::Element &amp;root)</argsstring>
+        <name>didChange</name>
+        <qualifiedname>Relay::didChange</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1JsonDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::JsonDocument</ref> &amp;</type>
+          <declname>document</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>root</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="165" column="10" bodyfile="Relay.cpp" bodystart="298" bodyend="308"/>
+        <references refid="classjuce_1_1ValueTree_1a98d6f83140f913101a059e611b7dfade">juce::ValueTree::appendChild</references>
+        <references refid="structlsp_1_1_member_1a20a5c8018a87a4b1255d7d83e4008527" compoundref="_lsp_8h" startline="97" endline="97">lsp::Member::contentChanges</references>
+        <references refid="namespaceId_1a0117768d690efda349df829be369a606" compoundref="_generated_8cpp" startline="49" endline="49">Id::didChange</references>
+        <references refid="classjam_1_1Strings_1aca02ec79e3d857bca6f9647dce6415fc">jam::Strings::fromView</references>
+        <references refid="structjam_1_1JsonDocument_1a0dd2a6e56f40f9f1a2e8378ae1aa9f53">jam::JsonDocument::get</references>
+        <references refid="structjam_1_1JsonDocument_1a85465831699f14d38b99629de0b1a713">jam::JsonDocument::getChildByToken</references>
+        <references refid="class_relay_1ab1ca96f9eed2a2ac1c3161037219f923" compoundref="_relay_8cpp" startline="265" endline="286">getRequest</references>
+        <references refid="structjam_1_1JsonDocument_1abd07e9da20184aa266aa577b11a0408d">jam::JsonDocument::getString</references>
+        <references refid="structlsp_1_1_member_1ac346c32145b8977fe701d383e98219e5" compoundref="_lsp_8h" startline="89" endline="89">lsp::Member::params</references>
+        <references refid="class_relay_1a79c121b8878dc6c2f8d371651b4b159b" compoundref="_relay_8h" startline="237" endline="237">requests</references>
+        <references refid="namespaceId_1a287c150cdfda5a8e2deb30b6d987d638">Id::text</references>
+        <references refid="structlsp_1_1_member_1adcb04ab5b069194f2a73ecbd2cd655e8" compoundref="_lsp_8h" startline="96" endline="96">lsp::Member::text</references>
+        <references refid="namespaceId_1a852b83817f32504602a384b9091ed9fb">Id::tokens</references>
+        <referencedby refid="class_relay_1a643442f3307832c873b21d425755b39e" compoundref="_relay_8cpp" startline="76" endline="103">Relay</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_relay_1a0e68888453bcf8a301bcdd1ddf2fcf75" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Relay::didClose</definition>
+        <argsstring>(const jam::JsonDocument &amp;document, const jam::Document::Element &amp;root)</argsstring>
+        <name>didClose</name>
+        <qualifiedname>Relay::didClose</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1JsonDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::JsonDocument</ref> &amp;</type>
+          <declname>document</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>root</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="167" column="10" bodyfile="Relay.cpp" bodystart="310" bodyend="315"/>
+        <references refid="classjuce_1_1ValueTree_1a98d6f83140f913101a059e611b7dfade">juce::ValueTree::appendChild</references>
+        <references refid="namespaceId_1a4b9de3efd1f052bf315cdc9b64654182" compoundref="_generated_8cpp" startline="50" endline="50">Id::didClose</references>
+        <references refid="class_relay_1ab1ca96f9eed2a2ac1c3161037219f923" compoundref="_relay_8cpp" startline="265" endline="286">getRequest</references>
+        <references refid="class_relay_1a79c121b8878dc6c2f8d371651b4b159b" compoundref="_relay_8h" startline="237" endline="237">requests</references>
+        <referencedby refid="class_relay_1a643442f3307832c873b21d425755b39e" compoundref="_relay_8cpp" startline="76" endline="103">Relay</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_relay_1ab1ca96f9eed2a2ac1c3161037219f923" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref></type>
+        <definition>juce::ValueTree Relay::getRequest</definition>
+        <argsstring>(const jam::JsonDocument &amp;document, const jam::Document::Element &amp;root, const juce::Identifier &amp;operation) const</argsstring>
+        <name>getRequest</name>
+        <qualifiedname>Relay::getRequest</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1JsonDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::JsonDocument</ref> &amp;</type>
+          <declname>document</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>root</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjuce_1_1Identifier" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref> &amp;</type>
+          <declname>operation</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="169" column="21" bodyfile="Relay.cpp" bodystart="265" bodyend="286"/>
+        <references refid="namespaceId_1a2333fa49126557436eb1441faf72fd4f" compoundref="_generated_8cpp" startline="28" endline="28">Id::arguments</references>
+        <references refid="namespaceId_1a1538a142ed265f60c8fcf1703a106a7d">Id::command</references>
+        <references refid="structjam_1_1JsonDocument_1ae74fbd4b7b71ef17ce0ffb9cf8306a61">jam::JsonDocument::contains</references>
+        <references refid="namespaceId_1a6669c6bd053caa80ea2d789eddc0de47">Id::directory</references>
+        <references refid="classjam_1_1Strings_1aca02ec79e3d857bca6f9647dce6415fc">jam::Strings::fromView</references>
+        <references refid="structjam_1_1JsonDocument_1a0dd2a6e56f40f9f1a2e8378ae1aa9f53">jam::JsonDocument::get</references>
+        <references refid="structjam_1_1JsonDocument_1a85465831699f14d38b99629de0b1a713">jam::JsonDocument::getChildByToken</references>
+        <references refid="classjuce_1_1File_1af57a7a6e83fbd4a6b048e7d0010d7279">juce::File::getCurrentWorkingDirectory</references>
+        <references refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="388" endline="416">getRequestArguments</references>
+        <references refid="structjam_1_1JsonDocument_1abd07e9da20184aa266aa577b11a0408d">jam::JsonDocument::getString</references>
+        <references refid="classjam_1_1Strings_1adfb32d159be94dc4a4004c50be876e3c">jam::Strings::getView</references>
+        <references refid="class_relay_1a04cfc451ace289f134bf1c4de7103633" compoundref="_relay_8h" startline="234" endline="234">messages</references>
+        <references refid="namespaceId_1a7de25962dd68afb21af752fc74edc261" compoundref="_generated_8cpp" startline="85" endline="85">Id::newName</references>
+        <references refid="structlsp_1_1_member_1ac346c32145b8977fe701d383e98219e5" compoundref="_lsp_8h" startline="89" endline="89">lsp::Member::params</references>
+        <references refid="namespaceId_1a80b970ccf73d53a6f802c46bf9e9782b" compoundref="_generated_8cpp" startline="92" endline="92">Id::positionEncoding</references>
+        <references refid="namespaceId_1af4e71980bee2a5365b2626999eb5bf71" compoundref="_generated_8cpp" startline="101" endline="101">Id::request</references>
+        <references refid="namespaceId_1a50459a16b11d00b0269af837b5454d7d" compoundref="_generated_8cpp" startline="108" endline="108">Id::scope</references>
+        <references refid="classjuce_1_1Identifier_1ab6f0db1de2c36cacd1a9d7280f73aeeb">juce::Identifier::toString</references>
+        <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
+        <references refid="namespaceId_1ab4956db6d5e735af8b4e202830ac73f7">Id::type</references>
+        <referencedby refid="class_relay_1add3f254b433fb8ba8224dc52308b1c38" compoundref="_relay_8cpp" startline="183" endline="200">addRequest</referencedby>
+        <referencedby refid="class_relay_1ac8467fe6a84d80cae61f5b436147c8c8" compoundref="_relay_8cpp" startline="298" endline="308">didChange</referencedby>
+        <referencedby refid="class_relay_1a0e68888453bcf8a301bcdd1ddf2fcf75" compoundref="_relay_8cpp" startline="310" endline="315">didClose</referencedby>
+        <referencedby refid="class_relay_1a75c3b886036fc7c0ae314e48990ea00d" compoundref="_relay_8cpp" startline="288" endline="296">didOpen</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_relay_1a9a70dcfd3b2456116dd23b37c70fa56b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Relay::shutdown</definition>
+        <argsstring>(const jam::JsonDocument &amp;document, const jam::Document::Token &amp;idToken)</argsstring>
+        <name>shutdown</name>
+        <qualifiedname>Relay::shutdown</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1JsonDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::JsonDocument</ref> &amp;</type>
+          <declname>document</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Token" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Token</ref> &amp;</type>
+          <declname>idToken</declname>
+        </param>
+        <briefdescription>
+<para>Marks the relay as shut down, and replies with a null result. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>document</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The parsed message. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>idToken</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The id token of the request. It must not be null (jassert). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="177" column="10" bodyfile="Relay.cpp" bodystart="317" bodyend="321"/>
+        <references refid="structjam_1_1JsonWriter_1a99b2a4cccc6a5dcc6e7699577ef256fc">jam::JsonWriter::appendNull</references>
+        <references refid="namespaceId_1abaec3712be8d1a5425db41c7d5906494" compoundref="_generated_8cpp" startline="77" endline="77">Id::isShutDown</references>
+        <references refid="class_relay_1a04cfc451ace289f134bf1c4de7103633" compoundref="_relay_8h" startline="234" endline="234">messages</references>
+        <references refid="structlsp_1_1_member_1ae9bfa39d11b9fef5e326242f2fef977e" compoundref="_lsp_8h" startline="87" endline="87">lsp::Member::result</references>
+        <references refid="class_relay_1adbdb1161cdbeeb9221d193ea0115b96d" compoundref="_relay_8h" startline="122" endline="136">sendResponse</references>
+        <references refid="classjuce_1_1ValueTree_1a86de4a6662eb049c21c30c627616fb0e">juce::ValueTree::setProperty</references>
+        <referencedby refid="class_relay_1a643442f3307832c873b21d425755b39e" compoundref="_relay_8cpp" startline="76" endline="103">Relay</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_relay_1a5cdde8ad2025b0988a65f498f532ffa2" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Relay::exit</definition>
+        <argsstring>()</argsstring>
+        <name>exit</name>
+        <qualifiedname>Relay::exit</qualifiedname>
+        <briefdescription>
+<para>Sets the application exit code, and quits the application. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The exit code is success when shutdown was received. Otherwise it is failure. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="184" column="10" bodyfile="Relay.cpp" bodystart="323" bodyend="327"/>
+        <references refid="classjuce_1_1JUCEApplicationBase_1ad202ba9fc825300b11c0d768da48b52a">juce::JUCEApplicationBase::getInstance</references>
+        <references refid="namespaceId_1abaec3712be8d1a5425db41c7d5906494" compoundref="_generated_8cpp" startline="77" endline="77">Id::isShutDown</references>
+        <references refid="class_relay_1a04cfc451ace289f134bf1c4de7103633" compoundref="_relay_8h" startline="234" endline="234">messages</references>
+        <references refid="classjuce_1_1JUCEApplicationBase_1ae2ba9b90c02361717d997aa26861f2c4">juce::JUCEApplicationBase::quit</references>
+        <references refid="classjuce_1_1JUCEApplicationBase_1aa718d56bbc1c7d7271aedbc378eeaffe">juce::JUCEApplicationBase::setApplicationReturnValue</references>
+        <referencedby refid="class_relay_1a643442f3307832c873b21d425755b39e" compoundref="_relay_8cpp" startline="76" endline="103">Relay</referencedby>
+        <referencedby refid="class_relay_1aab902eb5ced9b7066ad912d391ff8b4c" compoundref="_relay_8cpp" startline="141" endline="158">valueTreePropertyChanged</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="class_relay_1a03dcf69baa5a5a38ac638dbc92456a5d" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string_view</type>
+        <definition>std::string_view Relay::getPositionEncoding</definition>
+        <argsstring>(const jam::JsonDocument &amp;document, const jam::Document::Element &amp;root)</argsstring>
+        <name>getPositionEncoding</name>
+        <qualifiedname>Relay::getPositionEncoding</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1JsonDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::JsonDocument</ref> &amp;</type>
+          <declname>document</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>root</declname>
+        </param>
+        <briefdescription>
+<para>Returns the position encoding that the client accepts. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The result is the UTF8 value when the client lists it in its general position encodings. Otherwise the result is the UTF16 value.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>document</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The parsed message. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>root</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The root element of the message. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The encoding name from <ref refid="structlsp_1_1_position_encoding_type" kindref="compound">lsp::PositionEncodingType</ref>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="196" column="29" bodyfile="Relay.cpp" bodystart="329" bodyend="353"/>
+        <references refid="structlsp_1_1_member_1a1d35ad24c7a2c6ec2a5fd383ed25b818" compoundref="_lsp_8h" startline="100" endline="100">lsp::Member::capabilities</references>
+        <references refid="structjam_1_1JsonDocument_1ae74fbd4b7b71ef17ce0ffb9cf8306a61">jam::JsonDocument::contains</references>
+        <references refid="structlsp_1_1_member_1ab585c878ec473d35f57fa6e0636eb12c" compoundref="_lsp_8h" startline="101" endline="101">lsp::Member::general</references>
+        <references refid="structjam_1_1JsonDocument_1a0dd2a6e56f40f9f1a2e8378ae1aa9f53">jam::JsonDocument::get</references>
+        <references refid="structjam_1_1JsonDocument_1a85465831699f14d38b99629de0b1a713">jam::JsonDocument::getChildByToken</references>
+        <references refid="structlsp_1_1_member_1ac346c32145b8977fe701d383e98219e5" compoundref="_lsp_8h" startline="89" endline="89">lsp::Member::params</references>
+        <references refid="structlsp_1_1_member_1a8ed983f3b57296dd2f017a02affb4425" compoundref="_lsp_8h" startline="102" endline="102">lsp::Member::positionEncodings</references>
+        <references refid="namespaceId_1a852b83817f32504602a384b9091ed9fb">Id::tokens</references>
+        <references refid="structlsp_1_1_position_encoding_type_1ac06c7e442ba986f346c40b67bdd41f21" compoundref="_lsp_8h" startline="257" endline="257">lsp::PositionEncodingType::UTF16</references>
+        <references refid="structlsp_1_1_position_encoding_type_1ae875d06f8f086868426159531f68752d" compoundref="_lsp_8h" startline="256" endline="256">lsp::PositionEncodingType::UTF8</references>
+        <referencedby refid="class_relay_1ac1f705eac1ffab6d0fdedca63c0975c0" compoundref="_relay_8cpp" startline="229" endline="246">initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_relay_1a7423972ba523fc9ce8118d99052e31d1" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref></type>
+        <definition>juce::File Relay::getFile</definition>
+        <argsstring>(const jam::JsonDocument &amp;document, const jam::Document::Element &amp;params)</argsstring>
+        <name>getFile</name>
+        <qualifiedname>Relay::getFile</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1JsonDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::JsonDocument</ref> &amp;</type>
+          <declname>document</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>params</declname>
+        </param>
+        <briefdescription>
+<para>Returns the local file that the uri of the request names. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The uri comes from the text document of the params. When no text document is present, it comes from the item.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>document</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The parsed message. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>params</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The params element of the request. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The local file of the uri. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="207" column="23" bodyfile="Relay.cpp" bodystart="355" bodyend="362"/>
+        <references refid="structjam_1_1JsonDocument_1ae74fbd4b7b71ef17ce0ffb9cf8306a61">jam::JsonDocument::contains</references>
+        <references refid="classjam_1_1Strings_1aca02ec79e3d857bca6f9647dce6415fc">jam::Strings::fromView</references>
+        <references refid="structjam_1_1JsonDocument_1a0dd2a6e56f40f9f1a2e8378ae1aa9f53">jam::JsonDocument::get</references>
+        <references refid="structjam_1_1JsonDocument_1a85465831699f14d38b99629de0b1a713">jam::JsonDocument::getChildByToken</references>
+        <references refid="classjuce_1_1URL_1a0c0beb300acd9772ad02344433b75346">juce::URL::getLocalFile</references>
+        <references refid="structjam_1_1JsonDocument_1abd07e9da20184aa266aa577b11a0408d">jam::JsonDocument::getString</references>
+        <references refid="structlsp_1_1_member_1a684664cae093b98faa21797561053c5a" compoundref="_lsp_8h" startline="99" endline="99">lsp::Member::item</references>
+        <references refid="structlsp_1_1_member_1a0651cd39cd60a2069caff05e71ba88cc" compoundref="_lsp_8h" startline="95" endline="95">lsp::Member::textDocument</references>
+        <references refid="structlsp_1_1_member_1a53526954c48fa0b9555a4e958dd316dd" compoundref="_lsp_8h" startline="62" endline="62">lsp::Member::uri</references>
+        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="388" endline="416">getRequestArguments</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_relay_1a7bfa0fddda4f4de7ab07cafe087a9c2d" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+        <definition>const jam::Document::Element &amp; Relay::getPosition</definition>
+        <argsstring>(const jam::JsonDocument &amp;document, const jam::Document::Element &amp;params)</argsstring>
+        <name>getPosition</name>
+        <qualifiedname>Relay::getPosition</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1JsonDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::JsonDocument</ref> &amp;</type>
+          <declname>document</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>params</declname>
+        </param>
+        <briefdescription>
+<para>Returns the position element of the request. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The position of the params is used when present. Otherwise the start of the item selection range is used.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>document</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The parsed message. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>params</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The params element of the request. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The position element. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="218" column="41" bodyfile="Relay.cpp" bodystart="364" bodyend="386"/>
+        <references refid="structjam_1_1JsonDocument_1ae74fbd4b7b71ef17ce0ffb9cf8306a61">jam::JsonDocument::contains</references>
+        <references refid="structjam_1_1JsonDocument_1a0dd2a6e56f40f9f1a2e8378ae1aa9f53">jam::JsonDocument::get</references>
+        <references refid="structjam_1_1JsonDocument_1a85465831699f14d38b99629de0b1a713">jam::JsonDocument::getChildByToken</references>
+        <references refid="structlsp_1_1_member_1a684664cae093b98faa21797561053c5a" compoundref="_lsp_8h" startline="99" endline="99">lsp::Member::item</references>
+        <references refid="structlsp_1_1_member_1a47c1a3c09d2f0c36870ba249db868fe4" compoundref="_lsp_8h" startline="75" endline="75">lsp::Member::position</references>
+        <references refid="structlsp_1_1_member_1ad215eaba1208b542f6b66c6f2eab237c" compoundref="_lsp_8h" startline="124" endline="124">lsp::Member::positions</references>
+        <references refid="structlsp_1_1_member_1aa1e9c42a38ce78690556c0cec92096d3" compoundref="_lsp_8h" startline="68" endline="68">lsp::Member::selectionRange</references>
+        <references refid="structlsp_1_1_member_1a95ebfa0e94b63d5a24cee309e89675ca" compoundref="_lsp_8h" startline="64" endline="64">lsp::Member::start</references>
+        <references refid="namespaceId_1a852b83817f32504602a384b9091ed9fb">Id::tokens</references>
+        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="388" endline="416">getRequestArguments</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_relay_1a05fe55b33b15665242d297a36251da4e" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classjuce_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Array</ref>&lt; <ref refid="classjuce_1_1var" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::var</ref> &gt;</type>
+        <definition>juce::Array&lt; juce::var &gt; Relay::getRequestArguments</definition>
+        <argsstring>(const jam::JsonDocument &amp;document, const jam::Document::Element &amp;params, const juce::Identifier &amp;operation)</argsstring>
+        <name>getRequestArguments</name>
+        <qualifiedname>Relay::getRequestArguments</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1JsonDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::JsonDocument</ref> &amp;</type>
+          <declname>document</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>params</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjuce_1_1Identifier" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref> &amp;</type>
+          <declname>operation</declname>
+        </param>
+        <briefdescription>
+<para>Returns the arguments of a request row, from the params of the message. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>A query gives one string argument. Otherwise the arguments hold the full path of the file. When a position or an item is present, they also hold the line and the character. Each line and character number is one more than the value in the message.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>document</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The parsed message. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>params</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The params element of the request. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The arguments of the row. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Relay.h" line="231" column="24" bodyfile="Relay.cpp" bodystart="388" bodyend="416"/>
+        <references refid="classjuce_1_1Array_1a76b59834b9d3d5b654f27dbaf2d6c09f">juce::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse, int minimumAllocatedSize &gt;::add</references>
+        <references refid="_relay_8cpp_1a6a4c5230ae9f07bdb1a3083ea12b63b0" compoundref="_relay_8cpp" startline="16" endline="20">addPositionArguments</references>
+        <references refid="structjam_1_1JsonDocument_1ae74fbd4b7b71ef17ce0ffb9cf8306a61">jam::JsonDocument::contains</references>
+        <references refid="structlsp_1_1_member_1a35caed4083234bc1790ef6c86fa542e7" compoundref="_lsp_8h" startline="65" endline="65">lsp::Member::end</references>
+        <references refid="classjam_1_1Strings_1aca02ec79e3d857bca6f9647dce6415fc">jam::Strings::fromView</references>
+        <references refid="structjam_1_1JsonDocument_1a0dd2a6e56f40f9f1a2e8378ae1aa9f53">jam::JsonDocument::get</references>
+        <references refid="class_query_1a252aeb46bd682380187e9d183c5d5697" compoundref="_query_8cpp" startline="32" endline="44">Query::getArgumentShape</references>
+        <references refid="structjam_1_1JsonDocument_1a85465831699f14d38b99629de0b1a713">jam::JsonDocument::getChildByToken</references>
+        <references refid="class_relay_1a7423972ba523fc9ce8118d99052e31d1" compoundref="_relay_8cpp" startline="355" endline="362">getFile</references>
+        <references refid="class_relay_1a7bfa0fddda4f4de7ab07cafe087a9c2d" compoundref="_relay_8cpp" startline="364" endline="386">getPosition</references>
+        <references refid="structjam_1_1JsonDocument_1abd07e9da20184aa266aa577b11a0408d">jam::JsonDocument::getString</references>
+        <references refid="structlsp_1_1_member_1a684664cae093b98faa21797561053c5a" compoundref="_lsp_8h" startline="99" endline="99">lsp::Member::item</references>
+        <references refid="structlsp_1_1_member_1a47c1a3c09d2f0c36870ba249db868fe4" compoundref="_lsp_8h" startline="75" endline="75">lsp::Member::position</references>
+        <references refid="structlsp_1_1_member_1ad215eaba1208b542f6b66c6f2eab237c" compoundref="_lsp_8h" startline="124" endline="124">lsp::Member::positions</references>
+        <references refid="structlsp_1_1_member_1aef646b4f51af4d8b9a533e9553fbaa9d" compoundref="_lsp_8h" startline="98" endline="98">lsp::Member::query</references>
+        <references refid="namespaceId_1aec4170f20f580e8736befa263a18bd93">Id::range</references>
+        <references refid="structlsp_1_1_member_1a3b30289019679b678e16f9c62952af0d" compoundref="_lsp_8h" startline="63" endline="63">lsp::Member::range</references>
+        <references refid="structlsp_1_1_member_1a95ebfa0e94b63d5a24cee309e89675ca" compoundref="_lsp_8h" startline="64" endline="64">lsp::Member::start</references>
+        <referencedby refid="class_relay_1ab1ca96f9eed2a2ac1c3161037219f923" compoundref="_relay_8cpp" startline="265" endline="286">getRequest</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Serves the messages of the standard input for one manifest. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The relay answers the lifecycle methods itself. A method in the operations table becomes a request row, which the daemon connection sends. Any other method that carries an id gets an error reply. Each daemon reply goes to the standard output as one frame. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Client</label>
+        <link refid="class_client"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="private-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Relay</label>
+        <link refid="class_relay"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="private-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>jam::File::Watcher::Listener</label>
+        <link refid="classjam_1_1File_1_1Watcher_1_1Listener" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="3">
+        <label>juce::InterprocessConnection</label>
+        <link refid="classjuce_1_1InterprocessConnection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="5">
+        <label>juce::ValueTree::Listener</label>
+        <link refid="classjuce_1_1ValueTree_1_1Listener" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Client</label>
+        <link refid="class_client"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="private-inheritance">
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>manifestFile</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>toolchainArgument</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>model</edgelabel>
+        </childnode>
+        <childnode refid="19" relation="usage">
+          <edgelabel>watcher</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>LINGModel</label>
+        <link refid="class_l_i_n_g_model"/>
+        <childnode refid="8" relation="public-inheritance">
+        </childnode>
+        <childnode refid="18" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="private-inheritance">
+        </childnode>
+        <childnode refid="19" relation="usage">
+          <edgelabel>watcher</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Relay</label>
+        <link refid="class_relay"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="10" relation="private-inheritance">
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>messages</edgelabel>
+          <edgelabel>requests</edgelabel>
+        </childnode>
+        <childnode refid="25" relation="usage">
+          <edgelabel>operations</edgelabel>
+        </childnode>
+        <childnode refid="27" relation="usage">
+          <edgelabel>requestMethods</edgelabel>
+        </childnode>
+        <childnode refid="29" relation="usage">
+          <edgelabel>notificationMethods</edgelabel>
+        </childnode>
+        <childnode refid="30" relation="usage">
+          <edgelabel>isOpenAttachment</edgelabel>
+          <edgelabel>numMessagesAttachment</edgelabel>
+        </childnode>
+        <childnode refid="38" relation="usage">
+          <edgelabel>stdio</edgelabel>
+        </childnode>
+      </node>
+      <node id="11">
+        <label>jam::AnyMap&lt; typename TypeOfCriticalSectionToUse &gt;</label>
+        <link refid="classjam_1_1AnyMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="12" relation="public-inheritance">
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>entries</edgelabel>
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>types</edgelabel>
+        </childnode>
+      </node>
+      <node id="44">
+        <label>jam::AsyncOutputStream</label>
+        <link refid="classjam_1_1AsyncOutputStream" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="45" relation="usage">
+          <edgelabel>native</edgelabel>
+        </childnode>
+      </node>
+      <node id="19">
+        <label>jam::File::Watcher</label>
+        <link refid="structjam_1_1File_1_1Watcher" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="20" relation="usage">
+          <edgelabel>timers</edgelabel>
+        </childnode>
+        <childnode refid="23" relation="usage">
+          <edgelabel>listeners</edgelabel>
+        </childnode>
+        <childnode refid="24" relation="usage">
+          <edgelabel>watched</edgelabel>
+        </childnode>
+      </node>
+      <node id="22">
+        <label>jam::File::Watcher::CoalesceTimer</label>
+        <link refid="structjam_1_1File_1_1Watcher_1_1CoalesceTimer" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="9" relation="public-inheritance">
+        </childnode>
+        <childnode refid="19" relation="usage">
+          <edgelabel>owner</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>f</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>jam::File::Watcher::Listener</label>
+        <link refid="classjam_1_1File_1_1Watcher_1_1Listener" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="29">
+        <label>jam::Function::Map&lt; juce::Identifier, jam::Function::pointerCapacity, void(const jam::JsonDocument &amp;, const jam::Document::Element &amp;)&gt;</label>
+        <link refid="structjam_1_1Function_1_1Map" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="28" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>jam::Function::Map&lt; juce::Identifier, jam::Function::pointerCapacity, void(const jam::JsonDocument &amp;, const jam::Document::Element &amp;, const jam::Document::Token &amp;)&gt;</label>
+        <link refid="structjam_1_1Function_1_1Map" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="28" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>jam::HashMap&lt; KeyType, std::variant&lt; Overload&lt; KeyType, capacity, Signatures &gt;::Slot... &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="14">
+        <label>jam::HashMap&lt; juce::Identifier, jam::AnyMap::Trait &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="17">
+        <label>jam::HashMap&lt; juce::Identifier, jam::HashMap&lt; juce::Identifier, std::unique_ptr&lt; ParameterAdapter &gt; &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="13">
+        <label>jam::HashMap&lt; juce::Identifier, std::unique_ptr&lt; void, Deleter &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="18">
+        <label>jam::Instance&lt; LINGModel &gt;</label>
+        <link refid="structjam_1_1Instance" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="8">
+        <label>jam::Model</label>
+        <link refid="classjam_1_1Model" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="9" relation="public-inheritance">
+        </childnode>
+        <childnode refid="10" relation="public-inheritance">
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>params</edgelabel>
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>state</edgelabel>
+        </childnode>
+        <childnode refid="16" relation="usage">
+          <edgelabel>valueTreeChanging</edgelabel>
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>adapters</edgelabel>
+        </childnode>
+      </node>
+      <node id="30">
+        <label>jam::Model::ParameterAttachment</label>
+        <link refid="classjam_1_1Model_1_1ParameterAttachment" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="31" relation="private-inheritance">
+        </childnode>
+        <childnode refid="32" relation="private-inheritance">
+        </childnode>
+        <childnode refid="33" relation="usage">
+          <edgelabel>parameter</edgelabel>
+        </childnode>
+        <childnode refid="37" relation="usage">
+          <edgelabel>lastValue</edgelabel>
+        </childnode>
+      </node>
+      <node id="33">
+        <label>jam::ParameterBase</label>
+        <link refid="structjam_1_1ParameterBase" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="34" relation="usage">
+          <edgelabel>id</edgelabel>
+          <edgelabel>propertyId</edgelabel>
+        </childnode>
+        <childnode refid="35" relation="usage">
+          <edgelabel>needsUpdate</edgelabel>
+        </childnode>
+        <childnode refid="16" relation="usage">
+          <edgelabel>listenerLock</edgelabel>
+        </childnode>
+        <childnode refid="36" relation="usage">
+          <edgelabel>listeners</edgelabel>
+        </childnode>
+      </node>
+      <node id="31">
+        <label>jam::ParameterBase::Listener</label>
+        <link refid="structjam_1_1ParameterBase_1_1Listener" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="25">
+        <label>jam::SharedInstance&lt; map::Operations &gt;</label>
+        <link refid="classjam_1_1SharedInstance" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="26" relation="usage">
+          <edgelabel>object</edgelabel>
+        </childnode>
+      </node>
+      <node id="38">
+        <label>jam::StdioServer</label>
+        <link refid="classjam_1_1StdioServer" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="39" relation="public-inheritance">
+        </childnode>
+        <childnode refid="40" relation="usage">
+          <edgelabel>input</edgelabel>
+          <edgelabel>output</edgelabel>
+        </childnode>
+        <childnode refid="44" relation="usage">
+          <edgelabel>reader</edgelabel>
+        </childnode>
+      </node>
+      <node id="40">
+        <label>jam::TerminalFIFO</label>
+        <link refid="classjam_1_1TerminalFIFO" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="39" relation="public-inheritance">
+        </childnode>
+        <childnode refid="41" relation="usage">
+          <edgelabel>fifo</edgelabel>
+        </childnode>
+        <childnode refid="42" relation="usage">
+          <edgelabel>native</edgelabel>
+        </childnode>
+      </node>
+      <node id="43">
+        <label>jam::TerminalFIFO::Native</label>
+        <link refid="structjam_1_1TerminalFIFO_1_1Native" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="41">
+        <label>juce::AbstractFifo</label>
+        <link refid="classjuce_1_1AbstractFifo" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="36">
+        <label>juce::Array&lt; jam::ParameterBase::Listener * &gt;</label>
+        <link refid="classjuce_1_1Array" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="32">
+        <label>juce::AsyncUpdater</label>
+        <link refid="classjuce_1_1AsyncUpdater" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="16">
+        <label>juce::CriticalSection</label>
+        <link refid="classjuce_1_1CriticalSection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="12">
+        <label>juce::DummyCriticalSection</label>
+        <link refid="classjuce_1_1DummyCriticalSection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="5">
+        <label>juce::File</label>
+        <link refid="classjuce_1_1File" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="34">
+        <label>juce::Identifier</label>
+        <link refid="classjuce_1_1Identifier" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <childnode refid="34" relation="usage">
+          <edgelabel>null</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>juce::InterprocessConnection</label>
+        <link refid="classjuce_1_1InterprocessConnection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="23">
+        <label>juce::ListenerList&lt; jam::File::Watcher::Listener &gt;</label>
+        <link refid="classjuce_1_1ListenerList" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="39">
+        <label>juce::OutputStream</label>
+        <link refid="classjuce_1_1OutputStream" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="24">
+        <label>juce::OwnedArray&lt; Impl &gt;</label>
+        <link refid="classjuce_1_1OwnedArray" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="6">
+        <label>juce::String</label>
+        <link refid="classjuce_1_1String" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="9">
+        <label>juce::Timer</label>
+        <link refid="classjuce_1_1Timer" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="15">
+        <label>juce::ValueTree</label>
+        <link refid="classjuce_1_1ValueTree" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="10">
+        <label>juce::ValueTree::Listener</label>
+        <link refid="classjuce_1_1ValueTree_1_1Listener" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="37">
+        <label>juce::var</label>
+        <link refid="classjuce_1_1var" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="35">
+        <label>std::atomic&lt; bool &gt;</label>
+      </node>
+      <node id="20">
+        <label>std::map&lt; juce::File, std::unique_ptr&lt; jam::File::Watcher::CoalesceTimer &gt; &gt;</label>
+        <childnode refid="5" relation="usage">
+          <edgelabel>keys</edgelabel>
+        </childnode>
+        <childnode refid="21" relation="usage">
+          <edgelabel>elements</edgelabel>
+        </childnode>
+      </node>
+      <node id="26">
+        <label>std::shared_ptr&lt; ObjectType &gt;</label>
+      </node>
+      <node id="45">
+        <label>std::unique_ptr&lt; Native &gt;</label>
+      </node>
+      <node id="21">
+        <label>std::unique_ptr&lt; jam::File::Watcher::CoalesceTimer &gt;</label>
+        <childnode refid="22" relation="usage">
+          <edgelabel>ptr</edgelabel>
+        </childnode>
+      </node>
+      <node id="42">
+        <label>std::unique_ptr&lt; jam::TerminalFIFO::Native &gt;</label>
+        <childnode refid="43" relation="usage">
+          <edgelabel>ptr</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Relay.h" line="18" column="1" bodyfile="Relay.h" bodystart="20" bodyend="263"/>
+    <listofallmembers>
+      <member refid="class_relay_1add3f254b433fb8ba8224dc52308b1c38" prot="private" virt="non-virtual"><scope>Relay</scope><name>addRequest</name></member>
+      <member refid="class_relay_1ade66e70dac5c690a4f35883ceda02a1d" prot="private" virt="non-virtual"><scope>Relay</scope><name>applyMessage</name></member>
+      <member refid="class_relay_1a704246e35e7cd159ddd0eb278b50d573" prot="private" virt="non-virtual"><scope>Relay</scope><name>bufferSize</name></member>
+      <member refid="class_relay_1aaf892c60bc1099a6f42f795a595a64d6" prot="private" virt="non-virtual"><scope>Relay</scope><name>cancelRequest</name></member>
+      <member refid="class_client_1a5e8ad11b4e80ac1b63a7f419d6dabcd2" prot="public" virt="non-virtual"><scope>Relay</scope><name>Client</name></member>
+      <member refid="class_client_1af9ec2edf06d69e92a25c53ce4260fa27" prot="private" virt="virtual"><scope>Relay</scope><name>connectionLost</name></member>
+      <member refid="class_relay_1a9b874c082f11a66b4ddaa33b00e89e46" prot="private" virt="virtual"><scope>Relay</scope><name>connectionMade</name></member>
+      <member refid="class_client_1a61d2ac7e18277691aa73738a51ed7b89" prot="private" virt="non-virtual"><scope>Relay</scope><name>connectTimeoutMs</name></member>
+      <member refid="class_client_1a03fbf335433a66624210457ba50f83fb" prot="private" virt="non-virtual"><scope>Relay</scope><name>connectToDaemon</name></member>
+      <member refid="classjuce_1_1InterprocessConnection_1a86e304165972be6d5c82a36f8d068673" prot="public" virt="non-virtual"><scope>Relay</scope><name>connectToPipe</name></member>
+      <member refid="classjuce_1_1InterprocessConnection_1afed3ed47a1ddac4428a7a637fb3074c6" prot="public" virt="non-virtual"><scope>Relay</scope><name>connectToSocket</name></member>
+      <member refid="classjuce_1_1InterprocessConnection_1a6afb122b0e9d65dead9aba005937c054" prot="public" virt="non-virtual"><scope>Relay</scope><name>createPipe</name></member>
+      <member refid="class_relay_1ac8467fe6a84d80cae61f5b436147c8c8" prot="private" virt="non-virtual"><scope>Relay</scope><name>didChange</name></member>
+      <member refid="class_relay_1a0e68888453bcf8a301bcdd1ddf2fcf75" prot="private" virt="non-virtual"><scope>Relay</scope><name>didClose</name></member>
+      <member refid="class_relay_1a75c3b886036fc7c0ae314e48990ea00d" prot="private" virt="non-virtual"><scope>Relay</scope><name>didOpen</name></member>
+      <member refid="classjuce_1_1InterprocessConnection_1a2a172e0cafd44584659d2b709678288d" prot="public" virt="non-virtual"><scope>Relay</scope><name>disconnect</name></member>
+      <member refid="class_relay_1a5cdde8ad2025b0988a65f498f532ffa2" prot="private" virt="non-virtual"><scope>Relay</scope><name>exit</name></member>
+      <member refid="class_client_1a369f7b5fbcaaa5bf47e7415336a1b82f" prot="private" virt="virtual"><scope>Relay</scope><name>fileChanged</name></member>
+      <member refid="classjam_1_1File_1_1Watcher_1_1Listener_1a75221307eb1bf0ef2735e9ef80ebf4a4" prot="private" virt="virtual"><scope>Relay</scope><name>folderChanged</name></member>
+      <member refid="classjuce_1_1InterprocessConnection_1a3ebcc9ad9ba014c75b924e671f21fb08" prot="public" virt="non-virtual"><scope>Relay</scope><name>getConnectedHostName</name></member>
+      <member refid="class_relay_1a7423972ba523fc9ce8118d99052e31d1" prot="private" virt="non-virtual"><scope>Relay</scope><name>getFile</name></member>
+      <member refid="classjuce_1_1InterprocessConnection_1aff6b2ef445a5ebcb2eb4bae139261687" prot="public" virt="non-virtual"><scope>Relay</scope><name>getPipe</name></member>
+      <member refid="class_relay_1a7bfa0fddda4f4de7ab07cafe087a9c2d" prot="private" virt="non-virtual"><scope>Relay</scope><name>getPosition</name></member>
+      <member refid="class_relay_1a03dcf69baa5a5a38ac638dbc92456a5d" prot="private" virt="non-virtual"><scope>Relay</scope><name>getPositionEncoding</name></member>
+      <member refid="class_relay_1ab1ca96f9eed2a2ac1c3161037219f923" prot="private" virt="non-virtual"><scope>Relay</scope><name>getRequest</name></member>
+      <member refid="class_relay_1a05fe55b33b15665242d297a36251da4e" prot="private" virt="non-virtual"><scope>Relay</scope><name>getRequestArguments</name></member>
+      <member refid="classjuce_1_1InterprocessConnection_1a169edde4512b9b8943a95f73e0eaf3c4" prot="public" virt="non-virtual"><scope>Relay</scope><name>getSocket</name></member>
+      <member refid="class_relay_1ac1f705eac1ffab6d0fdedca63c0975c0" prot="private" virt="non-virtual"><scope>Relay</scope><name>initialize</name></member>
+      <member refid="class_relay_1aef9e159914626bcc5cc412ee50a54b14" prot="private" virt="non-virtual"><scope>Relay</scope><name>initialized</name></member>
+      <member refid="classjuce_1_1InterprocessConnection_1a67bc4b0faef59efedb2f417afd231f88" prot="public" virt="non-virtual"><scope>Relay</scope><name>InterprocessConnection</name></member>
+      <member refid="classjuce_1_1InterprocessConnection_1a9159f2606dbc6fb0f971bd12c824fec0" prot="public" virt="non-virtual"><scope>Relay</scope><name>isConnected</name></member>
+      <member refid="class_relay_1a24eac374e2511118858447e8b0d45b46" prot="private" virt="non-virtual"><scope>Relay</scope><name>isOpenAttachment</name></member>
+      <member refid="class_client_1ada497223de332fd90f251dcd387b5181" prot="private" virt="non-virtual"><scope>Relay</scope><name>manifestFile</name></member>
+      <member refid="class_relay_1a722a0bfbae366a49399d9c3f17f6cf93" prot="private" virt="non-virtual"><scope>Relay</scope><name>maximumPeriodMilliseconds</name></member>
+      <member refid="class_relay_1a2e55863264311af7604f52c7525a4e1c" prot="private" virt="virtual"><scope>Relay</scope><name>messageReceived</name></member>
+      <member refid="class_relay_1a04cfc451ace289f134bf1c4de7103633" prot="private" virt="non-virtual"><scope>Relay</scope><name>messages</name></member>
+      <member refid="class_client_1a156ea116c333d0160312d53971a2a709" prot="protected" virt="non-virtual"><scope>Relay</scope><name>model</name></member>
+      <member refid="class_relay_1afc5d50ddbe2104a9336f9c62bbd1da2d" prot="private" virt="non-virtual"><scope>Relay</scope><name>notificationMethods</name></member>
+      <member refid="classjuce_1_1InterprocessConnection_1abc7eed16643d6cef5fc6234a6e32ceee" prot="public" virt="non-virtual"><scope>Relay</scope><name>Notify</name></member>
+      <member refid="class_relay_1a0aa1dbea8b02a0ae670d9d18abbb229a" prot="private" virt="non-virtual"><scope>Relay</scope><name>numMessagesAttachment</name></member>
+      <member refid="class_relay_1ac4f60bbabbc38f154aab94be7c70e996" prot="private" virt="non-virtual"><scope>Relay</scope><name>operations</name></member>
+      <member refid="class_relay_1a643442f3307832c873b21d425755b39e" prot="public" virt="non-virtual"><scope>Relay</scope><name>Relay</name></member>
+      <member refid="class_relay_1aebca8557b78b99276a29b19eab34a844" prot="private" virt="non-virtual"><scope>Relay</scope><name>requestMethods</name></member>
+      <member refid="class_relay_1a79c121b8878dc6c2f8d371651b4b159b" prot="private" virt="non-virtual"><scope>Relay</scope><name>requests</name></member>
+      <member refid="class_relay_1adfc8d65e761104323bba423f23d4ffb6" prot="private" virt="non-virtual"><scope>Relay</scope><name>sendError</name></member>
+      <member refid="classjuce_1_1InterprocessConnection_1ae6ebaa49463c41df97fc81573608e9fb" prot="public" virt="non-virtual"><scope>Relay</scope><name>sendMessage</name></member>
+      <member refid="class_relay_1a2814c0cf0cdc2c402b93b5dbd06d7d1a" prot="private" virt="non-virtual"><scope>Relay</scope><name>sendRequest</name></member>
+      <member refid="class_relay_1adbdb1161cdbeeb9221d193ea0115b96d" prot="private" virt="non-virtual"><scope>Relay</scope><name>sendResponse</name></member>
+      <member refid="class_relay_1a9a70dcfd3b2456116dd23b37c70fa56b" prot="private" virt="non-virtual"><scope>Relay</scope><name>shutdown</name></member>
+      <member refid="class_relay_1a286bd95d7a74b752fc757aa36e48ef56" prot="public" virt="non-virtual"><scope>Relay</scope><name>start</name></member>
+      <member refid="class_relay_1a21757145f215f6bdf8d1718ebc5efc03" prot="private" virt="non-virtual"><scope>Relay</scope><name>stdio</name></member>
+      <member refid="class_client_1a58e679174623e64752fb4f1111186a36" prot="private" virt="non-virtual"><scope>Relay</scope><name>toolchainArgument</name></member>
+      <member refid="class_relay_1aa7f75ddde371504ecf3b0dfd40f5ed5c" prot="private" virt="virtual"><scope>Relay</scope><name>valueTreeChildAdded</name></member>
+      <member refid="classjuce_1_1ValueTree_1_1Listener_1a5fb2f9f798c9ebb48235ba15759fd48b" prot="private" virt="virtual"><scope>Relay</scope><name>valueTreeChildOrderChanged</name></member>
+      <member refid="classjuce_1_1ValueTree_1_1Listener_1a09dc85f9c71389f2801c9a7bc582ae1b" prot="private" virt="virtual"><scope>Relay</scope><name>valueTreeChildRemoved</name></member>
+      <member refid="classjuce_1_1ValueTree_1_1Listener_1a2e39febd013de0ff7da23a5b574055db" prot="private" virt="virtual"><scope>Relay</scope><name>valueTreeParentChanged</name></member>
+      <member refid="class_relay_1aab902eb5ced9b7066ad912d391ff8b4c" prot="private" virt="virtual"><scope>Relay</scope><name>valueTreePropertyChanged</name></member>
+      <member refid="classjuce_1_1ValueTree_1_1Listener_1aa46de90c3746a395792a632219e404f2" prot="private" virt="virtual"><scope>Relay</scope><name>valueTreeRedirected</name></member>
+      <member refid="class_client_1a5d2b39ff4446a3ff048057293c9e5bb7" prot="private" virt="non-virtual"><scope>Relay</scope><name>watcher</name></member>
+      <member refid="class_client_1af96d672ca01fa070cc9489614dab4194" prot="public" virt="non-virtual"><scope>Relay</scope><name>~Client</name></member>
+      <member refid="classjuce_1_1InterprocessConnection_1aeb2c3b2db1e00dfbf2c060046fdcaa62" prot="public" virt="virtual"><scope>Relay</scope><name>~InterprocessConnection</name></member>
+      <member refid="classjam_1_1File_1_1Watcher_1_1Listener_1a36c31b730e410628b516813e6e0679e7" prot="private" virt="virtual" ambiguityscope="Client::"><scope>Relay</scope><name>~Listener</name></member>
+      <member refid="classjuce_1_1ValueTree_1_1Listener_1ab78745617b47f3b12726c0de220e8d9b" prot="private" virt="virtual" ambiguityscope="juce::ValueTree::Listener::"><scope>Relay</scope><name>~Listener</name></member>
+      <member refid="class_relay_1a6936f44036208c340eb9fd59d1d34b3d" prot="public" virt="non-virtual"><scope>Relay</scope><name>~Relay</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

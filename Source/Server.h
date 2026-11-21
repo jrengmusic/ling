@@ -3,6 +3,7 @@
 #include "generated/Generated.h"
 #include "LINGModel.h"
 #include "Connection.h"
+#include "Query.h"
 
 /**
  * @class Server
@@ -15,7 +16,8 @@
  */
 class Server : public juce::InterprocessConnectionServer,
                private juce::Timer,
-               private juce::ValueTree::Listener
+               private juce::ValueTree::Listener,
+               private jam::File::Watcher::Listener
 {
 public:
     /** @brief Listens to the model, so that the change of the documents count reaches the server. */
@@ -44,6 +46,8 @@ public:
      */
     static juce::File getPortFile (const juce::File& manifest, std::string_view toolchainArgument);
 
+    static constexpr int noPort { -1 };
+
 private:
     /**
      * @brief Creates a Connection for an accepted socket.
@@ -56,25 +60,15 @@ private:
     juce::InterprocessConnection* createConnectionObject() override;
 
     /**
-     * @brief On the change of the documents count, writes the port file, starts the timeout, and listens to the connections child.
+     * @brief On the files child added to the state of the model, writes the port file, starts the timeout, and listens to the connections child. On a request row below the connections child, stops the timeout timer.
      *
-     * The function creates the cache folder, writes the bound port to the port
-     * file, and starts the timeout timer. It then removes the server from the
-     * listeners of the model, and adds it to the listeners of the connections child.
-     *
-     * @param tree      The tree whose property changed. Only the state tree of the model acts.
-     * @param property  The changed property. Only Id::documents acts.
-     */
-    void valueTreePropertyChanged (juce::ValueTree& tree, const juce::Identifier& property) override;
-
-    /**
-     * @brief Restarts the timeout timer when a request row is added below the connections child.
-     *
+     * The files child writes the bound port to the port file in the cache folder,
+     * and starts the timeout timer. It then removes the server from the listeners
+     * of the model, and adds it to the listeners of the connections child.
      * The listener receives the child additions of its tree and of every subtree.
-     * A request row added below a connection row also restarts the timer.
      *
-     * @param parentTree              The tree that received the child. Not read.
-     * @param childWhichHasBeenAdded  The added child. Only a request row acts.
+     * @param parentTree              The tree that received the child. A files child acts only when it is the state of the model.
+     * @param childWhichHasBeenAdded  The added child. Only a files child and a request row act.
      */
     void valueTreeChildAdded (juce::ValueTree& parentTree, juce::ValueTree& childWhichHasBeenAdded) override;
 
@@ -87,12 +81,16 @@ private:
      */
     void timerCallback() override;
 
+    void fileChanged (const juce::File& file, jam::File::Watcher::Event event) override;
+
     /**
      * @brief Returns the port file of the manifest and the toolchain argument in the model.
      *
      * @return The port file.
      */
     juce::File getPortFile() const;
+
+    static juce::MemoryBlock getProgress (std::string_view progressType, int pendingJobs, int totalJobs);
 
     /** @brief The port number that asks the system for a free port. */
     static constexpr int anyPort { 0 };
@@ -106,16 +104,47 @@ private:
     /** @brief The open connections. A connection that the client loses removes itself from them. */
     jam::Owner<Connection> connections;
 
+    jam::File::Watcher watcher;
+
     /** @brief The attachment that sends each change of the overlay message to every open connection, as JSON text. */
     jam::Model::ParameterAttachment message {*model.getParameter<jam::ParameterText> (jam::Format::toType (Id::overlay), Id::message),
                                               [this] (const juce::var& text)
                                               {
-                                                  std::string json;
+                                                  const auto& messageText { text.toString() };
+                                                  juce::MemoryBlock json;
 
-                                                  jam::JsonWriter::appendString (json, jam::Strings::getView (text.toString()), juce::JSON::Encoding::utf8);
+                                                  jam::JsonWriter::appendObject (json, [&messageText] (juce::MemoryBlock& notification)
+                                                  {
+                                                      Query::appendJsonRpc (notification);
+
+                                                      jam::JsonWriter::appendKey (notification, lsp::Member::method);
+                                                      jam::JsonWriter::appendString (notification, lsp::Method::showMessage);
+
+                                                      jam::JsonWriter::appendKey (notification, lsp::Member::params);
+                                                      jam::JsonWriter::appendObject (notification, [&messageText] (juce::MemoryBlock& params)
+                                                      {
+                                                          jam::JsonWriter::appendKey (params, lsp::Member::messageType);
+                                                          jam::Format::appendDecimal (params, lsp::MessageType::Error);
+
+                                                          jam::JsonWriter::appendKey (params, lsp::Member::message);
+                                                          jam::JsonWriter::appendString (params, jam::Strings::getView (messageText), juce::JSON::Encoding::utf8);
+                                                      });
+                                                  });
 
                                                   for (const auto& connection : connections)
-                                                      connection->sendMessage (juce::MemoryBlock { json.data(), json.size() });
+                                                      connection->sendMessage (json);
+                                              } };
+
+    jam::Model::ParameterAttachment progress {*model.getParameter<jam::Parameter<int>> (jam::Format::toType (Id::overlay), Id::pendingJobCount),
+                                              [this] (const juce::var& pendingValue)
+                                              {
+                                                  const auto pendingJobs { static_cast<int> (pendingValue) };
+                                                  const auto totalJobs { model.getParameter<jam::Parameter<int>> (jam::Format::toType (Id::overlay), Id::jobCount)->getValue() };
+                                                  const auto progressType { pendingJobs == 0 ? lsp::WorkDoneProgressKind::End : pendingJobs == totalJobs ? lsp::WorkDoneProgressKind::Begin : lsp::WorkDoneProgressKind::Report };
+                                                  const auto json { getProgress (progressType, pendingJobs, totalJobs) };
+
+                                                  for (const auto& connection : connections)
+                                                      connection->sendMessage (json);
                                               } };
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Server)

@@ -76,9 +76,10 @@ private:
         Manifest& owner;///< The manifest that owns the reading. The job signals it when it ends.
         juce::String manifestPath;///< The path of the manifest, copied from the model on the calling thread.
         juce::String toolchainArgument;///< The toolchain argument, copied from the model on the calling thread.
-        juce::ValueTree files;///< The files child that the job builds. It holds the message property when validation fails.
+        juce::ValueTree toolchain;///< The files child that the job builds. It holds the message property when validation fails.
         juce::ValueTree roots;///< The roots child that the job builds.
         int timeout { 0 };///< The timeout in milliseconds, from the daemon table, or the default timeout.
+        int threads { LINGModel::defaultThreads };
         std::atomic<bool> isFinished { false };///< Set to true when runJob ends. The message thread reads it with acquire order.
     };
 
@@ -97,7 +98,7 @@ private:
      * @param roots    The roots child that replaces the current one.
      * @param timeout  The timeout, in milliseconds, that Id::timeout receives.
      */
-    void setFiles (const juce::ValueTree& files, const juce::ValueTree& roots, int timeout);
+    void setToolchain (const juce::ValueTree& toolchain, const juce::ValueTree& roots, int timeout, int threads);
 
     /**
      * @brief Returns the timeout of the first daemon table row that holds one, or the default timeout when none does.
@@ -107,7 +108,13 @@ private:
      */
     static int getTimeout (const jam::MarkdownDocument& manifest);
 
+    static int getThreads (const jam::MarkdownDocument& manifest);
+
     static juce::ValueTree getRoots (const jam::MarkdownDocument& manifest, const juce::File& manifestFile);
+
+    static juce::ValueTree getToolchain (const jam::MarkdownDocument& manifest, const juce::String& toolchainArgument, const juce::File& manifestFile);
+
+    static void addPatternRows (juce::ValueTree& toolchain, const jam::MarkdownDocument& manifest, const juce::File& manifestFile);
 
     /** @brief The number of threads of the pool. One thread runs the readings one after another. */
     static constexpr int threadCount { 1 };

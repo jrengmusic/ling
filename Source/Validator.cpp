@@ -27,19 +27,24 @@ void Validator::addRules (Rules& rules)
     rules.add (Id::daemon.toString(),
         [] (const juce::String&, const jam::Document& document) -> juce::Result
         {
+            static const std::array<std::pair<juce::Identifier, const char*>, 2> positiveRows { { { Id::timeout, text::Diagnostics::failDaemonTimeout },
+                                                                                                    { Id::threads, text::Diagnostics::failDaemonThreads } } };
             const auto& manifest { static_cast<const jam::MarkdownDocument&> (document) };
             jam::Strings failures;
 
             for (const auto* table : manifest.getTables (Id::daemon))
             {
-                if (const auto* row { manifest.getTableRow (*table, Id::timeout) }; row != nullptr)
+                for (const auto& [rowId, diagnostic] : positiveRows)
                 {
-                    const auto value { manifest.getTableValue (*row, Id::value) };
+                    if (const auto* row { manifest.getTableRow (*table, rowId) }; row != nullptr)
+                    {
+                        const auto value { manifest.getTableValue (*row, Id::value) };
 
-                    if (juce::String (value.getIntValue()).compare (value) != 0 or value.getIntValue() <= 0)
-                        failures.add (getLocation (*table, *row, Id::value.toString())
-                                      + Id::diagnosticSeparator
-                                      + text::Diagnostics::failDaemonTimeout);
+                        if (juce::String (value.getIntValue()).compare (value) != 0 or value.getIntValue() <= 0)
+                            failures.add (getLocation (*table, *row, Id::value.toString())
+                                          + Id::diagnosticSeparator
+                                          + diagnostic);
+                    }
                 }
             }
 

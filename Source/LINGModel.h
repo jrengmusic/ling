@@ -44,6 +44,8 @@ public:
     /** @brief The daemon timeout, in milliseconds, when the manifest sets none or fails validation. */
     static constexpr int defaultTimeoutMs { 60000 };
 
+    static const int defaultThreads;
+
     /** @brief The window, in milliseconds, in which the watcher merges the events of one file into one event. */
     static constexpr int coalesceMs { 300 };
 
@@ -58,6 +60,8 @@ public:
      * @param toolchainArgument  The toolchain argument. Empty when none is given.
      * @return The name of the daemon.
      */
+    static std::string getProjectName (const juce::File& manifest, std::string_view toolchainArgument);
+
     static std::string getDaemonName (const juce::File& manifest, std::string_view toolchainArgument);
 
     /**
@@ -81,11 +85,19 @@ public:
      */
     static juce::File getConfigDirectory();
 
+    static juce::Array<juce::File> getLanguageDirectories();
+
+    static juce::Array<juce::File> getOrCreateLanguageDirectories();
+
+    static juce::File getLanguageLibrary (const juce::File& languageFolder);
+
     static juce::File getCacheDirectory (const juce::File& manifest, std::string_view toolchainArgument);
+
+    static juce::File getProjectDirectory (const juce::File& manifest);
 
     static juce::File getPatchedDirectory (std::string_view version, const jam::Strings& patchFiles);
 
-    juce::File getSwapFile (const juce::File& file) const;
+    juce::File getSwapFile (const juce::File& file, juce::StringRef extension) const;
 
 private:
     /**

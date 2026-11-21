@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="structlsp_1_1_code_action_kind" kind="struct" language="C++" prot="public">
+    <compoundname>lsp::CodeActionKind</compoundname>
+    <includes refid="_lsp_8h" local="no">Lsp.h</includes>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="structlsp_1_1_code_action_kind_1acd3ad96e0a5e12a790dcd12fca2a542a" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::CodeActionKind::QuickFix</definition>
+        <argsstring></argsstring>
+        <name>QuickFix</name>
+        <qualifiedname>lsp::CodeActionKind::QuickFix</qualifiedname>
+        <initializer>{ &quot;quickfix&quot; }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="236" column="39" bodyfile="generated/Lsp.h" bodystart="236" bodyend="236"/>
+        <referencedby refid="class_query_1a03ebf677d16cd07e33b0375104e4c6f5" compoundref="_query_8cpp" startline="797" endline="825">Query::appendCodeAction</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>The LSP 3.17 <ref refid="structlsp_1_1_code_action_kind" kindref="compound">CodeActionKind</ref> values. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>lsp::CodeActionKind</label>
+        <link refid="structlsp_1_1_code_action_kind"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>QuickFix</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>std::basic_string_view&lt; Char &gt;</label>
+      </node>
+      <node id="2">
+        <label>std::string_view</label>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="generated/Lsp.h" line="234" column="1" bodyfile="generated/Lsp.h" bodystart="235" bodyend="237"/>
+    <listofallmembers>
+      <member refid="structlsp_1_1_code_action_kind_1acd3ad96e0a5e12a790dcd12fca2a542a" prot="public" virt="non-virtual"><scope>lsp::CodeActionKind</scope><name>QuickFix</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

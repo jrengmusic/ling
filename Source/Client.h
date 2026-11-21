@@ -23,9 +23,8 @@ public:
      *
      * @param newManifestFile       The manifest of the request.
      * @param newToolchainArgument  The toolchain argument. Empty when none is given.
-     * @param newRequest            The JSON text of the request.
      */
-    Client (const juce::File& newManifestFile, const juce::String& newToolchainArgument, const juce::String& newRequest);
+    Client (const juce::File& newManifestFile, const juce::String& newToolchainArgument);
 
     /** @brief Removes the client from the listeners of the watcher, and disconnects. */
     ~Client() override;
@@ -59,24 +58,10 @@ private:
      */
     void fileChanged (const juce::File& file, jam::File::Watcher::Event event) override;
 
-    /** @brief Sends the request to the daemon. */
-    void connectionMade() override;
-
     /**
      * @brief Sets the failure message, sets the exit code to failure, and quits, when the daemon connection ends.
      */
     void connectionLost() override;
-
-    /**
-     * @brief Sets an overlay message, or prints a result and quits.
-     *
-     * A reply that starts with a double quote is a JSON string. It sets the message,
-     * and the client stays connected. Any other reply is the result. The function
-     * writes it to stdout with a newline, disconnects without a notification, and quits.
-     *
-     * @param reply  The bytes of one reply.
-     */
-    void messageReceived (const juce::MemoryBlock& reply) override;
 
     /** @brief The longest wait, in milliseconds, for one connection attempt. */
     static constexpr int connectTimeoutMs { 200 };
@@ -87,12 +72,11 @@ private:
     /** @brief The toolchain argument of the request. Empty when none is given. */
     const juce::String toolchainArgument;
 
-    /** @brief The JSON text of the request. The client sends it when the connection is made. */
-    const juce::String request;
-
+protected:
     /** @brief The model of the run. The client writes the overlay messages to it. */
     LINGModel& model { *LINGModel::getInstance() };
 
+private:
     /** @brief The file watcher of the cache folder. It reports the change of the port file. */
     jam::File::Watcher watcher;
 

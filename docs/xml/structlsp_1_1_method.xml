@@ -1,0 +1,485 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="structlsp_1_1_method" kind="struct" language="C++" prot="public">
+    <compoundname>lsp::Method</compoundname>
+    <includes refid="_lsp_8h" local="no">Lsp.h</includes>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="structlsp_1_1_method_1a297799c2c8c92b82022aecb3189d46b7" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Method::initialize</definition>
+        <argsstring></argsstring>
+        <name>initialize</name>
+        <qualifiedname>lsp::Method::initialize</qualifiedname>
+        <initializer>{ &quot;initialize&quot;                        }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="31" column="39" bodyfile="generated/Lsp.h" bodystart="31" bodyend="31"/>
+        <referencedby refid="class_relay_1a643442f3307832c873b21d425755b39e" compoundref="_relay_8cpp" startline="76" endline="103">Relay::Relay</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_method_1ab6634d5cd69a9bb24430ba1d574f30d1" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Method::initialized</definition>
+        <argsstring></argsstring>
+        <name>initialized</name>
+        <qualifiedname>lsp::Method::initialized</qualifiedname>
+        <initializer>{ &quot;initialized&quot;                       }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="32" column="39" bodyfile="generated/Lsp.h" bodystart="32" bodyend="32"/>
+        <referencedby refid="class_relay_1a643442f3307832c873b21d425755b39e" compoundref="_relay_8cpp" startline="76" endline="103">Relay::Relay</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_method_1a1e0ff6fe73cd34e45eafaf3d316b122b" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Method::shutdown</definition>
+        <argsstring></argsstring>
+        <name>shutdown</name>
+        <qualifiedname>lsp::Method::shutdown</qualifiedname>
+        <initializer>{ &quot;shutdown&quot;                          }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="33" column="39" bodyfile="generated/Lsp.h" bodystart="33" bodyend="33"/>
+        <referencedby refid="class_relay_1a643442f3307832c873b21d425755b39e" compoundref="_relay_8cpp" startline="76" endline="103">Relay::Relay</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_method_1a3c25c3b571c1a140b6aa7f0c23288026" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Method::exit</definition>
+        <argsstring></argsstring>
+        <name>exit</name>
+        <qualifiedname>lsp::Method::exit</qualifiedname>
+        <initializer>{ &quot;exit&quot;                              }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="34" column="39" bodyfile="generated/Lsp.h" bodystart="34" bodyend="34"/>
+        <referencedby refid="class_relay_1a643442f3307832c873b21d425755b39e" compoundref="_relay_8cpp" startline="76" endline="103">Relay::Relay</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_method_1ad464bf9ad71225da4413336c5dd731d7" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Method::cancelRequest</definition>
+        <argsstring></argsstring>
+        <name>cancelRequest</name>
+        <qualifiedname>lsp::Method::cancelRequest</qualifiedname>
+        <initializer>{ &quot;$/cancelRequest&quot;                   }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="35" column="39" bodyfile="generated/Lsp.h" bodystart="35" bodyend="35"/>
+        <referencedby refid="class_relay_1a643442f3307832c873b21d425755b39e" compoundref="_relay_8cpp" startline="76" endline="103">Relay::Relay</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_method_1ab4c733fe2cfc7af2dd6c5588e218d6e6" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Method::didOpen</definition>
+        <argsstring></argsstring>
+        <name>didOpen</name>
+        <qualifiedname>lsp::Method::didOpen</qualifiedname>
+        <initializer>{ &quot;textDocument/didOpen&quot;              }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="36" column="39" bodyfile="generated/Lsp.h" bodystart="36" bodyend="36"/>
+        <referencedby refid="class_relay_1a643442f3307832c873b21d425755b39e" compoundref="_relay_8cpp" startline="76" endline="103">Relay::Relay</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_method_1a9e414866335f8cc48fc594699d29215a" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Method::didChange</definition>
+        <argsstring></argsstring>
+        <name>didChange</name>
+        <qualifiedname>lsp::Method::didChange</qualifiedname>
+        <initializer>{ &quot;textDocument/didChange&quot;            }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="37" column="39" bodyfile="generated/Lsp.h" bodystart="37" bodyend="37"/>
+        <referencedby refid="class_relay_1a643442f3307832c873b21d425755b39e" compoundref="_relay_8cpp" startline="76" endline="103">Relay::Relay</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_method_1a6a26eb4cb886b8aa320b35040ae4ab91" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Method::didClose</definition>
+        <argsstring></argsstring>
+        <name>didClose</name>
+        <qualifiedname>lsp::Method::didClose</qualifiedname>
+        <initializer>{ &quot;textDocument/didClose&quot;             }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="38" column="39" bodyfile="generated/Lsp.h" bodystart="38" bodyend="38"/>
+        <referencedby refid="class_relay_1a643442f3307832c873b21d425755b39e" compoundref="_relay_8cpp" startline="76" endline="103">Relay::Relay</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_method_1acaf7b67b72b29a2a4e6a5cad566f86a5" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Method::publishDiagnostics</definition>
+        <argsstring></argsstring>
+        <name>publishDiagnostics</name>
+        <qualifiedname>lsp::Method::publishDiagnostics</qualifiedname>
+        <initializer>{ &quot;textDocument/publishDiagnostics&quot;   }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="39" column="39" bodyfile="generated/Lsp.h" bodystart="39" bodyend="39"/>
+        <referencedby refid="class_query_1acd635f36a483f60a544499f9734711d9" compoundref="_query_8cpp" startline="648" endline="670">Query::publishDiagnostics</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_method_1a897bb42b80246386a8b11205a19cdb76" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Method::showMessage</definition>
+        <argsstring></argsstring>
+        <name>showMessage</name>
+        <qualifiedname>lsp::Method::showMessage</qualifiedname>
+        <initializer>{ &quot;window/showMessage&quot;                }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="40" column="39" bodyfile="generated/Lsp.h" bodystart="40" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_method_1a85aaea58a784c44b7825f3df982ccbae" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Method::definition</definition>
+        <argsstring></argsstring>
+        <name>definition</name>
+        <qualifiedname>lsp::Method::definition</qualifiedname>
+        <initializer>{ &quot;textDocument/definition&quot;           }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="41" column="39" bodyfile="generated/Lsp.h" bodystart="41" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_method_1a38f62247135026111302c50373ba6e4e" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Method::references</definition>
+        <argsstring></argsstring>
+        <name>references</name>
+        <qualifiedname>lsp::Method::references</qualifiedname>
+        <initializer>{ &quot;textDocument/references&quot;           }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="42" column="39" bodyfile="generated/Lsp.h" bodystart="42" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_method_1a00fed155f0f2445732e30dbb1ac1dabc" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Method::hover</definition>
+        <argsstring></argsstring>
+        <name>hover</name>
+        <qualifiedname>lsp::Method::hover</qualifiedname>
+        <initializer>{ &quot;textDocument/hover&quot;                }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="43" column="39" bodyfile="generated/Lsp.h" bodystart="43" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_method_1adac5190d07cf6043ce19fe797a2d735b" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Method::documentSymbol</definition>
+        <argsstring></argsstring>
+        <name>documentSymbol</name>
+        <qualifiedname>lsp::Method::documentSymbol</qualifiedname>
+        <initializer>{ &quot;textDocument/documentSymbol&quot;       }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="44" column="39" bodyfile="generated/Lsp.h" bodystart="44" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_method_1a34af4dfcb3297e3f8db3d6db660e5047" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Method::workspaceSymbol</definition>
+        <argsstring></argsstring>
+        <name>workspaceSymbol</name>
+        <qualifiedname>lsp::Method::workspaceSymbol</qualifiedname>
+        <initializer>{ &quot;workspace/symbol&quot;                  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="45" column="39" bodyfile="generated/Lsp.h" bodystart="45" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_method_1a11adfbe1212e9cb3920b4882e6172cae" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Method::completion</definition>
+        <argsstring></argsstring>
+        <name>completion</name>
+        <qualifiedname>lsp::Method::completion</qualifiedname>
+        <initializer>{ &quot;textDocument/completion&quot;           }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="46" column="39" bodyfile="generated/Lsp.h" bodystart="46" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_method_1a11b466679a4f6451b9a44c6b19efeb4c" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Method::implementation</definition>
+        <argsstring></argsstring>
+        <name>implementation</name>
+        <qualifiedname>lsp::Method::implementation</qualifiedname>
+        <initializer>{ &quot;textDocument/implementation&quot;       }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="47" column="39" bodyfile="generated/Lsp.h" bodystart="47" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_method_1ae32c5aedf5b71bb39b80a7a7d0f94a2c" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Method::prepareCallHierarchy</definition>
+        <argsstring></argsstring>
+        <name>prepareCallHierarchy</name>
+        <qualifiedname>lsp::Method::prepareCallHierarchy</qualifiedname>
+        <initializer>{ &quot;textDocument/prepareCallHierarchy&quot; }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="48" column="39" bodyfile="generated/Lsp.h" bodystart="48" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_method_1abb3fe690cdd2d92c8e842e1a279f6fac" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Method::incomingCalls</definition>
+        <argsstring></argsstring>
+        <name>incomingCalls</name>
+        <qualifiedname>lsp::Method::incomingCalls</qualifiedname>
+        <initializer>{ &quot;callHierarchy/incomingCalls&quot;       }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="49" column="39" bodyfile="generated/Lsp.h" bodystart="49" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_method_1aacd79c5a2c7478d7ffd968ba52746e39" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Method::outgoingCalls</definition>
+        <argsstring></argsstring>
+        <name>outgoingCalls</name>
+        <qualifiedname>lsp::Method::outgoingCalls</qualifiedname>
+        <initializer>{ &quot;callHierarchy/outgoingCalls&quot;       }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="50" column="39" bodyfile="generated/Lsp.h" bodystart="50" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_method_1a4624c03e269134dcb80bc8af1982ff4f" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Method::inlayHint</definition>
+        <argsstring></argsstring>
+        <name>inlayHint</name>
+        <qualifiedname>lsp::Method::inlayHint</qualifiedname>
+        <initializer>{ &quot;textDocument/inlayHint&quot;            }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="51" column="39" bodyfile="generated/Lsp.h" bodystart="51" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_method_1ae4182ca59de7de225f533b3bd33d35dd" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Method::declaration</definition>
+        <argsstring></argsstring>
+        <name>declaration</name>
+        <qualifiedname>lsp::Method::declaration</qualifiedname>
+        <initializer>{ &quot;textDocument/declaration&quot;          }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="52" column="39" bodyfile="generated/Lsp.h" bodystart="52" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_method_1a45c6f1f1b73642fc09ba2be313789030" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Method::typeDefinition</definition>
+        <argsstring></argsstring>
+        <name>typeDefinition</name>
+        <qualifiedname>lsp::Method::typeDefinition</qualifiedname>
+        <initializer>{ &quot;textDocument/typeDefinition&quot;       }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="53" column="39" bodyfile="generated/Lsp.h" bodystart="53" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_method_1aa82d67408088902a9c0b7306bf1cfda6" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Method::documentHighlight</definition>
+        <argsstring></argsstring>
+        <name>documentHighlight</name>
+        <qualifiedname>lsp::Method::documentHighlight</qualifiedname>
+        <initializer>{ &quot;textDocument/documentHighlight&quot;    }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="54" column="39" bodyfile="generated/Lsp.h" bodystart="54" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_method_1a8a79330e21cbd97d0c24d63280c94242" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Method::rename</definition>
+        <argsstring></argsstring>
+        <name>rename</name>
+        <qualifiedname>lsp::Method::rename</qualifiedname>
+        <initializer>{ &quot;textDocument/rename&quot;               }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="55" column="39" bodyfile="generated/Lsp.h" bodystart="55" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_method_1a5c73aeb1ec39c0efb114c3c0febb60d2" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Method::codeAction</definition>
+        <argsstring></argsstring>
+        <name>codeAction</name>
+        <qualifiedname>lsp::Method::codeAction</qualifiedname>
+        <initializer>{ &quot;textDocument/codeAction&quot;           }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="56" column="39" bodyfile="generated/Lsp.h" bodystart="56" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_method_1ae9af63656c5905de39e0fbc1ece17b9c" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Method::switchSourceHeader</definition>
+        <argsstring></argsstring>
+        <name>switchSourceHeader</name>
+        <qualifiedname>lsp::Method::switchSourceHeader</qualifiedname>
+        <initializer>{ &quot;textDocument/switchSourceHeader&quot;   }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="57" column="39" bodyfile="generated/Lsp.h" bodystart="57" bodyend="57"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>The LSP 3.17 method names that ling serves. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>lsp::Method</label>
+        <link refid="structlsp_1_1_method"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>cancelRequest</edgelabel>
+          <edgelabel>codeAction</edgelabel>
+          <edgelabel>completion</edgelabel>
+          <edgelabel>declaration</edgelabel>
+          <edgelabel>definition</edgelabel>
+          <edgelabel>didChange</edgelabel>
+          <edgelabel>didClose</edgelabel>
+          <edgelabel>didOpen</edgelabel>
+          <edgelabel>documentHighlight</edgelabel>
+          <edgelabel>documentSymbol</edgelabel>
+          <edgelabel>  ...</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>std::basic_string_view&lt; Char &gt;</label>
+      </node>
+      <node id="2">
+        <label>std::string_view</label>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="generated/Lsp.h" line="29" column="1" bodyfile="generated/Lsp.h" bodystart="30" bodyend="58"/>
+    <listofallmembers>
+      <member refid="structlsp_1_1_method_1ad464bf9ad71225da4413336c5dd731d7" prot="public" virt="non-virtual"><scope>lsp::Method</scope><name>cancelRequest</name></member>
+      <member refid="structlsp_1_1_method_1a5c73aeb1ec39c0efb114c3c0febb60d2" prot="public" virt="non-virtual"><scope>lsp::Method</scope><name>codeAction</name></member>
+      <member refid="structlsp_1_1_method_1a11adfbe1212e9cb3920b4882e6172cae" prot="public" virt="non-virtual"><scope>lsp::Method</scope><name>completion</name></member>
+      <member refid="structlsp_1_1_method_1ae4182ca59de7de225f533b3bd33d35dd" prot="public" virt="non-virtual"><scope>lsp::Method</scope><name>declaration</name></member>
+      <member refid="structlsp_1_1_method_1a85aaea58a784c44b7825f3df982ccbae" prot="public" virt="non-virtual"><scope>lsp::Method</scope><name>definition</name></member>
+      <member refid="structlsp_1_1_method_1a9e414866335f8cc48fc594699d29215a" prot="public" virt="non-virtual"><scope>lsp::Method</scope><name>didChange</name></member>
+      <member refid="structlsp_1_1_method_1a6a26eb4cb886b8aa320b35040ae4ab91" prot="public" virt="non-virtual"><scope>lsp::Method</scope><name>didClose</name></member>
+      <member refid="structlsp_1_1_method_1ab4c733fe2cfc7af2dd6c5588e218d6e6" prot="public" virt="non-virtual"><scope>lsp::Method</scope><name>didOpen</name></member>
+      <member refid="structlsp_1_1_method_1aa82d67408088902a9c0b7306bf1cfda6" prot="public" virt="non-virtual"><scope>lsp::Method</scope><name>documentHighlight</name></member>
+      <member refid="structlsp_1_1_method_1adac5190d07cf6043ce19fe797a2d735b" prot="public" virt="non-virtual"><scope>lsp::Method</scope><name>documentSymbol</name></member>
+      <member refid="structlsp_1_1_method_1a3c25c3b571c1a140b6aa7f0c23288026" prot="public" virt="non-virtual"><scope>lsp::Method</scope><name>exit</name></member>
+      <member refid="structlsp_1_1_method_1a00fed155f0f2445732e30dbb1ac1dabc" prot="public" virt="non-virtual"><scope>lsp::Method</scope><name>hover</name></member>
+      <member refid="structlsp_1_1_method_1a11b466679a4f6451b9a44c6b19efeb4c" prot="public" virt="non-virtual"><scope>lsp::Method</scope><name>implementation</name></member>
+      <member refid="structlsp_1_1_method_1abb3fe690cdd2d92c8e842e1a279f6fac" prot="public" virt="non-virtual"><scope>lsp::Method</scope><name>incomingCalls</name></member>
+      <member refid="structlsp_1_1_method_1a297799c2c8c92b82022aecb3189d46b7" prot="public" virt="non-virtual"><scope>lsp::Method</scope><name>initialize</name></member>
+      <member refid="structlsp_1_1_method_1ab6634d5cd69a9bb24430ba1d574f30d1" prot="public" virt="non-virtual"><scope>lsp::Method</scope><name>initialized</name></member>
+      <member refid="structlsp_1_1_method_1a4624c03e269134dcb80bc8af1982ff4f" prot="public" virt="non-virtual"><scope>lsp::Method</scope><name>inlayHint</name></member>
+      <member refid="structlsp_1_1_method_1aacd79c5a2c7478d7ffd968ba52746e39" prot="public" virt="non-virtual"><scope>lsp::Method</scope><name>outgoingCalls</name></member>
+      <member refid="structlsp_1_1_method_1ae32c5aedf5b71bb39b80a7a7d0f94a2c" prot="public" virt="non-virtual"><scope>lsp::Method</scope><name>prepareCallHierarchy</name></member>
+      <member refid="structlsp_1_1_method_1acaf7b67b72b29a2a4e6a5cad566f86a5" prot="public" virt="non-virtual"><scope>lsp::Method</scope><name>publishDiagnostics</name></member>
+      <member refid="structlsp_1_1_method_1a38f62247135026111302c50373ba6e4e" prot="public" virt="non-virtual"><scope>lsp::Method</scope><name>references</name></member>
+      <member refid="structlsp_1_1_method_1a8a79330e21cbd97d0c24d63280c94242" prot="public" virt="non-virtual"><scope>lsp::Method</scope><name>rename</name></member>
+      <member refid="structlsp_1_1_method_1a897bb42b80246386a8b11205a19cdb76" prot="public" virt="non-virtual"><scope>lsp::Method</scope><name>showMessage</name></member>
+      <member refid="structlsp_1_1_method_1a1e0ff6fe73cd34e45eafaf3d316b122b" prot="public" virt="non-virtual"><scope>lsp::Method</scope><name>shutdown</name></member>
+      <member refid="structlsp_1_1_method_1ae9af63656c5905de39e0fbc1ece17b9c" prot="public" virt="non-virtual"><scope>lsp::Method</scope><name>switchSourceHeader</name></member>
+      <member refid="structlsp_1_1_method_1a45c6f1f1b73642fc09ba2be313789030" prot="public" virt="non-virtual"><scope>lsp::Method</scope><name>typeDefinition</name></member>
+      <member refid="structlsp_1_1_method_1a34af4dfcb3297e3f8db3d6db660e5047" prot="public" virt="non-virtual"><scope>lsp::Method</scope><name>workspaceSymbol</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

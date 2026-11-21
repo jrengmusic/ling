@@ -1,36 +1,48 @@
 ## index
 
-+------------------+-----------------------------------+
-| alias            | symbol                            |
-+==================+===================================+
-| @code            | ../../jam/cast/code.cast          |
-| @modules         | ../../jam/user-modules-info.md    |
-| @juce            | ../../jam/cast/juce.cast          |
-| @cmake           | cmake.cast                        |
-| @installer       | installer.cast                    |
-| @project-info    | ../project-info.md                |
-| @signing         | signing.md                        |
-| @ProjectInfo     | ../Source/generated/ProjectInfo.h |
-| @Entitlements    | ../entitlements.plist             |
-| @CMakeLists      | ../CMakeLists.txt                 |
-| @semicolon       | ;                                 |
-| @Distribution    | installer/mac/distribution.xml    |
-| @Installer       | installer/win/installer.nsi       |
-| @Gh              | ../gh.cmake                       |
-| @Release         | ../RELEASE.md                     |
-| @source          | source.cast                       |
-| @identifiers     | identifiers.md                    |
-| @Identifiers     | ../Source/generated/Identifiers.h |
-| @text            | text.md                           |
-| @banner          | banner.md                         |
-| @binaryFiles     | files.md                          |
-| @Text            | ../Source/generated/Text.h        |
-| @Files           | ../Source/generated/Files.h       |
-| @HashMaps        | ../Source/generated/HashMaps.h    |
-| @GeneratedSource | ../Source/generated/Generated.cpp |
-| @Generated       | ../Source/generated/Generated.h   |
-| @string          | juce::String                      |
-+------------------+-----------------------------------+
++------------------+------------------------------------------------------------+
+| alias            | symbol                                                     |
++==================+============================================================+
+| @code            | ../../jam/cast/code.cast                                   |
+| @modules         | ../../jam/user-modules-info.md                             |
+| @juce            | ../../jam/cast/juce.cast                                   |
+| @cmake           | cmake.cast                                                 |
+| @installer       | installer.cast                                             |
+| @project-info    | ../project-info.md                                         |
+| @profile-info    | ../profile-info.md                                         |
+| @signing         | signing.md                                                 |
+| @ProjectInfo     | ../Source/generated/ProjectInfo.h                          |
+| @Entitlements    | ../entitlements.plist                                      |
+| @CMakeLists      | ../CMakeLists.txt                                          |
+| @semicolon       | ;                                                          |
+| @Distribution    | installer/mac/distribution.xml                             |
+| @Installer       | installer/win/installer.nsi                                |
+| @Gh              | ../gh.cmake                                                |
+| @LanguageBundle  | ../languageBundle.cmake                                    |
+| @Release         | ../RELEASE.md                                              |
+| @source          | source.cast                                                |
+| @identifiers     | identifiers.md                                             |
+| @Identifiers     | ../Source/generated/Identifiers.h                          |
+| @text            | text.md                                                    |
+| @banner          | banner.md                                                  |
+| @binaryFiles     | files.md                                                   |
+| @Text            | ../Source/generated/Text.h                                 |
+| @Files           | ../Source/generated/Files.h                                |
+| @HashMaps        | ../Source/generated/HashMaps.h                             |
+| @GeneratedSource | ../Source/generated/Generated.cpp                          |
+| @Generated       | ../Source/generated/Generated.h                            |
+| @readiness       | readiness.md                                               |
+| @parameters      | parameters.md                                              |
+| @lsp             | lsp.md                                                     |
+| @Lsp             | ../Source/generated/Lsp.h                                  |
+| @language        | language.md                                                |
+| @slot            | int                                                        |
+| @roleType        | jam::Union<uint8_t, uint8_t>                               |
+| @id              | juce::Identifier                                           |
+| @string          | juce::String                                               |
+| @typeTable       | jam::LookupTable<int, int, map::SyntaxTokenType::base + 1> |
+| @bimap           | jam::Bimap<int>                                            |
++------------------+------------------------------------------------------------+
 
 ## headers
 
@@ -60,6 +72,11 @@
 | HashMaps.h    | ```                                                                        | Banner rows.                              |
 |               | @file HashMaps.h                                                           |                                           |
 |               | @brief ling's banner rows.                                                 |                                           |
+|               | ```                                                                        |                                           |
++---------------+----------------------------------------------------------------------------+-------------------------------------------+
+| Lsp.h         | ```                                                                        | LSP 3.17 values.                          |
+|               | @file Lsp.h                                                                |                                           |
+|               | @brief The LSP 3.17 method names, types, and codes that ling serves.       |                                           |
 |               | ```                                                                        |                                           |
 +---------------+----------------------------------------------------------------------------+-------------------------------------------+
 | Generated.h   | ```                                                                        | Include umbrella for every generated      |
@@ -92,8 +109,8 @@
 | - [list]: @project-info:juce module           |                           | - [list]: @cmake:value                        |                  |
 | - [list]: @project-info:user module           |                           | - [list]: @cmake:link                         |                  |
 | - [list]: @project-info:library               |                           | - [list]: @cmake:value                        |                  |
-| - [list]: @project-info:binary                |                           | - [list]: @cmake:value                        |                  |
 | - [list]: @project-info:pack                  |                           | - [list]: @cmake:pack-value                   |                  |
+| - [list]: @project-info:binary                |                           | - [list]: @cmake:value                        |                  |
 |                                               |                           | - strip: @cmake:strip                         |                  |
 |                                               |                           | - codesign: @cmake:codesign                   |                  |
 |                                               |                           | - notarize: @cmake:notarize                   |                  |
@@ -132,6 +149,11 @@
 +-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
 | - [list]: @project-info:cmake                 |                           | @cmake:gh                                     | @Gh              |
 | - [list]: @project-info:project info          |                           | - [list]: @cmake:pack-value                   |                  |
+| - [list]: @project-info:pack                  |                           |                                               |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| - [list]: @project-info:cmake                 |                           | @cmake:language-bundle                        | @LanguageBundle  |
+| - [list]: @project-info:binary                |                           | - [list]: @cmake:pack-value                   |                  |
+| - [list]: @binaryFiles:files                  |                           |                                               |                  |
 | - [list]: @project-info:pack                  |                           |                                               |                  |
 +-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
 | - [list]: @project-info:cmake                 |                           | @installer:[no-banner]release                 | @Release         |
@@ -173,6 +195,24 @@
 |                                               |                           | - name: Diagnostics                           |                  |
 |                                               |                           | > - [list]: @code:char                        |                  |
 +-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > - [list]: @text:codeAction                  |                           | @code:namespace                               | @Text            |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: text                                  |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+|                                               |                           |                                               |                  |
+|                                               |                           | @code:struct                                  |                  |
+|                                               |                           | - name: CodeAction                            |                  |
+|                                               |                           | > - [list]: @code:char                        |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > - [list]: @text:progress                    |                           | @code:namespace                               | @Text            |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: text                                  |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+|                                               |                           |                                               |                  |
+|                                               |                           | @code:struct                                  |                  |
+|                                               |                           | - name: Progress                              |                  |
+|                                               |                           | > - [list]: @code:char                        |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
 | - [list]: @binaryFiles:files                  |                           | @code:namespace                               | @Files           |
 |                                               |                           | - macro: #pragma once                         |                  |
 |                                               |                           | - name: files                                 |                  |
@@ -188,6 +228,288 @@
 |                                               |                           | - name: banner                                |                  |
 |                                               |                           | - keyType: @string                            |                  |
 |                                               |                           | - valueType: @string                          |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > - [list]: @readiness:readiness              | - [list]: @code:linebreak | @code:namespace                               | @HashMaps        |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: map                                   |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+|                                               |                           |                                               |                  |
+|                                               |                           | @code:shared-hash-map                         |                  |
+|                                               |                           | - name: Readiness                             |                  |
+|                                               |                           | - keyType: @id                                |                  |
+|                                               |                           | - valueType: @id                              |                  |
+|                                               |                           | > - [list]: @code:map-entry                   |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > - [list]: @parameters:parameters            | - [list]: @code:linebreak | @code:namespace                               | @HashMaps        |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: map                                   |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+|                                               |                           |                                               |                  |
+|                                               |                           | @code:shared-hash-map                         |                  |
+|                                               |                           | - name: Parameters                            |                  |
+|                                               |                           | - keyType: @id                                |                  |
+|                                               |                           | - valueType: @id                              |                  |
+|                                               |                           | > - [list]: @code:map-entry                   |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > - [list]: @lsp:operations                   | - [list]: @code:linebreak | @code:namespace                               | @HashMaps        |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: map                                   |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+|                                               |                           |                                               |                  |
+|                                               |                           | @code:shared-hash-map                         |                  |
+|                                               |                           | - name: Operations                            |                  |
+|                                               |                           | - keyType: @string                            |                  |
+|                                               |                           | - valueType: @id                              |                  |
+|                                               |                           | > - [list]: @code:map-entry                   |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > - [list]: @language:languages               | - [list]: @code:linebreak | @code:namespace                               | @HashMaps        |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: map                                   |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+|                                               |                           |                                               |                  |
+|                                               |                           | @code:shared-hash-map                         |                  |
+|                                               |                           | - name: Languages                             |                  |
+|                                               |                           | - keyType: @string                            |                  |
+|                                               |                           | - valueType: @string                          |                  |
+|                                               |                           | > - [list]: @code:map-entry                   |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > - [list]: @language:markdownElements        | - [list]: @code:linebreak | @code:namespace                               | @HashMaps        |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: map                                   |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+|                                               |                           |                                               |                  |
+|                                               |                           | @code:shared-hash-map                         |                  |
+|                                               |                           | - name: MarkdownElements                      |                  |
+|                                               |                           | - keyType: @id                                |                  |
+|                                               |                           | - valueType: @roleType                        |                  |
+|                                               |                           | > - [list]: @code:map-entry                   |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > - [list]: @language:mermaidElements         | - [list]: @code:linebreak | @code:namespace                               | @HashMaps        |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: map                                   |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+|                                               |                           |                                               |                  |
+|                                               |                           | @code:shared-hash-map                         |                  |
+|                                               |                           | - name: MermaidElements                       |                  |
+|                                               |                           | - keyType: @id                                |                  |
+|                                               |                           | - valueType: @roleType                        |                  |
+|                                               |                           | > - [list]: @code:map-entry                   |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > - [list]: @language:jsonElements            | - [list]: @code:linebreak | @code:namespace                               | @HashMaps        |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: map                                   |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+|                                               |                           |                                               |                  |
+|                                               |                           | @code:shared-hash-map                         |                  |
+|                                               |                           | - name: JsonElements                          |                  |
+|                                               |                           | - keyType: @id                                |                  |
+|                                               |                           | - valueType: @roleType                        |                  |
+|                                               |                           | > - [list]: @code:map-entry                   |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > - [list]: @language:cssElements             | - [list]: @code:linebreak | @code:namespace                               | @HashMaps        |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: map                                   |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+|                                               |                           |                                               |                  |
+|                                               |                           | @code:shared-hash-map                         |                  |
+|                                               |                           | - name: CssElements                           |                  |
+|                                               |                           | - keyType: @slot                              |                  |
+|                                               |                           | - valueType: @roleType                        |                  |
+|                                               |                           | > - [list]: @code:map-entry                   |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > - [list]: @language:xmlElements             | - [list]: @code:linebreak | @code:namespace                               | @HashMaps        |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: map                                   |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+|                                               |                           |                                               |                  |
+|                                               |                           | @code:shared-hash-map                         |                  |
+|                                               |                           | - name: XmlElements                           |                  |
+|                                               |                           | - keyType: @slot                              |                  |
+|                                               |                           | - valueType: @roleType                        |                  |
+|                                               |                           | > - [list]: @code:map-entry                   |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > - [list]: @language:htmlElements            | - [list]: @code:linebreak | @code:namespace                               | @HashMaps        |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: map                                   |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+|                                               |                           |                                               |                  |
+|                                               |                           | @code:shared-hash-map                         |                  |
+|                                               |                           | - name: HtmlElements                          |                  |
+|                                               |                           | - keyType: @slot                              |                  |
+|                                               |                           | - valueType: @roleType                        |                  |
+|                                               |                           | > - [list]: @code:map-entry                   |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > - [list]: @lsp:Method                       |                           | @code:namespace                               | @Lsp             |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: lsp                                   |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+|                                               |                           |                                               |                  |
+|                                               |                           | @code:struct                                  |                  |
+|                                               |                           | - name: Method                                |                  |
+|                                               |                           | > - [list]: @code:constant                    |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > - [list]: @lsp:Member                       |                           | @code:namespace                               | @Lsp             |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: lsp                                   |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+|                                               |                           |                                               |                  |
+|                                               |                           | @code:struct                                  |                  |
+|                                               |                           | - name: Member                                |                  |
+|                                               |                           | > - [list]: @code:constant                    |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > - [list]: @lsp:MarkupType                   |                           | @code:namespace                               | @Lsp             |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: lsp                                   |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+|                                               |                           |                                               |                  |
+|                                               |                           | @code:struct                                  |                  |
+|                                               |                           | - name: MarkupType                            |                  |
+|                                               |                           | > - [list]: @code:constant                    |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > - [list]: @lsp:WorkDoneProgressKind         |                           | @code:namespace                               | @Lsp             |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: lsp                                   |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+|                                               |                           |                                               |                  |
+|                                               |                           | @code:struct                                  |                  |
+|                                               |                           | - name: WorkDoneProgressKind                  |                  |
+|                                               |                           | > - [list]: @code:constant                    |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > - [list]: @lsp:Message                      |                           | @code:namespace                               | @Lsp             |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: lsp                                   |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+|                                               |                           |                                               |                  |
+|                                               |                           | @code:struct                                  |                  |
+|                                               |                           | - name: Message                               |                  |
+|                                               |                           | > - [list]: @code:constant                    |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > - [list]: @lsp:MessageType                  |                           | @code:namespace                               | @Lsp             |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: lsp                                   |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+|                                               |                           |                                               |                  |
+|                                               |                           | @code:struct                                  |                  |
+|                                               |                           | - name: MessageType                           |                  |
+|                                               |                           | > - [list]: @code:constant                    |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > - [list]: @lsp:InsertTextFormat             |                           | @code:namespace                               | @Lsp             |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: lsp                                   |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+|                                               |                           |                                               |                  |
+|                                               |                           | @code:struct                                  |                  |
+|                                               |                           | - name: InsertTextFormat                      |                  |
+|                                               |                           | > - [list]: @code:constant                    |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > - [list]: @lsp:SymbolType                   |                           | @code:namespace                               | @Lsp             |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: lsp                                   |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+|                                               |                           |                                               |                  |
+|                                               |                           | @code:struct                                  |                  |
+|                                               |                           | - name: SymbolType                            |                  |
+|                                               |                           | > - [list]: @code:constant                    |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > - [list]: @lsp:CompletionItemType           |                           | @code:namespace                               | @Lsp             |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: lsp                                   |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+|                                               |                           |                                               |                  |
+|                                               |                           | @code:struct                                  |                  |
+|                                               |                           | - name: CompletionItemType                    |                  |
+|                                               |                           | > - [list]: @code:constant                    |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > - [list]: @lsp:InlayHintType                |                           | @code:namespace                               | @Lsp             |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: lsp                                   |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+|                                               |                           |                                               |                  |
+|                                               |                           | @code:struct                                  |                  |
+|                                               |                           | - name: InlayHintType                         |                  |
+|                                               |                           | > - [list]: @code:constant                    |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > - [list]: @lsp:DocumentHighlightType        |                           | @code:namespace                               | @Lsp             |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: lsp                                   |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+|                                               |                           |                                               |                  |
+|                                               |                           | @code:struct                                  |                  |
+|                                               |                           | - name: DocumentHighlightType                 |                  |
+|                                               |                           | > - [list]: @code:constant                    |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > - [list]: @lsp:CodeActionKind               |                           | @code:namespace                               | @Lsp             |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: lsp                                   |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+|                                               |                           |                                               |                  |
+|                                               |                           | @code:struct                                  |                  |
+|                                               |                           | - name: CodeActionKind                        |                  |
+|                                               |                           | > - [list]: @code:constant                    |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > - [list]: @lsp:DiagnosticSeverity           |                           | @code:namespace                               | @Lsp             |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: lsp                                   |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+|                                               |                           |                                               |                  |
+|                                               |                           | @code:struct                                  |                  |
+|                                               |                           | - name: DiagnosticSeverity                    |                  |
+|                                               |                           | > - [list]: @code:constant                    |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > - [list]: @lsp:TextDocumentSyncType         |                           | @code:namespace                               | @Lsp             |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: lsp                                   |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+|                                               |                           |                                               |                  |
+|                                               |                           | @code:struct                                  |                  |
+|                                               |                           | - name: TextDocumentSyncType                  |                  |
+|                                               |                           | > - [list]: @code:constant                    |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > - [list]: @lsp:PositionEncodingType         |                           | @code:namespace                               | @Lsp             |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: lsp                                   |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+|                                               |                           |                                               |                  |
+|                                               |                           | @code:struct                                  |                  |
+|                                               |                           | - name: PositionEncodingType                  |                  |
+|                                               |                           | > - [list]: @code:constant                    |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > - [list]: @lsp:ErrorCodes                   |                           | @code:namespace                               | @Lsp             |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: lsp                                   |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+|                                               |                           |                                               |                  |
+|                                               |                           | @code:struct                                  |                  |
+|                                               |                           | - name: ErrorCodes                            |                  |
+|                                               |                           | > - [list]: @code:constant                    |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > > > - [list]: @lsp:SemanticTokenType        |                           | @code:namespace                               | @Lsp             |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: lsp                                   |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+| > > - [list]: @lsp:SemanticTokenType          |                           |                                               |                  |
+|                                               |                           | @code:bimap                                   |                  |
+|                                               |                           | - name: SemanticTokenType                     |                  |
+|                                               |                           | - [description]: LSP 3.17 token types.        |                  |
+|                                               |                           | - base: @bimap                                |                  |
+|                                               |                           | - keyType: int                                |                  |
+|                                               |                           | - valueType: juce::String                     |                  |
+|                                               |                           | > > > - [list]: @code:bimap-entry             |                  |
+|                                               |                           | > > - [list]: @code:enum-entry                |                  |
++-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
+| > > > - [list]: @lsp:SemanticTokenModifier    |                           | @code:namespace                               | @Lsp             |
+|                                               |                           | - macro: #pragma once                         |                  |
+|                                               |                           | - name: lsp                                   |                  |
+|                                               |                           | - [description]: @headers:brief               |                  |
+| > > - [list]: @lsp:SemanticTokenModifier      |                           |                                               |                  |
+|                                               |                           | @code:bimap                                   |                  |
+|                                               |                           | - name: SemanticTokenModifier                 |                  |
+|                                               |                           | - [description]: LSP 3.17 token modifiers.    |                  |
+|                                               |                           | - base: @bimap                                |                  |
+|                                               |                           | - keyType: int                                |                  |
+|                                               |                           | - valueType: juce::String                     |                  |
+|                                               |                           | > > > - [list]: @code:bimap-entry             |                  |
+|                                               |                           | > > - [list]: @code:enum-entry                |                  |
 +-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
 
 ## output index
@@ -211,6 +533,11 @@
 |                                       |           | - [list]: @code:include |            |
 +---------------------------------------+-----------+-------------------------+------------+
 | - [list]: @headers:file=Files.h       |           | @code:line              | @Generated |
+|                                       |           | - macro: #pragma once   |            |
+|                                       |           |                         |            |
+|                                       |           | - [list]: @code:include |            |
++---------------------------------------+-----------+-------------------------+------------+
+| - [list]: @headers:file=Lsp.h         |           | @code:line              | @Generated |
 |                                       |           | - macro: #pragma once   |            |
 |                                       |           |                         |            |
 |                                       |           | - [list]: @code:include |            |

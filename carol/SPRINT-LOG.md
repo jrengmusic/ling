@@ -114,6 +114,169 @@
 <!-- The entry format is in /log (commands/log.md). It is the only source. -->
 <!-- Sprint entries go here, written by PRIMARY agents -->
 
+## Handoff to COUNSELOR: ling contract fix, Step 15 acceptance harness in progress
+
+**From:** COUNSELOR
+**Date:** 2026-11-21
+**Status:** In Progress
+
+### Read First
+1. `PLAN-ling-contract-fix.md`: the locked plan. Steps 1-14b are done. Steps 15, 15b-15g and 16 hold the open work, with their evidence and results.
+2. `PLAN-ling-lsp-0-tracker.md:318-336`: the T1-T29 acceptance harness and its validation.
+3. `Source/Server.cpp:3-17`, `:101-105`, and `Source/Server.h:17-20`, `:84`, `:107`: the Step 15e fix.
+4. `test/compare.lua:5-56` and `test/lsp.lua:129-141`, `:297-301`: how a T4 run opens a file and marks a position stale.
+5. `/private/tmp/claude-501/-Users-jreng-Documents-Poems-dev-ling/27ab850f-6578-4c2a-961e-c63fd0b6cfa1/scratchpad/run_test_long.sh`: the run script (`<test> <config>`, 560 s limit). The scratchpad can be cleared by a reboot.
+
+### Context
+The sprint fixes the contract violations of ling, then makes each answer of the acceptance harness agree with the code read (Step 15), then profiles against clangd (Step 16). Step 15 runs T1-T29 on END and KANJUT and fixes each failure from a read and a trace.
+
+### Completed
+- **Step 15b (identity):** `IndexContext::getSymbolHash` mixes the kept range of the canonical declaration into the USR hash, during context passes only (`language/cLang/language.cast:2814-2826`). Used at `:2867`, `:2921`, `:3558`, `:3874`. Read and validated. Not runtime-verified: its validation target (`folder` at `jam_Listener.cpp:24:60`) no longer exists after the jam pull.
+- **Step 15d (no change):** daemon pid 95876 (started 2026-11-20 07:14) mapped `~/.cache/ling/language/7d38fde1…/cLang/liblanguage.dylib` (lsof). A daemon of the 06:08 binary mapped `cf4e3760…` (lsof at 5, 20 and 45 s). The unpacked library, `Builds/languages/cLang/build/liblanguage.dylib` and the `cLang.zip` entry all had sha256 `e0d752f3…`. `cast/cmake.cast` needs no change (`PLAN-ling-contract-fix.md`, Step 15d Result).
+- **Step 15e (cause and fix):**
+  1. Each live daemon watches `~/.config/ling/language/cLang` (`LINGModel.cpp:205-207`, `:229-231`).
+  2. On a file event there, `getOrCreateLanguages` unpacks its own hash folder when that folder is absent. Then it deletes every other hash folder (`Processor.cpp:436-486`, deletion at `:467-482`).
+  3. Only the timeout ends a daemon (`Server.h:76-81`, `Server.cpp:91-99`), so a daemon of an older build outlives its install.
+  4. Fix: `Server` watches the folder of its own executable with the `Client` pattern (`Client.cpp:8-13`, `:50-60`). It calls `timerCallback` when the executable file changes (`Server.cpp:101-105`).
+  5. The Engineer output was read and matches the prompt. Not runtime-verified.
+- **Step 15c:** descoped by ARCHITECT (Key Decisions). Recorded in `PLAN-ling-contract-fix.md`, Step 15c.
+- **jam pull check:**
+  - `dev` equals `origin/dev` at `aacd6dc62`, with no conflicts and no unmerged paths (git status, `git diff --name-only --diff-filter=U`).
+  - The pull deleted `jam_core/file/jam_Listener.cpp` and `.h`. It added `jam_FileWatcher.cpp` and `.h`.
+  - The dirty diff is only the Step 12 rename `completionKinds` → `completionTypes` (`jam_LanguageInterface.h:103`, `jam_LanguageLibrary.h:35`, `:45`, `jam_LanguageLibrary.cpp:14`, `:89`, `:111-113`).
+  - `isForeign` is in HEAD (`jam_LanguageInterface.h:79`). The library exports `LanguageEntry::completionTypes` (`language.cast:5661`).
+- **Build of 2026-11-21 07:52:41 (ARCHITECT):**
+  - `~/.local/bin/ling` sha256 is `a82c64eb…`, and it equals `Builds/Release/ling_artefacts/Release/ling`.
+  - The embedded language hash is `19d05483…` (`strings`). The zips are `cLang.zip` `d04202f5…` and `core.zip` `c90a1127…`, rebuilt at 07:49-07:50.
+- **T4 END before the pull** (warm, after 15a and the seed updates): 192 agree, 5 disagree, 77 stale.
+- **Scratch:** the sysroot download and the probes are deleted (225 MB).
+
+### Remaining
+1. **COUNSELOR via Pathfinder:** read the machine state. ARCHITECT stopped the last Engineer run, so it is unknown whether pid 63624 was stopped, whether the config folder was deleted, and whether the harness started. Commands:
+   - `ps -axo pid=,lstart=,command= | grep '[l]ing daemon'`
+   - `ps -axo pid=,command= | grep '[n]vim --headless'`
+   - `test -e /Users/jreng/.config/ling/language/cLang/construction.md && echo PRESENT || echo ABSENT`
+   - `find /Users/jreng/.cache/ling/language -maxdepth 2`
+2. **Engineer:** stop each leftover headless nvim from the stopped run.
+3. **Engineer:** stop each ling daemon that started before 07:52:41. Pid 63624 (ling project, started 07:20:35, maps `cf4e…`) runs the build from before the fix. A config event makes it unpack `cf4e…` again and delete `19d0…`.
+4. **Engineer:** `rm -rf /Users/jreng/.config/ling/language/cLang`, then run `zsh /private/tmp/claude-501/-Users-jreng-Documents-Poems-dev-ling/27ab850f-6578-4c2a-961e-c63fd0b6cfa1/scratchpad/run_test_long.sh compare end-definition`. After the run, use `lsof -p <END daemon pid> | grep liblanguage` to confirm that it maps `19d05483…`.
+5. **COUNSELOR:** re-target the END test entries that name `jam_Listener.cpp` to `jam_FileWatcher.cpp`. Each new seed comes from the code read.
+   - Counts: `test/end-positions.json` 1, `test/end-references-positions.json` 1, `test/end-symbols.json` 4 (`:45`, `:153`, `:171`, `:207`), `test/expected/end-definition.json` 101, `end-hover.json` 17, `end-methods.json` 131, `end-references.json` 22.
+   - Pick a new 15b validation target: a member name that the per-platform `Impl` classes share in `jam_FileWatcher.cpp`.
+6. **Step 15e validation:**
+   - (a) Delete the config folder, start the daemon, and check that C++ units index and T4 completes.
+   - (b) Check that a daemon of the new build quits when `~/.local/bin/ling` changes at the next install.
+7. **Step 15f:** trace why `folder` 24:60 gave different answers in two runs with one library. The target moves with item 5.
+8. **Step 15g:** do a runtime read of the comment cache order for `setTabName` (`jam_TabbedComponent.cpp:61:23`), then fix it at the hover owner. `getHoverComment` (`language.cast:4442-4454`) does not take effect, because of the redeclaration-chain cache.
+9. **Rest of Step 15:**
+   - The `bounds` definition (`juce_Component.cpp:3531:46` → `:3519`) and the `expectEquals` definition (`:4160:13` → `juce_UnitTest.h:215`).
+   - The `getInstance` hover overrun, and the other hover differences against clangd.
+   - The 77 stale positions.
+   - The T12 seeds (`ENDView`, `TabView`, `Session`), and the T15 and T16 leftovers.
+   - Item 22 `retain`.
+   - The KANJUT runs (definition, methods, references, hover, inlay).
+   - The re-index storm (setIndexed reached about 238k in about 4 minutes).
+   - A test of the identity fix.
+10. **Remove diagnostic instrumentation in this sprint:**
+    - `Main.cpp:419` (`logScope`) and its member.
+    - About 9 `debug::Log` lines in `Processor.cpp`.
+    - `Connection.cpp:51`.
+    - The Processor and Connection lines come from an earlier read. Read them again before removal.
+11. **Step 16:** profile against clangd. Then the Auditor runs once. Doxygen stays on hold. The sprint log waits for ARCHITECT.
+12. **COUNSELOR, first after item 1:** trace the load of the new build on the ling project.
+    - ARCHITECT: *"ling now eats memory and cpu like crazy again, my fan is hot"*.
+    - Evidence (ps, two reads 4 s apart): pid 76765 `/Users/jreng/.local/bin/ling daemon /Users/jreng/Documents/Poems/dev/ling/project-info.md` started at 07:54:28, after the 07:52:41 install. CPU was 371.9% then 251.3%. RSS was 2477024 KB then 3710704 KB. Its relay was pid 76711 `ling project-info.md`, started at 07:54:27.
+    - COUNSELOR stopped pid 76765 under *"if it hang kill it, why wasting time"*.
+    - The cause is not read yet. Reproduce it by starting that daemon with a sample (trace skill, `sample` driver, scratchpad `sample-index.sh` form), then read the hot frames.
+
+### Key Decisions
+- *"ling must deterministically answer test agrees with the code read"*
+- `cast/cmake.cast`: *"Add to scope"*
+- On ruling 35 against the code-read ruling: *"Real platform sysroots"*
+- Windows header source: *"no mingw. juce doesnt support mingw anymore"*
+- *"discuss first, bit smells here, why we need those source code only to fix our couple of mising features left"*
+- *"File::Watcher being rewrite on parallel session on windows. i dont think those 4 significant enough to pull 200mb. i will pull/merge remote changes shortly"*
+- *"jam pulled, remote at HEAD but i kept dirty on top check"*
+- *"dont guess. use whatdbg, debug::Log whatever"*
+- *"if it hang kill it, why wasting time"*
+- *"you dont build. i will build"*
+- *"dont abuse build for code validation"*
+- *"always delete on disk, let the binary build and replace"*
+- *"hold audit and doxygen. until i explicitly said so."*
+- *"Keep clangd hover"* (`PLAN-ling-ast-once.md:15`)
+- *"we need to pause, before i hit session limit."*
+
+### Files Modified
+- `Source/Server.h`: adds the base `private jam::File::Watcher::Listener` (`:17-20`), `fileChanged` (`:84`) and `watcher` (`:107`).
+- `Source/Server.cpp`: the constructor watches the executable folder (`:3-9`). The destructor removes the listener (`:13`). `fileChanged` calls `timerCallback` (`:101-105`).
+- `PLAN-ling-contract-fix.md`: Steps 15b-15g added. Step 15c descoped. Step 15d result. Step 15e cause and fix.
+- `language/cLang/language.cast`: the outline gate on `keptRanges.isEmpty()`, the 15a-2 context-pass fences, `getHoverComment` (`:4442-4454`), and the 15b identity (`:2795-2826`, `addSymbol` overloads `:2850`, `:2855`).
+- `language/cLang/spell.md`: the rows for the 15a-2 fences (`:846-881`), `isDirective` (`:594-596`) and `getHoverComment` (`:562-564`).
+- `test/expected/end-definition.json`: `mask` → `[]`, and 16 keys from the code read (274 keys).
+- `test/expected/end-methods.json`: `mask` → `[]`, and 19 keys from the code read.
+- jam working tree (not committed): `jam_syntax_tree/document/jam_LanguageInterface.h`, `jam_LanguageLibrary.h`, `jam_LanguageLibrary.cpp`, with the Step 12 rename.
+
+### Open Questions
+None.
+
+### Next Steps
+- Pick up at Remaining item 1, when ARCHITECT starts the next session.
+
+## Handoff to COUNSELOR: ling replaces clangd (Part 8, Step 1 in progress)
+
+**From:** COUNSELOR
+**Date:** 2026-11-19
+**Status:** In Progress
+
+### Read First
+- `PLAN-ling-lsp-8-close.md` — Context item 1 (the two ARCHITECT rulings on the clangd oracle) and Step 1 (the T1-T26 run).
+- `test/compare.lua:5-29` — the T4 verdict. The clangd word check was edited and not run.
+- `language/cLang/language.cast` — the `kind` to `Type` rename (Completed below).
+
+### Context
+ling replaces clangd as the LSP. Part 8 Step 1 runs every test to 100%. The ARCHITECT rulings say the codebase is the ground of truth and clangd is a baseline only. The jam MCP Parts 1-5 run before Step 1 resumes (`PLAN-ling-lsp-8-close.md` Context item 6).
+
+### Completed
+- Remote check. ling `main` equals `origin/main`, with no commits behind or ahead (task a985e62134fb851fd, Pathfinder read).
+- jam pull. ARCHITECT pulled jam `dev`. HEAD is `bb3baee7a`, equal to `origin/dev` (task aa7ab449760fe5bd7, Pathfinder read). ARCHITECT reports the conflict resolved to their side; the tree still holds the local changes.
+- Overlap by file. 17 paths are both pulled in the last 3 commits and dirty locally (task a57e2d272b36723ca). The paths are listed in the Remaining section.
+- `kind` to `Type`. `language/cLang/language.cast`: 87 substitutions. `\bkind\b` count is 0 (Grep, this session). `getCursorKind` and `CursorKind` untouched (task a4b91757b8c329017).
+- `language/cLang/language.cast` holds ARCHITECT's uncommitted ling work of about 3677 insertions and 526 deletions against HEAD (task a8876919be44cfa7c). The rename sits on top of that work.
+
+### Remaining
+- Collision check, line level, on the 17 overlapping jam paths. Owner: Pathfinder. Task a43207d466fb1e12b was running at freeze and its result is not read. Re-run with the prompt in this session: `git diff -U0 HEAD~3 HEAD -- <paths>`, `git diff -U0 --cached -- <paths>`, `git diff -U0 -- <paths>`.
+- The 17 overlapping jam paths: `cast/core.md`, `cast/spell.md`, `generated/jam_Core.h`, `jam_core/document/jam_Document.cpp`, `jam_core/document/jam_Document.h`, `jam_core/text/jam_Format.cpp`, `jam_core/text/jam_Format.h`, `jam_gui/widgets/jam_TextEditor.cpp`, `jam_terminal/document/jam_AnsiDocument.cpp`, `jam_terminal/document/jam_AnsiDocument.h`, `jam_terminal/document/jam_TerminalHistory.cpp`, `jam_terminal/jam_terminal.cpp`, `jam_terminal/jam_terminal.h`, `jam_terminal/processor/jam_TerminalProcessor.cpp`, `jam_terminal/processor/jam_TerminalProcessor.h`, `jam_terminal/tty/native/jam_TerminalTTY_windows.cpp`, `user-modules-info.md`.
+- Stash. Not done. ARCHITECT instructed `stash`. Pathfinder and Engineer were denied by the hook (CAROL.md Git, hook enforcement). The stash list is unread.
+- Commit message for the uncommitted jam and ling changes. Not written. The diff content has not been read.
+- T4 harness. The clangd word check in `test/compare.lua` is not run. The ARCHITECT ruling to leave clangd answers is not implemented.
+- Step 1 test run (T1-T26) on END and KANJUT. Not run.
+- Speed miss T9 (ling median 0.258 ms, clangd 0.103 ms) from an earlier run in this session. Not re-measured.
+- `abs` record triplication at `language/cLang/language.cast` 90:61 (222 locations). Cause not confirmed by read.
+- `cstdlib:134` `using ::abs` record missing. Fix path in the overloaded-declaration API (task-read, this session). Not written.
+- `construction.md:461` keeps `unsigned (int kind)`. COUNSELOR left it because it names a libclang signature parameter. ARCHITECT has not ruled on it.
+- Uncompiled-lambda locals (`juce_Component.cpp` 3698, 3969) and `expectEquals` (4160). Not investigated.
+- MCP Part 2b `jam::RegExp` plan (`/Users/jreng/.claude/plans/compressed-dreaming-hartmanis.md`). Not ratified by ARCHITECT.
+
+### Key Decisions
+- "clangd is reference baseline only. ling ultimate objectives is CODEBASE ground of truth. that is exactly why we develop ling. we have most accurate, most reliable language agnostic LSP" (ARCHITECT, 2026-11-19; recorded in `PLAN-ling-lsp-8-close.md` Context item 1).
+- "when in doubt: discrepancy between ling vs clangd. trust THE CODEBASE READ as the absolute ground of truth. ling MUST NOT GUESSED. but GET the accurate read" (ARCHITECT, 2026-11-19; recorded in the same section).
+- "if ling already able to get clangd answers (correctly, agree with the code), at this point we should leave clangd answers entirely. we only want clangd parity feature. correctness always must agree with the CODE READ." (ARCHITECT, after the compaction).
+- "after the pull then you continue to complete your plan to completion, including fixing `kind`" (ARCHITECT, after the compaction).
+- "dont abuse build permission to validate each turn code implementation. only build to measure and debug runtime parity features" (ARCHITECT, after the compaction).
+
+### Files Modified
+- `language/cLang/language.cast` — whole-word `kind` to `Type`, 87 substitutions, in ling-owned declarations and uses. The file also holds uncommitted work from before this session.
+- `carol/SPRINT-LOG.md` — this entry.
+
+### Open Questions
+- `construction.md:461` (`unsigned (int kind)`) — decider: ARCHITECT. Renaming it would change the libclang signature label.
+- Whether `Type` is the field name ARCHITECT wants for the four struct fields. Decider: ARCHITECT. NAMES.md Rule 6 is the basis.
+
+### Next Steps
+- Read the collision table from Pathfinder, then decide per file with ARCHITECT.
+- Stash and pull state: run `git stash list` in the terminal, then send the output.
+- Start Step 1 once ARCHITECT says go on the collision result.
+
 ## Sprint 13: LING Part 13, binding by libclang symbols, owned one-shot jobs, and the Index and Query split ✅
 
 **Date:** 2026-11-15

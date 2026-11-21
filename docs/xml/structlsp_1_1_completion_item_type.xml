@@ -1,0 +1,418 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="structlsp_1_1_completion_item_type" kind="struct" language="C++" prot="public">
+    <compoundname>lsp::CompletionItemType</compoundname>
+    <includes refid="_lsp_8h" local="no">Lsp.h</includes>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="structlsp_1_1_completion_item_type_1ab9bec8d0ab8232f659ebf8a4d13e49a6" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::CompletionItemType::Text</definition>
+        <argsstring></argsstring>
+        <name>Text</name>
+        <qualifiedname>lsp::CompletionItemType::Text</qualifiedname>
+        <initializer>{ 1  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="194" column="26" bodyfile="generated/Lsp.h" bodystart="194" bodyend="194"/>
+        <referencedby refid="class_built_in_language_1a42553c1c187d0531aa6415cab8dccae0" compoundref="_built_in_language_8h" startline="118" endline="121">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getCompletionKind</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_completion_item_type_1a2cdaba5c9a880e6f39a6e70778c6e56f" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::CompletionItemType::Method</definition>
+        <argsstring></argsstring>
+        <name>Method</name>
+        <qualifiedname>lsp::CompletionItemType::Method</qualifiedname>
+        <initializer>{ 2  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="195" column="26" bodyfile="generated/Lsp.h" bodystart="195" bodyend="195"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_completion_item_type_1a8b2b43dba292d6f12f69f8250eeac873" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::CompletionItemType::Function</definition>
+        <argsstring></argsstring>
+        <name>Function</name>
+        <qualifiedname>lsp::CompletionItemType::Function</qualifiedname>
+        <initializer>{ 3  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="196" column="26" bodyfile="generated/Lsp.h" bodystart="196" bodyend="196"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_completion_item_type_1af114f1e4315fbf6cb22abb156d7d3ced" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::CompletionItemType::Constructor</definition>
+        <argsstring></argsstring>
+        <name>Constructor</name>
+        <qualifiedname>lsp::CompletionItemType::Constructor</qualifiedname>
+        <initializer>{ 4  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="197" column="26" bodyfile="generated/Lsp.h" bodystart="197" bodyend="197"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_completion_item_type_1ae02b3d4eb82d38f1e958f6b7e8412262" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::CompletionItemType::Field</definition>
+        <argsstring></argsstring>
+        <name>Field</name>
+        <qualifiedname>lsp::CompletionItemType::Field</qualifiedname>
+        <initializer>{ 5  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="198" column="26" bodyfile="generated/Lsp.h" bodystart="198" bodyend="198"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_completion_item_type_1a35694a2989dc7fc5224c232a7a604413" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::CompletionItemType::Variable</definition>
+        <argsstring></argsstring>
+        <name>Variable</name>
+        <qualifiedname>lsp::CompletionItemType::Variable</qualifiedname>
+        <initializer>{ 6  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="199" column="26" bodyfile="generated/Lsp.h" bodystart="199" bodyend="199"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_completion_item_type_1a858396fedf0093f916c31b2578f00bcf" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::CompletionItemType::Class</definition>
+        <argsstring></argsstring>
+        <name>Class</name>
+        <qualifiedname>lsp::CompletionItemType::Class</qualifiedname>
+        <initializer>{ 7  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="200" column="26" bodyfile="generated/Lsp.h" bodystart="200" bodyend="200"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_completion_item_type_1a9e0dbebc30bdb00b54cf45cd6ccac95f" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::CompletionItemType::Interface</definition>
+        <argsstring></argsstring>
+        <name>Interface</name>
+        <qualifiedname>lsp::CompletionItemType::Interface</qualifiedname>
+        <initializer>{ 8  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="201" column="26" bodyfile="generated/Lsp.h" bodystart="201" bodyend="201"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_completion_item_type_1a0a520fa1cf84b79c6c7a1c0b27a7e367" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::CompletionItemType::Module</definition>
+        <argsstring></argsstring>
+        <name>Module</name>
+        <qualifiedname>lsp::CompletionItemType::Module</qualifiedname>
+        <initializer>{ 9  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="202" column="26" bodyfile="generated/Lsp.h" bodystart="202" bodyend="202"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_completion_item_type_1a0b929c3262ad3fd1c5ff5511535bab9e" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::CompletionItemType::Property</definition>
+        <argsstring></argsstring>
+        <name>Property</name>
+        <qualifiedname>lsp::CompletionItemType::Property</qualifiedname>
+        <initializer>{ 10 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="203" column="26" bodyfile="generated/Lsp.h" bodystart="203" bodyend="203"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_completion_item_type_1a1cce01b4ea7e00e05e73b3004bdcc9b1" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::CompletionItemType::Unit</definition>
+        <argsstring></argsstring>
+        <name>Unit</name>
+        <qualifiedname>lsp::CompletionItemType::Unit</qualifiedname>
+        <initializer>{ 11 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="204" column="26" bodyfile="generated/Lsp.h" bodystart="204" bodyend="204"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_completion_item_type_1a6e1c51a88675b800f311649418fe6294" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::CompletionItemType::Value</definition>
+        <argsstring></argsstring>
+        <name>Value</name>
+        <qualifiedname>lsp::CompletionItemType::Value</qualifiedname>
+        <initializer>{ 12 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="205" column="26" bodyfile="generated/Lsp.h" bodystart="205" bodyend="205"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_completion_item_type_1ad5a9d7cfce8669ac8c7814e5b10690c1" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::CompletionItemType::Enum</definition>
+        <argsstring></argsstring>
+        <name>Enum</name>
+        <qualifiedname>lsp::CompletionItemType::Enum</qualifiedname>
+        <initializer>{ 13 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="206" column="26" bodyfile="generated/Lsp.h" bodystart="206" bodyend="206"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_completion_item_type_1a9c8b758e7d96ec03b99e972113943404" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::CompletionItemType::Keyword</definition>
+        <argsstring></argsstring>
+        <name>Keyword</name>
+        <qualifiedname>lsp::CompletionItemType::Keyword</qualifiedname>
+        <initializer>{ 14 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="207" column="26" bodyfile="generated/Lsp.h" bodystart="207" bodyend="207"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_completion_item_type_1a728f9e504f2ea7148544b98df13103d1" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::CompletionItemType::Snippet</definition>
+        <argsstring></argsstring>
+        <name>Snippet</name>
+        <qualifiedname>lsp::CompletionItemType::Snippet</qualifiedname>
+        <initializer>{ 15 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="208" column="26" bodyfile="generated/Lsp.h" bodystart="208" bodyend="208"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_completion_item_type_1ab71e805336fd0e09223eeb9ae3ed258c" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::CompletionItemType::Color</definition>
+        <argsstring></argsstring>
+        <name>Color</name>
+        <qualifiedname>lsp::CompletionItemType::Color</qualifiedname>
+        <initializer>{ 16 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="209" column="26" bodyfile="generated/Lsp.h" bodystart="209" bodyend="209"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_completion_item_type_1a643270cf4179ca9471b26b281813a8f7" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::CompletionItemType::File</definition>
+        <argsstring></argsstring>
+        <name>File</name>
+        <qualifiedname>lsp::CompletionItemType::File</qualifiedname>
+        <initializer>{ 17 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="210" column="26" bodyfile="generated/Lsp.h" bodystart="210" bodyend="210"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_completion_item_type_1a9e5a7209d8149062df9701dc484c3723" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::CompletionItemType::Reference</definition>
+        <argsstring></argsstring>
+        <name>Reference</name>
+        <qualifiedname>lsp::CompletionItemType::Reference</qualifiedname>
+        <initializer>{ 18 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="211" column="26" bodyfile="generated/Lsp.h" bodystart="211" bodyend="211"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_completion_item_type_1a811722d6c6e5bcaff9aec8f02fb44097" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::CompletionItemType::Folder</definition>
+        <argsstring></argsstring>
+        <name>Folder</name>
+        <qualifiedname>lsp::CompletionItemType::Folder</qualifiedname>
+        <initializer>{ 19 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="212" column="26" bodyfile="generated/Lsp.h" bodystart="212" bodyend="212"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_completion_item_type_1a42e91bfab705dc2de8794920176cbd02" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::CompletionItemType::EnumMember</definition>
+        <argsstring></argsstring>
+        <name>EnumMember</name>
+        <qualifiedname>lsp::CompletionItemType::EnumMember</qualifiedname>
+        <initializer>{ 20 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="213" column="26" bodyfile="generated/Lsp.h" bodystart="213" bodyend="213"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_completion_item_type_1a3599b3ca5007bbddf34253f6c79152a5" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::CompletionItemType::Constant</definition>
+        <argsstring></argsstring>
+        <name>Constant</name>
+        <qualifiedname>lsp::CompletionItemType::Constant</qualifiedname>
+        <initializer>{ 21 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="214" column="26" bodyfile="generated/Lsp.h" bodystart="214" bodyend="214"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_completion_item_type_1a715914d7dc4ca43279e4ac623aba0314" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::CompletionItemType::Struct</definition>
+        <argsstring></argsstring>
+        <name>Struct</name>
+        <qualifiedname>lsp::CompletionItemType::Struct</qualifiedname>
+        <initializer>{ 22 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="215" column="26" bodyfile="generated/Lsp.h" bodystart="215" bodyend="215"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_completion_item_type_1a77fdc06cabe728f3bbb0470433c70e36" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::CompletionItemType::Event</definition>
+        <argsstring></argsstring>
+        <name>Event</name>
+        <qualifiedname>lsp::CompletionItemType::Event</qualifiedname>
+        <initializer>{ 23 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="216" column="26" bodyfile="generated/Lsp.h" bodystart="216" bodyend="216"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_completion_item_type_1a0c1895a6b99edfe51e617eef9232bd5c" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::CompletionItemType::Operator</definition>
+        <argsstring></argsstring>
+        <name>Operator</name>
+        <qualifiedname>lsp::CompletionItemType::Operator</qualifiedname>
+        <initializer>{ 24 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="217" column="26" bodyfile="generated/Lsp.h" bodystart="217" bodyend="217"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_completion_item_type_1a220c78bf24111619cd2e0c22024fbba5" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::CompletionItemType::TypeParameter</definition>
+        <argsstring></argsstring>
+        <name>TypeParameter</name>
+        <qualifiedname>lsp::CompletionItemType::TypeParameter</qualifiedname>
+        <initializer>{ 25 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="218" column="26" bodyfile="generated/Lsp.h" bodystart="218" bodyend="218"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>The LSP 3.17 CompletionItemKind values. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="generated/Lsp.h" line="192" column="1" bodyfile="generated/Lsp.h" bodystart="193" bodyend="219"/>
+    <listofallmembers>
+      <member refid="structlsp_1_1_completion_item_type_1a858396fedf0093f916c31b2578f00bcf" prot="public" virt="non-virtual"><scope>lsp::CompletionItemType</scope><name>Class</name></member>
+      <member refid="structlsp_1_1_completion_item_type_1ab71e805336fd0e09223eeb9ae3ed258c" prot="public" virt="non-virtual"><scope>lsp::CompletionItemType</scope><name>Color</name></member>
+      <member refid="structlsp_1_1_completion_item_type_1a3599b3ca5007bbddf34253f6c79152a5" prot="public" virt="non-virtual"><scope>lsp::CompletionItemType</scope><name>Constant</name></member>
+      <member refid="structlsp_1_1_completion_item_type_1af114f1e4315fbf6cb22abb156d7d3ced" prot="public" virt="non-virtual"><scope>lsp::CompletionItemType</scope><name>Constructor</name></member>
+      <member refid="structlsp_1_1_completion_item_type_1ad5a9d7cfce8669ac8c7814e5b10690c1" prot="public" virt="non-virtual"><scope>lsp::CompletionItemType</scope><name>Enum</name></member>
+      <member refid="structlsp_1_1_completion_item_type_1a42e91bfab705dc2de8794920176cbd02" prot="public" virt="non-virtual"><scope>lsp::CompletionItemType</scope><name>EnumMember</name></member>
+      <member refid="structlsp_1_1_completion_item_type_1a77fdc06cabe728f3bbb0470433c70e36" prot="public" virt="non-virtual"><scope>lsp::CompletionItemType</scope><name>Event</name></member>
+      <member refid="structlsp_1_1_completion_item_type_1ae02b3d4eb82d38f1e958f6b7e8412262" prot="public" virt="non-virtual"><scope>lsp::CompletionItemType</scope><name>Field</name></member>
+      <member refid="structlsp_1_1_completion_item_type_1a643270cf4179ca9471b26b281813a8f7" prot="public" virt="non-virtual"><scope>lsp::CompletionItemType</scope><name>File</name></member>
+      <member refid="structlsp_1_1_completion_item_type_1a811722d6c6e5bcaff9aec8f02fb44097" prot="public" virt="non-virtual"><scope>lsp::CompletionItemType</scope><name>Folder</name></member>
+      <member refid="structlsp_1_1_completion_item_type_1a8b2b43dba292d6f12f69f8250eeac873" prot="public" virt="non-virtual"><scope>lsp::CompletionItemType</scope><name>Function</name></member>
+      <member refid="structlsp_1_1_completion_item_type_1a9e0dbebc30bdb00b54cf45cd6ccac95f" prot="public" virt="non-virtual"><scope>lsp::CompletionItemType</scope><name>Interface</name></member>
+      <member refid="structlsp_1_1_completion_item_type_1a9c8b758e7d96ec03b99e972113943404" prot="public" virt="non-virtual"><scope>lsp::CompletionItemType</scope><name>Keyword</name></member>
+      <member refid="structlsp_1_1_completion_item_type_1a2cdaba5c9a880e6f39a6e70778c6e56f" prot="public" virt="non-virtual"><scope>lsp::CompletionItemType</scope><name>Method</name></member>
+      <member refid="structlsp_1_1_completion_item_type_1a0a520fa1cf84b79c6c7a1c0b27a7e367" prot="public" virt="non-virtual"><scope>lsp::CompletionItemType</scope><name>Module</name></member>
+      <member refid="structlsp_1_1_completion_item_type_1a0c1895a6b99edfe51e617eef9232bd5c" prot="public" virt="non-virtual"><scope>lsp::CompletionItemType</scope><name>Operator</name></member>
+      <member refid="structlsp_1_1_completion_item_type_1a0b929c3262ad3fd1c5ff5511535bab9e" prot="public" virt="non-virtual"><scope>lsp::CompletionItemType</scope><name>Property</name></member>
+      <member refid="structlsp_1_1_completion_item_type_1a9e5a7209d8149062df9701dc484c3723" prot="public" virt="non-virtual"><scope>lsp::CompletionItemType</scope><name>Reference</name></member>
+      <member refid="structlsp_1_1_completion_item_type_1a728f9e504f2ea7148544b98df13103d1" prot="public" virt="non-virtual"><scope>lsp::CompletionItemType</scope><name>Snippet</name></member>
+      <member refid="structlsp_1_1_completion_item_type_1a715914d7dc4ca43279e4ac623aba0314" prot="public" virt="non-virtual"><scope>lsp::CompletionItemType</scope><name>Struct</name></member>
+      <member refid="structlsp_1_1_completion_item_type_1ab9bec8d0ab8232f659ebf8a4d13e49a6" prot="public" virt="non-virtual"><scope>lsp::CompletionItemType</scope><name>Text</name></member>
+      <member refid="structlsp_1_1_completion_item_type_1a220c78bf24111619cd2e0c22024fbba5" prot="public" virt="non-virtual"><scope>lsp::CompletionItemType</scope><name>TypeParameter</name></member>
+      <member refid="structlsp_1_1_completion_item_type_1a1cce01b4ea7e00e05e73b3004bdcc9b1" prot="public" virt="non-virtual"><scope>lsp::CompletionItemType</scope><name>Unit</name></member>
+      <member refid="structlsp_1_1_completion_item_type_1a6e1c51a88675b800f311649418fe6294" prot="public" virt="non-virtual"><scope>lsp::CompletionItemType</scope><name>Value</name></member>
+      <member refid="structlsp_1_1_completion_item_type_1a35694a2989dc7fc5224c232a7a604413" prot="public" virt="non-virtual"><scope>lsp::CompletionItemType</scope><name>Variable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

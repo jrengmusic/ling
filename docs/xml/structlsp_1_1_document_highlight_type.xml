@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="structlsp_1_1_document_highlight_type" kind="struct" language="C++" prot="public">
+    <compoundname>lsp::DocumentHighlightType</compoundname>
+    <includes refid="_lsp_8h" local="no">Lsp.h</includes>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="structlsp_1_1_document_highlight_type_1a126c007bba046aeb4418dca6358b22e8" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::DocumentHighlightType::Text</definition>
+        <argsstring></argsstring>
+        <name>Text</name>
+        <qualifiedname>lsp::DocumentHighlightType::Text</qualifiedname>
+        <initializer>{ 1 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="229" column="26" bodyfile="generated/Lsp.h" bodystart="229" bodyend="229"/>
+        <referencedby refid="class_query_1a3ce554af28b12354af3d1ba57b8748ee" compoundref="_query_8cpp" startline="251" endline="261">Query::appendHighlight</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_document_highlight_type_1a39f32d8e7fb2799089222f9b80305be4" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::DocumentHighlightType::Read</definition>
+        <argsstring></argsstring>
+        <name>Read</name>
+        <qualifiedname>lsp::DocumentHighlightType::Read</qualifiedname>
+        <initializer>{ 2 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="230" column="26" bodyfile="generated/Lsp.h" bodystart="230" bodyend="230"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_document_highlight_type_1ae7a6e23cf85bea57cffffb5e21845649" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::DocumentHighlightType::Write</definition>
+        <argsstring></argsstring>
+        <name>Write</name>
+        <qualifiedname>lsp::DocumentHighlightType::Write</qualifiedname>
+        <initializer>{ 3 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="231" column="26" bodyfile="generated/Lsp.h" bodystart="231" bodyend="231"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>The LSP 3.17 DocumentHighlightKind values. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="generated/Lsp.h" line="227" column="1" bodyfile="generated/Lsp.h" bodystart="228" bodyend="232"/>
+    <listofallmembers>
+      <member refid="structlsp_1_1_document_highlight_type_1a39f32d8e7fb2799089222f9b80305be4" prot="public" virt="non-virtual"><scope>lsp::DocumentHighlightType</scope><name>Read</name></member>
+      <member refid="structlsp_1_1_document_highlight_type_1a126c007bba046aeb4418dca6358b22e8" prot="public" virt="non-virtual"><scope>lsp::DocumentHighlightType</scope><name>Text</name></member>
+      <member refid="structlsp_1_1_document_highlight_type_1ae7a6e23cf85bea57cffffb5e21845649" prot="public" virt="non-virtual"><scope>lsp::DocumentHighlightType</scope><name>Write</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

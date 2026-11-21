@@ -36,69 +36,73 @@ Every field is a complete literal; nothing downstream derives, concatenates, or 
 
 ## cmake
 
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| key                         | value                                         | description                               |
-+=============================+===============================================+===========================================+
-| projectDescription          | Language Index Navigation Graph               | Project description, single line          |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| banner                      | ling                                          | Banner artwork, printed at configure time |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| minimumVersion              | 3.25                                          | CMake minimum version                     |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| juceTargetFunction          | juce_add_console_app                          | JUCE target-creation function             |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| juceVersion                 | 8.0.17                                        | Required JUCE version, exact              |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| cxxStandard                 | 17                                            | C++ language standard                     |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| deploymentTarget            | `11.0`                                        | Minimum macOS deployment target           |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| architecture                | x86_64;arm64                                  | macOS architectures                       |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| msvcRuntime                 | `MultiThreaded$<$<CONFIG:Debug>:Debug>`       | MSVC runtime library selection            |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| jucePath                    | @juce-path                                    | JUCE root                                 |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| userModulePath              | @user-module                                  | User module root                          |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| installDirectory            | $ENV{HOME}/.local/bin                         | Installed binary directory                |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| bundleIdentifier            | com.jrengmusic.ling                           | JUCE BUNDLE_ID                            |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| targetName                  | ling                                          | CMake target name                         |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| companyCopyright            | © 2026 JRENG                                  | JUCE COMPANY_COPYRIGHT                    |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| productName                 | ling                                          | JUCE PRODUCT_NAME                         |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| buildVersion                | 0.0.1                                         | JUCE BUILD_VERSION                        |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| documentExtensions          | ling                                          | JUCE DOCUMENT_EXTENSIONS                  |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| binaryDataNamespace         | BinaryData                                    | juce_add_binary_data NAMESPACE            |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| needsCurl                   | OFF                                           | JUCE NEEDS_CURL                           |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| needsWebBrowser             | OFF                                           | JUCE NEEDS_WEB_BROWSER                    |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| needsWebview2               | OFF                                           | JUCE NEEDS_WEBVIEW2                       |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| needsStoreKit               | OFF                                           | JUCE NEEDS_STORE_KIT                      |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| interproceduralOptimization | ON                                            | CMAKE_INTERPROCEDURAL_OPTIMIZATION        |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| compileJobMemory            | 1280                                          | Compile pool RAM per job, MiB             |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| precompiledHeader           | JuceHeader.h                                  | Project-source precompiled header         |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| qaDirectory                 | `$ENV{HOME}/Documents/Poems/dev/___builds___` | QA build archive root                     |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| repository                  | jrengmusic/ling                               | GitHub repository of the release          |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| installerResourceDirectory  | ${CMAKE_SOURCE_DIR}/cast/installer/resources  | Installer artwork directory               |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
-| installDirectoryWindows     | $PROFILE\\.local\\bin                         | Windows installer default directory       |
-+-----------------------------+-----------------------------------------------+-------------------------------------------+
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| key                         | value                                         | description                                      |
++=============================+===============================================+==================================================+
+| projectDescription          | Language Index Navigation Graph               | Project description, single line                 |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| banner                      | ling                                          | Banner artwork, printed at configure time        |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| minimumVersion              | 3.25                                          | CMake minimum version                            |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| juceTargetFunction          | juce_add_console_app                          | JUCE target-creation function                    |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| juceVersion                 | 8.0.17                                        | Required JUCE version, exact                     |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| cxxStandard                 | 17                                            | C++ language standard                            |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| deploymentTarget            | `11.0`                                        | Minimum macOS deployment target                  |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| architecture                | x86_64;arm64                                  | macOS architectures                              |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| msvcRuntime                 | `MultiThreaded$<$<CONFIG:Debug>:Debug>`       | MSVC runtime library selection                   |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| jucePath                    | @juce-path                                    | JUCE root                                        |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| userModulePath              | @user-module                                  | User module root                                 |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| installDirectory            | $ENV{HOME}/.local/bin                         | Installed binary directory                       |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| bundleIdentifier            | com.jrengmusic.ling                           | JUCE BUNDLE_ID                                   |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| targetName                  | ling                                          | CMake target name                                |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| companyCopyright            | © 2026 JRENG                                  | JUCE COMPANY_COPYRIGHT                           |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| productName                 | ling                                          | JUCE PRODUCT_NAME                                |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| buildVersion                | 0.0.1                                         | JUCE BUILD_VERSION                               |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| documentExtensions          | ling                                          | JUCE DOCUMENT_EXTENSIONS                         |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| binaryDataNamespace         | BinaryData                                    | juce_add_binary_data NAMESPACE                   |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| needsCurl                   | OFF                                           | JUCE NEEDS_CURL                                  |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| needsWebBrowser             | OFF                                           | JUCE NEEDS_WEB_BROWSER                           |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| needsWebview2               | OFF                                           | JUCE NEEDS_WEBVIEW2                              |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| needsStoreKit               | OFF                                           | JUCE NEEDS_STORE_KIT                             |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| interproceduralOptimization | ON                                            | CMAKE_INTERPROCEDURAL_OPTIMIZATION               |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| compileJobMemory            | 1280                                          | Compile pool RAM per job, MiB                    |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| precompiledHeader           | JuceHeader.h                                  | Project-source precompiled header                |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| qaDirectory                 | `$ENV{HOME}/Documents/Poems/dev/___builds___` | QA build archive root                            |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| repository                  | jrengmusic/ling                               | GitHub repository of the release                 |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| installerResourceDirectory  | ${CMAKE_SOURCE_DIR}/cast/installer/resources  | Installer artwork directory                      |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| installDirectoryWindows     | $PROFILE\\.local\\bin                         | Windows installer default directory              |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| languageManifest            | language/cLang/spell.md                       | Manifest of the language ling carries            |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| languageCoreManifest        | language/core/spell.md                        | Manifest of the carried library of the languages |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
 
 ## juce module
 
@@ -116,27 +120,29 @@ Every field is a complete literal; nothing downstream derives, concatenates, or 
 
 ## user module
 
-+--------------+-----------------------+--------------------------------------------------------------------------------------------------+
-| root         | name                  | description                                                                                      |
-+==============+=======================+==================================================================================================+
-| @user-module | jam_core              | JAM Core                                                                                         |
-| @user-module | jam_syntax_tree       | Programming-language tokenizers and parsers over jam::Document                                   |
-| @user-module | jam_document          | Universal line break and reflow (UAX #14)                                                        |
-| @user-module | jam_markdown          | Clean-room native CommonMark + GFM markdown parsing and rendering                                |
-| @user-module | jam_freetype          | Vendored FreeType font rasterization library                                                     |
-| @user-module | jam_graphics          | Graphics utilities, blur, shadows, colours, fonts, mesh                                          |
-| @user-module | jam_data_structures   | ValueTree management and data model utilities — model, parameters                                |
-| @user-module | jam_animation         | Foundation animation classes (Animator, AnimationBase, AnimationScrollingText)                   |
-| @user-module | jam_web               | HTML authored-subset and CSS Syntax Level 3 subset tokenizers and parsers                        |
-| @user-module | jam_style             | JAM Style — LookAndFeel base + ColourScheme-backed colour registry                               |
-| @user-module | jam_gui               | GUI foundation — Window, Modal, Glass                                                            |
-| @user-module | jam_mermaid_diagram   | Clean-room native mermaid diagram parsing over jam::Document producing the semantic Element tree |
-| @user-module | jam_markdown_graphics | Markdown and mermaid materialisation, layout and view component                                  |
-| @user-module | jam_terminal          | VT read-side engine, TTY, protocol vocabulary, keyboard encoding                                 |
-| @user-module | jam_tui               | Terminal user interface components, painted through the terminal graphics context                |
-| @user-module | jam_subprocess        | JUCE-based subprocess launcher with streaming output and byte-cap truncation                     |
-| @user-module | jam_fuzzy             | Fuzzy search (Levenshtein) and fzf-algorithm matching engine                                     |
-+--------------+-----------------------+--------------------------------------------------------------------------------------------------+
++--------------+----------------------------+-------------------------------------------------------------------------------------------------------+
+| root         | name                       | description                                                                                           |
++==============+============================+=======================================================================================================+
+| @user-module | jam_core                   | JAM Core                                                                                              |
+| @user-module | jam_syntax_tree            | Programming-language tokenizers and parsers over jam::Document                                        |
+| @user-module | jam_document               | Universal line break and reflow (UAX #14)                                                             |
+| @user-module | jam_markdown               | Clean-room native CommonMark + GFM markdown parsing and rendering                                     |
+| @user-module | jam_freetype               | Vendored FreeType font rasterization library                                                          |
+| @user-module | jam_graphics               | Graphics utilities, blur, shadows, colours, fonts, mesh                                               |
+| @user-module | jam_data_structures        | ValueTree management and data model utilities — model, parameters                                     |
+| @user-module | jam_animation              | Foundation animation classes (Animator, AnimationBase, AnimationScrollingText)                        |
+| @user-module | jam_web                    | HTML authored-subset and CSS Syntax Level 3 subset tokenizers and parsers                             |
+| @user-module | jam_style                  | JAM Style — LookAndFeel base + ColourScheme-backed colour registry                                    |
+| @user-module | jam_gui                    | GUI foundation — Window, Modal, Glass                                                                 |
+| @user-module | jam_mermaid_diagram        | Clean-room native mermaid diagram parsing over jam::Document producing the semantic Element tree      |
+| @user-module | jam_markdown_graphics      | Markdown and mermaid materialisation, layout and view component                                       |
+| @user-module | jam_terminal               | VT read-side engine, TTY, protocol vocabulary, keyboard encoding                                      |
+| @user-module | jam_tui                    | Terminal user interface components, painted through the terminal graphics context                     |
+| @user-module | jam_subprocess             | JUCE-based subprocess launcher with streaming output and byte-cap truncation                          |
+| @user-module | jam_fuzzy                  | Fuzzy search (Levenshtein) and fzf-algorithm matching engine                                          |
+| @user-module | jam_profiler               | Profiler zones and samples                                                                            |
+| @user-module | jam_model_context_protocol | Model Context Protocol server over stdio: newline framing, JSON Schema 2020-12 validation, tool calls |
++--------------+----------------------------+-------------------------------------------------------------------------------------------------------+
 
 ## source glob
 
@@ -165,6 +171,8 @@ Every field is a complete literal; nothing downstream derives, concatenates, or 
 | juceCoreIncludeComSmartPtr         | `$<$<PLATFORM_ID:Windows>:JUCE_CORE_INCLUDE_COM_SMART_PTR=1>`        | Windows COM smart pointer helpers                             |
 | haveFreetype                       | HAVE_FREETYPE                                                        | FreeType font backend, consumed by juce_graphics_Harfbuzz.cpp |
 | haveUnistdH                        | `$<$<NOT:$<PLATFORM_ID:Windows>>:HAVE_UNISTD_H>`                     | POSIX unistd.h present, non-Windows                           |
+| jamUsingProfiler                   | `$<$<BOOL:${CAST_PROFILE}>:JAM_USING_PROFILER=1>`                    | Profiler zones, profile builds only                           |
+| lingUsingSchema                    | `$<$<BOOL:${CAST_SCHEMA}>:LING_USING_SCHEMA=1>`                      | Schema build runners, schema builds only                      |
 +------------------------------------+----------------------------------------------------------------------+---------------------------------------------------------------+
 
 ## include
@@ -180,18 +188,20 @@ Every field is a complete literal; nothing downstream derives, concatenates, or 
 
 ## binary
 
-+----------------------+---------------------------------------------------------+------------------------------------------------------+
-| name                 | value                                                   | description                                          |
-+======================+=========================================================+======================================================+
-| help                 | Source/HELP.md                                          | Help document source                                 |
-| styleSheet           | ../jam/jam_tui/page/style.css                           | Stylesheet, embedded as BinaryData                   |
-| languageSpell        | language/cLang/spell.md                                 | Default spell of the embedded language               |
-| languageTemplate     | language/cLang/language.cast                            | Default template of the embedded language            |
-| languageConstruction | language/cLang/construction.md                          | Default construction tables of the embedded language |
-| syntaxTree           | ../jam/cast/syntax_tree.md                              | Syntax tables of the embedded language               |
-| core                 | ../jam/cast/core.md                                     | Character and token tables of the embedded language  |
-| languageInterface    | ../jam/jam_syntax_tree/document/jam_LanguageInterface.h | Boundary header of the embedded language             |
-+----------------------+---------------------------------------------------------+------------------------------------------------------+
++----------------------+----------------------------------------------------------------------------+-----------------------------------------------------------+
+| name                 | value                                                                      | description                                               |
++======================+============================================================================+===========================================================+
+| help                 | Source/HELP.md                                                             | Help document source                                      |
+| styleSheet           | ../jam/jam_tui/page/style.css                                              | Stylesheet, embedded as BinaryData                        |
+| languageSpell        | language/cLang/spell.md                                                    | Default spell of the embedded language                    |
+| languageTemplate     | language/cLang/language.cast                                               | Default template of the embedded language                 |
+| languageConstruction | language/cLang/construction.md                                             | Default construction tables of the embedded language      |
+| syntaxTree           | ../jam/cast/syntax_tree.md                                                 | Syntax tables of the embedded language                    |
+| core                 | ../jam/cast/core.md                                                        | Character and token tables of the embedded language       |
+| lsp                  | cast/lsp.md                                                                | LSP value tables of the embedded language                 |
+| languageInterface    | ../jam/jam_syntax_tree/document/jam_LanguageInterface.h                    | Boundary header of the embedded language                  |
+| languages            | `${CMAKE_CURRENT_SOURCE_DIR}/Source/languages/${CAST_PACK_platform}/*.zip` | Carried language libraries, one archive for each language |
++----------------------+----------------------------------------------------------------------------+-----------------------------------------------------------+
 
 ## library
 
@@ -205,6 +215,8 @@ Every field is a complete literal; nothing downstream derives, concatenates, or 
 +----------+---------+----------------------------------------------------------------------------+
 | argument | command | flag                                                                       |
 +==========+=========+============================================================================+
+|          | cmake   | -P languageBundle.cmake                                                    |
++----------+---------+----------------------------------------------------------------------------+
 |          | cast    | ../jam/cast/spell.md                                                       |
 +----------+---------+----------------------------------------------------------------------------+
 |          | cmake   | -S . -B Builds/Release -G Ninja -DCMAKE_BUILD_TYPE=Release -DCAST_SIGN=ON  |
@@ -213,11 +225,15 @@ Every field is a complete literal; nothing downstream derives, concatenates, or 
 +----------+---------+----------------------------------------------------------------------------+
 |          | cmake   | -P gh.cmake                                                                |
 +----------+---------+----------------------------------------------------------------------------+
+| debug    | cmake   | -P languageBundle.cmake                                                    |
++----------+---------+----------------------------------------------------------------------------+
 | debug    | cast    | ../jam/cast/spell.md                                                       |
 +----------+---------+----------------------------------------------------------------------------+
 | debug    | cmake   | -S . -B Builds/Debug -G Ninja -DCMAKE_BUILD_TYPE=Debug                     |
 +----------+---------+----------------------------------------------------------------------------+
 | debug    | ninja   | -C Builds/Debug                                                            |
++----------+---------+----------------------------------------------------------------------------+
+| no-sign  | cmake   | -P languageBundle.cmake                                                    |
 +----------+---------+----------------------------------------------------------------------------+
 | no-sign  | cast    | ../jam/cast/spell.md                                                       |
 +----------+---------+----------------------------------------------------------------------------+

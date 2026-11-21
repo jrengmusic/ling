@@ -134,6 +134,7 @@ set(CAST_JUCE_PATCHES
 "${CAST_USER_MODULE_PATH}/patch/juce-mouse-event-hook.patch"                # Host mouse event callback before a peer's components; applies after juce-key-pressed-hook.patch
 "${CAST_USER_MODULE_PATH}/patch/juce-plugin-editor-once-hook.patch"         # VST2 plugin client opens the editor that effEditGetRect created, so the editor is built once; applies after juce-plugin-transparency-hook.patch
 "${CAST_USER_MODULE_PATH}/patch/juce-plugin-window-size-hook.patch"         # VST2 host child window takes the plugin's effEditGetRect size in physical pixels on Windows; applies after juce-plugin-transparency-hook.patch
+"${CAST_USER_MODULE_PATH}/patch/juce-value-tree-synchroniser-hook.patch"    # Listener exclusion for ValueTree senders: juce_ValueTree.cpp, juce_ValueTree.h, juce_ValueTreeSynchroniser.cpp, juce_ValueTreeSynchroniser.h; child and remove-property senders take a listener to exclude; ValueTree gains removePropertyExcludingListener, addChildExcludingListener, removeChildExcludingListener, moveChildExcludingListener; ValueTreeSynchroniser gains applyChange that excludes itself
 )
 
 if(WIN32)
@@ -222,23 +223,25 @@ endif()
 
 message(STATUS "CAST: JUCE ${CAST_FOUND_JUCE_VERSION} patched at ${CAST_JUCE_PATH}")
 
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_core")             # JAM Core
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_syntax_tree")      # Programming-language tokenizers and parsers over jam::Document
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_document")         # Universal line break and reflow (UAX #14)
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_markdown")         # Clean-room native CommonMark + GFM markdown parsing and rendering
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_freetype")         # Vendored FreeType font rasterization library
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_graphics")         # Graphics utilities, blur, shadows, colours, fonts, mesh
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_data_structures")  # ValueTree management and data model utilities — model, parameters
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_animation")        # Foundation animation classes (Animator, AnimationBase, AnimationScrollingText)
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_web")              # HTML authored-subset and CSS Syntax Level 3 subset tokenizers and parsers
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_style")            # JAM Style — LookAndFeel base + ColourScheme-backed colour registry
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_gui")              # GUI foundation — Window, Modal, Glass
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_mermaid_diagram")  # Clean-room native mermaid diagram parsing over jam::Document producing the semantic Element tree
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_markdown_graphics")# Markdown and mermaid materialisation, layout and view component
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_terminal")         # VT read-side engine, TTY, protocol vocabulary, keyboard encoding
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_tui")              # Terminal user interface components, painted through the terminal graphics context
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_subprocess")       # JUCE-based subprocess launcher with streaming output and byte-cap truncation
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_fuzzy")            # Fuzzy search (Levenshtein) and fzf-algorithm matching engine
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_core")                  # JAM Core
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_syntax_tree")           # Programming-language tokenizers and parsers over jam::Document
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_document")              # Universal line break and reflow (UAX #14)
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_markdown")              # Clean-room native CommonMark + GFM markdown parsing and rendering
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_freetype")              # Vendored FreeType font rasterization library
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_graphics")              # Graphics utilities, blur, shadows, colours, fonts, mesh
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_data_structures")       # ValueTree management and data model utilities — model, parameters
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_animation")             # Foundation animation classes (Animator, AnimationBase, AnimationScrollingText)
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_web")                   # HTML authored-subset and CSS Syntax Level 3 subset tokenizers and parsers
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_style")                 # JAM Style — LookAndFeel base + ColourScheme-backed colour registry
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_gui")                   # GUI foundation — Window, Modal, Glass
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_mermaid_diagram")       # Clean-room native mermaid diagram parsing over jam::Document producing the semantic Element tree
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_markdown_graphics")     # Markdown and mermaid materialisation, layout and view component
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_terminal")              # VT read-side engine, TTY, protocol vocabulary, keyboard encoding
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_tui")                   # Terminal user interface components, painted through the terminal graphics context
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_subprocess")            # JUCE-based subprocess launcher with streaming output and byte-cap truncation
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_fuzzy")                 # Fuzzy search (Levenshtein) and fzf-algorithm matching engine
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_profiler")              # Profiler zones and samples
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_model_context_protocol")# Model Context Protocol server over stdio: newline framing, JSON Schema 2020-12 validation, tool calls
 
 message(STATUS "CAST: user modules added from ${CMAKE_CURRENT_SOURCE_DIR}/../jam")
 
@@ -293,6 +296,8 @@ JUCE_USE_CURL=0
 "$<$<PLATFORM_ID:Windows>:JUCE_CORE_INCLUDE_COM_SMART_PTR=1>"
 HAVE_FREETYPE
 "$<$<NOT:$<PLATFORM_ID:Windows>>:HAVE_UNISTD_H>"
+"$<$<BOOL:${CAST_PROFILE}>:JAM_USING_PROFILER=1>"
+"$<$<BOOL:${CAST_SCHEMA}>:LING_USING_SCHEMA=1>"
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE
@@ -328,6 +333,8 @@ jam_terminal
 jam_tui
 jam_subprocess
 jam_fuzzy
+jam_profiler
+jam_model_context_protocol
     PUBLIC
         juce::juce_recommended_config_flags
 )
@@ -354,30 +361,6 @@ target_link_options(${PROJECT_NAME} PRIVATE
     $<$<CONFIG:Release>:${CAST_RELEASE_LINK_FLAGS}>
 )
 
-file(GLOB CAST_BINARY_FILES CONFIGURE_DEPENDS
-Source/HELP.md
-../jam/jam_tui/page/style.css
-language/cLang/spell.md
-language/cLang/language.cast
-language/cLang/construction.md
-../jam/cast/syntax_tree.md
-../jam/cast/core.md
-../jam/jam_syntax_tree/document/jam_LanguageInterface.h
-)
-
-juce_add_binary_data(${PROJECT_NAME}_BinaryData
-    NAMESPACE "BinaryData"
-    SOURCES
-        ${CAST_BINARY_FILES}
-)
-
-target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_BinaryData)
-
-include(CheckIPOSupported)
-
-set(CAST_POST_BUILD_STAMP_FILE "${CMAKE_BINARY_DIR}/post-build.stamp")
-set(CAST_POST_BUILD_DEPENDS $<TARGET_FILE:${PROJECT_NAME}>)
-
 if(APPLE)
     set(CAST_PACK_folder "../Release")
 elseif(WIN32)
@@ -398,6 +381,45 @@ if(WIN32)
     string(TOLOWER "${CMAKE_CXX_COMPILER_ARCHITECTURE_ID}" CAST_PACK_architecture)
     set(CAST_PACK_platform "${CAST_PACK_platform} ${CAST_PACK_architecture}")
 endif()
+
+file(GLOB CAST_BINARY_FILES CONFIGURE_DEPENDS
+Source/HELP.md
+../jam/jam_tui/page/style.css
+language/cLang/spell.md
+language/cLang/language.cast
+language/cLang/construction.md
+../jam/cast/syntax_tree.md
+../jam/cast/core.md
+cast/lsp.md
+../jam/jam_syntax_tree/document/jam_LanguageInterface.h
+"${CMAKE_CURRENT_SOURCE_DIR}/Source/languages/${CAST_PACK_platform}/*.zip"
+)
+
+set(CAST_LANGUAGE_FILES ${CAST_BINARY_FILES})
+list(FILTER CAST_LANGUAGE_FILES INCLUDE REGEX "/Source/languages/.+[.]zip$")
+set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS ${CAST_LANGUAGE_FILES})
+
+set(CAST_LANGUAGES_HASH_CONCAT "")
+foreach(CAST_LANGUAGE_FILE ${CAST_LANGUAGE_FILES})
+    file(SHA256 "${CAST_LANGUAGE_FILE}" CAST_LANGUAGE_FILE_HASH)
+    string(APPEND CAST_LANGUAGES_HASH_CONCAT "${CAST_LANGUAGE_FILE_HASH}")
+endforeach()
+string(SHA256 CAST_LANGUAGES_HASH "${CAST_LANGUAGES_HASH_CONCAT}")
+
+set_source_files_properties("${CMAKE_CURRENT_SOURCE_DIR}/Source/Processor.cpp" PROPERTIES COMPILE_DEFINITIONS "CAST_LANGUAGES_HASH=\"${CAST_LANGUAGES_HASH}\"" SKIP_PRECOMPILE_HEADERS ON)
+
+juce_add_binary_data(${PROJECT_NAME}_BinaryData
+    NAMESPACE "BinaryData"
+    SOURCES
+        ${CAST_BINARY_FILES}
+)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_BinaryData)
+
+include(CheckIPOSupported)
+
+set(CAST_POST_BUILD_STAMP_FILE "${CMAKE_BINARY_DIR}/post-build.stamp")
+set(CAST_POST_BUILD_DEPENDS $<TARGET_FILE:${PROJECT_NAME}>)
 
 set(CAST_PACK_ARCHIVE "${CMAKE_SOURCE_DIR}/${CAST_PACK_folder}/ling v${PROJECT_VERSION} ${CAST_PACK_platform}.${CAST_PACK_format}")
 
@@ -467,6 +489,7 @@ COMMAND ${CMAKE_COMMAND} -E touch "${CAST_SIGN_STAMP_FILE}"
     endif()
 endif()
 
+if(NOT CAST_PROFILE)
 add_custom_command(OUTPUT "${CAST_POST_BUILD_STAMP_FILE}"
     DEPENDS ${CAST_POST_BUILD_DEPENDS}
 COMMAND ${CMAKE_COMMAND} -E make_directory "$ENV{HOME}/.local/bin"
@@ -479,6 +502,7 @@ COMMAND ${CMAKE_COMMAND} -E touch "${CAST_POST_BUILD_STAMP_FILE}"
     COMMENT "CAST: post-build"
 )
 add_custom_target(post-build ALL DEPENDS "${CAST_POST_BUILD_STAMP_FILE}")
+endif()
 
 message(STATUS "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
 message(STATUS "CAST: ${PROJECT_NAME} configured")

@@ -1,0 +1,586 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="class_language" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>Language</compoundname>
+    <derivedcompoundref refid="class_built_in_language" prot="public" virt="non-virtual">BuiltInLanguage&lt; map::CssElements, map::CssTokenType &gt;</derivedcompoundref>
+    <derivedcompoundref refid="class_built_in_language" prot="public" virt="non-virtual">BuiltInLanguage&lt; map::HtmlElements, map::HtmlTokenType &gt;</derivedcompoundref>
+    <derivedcompoundref refid="class_built_in_language" prot="public" virt="non-virtual">BuiltInLanguage&lt; map::JsonElements, map::JsonTokenType &gt;</derivedcompoundref>
+    <derivedcompoundref refid="class_built_in_language" prot="public" virt="non-virtual">BuiltInLanguage&lt; map::MarkdownElements, map::DocumentTokenType &gt;</derivedcompoundref>
+    <derivedcompoundref refid="class_built_in_language" prot="public" virt="non-virtual">BuiltInLanguage&lt; map::MermaidElements, map::MermaidTokenType &gt;</derivedcompoundref>
+    <derivedcompoundref refid="class_built_in_language" prot="public" virt="non-virtual">BuiltInLanguage&lt; map::XmlElements, map::XmlTokenType &gt;</derivedcompoundref>
+    <derivedcompoundref refid="class_built_in_language" prot="public" virt="non-virtual">BuiltInLanguage&lt; Elements, TokenTypes &gt;</derivedcompoundref>
+    <derivedcompoundref refid="class_library_language" prot="public" virt="non-virtual">LibraryLanguage</derivedcompoundref>
+    <includes refid="_language_8h" local="no">Language.h</includes>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="class_language_1acb2734bfc3418cdf27c21ec260adfe60" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int Language::noDefinition</definition>
+        <argsstring></argsstring>
+        <name>noDefinition</name>
+        <qualifiedname>Language::noDefinition</qualifiedname>
+        <initializer>{ -1 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Language.h" line="10" column="26" bodyfile="Language.h" bodystart="10" bodyend="10"/>
+        <referencedby refid="class_built_in_language_1a854fb2343326f6c8a80add14f0a41d84" compoundref="_built_in_language_8h" startline="191" endline="215">BuiltInLanguage&lt; Elements, TokenTypes &gt;::addRecords</referencedby>
+        <referencedby refid="class_query_1a4b374853461219f939f43fb503cf7d61" compoundref="_query_8cpp" startline="473" endline="511">Query::hover</referencedby>
+        <referencedby refid="class_processor_1a73b87328af0323a991d4ab0625558647" compoundref="_processor_8cpp" startline="395" endline="408">Processor::runHover</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_language_1a31ccc6a98a6c40a452a66a18ca604c79" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual Language::~Language</definition>
+        <argsstring>()=default</argsstring>
+        <name>~Language</name>
+        <qualifiedname>Language::~Language</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Language.h" line="8" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_language_1aa23f1df5cd018950d06f9b0ddf1c2e23" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::pair&lt; std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;, std::unique_ptr&lt; <ref refid="struct_symbol_document" kindref="compound">SymbolDocument</ref> &gt; &gt;</type>
+        <definition>virtual std::pair&lt; std::unique_ptr&lt; jam::Document &gt;, std::unique_ptr&lt; SymbolDocument &gt; &gt; Language::parse</definition>
+        <argsstring>(std::string_view text, const juce::String &amp;path) const =0</argsstring>
+        <name>parse</name>
+        <qualifiedname>Language::parse</qualifiedname>
+        <reimplementedby refid="class_css_language_1ac198c1d5706cba2de211e5f00d36f07c">parse</reimplementedby>
+        <reimplementedby refid="class_html_language_1ab70a874e005e765e4bc3f505c7817b98">parse</reimplementedby>
+        <reimplementedby refid="class_json_language_1a20ba4d8b616c6b2ad7015d529d2b23d4">parse</reimplementedby>
+        <reimplementedby refid="class_library_language_1a66d627bfab7ebc49f7a80b158303301f">parse</reimplementedby>
+        <reimplementedby refid="class_markdown_language_1a054ac0c70ccf1830a39d1a7188df4c76">parse</reimplementedby>
+        <reimplementedby refid="class_mermaid_language_1a9dff601b4eb70a5afce80b8ae4d86d9f">parse</reimplementedby>
+        <reimplementedby refid="class_xml_language_1a17abe74983a9d487d2e6d4943a648b37">parse</reimplementedby>
+        <param>
+          <type>std::string_view</type>
+          <declname>text</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <declname>path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Language.h" line="12" column="23"/>
+      </memberdef>
+      <memberdef kind="function" id="class_language_1ad9d9019bec5846302d4b69bd308b7183" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="classjuce_1_1Result" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Result</ref></type>
+        <definition>virtual juce::Result Language::isValid</definition>
+        <argsstring>(std::string_view text) const =0</argsstring>
+        <name>isValid</name>
+        <qualifiedname>Language::isValid</qualifiedname>
+        <reimplementedby refid="class_built_in_language_1abb7f2d4981fc084fe3f21e6267a94f7b">isValid</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1abb7f2d4981fc084fe3f21e6267a94f7b">isValid</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1abb7f2d4981fc084fe3f21e6267a94f7b">isValid</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1abb7f2d4981fc084fe3f21e6267a94f7b">isValid</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1abb7f2d4981fc084fe3f21e6267a94f7b">isValid</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1abb7f2d4981fc084fe3f21e6267a94f7b">isValid</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1abb7f2d4981fc084fe3f21e6267a94f7b">isValid</reimplementedby>
+        <reimplementedby refid="class_library_language_1a98d09a72882f321eade1636991e99a6b">isValid</reimplementedby>
+        <param>
+          <type>std::string_view</type>
+          <declname>text</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Language.h" line="13" column="26"/>
+      </memberdef>
+      <memberdef kind="function" id="class_language_1a392c16dfaf08d7ed566e4e3983bb7ac9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;</type>
+        <definition>virtual std::unique_ptr&lt; jam::Document &gt; Language::read</definition>
+        <argsstring>(std::string_view text, std::string_view stored) const =0</argsstring>
+        <name>read</name>
+        <qualifiedname>Language::read</qualifiedname>
+        <reimplementedby refid="class_css_language_1a2b7dba623e6f4eeb07e0e4b95987ffc0">read</reimplementedby>
+        <reimplementedby refid="class_html_language_1a9e2c1011f5dc02aaaeed34253f3a88b2">read</reimplementedby>
+        <reimplementedby refid="class_json_language_1ade5fc1586302357eecb7a4349dba9595">read</reimplementedby>
+        <reimplementedby refid="class_library_language_1a6f24cd64a8f6439dc68442a9bcb6dab3">read</reimplementedby>
+        <reimplementedby refid="class_markdown_language_1ad9d4e0ca972b7494b7490fd4219cb237">read</reimplementedby>
+        <reimplementedby refid="class_mermaid_language_1a299d31b903a5c5a63d3999c15c710e6a">read</reimplementedby>
+        <reimplementedby refid="class_xml_language_1a0533ac0050f50cbc6264e57a7ef502f5">read</reimplementedby>
+        <param>
+          <type>std::string_view</type>
+          <declname>text</declname>
+        </param>
+        <param>
+          <type>std::string_view</type>
+          <declname>stored</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Language.h" line="14" column="29"/>
+      </memberdef>
+      <memberdef kind="function" id="class_language_1a8be0bd7956e0304c9dfa6f34de424ad9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int Language::index</definition>
+        <argsstring>(const char *const *arguments, int argumentCount, const char *directory, const char *const *bufferPaths, const char *const *bufferTexts, int bufferCount, const jam::LanguageCallbacks &amp;callbacks) const =0</argsstring>
+        <name>index</name>
+        <qualifiedname>Language::index</qualifiedname>
+        <reimplementedby refid="class_built_in_language_1a1655e858f06b9f31966dd473b2cf4294">index</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a1655e858f06b9f31966dd473b2cf4294">index</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a1655e858f06b9f31966dd473b2cf4294">index</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a1655e858f06b9f31966dd473b2cf4294">index</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a1655e858f06b9f31966dd473b2cf4294">index</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a1655e858f06b9f31966dd473b2cf4294">index</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a1655e858f06b9f31966dd473b2cf4294">index</reimplementedby>
+        <reimplementedby refid="class_library_language_1a97aeb0f0b63caccf1ccc2aaa28957aab">index</reimplementedby>
+        <param>
+          <type>const char *const *</type>
+          <declname>arguments</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>argumentCount</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>directory</declname>
+        </param>
+        <param>
+          <type>const char *const *</type>
+          <declname>bufferPaths</declname>
+        </param>
+        <param>
+          <type>const char *const *</type>
+          <declname>bufferTexts</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>bufferCount</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1LanguageCallbacks" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageCallbacks</ref> &amp;</type>
+          <declname>callbacks</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Language.h" line="15" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_language_1a373e97c0fb11550d40cfa069fba7222b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool Language::hasIndex</definition>
+        <argsstring>() const =0</argsstring>
+        <name>hasIndex</name>
+        <qualifiedname>Language::hasIndex</qualifiedname>
+        <reimplementedby refid="class_built_in_language_1a2a9dee54dbdf570fe2538a151ccd32ac">hasIndex</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a2a9dee54dbdf570fe2538a151ccd32ac">hasIndex</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a2a9dee54dbdf570fe2538a151ccd32ac">hasIndex</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a2a9dee54dbdf570fe2538a151ccd32ac">hasIndex</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a2a9dee54dbdf570fe2538a151ccd32ac">hasIndex</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a2a9dee54dbdf570fe2538a151ccd32ac">hasIndex</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a2a9dee54dbdf570fe2538a151ccd32ac">hasIndex</reimplementedby>
+        <reimplementedby refid="class_library_language_1a6773bd225fdb2cae1f879f141e2ecec8">hasIndex</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Language.h" line="16" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_language_1aad06a1f0660985eb64023e05e8845bb7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int Language::units</definition>
+        <argsstring>(const char *const *arguments, const int *argumentCounts, int rowCount, const char *directory, const char *cacheDirectory, const jam::LanguageCallbacks &amp;callbacks) const =0</argsstring>
+        <name>units</name>
+        <qualifiedname>Language::units</qualifiedname>
+        <reimplementedby refid="class_built_in_language_1ae167081944e4d638161909ea4f18a1df">units</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1ae167081944e4d638161909ea4f18a1df">units</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1ae167081944e4d638161909ea4f18a1df">units</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1ae167081944e4d638161909ea4f18a1df">units</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1ae167081944e4d638161909ea4f18a1df">units</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1ae167081944e4d638161909ea4f18a1df">units</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1ae167081944e4d638161909ea4f18a1df">units</reimplementedby>
+        <reimplementedby refid="class_library_language_1ad62d27a5d4bb08cc20062550040942b8">units</reimplementedby>
+        <param>
+          <type>const char *const *</type>
+          <declname>arguments</declname>
+        </param>
+        <param>
+          <type>const int *</type>
+          <declname>argumentCounts</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>rowCount</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>directory</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>cacheDirectory</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjam_1_1LanguageCallbacks" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageCallbacks</ref> &amp;</type>
+          <declname>callbacks</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Language.h" line="17" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_language_1aba611040df762266ca041ca011ec57e2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool Language::hasRole</definition>
+        <argsstring>(const jam::Document::Element &amp;element, int role) const =0</argsstring>
+        <name>hasRole</name>
+        <qualifiedname>Language::hasRole</qualifiedname>
+        <reimplementedby refid="class_built_in_language_1aa221b4be556c9066437170b575592d4e">hasRole</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1aa221b4be556c9066437170b575592d4e">hasRole</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1aa221b4be556c9066437170b575592d4e">hasRole</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1aa221b4be556c9066437170b575592d4e">hasRole</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1aa221b4be556c9066437170b575592d4e">hasRole</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1aa221b4be556c9066437170b575592d4e">hasRole</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1aa221b4be556c9066437170b575592d4e">hasRole</reimplementedby>
+        <reimplementedby refid="class_library_language_1a4feadd63445dcbd5c5fe788151579e86">hasRole</reimplementedby>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>element</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>role</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Language.h" line="18" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_language_1a44c383aa2124008873c41b9d2d9a8861" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int Language::getSymbolType</definition>
+        <argsstring>(const jam::Document::Element &amp;element) const =0</argsstring>
+        <name>getSymbolType</name>
+        <qualifiedname>Language::getSymbolType</qualifiedname>
+        <reimplementedby refid="class_built_in_language_1afaa4de8cb0889d305a658a8171d654a5">getSymbolType</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1afaa4de8cb0889d305a658a8171d654a5">getSymbolType</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1afaa4de8cb0889d305a658a8171d654a5">getSymbolType</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1afaa4de8cb0889d305a658a8171d654a5">getSymbolType</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1afaa4de8cb0889d305a658a8171d654a5">getSymbolType</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1afaa4de8cb0889d305a658a8171d654a5">getSymbolType</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1afaa4de8cb0889d305a658a8171d654a5">getSymbolType</reimplementedby>
+        <reimplementedby refid="class_library_language_1aa5ba07dec1c80d999a12c799df7298e8">getSymbolType</reimplementedby>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>element</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Language.h" line="19" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_language_1a8b4bb63191d8379a26ce449c5c11c839" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int Language::getSemanticType</definition>
+        <argsstring>(int tokenType) const =0</argsstring>
+        <name>getSemanticType</name>
+        <qualifiedname>Language::getSemanticType</qualifiedname>
+        <reimplementedby refid="class_built_in_language_1ace5ea3608cde10f16f46dba9dfca664d">getSemanticType</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1ace5ea3608cde10f16f46dba9dfca664d">getSemanticType</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1ace5ea3608cde10f16f46dba9dfca664d">getSemanticType</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1ace5ea3608cde10f16f46dba9dfca664d">getSemanticType</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1ace5ea3608cde10f16f46dba9dfca664d">getSemanticType</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1ace5ea3608cde10f16f46dba9dfca664d">getSemanticType</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1ace5ea3608cde10f16f46dba9dfca664d">getSemanticType</reimplementedby>
+        <reimplementedby refid="class_library_language_1a3202d343bec470da47e4eefadd8c3dd7">getSemanticType</reimplementedby>
+        <param>
+          <type>int</type>
+          <declname>tokenType</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Language.h" line="20" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_language_1a47ee33c2a64c73d3169cc3987f89f408" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int Language::getSemanticModifiers</definition>
+        <argsstring>(int tokenType) const =0</argsstring>
+        <name>getSemanticModifiers</name>
+        <qualifiedname>Language::getSemanticModifiers</qualifiedname>
+        <reimplementedby refid="class_built_in_language_1a2c9129f7d2681f60bbf7caa35f039a5b">getSemanticModifiers</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a2c9129f7d2681f60bbf7caa35f039a5b">getSemanticModifiers</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a2c9129f7d2681f60bbf7caa35f039a5b">getSemanticModifiers</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a2c9129f7d2681f60bbf7caa35f039a5b">getSemanticModifiers</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a2c9129f7d2681f60bbf7caa35f039a5b">getSemanticModifiers</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a2c9129f7d2681f60bbf7caa35f039a5b">getSemanticModifiers</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a2c9129f7d2681f60bbf7caa35f039a5b">getSemanticModifiers</reimplementedby>
+        <reimplementedby refid="class_library_language_1a76c35a81e58468107899711604caa206">getSemanticModifiers</reimplementedby>
+        <param>
+          <type>int</type>
+          <declname>tokenType</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Language.h" line="21" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_language_1ad098ab2910e40e636ddbdad279fea14e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int Language::getCompletionKind</definition>
+        <argsstring>(int tokenType) const =0</argsstring>
+        <name>getCompletionKind</name>
+        <qualifiedname>Language::getCompletionKind</qualifiedname>
+        <reimplementedby refid="class_built_in_language_1a42553c1c187d0531aa6415cab8dccae0">getCompletionKind</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a42553c1c187d0531aa6415cab8dccae0">getCompletionKind</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a42553c1c187d0531aa6415cab8dccae0">getCompletionKind</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a42553c1c187d0531aa6415cab8dccae0">getCompletionKind</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a42553c1c187d0531aa6415cab8dccae0">getCompletionKind</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a42553c1c187d0531aa6415cab8dccae0">getCompletionKind</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a42553c1c187d0531aa6415cab8dccae0">getCompletionKind</reimplementedby>
+        <reimplementedby refid="class_library_language_1a647b7892ddf861f51769f209235d4801">getCompletionKind</reimplementedby>
+        <param>
+          <type>int</type>
+          <declname>tokenType</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Language.h" line="22" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_language_1a04dff999e9834bedeb4e47a344156ccc" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="classjuce_1_1StringArray" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::StringArray</ref></type>
+        <definition>virtual juce::StringArray Language::getCounterparts</definition>
+        <argsstring>(const juce::String &amp;extension) const =0</argsstring>
+        <name>getCounterparts</name>
+        <qualifiedname>Language::getCounterparts</qualifiedname>
+        <reimplementedby refid="class_built_in_language_1ae0991e08e6c835ece15cee017dc95fa9">getCounterparts</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1ae0991e08e6c835ece15cee017dc95fa9">getCounterparts</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1ae0991e08e6c835ece15cee017dc95fa9">getCounterparts</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1ae0991e08e6c835ece15cee017dc95fa9">getCounterparts</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1ae0991e08e6c835ece15cee017dc95fa9">getCounterparts</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1ae0991e08e6c835ece15cee017dc95fa9">getCounterparts</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1ae0991e08e6c835ece15cee017dc95fa9">getCounterparts</reimplementedby>
+        <reimplementedby refid="class_library_language_1a47f72a33b631edff980e8da4bd2d01e0">getCounterparts</reimplementedby>
+        <param>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <declname>extension</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Language.h" line="23" column="31"/>
+      </memberdef>
+      <memberdef kind="function" id="class_language_1a0d17de8eed2a3cf897188084fc2e9ad7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::unique_ptr&lt; <ref refid="struct_symbol_document" kindref="compound">SymbolDocument</ref> &gt;</type>
+        <definition>virtual std::unique_ptr&lt; SymbolDocument &gt; Language::getSymbols</definition>
+        <argsstring>(const jam::Document &amp;document, const juce::String &amp;path) const =0</argsstring>
+        <name>getSymbols</name>
+        <qualifiedname>Language::getSymbols</qualifiedname>
+        <reimplementedby refid="class_built_in_language_1a496cd39d0c2ab8fd1626a6454a3bc714">getSymbols</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a496cd39d0c2ab8fd1626a6454a3bc714">getSymbols</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a496cd39d0c2ab8fd1626a6454a3bc714">getSymbols</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a496cd39d0c2ab8fd1626a6454a3bc714">getSymbols</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a496cd39d0c2ab8fd1626a6454a3bc714">getSymbols</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a496cd39d0c2ab8fd1626a6454a3bc714">getSymbols</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a496cd39d0c2ab8fd1626a6454a3bc714">getSymbols</reimplementedby>
+        <reimplementedby refid="class_library_language_1a926bfe3bc21bfc36190bd0a1736409fb">getSymbols</reimplementedby>
+        <param>
+          <type>const <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &amp;</type>
+          <declname>document</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <declname>path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Language.h" line="24" column="29"/>
+      </memberdef>
+      <memberdef kind="function" id="class_language_1a5956b93b04652643322b13078edff6da" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref></type>
+        <definition>virtual juce::String Language::format</definition>
+        <argsstring>(std::string_view text, const juce::String &amp;path) const =0</argsstring>
+        <name>format</name>
+        <qualifiedname>Language::format</qualifiedname>
+        <reimplementedby refid="class_built_in_language_1a50121457ed6568de89c611beed1f55bb">format</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a50121457ed6568de89c611beed1f55bb">format</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a50121457ed6568de89c611beed1f55bb">format</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a50121457ed6568de89c611beed1f55bb">format</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a50121457ed6568de89c611beed1f55bb">format</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a50121457ed6568de89c611beed1f55bb">format</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a50121457ed6568de89c611beed1f55bb">format</reimplementedby>
+        <reimplementedby refid="class_library_language_1a44a44e8233c16252c68dc0b1ddbc4e5d">format</reimplementedby>
+        <param>
+          <type>std::string_view</type>
+          <declname>text</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <declname>path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Language.h" line="25" column="26"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="14">
+        <label>BuiltInLanguage&lt; Elements, TokenTypes &gt;</label>
+        <link refid="class_built_in_language"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>BuiltInLanguage&lt; map::CssElements, map::CssTokenType &gt;</label>
+        <link refid="class_built_in_language"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>BuiltInLanguage&lt; map::HtmlElements, map::HtmlTokenType &gt;</label>
+        <link refid="class_built_in_language"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>BuiltInLanguage&lt; map::JsonElements, map::JsonTokenType &gt;</label>
+        <link refid="class_built_in_language"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>BuiltInLanguage&lt; map::MarkdownElements, map::DocumentTokenType &gt;</label>
+        <link refid="class_built_in_language"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>BuiltInLanguage&lt; map::MermaidElements, map::MermaidTokenType &gt;</label>
+        <link refid="class_built_in_language"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>BuiltInLanguage&lt; map::XmlElements, map::XmlTokenType &gt;</label>
+        <link refid="class_built_in_language"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>CssLanguage</label>
+        <link refid="class_css_language"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>HtmlLanguage</label>
+        <link refid="class_html_language"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>JsonLanguage</label>
+        <link refid="class_json_language"/>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Language</label>
+        <link refid="class_language"/>
+      </node>
+      <node id="15">
+        <label>LibraryLanguage</label>
+        <link refid="class_library_language"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>MarkdownLanguage</label>
+        <link refid="class_markdown_language"/>
+        <childnode refid="8" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>MermaidLanguage</label>
+        <link refid="class_mermaid_language"/>
+        <childnode refid="10" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>XmlLanguage</label>
+        <link refid="class_xml_language"/>
+        <childnode refid="12" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="Language.h" line="5" column="1" bodyfile="Language.h" bodystart="6" bodyend="26"/>
+    <listofallmembers>
+      <member refid="class_language_1a5956b93b04652643322b13078edff6da" prot="public" virt="pure-virtual"><scope>Language</scope><name>format</name></member>
+      <member refid="class_language_1ad098ab2910e40e636ddbdad279fea14e" prot="public" virt="pure-virtual"><scope>Language</scope><name>getCompletionKind</name></member>
+      <member refid="class_language_1a04dff999e9834bedeb4e47a344156ccc" prot="public" virt="pure-virtual"><scope>Language</scope><name>getCounterparts</name></member>
+      <member refid="class_language_1a47ee33c2a64c73d3169cc3987f89f408" prot="public" virt="pure-virtual"><scope>Language</scope><name>getSemanticModifiers</name></member>
+      <member refid="class_language_1a8b4bb63191d8379a26ce449c5c11c839" prot="public" virt="pure-virtual"><scope>Language</scope><name>getSemanticType</name></member>
+      <member refid="class_language_1a0d17de8eed2a3cf897188084fc2e9ad7" prot="public" virt="pure-virtual"><scope>Language</scope><name>getSymbols</name></member>
+      <member refid="class_language_1a44c383aa2124008873c41b9d2d9a8861" prot="public" virt="pure-virtual"><scope>Language</scope><name>getSymbolType</name></member>
+      <member refid="class_language_1a373e97c0fb11550d40cfa069fba7222b" prot="public" virt="pure-virtual"><scope>Language</scope><name>hasIndex</name></member>
+      <member refid="class_language_1aba611040df762266ca041ca011ec57e2" prot="public" virt="pure-virtual"><scope>Language</scope><name>hasRole</name></member>
+      <member refid="class_language_1a8be0bd7956e0304c9dfa6f34de424ad9" prot="public" virt="pure-virtual"><scope>Language</scope><name>index</name></member>
+      <member refid="class_language_1ad9d9019bec5846302d4b69bd308b7183" prot="public" virt="pure-virtual"><scope>Language</scope><name>isValid</name></member>
+      <member refid="class_language_1acb2734bfc3418cdf27c21ec260adfe60" prot="public" virt="non-virtual"><scope>Language</scope><name>noDefinition</name></member>
+      <member refid="class_language_1aa23f1df5cd018950d06f9b0ddf1c2e23" prot="public" virt="pure-virtual"><scope>Language</scope><name>parse</name></member>
+      <member refid="class_language_1a392c16dfaf08d7ed566e4e3983bb7ac9" prot="public" virt="pure-virtual"><scope>Language</scope><name>read</name></member>
+      <member refid="class_language_1aad06a1f0660985eb64023e05e8845bb7" prot="public" virt="pure-virtual"><scope>Language</scope><name>units</name></member>
+      <member refid="class_language_1a31ccc6a98a6c40a452a66a18ca604c79" prot="public" virt="virtual"><scope>Language</scope><name>~Language</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

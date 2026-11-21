@@ -2,9 +2,9 @@
 #include <JuceHeader.h>
 #include "generated/Generated.h"
 #include "LINGModel.h"
-#include "CompilerManifest.h"
 #include "Index.h"
 #include "Query.h"
+#include "Language.h"
 
 /**
  * @class Processor
@@ -49,6 +49,8 @@ public:
     /** @brief Removes the processor from the listeners of the model. */
     ~Processor() override;
 
+    static juce::File getOrCreateLanguages();
+
     template <typename Function>
     void applyToDocuments (const Function& function) const
     {
@@ -68,6 +70,8 @@ private:
      */
     static bool hasDependency (const juce::ValueTree& unit, int unitIndex, int rowIndex);
 
+    bool hasParseJob (const juce::ValueTree& unit, int unitIndex, int rowIndex) const;
+
     /**
      * @brief Returns the unit row that compiles a file.
      *
@@ -77,17 +81,15 @@ private:
      * @param pathIndex  The index of the file path in paths. A negative index gives no unit.
      * @return The unit row, or an invalid tree when no unit row depends on the file.
      */
-    juce::ValueTree getUnit (int pathIndex) const;
+    juce::ValueTree getUnit (const juce::String& path) const;
 
-    juce::ValueTree getHeaderEntry (const juce::ValueTree& unit) const;
+    jam::Array<char> getArguments (const juce::ValueTree& unit) const;
 
-    jam::Array<juce::ValueTree> getHeaderEntries (const juce::ValueTree& files) const;
+    static void addArgument (jam::Array<char>& arguments, std::string_view argument);
 
-    jam::Strings getArguments (const juce::ValueTree& unit, const juce::ValueTree& headerEntry) const;
+    static jam::Array<const char*> getArgumentPointers (const jam::Array<char>& arguments);
 
-    jam::Strings getCheckArguments (const juce::ValueTree& unit) const;
-
-    juce::File getPrecompiledHeader (const juce::ValueTree& headerEntry) const;
+    juce::int64 getUnitHash (const juce::ValueTree& unit, int unitIndex, const jam::Array<char>& arguments) const;
 
     /**
      * @brief Fills events with the operation of each request command.
@@ -109,7 +111,21 @@ private:
      */
     void runRequest (juce::ValueTree& request);
 
-    void diagnostics (juce::ValueTree& request);
+    void runHover (juce::ValueTree& request);
+
+    bool isRequestReady (const juce::ValueTree& request) const;
+
+    void moveRequestJobsToFront (const juce::ValueTree& request);
+
+    void runRequests();
+
+    void addDiagnosticRequests (const juce::ValueTree& file);
+
+    void setIndexed (int rowIndex);
+
+    void setUnitIndexed (const juce::ValueTree& unit, int unitIndex);
+
+    void setIndexed();
 
     /**
      * @brief Starts the jobs of an added files child, a language child, or a request child.
@@ -118,7 +134,7 @@ private:
      * and it clears the queued index jobs. It then adds the language rows that its
      * families need. It starts one parse job for each row whose family has a loaded
      * library, and one precompile for each header entry. It then requests an update.
-     * A language child starts its build. A request child runs at once. Any other child
+     * A language child starts its build. A request child runs when its file is indexed, and otherwise waits in nextRequests until handleAsyncUpdate finds the file indexed. Any other child
      * is ignored.
      *
      * @param parentTree              The tree that received the child. Not read.
@@ -134,7 +150,11 @@ private:
      *
      * @param files  The files child whose rows name the families.
      */
-    void addLanguages (const juce::ValueTree& files);
+    void addLanguages();
+
+    int addBuiltInLanguages();
+
+    void addJobs (const juce::ValueTree& files);
 
     /**
      * @brief Starts the jobs that a changed path or hash of a file or a language row requires.
@@ -187,7 +207,7 @@ private:
          * @param languageToUse      The library of the family.
          * @param languageHashToUse  The hash of the language row.
          */
-        ParseJob (Processor& ownerToUse, int rowIndexToUse, const juce::String& pathToUse, const juce::File& swapFileToUse, std::shared_ptr<const jam::LanguageLibrary> languageToUse, juce::int64 languageHashToUse);
+        ParseJob (Processor& ownerToUse, int rowIndexToUse, const juce::String& pathToUse, const juce::File& swapFileToUse, std::shared_ptr<const Language> languageToUse, juce::int64 languageHashToUse, int familyToUse, std::optional<juce::String> bufferToUse);
 
         /**
          * @brief Reads or parses the file, and writes its swap file. Runs on a pool thread.
@@ -197,15 +217,17 @@ private:
         JobStatus runJob() override;
 
         Processor& owner;///< The processor that receives the completion signal. The job signals it when it ends.
-        int rowIndex;///< The index of the file row in the files child. The message thread checks the row against it.
+        int rowIndex { 0 };///< The index of the file row in the files child. The message thread checks the row against it.
         juce::String path;///< The path of the file, copied from the row on the calling thread.
         juce::File swapFile;///< The swap file of the file. The job reads it, or writes it after a parse. A missing file deletes it.
-        std::shared_ptr<const jam::LanguageLibrary> language;///< The library of the family. The shared pointer keeps the library loaded while the job runs.
-        juce::int64 languageHash;///< The hash of the language row. A swap file must hold this hash to give the document.
-        std::unique_ptr<jam::LanguageDocument> document;///< The document that the job read or parsed. The message thread moves it into the index.
+        std::shared_ptr<const Language> language;///< The library of the family. The shared pointer keeps the library loaded while the job runs.
+        juce::int64 languageHash { 0 };///< The hash of the language row. A swap file must hold this hash to give the document.
+        int family { 0 };
+        std::optional<juce::String> buffer;
+        std::unique_ptr<jam::Document> document;///< The document that the job read or parsed. The message thread moves it into the index.
+        std::unique_ptr<SymbolDocument> symbols;
         juce::Result result { juce::Result::ok() };///< The swap validation result, or the parse result. A parse without a document gives the library diagnosis.
         juce::Time modificationTime;///< The modification time of the file, read before the file is loaded.
-        bool isParsed { false };///< True when the job parsed the text. False when the document came from the swap file, or none was read.
         std::atomic<bool> isFinished { false };///< Set to true when runJob ends. The message thread reads it with acquire order.
     };
 
@@ -225,9 +247,11 @@ private:
          * @param pathToUse       The path of the source file of the unit.
          * @param directoryToUse  The working folder of the compile.
          * @param argumentsToUse  The compile arguments, each ended by a null character.
+         * @param symbolSwapFileToUse  The symbol swap file of the unit.
+         * @param languageHashToUse    The hash of the language row.
          * @param languageToUse   The library of the family.
          */
-        IndexJob (Processor& ownerToUse, int rowIndexToUse, const juce::String& pathToUse, const juce::String& directoryToUse, jam::Array<char> argumentsToUse, std::shared_ptr<const jam::LanguageLibrary> languageToUse);
+        IndexJob (Processor& ownerToUse, int rowIndexToUse, const juce::String& pathToUse, const juce::String& directoryToUse, jam::Array<char> argumentsToUse, juce::int64 hashToUse, const juce::File& symbolSwapFileToUse, juce::int64 languageHashToUse, std::shared_ptr<const Language> languageToUse, int familyToUse, juce::StringArray bufferPathsToUse, juce::StringArray bufferTextsToUse, jam::Strings foreignPathsToUse);
 
         /**
          * @brief Runs the library index function on the source. Runs on a pool thread.
@@ -236,8 +260,10 @@ private:
          */
         JobStatus runJob() override;
 
+        void addSymbols();
+
         /**
-         * @brief Stores one symbol record of the index pass. The first record at a position stays.
+         * @brief Stores one symbol record of the index pass. Every record of a position stays.
          *
          * @param context     The index job that receives the record.
          * @param recordPath  The path of the file of the location.
@@ -245,18 +271,84 @@ private:
          * @param column      The 1-based column of the location.
          * @param symbol      The symbol text of the entity.
          * @param role        The role bits of the record.
+         * @param type        The token type of the entity.
+         * @param name        The entity name. A null name is stored as empty.
          */
-        static void addSymbol (void* context, const char* recordPath, int line, int column, const char* symbol, int role);
+        static void addSymbol (void* context, const char* recordPath, int line, int column, unsigned long long symbol, int nameLength, int role, int type, int hover, const unsigned long long* typeSymbols, int typeCount);
+
+        static int addHover (void* context, const char* recordPath, const char* text, const char* definitionPath, int line, int column, int endLine, int endColumn);
+
+        static void addInlayHint (void* context, const char* recordPath, int line, int column, const char* label, int type, int paddingLeft, int paddingRight);
+
+        static void addDiagnostic (void* context, const char* recordPath, int line, int column, int endLine, int endColumn, int severity, const char* message);
+
+        static int addOutline (void* context, const char* recordPath, int line, int column, int endLine, int endColumn, int nameLength, int qualifierLength, int type, int parent);
+
+        static void addCompletion (void* context, const char* recordPath, unsigned long long scopeSymbol, unsigned long long symbol, const char* label, const char* insertText, int type);
+
+        static void addFixIt (void* context, const char* recordPath, int line, int column, int endLine, int endColumn, const char* text);
+
+        static constexpr int outlineFieldCount { 8 };
+
+        int getOutlineParent (int parent, int pathIndex) const;
+
+        static void addOutlineToken (jam::Document::Tokens& tokens, const std::array<int, outlineFieldCount>& fields);
+
+        bool isForeign (const char* recordPath) const;
+
+        int getOrCreatePathIndex (const char* recordPath);
 
         Processor& owner;///< The processor that receives the completion signal. The job signals it when it ends.
-        int rowIndex;///< The index of the unit row in the files child.
+        int rowIndex { 0 };///< The index of the unit row in the files child.
         juce::String path;///< The path of the source file of the unit.
         juce::String directory;///< The working folder of the compile.
         jam::Array<char> arguments;///< The compile arguments, each ended by a null character.
-        std::shared_ptr<const jam::LanguageLibrary> language;///< The library of the family. The shared pointer keeps the library loaded while the job runs.
-        Index::Bindings records;///< The symbol records of the pass, keyed by the raw path, the line, and the column.
+        juce::int64 hash { 0 };
+        juce::File symbolSwapFile;
+        juce::int64 languageHash { 0 };
+        std::shared_ptr<const Language> language;///< The library of the family. The shared pointer keeps the library loaded while the job runs.
+        int family { 0 };
+        juce::StringArray bufferPaths;
+        juce::StringArray bufferTexts;
+        jam::Strings foreignPaths;
+        std::unique_ptr<SymbolDocument> symbols;
+        jam::Strings paths;
+        jam::Array<jam::Document::Element*> fileElements;
+        jam::Array<std::pair<int, int>> outlineSlots;
+        jam::HashMap<juce::int64, int> outlineKeys;
+        jam::HashSet<juce::int64> completionKeys;
+        jam::Array<jam::Document::Element*> completionContainers;
         int result { 0 };///< The return value of the library index function. Zero means the pass succeeded.
         std::atomic<bool> isFinished { false };///< Set to true when runJob ends. The message thread reads it with acquire order.
+    };
+
+    struct UnitsJob : public juce::ThreadPoolJob
+    {
+        UnitsJob (Processor& ownerToUse, jam::Array<char> argumentsToUse, jam::Array<int> argumentCountsToUse, const juce::String& directoryToUse, const juce::String& cacheDirectoryToUse, jam::HashMap<int, std::shared_ptr<const Language>> languagesToUse, jam::HashMap<juce::String, int> familiesToUse);
+
+        JobStatus runJob() override;
+
+        static void addUnit (void* context, const char* path, const char* directory, const char* output, const char* const* arguments, int argumentCount, const char* const* dependencies, int dependencyCount, const char* const* prerequisites, int prerequisiteCount);
+
+        static void addBuildFile (void* context, const char* path);
+
+        static void addMessage (void* context, const char* text);
+
+        int getOrCreatePathIndex (const juce::String& path, int family);
+
+        juce::Array<juce::var> getOrCreatePathIndices (const char* const* filePaths, int filePathCount, int family);
+
+        Processor& owner;
+        jam::Array<char> arguments;
+        jam::Array<int> argumentCounts;
+        juce::String directory;
+        juce::String cacheDirectory;
+        jam::HashMap<int, std::shared_ptr<const Language>> languages;
+        jam::HashMap<juce::String, int> families;
+        juce::ValueTree files { jam::Format::toType (Id::files) };
+        jam::Strings paths;
+        juce::Array<juce::var> buildFiles;
+        std::atomic<bool> isFinished { false };
     };
 
     /**
@@ -294,11 +386,11 @@ private:
         {
             auto& [runningRow, runningJob] { *running };
 
-            if (pool.removeJob (runningJob.get(), true, noWait))
+            if (pool->removeJob (runningJob.get(), true, noWait))
             {
                 nextJobs.erase (rowIndex);
                 runningJob = std::move (newJob);
-                pool.addJob (runningJob.get(), false);
+                pool->addJob (runningJob.get(), false);
             }
             else
             {
@@ -308,7 +400,7 @@ private:
         else
         {
             jobs.addOrReplace (rowIndex, std::move (newJob));
-            pool.addJob (jobs.at (rowIndex).get(), false);
+            pool->addJob (jobs.at (rowIndex).get(), false);
         }
     }
 
@@ -326,7 +418,7 @@ private:
     template <typename Job>
     void removeJob (jam::HashMap<int, std::unique_ptr<Job>>& jobs, jam::HashMap<int, std::unique_ptr<Job>>& nextJobs, int rowIndex)
     {
-        pool.removeJob (jobs.at (rowIndex).get(), true, waitForJob);
+        pool->removeJob (jobs.at (rowIndex).get(), true, waitForJob);
 
         if (const auto queued { nextJobs.find (rowIndex) }; queued != nextJobs.end())
         {
@@ -334,12 +426,25 @@ private:
 
             jobs.addOrReplace (rowIndex, std::move (queuedJob));
             nextJobs.erase (queued);
-            pool.addJob (jobs.at (rowIndex).get(), false);
+            pool->addJob (jobs.at (rowIndex).get(), false);
         }
         else
         {
             jobs.erase (rowIndex);
         }
+    }
+
+    template <typename Job>
+    static jam::Array<int> getFinishedRows (const jam::HashMap<int, std::unique_ptr<Job>>& jobs)
+    {
+        jam::Array<int> rows;
+
+        for (const auto& [rowIndex, job] : jobs)
+            if (job->isFinished.load (std::memory_order_acquire))
+                rows.add (rowIndex);
+
+        std::sort (rows.begin(), rows.end());
+        return rows;
     }
 
     /**
@@ -392,6 +497,12 @@ private:
      */
     void setFile (const juce::ValueTree& file);
 
+    void setBuffer (juce::ValueTree& request);
+
+    void removeBuffer (juce::ValueTree& request);
+
+    void setBufferChange (juce::ValueTree& request);
+
     /**
      * @brief Starts a parse job for each file row of the family of a language row whose hash changed.
      *
@@ -400,44 +511,6 @@ private:
      * @param languageRow  The language row whose hash changed.
      */
     void setLanguageHash (const juce::ValueTree& languageRow);
-
-    /**
-     * @brief Starts the build of a language row on a subprocess, unless a build of its family runs.
-     *
-     * The config folder of the language is copied to its cache folder. The
-     * subprocess then runs cast with the spell file of the language in that folder.
-     * A failed copy ends the build at once, and applyBuild reports it.
-     *
-     * @param languageRow  The language row. Its family selects the build, and its name and path give the folders.
-     */
-    void addBuild (const juce::ValueTree& languageRow);
-
-    /**
-     * @brief Ends a build on the message thread, and loads its library on success.
-     *
-     * The build of the family is removed first, so a new build can start. An exit
-     * code of zero loads the library. Any other exit code sets the overlay message
-     * with the captured output. When a file directly in the config folder changed
-     * after the start, the build runs again. It then requests an update, which writes the documents count once no work remains.
-     *
-     * @param languageRow  The language row whose build ended.
-     * @param cache        The cache folder of the build.
-     * @param startTime    The time at which the build started.
-     * @param exitCode     The exit code of the subprocess.
-     * @param capture      The captured output of the subprocess.
-     */
-    void applyBuild (const juce::ValueTree& languageRow, const juce::File& cache, juce::Time startTime, int exitCode, const std::string& capture);
-
-    /**
-     * @brief Tells whether a file directly in a folder was modified after a time.
-     *
-     * Files in subfolders are not searched.
-     *
-     * @param folder  The folder whose files are tested.
-     * @param time    The time that a modification must follow.
-     * @return @c true when at least one file of the folder was modified after the time.
-     */
-    static bool isChangedSince (const juce::File& folder, juce::Time time);
 
     /**
      * @brief Loads the library that a build wrote, and makes it the library of its family.
@@ -451,13 +524,7 @@ private:
      * @param languageRow  The language row. Its family selects the entry, and its hash receives the hash of the library.
      * @param cache        The cache folder of the build. It holds the build file.
      */
-    void setLanguage (juce::ValueTree languageRow, const juce::File& cache);
-
-    void addPrecompile (const juce::ValueTree& headerEntry);
-
-    void addPrecompile (const juce::ValueTree& headerEntry, std::function<void()> onComplete);
-
-    void addCheck (juce::ValueTree& request, const juce::ValueTree& unit);
+    void setLanguage (juce::ValueTree languageRow);
 
     /**
      * @brief Applies a finished parse job to the index, when the job still matches its row.
@@ -474,15 +541,16 @@ private:
      */
     void addDocument (ParseJob& job);
 
+    void addUnitsJob();
+
+    std::unique_ptr<UnitsJob> getUnitsJob (const juce::ValueTree& toolchain);
+
+    void setUnitsJobs();
+
+    void setFiles (const juce::ValueTree& files);
+
     /** @brief The model that this processor listens to. The application owns the model. */
     LINGModel& model;
-
-    jam::Owner<jam::Subprocess> checks;
-
-    jam::Owner<jam::Subprocess> precompiles;
-
-    /** @brief The language builds that run, keyed by family. A family has at most one build, and applyBuild removes it when the build ends. */
-    jam::HashMap<int, std::unique_ptr<jam::Subprocess>> builds;
 
     /** @brief The documents, the bindings, and the libraries of the families. The processor writes it, and Query reads it through a const reference. */
     Index index;
@@ -498,6 +566,10 @@ private:
 
     jam::HashMap<int, std::unique_ptr<IndexJob>> nextIndexJobs;
 
+    jam::HashMap<int, std::unique_ptr<UnitsJob>> unitsJobs;
+
+    jam::HashMap<int, std::unique_ptr<UnitsJob>> nextUnitsJobs;
+
     /**
      * @brief The thread pool that runs the parse jobs and the index jobs.
      *
@@ -505,10 +577,14 @@ private:
      * exit and waits up to 5000 milliseconds for the running jobs, so the jobs stop
      * before the maps free them.
      */
-    juce::ThreadPool pool;
+    std::unique_ptr<juce::ThreadPool> pool;
 
     /** @brief The operations that answer the request rows, keyed by the command identifier. */
     Events events;
+
+    Events propertyEvents;
+
+    Events childEvents;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Processor)
 };

@@ -21,15 +21,50 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="SwapValidator.h" line="7" column="17" bodyfile="SwapValidator.cpp" bodystart="3" bodyend="16"/>
+        <location file="SwapValidator.h" line="7" column="17" bodyfile="SwapValidator.cpp" bodystart="4" bodyend="211"/>
         <references refid="structjam_1_1Function_1_1Map_1ad53732bb862659c66b8112c75f437248">jam::Function::Map&lt; typename KeyType, size_t capacity, typename... Signatures &gt;::add</references>
         <references refid="classjam_1_1Strings_1a9223c1bf16916a52b122ae7e9d871f50">jam::Strings::add</references>
-        <references refid="structtext_1_1_diagnostics_1a2f45710676ce947b97c6c13fdd411af7" compoundref="_text_8h" startline="45" endline="45">text::Diagnostics::failSwapVersion</references>
-        <references refid="structjam_1_1Document_1_1Element_1af0e270107d2689f82a1bb4a2aface885">jam::Document::Element::find</references>
+        <references refid="struct_symbol_document_1ac512b0e306008355cbcfa64f3cf7b9a5" compoundref="_symbol_document_8h" startline="20" endline="27">SymbolDocument::applyToCompletions</references>
+        <references refid="struct_symbol_document_1a6111e83e7d3e0393ad9e0bbfc0f36442" compoundref="_symbol_document_8h" startline="12" endline="17">SymbolDocument::applyToRecords</references>
+        <references refid="namespaceId_1af2239fe8341ea76506105b6ce8f3b749" compoundref="_generated_8cpp" startline="39" endline="39">Id::column</references>
+        <references refid="classjuce_1_1String_1ae9c98d84e716c102f00330b3f1ccd4be">juce::String::compare</references>
+        <references refid="namespaceId_1a5e6be41c1ff350abe3152556c096fded" compoundref="_generated_8cpp" startline="41" endline="41">Id::completions</references>
+        <references refid="structjam_1_1Document_1_1Element_1aaa9ae0e5faf4537900f38e201f1a0279">jam::Document::Element::contains</references>
+        <references refid="namespaceId_1a39864fc470c72e655b422ca5f6508da4" compoundref="_generated_8cpp" startline="46" endline="46">Id::definition</references>
+        <references refid="namespaceId_1a2107cf267116a0b24ec9915fde2a636d" compoundref="_generated_8cpp" startline="48" endline="48">Id::diagnostics</references>
+        <references refid="namespaceId_1aec8c6b382a320136b773715118a4f795" compoundref="_generated_8cpp" startline="55" endline="55">Id::endColumn</references>
+        <references refid="namespaceId_1af902e71983fbb006dd0efea464ba935e">Id::endLine</references>
+        <references refid="structtext_1_1_diagnostics_1afba75a13e6c5d0f3df72f7c969ba90ef" compoundref="_text_8h" startline="41" endline="41">text::Diagnostics::failSwapRecord</references>
+        <references refid="structtext_1_1_diagnostics_1a2f45710676ce947b97c6c13fdd411af7" compoundref="_text_8h" startline="40" endline="40">text::Diagnostics::failSwapVersion</references>
+        <references refid="namespaceId_1acf65f12aaf985fd43284a3365d0475b3" compoundref="_identifiers_8h" startline="62">Id::family</references>
+        <references refid="namespaceId_1a5d963020f2ab66034cf12eef33500c62">Id::file</references>
+        <references refid="namespaceId_1aa38d85eb75a090b965fada418592e680" compoundref="_generated_8cpp" startline="61" endline="61">Id::fixIts</references>
+        <references refid="structjam_1_1Document_1_1Element_1ab848f6cde7ac7d2291f664bbb814ad66">jam::Document::Element::get</references>
         <references refid="structjam_1_1Document_1_1Validator_1a6a3f64ff32d39935e480ffc593a73af5">jam::Document::Validator::getFailures</references>
         <references refid="structjam_1_1Document_1afa15c06a56937a7195814a2aa2c7521d">jam::Document::getRoot</references>
+        <references refid="namespaceId_1a923e546b5f9c9990b47ae1f97fdfcf9a" compoundref="_generated_8cpp" startline="67" endline="67">Id::hash</references>
+        <references refid="namespaceId_1a57355c1803ce65140650b0d18d8f34d9" compoundref="_generated_8cpp" startline="73" endline="73">Id::inlayHints</references>
+        <references refid="namespaceId_1adcdfe66c25f01d23d9e5c760addbcce0">Id::label</references>
+        <references refid="namespaceId_1ad51576be43bd12d5c10355459608635b" compoundref="_generated_8cpp" startline="80" endline="80">Id::language</references>
+        <references refid="namespaceId_1a9acf3e231e632c1b02ad3a0d4c0fc008">Id::line</references>
+        <references refid="namespaceId_1a0e0b9ef1fb687c4c7c73d2bd7213ac01">Id::message</references>
+        <references refid="namespaceId_1ae6e24732fa060311144e2849ead777c0" compoundref="_generated_8cpp" startline="84" endline="84">Id::nameLength</references>
+        <references refid="namespaceId_1abf5f80a58a47c4c4bc9949f6a1c5d8da" compoundref="_generated_8cpp" startline="87" endline="87">Id::outline</references>
+        <references refid="namespaceId_1ac5e1a1995a092007ee695854ee1607c6" compoundref="_generated_8cpp" startline="89" endline="89">Id::paddingLeft</references>
+        <references refid="namespaceId_1a391a27ffbb0a26c4dff1864f85ae1517" compoundref="_generated_8cpp" startline="90" endline="90">Id::paddingRight</references>
+        <references refid="namespaceId_1a56be0d86267c7ade64d16019d54247a6">Id::parent</references>
+        <references refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab">Id::path</references>
+        <references refid="namespaceId_1ad463f53f829518acc22258a3b4b85521" compoundref="_generated_8cpp" startline="97" endline="97">Id::qualifierLength</references>
+        <references refid="namespaceId_1aa2febc0d8c19ea0cd03b41d80241f301" compoundref="_generated_8cpp" startline="103" endline="103">Id::role</references>
+        <references refid="namespaceId_1a50459a16b11d00b0269af837b5454d7d" compoundref="_generated_8cpp" startline="108" endline="108">Id::scope</references>
+        <references refid="namespaceId_1af5881cf621930714f2a7f88092dfd57b" compoundref="_generated_8cpp" startline="113" endline="113">Id::severity</references>
+        <references refid="namespaceId_1af233c372f65e2a40ac336745c1be54d4" compoundref="_generated_8cpp" startline="114" endline="114">Id::snippet</references>
+        <references refid="namespaceId_1a1117a23bc746c82b2e9fa021d6937fda" compoundref="_generated_8cpp" startline="122" endline="122">Id::symbol</references>
+        <references refid="namespaceId_1a287c150cdfda5a8e2deb30b6d987d638">Id::text</references>
+        <references refid="namespaceId_1ab4956db6d5e735af8b4e202830ac73f7">Id::type</references>
+        <references refid="namespaceId_1a7090d650f6ae62a6d09059b7c1f5133d" compoundref="_generated_8cpp" startline="130" endline="130">Id::typeSymbol</references>
         <references refid="namespaceId_1a26b45dcee4122af40c4184ef577e0a0e">Id::version</references>
-        <referencedby refid="struct_swap_validator_1abe28c28edda7b07691d9b273cc7e3b2e" compoundref="_swap_validator_8cpp" startline="18" endline="30">getRules</referencedby>
+        <referencedby refid="struct_swap_validator_1abe28c28edda7b07691d9b273cc7e3b2e" compoundref="_swap_validator_8cpp" startline="213" endline="225">getRules</referencedby>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -46,8 +81,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="SwapValidator.h" line="9" column="17" bodyfile="SwapValidator.cpp" bodystart="18" bodyend="30"/>
-        <references refid="struct_swap_validator_1a4dd34faa0a529eb6f271de588081117c" compoundref="_swap_validator_8cpp" startline="3" endline="16">addRules</references>
+        <location file="SwapValidator.h" line="9" column="17" bodyfile="SwapValidator.cpp" bodystart="213" bodyend="225"/>
+        <references refid="struct_swap_validator_1a4dd34faa0a529eb6f271de588081117c" compoundref="_swap_validator_8cpp" startline="4" endline="211">addRules</references>
       </memberdef>
     </sectiondef>
     <briefdescription>

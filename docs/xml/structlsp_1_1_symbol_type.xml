@@ -1,0 +1,441 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="structlsp_1_1_symbol_type" kind="struct" language="C++" prot="public">
+    <compoundname>lsp::SymbolType</compoundname>
+    <includes refid="_lsp_8h" local="no">Lsp.h</includes>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="structlsp_1_1_symbol_type_1a1f1d2e48c4721989ba382c0309c18368" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::SymbolType::File</definition>
+        <argsstring></argsstring>
+        <name>File</name>
+        <qualifiedname>lsp::SymbolType::File</qualifiedname>
+        <initializer>{ 1  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="164" column="26" bodyfile="generated/Lsp.h" bodystart="164" bodyend="164"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_symbol_type_1a6a12752291f2e7a4c4808886c28a92d2" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::SymbolType::Module</definition>
+        <argsstring></argsstring>
+        <name>Module</name>
+        <qualifiedname>lsp::SymbolType::Module</qualifiedname>
+        <initializer>{ 2  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="165" column="26" bodyfile="generated/Lsp.h" bodystart="165" bodyend="165"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_symbol_type_1aaeccc96462439d433f6302f6370f98e6" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::SymbolType::Namespace</definition>
+        <argsstring></argsstring>
+        <name>Namespace</name>
+        <qualifiedname>lsp::SymbolType::Namespace</qualifiedname>
+        <initializer>{ 3  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="166" column="26" bodyfile="generated/Lsp.h" bodystart="166" bodyend="166"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_symbol_type_1ac95a5dd65559b6ba71a05a49b47bc8e8" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::SymbolType::Package</definition>
+        <argsstring></argsstring>
+        <name>Package</name>
+        <qualifiedname>lsp::SymbolType::Package</qualifiedname>
+        <initializer>{ 4  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="167" column="26" bodyfile="generated/Lsp.h" bodystart="167" bodyend="167"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_symbol_type_1ac3d8d571b6af4dd062aafdb90eab6f14" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::SymbolType::Class</definition>
+        <argsstring></argsstring>
+        <name>Class</name>
+        <qualifiedname>lsp::SymbolType::Class</qualifiedname>
+        <initializer>{ 5  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="168" column="26" bodyfile="generated/Lsp.h" bodystart="168" bodyend="168"/>
+        <referencedby refid="structmap_1_1_css_elements_1a18beb83c3eca3a262025f4b34e5d7b23" compoundref="_hash_maps_8h" startline="185" endline="187">map::CssElements::CssElements</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_symbol_type_1a5933cd41d2f35bcd419f91053c25c34f" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::SymbolType::Method</definition>
+        <argsstring></argsstring>
+        <name>Method</name>
+        <qualifiedname>lsp::SymbolType::Method</qualifiedname>
+        <initializer>{ 6  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="169" column="26" bodyfile="generated/Lsp.h" bodystart="169" bodyend="169"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_symbol_type_1afb9da8ca54eb81525df85dc23ec95899" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::SymbolType::Property</definition>
+        <argsstring></argsstring>
+        <name>Property</name>
+        <qualifiedname>lsp::SymbolType::Property</qualifiedname>
+        <initializer>{ 7  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="170" column="26" bodyfile="generated/Lsp.h" bodystart="170" bodyend="170"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_symbol_type_1aa60ffcdbb6f0467cc6c56445e28281d3" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::SymbolType::Field</definition>
+        <argsstring></argsstring>
+        <name>Field</name>
+        <qualifiedname>lsp::SymbolType::Field</qualifiedname>
+        <initializer>{ 8  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="171" column="26" bodyfile="generated/Lsp.h" bodystart="171" bodyend="171"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_symbol_type_1a8300c362ec6f055500f483b9dfe3c75c" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::SymbolType::Constructor</definition>
+        <argsstring></argsstring>
+        <name>Constructor</name>
+        <qualifiedname>lsp::SymbolType::Constructor</qualifiedname>
+        <initializer>{ 9  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="172" column="26" bodyfile="generated/Lsp.h" bodystart="172" bodyend="172"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_symbol_type_1a25fc9cfa196266ab0df7d29110572f7c" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::SymbolType::Enum</definition>
+        <argsstring></argsstring>
+        <name>Enum</name>
+        <qualifiedname>lsp::SymbolType::Enum</qualifiedname>
+        <initializer>{ 10 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="173" column="26" bodyfile="generated/Lsp.h" bodystart="173" bodyend="173"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_symbol_type_1acb5c3fa747874fd8571e94b054f7ae8a" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::SymbolType::Interface</definition>
+        <argsstring></argsstring>
+        <name>Interface</name>
+        <qualifiedname>lsp::SymbolType::Interface</qualifiedname>
+        <initializer>{ 11 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="174" column="26" bodyfile="generated/Lsp.h" bodystart="174" bodyend="174"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_symbol_type_1a15fb91387a460e1d53a03b1141646037" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::SymbolType::Function</definition>
+        <argsstring></argsstring>
+        <name>Function</name>
+        <qualifiedname>lsp::SymbolType::Function</qualifiedname>
+        <initializer>{ 12 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="175" column="26" bodyfile="generated/Lsp.h" bodystart="175" bodyend="175"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_symbol_type_1ab58f73b50a3bfaffd04f24f84002520c" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::SymbolType::Variable</definition>
+        <argsstring></argsstring>
+        <name>Variable</name>
+        <qualifiedname>lsp::SymbolType::Variable</qualifiedname>
+        <initializer>{ 13 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="176" column="26" bodyfile="generated/Lsp.h" bodystart="176" bodyend="176"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_symbol_type_1aece9ca9aef7369ffb935b83186ca8814" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::SymbolType::Constant</definition>
+        <argsstring></argsstring>
+        <name>Constant</name>
+        <qualifiedname>lsp::SymbolType::Constant</qualifiedname>
+        <initializer>{ 14 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="177" column="26" bodyfile="generated/Lsp.h" bodystart="177" bodyend="177"/>
+        <referencedby refid="structmap_1_1_html_elements_1af6b174f96298a1bd61bbf2950de3f005" compoundref="_hash_maps_8h" startline="206" endline="209">map::HtmlElements::HtmlElements</referencedby>
+        <referencedby refid="structmap_1_1_xml_elements_1aeffe00bcad8635f1635bdb207fac110a" compoundref="_hash_maps_8h" startline="195" endline="198">map::XmlElements::XmlElements</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_symbol_type_1aa475dce95a80fee5594bc30fa2d2afec" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::SymbolType::String</definition>
+        <argsstring></argsstring>
+        <name>String</name>
+        <qualifiedname>lsp::SymbolType::String</qualifiedname>
+        <initializer>{ 15 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="178" column="26" bodyfile="generated/Lsp.h" bodystart="178" bodyend="178"/>
+        <referencedby refid="structmap_1_1_markdown_elements_1ae145aaf71aa32b1ae98d428f8b714d5f" compoundref="_hash_maps_8h" startline="148" endline="156">map::MarkdownElements::MarkdownElements</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_symbol_type_1a0adc91b9d903e987d275e9c69707ecaa" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::SymbolType::Number</definition>
+        <argsstring></argsstring>
+        <name>Number</name>
+        <qualifiedname>lsp::SymbolType::Number</qualifiedname>
+        <initializer>{ 16 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="179" column="26" bodyfile="generated/Lsp.h" bodystart="179" bodyend="179"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_symbol_type_1ab08deb25d840e6d8afd7eb2662adfaf4" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::SymbolType::Boolean</definition>
+        <argsstring></argsstring>
+        <name>Boolean</name>
+        <qualifiedname>lsp::SymbolType::Boolean</qualifiedname>
+        <initializer>{ 17 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="180" column="26" bodyfile="generated/Lsp.h" bodystart="180" bodyend="180"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_symbol_type_1a1064bd5a3ac48bdc4709042962abcb29" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::SymbolType::Array</definition>
+        <argsstring></argsstring>
+        <name>Array</name>
+        <qualifiedname>lsp::SymbolType::Array</qualifiedname>
+        <initializer>{ 18 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="181" column="26" bodyfile="generated/Lsp.h" bodystart="181" bodyend="181"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_symbol_type_1aee8a5ba8abc9f91a927bb7ce442291a4" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::SymbolType::Object</definition>
+        <argsstring></argsstring>
+        <name>Object</name>
+        <qualifiedname>lsp::SymbolType::Object</qualifiedname>
+        <initializer>{ 19 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="182" column="26" bodyfile="generated/Lsp.h" bodystart="182" bodyend="182"/>
+        <referencedby refid="structmap_1_1_html_elements_1af6b174f96298a1bd61bbf2950de3f005" compoundref="_hash_maps_8h" startline="206" endline="209">map::HtmlElements::HtmlElements</referencedby>
+        <referencedby refid="structmap_1_1_mermaid_elements_1ac1a4570a221a077886e0a8672794ed75" compoundref="_hash_maps_8h" startline="164" endline="167">map::MermaidElements::MermaidElements</referencedby>
+        <referencedby refid="structmap_1_1_xml_elements_1aeffe00bcad8635f1635bdb207fac110a" compoundref="_hash_maps_8h" startline="195" endline="198">map::XmlElements::XmlElements</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_symbol_type_1afc1ccc063b9fd88277f97863f8f2b108" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::SymbolType::Key</definition>
+        <argsstring></argsstring>
+        <name>Key</name>
+        <qualifiedname>lsp::SymbolType::Key</qualifiedname>
+        <initializer>{ 20 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="183" column="26" bodyfile="generated/Lsp.h" bodystart="183" bodyend="183"/>
+        <referencedby refid="structmap_1_1_json_elements_1a2c347f37e720258464f9e2bf3438ba85" compoundref="_hash_maps_8h" startline="175" endline="177">map::JsonElements::JsonElements</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_symbol_type_1a97af0e00dcd46ac2660be65a21603af8" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::SymbolType::Null</definition>
+        <argsstring></argsstring>
+        <name>Null</name>
+        <qualifiedname>lsp::SymbolType::Null</qualifiedname>
+        <initializer>{ 21 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="184" column="26" bodyfile="generated/Lsp.h" bodystart="184" bodyend="184"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_symbol_type_1a950ca7a64cd64391dfd98ec44662ab30" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::SymbolType::EnumMember</definition>
+        <argsstring></argsstring>
+        <name>EnumMember</name>
+        <qualifiedname>lsp::SymbolType::EnumMember</qualifiedname>
+        <initializer>{ 22 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="185" column="26" bodyfile="generated/Lsp.h" bodystart="185" bodyend="185"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_symbol_type_1a790199742c5e9cf9054b4c475e21bfb9" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::SymbolType::Struct</definition>
+        <argsstring></argsstring>
+        <name>Struct</name>
+        <qualifiedname>lsp::SymbolType::Struct</qualifiedname>
+        <initializer>{ 23 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="186" column="26" bodyfile="generated/Lsp.h" bodystart="186" bodyend="186"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_symbol_type_1a1110e03c5f6e62ee82197894c22f26c6" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::SymbolType::Event</definition>
+        <argsstring></argsstring>
+        <name>Event</name>
+        <qualifiedname>lsp::SymbolType::Event</qualifiedname>
+        <initializer>{ 24 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="187" column="26" bodyfile="generated/Lsp.h" bodystart="187" bodyend="187"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_symbol_type_1ab62b7033a3b3202c1d3ccedbda1f3043" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::SymbolType::Operator</definition>
+        <argsstring></argsstring>
+        <name>Operator</name>
+        <qualifiedname>lsp::SymbolType::Operator</qualifiedname>
+        <initializer>{ 25 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="188" column="26" bodyfile="generated/Lsp.h" bodystart="188" bodyend="188"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_symbol_type_1a27163eebb5bf0e8c70c2d7e48d82a0a1" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::SymbolType::TypeParameter</definition>
+        <argsstring></argsstring>
+        <name>TypeParameter</name>
+        <qualifiedname>lsp::SymbolType::TypeParameter</qualifiedname>
+        <initializer>{ 26 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="189" column="26" bodyfile="generated/Lsp.h" bodystart="189" bodyend="189"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>The LSP 3.17 SymbolKind values. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="generated/Lsp.h" line="162" column="1" bodyfile="generated/Lsp.h" bodystart="163" bodyend="190"/>
+    <listofallmembers>
+      <member refid="structlsp_1_1_symbol_type_1a1064bd5a3ac48bdc4709042962abcb29" prot="public" virt="non-virtual"><scope>lsp::SymbolType</scope><name>Array</name></member>
+      <member refid="structlsp_1_1_symbol_type_1ab08deb25d840e6d8afd7eb2662adfaf4" prot="public" virt="non-virtual"><scope>lsp::SymbolType</scope><name>Boolean</name></member>
+      <member refid="structlsp_1_1_symbol_type_1ac3d8d571b6af4dd062aafdb90eab6f14" prot="public" virt="non-virtual"><scope>lsp::SymbolType</scope><name>Class</name></member>
+      <member refid="structlsp_1_1_symbol_type_1aece9ca9aef7369ffb935b83186ca8814" prot="public" virt="non-virtual"><scope>lsp::SymbolType</scope><name>Constant</name></member>
+      <member refid="structlsp_1_1_symbol_type_1a8300c362ec6f055500f483b9dfe3c75c" prot="public" virt="non-virtual"><scope>lsp::SymbolType</scope><name>Constructor</name></member>
+      <member refid="structlsp_1_1_symbol_type_1a25fc9cfa196266ab0df7d29110572f7c" prot="public" virt="non-virtual"><scope>lsp::SymbolType</scope><name>Enum</name></member>
+      <member refid="structlsp_1_1_symbol_type_1a950ca7a64cd64391dfd98ec44662ab30" prot="public" virt="non-virtual"><scope>lsp::SymbolType</scope><name>EnumMember</name></member>
+      <member refid="structlsp_1_1_symbol_type_1a1110e03c5f6e62ee82197894c22f26c6" prot="public" virt="non-virtual"><scope>lsp::SymbolType</scope><name>Event</name></member>
+      <member refid="structlsp_1_1_symbol_type_1aa60ffcdbb6f0467cc6c56445e28281d3" prot="public" virt="non-virtual"><scope>lsp::SymbolType</scope><name>Field</name></member>
+      <member refid="structlsp_1_1_symbol_type_1a1f1d2e48c4721989ba382c0309c18368" prot="public" virt="non-virtual"><scope>lsp::SymbolType</scope><name>File</name></member>
+      <member refid="structlsp_1_1_symbol_type_1a15fb91387a460e1d53a03b1141646037" prot="public" virt="non-virtual"><scope>lsp::SymbolType</scope><name>Function</name></member>
+      <member refid="structlsp_1_1_symbol_type_1acb5c3fa747874fd8571e94b054f7ae8a" prot="public" virt="non-virtual"><scope>lsp::SymbolType</scope><name>Interface</name></member>
+      <member refid="structlsp_1_1_symbol_type_1afc1ccc063b9fd88277f97863f8f2b108" prot="public" virt="non-virtual"><scope>lsp::SymbolType</scope><name>Key</name></member>
+      <member refid="structlsp_1_1_symbol_type_1a5933cd41d2f35bcd419f91053c25c34f" prot="public" virt="non-virtual"><scope>lsp::SymbolType</scope><name>Method</name></member>
+      <member refid="structlsp_1_1_symbol_type_1a6a12752291f2e7a4c4808886c28a92d2" prot="public" virt="non-virtual"><scope>lsp::SymbolType</scope><name>Module</name></member>
+      <member refid="structlsp_1_1_symbol_type_1aaeccc96462439d433f6302f6370f98e6" prot="public" virt="non-virtual"><scope>lsp::SymbolType</scope><name>Namespace</name></member>
+      <member refid="structlsp_1_1_symbol_type_1a97af0e00dcd46ac2660be65a21603af8" prot="public" virt="non-virtual"><scope>lsp::SymbolType</scope><name>Null</name></member>
+      <member refid="structlsp_1_1_symbol_type_1a0adc91b9d903e987d275e9c69707ecaa" prot="public" virt="non-virtual"><scope>lsp::SymbolType</scope><name>Number</name></member>
+      <member refid="structlsp_1_1_symbol_type_1aee8a5ba8abc9f91a927bb7ce442291a4" prot="public" virt="non-virtual"><scope>lsp::SymbolType</scope><name>Object</name></member>
+      <member refid="structlsp_1_1_symbol_type_1ab62b7033a3b3202c1d3ccedbda1f3043" prot="public" virt="non-virtual"><scope>lsp::SymbolType</scope><name>Operator</name></member>
+      <member refid="structlsp_1_1_symbol_type_1ac95a5dd65559b6ba71a05a49b47bc8e8" prot="public" virt="non-virtual"><scope>lsp::SymbolType</scope><name>Package</name></member>
+      <member refid="structlsp_1_1_symbol_type_1afb9da8ca54eb81525df85dc23ec95899" prot="public" virt="non-virtual"><scope>lsp::SymbolType</scope><name>Property</name></member>
+      <member refid="structlsp_1_1_symbol_type_1aa475dce95a80fee5594bc30fa2d2afec" prot="public" virt="non-virtual"><scope>lsp::SymbolType</scope><name>String</name></member>
+      <member refid="structlsp_1_1_symbol_type_1a790199742c5e9cf9054b4c475e21bfb9" prot="public" virt="non-virtual"><scope>lsp::SymbolType</scope><name>Struct</name></member>
+      <member refid="structlsp_1_1_symbol_type_1a27163eebb5bf0e8c70c2d7e48d82a0a1" prot="public" virt="non-virtual"><scope>lsp::SymbolType</scope><name>TypeParameter</name></member>
+      <member refid="structlsp_1_1_symbol_type_1ab58f73b50a3bfaffd04f24f84002520c" prot="public" virt="non-virtual"><scope>lsp::SymbolType</scope><name>Variable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

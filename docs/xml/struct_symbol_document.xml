@@ -1,0 +1,439 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="struct_symbol_document" kind="struct" language="C++" prot="public">
+    <compoundname>SymbolDocument</compoundname>
+    <basecompoundref refid="structjam_1_1Document" prot="public" virt="non-virtual">jam::Document</basecompoundref>
+    <includes refid="_symbol_document_8h" local="no">SymbolDocument.h</includes>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="struct_symbol_document_1a5d2a4d1f909c9aac5f36f5b1d936033d" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
+        <definition>juce::int64 SymbolDocument::noSymbol</definition>
+        <argsstring></argsstring>
+        <name>noSymbol</name>
+        <qualifiedname>SymbolDocument::noSymbol</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="29" column="34" bodyfile="SymbolDocument.h" bodystart="29" bodyend="29"/>
+        <referencedby refid="class_built_in_language_1a854fb2343326f6c8a80add14f0a41d84" compoundref="_built_in_language_8h" startline="191" endline="215">BuiltInLanguage&lt; Elements, TokenTypes &gt;::addRecords</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a5a2b6abaadf081b53832449139bb908d" compoundref="_processor_8cpp" startline="862" endline="877">Processor::IndexJob::addTypeSymbols</referencedby>
+        <referencedby refid="class_query_1aeee6ea867ed4a19086496c2a0fa48b62" compoundref="_query_8h" startline="335" endline="371">Query::applyToScopeSymbols</referencedby>
+        <referencedby refid="class_query_1ab610e34818feb1149c05e046c74e9a50" compoundref="_query_8cpp" startline="444" endline="471">Query::rename</referencedby>
+        <referencedby refid="class_query_1a6be8d158cd564f0019757e508702795b" compoundref="_query_8cpp" startline="827" endline="884">Query::typeDefinition</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1a07429fecfabe254bc5e70271b580bc10" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int SymbolDocument::noParent</definition>
+        <argsstring></argsstring>
+        <name>noParent</name>
+        <qualifiedname>SymbolDocument::noParent</qualifiedname>
+        <initializer>{ -1 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="30" column="26" bodyfile="SymbolDocument.h" bodystart="30" bodyend="30"/>
+        <referencedby refid="struct_processor_1_1_index_job_1a73f1ccd7e8219305ba3ded32a0a70226" compoundref="_processor_8cpp" startline="963" endline="996">Processor::IndexJob::addOutline</referencedby>
+        <referencedby refid="class_query_1a163faae03873f24fd5fb7ba47a310df3" compoundref="_query_8cpp" startline="924" endline="952">Query::documentSymbol</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a6bd61c6eae95b51c30924ca8a9fa27a3" compoundref="_processor_8cpp" startline="998" endline="1009">Processor::IndexJob::getOutlineParent</referencedby>
+        <referencedby refid="class_built_in_language_1a0ce07b35a1cfdd1d2dc3b51c7d3f5929" compoundref="_built_in_language_8h" startline="242" endline="251">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getParentIndex</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="struct_symbol_document_1a6e21309162a3d8d5b36bb8cb088c0291" prot="private" static="yes" constexpr="yes" mutable="no">
+        <type>const char *</type>
+        <definition>const char* SymbolDocument::emptySource</definition>
+        <argsstring></argsstring>
+        <name>emptySource</name>
+        <qualifiedname>SymbolDocument::emptySource</qualifiedname>
+        <initializer>{ &quot;&quot; }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="38" column="33" bodyfile="SymbolDocument.h" bodystart="38" bodyend="38"/>
+        <referencedby refid="struct_symbol_document_1a6802a7400b26085c61e5441366b91a79" compoundref="_symbol_document_8cpp" startline="3" endline="11">read</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_symbol_document_1a581c2bb7ec6b3e1003b6141cb6a5199c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>SymbolDocument::SymbolDocument</definition>
+        <argsstring>()=default</argsstring>
+        <name>SymbolDocument</name>
+        <qualifiedname>SymbolDocument::SymbolDocument</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="7" column="5"/>
+        <references refid="struct_symbol_document_1a6802a7400b26085c61e5441366b91a79" compoundref="_symbol_document_8cpp" startline="3" endline="11">read</references>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="struct_symbol_document_1a6802a7400b26085c61e5441366b91a79" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::unique_ptr&lt; <ref refid="struct_symbol_document" kindref="compound">SymbolDocument</ref> &gt;</type>
+        <definition>std::unique_ptr&lt; SymbolDocument &gt; SymbolDocument::read</definition>
+        <argsstring>(std::string_view stored)</argsstring>
+        <name>read</name>
+        <qualifiedname>SymbolDocument::read</qualifiedname>
+        <param>
+          <type>std::string_view</type>
+          <declname>stored</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="9" column="28" bodyfile="SymbolDocument.cpp" bodystart="3" bodyend="11"/>
+        <references refid="struct_symbol_document_1a6e21309162a3d8d5b36bb8cb088c0291" compoundref="_symbol_document_8h" startline="38" endline="38">emptySource</references>
+        <referencedby refid="class_index_1af12e54a1917f3495b54fe591594f4b4b" compoundref="_index_8cpp" startline="58" endline="73">Index::readSwapFile</referencedby>
+        <referencedby refid="struct_symbol_document_1a581c2bb7ec6b3e1003b6141cb6a5199c">SymbolDocument</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="struct_symbol_document_1a6111e83e7d3e0393ad9e0bbfc0f36442" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Function</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>static void SymbolDocument::applyToRecords</definition>
+        <argsstring>(const jam::Document::Element &amp;file, const Function &amp;function)</argsstring>
+        <name>applyToRecords</name>
+        <qualifiedname>SymbolDocument::applyToRecords</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type>const Function &amp;</type>
+          <declname>function</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="12" column="17" bodyfile="SymbolDocument.h" bodystart="12" bodyend="17"/>
+        <references refid="namespaceId_1a1117a23bc746c82b2e9fa021d6937fda" compoundref="_generated_8cpp" startline="122" endline="122">Id::symbol</references>
+        <referencedby refid="struct_swap_validator_1a4dd34faa0a529eb6f271de588081117c" compoundref="_swap_validator_8cpp" startline="4" endline="211">SwapValidator::addRules</referencedby>
+        <referencedby refid="class_index_1a74ee20a97158866789c0c2b0ed13a3d9" compoundref="_index_8cpp" startline="410" endline="420">Index::addSymbols</referencedby>
+        <referencedby refid="class_index_1a924b6ebadfa81d64f25c7e08e275bd06" compoundref="_index_8h" startline="125" endline="143">Index::applyToRecords</referencedby>
+        <referencedby refid="class_index_1a2257c6e1804af58d06b860f55d1fae38" compoundref="_index_8cpp" startline="310" endline="320">Index::removeSymbols</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="struct_symbol_document_1ac512b0e306008355cbcfa64f3cf7b9a5" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Function</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>static void SymbolDocument::applyToCompletions</definition>
+        <argsstring>(const jam::Document::Element &amp;file, const Function &amp;function)</argsstring>
+        <name>applyToCompletions</name>
+        <qualifiedname>SymbolDocument::applyToCompletions</qualifiedname>
+        <param>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type>const Function &amp;</type>
+          <declname>function</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="20" column="17" bodyfile="SymbolDocument.h" bodystart="20" bodyend="27"/>
+        <references refid="namespaceId_1a90d09a1fe12817bae48b3de26a581099" compoundref="_generated_8cpp" startline="40" endline="40">Id::completion</references>
+        <references refid="namespaceId_1a5e6be41c1ff350abe3152556c096fded" compoundref="_generated_8cpp" startline="41" endline="41">Id::completions</references>
+        <referencedby refid="class_index_1a5ddb5671bb35d743e09aa1b3b3f7d792" compoundref="_index_8cpp" startline="360" endline="366">Index::addCompletions</referencedby>
+        <referencedby refid="struct_swap_validator_1a4dd34faa0a529eb6f271de588081117c" compoundref="_swap_validator_8cpp" startline="4" endline="211">SwapValidator::addRules</referencedby>
+        <referencedby refid="class_index_1a209148876109df1b8931fa821d6b213f" compoundref="_index_8cpp" startline="340" endline="358">Index::removeCompletions</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="struct_symbol_document_1a4a96d996fb4cbf388dfc914203a740e3" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>int</type>
+        <definition>int SymbolDocument::getToken</definition>
+        <argsstring>(Cursor &amp;cursor, int segmentType) override</argsstring>
+        <name>getToken</name>
+        <qualifiedname>SymbolDocument::getToken</qualifiedname>
+        <reimplements refid="structjam_1_1Document_1abe69cb595b09e7ef35cd60e281b53b24">getToken</reimplements>
+        <param>
+          <type><ref refid="structjam_1_1Document_1_1Cursor" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Cursor</ref> &amp;</type>
+          <declname>cursor</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>segmentType</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="33" column="9" bodyfile="SymbolDocument.cpp" bodystart="13" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_symbol_document_1a63f4e30f14ca445b777d1dc6c2e89d9d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void SymbolDocument::build</definition>
+        <argsstring>() override</argsstring>
+        <name>build</name>
+        <qualifiedname>SymbolDocument::build</qualifiedname>
+        <reimplements refid="structjam_1_1Document_1a5e3444d5122771f9dd9939d5cd5fe09a">build</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="34" column="10" bodyfile="SymbolDocument.cpp" bodystart="18" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_symbol_document_1a0a7e09684cfb4985466dbb4dccb3bc28" prot="protected" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>const <ref refid="structjam_1_1Document_1_1Vocabulary" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Vocabulary</ref> &amp;</type>
+        <definition>const jam::Document::Vocabulary &amp; SymbolDocument::getVocabulary</definition>
+        <argsstring>() const override</argsstring>
+        <name>getVocabulary</name>
+        <qualifiedname>SymbolDocument::getVocabulary</qualifiedname>
+        <reimplements refid="structjam_1_1Document_1a39efc79a88e73c849b1a6e87641454ea">getVocabulary</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="35" column="22" bodyfile="SymbolDocument.cpp" bodystart="22" bodyend="25"/>
+        <references refid="structjam_1_1Document_1a4bfe9e8eb6fd308a7544c6abef432dd1">jam::Document::getPlainTextVocabulary</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>SymbolDocument</label>
+        <link refid="struct_symbol_document"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>jam::Document</label>
+        <link refid="structjam_1_1Document" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>SymbolDocument</label>
+        <link refid="struct_symbol_document"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>jam::Array&lt; jam::Document::Property&lt; Value &gt; &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>jam::Array&lt; std::tuple&lt; uint32_t, int, int &gt; &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>jam::Array&lt; std::unique_ptr&lt; ObjectClass &gt; &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>jam::Array&lt; uint32_t &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>jam::Document</label>
+        <link refid="structjam_1_1Document" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>elements</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>arena</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>source</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>lineOffsets</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>root</edgelabel>
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>nameTokens</edgelabel>
+        </childnode>
+      </node>
+      <node id="12">
+        <label>jam::Document::Element</label>
+        <link refid="structjam_1_1Document_1_1Element" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="13" relation="usage">
+          <edgelabel>id</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>firstChild</edgelabel>
+          <edgelabel>lastChild</edgelabel>
+          <edgelabel>nextSibling</edgelabel>
+          <edgelabel>parent</edgelabel>
+          <edgelabel>previousSibling</edgelabel>
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>properties</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>jam::Owner&lt; jam::Document::Element &gt;</label>
+        <link refid="classjam_1_1Owner" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>entries</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>juce::DummyCriticalSection</label>
+        <link refid="classjuce_1_1DummyCriticalSection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="13">
+        <label>juce::Identifier</label>
+        <link refid="classjuce_1_1Identifier" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <childnode refid="13" relation="usage">
+          <edgelabel>null</edgelabel>
+        </childnode>
+      </node>
+      <node id="8">
+        <label>std::basic_string&lt; Char &gt;</label>
+      </node>
+      <node id="10">
+        <label>std::basic_string_view&lt; Char &gt;</label>
+      </node>
+      <node id="7">
+        <label>std::string</label>
+        <childnode refid="8" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>std::string_view</label>
+        <childnode refid="10" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>std::unique_ptr&lt; std::string &gt;</label>
+        <childnode refid="7" relation="usage">
+          <edgelabel>ptr</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="SymbolDocument.h" line="5" column="1" bodyfile="SymbolDocument.h" bodystart="6" bodyend="41"/>
+    <listofallmembers>
+      <member refid="structjam_1_1Document_1a607eeb96c84ef0c93b82407f84ce51c8" prot="private" virt="non-virtual"><scope>SymbolDocument</scope><name>absentNumber</name></member>
+      <member refid="structjam_1_1Document_1a87e5c7f223cfbd94cb3694520e71e30a" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>addChild</name></member>
+      <member refid="structjam_1_1Document_1a0efb3caeab2f7f32cc7c60d6161a2152" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>addChild</name></member>
+      <member refid="structjam_1_1Document_1a5aae516ea3a043638410b5bce87813d0" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>addChild</name></member>
+      <member refid="structjam_1_1Document_1a8fc77fad3e552f54c317c5ad5ba69faa" prot="private" virt="non-virtual"><scope>SymbolDocument</scope><name>addCommentToken</name></member>
+      <member refid="structjam_1_1Document_1ab9709a51b2bfc14813b19f7cc8b3b4a7" prot="protected" virt="non-virtual"><scope>SymbolDocument</scope><name>addLineOffsets</name></member>
+      <member refid="structjam_1_1Document_1a7eb40456460a09e73791aad98d5e2be2" prot="protected" virt="non-virtual"><scope>SymbolDocument</scope><name>addNameTokens</name></member>
+      <member refid="structjam_1_1Document_1a19bf06af53df0ec2b72e6a9628ad7197" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>addRange</name></member>
+      <member refid="structjam_1_1Document_1aa3f4a740d3782e7b903430d7ada0df37" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>addSource</name></member>
+      <member refid="structjam_1_1Document_1adacfa846c5708b27875274ea483b0e7f" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>addSource</name></member>
+      <member refid="structjam_1_1Document_1a9dff44624ba3628051534d6124ab24df" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>appendChild</name></member>
+      <member refid="structjam_1_1Document_1ac6a99ecb4b7d59555070108814eeecb9" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>appendChildren</name></member>
+      <member refid="structjam_1_1Document_1a5cf9c201886f26f6cf3ba28ddb026dd0" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>appendChildren</name></member>
+      <member refid="struct_symbol_document_1ac512b0e306008355cbcfa64f3cf7b9a5" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>applyToCompletions</name></member>
+      <member refid="struct_symbol_document_1a6111e83e7d3e0393ad9e0bbfc0f36442" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>applyToRecords</name></member>
+      <member refid="structjam_1_1Document_1ac90b8a4da15dd590da21b0b2259ed4d6" prot="protected" virt="non-virtual"><scope>SymbolDocument</scope><name>arena</name></member>
+      <member refid="structjam_1_1Document_1ae4e942e71284d0c691264286d0034ea6" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>begin</name></member>
+      <member refid="structjam_1_1Document_1a447a5f43c90499f2ce16bac9867e0e18" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>begin</name></member>
+      <member refid="struct_symbol_document_1a63f4e30f14ca445b777d1dc6c2e89d9d" prot="protected" virt="virtual"><scope>SymbolDocument</scope><name>build</name></member>
+      <member refid="structjam_1_1Document_1a282b55ff4292ce8608e8fa7af3c708e2" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>decimalRadix</name></member>
+      <member refid="structjam_1_1Document_1abcefdfe237db04a64c9e9a226418c6e9" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>Document</name></member>
+      <member refid="structjam_1_1Document_1aab8ca3f0276742b48a833249bf75d74d" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>Document</name></member>
+      <member refid="structjam_1_1Document_1af80dcadc9b07cc8ec178902c6ea27a24" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>Elements</name></member>
+      <member refid="structjam_1_1Document_1a713b369f0ad1c7aa1493070a61f6255c" prot="protected" virt="non-virtual"><scope>SymbolDocument</scope><name>elements</name></member>
+      <member refid="struct_symbol_document_1a6e21309162a3d8d5b36bb8cb088c0291" prot="private" virt="non-virtual"><scope>SymbolDocument</scope><name>emptySource</name></member>
+      <member refid="structjam_1_1Document_1a54ba222ba93ecf088beb2a645ce279bc" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>end</name></member>
+      <member refid="structjam_1_1Document_1a7f5c771e106364bce8e5bbbf76d22145" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>end</name></member>
+      <member refid="structjam_1_1Document_1a298dac01a3f093703117a40b2b92cf7f" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>eofCodePoint</name></member>
+      <member refid="structjam_1_1Document_1a231adf224ba90d6b86f516ce5229156a" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getArena</name></member>
+      <member refid="structjam_1_1Document_1a8b1d2668f4c3fb6a8932aeb68d223354" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getByteOffset</name></member>
+      <member refid="structjam_1_1Document_1a3cdd07ec398e9f5b8db9b71856c4b7d9" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getChildByID</name></member>
+      <member refid="structjam_1_1Document_1a86fec10b6cc4ec41143d30bddb906a23" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getColumnNumber</name></member>
+      <member refid="structjam_1_1Document_1a10665acf4d211ffbb0827fc3fa033ded" prot="private" virt="non-virtual"><scope>SymbolDocument</scope><name>getDepth</name></member>
+      <member refid="structjam_1_1Document_1a5a20fff023f21d13ad955e31035662bb" prot="private" virt="non-virtual"><scope>SymbolDocument</scope><name>getEscapeLength</name></member>
+      <member refid="structjam_1_1Document_1afc26cd1da23ba0b9eaaef1548fc2120b" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getLineNumber</name></member>
+      <member refid="structjam_1_1Document_1aec67e57dab1d43ea019c09dac2697d19" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getNameToken</name></member>
+      <member refid="structjam_1_1Document_1a4bfe9e8eb6fd308a7544c6abef432dd1" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getPlainTextVocabulary</name></member>
+      <member refid="structjam_1_1Document_1a79e6f53925309418f59dc67c53806d8a" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getPreviousNameToken</name></member>
+      <member refid="structjam_1_1Document_1a41669b5550b040202890ee4c020cc47c" prot="protected" virt="non-virtual"><scope>SymbolDocument</scope><name>getPropertySpan</name></member>
+      <member refid="structjam_1_1Document_1abd58000c7c19f3de5ddfd9437a4a33d9" prot="private" virt="non-virtual"><scope>SymbolDocument</scope><name>getQuote</name></member>
+      <member refid="structjam_1_1Document_1a21e1785b427571b6e314ef827e239c90" prot="protected" virt="non-virtual"><scope>SymbolDocument</scope><name>getRawStringLength</name></member>
+      <member refid="structjam_1_1Document_1afa15c06a56937a7195814a2aa2c7521d" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getRoot</name></member>
+      <member refid="structjam_1_1Document_1a109159d849c87c807970948993391208" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getRoot</name></member>
+      <member refid="structjam_1_1Document_1a966cfaa5879ae37235b7408bba9b857c" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getSource</name></member>
+      <member refid="structjam_1_1Document_1a67e65a29647faa906d56a87d691e8bcb" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getText</name></member>
+      <member refid="struct_symbol_document_1a4a96d996fb4cbf388dfc914203a740e3" prot="protected" virt="virtual"><scope>SymbolDocument</scope><name>getToken</name></member>
+      <member refid="structjam_1_1Document_1afaa6e871252f65cbad4c4ae6552fd540" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getTokens</name></member>
+      <member refid="structjam_1_1Document_1a2c45dd3c6adbb27232f2445286070362" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getValid</name></member>
+      <member refid="structjam_1_1Document_1a89a48473b3c55a8eb0d9d35b9c0e94be" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getValid</name></member>
+      <member refid="structjam_1_1Document_1a87bb9275594c8b0da70139d14782597d" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getView</name></member>
+      <member refid="struct_symbol_document_1a0a7e09684cfb4985466dbb4dccb3bc28" prot="protected" virt="virtual"><scope>SymbolDocument</scope><name>getVocabulary</name></member>
+      <member refid="structjam_1_1Document_1a48b10427aac754686928738fb3d96c8f" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>hexadecimalRadix</name></member>
+      <member refid="structjam_1_1Document_1a739535a520532c6784020c554c9df9bc" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>Identifiers</name></member>
+      <member refid="structjam_1_1Document_1a6b51a507a03962bc1e3707405b4641c4" prot="protected" virt="non-virtual"><scope>SymbolDocument</scope><name>isCommentOpen</name></member>
+      <member refid="structjam_1_1Document_1a4e2d39346edd803eb0f25ab34525ef59" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>isDigit</name></member>
+      <member refid="structjam_1_1Document_1a57c9f9d94fb1aae0fa3603eb706bb149" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>isHexDigit</name></member>
+      <member refid="structjam_1_1Document_1a828edec30682b167466478f1f4b7129a" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>isLetter</name></member>
+      <member refid="structjam_1_1Document_1a11991605b6a02c6637034dba73d0aaa1" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>isWhitespace</name></member>
+      <member refid="structjam_1_1Document_1a442652edca083880dc1454ee3ec5925e" prot="protected" virt="non-virtual"><scope>SymbolDocument</scope><name>lineOffsets</name></member>
+      <member refid="structjam_1_1Document_1ac644212979460de3fef9b510ff60a72a" prot="private" virt="non-virtual"><scope>SymbolDocument</scope><name>nameTokens</name></member>
+      <member refid="struct_symbol_document_1a07429fecfabe254bc5e70271b580bc10" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>noParent</name></member>
+      <member refid="struct_symbol_document_1a5d2a4d1f909c9aac5f36f5b1d936033d" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>noSymbol</name></member>
+      <member refid="structjam_1_1Document_1a506503de02b9252efc05b1efed63f9a0" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>Numbers</name></member>
+      <member refid="structjam_1_1Document_1a0ee5d6c14d756a1d42d7622d0a0e88d6" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>operator=</name></member>
+      <member refid="structjam_1_1Document_1ad50d3e0d352b601d13ccc0d543fbf994" prot="protected" virt="non-virtual"><scope>SymbolDocument</scope><name>parse</name></member>
+      <member refid="structjam_1_1Document_1a367d65133f164cf9421ff0c3ddf2bbf6" prot="protected" virt="non-virtual"><scope>SymbolDocument</scope><name>parse</name></member>
+      <member refid="structjam_1_1Document_1a8f34e6db7620b52c0f2a133460bace79" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>preprocess</name></member>
+      <member refid="struct_symbol_document_1a6802a7400b26085c61e5441366b91a79" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>read</name></member>
+      <member refid="structjam_1_1Document_1a6a88d9c01298d9c077bbac9b66a857d4" prot="protected" virt="non-virtual" ambiguityscope="jam::Document::"><scope>SymbolDocument</scope><name>read</name></member>
+      <member refid="structjam_1_1Document_1aeaaf37e523000545375f687f9d70a322" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>removeChild</name></member>
+      <member refid="structjam_1_1Document_1a6769e080ce9c92b9cf1c786f821f298e" prot="protected" virt="non-virtual"><scope>SymbolDocument</scope><name>root</name></member>
+      <member refid="structjam_1_1Document_1a410b5b9138db5f2643f44de5ddd9dc7b" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>setRangeEnd</name></member>
+      <member refid="structjam_1_1Document_1ace7873f0844bfb00a88580207d10809d" prot="private" virt="non-virtual"><scope>SymbolDocument</scope><name>setSpanOffsets</name></member>
+      <member refid="structjam_1_1Document_1a7e2f1a3086ed5fa3d8ddade61d8f0a0f" prot="private" virt="non-virtual"><scope>SymbolDocument</scope><name>setSpanOffsets</name></member>
+      <member refid="structjam_1_1Document_1afe6d78812df43266a50add9fc68dd1a2" prot="protected" virt="non-virtual"><scope>SymbolDocument</scope><name>source</name></member>
+      <member refid="structjam_1_1Document_1ac23c84db542e210ff58edd7fee024a0e" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>swapFormat</name></member>
+      <member refid="struct_symbol_document_1a581c2bb7ec6b3e1003b6141cb6a5199c" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>SymbolDocument</name></member>
+      <member refid="structjam_1_1Document_1a805d84a9511bbac7e123e95c20c6c32b" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>Tokens</name></member>
+      <member refid="structjam_1_1Document_1afff30647e9836c8788d8fb7d271fd65c" prot="protected" virt="non-virtual"><scope>SymbolDocument</scope><name>tokenStart</name></member>
+      <member refid="structjam_1_1Document_1aedc2a48a1fd281b74a9c7c767c7545fe" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>Value</name></member>
+      <member refid="structjam_1_1Document_1a51c4a39557d6c2c5bdabe95d6e936bac" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>write</name></member>
+      <member refid="structjam_1_1Document_1aae4fd41f6cc392b6eb52400c858b6950" prot="public" virt="virtual"><scope>SymbolDocument</scope><name>~Document</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

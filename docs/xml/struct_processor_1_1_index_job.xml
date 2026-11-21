@@ -3,6 +3,23 @@
   <compounddef id="struct_processor_1_1_index_job" kind="struct" language="C++" prot="private">
     <compoundname>Processor::IndexJob</compoundname>
     <basecompoundref refid="classjuce_1_1ThreadPoolJob" prot="public" virt="non-virtual">juce::ThreadPoolJob</basecompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="struct_processor_1_1_index_job_1af0bd4539549bf6bb8c486bae4b6d724d" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int Processor::IndexJob::outlineFieldCount</definition>
+        <argsstring></argsstring>
+        <name>outlineFieldCount</name>
+        <qualifiedname>Processor::IndexJob::outlineFieldCount</qualifiedname>
+        <initializer>{ 8 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="293" column="30" bodyfile="Processor.h" bodystart="293" bodyend="293"/>
+      </memberdef>
+    </sectiondef>
     <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_processor_1_1_index_job_1af455bc4a9de8dc8c5f1d95a615f10a8f" prot="public" static="no" mutable="no">
         <type><ref refid="class_processor" kindref="compound">Processor</ref> &amp;</type>
@@ -17,9 +34,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Processor.h" line="251" column="19" bodyfile="Processor.h" bodystart="251" bodyend="-1"/>
-        <referencedby refid="struct_processor_1_1_index_job_1ab44d6d75b0f0c0d74e2f5ac9696c0677" compoundref="_processor_8cpp" startline="458" endline="467">IndexJob</referencedby>
-        <referencedby refid="struct_processor_1_1_index_job_1a714575fe9a266f2b660e53314ddf6c3c" compoundref="_processor_8cpp" startline="469" endline="487">runJob</referencedby>
+        <location file="Processor.h" line="303" column="19" bodyfile="Processor.h" bodystart="303" bodyend="-1"/>
+        <referencedby refid="struct_processor_1_1_index_job_1a1577d112164093f1e6c4de997894a149" compoundref="_processor_8cpp" startline="765" endline="781">IndexJob</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a714575fe9a266f2b660e53314ddf6c3c" compoundref="_processor_8cpp" startline="783" endline="801">runJob</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_processor_1_1_index_job_1a1c78bf0812e004a0290380644e65f50d" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -27,6 +44,7 @@
         <argsstring></argsstring>
         <name>rowIndex</name>
         <qualifiedname>Processor::IndexJob::rowIndex</qualifiedname>
+        <initializer>{ 0 }</initializer>
         <briefdescription>
 <para>The index of the unit row in the files child. </para>
         </briefdescription>
@@ -34,9 +52,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Processor.h" line="252" column="13" bodyfile="Processor.h" bodystart="252" bodyend="-1"/>
-        <referencedby refid="class_processor_1ada6bec4ded26df0af355111366519094" compoundref="_processor_8cpp" startline="616" endline="637">Processor::addBindings</referencedby>
-        <referencedby refid="struct_processor_1_1_index_job_1ab44d6d75b0f0c0d74e2f5ac9696c0677" compoundref="_processor_8cpp" startline="458" endline="467">IndexJob</referencedby>
+        <location file="Processor.h" line="304" column="13" bodyfile="Processor.h" bodystart="304" bodyend="304"/>
+        <referencedby refid="class_processor_1ada6bec4ded26df0af355111366519094" compoundref="_processor_8cpp" startline="1286" endline="1304">Processor::addBindings</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a1577d112164093f1e6c4de997894a149" compoundref="_processor_8cpp" startline="765" endline="781">IndexJob</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_processor_1_1_index_job_1a9601d544f8b3c501bc6f22edb3d5071e" prot="public" static="no" mutable="no">
         <type><ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref></type>
@@ -51,9 +69,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Processor.h" line="253" column="22" bodyfile="Processor.h" bodystart="253" bodyend="-1"/>
-        <referencedby refid="class_processor_1ada6bec4ded26df0af355111366519094" compoundref="_processor_8cpp" startline="616" endline="637">Processor::addBindings</referencedby>
-        <referencedby refid="struct_processor_1_1_index_job_1ab44d6d75b0f0c0d74e2f5ac9696c0677" compoundref="_processor_8cpp" startline="458" endline="467">IndexJob</referencedby>
+        <location file="Processor.h" line="305" column="22" bodyfile="Processor.h" bodystart="305" bodyend="-1"/>
+        <referencedby refid="class_processor_1ada6bec4ded26df0af355111366519094" compoundref="_processor_8cpp" startline="1286" endline="1304">Processor::addBindings</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a1577d112164093f1e6c4de997894a149" compoundref="_processor_8cpp" startline="765" endline="781">IndexJob</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_processor_1_1_index_job_1a307f650032fdfa589bc9ca991d63132a" prot="public" static="no" mutable="no">
         <type><ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref></type>
@@ -68,9 +86,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Processor.h" line="254" column="22" bodyfile="Processor.h" bodystart="254" bodyend="-1"/>
-        <referencedby refid="struct_processor_1_1_index_job_1ab44d6d75b0f0c0d74e2f5ac9696c0677" compoundref="_processor_8cpp" startline="458" endline="467">IndexJob</referencedby>
-        <referencedby refid="struct_processor_1_1_index_job_1a714575fe9a266f2b660e53314ddf6c3c" compoundref="_processor_8cpp" startline="469" endline="487">runJob</referencedby>
+        <location file="Processor.h" line="306" column="22" bodyfile="Processor.h" bodystart="306" bodyend="-1"/>
+        <referencedby refid="struct_processor_1_1_index_job_1a19788b304f87f62cedcb9b528ce3b1c6" compoundref="_processor_8cpp" startline="827" endline="860">addSymbols</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a1577d112164093f1e6c4de997894a149" compoundref="_processor_8cpp" startline="765" endline="781">IndexJob</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_processor_1_1_index_job_1aad4053b38199eb456c28b0d6ad6ecc11" prot="public" static="no" mutable="no">
         <type><ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>&lt; char &gt;</type>
@@ -85,13 +103,66 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Processor.h" line="255" column="20" bodyfile="Processor.h" bodystart="255" bodyend="-1"/>
-        <referencedby refid="struct_processor_1_1_index_job_1ab44d6d75b0f0c0d74e2f5ac9696c0677" compoundref="_processor_8cpp" startline="458" endline="467">IndexJob</referencedby>
-        <referencedby refid="struct_processor_1_1_index_job_1a714575fe9a266f2b660e53314ddf6c3c" compoundref="_processor_8cpp" startline="469" endline="487">runJob</referencedby>
+        <location file="Processor.h" line="307" column="20" bodyfile="Processor.h" bodystart="307" bodyend="-1"/>
+        <referencedby refid="struct_processor_1_1_index_job_1a19788b304f87f62cedcb9b528ce3b1c6" compoundref="_processor_8cpp" startline="827" endline="860">addSymbols</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a1577d112164093f1e6c4de997894a149" compoundref="_processor_8cpp" startline="765" endline="781">IndexJob</referencedby>
       </memberdef>
-      <memberdef kind="variable" id="struct_processor_1_1_index_job_1a5328921aad065907affabda058b46b6e" prot="public" static="no" mutable="no">
-        <type>std::shared_ptr&lt; const <ref refid="structjam_1_1LanguageLibrary" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageLibrary</ref> &gt;</type>
-        <definition>std::shared_ptr&lt;const jam::LanguageLibrary&gt; Processor::IndexJob::language</definition>
+      <memberdef kind="variable" id="struct_processor_1_1_index_job_1a08ade423e9bbb349375b05c97515b990" prot="public" static="no" mutable="no">
+        <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
+        <definition>juce::int64 Processor::IndexJob::hash</definition>
+        <argsstring></argsstring>
+        <name>hash</name>
+        <qualifiedname>Processor::IndexJob::hash</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="308" column="21" bodyfile="Processor.h" bodystart="308" bodyend="308"/>
+        <referencedby refid="struct_processor_1_1_index_job_1a19788b304f87f62cedcb9b528ce3b1c6" compoundref="_processor_8cpp" startline="827" endline="860">addSymbols</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a1577d112164093f1e6c4de997894a149" compoundref="_processor_8cpp" startline="765" endline="781">IndexJob</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a714575fe9a266f2b660e53314ddf6c3c" compoundref="_processor_8cpp" startline="783" endline="801">runJob</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_processor_1_1_index_job_1a05394952e70bcee84dbac01d7f74d33f" prot="public" static="no" mutable="no">
+        <type><ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref></type>
+        <definition>juce::File Processor::IndexJob::symbolSwapFile</definition>
+        <argsstring></argsstring>
+        <name>symbolSwapFile</name>
+        <qualifiedname>Processor::IndexJob::symbolSwapFile</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="309" column="20" bodyfile="Processor.h" bodystart="309" bodyend="-1"/>
+        <referencedby refid="struct_processor_1_1_index_job_1a19788b304f87f62cedcb9b528ce3b1c6" compoundref="_processor_8cpp" startline="827" endline="860">addSymbols</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a1577d112164093f1e6c4de997894a149" compoundref="_processor_8cpp" startline="765" endline="781">IndexJob</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a714575fe9a266f2b660e53314ddf6c3c" compoundref="_processor_8cpp" startline="783" endline="801">runJob</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_processor_1_1_index_job_1a0e17c7b8568ffc041bb924b2d300dd8b" prot="public" static="no" mutable="no">
+        <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
+        <definition>juce::int64 Processor::IndexJob::languageHash</definition>
+        <argsstring></argsstring>
+        <name>languageHash</name>
+        <qualifiedname>Processor::IndexJob::languageHash</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="310" column="21" bodyfile="Processor.h" bodystart="310" bodyend="310"/>
+        <referencedby refid="struct_processor_1_1_index_job_1a19788b304f87f62cedcb9b528ce3b1c6" compoundref="_processor_8cpp" startline="827" endline="860">addSymbols</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a1577d112164093f1e6c4de997894a149" compoundref="_processor_8cpp" startline="765" endline="781">IndexJob</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a714575fe9a266f2b660e53314ddf6c3c" compoundref="_processor_8cpp" startline="783" endline="801">runJob</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_processor_1_1_index_job_1a05d7501c9a2b33f2e756b643e438b682" prot="public" static="no" mutable="no">
+        <type>std::shared_ptr&lt; const <ref refid="class_language" kindref="compound">Language</ref> &gt;</type>
+        <definition>std::shared_ptr&lt;const Language&gt; Processor::IndexJob::language</definition>
         <argsstring></argsstring>
         <name>language</name>
         <qualifiedname>Processor::IndexJob::language</qualifiedname>
@@ -102,25 +173,212 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Processor.h" line="256" column="25" bodyfile="Processor.h" bodystart="256" bodyend="-1"/>
-        <referencedby refid="struct_processor_1_1_index_job_1ab44d6d75b0f0c0d74e2f5ac9696c0677" compoundref="_processor_8cpp" startline="458" endline="467">IndexJob</referencedby>
-        <referencedby refid="struct_processor_1_1_index_job_1a714575fe9a266f2b660e53314ddf6c3c" compoundref="_processor_8cpp" startline="469" endline="487">runJob</referencedby>
+        <location file="Processor.h" line="311" column="25" bodyfile="Processor.h" bodystart="311" bodyend="-1"/>
+        <referencedby refid="struct_processor_1_1_index_job_1a19788b304f87f62cedcb9b528ce3b1c6" compoundref="_processor_8cpp" startline="827" endline="860">addSymbols</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a1577d112164093f1e6c4de997894a149" compoundref="_processor_8cpp" startline="765" endline="781">IndexJob</referencedby>
       </memberdef>
-      <memberdef kind="variable" id="struct_processor_1_1_index_job_1a1e87882bafecce894f7364f14f16b8a6" prot="public" static="no" mutable="no">
-        <type><ref refid="class_index_1a2d5f5077b253da8f39e621db05b45df3" kindref="member">Index::Bindings</ref></type>
-        <definition>Index::Bindings Processor::IndexJob::records</definition>
+      <memberdef kind="variable" id="struct_processor_1_1_index_job_1ae7affd1d5a01ff01a9030db743195c13" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Processor::IndexJob::family</definition>
         <argsstring></argsstring>
-        <name>records</name>
-        <qualifiedname>Processor::IndexJob::records</qualifiedname>
+        <name>family</name>
+        <qualifiedname>Processor::IndexJob::family</qualifiedname>
+        <initializer>{ 0 }</initializer>
         <briefdescription>
-<para>The symbol records of the pass, keyed by the raw path, the line, and the column. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Processor.h" line="257" column="25" bodyfile="Processor.h" bodystart="257" bodyend="-1"/>
-        <referencedby refid="class_processor_1ada6bec4ded26df0af355111366519094" compoundref="_processor_8cpp" startline="616" endline="637">Processor::addBindings</referencedby>
+        <location file="Processor.h" line="312" column="13" bodyfile="Processor.h" bodystart="312" bodyend="312"/>
+        <referencedby refid="struct_processor_1_1_index_job_1a19788b304f87f62cedcb9b528ce3b1c6" compoundref="_processor_8cpp" startline="827" endline="860">addSymbols</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a1577d112164093f1e6c4de997894a149" compoundref="_processor_8cpp" startline="765" endline="781">IndexJob</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a714575fe9a266f2b660e53314ddf6c3c" compoundref="_processor_8cpp" startline="783" endline="801">runJob</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_processor_1_1_index_job_1a9e69f478c33bbc20a91bef242df54fcb" prot="public" static="no" mutable="no">
+        <type><ref refid="classjuce_1_1StringArray" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::StringArray</ref></type>
+        <definition>juce::StringArray Processor::IndexJob::bufferPaths</definition>
+        <argsstring></argsstring>
+        <name>bufferPaths</name>
+        <qualifiedname>Processor::IndexJob::bufferPaths</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="313" column="27" bodyfile="Processor.h" bodystart="313" bodyend="-1"/>
+        <referencedby refid="struct_processor_1_1_index_job_1a19788b304f87f62cedcb9b528ce3b1c6" compoundref="_processor_8cpp" startline="827" endline="860">addSymbols</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a1577d112164093f1e6c4de997894a149" compoundref="_processor_8cpp" startline="765" endline="781">IndexJob</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_processor_1_1_index_job_1a9736185784ff22a9639e55bae17a24a5" prot="public" static="no" mutable="no">
+        <type><ref refid="classjuce_1_1StringArray" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::StringArray</ref></type>
+        <definition>juce::StringArray Processor::IndexJob::bufferTexts</definition>
+        <argsstring></argsstring>
+        <name>bufferTexts</name>
+        <qualifiedname>Processor::IndexJob::bufferTexts</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="314" column="27" bodyfile="Processor.h" bodystart="314" bodyend="-1"/>
+        <referencedby refid="struct_processor_1_1_index_job_1a19788b304f87f62cedcb9b528ce3b1c6" compoundref="_processor_8cpp" startline="827" endline="860">addSymbols</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a1577d112164093f1e6c4de997894a149" compoundref="_processor_8cpp" startline="765" endline="781">IndexJob</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_processor_1_1_index_job_1ab7fa347a41a938ab7efe37948f05bc01" prot="public" static="no" mutable="no">
+        <type><ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref></type>
+        <definition>jam::Strings Processor::IndexJob::foreignPaths</definition>
+        <argsstring></argsstring>
+        <name>foreignPaths</name>
+        <qualifiedname>Processor::IndexJob::foreignPaths</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="315" column="22" bodyfile="Processor.h" bodystart="315" bodyend="-1"/>
+        <referencedby refid="struct_processor_1_1_index_job_1a1577d112164093f1e6c4de997894a149" compoundref="_processor_8cpp" startline="765" endline="781">IndexJob</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1ac90acd0c166bfd4dcefa9620de5686f9" compoundref="_processor_8cpp" startline="879" endline="882">isForeign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_processor_1_1_index_job_1afdbf0371c0fa170f7f83aa6bf93a9c60" prot="public" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="struct_symbol_document" kindref="compound">SymbolDocument</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;SymbolDocument&gt; Processor::IndexJob::symbols</definition>
+        <argsstring></argsstring>
+        <name>symbols</name>
+        <qualifiedname>Processor::IndexJob::symbols</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="316" column="25" bodyfile="Processor.h" bodystart="316" bodyend="-1"/>
+        <referencedby refid="class_processor_1ada6bec4ded26df0af355111366519094" compoundref="_processor_8cpp" startline="1286" endline="1304">Processor::addBindings</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a19788b304f87f62cedcb9b528ce3b1c6" compoundref="_processor_8cpp" startline="827" endline="860">addSymbols</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a8eafa57b75a9997a8aa0b31771731f92" compoundref="_processor_8cpp" startline="884" endline="900">getOrCreatePathIndex</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a714575fe9a266f2b660e53314ddf6c3c" compoundref="_processor_8cpp" startline="783" endline="801">runJob</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_processor_1_1_index_job_1aec6b666dbcb92099b4fd72c4094bab23" prot="public" static="no" mutable="no">
+        <type><ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref></type>
+        <definition>jam::Strings Processor::IndexJob::paths</definition>
+        <argsstring></argsstring>
+        <name>paths</name>
+        <qualifiedname>Processor::IndexJob::paths</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="317" column="22" bodyfile="Processor.h" bodystart="317" bodyend="-1"/>
+        <referencedby refid="struct_processor_1_1_index_job_1a8eafa57b75a9997a8aa0b31771731f92" compoundref="_processor_8cpp" startline="884" endline="900">getOrCreatePathIndex</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_processor_1_1_index_job_1aadf59b2092e7757283343ca20d07f9ea" prot="public" static="no" mutable="no">
+        <type><ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>&lt; <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> * &gt;</type>
+        <definition>jam::Array&lt;jam::Document::Element*&gt; Processor::IndexJob::fileElements</definition>
+        <argsstring></argsstring>
+        <name>fileElements</name>
+        <qualifiedname>Processor::IndexJob::fileElements</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="318" column="20" bodyfile="Processor.h" bodystart="318" bodyend="-1"/>
+        <referencedby refid="struct_processor_1_1_index_job_1a19788b304f87f62cedcb9b528ce3b1c6" compoundref="_processor_8cpp" startline="827" endline="860">addSymbols</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a8eafa57b75a9997a8aa0b31771731f92" compoundref="_processor_8cpp" startline="884" endline="900">getOrCreatePathIndex</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_processor_1_1_index_job_1adbd29511a353c1419e5bf863e5f7c8e4" prot="public" static="no" mutable="no">
+        <type><ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>&lt; <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> * &gt;</type>
+        <definition>jam::Array&lt;jam::Document::Element*&gt; Processor::IndexJob::recordElements</definition>
+        <argsstring></argsstring>
+        <name>recordElements</name>
+        <qualifiedname>Processor::IndexJob::recordElements</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="319" column="20" bodyfile="Processor.h" bodystart="319" bodyend="-1"/>
+        <referencedby refid="struct_processor_1_1_index_job_1a5a2b6abaadf081b53832449139bb908d" compoundref="_processor_8cpp" startline="862" endline="877">addTypeSymbols</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_processor_1_1_index_job_1a157ba208bedc6fbdd78615417007c8b3" prot="public" static="no" mutable="no">
+        <type><ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>&lt; std::pair&lt; int, int &gt; &gt;</type>
+        <definition>jam::Array&lt;std::pair&lt;int, int&gt; &gt; Processor::IndexJob::outlineSlots</definition>
+        <argsstring></argsstring>
+        <name>outlineSlots</name>
+        <qualifiedname>Processor::IndexJob::outlineSlots</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="320" column="20" bodyfile="Processor.h" bodystart="320" bodyend="-1"/>
+        <referencedby refid="struct_processor_1_1_index_job_1a6bd61c6eae95b51c30924ca8a9fa27a3" compoundref="_processor_8cpp" startline="998" endline="1009">getOutlineParent</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_processor_1_1_index_job_1a4e1bd93a3b73e4324210b0f0a34b1d7a" prot="public" static="no" mutable="no">
+        <type><ref refid="classjam_1_1HashMap" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::HashMap</ref>&lt; <ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref>, int &gt;</type>
+        <definition>jam::HashMap&lt;juce::int64, int&gt; Processor::IndexJob::outlineKeys</definition>
+        <argsstring></argsstring>
+        <name>outlineKeys</name>
+        <qualifiedname>Processor::IndexJob::outlineKeys</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="321" column="22" bodyfile="Processor.h" bodystart="321" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_processor_1_1_index_job_1a9dea7bf6e991c8d970fa612eb590fc35" prot="public" static="no" mutable="no">
+        <type><ref refid="namespacejam_1a461a64d893871d46c0baf2056586fad8" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::HashSet</ref>&lt; <ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref> &gt;</type>
+        <definition>jam::HashSet&lt;juce::int64&gt; Processor::IndexJob::completionKeys</definition>
+        <argsstring></argsstring>
+        <name>completionKeys</name>
+        <qualifiedname>Processor::IndexJob::completionKeys</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="322" column="22" bodyfile="Processor.h" bodystart="322" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_processor_1_1_index_job_1a1a860f14665f4de36cfbb738828bb724" prot="public" static="no" mutable="no">
+        <type><ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>&lt; <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> * &gt;</type>
+        <definition>jam::Array&lt;jam::Document::Element*&gt; Processor::IndexJob::completionContainers</definition>
+        <argsstring></argsstring>
+        <name>completionContainers</name>
+        <qualifiedname>Processor::IndexJob::completionContainers</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="323" column="20" bodyfile="Processor.h" bodystart="323" bodyend="-1"/>
+        <referencedby refid="struct_processor_1_1_index_job_1a8eafa57b75a9997a8aa0b31771731f92" compoundref="_processor_8cpp" startline="884" endline="900">getOrCreatePathIndex</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_processor_1_1_index_job_1abfa6582d2fb72dec0e1c0c61af020891" prot="public" static="no" mutable="no">
+        <type><ref refid="classjam_1_1HashMap" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::HashMap</ref>&lt; <ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref>, <ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref> &gt;</type>
+        <definition>jam::HashMap&lt;juce::int64, juce::int64&gt; Processor::IndexJob::typeSymbols</definition>
+        <argsstring></argsstring>
+        <name>typeSymbols</name>
+        <qualifiedname>Processor::IndexJob::typeSymbols</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="324" column="22" bodyfile="Processor.h" bodystart="324" bodyend="-1"/>
+        <referencedby refid="struct_processor_1_1_index_job_1a5a2b6abaadf081b53832449139bb908d" compoundref="_processor_8cpp" startline="862" endline="877">addTypeSymbols</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_processor_1_1_index_job_1af0a42c88170cb5023be3f7be39491216" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -136,9 +394,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Processor.h" line="258" column="13" bodyfile="Processor.h" bodystart="258" bodyend="258"/>
-        <referencedby refid="class_processor_1ada6bec4ded26df0af355111366519094" compoundref="_processor_8cpp" startline="616" endline="637">Processor::addBindings</referencedby>
-        <referencedby refid="struct_processor_1_1_index_job_1a714575fe9a266f2b660e53314ddf6c3c" compoundref="_processor_8cpp" startline="469" endline="487">runJob</referencedby>
+        <location file="Processor.h" line="325" column="13" bodyfile="Processor.h" bodystart="325" bodyend="325"/>
+        <referencedby refid="class_processor_1ada6bec4ded26df0af355111366519094" compoundref="_processor_8cpp" startline="1286" endline="1304">Processor::addBindings</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a19788b304f87f62cedcb9b528ce3b1c6" compoundref="_processor_8cpp" startline="827" endline="860">addSymbols</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_processor_1_1_index_job_1aea230c0f54addd9581378664a91ab74b" prot="public" static="no" mutable="no">
         <type>std::atomic&lt; bool &gt;</type>
@@ -154,15 +412,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Processor.h" line="259" column="21" bodyfile="Processor.h" bodystart="259" bodyend="259"/>
-        <referencedby refid="struct_processor_1_1_index_job_1a714575fe9a266f2b660e53314ddf6c3c" compoundref="_processor_8cpp" startline="469" endline="487">runJob</referencedby>
+        <location file="Processor.h" line="326" column="21" bodyfile="Processor.h" bodystart="326" bodyend="326"/>
+        <referencedby refid="struct_processor_1_1_index_job_1a714575fe9a266f2b660e53314ddf6c3c" compoundref="_processor_8cpp" startline="783" endline="801">runJob</referencedby>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
-      <memberdef kind="function" id="struct_processor_1_1_index_job_1ab44d6d75b0f0c0d74e2f5ac9696c0677" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="struct_processor_1_1_index_job_1a1577d112164093f1e6c4de997894a149" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>Processor::IndexJob::IndexJob</definition>
-        <argsstring>(Processor &amp;ownerToUse, int rowIndexToUse, const juce::String &amp;pathToUse, const juce::String &amp;directoryToUse, jam::Array&lt; char &gt; argumentsToUse, std::shared_ptr&lt; const jam::LanguageLibrary &gt; languageToUse)</argsstring>
+        <argsstring>(Processor &amp;ownerToUse, int rowIndexToUse, const juce::String &amp;pathToUse, const juce::String &amp;directoryToUse, jam::Array&lt; char &gt; argumentsToUse, juce::int64 hashToUse, const juce::File &amp;symbolSwapFileToUse, juce::int64 languageHashToUse, std::shared_ptr&lt; const Language &gt; languageToUse, int familyToUse, juce::StringArray bufferPathsToUse, juce::StringArray bufferTextsToUse, jam::Strings foreignPathsToUse)</argsstring>
         <name>IndexJob</name>
         <qualifiedname>Processor::IndexJob::IndexJob</qualifiedname>
         <param>
@@ -186,8 +444,36 @@
           <declname>argumentsToUse</declname>
         </param>
         <param>
-          <type>std::shared_ptr&lt; const <ref refid="structjam_1_1LanguageLibrary" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageLibrary</ref> &gt;</type>
+          <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
+          <declname>hashToUse</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
+          <declname>symbolSwapFileToUse</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
+          <declname>languageHashToUse</declname>
+        </param>
+        <param>
+          <type>std::shared_ptr&lt; const <ref refid="class_language" kindref="compound">Language</ref> &gt;</type>
           <declname>languageToUse</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>familyToUse</declname>
+        </param>
+        <param>
+          <type><ref refid="classjuce_1_1StringArray" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::StringArray</ref></type>
+          <declname>bufferPathsToUse</declname>
+        </param>
+        <param>
+          <type><ref refid="classjuce_1_1StringArray" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::StringArray</ref></type>
+          <declname>bufferTextsToUse</declname>
+        </param>
+        <param>
+          <type><ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref></type>
+          <declname>foreignPathsToUse</declname>
         </param>
         <briefdescription>
 <para>Creates an index job for one unit row. </para>
@@ -235,6 +521,22 @@
 </parameteritem>
 <parameteritem>
 <parameternamelist>
+<parametername>symbolSwapFileToUse</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The symbol swap file of the unit. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>languageHashToUse</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The hash of the language row. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
 <parametername>languageToUse</parametername>
 </parameternamelist>
 <parameterdescription>
@@ -246,17 +548,30 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Processor.h" line="230" column="9" bodyfile="Processor.cpp" bodystart="458" bodyend="467"/>
-        <references refid="struct_processor_1_1_index_job_1aad4053b38199eb456c28b0d6ad6ecc11" compoundref="_processor_8h" startline="255">arguments</references>
-        <references refid="struct_processor_1_1_index_job_1a307f650032fdfa589bc9ca991d63132a" compoundref="_processor_8h" startline="254">directory</references>
-        <references refid="struct_processor_1_1_index_job_1a5328921aad065907affabda058b46b6e" compoundref="_processor_8h" startline="256">language</references>
-        <references refid="struct_processor_1_1_index_job_1af455bc4a9de8dc8c5f1d95a615f10a8f" compoundref="_processor_8h" startline="251">owner</references>
-        <references refid="struct_processor_1_1_index_job_1a9601d544f8b3c501bc6f22edb3d5071e" compoundref="_processor_8h" startline="253">path</references>
-        <references refid="class_processor_1a3d8bc2958e0972bb7a4a84c29f0581c4" compoundref="_processor_8cpp" startline="4" endline="10">Processor::Processor</references>
-        <references refid="struct_processor_1_1_index_job_1a1c78bf0812e004a0290380644e65f50d" compoundref="_processor_8h" startline="252">rowIndex</references>
+        <location file="Processor.h" line="254" column="9" bodyfile="Processor.cpp" bodystart="765" bodyend="781"/>
+        <references refid="struct_processor_1_1_index_job_1aad4053b38199eb456c28b0d6ad6ecc11" compoundref="_processor_8h" startline="307">arguments</references>
+        <references refid="struct_processor_1_1_index_job_1a9e69f478c33bbc20a91bef242df54fcb" compoundref="_processor_8h" startline="313">bufferPaths</references>
+        <references refid="struct_processor_1_1_index_job_1a9736185784ff22a9639e55bae17a24a5" compoundref="_processor_8h" startline="314">bufferTexts</references>
+        <references refid="struct_processor_1_1_index_job_1a307f650032fdfa589bc9ca991d63132a" compoundref="_processor_8h" startline="306">directory</references>
+        <references refid="struct_processor_1_1_index_job_1ae7affd1d5a01ff01a9030db743195c13" compoundref="_processor_8h" startline="312" endline="312">family</references>
+        <references refid="struct_processor_1_1_index_job_1ab7fa347a41a938ab7efe37948f05bc01" compoundref="_processor_8h" startline="315">foreignPaths</references>
+        <references refid="struct_processor_1_1_index_job_1a08ade423e9bbb349375b05c97515b990" compoundref="_processor_8h" startline="308" endline="308">hash</references>
+        <references refid="struct_processor_1_1_index_job_1a05d7501c9a2b33f2e756b643e438b682" compoundref="_processor_8h" startline="311">language</references>
+        <references refid="struct_processor_1_1_index_job_1a0e17c7b8568ffc041bb924b2d300dd8b" compoundref="_processor_8h" startline="310" endline="310">languageHash</references>
+        <references refid="struct_processor_1_1_index_job_1af455bc4a9de8dc8c5f1d95a615f10a8f" compoundref="_processor_8h" startline="303">owner</references>
+        <references refid="struct_processor_1_1_index_job_1a9601d544f8b3c501bc6f22edb3d5071e" compoundref="_processor_8h" startline="305">path</references>
+        <references refid="class_processor_1a3d8bc2958e0972bb7a4a84c29f0581c4" compoundref="_processor_8cpp" startline="10" endline="18">Processor::Processor</references>
+        <references refid="struct_processor_1_1_index_job_1a1c78bf0812e004a0290380644e65f50d" compoundref="_processor_8h" startline="304" endline="304">rowIndex</references>
+        <references refid="struct_processor_1_1_index_job_1a05394952e70bcee84dbac01d7f74d33f" compoundref="_processor_8h" startline="309">symbolSwapFile</references>
         <references refid="classjuce_1_1ThreadPoolJob_1aff1ded5a73f7e20a65fad92bb62f7c53">juce::ThreadPoolJob::ThreadPoolJob</references>
-        <referencedby refid="struct_processor_1_1_index_job_1ad43614d478425bc204a12eeb7f99983f" compoundref="_processor_8cpp" startline="489" endline="498">addSymbol</referencedby>
-        <referencedby refid="struct_processor_1_1_index_job_1a714575fe9a266f2b660e53314ddf6c3c" compoundref="_processor_8cpp" startline="469" endline="487">runJob</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a84b2ad5112ad68cd8a06769fbf079a26" compoundref="_processor_8cpp" startline="1033" endline="1054">addCompletion</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1af31ffc08a702d217a164d29ba541bce7" compoundref="_processor_8cpp" startline="944" endline="961">addDiagnostic</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a28c90c694ce6e5193c41407420908683" compoundref="_processor_8cpp" startline="1056" endline="1072">addFixIt</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a5e5da1ebfe6d3da8fb365df0eb074d98" compoundref="_processor_8cpp" startline="925" endline="942">addInlayHint</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a73f1ccd7e8219305ba3ded32a0a70226" compoundref="_processor_8cpp" startline="963" endline="996">addOutline</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a18195bcd0ab7d94505e7735e440f471d" compoundref="_processor_8cpp" startline="902" endline="923">addSymbol</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a19788b304f87f62cedcb9b528ce3b1c6" compoundref="_processor_8cpp" startline="827" endline="860">addSymbols</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a4f6430f852ab17122636d9c2e24c8d61" compoundref="_processor_8cpp" startline="1026" endline="1031">addTypeDefinition</referencedby>
       </memberdef>
       <memberdef kind="function" id="struct_processor_1_1_index_job_1a714575fe9a266f2b660e53314ddf6c3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type><ref refid="classjuce_1_1ThreadPoolJob_1a5941c13ff17426d91845c5cd46a0a2d0" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">JobStatus</ref></type>
@@ -276,31 +591,172 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Processor.h" line="237" column="19" bodyfile="Processor.cpp" bodystart="469" bodyend="487"/>
+        <location file="Processor.h" line="261" column="19" bodyfile="Processor.cpp" bodystart="783" bodyend="801"/>
+        <references refid="struct_processor_1_1_index_job_1a19788b304f87f62cedcb9b528ce3b1c6" compoundref="_processor_8cpp" startline="827" endline="860">addSymbols</references>
+        <references refid="struct_processor_1_1_index_job_1ae7affd1d5a01ff01a9030db743195c13" compoundref="_processor_8h" startline="312" endline="312">family</references>
+        <references refid="struct_processor_1_1_index_job_1a08ade423e9bbb349375b05c97515b990" compoundref="_processor_8h" startline="308" endline="308">hash</references>
+        <references refid="struct_processor_1_1_index_job_1aea230c0f54addd9581378664a91ab74b" compoundref="_processor_8h" startline="326" endline="326">isFinished</references>
+        <references refid="classjuce_1_1ThreadPoolJob_1a5941c13ff17426d91845c5cd46a0a2d0a70f86f0e911e4f6cd3c0ee7b2ccd1b88">juce::ThreadPoolJob::jobHasFinished</references>
+        <references refid="struct_processor_1_1_index_job_1a0e17c7b8568ffc041bb924b2d300dd8b" compoundref="_processor_8h" startline="310" endline="310">languageHash</references>
+        <references refid="struct_processor_1_1_index_job_1af455bc4a9de8dc8c5f1d95a615f10a8f" compoundref="_processor_8h" startline="303">owner</references>
+        <references refid="class_index_1a2ed5026c2259e1346400806155313103" compoundref="_index_8cpp" startline="41" endline="56">Index::readSwapFile</references>
+        <references refid="namespaceId_1aefa71b32d05e8323d4fce55f212cd4d9" compoundref="_generated_8cpp" startline="105" endline="105">Id::runIndexJob</references>
+        <references refid="struct_processor_1_1_index_job_1afdbf0371c0fa170f7f83aa6bf93a9c60" compoundref="_processor_8h" startline="316">symbols</references>
+        <references refid="struct_processor_1_1_index_job_1a05394952e70bcee84dbac01d7f74d33f" compoundref="_processor_8h" startline="309">symbolSwapFile</references>
+      </memberdef>
+      <memberdef kind="function" id="struct_processor_1_1_index_job_1a19788b304f87f62cedcb9b528ce3b1c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Processor::IndexJob::addSymbols</definition>
+        <argsstring>()</argsstring>
+        <name>addSymbols</name>
+        <qualifiedname>Processor::IndexJob::addSymbols</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="263" column="14" bodyfile="Processor.cpp" bodystart="827" bodyend="860"/>
         <references refid="classjam_1_1Array_1a11f82d383b72419d9e9624cbe63f7767">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::add</references>
-        <references refid="structjam_1_1LanguageCallbacks_1a2f54a8cb9eeed7349118d4312920379c">jam::LanguageCallbacks::addSymbol</references>
-        <references refid="struct_processor_1_1_index_job_1ad43614d478425bc204a12eeb7f99983f" compoundref="_processor_8cpp" startline="489" endline="498">addSymbol</references>
-        <references refid="struct_processor_1_1_index_job_1aad4053b38199eb456c28b0d6ad6ecc11" compoundref="_processor_8h" startline="255">arguments</references>
+        <references refid="structjam_1_1LanguageCallbacks_1a85df9eb30a5c78d5c394fd504456780b">jam::LanguageCallbacks::addCompletion</references>
+        <references refid="struct_processor_1_1_index_job_1a84b2ad5112ad68cd8a06769fbf079a26" compoundref="_processor_8cpp" startline="1033" endline="1054">addCompletion</references>
+        <references refid="structjam_1_1LanguageCallbacks_1a18714a5d492b9d81b4d932acd12ad66e">jam::LanguageCallbacks::addDiagnostic</references>
+        <references refid="struct_processor_1_1_index_job_1af31ffc08a702d217a164d29ba541bce7" compoundref="_processor_8cpp" startline="944" endline="961">addDiagnostic</references>
+        <references refid="structjam_1_1LanguageCallbacks_1ae884e0a659fe9de566b51b1bac5ce5cc">jam::LanguageCallbacks::addFixIt</references>
+        <references refid="struct_processor_1_1_index_job_1a28c90c694ce6e5193c41407420908683" compoundref="_processor_8cpp" startline="1056" endline="1072">addFixIt</references>
+        <references refid="structjam_1_1LanguageCallbacks_1a6e3e230c4b5764b75759546255951795">jam::LanguageCallbacks::addInlayHint</references>
+        <references refid="struct_processor_1_1_index_job_1a5e5da1ebfe6d3da8fb365df0eb074d98" compoundref="_processor_8cpp" startline="925" endline="942">addInlayHint</references>
+        <references refid="structjam_1_1LanguageCallbacks_1a65d4f9856d579c890e7f69a152501b2d">jam::LanguageCallbacks::addOutline</references>
+        <references refid="struct_processor_1_1_index_job_1a73f1ccd7e8219305ba3ded32a0a70226" compoundref="_processor_8cpp" startline="963" endline="996">addOutline</references>
+        <references refid="structjam_1_1LanguageCallbacks_1a4a1eaeed83dcf403e412b2a746c357e2">jam::LanguageCallbacks::addSymbol</references>
+        <references refid="struct_processor_1_1_index_job_1a18195bcd0ab7d94505e7735e440f471d" compoundref="_processor_8cpp" startline="902" endline="923">addSymbol</references>
+        <references refid="structjam_1_1LanguageCallbacks_1a8c453a2a6a356a532f28cbdef4e92b3f">jam::LanguageCallbacks::addTypeDefinition</references>
+        <references refid="struct_processor_1_1_index_job_1a4f6430f852ab17122636d9c2e24c8d61" compoundref="_processor_8cpp" startline="1026" endline="1031">addTypeDefinition</references>
+        <references refid="struct_processor_1_1_index_job_1a5a2b6abaadf081b53832449139bb908d" compoundref="_processor_8cpp" startline="862" endline="877">addTypeSymbols</references>
+        <references refid="struct_processor_1_1_index_job_1aad4053b38199eb456c28b0d6ad6ecc11" compoundref="_processor_8h" startline="307">arguments</references>
+        <references refid="struct_processor_1_1_index_job_1a9e69f478c33bbc20a91bef242df54fcb" compoundref="_processor_8h" startline="313">bufferPaths</references>
+        <references refid="struct_processor_1_1_index_job_1a9736185784ff22a9639e55bae17a24a5" compoundref="_processor_8h" startline="314">bufferTexts</references>
         <references refid="structjam_1_1LanguageCallbacks_1ac2ebcf8835a0e765986ca8672d8bec73">jam::LanguageCallbacks::context</references>
         <references refid="classjam_1_1Array_1a96fa6f0e5a1ecbb84176758bfb7b4117">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::data</references>
-        <references refid="struct_processor_1_1_index_job_1a307f650032fdfa589bc9ca991d63132a" compoundref="_processor_8h" startline="254">directory</references>
-        <references refid="struct_processor_1_1_index_job_1ab44d6d75b0f0c0d74e2f5ac9696c0677" compoundref="_processor_8cpp" startline="458" endline="467">IndexJob</references>
-        <references refid="struct_processor_1_1_index_job_1aea230c0f54addd9581378664a91ab74b" compoundref="_processor_8h" startline="259" endline="259">isFinished</references>
-        <references refid="classjuce_1_1ThreadPoolJob_1a5941c13ff17426d91845c5cd46a0a2d0a70f86f0e911e4f6cd3c0ee7b2ccd1b88">juce::ThreadPoolJob::jobHasFinished</references>
-        <references refid="struct_processor_1_1_index_job_1a5328921aad065907affabda058b46b6e" compoundref="_processor_8h" startline="256">language</references>
-        <references refid="structChars_1abe5ed2859dc0d86b2d8ece1886500bf3">Chars::nullCharacter</references>
-        <references refid="struct_processor_1_1_index_job_1af455bc4a9de8dc8c5f1d95a615f10a8f" compoundref="_processor_8h" startline="251">owner</references>
-        <references refid="struct_processor_1_1_index_job_1af0a42c88170cb5023be3f7be39491216" compoundref="_processor_8h" startline="258" endline="258">result</references>
+        <references refid="struct_processor_1_1_index_job_1a307f650032fdfa589bc9ca991d63132a" compoundref="_processor_8h" startline="306">directory</references>
+        <references refid="struct_processor_1_1_index_job_1ae7affd1d5a01ff01a9030db743195c13" compoundref="_processor_8h" startline="312" endline="312">family</references>
+        <references refid="struct_processor_1_1_index_job_1aadf59b2092e7757283343ca20d07f9ea" compoundref="_processor_8h" startline="318">fileElements</references>
+        <references refid="class_processor_1af5935deccba671a674298de8383c7b9c" compoundref="_processor_8cpp" startline="97" endline="106">Processor::getArgumentPointers</references>
+        <references refid="struct_processor_1_1_index_job_1a08ade423e9bbb349375b05c97515b990" compoundref="_processor_8h" startline="308" endline="308">hash</references>
+        <references refid="struct_processor_1_1_index_job_1a1577d112164093f1e6c4de997894a149" compoundref="_processor_8cpp" startline="765" endline="781">IndexJob</references>
+        <references refid="struct_processor_1_1_index_job_1a05d7501c9a2b33f2e756b643e438b682" compoundref="_processor_8h" startline="311">language</references>
+        <references refid="struct_processor_1_1_index_job_1a0e17c7b8568ffc041bb924b2d300dd8b" compoundref="_processor_8h" startline="310" endline="310">languageHash</references>
+        <references refid="struct_processor_1_1_index_job_1af0a42c88170cb5023be3f7be39491216" compoundref="_processor_8h" startline="325" endline="325">result</references>
         <references refid="structjam_1_1LanguageCallbacks_1a8293fea4ab95238b1711d934be88f6aa">jam::LanguageCallbacks::shouldExit</references>
         <references refid="classjuce_1_1ThreadPoolJob_1ace3639b2fc4594189180fad8bc85ca02">juce::ThreadPoolJob::shouldExit</references>
         <references refid="classjam_1_1Array_1a15af995542610b93595677080ed7672e">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::size</references>
+        <references refid="_processor_8cpp_1a950c3ce6c72c19e54ee4fa44f206c10b" compoundref="_processor_8cpp" startline="813" endline="825">sortFileTokens</references>
+        <references refid="struct_processor_1_1_index_job_1afdbf0371c0fa170f7f83aa6bf93a9c60" compoundref="_processor_8h" startline="316">symbols</references>
+        <references refid="struct_processor_1_1_index_job_1a05394952e70bcee84dbac01d7f74d33f" compoundref="_processor_8h" startline="309">symbolSwapFile</references>
+        <references refid="class_index_1a0794755d26224054eca2658206a01bd6" compoundref="_index_8cpp" startline="83" endline="95">Index::writeSwapFile</references>
+        <referencedby refid="struct_processor_1_1_index_job_1a714575fe9a266f2b660e53314ddf6c3c" compoundref="_processor_8cpp" startline="783" endline="801">runJob</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="struct_processor_1_1_index_job_1a5a2b6abaadf081b53832449139bb908d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Processor::IndexJob::addTypeSymbols</definition>
+        <argsstring>()</argsstring>
+        <name>addTypeSymbols</name>
+        <qualifiedname>Processor::IndexJob::addTypeSymbols</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="291" column="14" bodyfile="Processor.cpp" bodystart="862" bodyend="877"/>
+        <references refid="struct_symbol_document_1a5d2a4d1f909c9aac5f36f5b1d936033d" compoundref="_symbol_document_8h" startline="29" endline="29">SymbolDocument::noSymbol</references>
+        <references refid="struct_processor_1_1_index_job_1adbd29511a353c1419e5bf863e5f7c8e4" compoundref="_processor_8h" startline="319">recordElements</references>
+        <references refid="namespaceId_1a1117a23bc746c82b2e9fa021d6937fda" compoundref="_generated_8cpp" startline="122" endline="122">Id::symbol</references>
+        <references refid="namespaceId_1a7090d650f6ae62a6d09059b7c1f5133d" compoundref="_generated_8cpp" startline="130" endline="130">Id::typeSymbol</references>
+        <references refid="struct_processor_1_1_index_job_1abfa6582d2fb72dec0e1c0c61af020891" compoundref="_processor_8h" startline="324">typeSymbols</references>
+        <referencedby refid="struct_processor_1_1_index_job_1a19788b304f87f62cedcb9b528ce3b1c6" compoundref="_processor_8cpp" startline="827" endline="860">addSymbols</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="struct_processor_1_1_index_job_1a6bd61c6eae95b51c30924ca8a9fa27a3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Processor::IndexJob::getOutlineParent</definition>
+        <argsstring>(int parent, int pathIndex) const</argsstring>
+        <name>getOutlineParent</name>
+        <qualifiedname>Processor::IndexJob::getOutlineParent</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>parent</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>pathIndex</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="295" column="13" bodyfile="Processor.cpp" bodystart="998" bodyend="1009"/>
+        <references refid="struct_symbol_document_1a07429fecfabe254bc5e70271b580bc10" compoundref="_symbol_document_8h" startline="30" endline="30">SymbolDocument::noParent</references>
+        <references refid="struct_processor_1_1_index_job_1a157ba208bedc6fbdd78615417007c8b3" compoundref="_processor_8h" startline="320">outlineSlots</references>
+      </memberdef>
+      <memberdef kind="function" id="struct_processor_1_1_index_job_1ac90acd0c166bfd4dcefa9620de5686f9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Processor::IndexJob::isForeign</definition>
+        <argsstring>(const char *recordPath) const</argsstring>
+        <name>isForeign</name>
+        <qualifiedname>Processor::IndexJob::isForeign</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>recordPath</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="299" column="14" bodyfile="Processor.cpp" bodystart="879" bodyend="882"/>
+        <references refid="struct_processor_1_1_index_job_1ab7fa347a41a938ab7efe37948f05bc01" compoundref="_processor_8h" startline="315">foreignPaths</references>
+        <references refid="classjuce_1_1String_1a5f256315f70d4237e88b407890c22ed4">juce::String::indexOf</references>
+      </memberdef>
+      <memberdef kind="function" id="struct_processor_1_1_index_job_1a8eafa57b75a9997a8aa0b31771731f92" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Processor::IndexJob::getOrCreatePathIndex</definition>
+        <argsstring>(const char *recordPath)</argsstring>
+        <name>getOrCreatePathIndex</name>
+        <qualifiedname>Processor::IndexJob::getOrCreatePathIndex</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>recordPath</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="301" column="13" bodyfile="Processor.cpp" bodystart="884" bodyend="900"/>
+        <references refid="classjam_1_1Array_1a11f82d383b72419d9e9624cbe63f7767">jam::Array&lt; typename ElementType, typename TypeOfCriticalSectionToUse &gt;::add</references>
+        <references refid="struct_processor_1_1_index_job_1a1a860f14665f4de36cfbb738828bb724" compoundref="_processor_8h" startline="323">completionContainers</references>
+        <references refid="namespaceId_1a5e6be41c1ff350abe3152556c096fded" compoundref="_generated_8cpp" startline="41" endline="41">Id::completions</references>
+        <references refid="namespaceId_1a2107cf267116a0b24ec9915fde2a636d" compoundref="_generated_8cpp" startline="48" endline="48">Id::diagnostics</references>
+        <references refid="namespaceId_1a5d963020f2ab66034cf12eef33500c62">Id::file</references>
+        <references refid="struct_processor_1_1_index_job_1aadf59b2092e7757283343ca20d07f9ea" compoundref="_processor_8h" startline="318">fileElements</references>
+        <references refid="namespaceId_1aa38d85eb75a090b965fada418592e680" compoundref="_generated_8cpp" startline="61" endline="61">Id::fixIts</references>
+        <references refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223">juce::String::fromUTF8</references>
+        <references refid="namespaceId_1a57355c1803ce65140650b0d18d8f34d9" compoundref="_generated_8cpp" startline="73" endline="73">Id::inlayHints</references>
+        <references refid="namespaceId_1abf5f80a58a47c4c4bc9949f6a1c5d8da" compoundref="_generated_8cpp" startline="87" endline="87">Id::outline</references>
+        <references refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab">Id::path</references>
+        <references refid="struct_processor_1_1_index_job_1aec6b666dbcb92099b4fd72c4094bab23" compoundref="_processor_8h" startline="317">paths</references>
+        <references refid="struct_processor_1_1_index_job_1afdbf0371c0fa170f7f83aa6bf93a9c60" compoundref="_processor_8h" startline="316">symbols</references>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-static-func">
-      <memberdef kind="function" id="struct_processor_1_1_index_job_1ad43614d478425bc204a12eeb7f99983f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="struct_processor_1_1_index_job_1a18195bcd0ab7d94505e7735e440f471d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void Processor::IndexJob::addSymbol</definition>
-        <argsstring>(void *context, const char *recordPath, int line, int column, const char *symbol, int role)</argsstring>
+        <argsstring>(void *context, const char *recordPath, int line, int column, unsigned long long symbol, int nameLength, int role, int type, const char *hover, int definitionStart)</argsstring>
         <name>addSymbol</name>
         <qualifiedname>Processor::IndexJob::addSymbol</qualifiedname>
         <param>
@@ -320,18 +776,34 @@
           <declname>column</declname>
         </param>
         <param>
-          <type>const char *</type>
+          <type>unsigned long long</type>
           <declname>symbol</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nameLength</declname>
         </param>
         <param>
           <type>int</type>
           <declname>role</declname>
         </param>
+        <param>
+          <type>int</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>hover</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>definitionStart</declname>
+        </param>
         <briefdescription>
 <para>Stores one symbol record of the index pass. </para>
         </briefdescription>
         <detaileddescription>
-<para>The first record at a position stays.</para>
+<para>Every record of a position stays.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>context</parametername>
@@ -380,14 +852,377 @@
 <para>The role bits of the record. </para>
 </parameterdescription>
 </parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The token type of the entity. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The entity name. A null name is stored as empty. </para>
+</parameterdescription>
+</parameteritem>
 </parameterlist>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Processor.h" line="249" column="21" bodyfile="Processor.cpp" bodystart="489" bodyend="498"/>
-        <references refid="struct_processor_1_1_index_job_1ab44d6d75b0f0c0d74e2f5ac9696c0677" compoundref="_processor_8cpp" startline="458" endline="467">IndexJob</references>
-        <referencedby refid="struct_processor_1_1_index_job_1a714575fe9a266f2b660e53314ddf6c3c" compoundref="_processor_8cpp" startline="469" endline="487">runJob</referencedby>
+        <location file="Processor.h" line="277" column="21" bodyfile="Processor.cpp" bodystart="902" bodyend="923"/>
+        <references refid="namespaceId_1af2239fe8341ea76506105b6ce8f3b749" compoundref="_generated_8cpp" startline="39" endline="39">Id::column</references>
+        <references refid="namespaceId_1a39864fc470c72e655b422ca5f6508da4" compoundref="_generated_8cpp" startline="46" endline="46">Id::definition</references>
+        <references refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223">juce::String::fromUTF8</references>
+        <references refid="namespaceId_1ac2cff7c4729de94f8f46197b096b895c" compoundref="_generated_8cpp" startline="69" endline="69">Id::hover</references>
+        <references refid="struct_processor_1_1_index_job_1a1577d112164093f1e6c4de997894a149" compoundref="_processor_8cpp" startline="765" endline="781">IndexJob</references>
+        <references refid="namespaceId_1a9acf3e231e632c1b02ad3a0d4c0fc008">Id::line</references>
+        <references refid="namespaceId_1ae6e24732fa060311144e2849ead777c0" compoundref="_generated_8cpp" startline="84" endline="84">Id::nameLength</references>
+        <references refid="namespaceId_1aa2febc0d8c19ea0cd03b41d80241f301" compoundref="_generated_8cpp" startline="103" endline="103">Id::role</references>
+        <references refid="namespaceId_1a1117a23bc746c82b2e9fa021d6937fda" compoundref="_generated_8cpp" startline="122" endline="122">Id::symbol</references>
+        <references refid="namespaceId_1ab4956db6d5e735af8b4e202830ac73f7">Id::type</references>
+        <referencedby refid="struct_processor_1_1_index_job_1a19788b304f87f62cedcb9b528ce3b1c6" compoundref="_processor_8cpp" startline="827" endline="860">addSymbols</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="struct_processor_1_1_index_job_1a5e5da1ebfe6d3da8fb365df0eb074d98" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Processor::IndexJob::addInlayHint</definition>
+        <argsstring>(void *context, const char *recordPath, int line, int column, const char *label, int type, int paddingLeft, int paddingRight)</argsstring>
+        <name>addInlayHint</name>
+        <qualifiedname>Processor::IndexJob::addInlayHint</qualifiedname>
+        <param>
+          <type>void *</type>
+          <declname>context</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>recordPath</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>line</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>label</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>paddingLeft</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>paddingRight</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="279" column="21" bodyfile="Processor.cpp" bodystart="925" bodyend="942"/>
+        <references refid="structjam_1_1Document_1_1Token_1a88460a3ac142a76a828dbd990b3cf58b">jam::Document::Token::add</references>
+        <references refid="namespaceId_1af2239fe8341ea76506105b6ce8f3b749" compoundref="_generated_8cpp" startline="39" endline="39">Id::column</references>
+        <references refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223">juce::String::fromUTF8</references>
+        <references refid="struct_processor_1_1_index_job_1a1577d112164093f1e6c4de997894a149" compoundref="_processor_8cpp" startline="765" endline="781">IndexJob</references>
+        <references refid="namespaceId_1a57355c1803ce65140650b0d18d8f34d9" compoundref="_generated_8cpp" startline="73" endline="73">Id::inlayHints</references>
+        <references refid="namespaceId_1adcdfe66c25f01d23d9e5c760addbcce0">Id::label</references>
+        <references refid="namespaceId_1a9acf3e231e632c1b02ad3a0d4c0fc008">Id::line</references>
+        <references refid="namespaceId_1ac5e1a1995a092007ee695854ee1607c6" compoundref="_generated_8cpp" startline="89" endline="89">Id::paddingLeft</references>
+        <references refid="namespaceId_1a391a27ffbb0a26c4dff1864f85ae1517" compoundref="_generated_8cpp" startline="90" endline="90">Id::paddingRight</references>
+        <references refid="namespaceId_1ab4956db6d5e735af8b4e202830ac73f7">Id::type</references>
+        <referencedby refid="struct_processor_1_1_index_job_1a19788b304f87f62cedcb9b528ce3b1c6" compoundref="_processor_8cpp" startline="827" endline="860">addSymbols</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="struct_processor_1_1_index_job_1af31ffc08a702d217a164d29ba541bce7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Processor::IndexJob::addDiagnostic</definition>
+        <argsstring>(void *context, const char *recordPath, int line, int column, int endLine, int endColumn, int severity, const char *message)</argsstring>
+        <name>addDiagnostic</name>
+        <qualifiedname>Processor::IndexJob::addDiagnostic</qualifiedname>
+        <param>
+          <type>void *</type>
+          <declname>context</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>recordPath</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>line</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>endLine</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>endColumn</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>severity</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="281" column="21" bodyfile="Processor.cpp" bodystart="944" bodyend="961"/>
+        <references refid="structjam_1_1Document_1_1Token_1a88460a3ac142a76a828dbd990b3cf58b">jam::Document::Token::add</references>
+        <references refid="namespaceId_1af2239fe8341ea76506105b6ce8f3b749" compoundref="_generated_8cpp" startline="39" endline="39">Id::column</references>
+        <references refid="namespaceId_1a2107cf267116a0b24ec9915fde2a636d" compoundref="_generated_8cpp" startline="48" endline="48">Id::diagnostics</references>
+        <references refid="namespaceId_1aec8c6b382a320136b773715118a4f795" compoundref="_generated_8cpp" startline="55" endline="55">Id::endColumn</references>
+        <references refid="namespaceId_1af902e71983fbb006dd0efea464ba935e">Id::endLine</references>
+        <references refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223">juce::String::fromUTF8</references>
+        <references refid="struct_processor_1_1_index_job_1a1577d112164093f1e6c4de997894a149" compoundref="_processor_8cpp" startline="765" endline="781">IndexJob</references>
+        <references refid="namespaceId_1a9acf3e231e632c1b02ad3a0d4c0fc008">Id::line</references>
+        <references refid="namespaceId_1a0e0b9ef1fb687c4c7c73d2bd7213ac01">Id::message</references>
+        <references refid="namespaceId_1af5881cf621930714f2a7f88092dfd57b" compoundref="_generated_8cpp" startline="113" endline="113">Id::severity</references>
+        <referencedby refid="struct_processor_1_1_index_job_1a19788b304f87f62cedcb9b528ce3b1c6" compoundref="_processor_8cpp" startline="827" endline="860">addSymbols</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="struct_processor_1_1_index_job_1a73f1ccd7e8219305ba3ded32a0a70226" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Processor::IndexJob::addOutline</definition>
+        <argsstring>(void *context, const char *recordPath, int line, int column, int endLine, int endColumn, int nameLength, int qualifierLength, int type, int parent)</argsstring>
+        <name>addOutline</name>
+        <qualifiedname>Processor::IndexJob::addOutline</qualifiedname>
+        <param>
+          <type>void *</type>
+          <declname>context</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>recordPath</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>line</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>endLine</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>endColumn</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nameLength</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>qualifierLength</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>parent</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="283" column="20" bodyfile="Processor.cpp" bodystart="963" bodyend="996"/>
+        <references refid="struct_processor_1_1_index_job_1a37c0106b2e4ae9810846535c2d7c0fd1" compoundref="_processor_8cpp" startline="1011" endline="1024">addOutlineToken</references>
+        <references refid="structjam_1_1Wyhash_1a7fa8db19e86572da868364ec6491242e">jam::Wyhash::fold</references>
+        <references refid="struct_processor_1_1_index_job_1a1577d112164093f1e6c4de997894a149" compoundref="_processor_8cpp" startline="765" endline="781">IndexJob</references>
+        <references refid="struct_symbol_document_1a07429fecfabe254bc5e70271b580bc10" compoundref="_symbol_document_8h" startline="30" endline="30">SymbolDocument::noParent</references>
+        <references refid="namespaceId_1abf5f80a58a47c4c4bc9949f6a1c5d8da" compoundref="_generated_8cpp" startline="87" endline="87">Id::outline</references>
+        <referencedby refid="struct_processor_1_1_index_job_1a19788b304f87f62cedcb9b528ce3b1c6" compoundref="_processor_8cpp" startline="827" endline="860">addSymbols</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="struct_processor_1_1_index_job_1a4f6430f852ab17122636d9c2e24c8d61" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Processor::IndexJob::addTypeDefinition</definition>
+        <argsstring>(void *context, unsigned long long symbol, unsigned long long typeSymbol)</argsstring>
+        <name>addTypeDefinition</name>
+        <qualifiedname>Processor::IndexJob::addTypeDefinition</qualifiedname>
+        <param>
+          <type>void *</type>
+          <declname>context</declname>
+        </param>
+        <param>
+          <type>unsigned long long</type>
+          <declname>symbol</declname>
+        </param>
+        <param>
+          <type>unsigned long long</type>
+          <declname>typeSymbol</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="285" column="21" bodyfile="Processor.cpp" bodystart="1026" bodyend="1031"/>
+        <references refid="struct_processor_1_1_index_job_1a1577d112164093f1e6c4de997894a149" compoundref="_processor_8cpp" startline="765" endline="781">IndexJob</references>
+        <referencedby refid="struct_processor_1_1_index_job_1a19788b304f87f62cedcb9b528ce3b1c6" compoundref="_processor_8cpp" startline="827" endline="860">addSymbols</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="struct_processor_1_1_index_job_1a84b2ad5112ad68cd8a06769fbf079a26" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Processor::IndexJob::addCompletion</definition>
+        <argsstring>(void *context, const char *recordPath, unsigned long long scopeSymbol, unsigned long long symbol, const char *label, const char *insertText, int type)</argsstring>
+        <name>addCompletion</name>
+        <qualifiedname>Processor::IndexJob::addCompletion</qualifiedname>
+        <param>
+          <type>void *</type>
+          <declname>context</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>recordPath</declname>
+        </param>
+        <param>
+          <type>unsigned long long</type>
+          <declname>scopeSymbol</declname>
+        </param>
+        <param>
+          <type>unsigned long long</type>
+          <declname>symbol</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>label</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>insertText</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="287" column="21" bodyfile="Processor.cpp" bodystart="1033" bodyend="1054"/>
+        <references refid="namespaceId_1a90d09a1fe12817bae48b3de26a581099" compoundref="_generated_8cpp" startline="40" endline="40">Id::completion</references>
+        <references refid="structjam_1_1Wyhash_1a7fa8db19e86572da868364ec6491242e">jam::Wyhash::fold</references>
+        <references refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223">juce::String::fromUTF8</references>
+        <references refid="struct_processor_1_1_index_job_1a1577d112164093f1e6c4de997894a149" compoundref="_processor_8cpp" startline="765" endline="781">IndexJob</references>
+        <references refid="namespaceId_1adcdfe66c25f01d23d9e5c760addbcce0">Id::label</references>
+        <references refid="namespaceId_1a50459a16b11d00b0269af837b5454d7d" compoundref="_generated_8cpp" startline="108" endline="108">Id::scope</references>
+        <references refid="namespaceId_1af233c372f65e2a40ac336745c1be54d4" compoundref="_generated_8cpp" startline="114" endline="114">Id::snippet</references>
+        <references refid="namespaceId_1a1117a23bc746c82b2e9fa021d6937fda" compoundref="_generated_8cpp" startline="122" endline="122">Id::symbol</references>
+        <references refid="namespaceId_1ab4956db6d5e735af8b4e202830ac73f7">Id::type</references>
+        <referencedby refid="struct_processor_1_1_index_job_1a19788b304f87f62cedcb9b528ce3b1c6" compoundref="_processor_8cpp" startline="827" endline="860">addSymbols</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="struct_processor_1_1_index_job_1a28c90c694ce6e5193c41407420908683" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Processor::IndexJob::addFixIt</definition>
+        <argsstring>(void *context, const char *recordPath, int line, int column, int endLine, int endColumn, const char *text)</argsstring>
+        <name>addFixIt</name>
+        <qualifiedname>Processor::IndexJob::addFixIt</qualifiedname>
+        <param>
+          <type>void *</type>
+          <declname>context</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>recordPath</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>line</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>endLine</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>endColumn</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>text</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="289" column="21" bodyfile="Processor.cpp" bodystart="1056" bodyend="1072"/>
+        <references refid="structjam_1_1Document_1_1Token_1a88460a3ac142a76a828dbd990b3cf58b">jam::Document::Token::add</references>
+        <references refid="namespaceId_1af2239fe8341ea76506105b6ce8f3b749" compoundref="_generated_8cpp" startline="39" endline="39">Id::column</references>
+        <references refid="namespaceId_1aec8c6b382a320136b773715118a4f795" compoundref="_generated_8cpp" startline="55" endline="55">Id::endColumn</references>
+        <references refid="namespaceId_1af902e71983fbb006dd0efea464ba935e">Id::endLine</references>
+        <references refid="namespaceId_1aa38d85eb75a090b965fada418592e680" compoundref="_generated_8cpp" startline="61" endline="61">Id::fixIts</references>
+        <references refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223">juce::String::fromUTF8</references>
+        <references refid="struct_processor_1_1_index_job_1a1577d112164093f1e6c4de997894a149" compoundref="_processor_8cpp" startline="765" endline="781">IndexJob</references>
+        <references refid="namespaceId_1a9acf3e231e632c1b02ad3a0d4c0fc008">Id::line</references>
+        <references refid="namespaceId_1a287c150cdfda5a8e2deb30b6d987d638">Id::text</references>
+        <referencedby refid="struct_processor_1_1_index_job_1a19788b304f87f62cedcb9b528ce3b1c6" compoundref="_processor_8cpp" startline="827" endline="860">addSymbols</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="struct_processor_1_1_index_job_1a37c0106b2e4ae9810846535c2d7c0fd1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Processor::IndexJob::addOutlineToken</definition>
+        <argsstring>(jam::Document::Tokens &amp;tokens, const std::array&lt; int, outlineFieldCount &gt; &amp;fields)</argsstring>
+        <name>addOutlineToken</name>
+        <qualifiedname>Processor::IndexJob::addOutlineToken</qualifiedname>
+        <param>
+          <type><ref refid="structjam_1_1Document_1a805d84a9511bbac7e123e95c20c6c32b" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Tokens</ref> &amp;</type>
+          <declname>tokens</declname>
+        </param>
+        <param>
+          <type>const std::array&lt; int, <ref refid="struct_processor_1_1_index_job_1af0bd4539549bf6bb8c486bae4b6d724d" kindref="member">outlineFieldCount</ref> &gt; &amp;</type>
+          <declname>fields</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Processor.h" line="297" column="21" bodyfile="Processor.cpp" bodystart="1011" bodyend="1024"/>
+        <references refid="structjam_1_1Document_1_1Token_1a88460a3ac142a76a828dbd990b3cf58b">jam::Document::Token::add</references>
+        <references refid="namespaceId_1af2239fe8341ea76506105b6ce8f3b749" compoundref="_generated_8cpp" startline="39" endline="39">Id::column</references>
+        <references refid="namespaceId_1aec8c6b382a320136b773715118a4f795" compoundref="_generated_8cpp" startline="55" endline="55">Id::endColumn</references>
+        <references refid="namespaceId_1af902e71983fbb006dd0efea464ba935e">Id::endLine</references>
+        <references refid="namespaceId_1a9acf3e231e632c1b02ad3a0d4c0fc008">Id::line</references>
+        <references refid="namespaceId_1ae6e24732fa060311144e2849ead777c0" compoundref="_generated_8cpp" startline="84" endline="84">Id::nameLength</references>
+        <references refid="namespaceId_1a56be0d86267c7ade64d16019d54247a6">Id::parent</references>
+        <references refid="namespaceId_1ad463f53f829518acc22258a3b4b85521" compoundref="_generated_8cpp" startline="97" endline="97">Id::qualifierLength</references>
+        <references refid="namespaceId_1ab4956db6d5e735af8b4e202830ac73f7">Id::type</references>
+        <referencedby refid="struct_processor_1_1_index_job_1a73f1ccd7e8219305ba3ded32a0a70226" compoundref="_processor_8cpp" startline="963" endline="996">addOutline</referencedby>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -410,27 +1245,39 @@
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="28">
+      <node id="25">
         <label>Index</label>
         <link refid="class_index"/>
         <childnode refid="6" relation="usage">
           <edgelabel>model</edgelabel>
         </childnode>
-        <childnode refid="29" relation="usage">
+        <childnode refid="26" relation="usage">
           <edgelabel>paths</edgelabel>
         </childnode>
-        <childnode refid="35" relation="usage">
+        <childnode refid="32" relation="usage">
+          <edgelabel>pathOrder</edgelabel>
+        </childnode>
+        <childnode refid="33" relation="usage">
           <edgelabel>documents</edgelabel>
         </childnode>
-        <childnode refid="36" relation="usage">
+        <childnode refid="34" relation="usage">
           <edgelabel>languages</edgelabel>
         </childnode>
-        <childnode refid="37" relation="usage">
+        <childnode refid="35" relation="usage">
+          <edgelabel>completions</edgelabel>
           <edgelabel>declarations</edgelabel>
+          <edgelabel>names</edgelabel>
           <edgelabel>references</edgelabel>
         </childnode>
+        <childnode refid="36" relation="usage">
+          <edgelabel>symbolDocuments</edgelabel>
+        </childnode>
+        <childnode refid="37" relation="usage">
+          <edgelabel>symbolFiles</edgelabel>
+        </childnode>
         <childnode refid="38" relation="usage">
-          <edgelabel>bindings</edgelabel>
+          <edgelabel>pathRows</edgelabel>
+          <edgelabel>unitRows</edgelabel>
         </childnode>
       </node>
       <node id="6">
@@ -446,6 +1293,10 @@
           <edgelabel>watcher</edgelabel>
         </childnode>
       </node>
+      <node id="52">
+        <label>Language</label>
+        <link refid="class_language"/>
+      </node>
       <node id="3">
         <label>Processor</label>
         <link refid="class_processor"/>
@@ -457,31 +1308,56 @@
           <edgelabel>model</edgelabel>
         </childnode>
         <childnode refid="25" relation="usage">
-          <edgelabel>checks</edgelabel>
-          <edgelabel>precompiles</edgelabel>
-        </childnode>
-        <childnode refid="27" relation="usage">
-          <edgelabel>builds</edgelabel>
-        </childnode>
-        <childnode refid="28" relation="usage">
           <edgelabel>index</edgelabel>
         </childnode>
         <childnode refid="39" relation="usage">
           <edgelabel>query</edgelabel>
         </childnode>
-        <childnode refid="43" relation="usage">
+        <childnode refid="44" relation="usage">
           <edgelabel>nextParseJobs</edgelabel>
           <edgelabel>parseJobs</edgelabel>
         </childnode>
-        <childnode refid="44" relation="usage">
+        <childnode refid="45" relation="usage">
           <edgelabel>indexJobs</edgelabel>
           <edgelabel>nextIndexJobs</edgelabel>
         </childnode>
-        <childnode refid="45" relation="usage">
+        <childnode refid="46" relation="usage">
+          <edgelabel>nextUnitsJobs</edgelabel>
+          <edgelabel>unitsJobs</edgelabel>
+        </childnode>
+        <childnode refid="47" relation="usage">
+          <edgelabel>formatJobs</edgelabel>
+        </childnode>
+        <childnode refid="54" relation="usage">
           <edgelabel>pool</edgelabel>
         </childnode>
-        <childnode refid="46" relation="usage">
+        <childnode refid="56" relation="usage">
+          <edgelabel>childEvents</edgelabel>
           <edgelabel>events</edgelabel>
+          <edgelabel>propertyEvents</edgelabel>
+        </childnode>
+      </node>
+      <node id="49">
+        <label>Processor::FormatJob</label>
+        <link refid="struct_processor_1_1_format_job"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>owner</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>request</edgelabel>
+        </childnode>
+        <childnode refid="50" relation="usage">
+          <edgelabel>path</edgelabel>
+          <edgelabel>result</edgelabel>
+          <edgelabel>text</edgelabel>
+        </childnode>
+        <childnode refid="51" relation="usage">
+          <edgelabel>language</edgelabel>
+        </childnode>
+        <childnode refid="53" relation="usage">
+          <edgelabel>isFinished</edgelabel>
         </childnode>
       </node>
       <node id="1">
@@ -492,20 +1368,48 @@
         <childnode refid="3" relation="usage">
           <edgelabel>owner</edgelabel>
         </childnode>
-        <childnode refid="48" relation="usage">
+        <childnode refid="50" relation="usage">
           <edgelabel>directory</edgelabel>
           <edgelabel>path</edgelabel>
         </childnode>
-        <childnode refid="31" relation="usage">
+        <childnode refid="28" relation="usage">
           <edgelabel>arguments</edgelabel>
         </childnode>
-        <childnode refid="49" relation="usage">
+        <childnode refid="20" relation="usage">
+          <edgelabel>symbolSwapFile</edgelabel>
+        </childnode>
+        <childnode refid="51" relation="usage">
           <edgelabel>language</edgelabel>
         </childnode>
-        <childnode refid="64" relation="usage">
-          <edgelabel>records</edgelabel>
+        <childnode refid="58" relation="usage">
+          <edgelabel>bufferPaths</edgelabel>
+          <edgelabel>bufferTexts</edgelabel>
         </childnode>
-        <childnode refid="65" relation="usage">
+        <childnode refid="26" relation="usage">
+          <edgelabel>foreignPaths</edgelabel>
+          <edgelabel>paths</edgelabel>
+        </childnode>
+        <childnode refid="60" relation="usage">
+          <edgelabel>symbols</edgelabel>
+        </childnode>
+        <childnode refid="75" relation="usage">
+          <edgelabel>completionContainers</edgelabel>
+          <edgelabel>fileElements</edgelabel>
+          <edgelabel>recordElements</edgelabel>
+        </childnode>
+        <childnode refid="76" relation="usage">
+          <edgelabel>outlineSlots</edgelabel>
+        </childnode>
+        <childnode refid="77" relation="usage">
+          <edgelabel>outlineKeys</edgelabel>
+        </childnode>
+        <childnode refid="78" relation="usage">
+          <edgelabel>completionKeys</edgelabel>
+        </childnode>
+        <childnode refid="79" relation="usage">
+          <edgelabel>typeSymbols</edgelabel>
+        </childnode>
+        <childnode refid="53" relation="usage">
           <edgelabel>isFinished</edgelabel>
         </childnode>
       </node>
@@ -514,6 +1418,12 @@
         <link refid="class_query"/>
         <childnode refid="40" relation="usage">
           <edgelabel>slab</edgelabel>
+        </childnode>
+      </node>
+      <node id="61">
+        <label>SymbolDocument</label>
+        <link refid="struct_symbol_document"/>
+        <childnode refid="62" relation="public-inheritance">
         </childnode>
       </node>
       <node id="9">
@@ -528,8 +1438,14 @@
           <edgelabel>types</edgelabel>
         </childnode>
       </node>
-      <node id="31">
+      <node id="28">
         <label>jam::Array&lt; char &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="10" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>jam::Array&lt; int &gt;</label>
         <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
         <childnode refid="10" relation="public-inheritance">
         </childnode>
@@ -546,38 +1462,91 @@
         <childnode refid="10" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="32">
+      <node id="75">
+        <label>jam::Array&lt; jam::Document::Element * &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="10" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="73">
+        <label>jam::Array&lt; jam::Document::Property&lt; Value &gt; &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="10" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="29">
         <label>jam::Array&lt; jam::Union&lt; int32_t, int32_t &gt; &gt;</label>
         <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
         <childnode refid="10" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="26">
+      <node id="43">
+        <label>jam::Array&lt; juce::juce_wchar &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="10" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="76">
+        <label>jam::Array&lt; std::pair&lt; int, int &gt; &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="10" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="74">
+        <label>jam::Array&lt; std::tuple&lt; uint32_t, int, int &gt; &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="10" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="64">
         <label>jam::Array&lt; std::unique_ptr&lt; ObjectClass &gt; &gt;</label>
         <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
         <childnode refid="10" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="59">
-        <label>jam::Bimap&lt; int &gt;</label>
-        <link refid="classjam_1_1Bimap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-        <childnode refid="60" relation="usage">
-          <edgelabel>map</edgelabel>
-        </childnode>
-        <childnode refid="61" relation="usage">
-          <edgelabel>inverse</edgelabel>
+      <node id="70">
+        <label>jam::Array&lt; uint32_t &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="10" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="53">
-        <label>jam::Document::Vocabulary</label>
-        <link refid="structjam_1_1Document_1_1Vocabulary" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-        <childnode refid="54" relation="usage">
-          <edgelabel>classes</edgelabel>
+      <node id="62">
+        <label>jam::Document</label>
+        <link refid="structjam_1_1Document" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="63" relation="usage">
+          <edgelabel>elements</edgelabel>
         </childnode>
-        <childnode refid="57" relation="usage">
-          <edgelabel>commentClose</edgelabel>
-          <edgelabel>commentOpen</edgelabel>
-          <edgelabel>lineCommentOpen</edgelabel>
+        <childnode refid="65" relation="usage">
+          <edgelabel>arena</edgelabel>
+        </childnode>
+        <childnode refid="68" relation="usage">
+          <edgelabel>source</edgelabel>
+        </childnode>
+        <childnode refid="70" relation="usage">
+          <edgelabel>lineOffsets</edgelabel>
+        </childnode>
+        <childnode refid="71" relation="usage">
+          <edgelabel>root</edgelabel>
+        </childnode>
+        <childnode refid="74" relation="usage">
+          <edgelabel>nameTokens</edgelabel>
+        </childnode>
+      </node>
+      <node id="71">
+        <label>jam::Document::Element</label>
+        <link refid="structjam_1_1Document_1_1Element" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="72" relation="usage">
+          <edgelabel>id</edgelabel>
+        </childnode>
+        <childnode refid="71" relation="usage">
+          <edgelabel>firstChild</edgelabel>
+          <edgelabel>lastChild</edgelabel>
+          <edgelabel>nextSibling</edgelabel>
+          <edgelabel>parent</edgelabel>
+          <edgelabel>previousSibling</edgelabel>
+        </childnode>
+        <childnode refid="73" relation="usage">
+          <edgelabel>properties</edgelabel>
         </childnode>
       </node>
       <node id="18">
@@ -609,10 +1578,10 @@
         <label>jam::File::Watcher::Listener</label>
         <link refid="classjam_1_1File_1_1Watcher_1_1Listener" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
       </node>
-      <node id="46">
+      <node id="56">
         <label>jam::Function::Map&lt; juce::Identifier, jam::Function::pointerCapacity, void(juce::ValueTree &amp;)&gt;</label>
         <link refid="structjam_1_1Function_1_1Map" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-        <childnode refid="47" relation="public-inheritance">
+        <childnode refid="57" relation="public-inheritance">
         </childnode>
       </node>
       <node id="40">
@@ -624,48 +1593,51 @@
         <childnode refid="42" relation="usage">
           <edgelabel>i32</edgelabel>
         </childnode>
+        <childnode refid="43" relation="usage">
+          <edgelabel>characters</edgelabel>
+        </childnode>
       </node>
-      <node id="60">
-        <label>jam::HashMap&lt; KeyType, ValueType &gt;</label>
+      <node id="78">
+        <label>jam::HashMap&lt; Key, void, HashFn, KeyEqual, AllocatorOrContainer, Bucket, BucketContainer, false &gt;&lt; juce::int64 &gt;</label>
         <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
       </node>
-      <node id="47">
+      <node id="57">
         <label>jam::HashMap&lt; KeyType, std::variant&lt; Overload&lt; KeyType, capacity, Signatures &gt;::Slot... &gt; &gt;</label>
         <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
       </node>
-      <node id="61">
-        <label>jam::HashMap&lt; ValueType, KeyType &gt;</label>
-        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-      </node>
-      <node id="38">
-        <label>jam::HashMap&lt; int, jam::HashMap&lt; std::string, jam::HashMap&lt; int, jam::HashMap&lt; int, std::pair&lt; std::string, int &gt; &gt; &gt; &gt; &gt;</label>
-        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-      </node>
-      <node id="36">
-        <label>jam::HashMap&lt; int, std::shared_ptr&lt; const jam::LanguageLibrary &gt; &gt;</label>
-        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-      </node>
-      <node id="44">
-        <label>jam::HashMap&lt; int, std::unique_ptr&lt; Processor::IndexJob &gt; &gt;</label>
-        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-      </node>
-      <node id="43">
-        <label>jam::HashMap&lt; int, std::unique_ptr&lt; Processor::ParseJob &gt; &gt;</label>
-        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-      </node>
-      <node id="35">
-        <label>jam::HashMap&lt; int, std::unique_ptr&lt; jam::LanguageDocument &gt; &gt;</label>
-        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-      </node>
-      <node id="27">
-        <label>jam::HashMap&lt; int, std::unique_ptr&lt; jam::Subprocess &gt; &gt;</label>
+      <node id="37">
+        <label>jam::HashMap&lt; int, std::pair&lt; int, const jam::Document::Element * &gt; &gt;</label>
         <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
       </node>
       <node id="34">
-        <label>jam::HashMap&lt; jam::Union&lt; int32_t, int32_t &gt;, int, jam::Strings::CaseFoldHash, jam::Strings::CaseFoldEqual &gt;</label>
+        <label>jam::HashMap&lt; int, std::shared_ptr&lt; const Language &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="45">
+        <label>jam::HashMap&lt; int, std::unique_ptr&lt; Processor::IndexJob &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="44">
+        <label>jam::HashMap&lt; int, std::unique_ptr&lt; Processor::ParseJob &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="46">
+        <label>jam::HashMap&lt; int, std::unique_ptr&lt; Processor::UnitsJob &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="36">
+        <label>jam::HashMap&lt; int, std::unique_ptr&lt; SymbolDocument &gt; &gt;</label>
         <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
       </node>
       <node id="33">
+        <label>jam::HashMap&lt; int, std::unique_ptr&lt; jam::Document &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="31">
+        <label>jam::HashMap&lt; jam::Union&lt; int32_t, int32_t &gt;, int, jam::Strings::CaseFoldHash, jam::Strings::CaseFoldEqual &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="30">
         <label>jam::HashMap&lt; jam::Union&lt; int32_t, int32_t &gt;, int, jam::Strings::TransparentHash, jam::Strings::TransparentEqual &gt;</label>
         <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
       </node>
@@ -681,60 +1653,25 @@
         <label>jam::HashMap&lt; juce::Identifier, std::unique_ptr&lt; void, Deleter &gt; &gt;</label>
         <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
       </node>
-      <node id="37">
-        <label>jam::HashMap&lt; juce::String, jam::Array&lt; std::pair&lt; int, const jam::Document::Element * &gt; &gt; &gt;</label>
+      <node id="38">
+        <label>jam::HashMap&lt; juce::String, int &gt;</label>
         <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
       </node>
-      <node id="63">
-        <label>jam::HashMap&lt; juce::String, juce::StringArray &gt;</label>
+      <node id="77">
+        <label>jam::HashMap&lt; juce::int64, int &gt;</label>
         <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
       </node>
-      <node id="64">
-        <label>jam::HashMap&lt; std::string, jam::HashMap&lt; int, jam::HashMap&lt; int, std::pair&lt; std::string, int &gt; &gt; &gt; &gt;</label>
+      <node id="35">
+        <label>jam::HashMap&lt; juce::int64, jam::Array&lt; std::pair&lt; int, const jam::Document::Element * &gt; &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="79">
+        <label>jam::HashMap&lt; juce::int64, juce::int64 &gt;</label>
         <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
       </node>
       <node id="16">
         <label>jam::Instance&lt; LINGModel &gt;</label>
         <link refid="structjam_1_1Instance" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-      </node>
-      <node id="50">
-        <label>jam::LanguageLibrary</label>
-        <link refid="structjam_1_1LanguageLibrary" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-        <childnode refid="51" relation="usage">
-          <edgelabel>library</edgelabel>
-        </childnode>
-        <childnode refid="53" relation="usage">
-          <edgelabel>vocabulary</edgelabel>
-        </childnode>
-        <childnode refid="59" relation="usage">
-          <edgelabel>keywords</edgelabel>
-        </childnode>
-        <childnode refid="62" relation="usage">
-          <edgelabel>roles</edgelabel>
-        </childnode>
-        <childnode refid="63" relation="usage">
-          <edgelabel>counterparts</edgelabel>
-        </childnode>
-      </node>
-      <node id="54">
-        <label>jam::LookupTable&lt; int, int, 256 &gt;</label>
-        <link refid="structjam_1_1LookupTable" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-        <childnode refid="55" relation="usage">
-          <edgelabel>defaultValue</edgelabel>
-        </childnode>
-        <childnode refid="56" relation="usage">
-          <edgelabel>slots</edgelabel>
-        </childnode>
-      </node>
-      <node id="62">
-        <label>jam::LookupTable&lt; int, int, map::SyntaxTokenType::base+1 &gt;</label>
-        <link refid="structjam_1_1LookupTable" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-        <childnode refid="55" relation="usage">
-          <edgelabel>defaultValue</edgelabel>
-        </childnode>
-        <childnode refid="56" relation="usage">
-          <edgelabel>slots</edgelabel>
-        </childnode>
       </node>
       <node id="7">
         <label>jam::Model</label>
@@ -756,32 +1693,32 @@
           <edgelabel>adapters</edgelabel>
         </childnode>
       </node>
-      <node id="25">
-        <label>jam::Owner&lt; jam::Subprocess &gt;</label>
+      <node id="63">
+        <label>jam::Owner&lt; jam::Document::Element &gt;</label>
         <link refid="classjam_1_1Owner" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-        <childnode refid="26" relation="usage">
+        <childnode refid="64" relation="usage">
           <edgelabel>entries</edgelabel>
         </childnode>
       </node>
-      <node id="29">
+      <node id="26">
         <label>jam::Strings</label>
         <link refid="classjam_1_1Strings" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
-        <childnode refid="30" relation="usage">
+        <childnode refid="27" relation="usage">
           <edgelabel>arena</edgelabel>
         </childnode>
-        <childnode refid="32" relation="usage">
+        <childnode refid="29" relation="usage">
           <edgelabel>spans</edgelabel>
         </childnode>
-        <childnode refid="33" relation="usage">
+        <childnode refid="30" relation="usage">
           <edgelabel>exactPositions</edgelabel>
         </childnode>
-        <childnode refid="34" relation="usage">
+        <childnode refid="31" relation="usage">
           <edgelabel>foldedPositions</edgelabel>
         </childnode>
       </node>
-      <node id="55">
-        <label>jam::Value</label>
-        <link refid="structjam_1_1Value" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      <node id="59">
+        <label>juce::Array&lt; juce::String &gt;</label>
+        <link refid="classjuce_1_1Array" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
       </node>
       <node id="5">
         <label>juce::AsyncUpdater</label>
@@ -795,13 +1732,16 @@
         <label>juce::DummyCriticalSection</label>
         <link refid="classjuce_1_1DummyCriticalSection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
       </node>
-      <node id="52">
-        <label>juce::DynamicLibrary</label>
-        <link refid="classjuce_1_1DynamicLibrary" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
-      </node>
       <node id="20">
         <label>juce::File</label>
         <link refid="classjuce_1_1File" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="72">
+        <label>juce::Identifier</label>
+        <link refid="classjuce_1_1Identifier" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <childnode refid="72" relation="usage">
+          <edgelabel>null</edgelabel>
+        </childnode>
       </node>
       <node id="23">
         <label>juce::ListenerList&lt; jam::File::Watcher::Listener &gt;</label>
@@ -811,11 +1751,18 @@
         <label>juce::OwnedArray&lt; Impl &gt;</label>
         <link refid="classjuce_1_1OwnedArray" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
       </node>
-      <node id="48">
+      <node id="50">
         <label>juce::String</label>
         <link refid="classjuce_1_1String" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
       </node>
-      <node id="45">
+      <node id="58">
+        <label>juce::StringArray</label>
+        <link refid="classjuce_1_1StringArray" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <childnode refid="59" relation="usage">
+          <edgelabel>strings</edgelabel>
+        </childnode>
+      </node>
+      <node id="55">
         <label>juce::ThreadPool</label>
         <link refid="classjuce_1_1ThreadPool" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
       </node>
@@ -835,16 +1782,13 @@
         <label>juce::ValueTree::Listener</label>
         <link refid="classjuce_1_1ValueTree_1_1Listener" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
       </node>
-      <node id="56">
-        <label>std::array&lt; jam::Value, static_cast&lt; size_t &gt;(Capacity)&gt;</label>
-        <childnode refid="55" relation="usage">
-          <edgelabel>elements</edgelabel>
-        </childnode>
-      </node>
-      <node id="65">
+      <node id="53">
         <label>std::atomic&lt; bool &gt;</label>
       </node>
-      <node id="58">
+      <node id="67">
+        <label>std::basic_string&lt; Char &gt;</label>
+      </node>
+      <node id="69">
         <label>std::basic_string_view&lt; Char &gt;</label>
       </node>
       <node id="19">
@@ -856,20 +1800,37 @@
           <edgelabel>elements</edgelabel>
         </childnode>
       </node>
-      <node id="49">
-        <label>std::shared_ptr&lt; const jam::LanguageLibrary &gt;</label>
-        <childnode refid="50" relation="usage">
+      <node id="51">
+        <label>std::shared_ptr&lt; const Language &gt;</label>
+        <childnode refid="52" relation="usage">
           <edgelabel>ptr</edgelabel>
         </childnode>
       </node>
-      <node id="57">
-        <label>std::string_view</label>
-        <childnode refid="58" relation="public-inheritance">
+      <node id="66">
+        <label>std::string</label>
+        <childnode refid="67" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="30">
+      <node id="68">
+        <label>std::string_view</label>
+        <childnode refid="69" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>std::unique_ptr&lt; Processor::FormatJob &gt;</label>
+        <childnode refid="49" relation="usage">
+          <edgelabel>ptr</edgelabel>
+        </childnode>
+      </node>
+      <node id="60">
+        <label>std::unique_ptr&lt; SymbolDocument &gt;</label>
+        <childnode refid="61" relation="usage">
+          <edgelabel>ptr</edgelabel>
+        </childnode>
+      </node>
+      <node id="27">
         <label>std::unique_ptr&lt; jam::Array&lt; char &gt; &gt;</label>
-        <childnode refid="31" relation="usage">
+        <childnode refid="28" relation="usage">
           <edgelabel>ptr</edgelabel>
         </childnode>
       </node>
@@ -879,31 +1840,68 @@
           <edgelabel>ptr</edgelabel>
         </childnode>
       </node>
-      <node id="51">
-        <label>std::unique_ptr&lt; juce::DynamicLibrary &gt;</label>
-        <childnode refid="52" relation="usage">
+      <node id="54">
+        <label>std::unique_ptr&lt; juce::ThreadPool &gt;</label>
+        <childnode refid="55" relation="usage">
           <edgelabel>ptr</edgelabel>
         </childnode>
       </node>
+      <node id="65">
+        <label>std::unique_ptr&lt; std::string &gt;</label>
+        <childnode refid="66" relation="usage">
+          <edgelabel>ptr</edgelabel>
+        </childnode>
+      </node>
+      <node id="47">
+        <label>std::vector&lt; std::unique_ptr&lt; Processor::FormatJob &gt; &gt;</label>
+        <childnode refid="48" relation="usage">
+          <edgelabel>elements</edgelabel>
+        </childnode>
+      </node>
     </collaborationgraph>
-    <location file="Processor.h" line="218" column="5" bodyfile="Processor.h" bodystart="219" bodyend="260"/>
+    <location file="Processor.h" line="240" column="5" bodyfile="Processor.h" bodystart="241" bodyend="327"/>
     <listofallmembers>
+      <member refid="struct_processor_1_1_index_job_1a84b2ad5112ad68cd8a06769fbf079a26" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>addCompletion</name></member>
+      <member refid="struct_processor_1_1_index_job_1af31ffc08a702d217a164d29ba541bce7" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>addDiagnostic</name></member>
+      <member refid="struct_processor_1_1_index_job_1a28c90c694ce6e5193c41407420908683" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>addFixIt</name></member>
+      <member refid="struct_processor_1_1_index_job_1a5e5da1ebfe6d3da8fb365df0eb074d98" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>addInlayHint</name></member>
       <member refid="classjuce_1_1ThreadPoolJob_1abf8aa2b476630b7eda4ae0d0de9d6ff1" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>addListener</name></member>
-      <member refid="struct_processor_1_1_index_job_1ad43614d478425bc204a12eeb7f99983f" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>addSymbol</name></member>
+      <member refid="struct_processor_1_1_index_job_1a73f1ccd7e8219305ba3ded32a0a70226" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>addOutline</name></member>
+      <member refid="struct_processor_1_1_index_job_1a37c0106b2e4ae9810846535c2d7c0fd1" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>addOutlineToken</name></member>
+      <member refid="struct_processor_1_1_index_job_1a18195bcd0ab7d94505e7735e440f471d" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>addSymbol</name></member>
+      <member refid="struct_processor_1_1_index_job_1a19788b304f87f62cedcb9b528ce3b1c6" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>addSymbols</name></member>
+      <member refid="struct_processor_1_1_index_job_1a4f6430f852ab17122636d9c2e24c8d61" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>addTypeDefinition</name></member>
+      <member refid="struct_processor_1_1_index_job_1a5a2b6abaadf081b53832449139bb908d" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>addTypeSymbols</name></member>
       <member refid="struct_processor_1_1_index_job_1aad4053b38199eb456c28b0d6ad6ecc11" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>arguments</name></member>
+      <member refid="struct_processor_1_1_index_job_1a9e69f478c33bbc20a91bef242df54fcb" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>bufferPaths</name></member>
+      <member refid="struct_processor_1_1_index_job_1a9736185784ff22a9639e55bae17a24a5" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>bufferTexts</name></member>
+      <member refid="struct_processor_1_1_index_job_1a1a860f14665f4de36cfbb738828bb724" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>completionContainers</name></member>
+      <member refid="struct_processor_1_1_index_job_1a9dea7bf6e991c8d970fa612eb590fc35" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>completionKeys</name></member>
       <member refid="struct_processor_1_1_index_job_1a307f650032fdfa589bc9ca991d63132a" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>directory</name></member>
+      <member refid="struct_processor_1_1_index_job_1ae7affd1d5a01ff01a9030db743195c13" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>family</name></member>
+      <member refid="struct_processor_1_1_index_job_1aadf59b2092e7757283343ca20d07f9ea" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>fileElements</name></member>
+      <member refid="struct_processor_1_1_index_job_1ab7fa347a41a938ab7efe37948f05bc01" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>foreignPaths</name></member>
       <member refid="classjuce_1_1ThreadPoolJob_1a7582dbbb0c9e6f010a1aac37314a1258" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>getCurrentThreadPoolJob</name></member>
       <member refid="classjuce_1_1ThreadPoolJob_1a99c2fec7d5e42496cbff8bdf03d04597" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>getJobName</name></member>
-      <member refid="struct_processor_1_1_index_job_1ab44d6d75b0f0c0d74e2f5ac9696c0677" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>IndexJob</name></member>
+      <member refid="struct_processor_1_1_index_job_1a8eafa57b75a9997a8aa0b31771731f92" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>getOrCreatePathIndex</name></member>
+      <member refid="struct_processor_1_1_index_job_1a6bd61c6eae95b51c30924ca8a9fa27a3" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>getOutlineParent</name></member>
+      <member refid="struct_processor_1_1_index_job_1a08ade423e9bbb349375b05c97515b990" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>hash</name></member>
+      <member refid="struct_processor_1_1_index_job_1a1577d112164093f1e6c4de997894a149" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>IndexJob</name></member>
       <member refid="struct_processor_1_1_index_job_1aea230c0f54addd9581378664a91ab74b" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>isFinished</name></member>
+      <member refid="struct_processor_1_1_index_job_1ac90acd0c166bfd4dcefa9620de5686f9" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>isForeign</name></member>
       <member refid="classjuce_1_1ThreadPoolJob_1a9b688c9f5c5be91788cf3f8964199b5d" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>isRunning</name></member>
       <member refid="classjuce_1_1ThreadPoolJob_1a5941c13ff17426d91845c5cd46a0a2d0a70f86f0e911e4f6cd3c0ee7b2ccd1b88" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>jobHasFinished</name></member>
       <member refid="classjuce_1_1ThreadPoolJob_1a5941c13ff17426d91845c5cd46a0a2d0afe99654539cfff7938198feffc4cf2d8" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>jobNeedsRunningAgain</name></member>
       <member refid="classjuce_1_1ThreadPoolJob_1a5941c13ff17426d91845c5cd46a0a2d0" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>JobStatus</name></member>
-      <member refid="struct_processor_1_1_index_job_1a5328921aad065907affabda058b46b6e" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>language</name></member>
+      <member refid="struct_processor_1_1_index_job_1a05d7501c9a2b33f2e756b643e438b682" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>language</name></member>
+      <member refid="struct_processor_1_1_index_job_1a0e17c7b8568ffc041bb924b2d300dd8b" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>languageHash</name></member>
+      <member refid="struct_processor_1_1_index_job_1af0bd4539549bf6bb8c486bae4b6d724d" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>outlineFieldCount</name></member>
+      <member refid="struct_processor_1_1_index_job_1a4e1bd93a3b73e4324210b0f0a34b1d7a" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>outlineKeys</name></member>
+      <member refid="struct_processor_1_1_index_job_1a157ba208bedc6fbdd78615417007c8b3" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>outlineSlots</name></member>
       <member refid="struct_processor_1_1_index_job_1af455bc4a9de8dc8c5f1d95a615f10a8f" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>owner</name></member>
       <member refid="struct_processor_1_1_index_job_1a9601d544f8b3c501bc6f22edb3d5071e" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>path</name></member>
-      <member refid="struct_processor_1_1_index_job_1a1e87882bafecce894f7364f14f16b8a6" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>records</name></member>
+      <member refid="struct_processor_1_1_index_job_1aec6b666dbcb92099b4fd72c4094bab23" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>paths</name></member>
+      <member refid="struct_processor_1_1_index_job_1adbd29511a353c1419e5bf863e5f7c8e4" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>recordElements</name></member>
       <member refid="classjuce_1_1ThreadPoolJob_1aef9382d30328f9cc5b8f14b7f819cc45" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>removeListener</name></member>
       <member refid="struct_processor_1_1_index_job_1af0a42c88170cb5023be3f7be39491216" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>result</name></member>
       <member refid="struct_processor_1_1_index_job_1a1c78bf0812e004a0290380644e65f50d" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>rowIndex</name></member>
@@ -911,7 +1909,10 @@
       <member refid="classjuce_1_1ThreadPoolJob_1a960a69646efeb42c5dddf34d91bf9141" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>setJobName</name></member>
       <member refid="classjuce_1_1ThreadPoolJob_1ace3639b2fc4594189180fad8bc85ca02" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>shouldExit</name></member>
       <member refid="classjuce_1_1ThreadPoolJob_1a061dd2c1d5e235849ff69898490c1eeb" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>signalJobShouldExit</name></member>
+      <member refid="struct_processor_1_1_index_job_1afdbf0371c0fa170f7f83aa6bf93a9c60" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>symbols</name></member>
+      <member refid="struct_processor_1_1_index_job_1a05394952e70bcee84dbac01d7f74d33f" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>symbolSwapFile</name></member>
       <member refid="classjuce_1_1ThreadPoolJob_1aff1ded5a73f7e20a65fad92bb62f7c53" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>ThreadPoolJob</name></member>
+      <member refid="struct_processor_1_1_index_job_1abfa6582d2fb72dec0e1c0c61af020891" prot="public" virt="non-virtual"><scope>Processor::IndexJob</scope><name>typeSymbols</name></member>
       <member refid="classjuce_1_1ThreadPoolJob_1a11c83ecfc7e5e1452a2482af517037d5" prot="public" virt="virtual"><scope>Processor::IndexJob</scope><name>~ThreadPoolJob</name></member>
     </listofallmembers>
   </compounddef>

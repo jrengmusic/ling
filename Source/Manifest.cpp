@@ -1,6 +1,5 @@
 #include "Manifest.h"
 #include "Validator.h"
-#include "CompilerManifest.h"
 
 Manifest::Manifest (LINGModel& newModel)
     : model (newModel)
@@ -31,7 +30,7 @@ static juce::ValueTree getRoot (const juce::File& folder, const juce::File& swap
 
 static juce::ValueTree getProjectRoots (const juce::File& manifestFile)
 {
-    const auto project { manifestFile.getParentDirectory() };
+    const auto project { LINGModel::getProjectDirectory (manifestFile) };
     juce::ValueTree roots { jam::Format::toType (Id::roots) };
 
     roots.appendChild (getRoot (project, project.getChildFile (files::lingCache)), nullptr);
@@ -44,6 +43,21 @@ static juce::File getFolder (const jam::MarkdownDocument& manifest, const juce::
     const auto path { cell.startsWithChar (Chars::at) ? manifest.getTableValue (Id::index, Id::symbol, juce::Identifier { cell }) : cell };
 
     return project.getChildFile (jam::Format::replaceholder (path, files::sourceDirectoryVariable, project.getFullPathName(), juce::StringRef {}));
+}
+
+static juce::File getUserModules (const jam::MarkdownDocument& manifest, const juce::File& project)
+{
+    return getFolder (manifest, manifest.getTableValue (Id::index, Id::symbol, Id::userModule), project);
+}
+
+static juce::ValueTree getPatternRow (const juce::Identifier& command, const juce::String& wildcard)
+{
+    juce::ValueTree row { jam::Format::toType (Id::row) };
+
+    row.setProperty (Id::command, command.toString(), nullptr);
+    row.setProperty (Id::flag, wildcard, nullptr);
+
+    return row;
 }
 
 static jam::Strings getPatchFiles (const juce::File& userModules)
@@ -101,17 +115,29 @@ Manifest::ManifestJob::ManifestJob (Manifest& ownerToUse, const juce::String& ma
 juce::ThreadPoolJob::JobStatus Manifest::ManifestJob::runJob()
 {
     const juce::File manifestFile { manifestPath };
-    const auto text { manifestFile.loadFileAsString() };
-    const auto manifest { jam::MarkdownDocument::parse (text, manifestFile.getFullPathName()) };
-    const auto result { manifest != nullptr ? Validator {}.isValid (*manifest) : jam::MarkdownDocument::isValid (jam::Strings::getView (text), manifestFile.getFullPathName()) };
 
-    timeout = result.wasOk() ? getTimeout (*manifest) : LINGModel::defaultTimeoutMs;
-    files = result.wasOk() ? CompilerManifest::getFiles (*manifest, manifestFile, toolchainArgument)
-                           : juce::ValueTree { jam::Format::toType (Id::files) };
-    roots = result.wasOk() ? getRoots (*manifest, manifestFile) : getProjectRoots (manifestFile);
+    if (manifestFile.isDirectory())
+    {
+        timeout = LINGModel::defaultTimeoutMs;
+        threads = LINGModel::defaultThreads;
+        toolchain = juce::ValueTree { jam::Format::toType (Id::toolchain) };
+        roots = getProjectRoots (manifestFile);
+    }
+    else
+    {
+        const auto text { manifestFile.loadFileAsString() };
+        const auto manifest { jam::MarkdownDocument::parse (text, manifestFile.getFullPathName()) };
+        const auto result { manifest != nullptr ? Validator {}.isValid (*manifest) : jam::MarkdownDocument::isValid (jam::Strings::getView (text), manifestFile.getFullPathName()) };
 
-    if (not result.wasOk())
-        files.setProperty (Id::message, result.getErrorMessage(), nullptr);
+        timeout = result.wasOk() ? getTimeout (*manifest) : LINGModel::defaultTimeoutMs;
+        threads = result.wasOk() ? getThreads (*manifest) : LINGModel::defaultThreads;
+        toolchain = result.wasOk() ? getToolchain (*manifest, toolchainArgument, manifestFile)
+                                   : juce::ValueTree { jam::Format::toType (Id::toolchain) };
+        roots = result.wasOk() ? getRoots (*manifest, manifestFile) : getProjectRoots (manifestFile);
+
+        if (not result.wasOk())
+            toolchain.setProperty (Id::message, result.getErrorMessage(), nullptr);
+    }
 
     isFinished.store (true, std::memory_order_release);
     owner.triggerAsyncUpdate();
@@ -124,7 +150,7 @@ void Manifest::handleAsyncUpdate()
     if (job != nullptr and job->isFinished.load (std::memory_order_acquire))
     {
         if (nextJob == nullptr)
-            setFiles (job->files, job->roots, job->timeout);
+            setToolchain (job->toolchain, job->roots, job->timeout, job->threads);
 
         pool.removeJob (job.get(), true, waitForJob);
         job = std::move (nextJob);
@@ -134,16 +160,18 @@ void Manifest::handleAsyncUpdate()
     }
 }
 
-void Manifest::setFiles (const juce::ValueTree& files, const juce::ValueTree& roots, int timeout)
+void Manifest::setToolchain (const juce::ValueTree& toolchain, const juce::ValueTree& roots, int timeout, int threads)
 {
-    if (files.hasProperty (Id::message))
-        model.setMessage (files[Id::message].toString());
+    if (toolchain.hasProperty (Id::message))
+        model.setMessage (toolchain[Id::message].toString());
 
     model.state.setProperty (Id::timeout, timeout, nullptr);
+    model.state.setProperty (Id::threads, threads, nullptr);
+
     model.removeChild (model.state.getChildWithName (jam::Format::toType (Id::roots)));
     model.appendChild (roots);
-    model.removeChild (model.state.getChildWithName (jam::Format::toType (Id::files)));
-    model.appendChild (files);
+    model.removeChild (model.state.getChildWithName (jam::Format::toType (Id::toolchain)));
+    model.appendChild (toolchain);
 }
 
 int Manifest::getTimeout (const jam::MarkdownDocument& manifest)
@@ -155,15 +183,24 @@ int Manifest::getTimeout (const jam::MarkdownDocument& manifest)
     return LINGModel::defaultTimeoutMs;
 }
 
+int Manifest::getThreads (const jam::MarkdownDocument& manifest)
+{
+    for (const auto* table : manifest.getTables (Id::daemon))
+        if (const auto* row { manifest.getTableRow (*table, Id::threads) }; row != nullptr)
+            return manifest.getTableValue (*row, Id::value).getIntValue();
+
+    return LINGModel::defaultThreads;
+}
+
 juce::ValueTree Manifest::getRoots (const jam::MarkdownDocument& manifest, const juce::File& manifestFile)
 {
-    const auto project { manifestFile.getParentDirectory() };
+    const auto project { LINGModel::getProjectDirectory (manifestFile) };
     const auto userModuleCell { manifest.getTableValue (Id::index, Id::symbol, Id::userModule) };
     auto roots { getProjectRoots (manifestFile) };
 
     if (userModuleCell.isNotEmpty())
     {
-        const auto userModules { getFolder (manifest, userModuleCell, project) };
+        const auto userModules { getUserModules (manifest, project) };
         const auto version { manifest.getTableValue (Id::cmake, Id::value, Id::juceVersion) };
         const auto patchFiles { getPatchFiles (userModules) };
 
@@ -180,4 +217,57 @@ juce::ValueTree Manifest::getRoots (const jam::MarkdownDocument& manifest, const
     }
 
     return roots;
+}
+
+juce::ValueTree Manifest::getToolchain (const jam::MarkdownDocument& manifest, const juce::String& toolchainArgument, const juce::File& manifestFile)
+{
+    juce::ValueTree toolchain { jam::Format::toType (Id::toolchain) };
+    const auto tables (manifest.getTables (Id::toolchain));
+    const auto isToolchainRow { [&manifest, &toolchainArgument] (const jam::MarkdownDocument::Element* row) { return manifest.getTableValue (*row, Id::argument).compare (toolchainArgument) == 0; } };
+
+    for (const auto* table : tables)
+    {
+        for (const auto* row : manifest.getTableRows (*table))
+        {
+            if (isToolchainRow (row))
+            {
+                juce::ValueTree toolchainRow { jam::Format::toType (Id::row) };
+
+                toolchainRow.setProperty (Id::command, manifest.getTableValue (*row, Id::command), nullptr);
+                toolchainRow.setProperty (Id::flag, manifest.getTableValue (*row, Id::flag), nullptr);
+                toolchain.appendChild (toolchainRow, nullptr);
+            }
+        }
+    }
+
+    if (toolchainArgument.isNotEmpty() and std::none_of (tables.begin(), tables.end(), [&manifest, &isToolchainRow] (const jam::MarkdownDocument::Element* table)
+                                                          {
+                                                              const auto rows (manifest.getTableRows (*table));
+                                                              return std::any_of (rows.begin(), rows.end(), isToolchainRow);
+                                                          }))
+        toolchain.setProperty (Id::message, toolchainArgument + Id::diagnosticSeparator + text::Diagnostics::failToolchainArgument, nullptr);
+
+    addPatternRows (toolchain, manifest, manifestFile);
+
+    return toolchain;
+}
+
+void Manifest::addPatternRows (juce::ValueTree& toolchain, const jam::MarkdownDocument& manifest, const juce::File& manifestFile)
+{
+    static constexpr const char* wildcardPrefix { "*." };
+
+    const auto project { LINGModel::getProjectDirectory (manifestFile) };
+    const auto userModules { getUserModules (manifest, project) };
+
+    for (const auto* table : manifest.getTables (Id::sourceGlob))
+        for (const auto* row : manifest.getTableRows (*table))
+            toolchain.appendChild (getPatternRow (Id::sourceGlob, getFolder (manifest, manifest.getTableValue (*row, Id::path), project).getChildFile (juce::String (wildcardPrefix) + manifest.getTableValue (*row, Id::extension)).getFullPathName()), nullptr);
+
+    for (const auto* table : manifest.getTables (Id::layoutGlob))
+        for (const auto* row : manifest.getTableRows (*table))
+            toolchain.appendChild (getPatternRow (Id::layoutGlob, getFolder (manifest, manifest.getTableValue (*row, Id::value).replace (files::userModulePathVariable, userModules.getFullPathName()), project).getFullPathName()), nullptr);
+
+    for (const auto* table : manifest.getTables (Id::binary))
+        for (const auto* row : manifest.getTableRows (*table))
+            toolchain.appendChild (getPatternRow (Id::binary, getFolder (manifest, manifest.getTableValue (*row, Id::value), project).getFullPathName()), nullptr);
 }

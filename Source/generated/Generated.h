@@ -20,4 +20,5 @@
 #include "Identifiers.h" ///< Every Id:: name.
 #include "Text.h" ///< One string per failure.
 #include "Files.h" ///< File names ling reads.
+#include "Lsp.h" ///< LSP 3.17 values.
 #include "HashMaps.h" ///< Banner rows.

@@ -27,23 +27,20 @@ void Connection::connectionLost()
 
 void Connection::messageReceived (const juce::MemoryBlock& message)
 {
-    static constexpr int commandIndex { 0 };
-    static constexpr int directoryIndex { 1 };
-    static constexpr int argumentsIndex { 2 };
+    const auto tree { juce::ValueTree::readFromData (message.getData(), message.getSize()) };
 
-    if (const auto document { jam::JsonDocument::parse (std::string_view { static_cast<const char*> (message.getData()), message.getSize() }) }; document != nullptr)
+    if (tree.hasType (jam::Format::toType (Id::connection)))
     {
-        const auto& words { *document->getChildByToken (*document->getRoot(), document->getValue())->get<jam::Document::Tokens> (Id::tokens) };
-        juce::Array<juce::var> arguments;
-        juce::ValueTree request { jam::Format::toType (Id::request) };
-
-        for (int index { argumentsIndex }; index < words.size(); ++index)
-            arguments.add (jam::Strings::fromView (document->getString (words.at (index))));
-
-        request.setProperty (Id::command, jam::Strings::fromView (document->getString (words.at (commandIndex))), nullptr);
-        request.setProperty (Id::directory, jam::Strings::fromView (document->getString (words.at (directoryIndex))), nullptr);
-        request.setProperty (Id::arguments, arguments, nullptr);
-        state.appendChild (request, nullptr);
+        state.copyPropertiesFrom (tree, nullptr);
+    }
+    else if (tree.hasType (jam::Format::toType (Id::cancel)))
+    {
+        if (auto request { state.getChildWithProperty (Id::id, tree[Id::id]) }; request.isValid())
+            Query::setError (request, lsp::ErrorCodes::RequestCancelled);
+    }
+    else
+    {
+        state.appendChild (tree, nullptr);
     }
 }
 
@@ -51,13 +48,8 @@ void Connection::valueTreePropertyChanged (juce::ValueTree& tree, const juce::Id
 {
     if (property == Id::result and tree.hasType (jam::Format::toType (Id::request)))
     {
-        const auto result { tree[Id::result].toString() };
-
-        const auto newline { static_cast<char> (Chars::newline) };
-        juce::MemoryBlock message { result.toRawUTF8(), result.getNumBytesAsUTF8() };
-
-        message.append (&newline, sizeof (newline));
-        sendMessage (message);
+        jam::debug::Log::write ("send", tree[Id::command].toString(), tree[Id::arguments][0].toString());
+        sendMessage (*tree[Id::result].getBinaryData());
         state.removeChild (tree, nullptr);
     }
 }

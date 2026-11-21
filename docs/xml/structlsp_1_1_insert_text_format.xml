@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="structlsp_1_1_insert_text_format" kind="struct" language="C++" prot="public">
+    <compoundname>lsp::InsertTextFormat</compoundname>
+    <includes refid="_lsp_8h" local="no">Lsp.h</includes>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="structlsp_1_1_insert_text_format_1aa07e559d7647707e25abf3fc540d51ad" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::InsertTextFormat::PlainText</definition>
+        <argsstring></argsstring>
+        <name>PlainText</name>
+        <qualifiedname>lsp::InsertTextFormat::PlainText</qualifiedname>
+        <initializer>{ 1 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="158" column="26" bodyfile="generated/Lsp.h" bodystart="158" bodyend="158"/>
+        <referencedby refid="class_query_1acf0e315608dcbc3e0ccbee5f4469e643" compoundref="_query_8cpp" startline="761" endline="780">Query::appendCompletionItem</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_insert_text_format_1aca4c153046a06873eba8f8a7c7c3c406" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::InsertTextFormat::Snippet</definition>
+        <argsstring></argsstring>
+        <name>Snippet</name>
+        <qualifiedname>lsp::InsertTextFormat::Snippet</qualifiedname>
+        <initializer>{ 2 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="159" column="26" bodyfile="generated/Lsp.h" bodystart="159" bodyend="159"/>
+        <referencedby refid="class_query_1acf0e315608dcbc3e0ccbee5f4469e643" compoundref="_query_8cpp" startline="761" endline="780">Query::appendCompletionItem</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>The LSP 3.17 <ref refid="structlsp_1_1_insert_text_format" kindref="compound">InsertTextFormat</ref> values. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="generated/Lsp.h" line="156" column="1" bodyfile="generated/Lsp.h" bodystart="157" bodyend="160"/>
+    <listofallmembers>
+      <member refid="structlsp_1_1_insert_text_format_1aa07e559d7647707e25abf3fc540d51ad" prot="public" virt="non-virtual"><scope>lsp::InsertTextFormat</scope><name>PlainText</name></member>
+      <member refid="structlsp_1_1_insert_text_format_1aca4c153046a06873eba8f8a7c7c3c406" prot="public" virt="non-virtual"><scope>lsp::InsertTextFormat</scope><name>Snippet</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

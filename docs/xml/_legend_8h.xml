@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="_legend_8h" kind="file" language="C++">
+    <compoundname>Legend.h</compoundname>
+    <includes local="no">JuceHeader.h</includes>
+    <includedby refid="_built_in_language_8h" local="yes">BuiltInLanguage.h</includedby>
+    <includedby refid="_legend_8cpp" local="yes">Legend.cpp</includedby>
+    <includedby refid="_library_language_8cpp" local="yes">LibraryLanguage.cpp</includedby>
+    <includedby refid="_relay_8cpp" local="yes">Relay.cpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>Legend.h</label>
+        <link refid="_legend_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>JuceHeader.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>BuiltInLanguage.h</label>
+        <link refid="_built_in_language_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>Legend.cpp</label>
+        <link refid="_legend_8cpp"/>
+      </node>
+      <node id="1">
+        <label>Legend.h</label>
+        <link refid="_legend_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>LibraryLanguage.cpp</label>
+        <link refid="_library_language_8cpp"/>
+      </node>
+      <node id="4">
+        <label>Processor.cpp</label>
+        <link refid="_processor_8cpp"/>
+      </node>
+      <node id="18">
+        <label>Relay.cpp</label>
+        <link refid="_relay_8cpp"/>
+      </node>
+      <node id="5">
+        <label>languages/CssLanguage.cpp</label>
+        <link refid="_css_language_8cpp"/>
+      </node>
+      <node id="3">
+        <label>languages/CssLanguage.h</label>
+        <link refid="_css_language_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>languages/HtmlLanguage.cpp</label>
+        <link refid="_html_language_8cpp"/>
+      </node>
+      <node id="6">
+        <label>languages/HtmlLanguage.h</label>
+        <link refid="_html_language_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>languages/JsonLanguage.cpp</label>
+        <link refid="_json_language_8cpp"/>
+      </node>
+      <node id="8">
+        <label>languages/JsonLanguage.h</label>
+        <link refid="_json_language_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>languages/MarkdownLanguage.cpp</label>
+        <link refid="_markdown_language_8cpp"/>
+      </node>
+      <node id="10">
+        <label>languages/MarkdownLanguage.h</label>
+        <link refid="_markdown_language_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>languages/MermaidLanguage.cpp</label>
+        <link refid="_mermaid_language_8cpp"/>
+      </node>
+      <node id="12">
+        <label>languages/MermaidLanguage.h</label>
+        <link refid="_mermaid_language_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>languages/XmlLanguage.cpp</label>
+        <link refid="_xml_language_8cpp"/>
+      </node>
+      <node id="14">
+        <label>languages/XmlLanguage.h</label>
+        <link refid="_xml_language_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_legend" prot="public">Legend</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;JuceHeader.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4" refid="class_legend" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_legend" kindref="compound">Legend</ref></highlight></codeline>
+<codeline lineno="5"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref>&amp;<sp/><ref refid="class_legend_1aaa72d339f7385c6cf4462cb6f6c2294b" kindref="member">getTypes</ref>();</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref>&amp;<sp/><ref refid="class_legend_1a4bd9db5976be7ca9af8a41b1e8eb72ee" kindref="member">getModifiers</ref>();</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_legend_1a7b1ca4dddab9afa479bdb78cac0082d0" kindref="member">getTypeIndex</ref><sp/>(<ref refid="classjuce_1_1StringRef" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::StringRef</ref><sp/><ref refid="juce__UnityPluginInterface_8h_1a010e50efcb9d6d393b9414f09f368dbc" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">name</ref>);</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_legend_1a146d2f8b0cca15bc8557f8515de1b73b" kindref="member">getModifierBit</ref><sp/>(<ref refid="classjuce_1_1StringRef" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::StringRef</ref><sp/><ref refid="juce__UnityPluginInterface_8h_1a010e50efcb9d6d393b9414f09f368dbc" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">name</ref>);</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref><sp/><ref refid="class_legend_1a77bcffb1b5a3fd73567785c058dbc30c" kindref="member">buildTypes</ref>();</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref><sp/><ref refid="class_legend_1a2865a46cd9ba7a16b85357d29c08d211" kindref="member">buildModifiers</ref>();</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_legend_1a811439acbc425230eb96c845cc45be29" kindref="member">addNames</ref><sp/>(<ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref>&amp;<sp/>names,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjam_1_1Bimap" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Bimap&lt;int&gt;</ref>&amp;<sp/>tokenNames);</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="Legend.h"/>
+  </compounddef>
+</doxygen>

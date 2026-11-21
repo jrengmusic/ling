@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="class_mermaid_language" kind="class" language="C++" prot="public">
+    <compoundname>MermaidLanguage</compoundname>
+    <basecompoundref refid="class_built_in_language" prot="public" virt="non-virtual">BuiltInLanguage&lt; map::MermaidElements, map::MermaidTokenType &gt;</basecompoundref>
+    <includes refid="_mermaid_language_8h" local="no">MermaidLanguage.h</includes>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_mermaid_language_1a9dff601b4eb70a5afce80b8ae4d86d9f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>std::pair&lt; std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;, std::unique_ptr&lt; <ref refid="struct_symbol_document" kindref="compound">SymbolDocument</ref> &gt; &gt;</type>
+        <definition>std::pair&lt; std::unique_ptr&lt; jam::Document &gt;, std::unique_ptr&lt; SymbolDocument &gt; &gt; MermaidLanguage::parse</definition>
+        <argsstring>(std::string_view text, const juce::String &amp;path) const override</argsstring>
+        <name>parse</name>
+        <qualifiedname>MermaidLanguage::parse</qualifiedname>
+        <reimplements refid="class_language_1aa23f1df5cd018950d06f9b0ddf1c2e23">parse</reimplements>
+        <param>
+          <type>std::string_view</type>
+          <declname>text</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <declname>path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="languages/MermaidLanguage.h" line="10" column="15" bodyfile="languages/MermaidLanguage.cpp" bodystart="3" bodyend="6"/>
+        <references refid="class_built_in_language_1a6a79e4a7a37067b17146992e88430a4c" compoundref="_built_in_language_8h" startline="124" endline="132">BuiltInLanguage&lt; map::MermaidElements, map::MermaidTokenType &gt;::getParsed</references>
+        <references refid="structjam_1_1MermaidDiagram_1af7d66aa286c128f4db3f89b686cd4d6c">jam::MermaidDiagram::parse</references>
+      </memberdef>
+      <memberdef kind="function" id="class_mermaid_language_1a299d31b903a5c5a63d3999c15c710e6a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;</type>
+        <definition>std::unique_ptr&lt; jam::Document &gt; MermaidLanguage::read</definition>
+        <argsstring>(std::string_view text, std::string_view stored) const override</argsstring>
+        <name>read</name>
+        <qualifiedname>MermaidLanguage::read</qualifiedname>
+        <reimplements refid="class_language_1a392c16dfaf08d7ed566e4e3983bb7ac9">read</reimplements>
+        <param>
+          <type>std::string_view</type>
+          <declname>text</declname>
+        </param>
+        <param>
+          <type>std::string_view</type>
+          <declname>stored</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="languages/MermaidLanguage.h" line="11" column="21" bodyfile="languages/MermaidLanguage.cpp" bodystart="8" bodyend="11"/>
+        <references refid="structjam_1_1MermaidDiagram_1ac4b7bcaffbe010e1a68d993b05aa6eea">jam::MermaidDiagram::read</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>BuiltInLanguage&lt; map::MermaidElements, map::MermaidTokenType &gt;</label>
+        <link refid="class_built_in_language"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Language</label>
+        <link refid="class_language"/>
+      </node>
+      <node id="1">
+        <label>MermaidLanguage</label>
+        <link refid="class_mermaid_language"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>BuiltInLanguage&lt; map::MermaidElements, map::MermaidTokenType &gt;</label>
+        <link refid="class_built_in_language"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>extension</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Language</label>
+        <link refid="class_language"/>
+      </node>
+      <node id="1">
+        <label>MermaidLanguage</label>
+        <link refid="class_mermaid_language"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>juce::String</label>
+        <link refid="classjuce_1_1String" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+    </collaborationgraph>
+    <location file="languages/MermaidLanguage.h" line="5" column="1" bodyfile="languages/MermaidLanguage.h" bodystart="6" bodyend="15"/>
+    <listofallmembers>
+      <member refid="class_built_in_language_1aef27de14b0a8325ecf50a085219f2c08" prot="private" virt="non-virtual"><scope>MermaidLanguage</scope><name>addOutlines</name></member>
+      <member refid="class_built_in_language_1a854fb2343326f6c8a80add14f0a41d84" prot="private" virt="non-virtual"><scope>MermaidLanguage</scope><name>addRecords</name></member>
+      <member refid="class_built_in_language_1a44546630431ac2c9165064d4a2ff84d3" prot="private" virt="non-virtual"><scope>MermaidLanguage</scope><name>addUnits</name></member>
+      <member refid="class_built_in_language_1a0ae6244ea1331d0689d8fa7bc89b2a83" prot="public" virt="non-virtual"><scope>MermaidLanguage</scope><name>BuiltInLanguage</name></member>
+      <member refid="class_built_in_language_1ae26f80b21d62c5b223e44557fa40e26f" prot="private" virt="non-virtual"><scope>MermaidLanguage</scope><name>extension</name></member>
+      <member refid="class_built_in_language_1a50121457ed6568de89c611beed1f55bb" prot="public" virt="virtual"><scope>MermaidLanguage</scope><name>format</name></member>
+      <member refid="class_built_in_language_1a42553c1c187d0531aa6415cab8dccae0" prot="public" virt="virtual"><scope>MermaidLanguage</scope><name>getCompletionKind</name></member>
+      <member refid="class_built_in_language_1ae0991e08e6c835ece15cee017dc95fa9" prot="public" virt="virtual"><scope>MermaidLanguage</scope><name>getCounterparts</name></member>
+      <member refid="class_built_in_language_1ace52a9601451c2bf4531db93a34fb7b5" prot="private" virt="non-virtual"><scope>MermaidLanguage</scope><name>getElements</name></member>
+      <member refid="class_built_in_language_1ab43398b9a1f03d1c23a0397af02e171b" prot="private" virt="non-virtual"><scope>MermaidLanguage</scope><name>getKey</name></member>
+      <member refid="class_built_in_language_1a0e7a479e443e6d871735613f00a87d9f" prot="private" virt="non-virtual"><scope>MermaidLanguage</scope><name>getLastTokenIndex</name></member>
+      <member refid="class_built_in_language_1a38b1561cd2708c56ae5ee489e41b992c" prot="private" virt="non-virtual"><scope>MermaidLanguage</scope><name>getOutline</name></member>
+      <member refid="class_built_in_language_1a0ce07b35a1cfdd1d2dc3b51c7d3f5929" prot="private" virt="non-virtual"><scope>MermaidLanguage</scope><name>getParentIndex</name></member>
+      <member refid="class_built_in_language_1a6a79e4a7a37067b17146992e88430a4c" prot="protected" virt="non-virtual"><scope>MermaidLanguage</scope><name>getParsed</name></member>
+      <member refid="class_built_in_language_1a2c9129f7d2681f60bbf7caa35f039a5b" prot="public" virt="virtual"><scope>MermaidLanguage</scope><name>getSemanticModifiers</name></member>
+      <member refid="class_built_in_language_1ace5ea3608cde10f16f46dba9dfca664d" prot="public" virt="virtual"><scope>MermaidLanguage</scope><name>getSemanticType</name></member>
+      <member refid="class_built_in_language_1a28bcb8d7e1d8d47ec696b7feab03c529" prot="protected" virt="virtual"><scope>MermaidLanguage</scope><name>getSymbol</name></member>
+      <member refid="class_built_in_language_1a554a0a4d4b5ab2d93603ddd8a43b2c61" prot="protected" virt="non-virtual"><scope>MermaidLanguage</scope><name>getSymbolHash</name></member>
+      <member refid="class_built_in_language_1a496cd39d0c2ab8fd1626a6454a3bc714" prot="public" virt="virtual"><scope>MermaidLanguage</scope><name>getSymbols</name></member>
+      <member refid="class_built_in_language_1afaa4de8cb0889d305a658a8171d654a5" prot="public" virt="virtual"><scope>MermaidLanguage</scope><name>getSymbolType</name></member>
+      <member refid="class_built_in_language_1a2a9dee54dbdf570fe2538a151ccd32ac" prot="public" virt="virtual"><scope>MermaidLanguage</scope><name>hasIndex</name></member>
+      <member refid="class_built_in_language_1aa221b4be556c9066437170b575592d4e" prot="public" virt="virtual"><scope>MermaidLanguage</scope><name>hasRole</name></member>
+      <member refid="class_built_in_language_1a1655e858f06b9f31966dd473b2cf4294" prot="public" virt="virtual"><scope>MermaidLanguage</scope><name>index</name></member>
+      <member refid="class_built_in_language_1abb7f2d4981fc084fe3f21e6267a94f7b" prot="public" virt="virtual"><scope>MermaidLanguage</scope><name>isValid</name></member>
+      <member refid="class_language_1acb2734bfc3418cdf27c21ec260adfe60" prot="public" virt="non-virtual"><scope>MermaidLanguage</scope><name>noDefinition</name></member>
+      <member refid="class_built_in_language_1ab6da376e318c89f3f2d42d52f1b7c9ae" prot="private" virt="non-virtual"><scope>MermaidLanguage</scope><name>noModifiers</name></member>
+      <member refid="class_built_in_language_1a2e9a4db2c617a56b1a64368389ae7b45" prot="private" virt="non-virtual"><scope>MermaidLanguage</scope><name>noQualifierLength</name></member>
+      <member refid="class_mermaid_language_1a9dff601b4eb70a5afce80b8ae4d86d9f" prot="public" virt="virtual"><scope>MermaidLanguage</scope><name>parse</name></member>
+      <member refid="class_mermaid_language_1a299d31b903a5c5a63d3999c15c710e6a" prot="public" virt="virtual"><scope>MermaidLanguage</scope><name>read</name></member>
+      <member refid="class_built_in_language_1ae167081944e4d638161909ea4f18a1df" prot="public" virt="virtual"><scope>MermaidLanguage</scope><name>units</name></member>
+      <member refid="class_language_1a31ccc6a98a6c40a452a66a18ca604c79" prot="public" virt="virtual"><scope>MermaidLanguage</scope><name>~Language</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

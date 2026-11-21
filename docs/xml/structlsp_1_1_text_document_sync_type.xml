@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="structlsp_1_1_text_document_sync_type" kind="struct" language="C++" prot="public">
+    <compoundname>lsp::TextDocumentSyncType</compoundname>
+    <includes refid="_lsp_8h" local="no">Lsp.h</includes>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="structlsp_1_1_text_document_sync_type_1a9ec8658200c589173e272a4f422d1456" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::TextDocumentSyncType::None</definition>
+        <argsstring></argsstring>
+        <name>None</name>
+        <qualifiedname>lsp::TextDocumentSyncType::None</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="249" column="26" bodyfile="generated/Lsp.h" bodystart="249" bodyend="249"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_text_document_sync_type_1abd83e6f6673b1b8cad5507e3eced1486" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::TextDocumentSyncType::Full</definition>
+        <argsstring></argsstring>
+        <name>Full</name>
+        <qualifiedname>lsp::TextDocumentSyncType::Full</qualifiedname>
+        <initializer>{ 1 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="250" column="26" bodyfile="generated/Lsp.h" bodystart="250" bodyend="250"/>
+        <referencedby refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_text_document_sync_type_1a40692afebf7dbcc6b8a779071f0abac4" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lsp::TextDocumentSyncType::Incremental</definition>
+        <argsstring></argsstring>
+        <name>Incremental</name>
+        <qualifiedname>lsp::TextDocumentSyncType::Incremental</qualifiedname>
+        <initializer>{ 2 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="251" column="26" bodyfile="generated/Lsp.h" bodystart="251" bodyend="251"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>The LSP 3.17 TextDocumentSyncKind values. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="generated/Lsp.h" line="247" column="1" bodyfile="generated/Lsp.h" bodystart="248" bodyend="252"/>
+    <listofallmembers>
+      <member refid="structlsp_1_1_text_document_sync_type_1abd83e6f6673b1b8cad5507e3eced1486" prot="public" virt="non-virtual"><scope>lsp::TextDocumentSyncType</scope><name>Full</name></member>
+      <member refid="structlsp_1_1_text_document_sync_type_1a40692afebf7dbcc6b8a779071f0abac4" prot="public" virt="non-virtual"><scope>lsp::TextDocumentSyncType</scope><name>Incremental</name></member>
+      <member refid="structlsp_1_1_text_document_sync_type_1a9ec8658200c589173e272a4f422d1456" prot="public" virt="non-virtual"><scope>lsp::TextDocumentSyncType</scope><name>None</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="structlsp_1_1_message" kind="struct" language="C++" prot="public">
+    <compoundname>lsp::Message</compoundname>
+    <includes refid="_lsp_8h" local="no">Lsp.h</includes>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="structlsp_1_1_message_1ae56c2f5c986990fb53beec315c7ccb9b" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Message::jsonrpc</definition>
+        <argsstring></argsstring>
+        <name>jsonrpc</name>
+        <qualifiedname>lsp::Message::jsonrpc</qualifiedname>
+        <initializer>{ &quot;2.0&quot; }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="145" column="39" bodyfile="generated/Lsp.h" bodystart="145" bodyend="145"/>
+        <referencedby refid="class_query_1a2c571f5680b49031d21f195688b73598" compoundref="_query_8h" startline="206" endline="210">Query::appendJsonRpc</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>The LSP 3.17 base protocol version. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>lsp::Message</label>
+        <link refid="structlsp_1_1_message"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>jsonrpc</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>std::basic_string_view&lt; Char &gt;</label>
+      </node>
+      <node id="2">
+        <label>std::string_view</label>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="generated/Lsp.h" line="143" column="1" bodyfile="generated/Lsp.h" bodystart="144" bodyend="146"/>
+    <listofallmembers>
+      <member refid="structlsp_1_1_message_1ae56c2f5c986990fb53beec315c7ccb9b" prot="public" virt="non-virtual"><scope>lsp::Message</scope><name>jsonrpc</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -4,7 +4,7 @@
     <compoundname>SwapValidator.h</compoundname>
     <includes local="no">JuceHeader.h</includes>
     <includes refid="_generated_8h" local="yes">generated/Generated.h</includes>
-    <includedby refid="_processor_8cpp" local="yes">Processor.cpp</includedby>
+    <includedby refid="_index_8h" local="yes">Index.h</includedby>
     <includedby refid="_swap_validator_8cpp" local="yes">SwapValidator.cpp</includedby>
     <incdepgraph>
       <node id="1">
@@ -32,14 +32,20 @@
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
       </node>
-      <node id="8">
+      <node id="9">
         <label>HashMaps.h</label>
         <link refid="_hash_maps_8h"/>
       </node>
       <node id="5">
         <label>Identifiers.h</label>
         <link refid="_identifiers_8h"/>
+      </node>
+      <node id="8">
+        <label>Lsp.h</label>
+        <link refid="_lsp_8h"/>
       </node>
       <node id="4">
         <label>ProjectInfo.h</label>
@@ -54,11 +60,119 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
+      <node id="12">
+        <label>Client.cpp</label>
+        <link refid="_client_8cpp"/>
+      </node>
+      <node id="11">
+        <label>Client.h</label>
+        <link refid="_client_8h"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>Connection.cpp</label>
+        <link refid="_connection_8cpp"/>
+      </node>
+      <node id="8">
+        <label>Connection.h</label>
+        <link refid="_connection_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Index.cpp</label>
+        <link refid="_index_8cpp"/>
+      </node>
       <node id="2">
+        <label>Index.h</label>
+        <link refid="_index_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Main.cpp</label>
+        <link refid="_main_8cpp"/>
+      </node>
+      <node id="14">
+        <label>Operation.cpp</label>
+        <link refid="_operation_8cpp"/>
+      </node>
+      <node id="13">
+        <label>Operation.h</label>
+        <link refid="_operation_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
         <label>Processor.cpp</label>
         <link refid="_processor_8cpp"/>
       </node>
-      <node id="3">
+      <node id="4">
+        <label>Processor.h</label>
+        <link refid="_processor_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>Query.cpp</label>
+        <link refid="_query_8cpp"/>
+      </node>
+      <node id="7">
+        <label>Query.h</label>
+        <link refid="_query_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>Relay.cpp</label>
+        <link refid="_relay_8cpp"/>
+      </node>
+      <node id="15">
+        <label>Relay.h</label>
+        <link refid="_relay_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>Server.cpp</label>
+        <link refid="_server_8cpp"/>
+      </node>
+      <node id="10">
+        <label>Server.h</label>
+        <link refid="_server_8h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
         <label>SwapValidator.cpp</label>
         <link refid="_swap_validator_8cpp"/>
       </node>
@@ -67,7 +181,7 @@
         <link refid="_swap_validator_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="3" relation="include">
+        <childnode refid="19" relation="include">
         </childnode>
       </node>
     </invincdepgraph>

@@ -1,0 +1,852 @@
+```header
+#pragma once
+
+#include <cstddef>
+#include <cstdint>
+#include <functional>
+#include <initializer_list>
+#include <memory>
+#include <optional>
+#include <string>
+#include <string_view>
+#include <utility>
+
+#include "jam_LanguageInterface.h"
+
+namespace ling
+{
+class Words
+{
+public:
+    Words();
+    Words (std::initializer_list<unsigned long long> words);
+    Words (Words&& other) noexcept;
+    Words& operator= (Words&& other) noexcept;
+    Words (const Words&) = delete;
+    Words& operator= (const Words&) = delete;
+    ~Words();
+
+    void add (unsigned long long word);
+    void set (int index, unsigned long long word);
+    unsigned long long at (int index) const;
+    int size() const;
+    void resize (int newSize);
+    const unsigned long long* begin() const;
+    const unsigned long long* end() const;
+    void sort (const std::function<bool (unsigned long long first, unsigned long long second)>& isBefore);
+
+private:
+    struct Implementation;
+    std::unique_ptr<Implementation> implementation;
+};
+
+class WordLists
+{
+public:
+    WordLists();
+    WordLists (WordLists&& other) noexcept;
+    WordLists& operator= (WordLists&& other) noexcept;
+    WordLists (const WordLists&) = delete;
+    WordLists& operator= (const WordLists&) = delete;
+    ~WordLists();
+
+    void add (unsigned long long key, unsigned long long word);
+    void insert (unsigned long long key, int index, unsigned long long word);
+    void removeRange (unsigned long long key, int start, int count);
+    void set (unsigned long long key, int index, unsigned long long word);
+    bool contains (unsigned long long key) const;
+    int getSize (unsigned long long key) const;
+    unsigned long long at (unsigned long long key, int index) const;
+    bool isEmpty() const;
+    void sort (unsigned long long key, const std::function<bool (unsigned long long first, unsigned long long second)>& isBefore);
+    void applyToKeys (const std::function<void (unsigned long long key)>& function) const;
+
+private:
+    struct Implementation;
+    std::unique_ptr<Implementation> implementation;
+};
+
+class WordMap
+{
+public:
+    WordMap();
+    WordMap (std::initializer_list<std::pair<int, const void*>> entries);
+    WordMap (WordMap&& other) noexcept;
+    WordMap& operator= (WordMap&& other) noexcept;
+    WordMap (const WordMap&) = delete;
+    WordMap& operator= (const WordMap&) = delete;
+    ~WordMap();
+
+    void add (unsigned long long key, unsigned long long word);
+    void set (unsigned long long key, unsigned long long word);
+    bool contains (unsigned long long key) const;
+    unsigned long long at (unsigned long long key) const;
+    const void* getAddress (unsigned long long key) const;
+
+private:
+    struct Implementation;
+    std::unique_ptr<Implementation> implementation;
+};
+
+class WordSet
+{
+public:
+    WordSet();
+    WordSet (WordSet&& other) noexcept;
+    WordSet& operator= (WordSet&& other) noexcept;
+    WordSet (const WordSet&) = delete;
+    WordSet& operator= (const WordSet&) = delete;
+    ~WordSet();
+
+    void add (unsigned long long word);
+    bool contains (unsigned long long word) const;
+
+private:
+    struct Implementation;
+    std::unique_ptr<Implementation> implementation;
+};
+
+class TextMap
+{
+public:
+    TextMap();
+    TextMap (std::initializer_list<std::pair<std::string_view, int>> entries);
+    TextMap (std::initializer_list<std::pair<std::string_view, const void*>> entries);
+    TextMap (TextMap&& other) noexcept;
+    TextMap& operator= (TextMap&& other) noexcept;
+    TextMap (const TextMap&) = delete;
+    TextMap& operator= (const TextMap&) = delete;
+    ~TextMap();
+
+    void add (std::string_view key, unsigned long long word);
+    void set (std::string_view key, unsigned long long word);
+    bool contains (std::string_view key) const;
+    unsigned long long at (std::string_view key) const;
+    const void* getAddress (std::string_view key) const;
+    void applyToEntries (const std::function<void (std::string_view key, unsigned long long word)>& function) const;
+
+private:
+    struct Implementation;
+    std::unique_ptr<Implementation> implementation;
+};
+
+class Texts
+{
+public:
+    Texts();
+    Texts (Texts&& other) noexcept;
+    Texts& operator= (Texts&& other) noexcept;
+    Texts (const Texts&) = delete;
+    Texts& operator= (const Texts&) = delete;
+    ~Texts();
+
+    int add (std::string_view text);
+    std::string_view get (int index) const;
+    const char* getPointer (int index) const;
+    int size() const;
+
+private:
+    struct Implementation;
+    std::unique_ptr<Implementation> implementation;
+};
+
+class Pointers
+{
+public:
+    Pointers();
+    Pointers (Pointers&& other) noexcept;
+    Pointers& operator= (Pointers&& other) noexcept;
+    Pointers (const Pointers&) = delete;
+    Pointers& operator= (const Pointers&) = delete;
+    ~Pointers();
+
+    void add (const char* pointer);
+    const char* at (int index) const;
+    int size() const;
+    const char* const* begin() const;
+
+private:
+    struct Implementation;
+    std::unique_ptr<Implementation> implementation;
+};
+
+class Tokens
+{
+public:
+    Tokens();
+    Tokens (Tokens&& other) noexcept;
+    Tokens& operator= (Tokens&& other) noexcept;
+    Tokens (const Tokens&) = delete;
+    Tokens& operator= (const Tokens&) = delete;
+    ~Tokens();
+
+    void add (const jam::LanguageToken& token);
+    const jam::LanguageToken& at (int index) const;
+    int size() const;
+    const jam::LanguageToken* begin() const;
+    const jam::LanguageToken* end() const;
+
+private:
+    struct Implementation;
+    std::unique_ptr<Implementation> implementation;
+};
+
+class LookupTable
+{
+public:
+    LookupTable (std::initializer_list<std::pair<int, int>> entries);
+    LookupTable (const LookupTable&) = delete;
+    LookupTable& operator= (const LookupTable&) = delete;
+    ~LookupTable();
+
+    int operator[] (int key) const;
+    const int* begin() const;
+
+private:
+    struct Implementation;
+    std::unique_ptr<Implementation> implementation;
+};
+
+class AddressTable
+{
+public:
+    AddressTable (std::initializer_list<std::pair<int, const void*>> entries);
+    AddressTable (const AddressTable&) = delete;
+    AddressTable& operator= (const AddressTable&) = delete;
+    ~AddressTable();
+
+    const void* operator[] (int key) const;
+
+private:
+    struct Implementation;
+    std::unique_ptr<Implementation> implementation;
+};
+
+class HalfWords
+{
+public:
+    static unsigned long long pack (int first, int second);
+    static int unpackFirst (unsigned long long bits);
+    static int unpackSecond (unsigned long long bits);
+};
+
+class Wyhash
+{
+public:
+    static unsigned long long hashBytes (const void* key, std::size_t length);
+    static unsigned long long mix (unsigned long long first, unsigned long long second);
+};
+
+class Subprocess
+{
+public:
+    static std::optional<std::string> getOutput (std::string_view commandLine, const char* workingDirectory);
+};
+
+class DynamicLibrary
+{
+public:
+    explicit DynamicLibrary (const char* path);
+    DynamicLibrary (const DynamicLibrary&) = delete;
+    DynamicLibrary& operator= (const DynamicLibrary&) = delete;
+    ~DynamicLibrary();
+
+    void* getFunction (const char* name);
+
+private:
+    struct Implementation;
+    std::unique_ptr<Implementation> implementation;
+};
+
+class File
+{
+public:
+    explicit File (const char* path);
+    File (const File&) = delete;
+    File& operator= (const File&) = delete;
+    ~File();
+
+    std::string loadFileAsString() const;
+
+private:
+    struct Implementation;
+    std::unique_ptr<Implementation> implementation;
+};
+}
+```
+
+```source
+#include "ling_LanguageCore.h"
+#include <juce_core/juce_core.h>
+#include <jam_core/jam_core.h>
+#include <jam_subprocess/jam_subprocess.h>
+
+static constexpr int capacity { 512 };
+
+namespace ling
+{
+struct Words::Implementation
+{
+    jam::Array<unsigned long long> words;
+};
+
+Words::Words()
+    : implementation (std::make_unique<Implementation>())
+{
+}
+
+Words::Words (std::initializer_list<unsigned long long> words)
+    : implementation (std::make_unique<Implementation>())
+{
+    implementation->words.insertArray (0, words.begin(), static_cast<int> (words.size()));
+}
+
+Words::Words (Words&& other) noexcept = default;
+Words& Words::operator= (Words&& other) noexcept = default;
+Words::~Words() = default;
+
+void Words::add (unsigned long long word)
+{
+    implementation->words.add (word);
+}
+
+void Words::set (int index, unsigned long long word)
+{
+    implementation->words.set (index, word);
+}
+
+unsigned long long Words::at (int index) const
+{
+    return implementation->words.at (index);
+}
+
+int Words::size() const
+{
+    return implementation->words.size();
+}
+
+void Words::resize (int newSize)
+{
+    implementation->words.resize (newSize);
+}
+
+const unsigned long long* Words::begin() const
+{
+    return implementation->words.data();
+}
+
+const unsigned long long* Words::end() const
+{
+    return implementation->words.data() + implementation->words.size();
+}
+
+void Words::sort (const std::function<bool (unsigned long long first, unsigned long long second)>& isBefore)
+{
+    std::stable_sort (implementation->words.data(), implementation->words.data() + implementation->words.size(), isBefore);
+}
+
+struct WordLists::Implementation
+{
+    jam::HashMap<unsigned long long, jam::Array<unsigned long long>> lists;
+};
+
+WordLists::WordLists()
+    : implementation (std::make_unique<Implementation>())
+{
+}
+
+WordLists::WordLists (WordLists&& other) noexcept = default;
+WordLists& WordLists::operator= (WordLists&& other) noexcept = default;
+WordLists::~WordLists() = default;
+
+void WordLists::add (unsigned long long key, unsigned long long word)
+{
+    const auto [listEntry, isListAdded] { implementation->lists.try_emplace (key) };
+    auto& [listKey, words] { *listEntry };
+
+    words.add (word);
+}
+
+void WordLists::insert (unsigned long long key, int index, unsigned long long word)
+{
+    const auto [listEntry, isListAdded] { implementation->lists.try_emplace (key) };
+    auto& [listKey, words] { *listEntry };
+
+    words.insert (index, word);
+}
+
+void WordLists::removeRange (unsigned long long key, int start, int count)
+{
+    implementation->lists.at (key).removeRange (start, count);
+}
+
+void WordLists::set (unsigned long long key, int index, unsigned long long word)
+{
+    implementation->lists.at (key).set (index, word);
+}
+
+bool WordLists::contains (unsigned long long key) const
+{
+    return implementation->lists.contains (key);
+}
+
+int WordLists::getSize (unsigned long long key) const
+{
+    if (implementation->lists.contains (key))
+        return implementation->lists.at (key).size();
+
+    return 0;
+}
+
+bool WordLists::isEmpty() const
+{
+    return implementation->lists.empty();
+}
+
+unsigned long long WordLists::at (unsigned long long key, int index) const
+{
+    return implementation->lists.at (key).at (index);
+}
+
+void WordLists::sort (unsigned long long key, const std::function<bool (unsigned long long first, unsigned long long second)>& isBefore)
+{
+    auto& found { implementation->lists.at (key) };
+    std::stable_sort (found.data(), found.data() + found.size(), isBefore);
+}
+
+void WordLists::applyToKeys (const std::function<void (unsigned long long key)>& function) const
+{
+    for (const auto& [key, words] : implementation->lists)
+        function (key);
+}
+
+struct WordMap::Implementation
+{
+    jam::HashMap<unsigned long long, unsigned long long> map;
+};
+
+WordMap::WordMap()
+    : implementation (std::make_unique<Implementation>())
+{
+}
+
+WordMap::WordMap (std::initializer_list<std::pair<int, const void*>> entries)
+    : implementation (std::make_unique<Implementation>())
+{
+    for (const auto& [key, pointer] : entries)
+        implementation->map.emplace (static_cast<unsigned long long> (key), reinterpret_cast<std::uintptr_t> (pointer));
+}
+
+WordMap::WordMap (WordMap&& other) noexcept = default;
+WordMap& WordMap::operator= (WordMap&& other) noexcept = default;
+WordMap::~WordMap() = default;
+
+void WordMap::add (unsigned long long key, unsigned long long word)
+{
+    implementation->map.try_emplace (key, word);
+}
+
+void WordMap::set (unsigned long long key, unsigned long long word)
+{
+    implementation->map.addOrReplace (key, word);
+}
+
+bool WordMap::contains (unsigned long long key) const
+{
+    return implementation->map.contains (key);
+}
+
+unsigned long long WordMap::at (unsigned long long key) const
+{
+    return implementation->map.at (key);
+}
+
+const void* WordMap::getAddress (unsigned long long key) const
+{
+    return reinterpret_cast<const void*> (static_cast<std::uintptr_t> (at (key)));
+}
+
+struct WordSet::Implementation
+{
+    jam::HashSet<unsigned long long> set;
+};
+
+WordSet::WordSet()
+    : implementation (std::make_unique<Implementation>())
+{
+}
+
+WordSet::WordSet (WordSet&& other) noexcept = default;
+WordSet& WordSet::operator= (WordSet&& other) noexcept = default;
+WordSet::~WordSet() = default;
+
+void WordSet::add (unsigned long long word)
+{
+    implementation->set.emplace (word);
+}
+
+bool WordSet::contains (unsigned long long word) const
+{
+    return implementation->set.contains (word);
+}
+
+struct TextMap::Implementation
+{
+    jam::HashMap<std::string, unsigned long long> map;
+};
+
+TextMap::TextMap()
+    : implementation (std::make_unique<Implementation>())
+{
+}
+
+TextMap::TextMap (std::initializer_list<std::pair<std::string_view, int>> entries)
+    : implementation (std::make_unique<Implementation>())
+{
+    for (const auto& [key, word] : entries)
+        implementation->map.emplace (std::string (key), static_cast<unsigned long long> (word));
+}
+
+TextMap::TextMap (std::initializer_list<std::pair<std::string_view, const void*>> entries)
+    : implementation (std::make_unique<Implementation>())
+{
+    for (const auto& [key, pointer] : entries)
+        implementation->map.emplace (std::string (key), reinterpret_cast<std::uintptr_t> (pointer));
+}
+
+TextMap::TextMap (TextMap&& other) noexcept = default;
+TextMap& TextMap::operator= (TextMap&& other) noexcept = default;
+TextMap::~TextMap() = default;
+
+void TextMap::add (std::string_view key, unsigned long long word)
+{
+    implementation->map.try_emplace (std::string (key), word);
+}
+
+void TextMap::set (std::string_view key, unsigned long long word)
+{
+    implementation->map.addOrReplace (std::string (key), word);
+}
+
+bool TextMap::contains (std::string_view key) const
+{
+    return implementation->map.contains (std::string (key));
+}
+
+unsigned long long TextMap::at (std::string_view key) const
+{
+    return implementation->map.at (std::string (key));
+}
+
+const void* TextMap::getAddress (std::string_view key) const
+{
+    return reinterpret_cast<const void*> (static_cast<std::uintptr_t> (at (key)));
+}
+
+void TextMap::applyToEntries (const std::function<void (std::string_view key, unsigned long long word)>& function) const
+{
+    for (const auto& [key, word] : implementation->map)
+        function (key, word);
+}
+
+struct Texts::Implementation
+{
+    juce::StringArray texts;
+    jam::Array<int> sizes;
+};
+
+Texts::Texts()
+    : implementation (std::make_unique<Implementation>())
+{
+}
+
+Texts::Texts (Texts&& other) noexcept = default;
+Texts& Texts::operator= (Texts&& other) noexcept = default;
+Texts::~Texts() = default;
+
+int Texts::add (std::string_view text)
+{
+    implementation->texts.add (juce::String::fromUTF8 (text.data(), static_cast<int> (text.size())));
+    implementation->sizes.add (static_cast<int> (implementation->texts.getReference (implementation->texts.size() - 1).getNumBytesAsUTF8()));
+    return implementation->texts.size() - 1;
+}
+
+std::string_view Texts::get (int index) const
+{
+    return std::string_view (implementation->texts.getReference (index).toRawUTF8(), static_cast<std::size_t> (implementation->sizes.at (index)));
+}
+
+const char* Texts::getPointer (int index) const
+{
+    return implementation->texts.getReference (index).toRawUTF8();
+}
+
+int Texts::size() const
+{
+    return implementation->texts.size();
+}
+
+struct Pointers::Implementation
+{
+    jam::Array<const char*> pointers;
+};
+
+Pointers::Pointers()
+    : implementation (std::make_unique<Implementation>())
+{
+}
+
+Pointers::Pointers (Pointers&& other) noexcept = default;
+Pointers& Pointers::operator= (Pointers&& other) noexcept = default;
+Pointers::~Pointers() = default;
+
+void Pointers::add (const char* pointer)
+{
+    implementation->pointers.add (pointer);
+}
+
+const char* Pointers::at (int index) const
+{
+    return implementation->pointers.at (index);
+}
+
+int Pointers::size() const
+{
+    return implementation->pointers.size();
+}
+
+const char* const* Pointers::begin() const
+{
+    return implementation->pointers.data();
+}
+
+struct Tokens::Implementation
+{
+    jam::Array<jam::LanguageToken> tokens;
+};
+
+Tokens::Tokens()
+    : implementation (std::make_unique<Implementation>())
+{
+}
+
+Tokens::Tokens (Tokens&& other) noexcept = default;
+Tokens& Tokens::operator= (Tokens&& other) noexcept = default;
+Tokens::~Tokens() = default;
+
+void Tokens::add (const jam::LanguageToken& token)
+{
+    implementation->tokens.add (token);
+}
+
+const jam::LanguageToken& Tokens::at (int index) const
+{
+    return implementation->tokens.at (index);
+}
+
+int Tokens::size() const
+{
+    return implementation->tokens.size();
+}
+
+const jam::LanguageToken* Tokens::begin() const
+{
+    return implementation->tokens.data();
+}
+
+const jam::LanguageToken* Tokens::end() const
+{
+    return implementation->tokens.data() + implementation->tokens.size();
+}
+
+struct LookupTable::Implementation
+{
+    jam::LookupTable<int, int, capacity> table;
+};
+
+LookupTable::LookupTable (std::initializer_list<std::pair<int, int>> entries)
+{
+    jassert (entries.size() > 0 and entries.size() <= static_cast<std::size_t> (capacity));
+
+    jam::LookupEntry<int, int> rows[capacity];
+    int index { 0 };
+
+    for (const auto& [key, word] : entries)
+    {
+        rows[index] = { key, word };
+        ++index;
+    }
+
+    for (; index < capacity; ++index)
+        rows[index] = rows[0];
+
+    implementation = std::make_unique<Implementation> (Implementation { jam::LookupTable<int, int, capacity> (rows) });
+}
+
+LookupTable::~LookupTable() = default;
+
+int LookupTable::operator[] (int key) const
+{
+    return implementation->table[key];
+}
+
+const int* LookupTable::begin() const
+{
+    return &*implementation->table.begin();
+}
+
+struct AddressTable::Implementation
+{
+    jam::LookupTable<int, const void*, capacity> table;
+};
+
+AddressTable::AddressTable (std::initializer_list<std::pair<int, const void*>> entries)
+{
+    jassert (entries.size() > 0 and entries.size() <= static_cast<std::size_t> (capacity));
+
+    jam::LookupEntry<int, const void*> rows[capacity];
+    int index { 0 };
+
+    for (const auto& [key, pointer] : entries)
+    {
+        rows[index] = { key, pointer };
+        ++index;
+    }
+
+    for (; index < capacity; ++index)
+        rows[index] = rows[0];
+
+    implementation = std::make_unique<Implementation> (Implementation { jam::LookupTable<int, const void*, capacity> (rows) });
+}
+
+AddressTable::~AddressTable() = default;
+
+const void* AddressTable::operator[] (int key) const
+{
+    return implementation->table[key];
+}
+
+unsigned long long HalfWords::pack (int first, int second)
+{
+    return jam::Union<std::int32_t, std::int32_t>::pack (first, second).bits;
+}
+
+int HalfWords::unpackFirst (unsigned long long bits)
+{
+    return jam::Union<std::int32_t, std::int32_t> { bits }.unpack<0>();
+}
+
+int HalfWords::unpackSecond (unsigned long long bits)
+{
+    return jam::Union<std::int32_t, std::int32_t> { bits }.unpack<1>();
+}
+
+unsigned long long Wyhash::hashBytes (const void* key, std::size_t length)
+{
+    return jam::Wyhash::hashBytes (key, length);
+}
+
+unsigned long long Wyhash::mix (unsigned long long first, unsigned long long second)
+{
+    return jam::Wyhash::mix (first, second);
+}
+
+std::optional<std::string> Subprocess::getOutput (std::string_view commandLine, const char* workingDirectory)
+{
+    juce::WaitableEvent finished;
+    int exitCode { -1 };
+    std::string output;
+
+    jam::Subprocess subprocess;
+    subprocess.launch (jam::ChildProcess::getArguments (commandLine),
+                       juce::File { juce::String::fromUTF8 (workingDirectory) },
+                       [&finished, &exitCode] (int processExitCode, const std::string&)
+                       {
+                           exitCode = processExitCode;
+                           finished.signal();
+                       },
+                       [&output] (std::string_view chunk, bool)
+                       {
+                           output.append (chunk);
+                       });
+
+    finished.wait();
+
+    if (exitCode == 0)
+        return output;
+
+    return std::nullopt;
+}
+
+struct DynamicLibrary::Implementation
+{
+    juce::DynamicLibrary library;
+};
+
+DynamicLibrary::DynamicLibrary (const char* path)
+    : implementation (std::make_unique<Implementation> (Implementation { juce::DynamicLibrary { juce::String::fromUTF8 (path) } }))
+{
+}
+
+DynamicLibrary::~DynamicLibrary() = default;
+
+void* DynamicLibrary::getFunction (const char* name)
+{
+    return implementation->library.getFunction (juce::String::fromUTF8 (name));
+}
+
+struct File::Implementation
+{
+    juce::File file;
+};
+
+File::File (const char* path)
+    : implementation (std::make_unique<Implementation> (Implementation { juce::File { juce::String::fromUTF8 (path) } }))
+{
+}
+
+File::~File() = default;
+
+std::string File::loadFileAsString() const
+{
+    return implementation->file.loadFileAsString().toStdString();
+}
+}
+```
+
+```juce-header
+#pragma once
+
+#include <juce_core/juce_core.h>
+#include <juce_data_structures/juce_data_structures.h>
+#include <juce_events/juce_events.h>
+#include <juce_graphics/juce_graphics.h>
+#include <jam_core/jam_core.h>
+#include <jam_subprocess/jam_subprocess.h>
+```
+
+```cmake
+cmake_minimum_required (VERSION 3.25)
+
+set (CMAKE_CXX_STANDARD 17)
+set (CMAKE_CXX_STANDARD_REQUIRED ON)
+set (CMAKE_CXX_EXTENSIONS OFF)
+set (CMAKE_BUILD_TYPE Release CACHE STRING "")
+set (CMAKE_C_VISIBILITY_PRESET hidden)
+set (CMAKE_CXX_VISIBILITY_PRESET hidden)
+set (CMAKE_VISIBILITY_INLINES_HIDDEN ON)
+set (CMAKE_OSX_DEPLOYMENT_TARGET "11.0" CACHE STRING "")
+set (CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded")
+
+project (languageCore LANGUAGES C CXX)
+
+set (jucePath "${CMAKE_CURRENT_SOURCE_DIR}/../../../../../JUCE")
+
+add_subdirectory ("${jucePath}" "${CMAKE_BINARY_DIR}/JUCE")
+juce_add_module ("${CMAKE_CURRENT_SOURCE_DIR}/../../../../jam/jam_core")
+juce_add_module ("${CMAKE_CURRENT_SOURCE_DIR}/../../../../jam/jam_subprocess")
+
+add_library (languageCore STATIC ling_LanguageCore.cpp)
+target_include_directories (languageCore PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} "${jucePath}/modules/juce_graphics/fonts/harfbuzz")
+target_link_libraries (languageCore PRIVATE jam_core jam_subprocess)
+```

@@ -4,7 +4,7 @@
 
 LING reads a project's build manifest and writes a shared index of its code: symbols, occurrences, and relations. A reader answers queries from that index. nvim, agents, and the documentation output all use the same reader.
 
-Status: design stage. The rulings and the plan are in `PLAN-ling-0-tracker.md` and its eleven parts, `PLAN-ling-1-project.md` to `PLAN-ling-11-swap.md`.
+The plan is in `PLAN-ling-lsp-0-tracker.md`. Canon rulings 1-81 are in `PLAN-ling-0-tracker.md`.
 
 The long form of the name is "Language Index Navigation Graph" (`PLAN-ling-0-tracker.md`, ruling 24).
 

@@ -1,0 +1,44 @@
+## Source/ui/ENDView.cpp open 202.0s
+   disagree    57:39 key
+      ling    "param key\n\nType: const juce::KeyPress &\nPassed by const reference as key\n\n// In ENDView::keyPressed\nconst juce::KeyPress& key"
+   disagree    60:47 ValueTree
+      ling    "class ValueTree\n\n==============================================================================\nA powerful tree structure that can be used to hold free-form data, and which can handle its own undo and redo behaviour.\nA ValueTree contains a list of named properties as var objects, and also holds
+   disagree    85:16 isPerformed
+      ling    "variable isPerformed\n\nType: const bool\n\n// In ENDView::perform\nconst auto isPerformed { commands.contains (info.commandID) }"
+   disagree    109:34 Size
+      ling    "struct Size<short>\n\n@brief Packed width + height pair of matching element type T.\nWraps jam::Union\\<T, T\\> with typed constructors to avoid casting at call sites. Round-trips through ValueTree as int (see the (const juce::var&) and (int packed) constructors) — meaningful only when Backing is
+   disagree    245:46 config
+      ling    'field config\nprovided by "ui/ENDView.h"\n\nType: ConfigModel &\n@brief Config of the application.\n\n// In ENDView\nprivate: ConfigModel& config { *ConfigModel::getInstance() }'
+   disagree    245:87 Id
+      ling    "namespace Id\n\nnamespace Id"
+   disagree    256:57 command
+      ling    "param command\n\nType: const juce::CommandID & (aka const int &)\nPassed as command\n\n// In ENDView::registerZoomActions::(anonymous class)::operator()\nconst juce::CommandID& command"
+   disagree    280:27 swapDown
+      ling    'enumerator swapDown\nprovided by "Bimaps.h"\n\nType: enum map::CommandId::value\nValue = 74448923\n\n// In CommandId::value\npublic: swapDown          = 0x470001b'
+   disagree    281:16 CommandId
+      ling    'struct CommandId\nprovided by "Bimaps.h"\n\n@brief END command-id to command-name map.\nMaps each command-id ordinal to the command name a config `keys` row uses.\nThe key is the juce::CommandID; the value is the row key.\n\n// In namespace map\nstruct CommandId : public jam::Bimap<int, juce::Ident
+   disagree    298:46 CommandID
+      ling    "type-alias CommandID\n\nType: int\n============================================================================== A type used to hold the unique ID for an application command.\nThis is a numeric type, so it can be stored as an integer.\n@see ApplicationCommandInfo, ApplicationCommandManager,\nAppli
+   disagree    312:75 Format
+      ling    "struct Format\n\n____________________________________________________________________________\n\n// In namespace jam\nstruct Format"
+   disagree    323:33 map
+      ling    "namespace map\n\nnamespace map"
+   disagree    332:57 setMode
+      ling    'instance-method setMode\nprovided by "ui/EditorView.h"\n\n→ void\nParameters:\n- int newMode\n@brief Writes the mode row of the pluginState of the pane, which the session passes to the plugin.\n@param newMode Editor mode, a constant of `map::EditorMode`.\n\n// In EditorView\npublic: void setMode 
+   disagree    339:34 pair
+      ling    "struct pair<int, juce::Identifier>\nprovided by <utility>\n\n// In namespace std\ntemplate <class _T1, class _T2>\nstruct pair\n#if defined(_LIBCPP_DEPRECATED_ABI_DISABLE_PAIR_TRIVIAL_COPY_CTOR)\n    : private __non_trivially_copyable_base<_T1, _T2>\n#endif"
+   disagree    372:64 command
+      ling    "param command\n\nType: const juce::CommandID & (aka const int &)\nPassed as command\n\n// In ENDView::registerCloseActions::(anonymous class)::operator()\nconst juce::CommandID& command"
+   disagree    419:138 tree
+      ling    "param tree\n\nType: juce::ValueTree &\n\n// In ENDView::registerEvents::(anonymous class)::operator()\njuce::ValueTree& tree"
+   disagree    425:88 Id
+      ling    "namespace Id\n\nnamespace Id"
+   disagree    434:65 jam
+      ling    "namespace jam\n\nnamespace jam"
+   disagree    434:78 toType
+      ling    "static-method toType\n\n→ juce::Identifier\nParameters:\n- const juce::Identifier & word\n@brief Returns the tag of @p word as a juce::Identifier.\n@param word Identifier whose words are formatted.\n@return A juce::Identifier constructed from toTag (@p word).\n\n// In Format\npublic: static juce:
+   disagree    439:33 getRowValue
+      ling    'instance-method getRowValue\nprovided by "config/ConfigModel.h"\n\n→ juce::var\nParameters:\n- const juce::Identifier & type\n- const juce::Identifier & name\n@brief Returns the value of one config row.\nReads the row child @c jam::Format::toType (name) of the table child @p type of this tree dir
+   disagree    441:74 toString
+      ling    "instance-method toString\n\n→ String\n\n// In var\npublic: use this - the array po"
+exit 142

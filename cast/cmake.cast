@@ -182,9 +182,29 @@ target_link_options(${PROJECT_NAME} PRIVATE
     $<$<CONFIG:Release>:${CAST_RELEASE_LINK_FLAGS}>
 )
 
+:::[list]:::
+
+if(WIN32)
+    string(TOLOWER "${CMAKE_CXX_COMPILER_ARCHITECTURE_ID}" CAST_PACK_architecture)
+    set(CAST_PACK_platform "${CAST_PACK_platform} ${CAST_PACK_architecture}")
+endif()
+
 file(GLOB CAST_BINARY_FILES CONFIGURE_DEPENDS
 :::[list]:::
 )
+
+set(CAST_LANGUAGE_FILES ${CAST_BINARY_FILES})
+list(FILTER CAST_LANGUAGE_FILES INCLUDE REGEX "/Source/languages/.+[.]zip$")
+set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS ${CAST_LANGUAGE_FILES})
+
+set(CAST_LANGUAGES_HASH_CONCAT "")
+foreach(CAST_LANGUAGE_FILE ${CAST_LANGUAGE_FILES})
+    file(SHA256 "${CAST_LANGUAGE_FILE}" CAST_LANGUAGE_FILE_HASH)
+    string(APPEND CAST_LANGUAGES_HASH_CONCAT "${CAST_LANGUAGE_FILE_HASH}")
+endforeach()
+string(SHA256 CAST_LANGUAGES_HASH "${CAST_LANGUAGES_HASH_CONCAT}")
+
+set_source_files_properties("${CMAKE_CURRENT_SOURCE_DIR}/Source/Processor.cpp" PROPERTIES COMPILE_DEFINITIONS "CAST_LANGUAGES_HASH=\"${CAST_LANGUAGES_HASH}\"" SKIP_PRECOMPILE_HEADERS ON)
 
 juce_add_binary_data(${PROJECT_NAME}_BinaryData
     NAMESPACE ":::binaryDataNamespace:::"
@@ -198,13 +218,6 @@ include(CheckIPOSupported)
 
 set(CAST_POST_BUILD_STAMP_FILE "${CMAKE_BINARY_DIR}/post-build.stamp")
 set(CAST_POST_BUILD_DEPENDS $<TARGET_FILE:${PROJECT_NAME}>)
-
-:::[list]:::
-
-if(WIN32)
-    string(TOLOWER "${CMAKE_CXX_COMPILER_ARCHITECTURE_ID}" CAST_PACK_architecture)
-    set(CAST_PACK_platform "${CAST_PACK_platform} ${CAST_PACK_architecture}")
-endif()
 
 set(CAST_PACK_ARCHIVE "${CMAKE_SOURCE_DIR}/${CAST_PACK_folder}/:::productName::: v${PROJECT_VERSION} ${CAST_PACK_platform}.${CAST_PACK_format}")
 
@@ -263,6 +276,7 @@ COMMAND ${CMAKE_COMMAND} -E touch "${CAST_SIGN_STAMP_FILE}"
     endif()
 endif()
 
+if(NOT CAST_PROFILE)
 add_custom_command(OUTPUT "${CAST_POST_BUILD_STAMP_FILE}"
     DEPENDS ${CAST_POST_BUILD_DEPENDS}
 :::install-directory:::
@@ -272,6 +286,7 @@ COMMAND ${CMAKE_COMMAND} -E touch "${CAST_POST_BUILD_STAMP_FILE}"
     COMMENT "CAST: post-build"
 )
 add_custom_target(post-build ALL DEPENDS "${CAST_POST_BUILD_STAMP_FILE}")
+endif()
 
 message(STATUS "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
 message(STATUS "CAST: ${PROJECT_NAME} configured")
@@ -413,4 +428,36 @@ if(CAST_RELEASE_VIEW EQUAL 0)
 else()
     execute_process(COMMAND gh release create "${CAST_RELEASE_TAG}" ${CAST_RELEASE_ASSETS} --repo ":::repository:::" --title "${CAST_RELEASE_TAG}" --notes-file "${CMAKE_CURRENT_LIST_DIR}/RELEASE.md" COMMAND_ERROR_IS_FATAL ANY)
 endif()
+```
+
+```language-bundle
+:::[list]:::
+
+get_filename_component(CAST_CORE_FOLDER "${CMAKE_CURRENT_LIST_DIR}/:::languageCoreManifest:::" DIRECTORY)
+get_filename_component(CAST_CORE_NAME "${CAST_CORE_FOLDER}" NAME)
+set(CAST_CORE_BUILD "${CMAKE_CURRENT_LIST_DIR}/Builds/languages/${CAST_CORE_NAME}")
+get_filename_component(CAST_LANGUAGE_FOLDER "${CMAKE_CURRENT_LIST_DIR}/:::languageManifest:::" DIRECTORY)
+get_filename_component(CAST_LANGUAGE_NAME "${CAST_LANGUAGE_FOLDER}" NAME)
+set(CAST_LANGUAGE_BUILD "${CMAKE_CURRENT_LIST_DIR}/Builds/languages/${CAST_LANGUAGE_NAME}")
+set(CAST_CORE_HEADER :::languageCoreHeader:::)
+list(TRANSFORM CAST_LANE PREPEND "--" OUTPUT_VARIABLE CAST_LANGUAGE_LANE)
+
+if(APPLE)
+    set(CAST_CORE_FILE :::languageCoreLibrary:::)
+    set(CAST_LANGUAGE_FILE :::languageLibrary:::)
+elseif(WIN32)
+    set(CAST_CORE_FILE :::languageCoreLibraryWindows:::)
+    set(CAST_LANGUAGE_FILE :::languageLibraryWindows:::)
+endif()
+
+file(COPY "${CAST_CORE_FOLDER}/" DESTINATION "${CAST_CORE_BUILD}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/:::languageInterface:::" "${CMAKE_CURRENT_LIST_DIR}/Source/generated/ProjectInfo.h" DESTINATION "${CAST_CORE_BUILD}")
+execute_process(COMMAND cast spell.md ${CAST_LANGUAGE_LANE} WORKING_DIRECTORY "${CAST_CORE_BUILD}" COMMAND_ERROR_IS_FATAL ANY)
+execute_process(COMMAND cast --pack "${CMAKE_CURRENT_LIST_DIR}/Source/languages/${CAST_PACK_platform}/${CAST_CORE_NAME}.zip" "${CAST_CORE_BUILD}/${CAST_CORE_HEADER}" "${CAST_CORE_BUILD}/${CAST_CORE_FILE}" COMMAND_ERROR_IS_FATAL ANY)
+
+file(COPY "${CAST_LANGUAGE_FOLDER}/" DESTINATION "${CAST_LANGUAGE_BUILD}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/:::core:::" "${CMAKE_CURRENT_LIST_DIR}/:::syntaxTree:::" "${CMAKE_CURRENT_LIST_DIR}/:::lsp:::" "${CMAKE_CURRENT_LIST_DIR}/:::languageInterface:::" "${CAST_CORE_BUILD}/${CAST_CORE_HEADER}" "${CAST_CORE_BUILD}/${CAST_CORE_FILE}" DESTINATION "${CAST_LANGUAGE_BUILD}")
+
+execute_process(COMMAND cast spell.md ${CAST_LANGUAGE_LANE} WORKING_DIRECTORY "${CAST_LANGUAGE_BUILD}" COMMAND_ERROR_IS_FATAL ANY)
+execute_process(COMMAND cast --pack "${CMAKE_CURRENT_LIST_DIR}/Source/languages/${CAST_PACK_platform}/${CAST_LANGUAGE_NAME}.zip" "${CAST_LANGUAGE_BUILD}/${CAST_LANGUAGE_FILE}" COMMAND_ERROR_IS_FATAL ANY)
 ```
