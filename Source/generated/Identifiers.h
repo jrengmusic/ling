@@ -84,6 +84,7 @@ extern const juce::Identifier juceVersion;
 extern const juce::Identifier language;
 extern const juce::Identifier layoutGlob;
 extern const juce::Identifier ling;
+extern const juce::Identifier mcp;
 extern const juce::Identifier module;
 extern const juce::Identifier nameLength;
 extern const juce::Identifier newName;

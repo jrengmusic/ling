@@ -6,7 +6,7 @@
     <includes refid="_json_language_8h" local="no">JsonLanguage.h</includes>
     <sectiondef kind="public-func">
       <memberdef kind="function" id="class_json_language_1a20ba4d8b616c6b2ad7015d529d2b23d4" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type>std::pair&lt; std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;, std::unique_ptr&lt; <ref refid="struct_symbol_document" kindref="compound">SymbolDocument</ref> &gt; &gt;</type>
+        <type>std::pair&lt; std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;, std::unique_ptr&lt; <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> &gt; &gt;</type>
         <definition>std::pair&lt; std::unique_ptr&lt; jam::Document &gt;, std::unique_ptr&lt; SymbolDocument &gt; &gt; JsonLanguage::parse</definition>
         <argsstring>(std::string_view text, const juce::String &amp;path) const override</argsstring>
         <name>parse</name>
@@ -21,13 +21,35 @@
           <declname>path</declname>
         </param>
         <briefdescription>
+<para>Parses <computeroutput>text</computeroutput> into a <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> and an optional inline <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref>. </para>
         </briefdescription>
         <detaileddescription>
+<para>Built-in languages build both trees synchronously; library languages return a null <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> and populate symbols asynchronously in <ref refid="class_built_in_language_1a1655e858f06b9f31966dd473b2cf4294" kindref="member">index()</ref>.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>text</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>UTF-8 source text to parse. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Canonical source file path. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pair of parsed document (or nullptr on failure) and optional symbol document. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="languages/JsonLanguage.h" line="10" column="15" bodyfile="languages/JsonLanguage.cpp" bodystart="3" bodyend="6"/>
-        <references refid="class_built_in_language_1a6a79e4a7a37067b17146992e88430a4c" compoundref="_built_in_language_8h" startline="124" endline="132">BuiltInLanguage&lt; map::JsonElements, map::JsonTokenType &gt;::getParsed</references>
+        <references refid="class_built_in_language_1a6a79e4a7a37067b17146992e88430a4c" compoundref="_built_in_language_8h" startline="203" endline="211">BuiltInLanguage&lt; map::JsonElements, map::JsonTokenType &gt;::getParsed</references>
         <references refid="structjam_1_1JsonDocument_1a1343aea261139b22b9cc95844519d8cb">jam::JsonDocument::parse</references>
       </memberdef>
       <memberdef kind="function" id="class_json_language_1ade5fc1586302357eecb7a4349dba9595" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
@@ -46,8 +68,29 @@
           <declname>stored</declname>
         </param>
         <briefdescription>
+<para>Deserializes a cached swap document against current source <computeroutput>text</computeroutput>. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>text</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Current UTF-8 source bytes that token views reference. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>stored</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Serialized swap file bytes. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Validated <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref>, or nullptr when <computeroutput>stored</computeroutput> is incompatible. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -104,19 +147,18 @@
     </collaborationgraph>
     <location file="languages/JsonLanguage.h" line="5" column="1" bodyfile="languages/JsonLanguage.h" bodystart="6" bodyend="15"/>
     <listofallmembers>
-      <member refid="class_built_in_language_1aef27de14b0a8325ecf50a085219f2c08" prot="private" virt="non-virtual"><scope>JsonLanguage</scope><name>addOutlines</name></member>
-      <member refid="class_built_in_language_1a854fb2343326f6c8a80add14f0a41d84" prot="private" virt="non-virtual"><scope>JsonLanguage</scope><name>addRecords</name></member>
+      <member refid="class_built_in_language_1ae95ee532859c01b62bc306f962b92a51" prot="private" virt="non-virtual"><scope>JsonLanguage</scope><name>addOutline</name></member>
+      <member refid="class_built_in_language_1a0ba607b3f35632693f7506f09beb96c0" prot="private" virt="non-virtual"><scope>JsonLanguage</scope><name>addOutlines</name></member>
+      <member refid="class_built_in_language_1aa10d62c0ee79fbb2a93559083440b7c1" prot="private" virt="non-virtual"><scope>JsonLanguage</scope><name>addRecords</name></member>
       <member refid="class_built_in_language_1a44546630431ac2c9165064d4a2ff84d3" prot="private" virt="non-virtual"><scope>JsonLanguage</scope><name>addUnits</name></member>
       <member refid="class_built_in_language_1a0ae6244ea1331d0689d8fa7bc89b2a83" prot="public" virt="non-virtual"><scope>JsonLanguage</scope><name>BuiltInLanguage</name></member>
       <member refid="class_built_in_language_1ae26f80b21d62c5b223e44557fa40e26f" prot="private" virt="non-virtual"><scope>JsonLanguage</scope><name>extension</name></member>
-      <member refid="class_built_in_language_1a50121457ed6568de89c611beed1f55bb" prot="public" virt="virtual"><scope>JsonLanguage</scope><name>format</name></member>
-      <member refid="class_built_in_language_1a42553c1c187d0531aa6415cab8dccae0" prot="public" virt="virtual"><scope>JsonLanguage</scope><name>getCompletionKind</name></member>
-      <member refid="class_built_in_language_1ae0991e08e6c835ece15cee017dc95fa9" prot="public" virt="virtual"><scope>JsonLanguage</scope><name>getCounterparts</name></member>
+      <member refid="class_built_in_language_1a4333998289e0e9b21c0b422118f4a2f9" prot="public" virt="virtual"><scope>JsonLanguage</scope><name>getCompletionType</name></member>
+      <member refid="class_built_in_language_1ab9171cafdadc32ff128bcab36156b625" prot="public" virt="virtual"><scope>JsonLanguage</scope><name>getCounterparts</name></member>
       <member refid="class_built_in_language_1ace52a9601451c2bf4531db93a34fb7b5" prot="private" virt="non-virtual"><scope>JsonLanguage</scope><name>getElements</name></member>
       <member refid="class_built_in_language_1ab43398b9a1f03d1c23a0397af02e171b" prot="private" virt="non-virtual"><scope>JsonLanguage</scope><name>getKey</name></member>
       <member refid="class_built_in_language_1a0e7a479e443e6d871735613f00a87d9f" prot="private" virt="non-virtual"><scope>JsonLanguage</scope><name>getLastTokenIndex</name></member>
-      <member refid="class_built_in_language_1a38b1561cd2708c56ae5ee489e41b992c" prot="private" virt="non-virtual"><scope>JsonLanguage</scope><name>getOutline</name></member>
-      <member refid="class_built_in_language_1a0ce07b35a1cfdd1d2dc3b51c7d3f5929" prot="private" virt="non-virtual"><scope>JsonLanguage</scope><name>getParentIndex</name></member>
+      <member refid="class_built_in_language_1a3f8a34f0e97dc8ec59545d4550482232" prot="private" virt="non-virtual"><scope>JsonLanguage</scope><name>getParentIndex</name></member>
       <member refid="class_built_in_language_1a6a79e4a7a37067b17146992e88430a4c" prot="protected" virt="non-virtual"><scope>JsonLanguage</scope><name>getParsed</name></member>
       <member refid="class_built_in_language_1a2c9129f7d2681f60bbf7caa35f039a5b" prot="public" virt="virtual"><scope>JsonLanguage</scope><name>getSemanticModifiers</name></member>
       <member refid="class_built_in_language_1ace5ea3608cde10f16f46dba9dfca664d" prot="public" virt="virtual"><scope>JsonLanguage</scope><name>getSemanticType</name></member>
@@ -128,7 +170,6 @@
       <member refid="class_built_in_language_1aa221b4be556c9066437170b575592d4e" prot="public" virt="virtual"><scope>JsonLanguage</scope><name>hasRole</name></member>
       <member refid="class_built_in_language_1a1655e858f06b9f31966dd473b2cf4294" prot="public" virt="virtual"><scope>JsonLanguage</scope><name>index</name></member>
       <member refid="class_built_in_language_1abb7f2d4981fc084fe3f21e6267a94f7b" prot="public" virt="virtual"><scope>JsonLanguage</scope><name>isValid</name></member>
-      <member refid="class_language_1acb2734bfc3418cdf27c21ec260adfe60" prot="public" virt="non-virtual"><scope>JsonLanguage</scope><name>noDefinition</name></member>
       <member refid="class_built_in_language_1ab6da376e318c89f3f2d42d52f1b7c9ae" prot="private" virt="non-virtual"><scope>JsonLanguage</scope><name>noModifiers</name></member>
       <member refid="class_built_in_language_1a2e9a4db2c617a56b1a64368389ae7b45" prot="private" virt="non-virtual"><scope>JsonLanguage</scope><name>noQualifierLength</name></member>
       <member refid="class_json_language_1a20ba4d8b616c6b2ad7015d529d2b23d4" prot="public" virt="virtual"><scope>JsonLanguage</scope><name>parse</name></member>

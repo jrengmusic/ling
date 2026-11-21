@@ -1,0 +1,331 @@
+{
+  "tools": [
+    {
+      "name": "goToDefinition",
+      "title": "Go to definition",
+      "description": "Definitions of the symbol at the position: an array of {uri, range}.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "description": "Source file path, absolute or relative to the working folder of the server."
+          },
+          "line": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Line number, from 1."
+          },
+          "column": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Column, from 1, in UTF-16 code units."
+          }
+        },
+        "required": ["file", "line", "column"],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    },
+    {
+      "name": "findReferences",
+      "title": "Find references",
+      "description": "References to the symbol at the position: an array of {uri, range}.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "description": "Source file path, absolute or relative to the working folder of the server."
+          },
+          "line": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Line number, from 1."
+          },
+          "column": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Column, from 1, in UTF-16 code units."
+          }
+        },
+        "required": ["file", "line", "column"],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    },
+    {
+      "name": "hover",
+      "title": "Hover",
+      "description": "Declaration and comment of the symbol at the position: {contents, range}, or null.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "description": "Source file path, absolute or relative to the working folder of the server."
+          },
+          "line": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Line number, from 1."
+          },
+          "column": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Column, from 1, in UTF-16 code units."
+          }
+        },
+        "required": ["file", "line", "column"],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    },
+    {
+      "name": "completion",
+      "title": "Completion",
+      "description": "Completion items at the position: an array of {label, kind, insertText, insertTextFormat}.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "description": "Source file path, absolute or relative to the working folder of the server."
+          },
+          "line": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Line number, from 1."
+          },
+          "column": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Column, from 1, in UTF-16 code units."
+          }
+        },
+        "required": ["file", "line", "column"],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    },
+    {
+      "name": "goToImplementation",
+      "title": "Go to implementation",
+      "description": "Implementations of the virtual function at the position: an array of {uri, range}.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "description": "Source file path, absolute or relative to the working folder of the server."
+          },
+          "line": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Line number, from 1."
+          },
+          "column": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Column, from 1, in UTF-16 code units."
+          }
+        },
+        "required": ["file", "line", "column"],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    },
+    {
+      "name": "prepareCallHierarchy",
+      "title": "Prepare call hierarchy",
+      "description": "The call hierarchy item at the position: an array of {name, kind, uri, range, selectionRange}.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "description": "Source file path, absolute or relative to the working folder of the server."
+          },
+          "line": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Line number, from 1."
+          },
+          "column": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Column, from 1, in UTF-16 code units."
+          }
+        },
+        "required": ["file", "line", "column"],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    },
+    {
+      "name": "incomingCalls",
+      "title": "Incoming calls",
+      "description": "Callers of the function at the position: an array of {from, fromRanges}.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "description": "Source file path, absolute or relative to the working folder of the server."
+          },
+          "line": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Line number, from 1."
+          },
+          "column": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Column, from 1, in UTF-16 code units."
+          }
+        },
+        "required": ["file", "line", "column"],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    },
+    {
+      "name": "outgoingCalls",
+      "title": "Outgoing calls",
+      "description": "Callees of the function at the position: an array of {to, fromRanges}.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "description": "Source file path, absolute or relative to the working folder of the server."
+          },
+          "line": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Line number, from 1."
+          },
+          "column": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Column, from 1, in UTF-16 code units."
+          }
+        },
+        "required": ["file", "line", "column"],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    },
+    {
+      "name": "documentSymbol",
+      "title": "Document symbol",
+      "description": "Symbols of the file as a tree: an array of {name, kind, range, selectionRange, children}.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "description": "Source file path, absolute or relative to the working folder of the server."
+          }
+        },
+        "required": ["file"],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    },
+    {
+      "name": "switchSourceHeader",
+      "title": "Switch source header",
+      "description": "The counterpart header or source file: a uri, or null.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "description": "Source file path, absolute or relative to the working folder of the server."
+          }
+        },
+        "required": ["file"],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    },
+    {
+      "name": "inlayHint",
+      "title": "Inlay hint",
+      "description": "Parameter-name hints of the file: an array of {position, label, kind, paddingLeft, paddingRight}.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "description": "Source file path, absolute or relative to the working folder of the server."
+          }
+        },
+        "required": ["file"],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    },
+    {
+      "name": "diagnostics",
+      "title": "Diagnostics",
+      "description": "Diagnostics of the file: an array of {range, severity, message}.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "description": "Source file path, absolute or relative to the working folder of the server."
+          }
+        },
+        "required": ["file"],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    },
+    {
+      "name": "workspaceSymbol",
+      "title": "Workspace symbol",
+      "description": "Symbols of the workspace that match the query: an array of {name, kind, location}.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Fuzzy symbol query."
+          }
+        },
+        "required": ["query"],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    }
+  ]
+}

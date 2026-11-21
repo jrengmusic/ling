@@ -30,7 +30,6 @@ struct Diagnostics
 {
     static constexpr const char* const failNotFound             { "not found"                                                       };///< A file argument that does not exist.
     static constexpr const char* const failFlagUnknown          { "unknown flag"                                                    };///< Not --help or --version, or a rejected argument after the manifest.
-    static constexpr const char* const failNoUnit               { "no unit compiles the file"                                       };///< A file that no unit of the compiler manifest compiles.
     static constexpr const char* const failToolchainArgument    { "toolchain argument not declared"                                 };///< A --\<word\> CLI argument matched no toolchain row's argument column.
     static constexpr const char* const failToolchainColumn      { "toolchain column not declared"                                   };///< A ## toolchain table's header row declares no command or flag column.
     static constexpr const char* const failDaemonStart          { "daemon did not start"                                            };///< A daemon that did not start.

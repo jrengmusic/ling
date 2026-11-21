@@ -5,6 +5,7 @@
 #include "Server.h"
 #include "Operation.h"
 #include "Relay.h"
+#include "ToolRelay.h"
 #include "Manifest.h"
 #include "SchemaSuite.h"
 #include "StdioClientProbe.h"
@@ -300,6 +301,7 @@ private:
         commands.addCommand ({ juce::String (Chars::doubleDash) + Id::help.toString(), {}, {}, {}, [this] (const juce::ArgumentList&) { printBannerAndHelp(); quit(); } });
         commands.addCommand ({ juce::String (Chars::doubleDash) + Id::version.toString(), {}, {}, {}, [this] (const juce::ArgumentList&) { writeVersion(); quit(); } });
         commands.addCommand ({ juce::String (Chars::doubleDash) + Id::build.toString(), {}, {}, {}, [this] (const juce::ArgumentList& arguments) { runBuild (arguments); } });
+        commands.addCommand ({ juce::String (Chars::doubleDash) + Id::mcp.toString(), {}, {}, {}, [this] (const juce::ArgumentList& arguments) { runToolRelay (arguments); } });
         commands.addCommand ({ Id::daemon.toString(), {}, {}, {}, [this] (const juce::ArgumentList& arguments) { runDaemon (arguments); } });
 
         for (const auto& [word, scope] : map::Readiness {})
@@ -347,6 +349,15 @@ private:
         finished.wait();
         setApplicationReturnValue (exitCode);
         quit();
+    }
+
+    void runToolRelay (const juce::ArgumentList& arguments)
+    {
+        const auto manifestFile { getExistingManifestFile (arguments, manifestIndex) };
+        const auto toolchainArgument { getToolchainArgument (arguments, manifestIndex) };
+
+        toolRelay = std::make_unique<ToolRelay> (manifestFile, toolchainArgument);
+        toolRelay->start();
     }
 
     void runManifest (const juce::ArgumentList& arguments)
@@ -511,6 +522,7 @@ private:
     /** @brief The operation run. It sends the request to the daemon and prints the reply. */
     std::unique_ptr<Operation> operation;
     std::unique_ptr<Relay> relay;
+    std::unique_ptr<ToolRelay> toolRelay;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Application)
 };

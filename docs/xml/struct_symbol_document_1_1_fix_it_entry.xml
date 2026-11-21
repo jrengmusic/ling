@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="struct_symbol_document_1_1_fix_it_entry" kind="struct" language="C++" prot="public">
+    <compoundname>SymbolDocument::FixItEntry</compoundname>
+    <includes refid="_symbol_document_8h" local="no">SymbolDocument.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_symbol_document_1_1_fix_it_entry_1a383cbc67fefd135a337cee8a036c7ef8" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t SymbolDocument::FixItEntry::line</definition>
+        <argsstring></argsstring>
+        <name>line</name>
+        <qualifiedname>SymbolDocument::FixItEntry::line</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>1-based start line of the replaced range. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="235" column="17" bodyfile="SymbolDocument.h" bodystart="235" bodyend="235"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1a33262f598987946a90b60043c260751b" compoundref="_symbol_document_8cpp" startline="242" endline="255">SymbolDocument::Builder::addFixIt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_fix_it_entry_1a984cd80c3f1550e0e62195de6cbddd21" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t SymbolDocument::FixItEntry::column</definition>
+        <argsstring></argsstring>
+        <name>column</name>
+        <qualifiedname>SymbolDocument::FixItEntry::column</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>1-based start column of the replaced range. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="236" column="17" bodyfile="SymbolDocument.h" bodystart="236" bodyend="236"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1a33262f598987946a90b60043c260751b" compoundref="_symbol_document_8cpp" startline="242" endline="255">SymbolDocument::Builder::addFixIt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_fix_it_entry_1a6bb0b2bd966e8775cc5768157086bc4f" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t SymbolDocument::FixItEntry::endLine</definition>
+        <argsstring></argsstring>
+        <name>endLine</name>
+        <qualifiedname>SymbolDocument::FixItEntry::endLine</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>1-based end line of the replaced range. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="237" column="17" bodyfile="SymbolDocument.h" bodystart="237" bodyend="237"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1a33262f598987946a90b60043c260751b" compoundref="_symbol_document_8cpp" startline="242" endline="255">SymbolDocument::Builder::addFixIt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_fix_it_entry_1a076e982f3008706543096edba45438d7" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t SymbolDocument::FixItEntry::endColumn</definition>
+        <argsstring></argsstring>
+        <name>endColumn</name>
+        <qualifiedname>SymbolDocument::FixItEntry::endColumn</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>1-based end column of the replaced range. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="238" column="17" bodyfile="SymbolDocument.h" bodystart="238" bodyend="238"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1a33262f598987946a90b60043c260751b" compoundref="_symbol_document_8cpp" startline="242" endline="255">SymbolDocument::Builder::addFixIt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_fix_it_entry_1a48256231b8ddcb34d25719b5da0d70c3" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::FixItEntry::textOffset</definition>
+        <argsstring></argsstring>
+        <name>textOffset</name>
+        <qualifiedname>SymbolDocument::FixItEntry::textOffset</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Byte offset of the replacement text in the string pool. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="239" column="18" bodyfile="SymbolDocument.h" bodystart="239" bodyend="239"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1a33262f598987946a90b60043c260751b" compoundref="_symbol_document_8cpp" startline="242" endline="255">SymbolDocument::Builder::addFixIt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_fix_it_entry_1a793fdc57b1f7ab26e1bd3facdf891bd7" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::FixItEntry::textLength</definition>
+        <argsstring></argsstring>
+        <name>textLength</name>
+        <qualifiedname>SymbolDocument::FixItEntry::textLength</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Byte length of the replacement text. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="240" column="18" bodyfile="SymbolDocument.h" bodystart="240" bodyend="240"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1a33262f598987946a90b60043c260751b" compoundref="_symbol_document_8cpp" startline="242" endline="255">SymbolDocument::Builder::addFixIt</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>One text replacement edit associated with a file diagnostic. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="SymbolDocument.h" line="233" column="5" bodyfile="SymbolDocument.h" bodystart="234" bodyend="241"/>
+    <listofallmembers>
+      <member refid="struct_symbol_document_1_1_fix_it_entry_1a984cd80c3f1550e0e62195de6cbddd21" prot="public" virt="non-virtual"><scope>SymbolDocument::FixItEntry</scope><name>column</name></member>
+      <member refid="struct_symbol_document_1_1_fix_it_entry_1a076e982f3008706543096edba45438d7" prot="public" virt="non-virtual"><scope>SymbolDocument::FixItEntry</scope><name>endColumn</name></member>
+      <member refid="struct_symbol_document_1_1_fix_it_entry_1a6bb0b2bd966e8775cc5768157086bc4f" prot="public" virt="non-virtual"><scope>SymbolDocument::FixItEntry</scope><name>endLine</name></member>
+      <member refid="struct_symbol_document_1_1_fix_it_entry_1a383cbc67fefd135a337cee8a036c7ef8" prot="public" virt="non-virtual"><scope>SymbolDocument::FixItEntry</scope><name>line</name></member>
+      <member refid="struct_symbol_document_1_1_fix_it_entry_1a793fdc57b1f7ab26e1bd3facdf891bd7" prot="public" virt="non-virtual"><scope>SymbolDocument::FixItEntry</scope><name>textLength</name></member>
+      <member refid="struct_symbol_document_1_1_fix_it_entry_1a48256231b8ddcb34d25719b5da0d70c3" prot="public" virt="non-virtual"><scope>SymbolDocument::FixItEntry</scope><name>textOffset</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

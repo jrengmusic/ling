@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="struct_symbol_document_1_1_symbol_record" kind="struct" language="C++" prot="public">
+    <compoundname>SymbolDocument::SymbolRecord</compoundname>
+    <includes refid="_symbol_document_8h" local="no">SymbolDocument.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_symbol_document_1_1_symbol_record_1a51241e1e42267efbf017dbbdaf863741" prot="public" static="no" mutable="no">
+        <type>int64_t</type>
+        <definition>int64_t SymbolDocument::SymbolRecord::symbol</definition>
+        <argsstring></argsstring>
+        <name>symbol</name>
+        <qualifiedname>SymbolDocument::SymbolRecord::symbol</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Unique symbol identifier. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="138" column="17" bodyfile="SymbolDocument.h" bodystart="138" bodyend="138"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1ac4353fd209e4a4a8a4932ea36215fda7" compoundref="_symbol_document_8cpp" startline="131" endline="151">SymbolDocument::Builder::addSymbol</referencedby>
+        <referencedby refid="class_query_1a1af630e950e748883bd8aace09b6e235" compoundref="_query_8h" startline="374" endline="380">Query::applyToDeclarations</referencedby>
+        <referencedby refid="class_query_1a7d98690db81b3e8de810ea6b0bc3b0f7" compoundref="_query_8h" startline="664" endline="692">Query::applyToImplementations</referencedby>
+        <referencedby refid="class_query_1a76c1f274a78046412fbf74511ae165fb" compoundref="_query_8cpp" startline="359" endline="375">Query::documentHighlight</referencedby>
+        <referencedby refid="class_query_1a852e9ede3402713f66bb2abf97ed1436" compoundref="_query_8cpp" startline="341" endline="357">Query::findReferences</referencedby>
+        <referencedby refid="class_query_1ae6923bd8f08e5fc9296cc680e164bca0" compoundref="_query_8cpp" startline="888" endline="916">Query::getRecordType</referencedby>
+        <referencedby refid="class_query_1ac9134cc465d90c1f0528a3db2f9325f9" compoundref="_query_8cpp" startline="1324" endline="1336">Query::incomingCalls</referencedby>
+        <referencedby refid="class_query_1ab610e34818feb1149c05e046c74e9a50" compoundref="_query_8cpp" startline="377" endline="404">Query::rename</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_symbol_record_1a4e9b806e44148a09ed9f03a4f66ab813" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t SymbolDocument::SymbolRecord::line</definition>
+        <argsstring></argsstring>
+        <name>line</name>
+        <qualifiedname>SymbolDocument::SymbolRecord::line</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>1-based source line of the occurrence. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="139" column="17" bodyfile="SymbolDocument.h" bodystart="139" bodyend="139"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1ac4353fd209e4a4a8a4932ea36215fda7" compoundref="_symbol_document_8cpp" startline="131" endline="151">SymbolDocument::Builder::addSymbol</referencedby>
+        <referencedby refid="class_index_1a5837c1f93d2f053f686a2056533af55a" compoundref="_index_8cpp" startline="387" endline="390">Index::isRecordBefore</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_symbol_record_1a23f80aa4ab77331e0b1ab7c731c1a091" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t SymbolDocument::SymbolRecord::column</definition>
+        <argsstring></argsstring>
+        <name>column</name>
+        <qualifiedname>SymbolDocument::SymbolRecord::column</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>1-based byte column of the occurrence. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="140" column="17" bodyfile="SymbolDocument.h" bodystart="140" bodyend="140"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1ac4353fd209e4a4a8a4932ea36215fda7" compoundref="_symbol_document_8cpp" startline="131" endline="151">SymbolDocument::Builder::addSymbol</referencedby>
+        <referencedby refid="class_index_1a5837c1f93d2f053f686a2056533af55a" compoundref="_index_8cpp" startline="387" endline="390">Index::isRecordBefore</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_symbol_record_1a4651689f905e2c60d53b6d2c41800203" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t SymbolDocument::SymbolRecord::nameLength</definition>
+        <argsstring></argsstring>
+        <name>nameLength</name>
+        <qualifiedname>SymbolDocument::SymbolRecord::nameLength</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Byte length of the symbol name at this location. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="141" column="17" bodyfile="SymbolDocument.h" bodystart="141" bodyend="141"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1ac4353fd209e4a4a8a4932ea36215fda7" compoundref="_symbol_document_8cpp" startline="131" endline="151">SymbolDocument::Builder::addSymbol</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_symbol_record_1a9e587fac690bd9a8b7dab7bf1ca8be80" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t SymbolDocument::SymbolRecord::role</definition>
+        <argsstring></argsstring>
+        <name>role</name>
+        <qualifiedname>SymbolDocument::SymbolRecord::role</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Bitmask of <ref refid="structjam_1_1LanguageRole" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageRole</ref> flags for this occurrence. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="142" column="17" bodyfile="SymbolDocument.h" bodystart="142" bodyend="142"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1ac4353fd209e4a4a8a4932ea36215fda7" compoundref="_symbol_document_8cpp" startline="131" endline="151">SymbolDocument::Builder::addSymbol</referencedby>
+        <referencedby refid="class_query_1a274081916912f104cac7113c72e8a1b3" compoundref="_query_8h" startline="721" endline="744">Query::applyToDerivedFrom</referencedby>
+        <referencedby refid="class_query_1a6be8d158cd564f0019757e508702795b" compoundref="_query_8cpp" startline="771" endline="827">Query::typeDefinition</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_symbol_record_1af0c60f99415ccfa3e5f0c88ea59271f7" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t SymbolDocument::SymbolRecord::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <qualifiedname>SymbolDocument::SymbolRecord::type</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Token type (<ref refid="structmap_1_1SyntaxTokenType" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">map::SyntaxTokenType</ref>) of the symbol. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="143" column="17" bodyfile="SymbolDocument.h" bodystart="143" bodyend="143"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1ac4353fd209e4a4a8a4932ea36215fda7" compoundref="_symbol_document_8cpp" startline="131" endline="151">SymbolDocument::Builder::addSymbol</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_symbol_record_1a0c3ef9cfb17bf2ee6e8dadd17a475143" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t SymbolDocument::SymbolRecord::hover</definition>
+        <argsstring></argsstring>
+        <name>hover</name>
+        <qualifiedname>SymbolDocument::SymbolRecord::hover</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para><ref refid="class_index" kindref="compound">Index</ref> into the file&apos;s <ref refid="struct_symbol_document_1_1_hover_entry" kindref="compound">HoverEntry</ref> slice, or <ref refid="structjam_1_1LanguageCallbacks_1a41f0bf20e8cafe5a5f3e02c8be9355b4" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageCallbacks::noHover</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="144" column="17" bodyfile="SymbolDocument.h" bodystart="144" bodyend="144"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1ac4353fd209e4a4a8a4932ea36215fda7" compoundref="_symbol_document_8cpp" startline="131" endline="151">SymbolDocument::Builder::addSymbol</referencedby>
+        <referencedby refid="class_query_1adf9f19baf3d11420d442548886f453a7" compoundref="_query_8cpp" startline="406" endline="479">Query::hover</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_symbol_record_1a10efa1f9d41d12eb31c8b4dd20ef0e18" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::SymbolRecord::typeSymbolsStart</definition>
+        <argsstring></argsstring>
+        <name>typeSymbolsStart</name>
+        <qualifiedname>SymbolDocument::SymbolRecord::typeSymbolsStart</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Start index in the type-symbols table. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="145" column="18" bodyfile="SymbolDocument.h" bodystart="145" bodyend="145"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1ac4353fd209e4a4a8a4932ea36215fda7" compoundref="_symbol_document_8cpp" startline="131" endline="151">SymbolDocument::Builder::addSymbol</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_symbol_record_1a3b2b7fdf0f3f200db974d385ae91968d" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::SymbolRecord::typeSymbolsCount</definition>
+        <argsstring></argsstring>
+        <name>typeSymbolsCount</name>
+        <qualifiedname>SymbolDocument::SymbolRecord::typeSymbolsCount</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Number of associated type symbol identifiers. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="146" column="18" bodyfile="SymbolDocument.h" bodystart="146" bodyend="146"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1ac4353fd209e4a4a8a4932ea36215fda7" compoundref="_symbol_document_8cpp" startline="131" endline="151">SymbolDocument::Builder::addSymbol</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>One indexed symbol occurrence at a 1-based line and column. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="SymbolDocument.h" line="136" column="5" bodyfile="SymbolDocument.h" bodystart="137" bodyend="147"/>
+    <listofallmembers>
+      <member refid="struct_symbol_document_1_1_symbol_record_1a23f80aa4ab77331e0b1ab7c731c1a091" prot="public" virt="non-virtual"><scope>SymbolDocument::SymbolRecord</scope><name>column</name></member>
+      <member refid="struct_symbol_document_1_1_symbol_record_1a0c3ef9cfb17bf2ee6e8dadd17a475143" prot="public" virt="non-virtual"><scope>SymbolDocument::SymbolRecord</scope><name>hover</name></member>
+      <member refid="struct_symbol_document_1_1_symbol_record_1a4e9b806e44148a09ed9f03a4f66ab813" prot="public" virt="non-virtual"><scope>SymbolDocument::SymbolRecord</scope><name>line</name></member>
+      <member refid="struct_symbol_document_1_1_symbol_record_1a4651689f905e2c60d53b6d2c41800203" prot="public" virt="non-virtual"><scope>SymbolDocument::SymbolRecord</scope><name>nameLength</name></member>
+      <member refid="struct_symbol_document_1_1_symbol_record_1a9e587fac690bd9a8b7dab7bf1ca8be80" prot="public" virt="non-virtual"><scope>SymbolDocument::SymbolRecord</scope><name>role</name></member>
+      <member refid="struct_symbol_document_1_1_symbol_record_1a51241e1e42267efbf017dbbdaf863741" prot="public" virt="non-virtual"><scope>SymbolDocument::SymbolRecord</scope><name>symbol</name></member>
+      <member refid="struct_symbol_document_1_1_symbol_record_1af0c60f99415ccfa3e5f0c88ea59271f7" prot="public" virt="non-virtual"><scope>SymbolDocument::SymbolRecord</scope><name>type</name></member>
+      <member refid="struct_symbol_document_1_1_symbol_record_1a3b2b7fdf0f3f200db974d385ae91968d" prot="public" virt="non-virtual"><scope>SymbolDocument::SymbolRecord</scope><name>typeSymbolsCount</name></member>
+      <member refid="struct_symbol_document_1_1_symbol_record_1a10efa1f9d41d12eb31c8b4dd20ef0e18" prot="public" virt="non-virtual"><scope>SymbolDocument::SymbolRecord</scope><name>typeSymbolsStart</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

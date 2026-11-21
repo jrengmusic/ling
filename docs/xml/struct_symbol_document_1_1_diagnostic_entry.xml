@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="struct_symbol_document_1_1_diagnostic_entry" kind="struct" language="C++" prot="public">
+    <compoundname>SymbolDocument::DiagnosticEntry</compoundname>
+    <includes refid="_symbol_document_8h" local="no">SymbolDocument.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_symbol_document_1_1_diagnostic_entry_1af59faacd245a9b5ebd5879bf604923d5" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t SymbolDocument::DiagnosticEntry::line</definition>
+        <argsstring></argsstring>
+        <name>line</name>
+        <qualifiedname>SymbolDocument::DiagnosticEntry::line</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>1-based start line of the diagnostic span. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="203" column="17" bodyfile="SymbolDocument.h" bodystart="203" bodyend="203"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1ac1f0a023178ab39f2d967f19364ae10d" compoundref="_symbol_document_8cpp" startline="190" endline="204">SymbolDocument::Builder::addDiagnostic</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_diagnostic_entry_1aabac91337031444fa11e817f7c487cd3" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t SymbolDocument::DiagnosticEntry::column</definition>
+        <argsstring></argsstring>
+        <name>column</name>
+        <qualifiedname>SymbolDocument::DiagnosticEntry::column</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>1-based start column of the diagnostic span. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="204" column="17" bodyfile="SymbolDocument.h" bodystart="204" bodyend="204"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1ac1f0a023178ab39f2d967f19364ae10d" compoundref="_symbol_document_8cpp" startline="190" endline="204">SymbolDocument::Builder::addDiagnostic</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_diagnostic_entry_1a1b9f82ea3a5d077367a4baa839bc78de" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t SymbolDocument::DiagnosticEntry::endLine</definition>
+        <argsstring></argsstring>
+        <name>endLine</name>
+        <qualifiedname>SymbolDocument::DiagnosticEntry::endLine</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>1-based end line of the diagnostic span. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="205" column="17" bodyfile="SymbolDocument.h" bodystart="205" bodyend="205"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1ac1f0a023178ab39f2d967f19364ae10d" compoundref="_symbol_document_8cpp" startline="190" endline="204">SymbolDocument::Builder::addDiagnostic</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_diagnostic_entry_1a8856a049f4b9ec8a3b7699f1898e6b0e" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t SymbolDocument::DiagnosticEntry::endColumn</definition>
+        <argsstring></argsstring>
+        <name>endColumn</name>
+        <qualifiedname>SymbolDocument::DiagnosticEntry::endColumn</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>1-based end column of the diagnostic span. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="206" column="17" bodyfile="SymbolDocument.h" bodystart="206" bodyend="206"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1ac1f0a023178ab39f2d967f19364ae10d" compoundref="_symbol_document_8cpp" startline="190" endline="204">SymbolDocument::Builder::addDiagnostic</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_diagnostic_entry_1a33ec9a313698a1376cba7c4d38f3f9de" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t SymbolDocument::DiagnosticEntry::severity</definition>
+        <argsstring></argsstring>
+        <name>severity</name>
+        <qualifiedname>SymbolDocument::DiagnosticEntry::severity</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>LSP diagnostic severity level. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="207" column="17" bodyfile="SymbolDocument.h" bodystart="207" bodyend="207"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1ac1f0a023178ab39f2d967f19364ae10d" compoundref="_symbol_document_8cpp" startline="190" endline="204">SymbolDocument::Builder::addDiagnostic</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_diagnostic_entry_1a38f4f2897ed3af4165f63f71b49f2223" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::DiagnosticEntry::messageOffset</definition>
+        <argsstring></argsstring>
+        <name>messageOffset</name>
+        <qualifiedname>SymbolDocument::DiagnosticEntry::messageOffset</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Byte offset of the diagnostic text in the string pool. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="208" column="18" bodyfile="SymbolDocument.h" bodystart="208" bodyend="208"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1ac1f0a023178ab39f2d967f19364ae10d" compoundref="_symbol_document_8cpp" startline="190" endline="204">SymbolDocument::Builder::addDiagnostic</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_diagnostic_entry_1a2fac00d9272b32443b58bfeb35c77715" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::DiagnosticEntry::messageLength</definition>
+        <argsstring></argsstring>
+        <name>messageLength</name>
+        <qualifiedname>SymbolDocument::DiagnosticEntry::messageLength</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Byte length of the diagnostic text. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="209" column="18" bodyfile="SymbolDocument.h" bodystart="209" bodyend="209"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1ac1f0a023178ab39f2d967f19364ae10d" compoundref="_symbol_document_8cpp" startline="190" endline="204">SymbolDocument::Builder::addDiagnostic</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_diagnostic_entry_1a1f79b2cd5ea8b0bea53e5dc74d5fdd53" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::DiagnosticEntry::padding</definition>
+        <argsstring></argsstring>
+        <name>padding</name>
+        <qualifiedname>SymbolDocument::DiagnosticEntry::padding</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Alignment padding to 4-byte record boundary. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="210" column="18" bodyfile="SymbolDocument.h" bodystart="210" bodyend="210"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>One compiler diagnostic span and message for a source file. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="SymbolDocument.h" line="201" column="5" bodyfile="SymbolDocument.h" bodystart="202" bodyend="211"/>
+    <listofallmembers>
+      <member refid="struct_symbol_document_1_1_diagnostic_entry_1aabac91337031444fa11e817f7c487cd3" prot="public" virt="non-virtual"><scope>SymbolDocument::DiagnosticEntry</scope><name>column</name></member>
+      <member refid="struct_symbol_document_1_1_diagnostic_entry_1a8856a049f4b9ec8a3b7699f1898e6b0e" prot="public" virt="non-virtual"><scope>SymbolDocument::DiagnosticEntry</scope><name>endColumn</name></member>
+      <member refid="struct_symbol_document_1_1_diagnostic_entry_1a1b9f82ea3a5d077367a4baa839bc78de" prot="public" virt="non-virtual"><scope>SymbolDocument::DiagnosticEntry</scope><name>endLine</name></member>
+      <member refid="struct_symbol_document_1_1_diagnostic_entry_1af59faacd245a9b5ebd5879bf604923d5" prot="public" virt="non-virtual"><scope>SymbolDocument::DiagnosticEntry</scope><name>line</name></member>
+      <member refid="struct_symbol_document_1_1_diagnostic_entry_1a2fac00d9272b32443b58bfeb35c77715" prot="public" virt="non-virtual"><scope>SymbolDocument::DiagnosticEntry</scope><name>messageLength</name></member>
+      <member refid="struct_symbol_document_1_1_diagnostic_entry_1a38f4f2897ed3af4165f63f71b49f2223" prot="public" virt="non-virtual"><scope>SymbolDocument::DiagnosticEntry</scope><name>messageOffset</name></member>
+      <member refid="struct_symbol_document_1_1_diagnostic_entry_1a1f79b2cd5ea8b0bea53e5dc74d5fdd53" prot="public" virt="non-virtual"><scope>SymbolDocument::DiagnosticEntry</scope><name>padding</name></member>
+      <member refid="struct_symbol_document_1_1_diagnostic_entry_1a33ec9a313698a1376cba7c4d38f3f9de" prot="public" virt="non-virtual"><scope>SymbolDocument::DiagnosticEntry</scope><name>severity</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="structlsp_1_1_work_done_progress_kind" kind="struct" language="C++" prot="public">
+    <compoundname>lsp::WorkDoneProgressKind</compoundname>
+    <includes refid="_lsp_8h" local="no">Lsp.h</includes>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="structlsp_1_1_work_done_progress_kind_1a11df04fdb700bcfe05939679e2a0b6ca" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::WorkDoneProgressKind::Begin</definition>
+        <argsstring></argsstring>
+        <name>Begin</name>
+        <qualifiedname>lsp::WorkDoneProgressKind::Begin</qualifiedname>
+        <initializer>{ &quot;begin&quot;  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="148" column="39" bodyfile="generated/Lsp.h" bodystart="148" bodyend="148"/>
+        <referencedby refid="class_server_1aece7f9ddae369cfc938b0504dd93bb0e" compoundref="_server_8cpp" startline="145" endline="204">Server::getProgress</referencedby>
+        <referencedby refid="class_server_1aa575c0d8d384a8177425d5cd25ea50d0" compoundref="_server_8cpp" startline="84" endline="121">Server::valueTreeChildAdded</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_work_done_progress_kind_1a25e72cc08d49fd24ac72da384efa9e1c" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::WorkDoneProgressKind::Report</definition>
+        <argsstring></argsstring>
+        <name>Report</name>
+        <qualifiedname>lsp::WorkDoneProgressKind::Report</qualifiedname>
+        <initializer>{ &quot;report&quot; }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="149" column="39" bodyfile="generated/Lsp.h" bodystart="149" bodyend="149"/>
+        <referencedby refid="class_server_1aece7f9ddae369cfc938b0504dd93bb0e" compoundref="_server_8cpp" startline="145" endline="204">Server::getProgress</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_work_done_progress_kind_1ad29e2f846292bcc2c12cdbdc72783dd3" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::WorkDoneProgressKind::End</definition>
+        <argsstring></argsstring>
+        <name>End</name>
+        <qualifiedname>lsp::WorkDoneProgressKind::End</qualifiedname>
+        <initializer>{ &quot;end&quot;    }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="150" column="39" bodyfile="generated/Lsp.h" bodystart="150" bodyend="150"/>
+        <referencedby refid="class_server_1aece7f9ddae369cfc938b0504dd93bb0e" compoundref="_server_8cpp" startline="145" endline="204">Server::getProgress</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>The LSP 3.17 <ref refid="structlsp_1_1_work_done_progress_kind" kindref="compound">WorkDoneProgressKind</ref> values. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>lsp::WorkDoneProgressKind</label>
+        <link refid="structlsp_1_1_work_done_progress_kind"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Begin</edgelabel>
+          <edgelabel>End</edgelabel>
+          <edgelabel>Report</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>std::basic_string_view&lt; Char &gt;</label>
+      </node>
+      <node id="2">
+        <label>std::string_view</label>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="generated/Lsp.h" line="146" column="1" bodyfile="generated/Lsp.h" bodystart="147" bodyend="151"/>
+    <listofallmembers>
+      <member refid="structlsp_1_1_work_done_progress_kind_1a11df04fdb700bcfe05939679e2a0b6ca" prot="public" virt="non-virtual"><scope>lsp::WorkDoneProgressKind</scope><name>Begin</name></member>
+      <member refid="structlsp_1_1_work_done_progress_kind_1ad29e2f846292bcc2c12cdbdc72783dd3" prot="public" virt="non-virtual"><scope>lsp::WorkDoneProgressKind</scope><name>End</name></member>
+      <member refid="structlsp_1_1_work_done_progress_kind_1a25e72cc08d49fd24ac72da384efa9e1c" prot="public" virt="non-virtual"><scope>lsp::WorkDoneProgressKind</scope><name>Report</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -88,6 +88,7 @@
     <class kind="struct">lsp::Method</class>
     <class kind="struct">lsp::Member</class>
     <class kind="struct">lsp::MarkupType</class>
+    <class kind="struct">lsp::WorkDoneProgressKind</class>
     <class kind="struct">lsp::Message</class>
     <class kind="struct">lsp::MessageType</class>
     <class kind="struct">lsp::InsertTextFormat</class>
@@ -116,6 +117,7 @@
     <filename>_text_8h.html</filename>
     <class kind="struct">text::Diagnostics</class>
     <class kind="struct">text::CodeAction</class>
+    <class kind="struct">text::Progress</class>
   </compound>
   <compound kind="file">
     <name>Index.cpp</name>
@@ -277,6 +279,7 @@
     <includes id="_server_8h" name="Server.h" local="yes" import="no" module="no" objc="no">Server.h</includes>
     <includes id="_operation_8h" name="Operation.h" local="yes" import="no" module="no" objc="no">Operation.h</includes>
     <includes id="_relay_8h" name="Relay.h" local="yes" import="no" module="no" objc="no">Relay.h</includes>
+    <includes id="_tool_relay_8h" name="ToolRelay.h" local="yes" import="no" module="no" objc="no">ToolRelay.h</includes>
     <includes id="_manifest_8h" name="Manifest.h" local="yes" import="no" module="no" objc="no">Manifest.h</includes>
     <includes id="_schema_suite_8h" name="SchemaSuite.h" local="yes" import="no" module="no" objc="no">SchemaSuite.h</includes>
     <includes id="_stdio_client_probe_8h" name="StdioClientProbe.h" local="yes" import="no" module="no" objc="no">StdioClientProbe.h</includes>
@@ -443,25 +446,18 @@
     <includes id="_xml_language_8h" name="XmlLanguage.h" local="yes" import="no" module="no" objc="no">languages/XmlLanguage.h</includes>
     <includes id="_html_language_8h" name="HtmlLanguage.h" local="yes" import="no" module="no" objc="no">languages/HtmlLanguage.h</includes>
     <member kind="function" static="yes">
+      <type>static juce::ThreadPool::Options</type>
+      <name>getPoolOptions</name>
+      <anchorfile>_processor_8cpp.html</anchorfile>
+      <anchor>ae602dbd4d90d7f9996d4d5198829f57e</anchor>
+      <arglist>(int threadCount)</arglist>
+    </member>
+    <member kind="function" static="yes">
       <type>static std::shared_ptr&lt; const Language &gt;</type>
       <name>getBuiltInLanguage</name>
       <anchorfile>_processor_8cpp.html</anchorfile>
       <anchor>adecc84fb8f07b0cbf714bc23a39fd5af</anchor>
       <arglist>(const juce::String &amp;extension)</arglist>
-    </member>
-    <member kind="function" static="yes">
-      <type>static void</type>
-      <name>removeDuplicateTokens</name>
-      <anchorfile>_processor_8cpp.html</anchorfile>
-      <anchor>a9312807d77926b02add39dd4c0c9a933</anchor>
-      <arglist>(jam::Document::Tokens &amp;tokens, const GetKey &amp;getKey)</arglist>
-    </member>
-    <member kind="function" static="yes">
-      <type>static void</type>
-      <name>sortFileTokens</name>
-      <anchorfile>_processor_8cpp.html</anchorfile>
-      <anchor>a950c3ce6c72c19e54ee4fa44f206c10b</anchor>
-      <arglist>(jam::Document::Element &amp;fileElement)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -477,7 +473,6 @@
     <class kind="struct">Processor::ParseJob</class>
     <class kind="struct">Processor::IndexJob</class>
     <class kind="struct">Processor::UnitsJob</class>
-    <class kind="struct">Processor::FormatJob</class>
   </compound>
   <compound kind="file">
     <name>Query.cpp</name>
@@ -580,7 +575,6 @@
     <path></path>
     <filename>_swap_validator_8cpp.html</filename>
     <includes id="_swap_validator_8h" name="SwapValidator.h" local="yes" import="no" module="no" objc="no">SwapValidator.h</includes>
-    <includes id="_symbol_document_8h" name="SymbolDocument.h" local="yes" import="no" module="no" objc="no">SymbolDocument.h</includes>
   </compound>
   <compound kind="file">
     <name>SwapValidator.h</name>
@@ -594,13 +588,89 @@
     <path></path>
     <filename>_symbol_document_8cpp.html</filename>
     <includes id="_symbol_document_8h" name="SymbolDocument.h" local="yes" import="no" module="no" objc="no">SymbolDocument.h</includes>
+    <member kind="function" static="yes">
+      <type>static constexpr uint64_t</type>
+      <name>alignOffset</name>
+      <anchorfile>_symbol_document_8cpp.html</anchorfile>
+      <anchor>ae38ed5809060fe724c41b4539db3e4f9</anchor>
+      <arglist>(uint64_t offset, uint64_t alignment) noexcept</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static bool</type>
+      <name>isSectionValid</name>
+      <anchorfile>_symbol_document_8cpp.html</anchorfile>
+      <anchor>a68b8c6234dfc6f5083026c2e1550ae41</anchor>
+      <arglist>(uint64_t offset, uint32_t count, size_t elementSize, size_t alignment, uint64_t totalBytes) noexcept</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static bool</type>
+      <name>isRangeValid</name>
+      <anchorfile>_symbol_document_8cpp.html</anchorfile>
+      <anchor>a83ccdec92c56fc172a301a3eda8a107d</anchor>
+      <arglist>(uint32_t start, uint32_t count, uint64_t limit) noexcept</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>removeDuplicateEntries</name>
+      <anchorfile>_symbol_document_8cpp.html</anchorfile>
+      <anchor>a5c37a4eccca8963756fd380b9dc18b52</anchor>
+      <arglist>(jam::Array&lt; Entry &gt; &amp;entries, const GetKey &amp;getKey)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static jam::HashMap&lt; int, jam::Array&lt; int &gt; &gt;</type>
+      <name>getOutlineChildren</name>
+      <anchorfile>_symbol_document_8cpp.html</anchorfile>
+      <anchor>a5a5699bc71446d722ccea7f7db31477e</anchor>
+      <arglist>(const jam::Array&lt; SymbolDocument::OutlineEntry &gt; &amp;outlines)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>sortOutlineEntries</name>
+      <anchorfile>_symbol_document_8cpp.html</anchorfile>
+      <anchor>a77f9c45bdb580c50346bd15659ccec6c</anchor>
+      <arglist>(jam::Array&lt; SymbolDocument::OutlineEntry &gt; &amp;outlines)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>copyArray</name>
+      <anchorfile>_symbol_document_8cpp.html</anchorfile>
+      <anchor>aca3393448490c33e548edf4e18e378db</anchor>
+      <arglist>(uint8_t *destination, uint64_t &amp;offset, const jam::Array&lt; Entry &gt; &amp;entries)</arglist>
+    </member>
   </compound>
   <compound kind="file">
     <name>SymbolDocument.h</name>
     <path></path>
     <filename>_symbol_document_8h.html</filename>
     <includes id="_generated_8h" name="Generated.h" local="yes" import="no" module="no" objc="no">generated/Generated.h</includes>
-    <class kind="struct">SymbolDocument</class>
+    <class kind="class">SymbolDocument</class>
+    <class kind="struct">SymbolDocument::Span</class>
+    <class kind="struct">SymbolDocument::Header</class>
+    <class kind="struct">SymbolDocument::FileEntry</class>
+    <class kind="struct">SymbolDocument::SymbolRecord</class>
+    <class kind="struct">SymbolDocument::CompletionRecord</class>
+    <class kind="struct">SymbolDocument::HoverEntry</class>
+    <class kind="struct">SymbolDocument::InlayHintEntry</class>
+    <class kind="struct">SymbolDocument::DiagnosticEntry</class>
+    <class kind="struct">SymbolDocument::OutlineEntry</class>
+    <class kind="struct">SymbolDocument::FixItEntry</class>
+    <class kind="class">SymbolDocument::Builder</class>
+    <class kind="struct">SymbolDocument::Builder::FileBuilder</class>
+    <class kind="struct">SymbolDocument::Access</class>
+  </compound>
+  <compound kind="file">
+    <name>ToolRelay.cpp</name>
+    <path></path>
+    <filename>_tool_relay_8cpp.html</filename>
+    <includes id="_tool_relay_8h" name="ToolRelay.h" local="yes" import="no" module="no" objc="no">ToolRelay.h</includes>
+  </compound>
+  <compound kind="file">
+    <name>ToolRelay.h</name>
+    <path></path>
+    <filename>_tool_relay_8h.html</filename>
+    <includes id="_client_8h" name="Client.h" local="yes" import="no" module="no" objc="no">Client.h</includes>
+    <includes id="_query_8h" name="Query.h" local="yes" import="no" module="no" objc="no">Query.h</includes>
+    <class kind="class">ToolRelay</class>
   </compound>
   <compound kind="file">
     <name>Validator.cpp</name>
@@ -614,6 +684,10 @@
     <filename>_validator_8h.html</filename>
     <includes id="_generated_8h" name="Generated.h" local="yes" import="no" module="no" objc="no">generated/Generated.h</includes>
     <class kind="struct">Validator</class>
+  </compound>
+  <compound kind="struct">
+    <name>SymbolDocument::Access</name>
+    <filename>struct_symbol_document_1_1_access.html</filename>
   </compound>
   <compound kind="class">
     <name>Application</name>
@@ -720,6 +794,13 @@
     </member>
     <member kind="function" protection="private">
       <type>void</type>
+      <name>runToolRelay</name>
+      <anchorfile>class_application.html</anchorfile>
+      <anchor>a69cb66bee3f6b8fbc583f3a62914130b</anchor>
+      <arglist>(const juce::ArgumentList &amp;arguments)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
       <name>runManifest</name>
       <anchorfile>class_application.html</anchorfile>
       <anchor>a3c8dc9b46966a8ec09fdea562ea98c40</anchor>
@@ -802,6 +883,144 @@
       <anchor>abd9aec6c0e93fc92ea315f9d5b85da0c</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable" protection="private">
+      <type>std::unique_ptr&lt; ToolRelay &gt;</type>
+      <name>toolRelay</name>
+      <anchorfile>class_application.html</anchorfile>
+      <anchor>a312fb8c3fe79d17d6e56df1db290c752</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>SymbolDocument::Builder</name>
+    <filename>class_symbol_document_1_1_builder.html</filename>
+    <class kind="struct">SymbolDocument::Builder::FileBuilder</class>
+    <member kind="function">
+      <type>int</type>
+      <name>getOrCreateFile</name>
+      <anchorfile>class_symbol_document_1_1_builder.html</anchorfile>
+      <anchor>a69dbcd989fa1c2b7d521101c268ed9cb</anchor>
+      <arglist>(std::string_view path)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>addSymbol</name>
+      <anchorfile>class_symbol_document_1_1_builder.html</anchorfile>
+      <anchor>ac4353fd209e4a4a8a4932ea36215fda7</anchor>
+      <arglist>(int fileIndex, int64_t symbol, int32_t line, int32_t column, int32_t nameLength, int32_t role, int32_t type, int32_t hover, const unsigned long long *newTypeSymbols, int typeCount)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>addHover</name>
+      <anchorfile>class_symbol_document_1_1_builder.html</anchorfile>
+      <anchor>a65b60de78ff24eee90d0ced66ed7b1c5</anchor>
+      <arglist>(int fileIndex, std::string_view text, std::string_view definitionPath, int32_t line, int32_t column, int32_t endLine, int32_t endColumn)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>addInlayHint</name>
+      <anchorfile>class_symbol_document_1_1_builder.html</anchorfile>
+      <anchor>a93dac92124208831677f31423d5bee28</anchor>
+      <arglist>(int fileIndex, int32_t line, int32_t column, std::string_view label, int32_t type, bool paddingLeft, bool paddingRight)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>addDiagnostic</name>
+      <anchorfile>class_symbol_document_1_1_builder.html</anchorfile>
+      <anchor>ac1f0a023178ab39f2d967f19364ae10d</anchor>
+      <arglist>(int fileIndex, int32_t line, int32_t column, int32_t endLine, int32_t endColumn, int32_t severity, std::string_view message)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>addOutline</name>
+      <anchorfile>class_symbol_document_1_1_builder.html</anchorfile>
+      <anchor>a480e5fb8d4dad25e3617ae5fc627e01c</anchor>
+      <arglist>(int fileIndex, int32_t line, int32_t column, int32_t endLine, int32_t endColumn, int32_t nameLength, int32_t qualifierLength, int32_t type, int32_t parent)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>addCompletion</name>
+      <anchorfile>class_symbol_document_1_1_builder.html</anchorfile>
+      <anchor>adde8e236b020f2ac2272652b48fea2b9</anchor>
+      <arglist>(int fileIndex, int64_t scopeSymbol, int64_t symbol, std::string_view label, std::string_view snippet, int32_t type)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>addFixIt</name>
+      <anchorfile>class_symbol_document_1_1_builder.html</anchorfile>
+      <anchor>a33262f598987946a90b60043c260751b</anchor>
+      <arglist>(int fileIndex, int32_t line, int32_t column, int32_t endLine, int32_t endColumn, std::string_view text)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>sortAndDeduplicate</name>
+      <anchorfile>class_symbol_document_1_1_builder.html</anchorfile>
+      <anchor>a582e6a33c6d08b73b75081d73d877577</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>std::unique_ptr&lt; SymbolDocument &gt;</type>
+      <name>buildToSwap</name>
+      <anchorfile>class_symbol_document_1_1_builder.html</anchorfile>
+      <anchor>a21460171b97dba1d6fcf8dbd05328b18</anchor>
+      <arglist>(const juce::File &amp;swapFile, juce::int64 hash, juce::int64 languageHash, int family) const</arglist>
+    </member>
+    <member kind="function">
+      <type>std::unique_ptr&lt; SymbolDocument &gt;</type>
+      <name>buildInMemory</name>
+      <anchorfile>class_symbol_document_1_1_builder.html</anchorfile>
+      <anchor>ad1a1d53b04b41676ac3ae2f57f7a0ee8</anchor>
+      <arglist>(juce::int64 hash, juce::int64 languageHash, int family) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>std::pair&lt; uint32_t, uint32_t &gt;</type>
+      <name>addString</name>
+      <anchorfile>class_symbol_document_1_1_builder.html</anchorfile>
+      <anchor>a5713595af80e4af9d39434cabe39b629</anchor>
+      <arglist>(std::string_view text)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>std::string_view</type>
+      <name>getString</name>
+      <anchorfile>class_symbol_document_1_1_builder.html</anchorfile>
+      <anchor>a3964cd694db39abc49d9f6174ea98ca6</anchor>
+      <arglist>(uint32_t offset, uint32_t length) const noexcept</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>juce::MemoryBlock</type>
+      <name>serialize</name>
+      <anchorfile>class_symbol_document_1_1_builder.html</anchorfile>
+      <anchor>acf3df5b164b6c9cc2e931690b2e1b9b3</anchor>
+      <arglist>(juce::int64 hash, juce::int64 languageHash, int family) const</arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>jam::Array&lt; FileBuilder &gt;</type>
+      <name>files</name>
+      <anchorfile>class_symbol_document_1_1_builder.html</anchorfile>
+      <anchor>a69619d3fd582e28fe9793f938ad30d6e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>jam::Array&lt; int64_t &gt;</type>
+      <name>typeSymbols</name>
+      <anchorfile>class_symbol_document_1_1_builder.html</anchorfile>
+      <anchor>ab1dbf03d3458ea42dd02aa6c4d80dcbe</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::string</type>
+      <name>stringPool</name>
+      <anchorfile>class_symbol_document_1_1_builder.html</anchorfile>
+      <anchor>a96a76cf257ae5de0740b7e739e32ffc4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>jam::HashMap&lt; std::string, int &gt;</type>
+      <name>pathIndices</name>
+      <anchorfile>class_symbol_document_1_1_builder.html</anchorfile>
+      <anchor>a090aa76316b2a94a6d4f7b5fbc0265d6</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>BuiltInLanguage</name>
@@ -845,10 +1064,10 @@
       <arglist>(const char *const *arguments, const int *argumentCounts, int rowCount, const char *directory, const char *, const jam::LanguageCallbacks &amp;callbacks) const override</arglist>
     </member>
     <member kind="function">
-      <type>juce::StringArray</type>
+      <type>jam::Strings</type>
       <name>getCounterparts</name>
       <anchorfile>class_built_in_language.html</anchorfile>
-      <anchor>ae0991e08e6c835ece15cee017dc95fa9</anchor>
+      <anchor>ab9171cafdadc32ff128bcab36156b625</anchor>
       <arglist>(const juce::String &amp;) const override</arglist>
     </member>
     <member kind="function">
@@ -857,13 +1076,6 @@
       <anchorfile>class_built_in_language.html</anchorfile>
       <anchor>a496cd39d0c2ab8fd1626a6454a3bc714</anchor>
       <arglist>(const jam::Document &amp;document, const juce::String &amp;path) const override</arglist>
-    </member>
-    <member kind="function">
-      <type>juce::String</type>
-      <name>format</name>
-      <anchorfile>class_built_in_language.html</anchorfile>
-      <anchor>a50121457ed6568de89c611beed1f55bb</anchor>
-      <arglist>(std::string_view text, const juce::String &amp;) const override</arglist>
     </member>
     <member kind="function">
       <type>bool</type>
@@ -895,9 +1107,9 @@
     </member>
     <member kind="function">
       <type>int</type>
-      <name>getCompletionKind</name>
+      <name>getCompletionType</name>
       <anchorfile>class_built_in_language.html</anchorfile>
-      <anchor>a42553c1c187d0531aa6415cab8dccae0</anchor>
+      <anchor>a4333998289e0e9b21c0b422118f4a2f9</anchor>
       <arglist>(int) const override</arglist>
     </member>
     <member kind="function" protection="protected">
@@ -932,22 +1144,22 @@
       <type>void</type>
       <name>addRecords</name>
       <anchorfile>class_built_in_language.html</anchorfile>
-      <anchor>a854fb2343326f6c8a80add14f0a41d84</anchor>
-      <arglist>(SymbolDocument &amp;symbols, jam::Document::Element &amp;file, const jam::Document &amp;document, const jam::Document::Element &amp;element, const juce::File &amp;source) const</arglist>
+      <anchor>aa10d62c0ee79fbb2a93559083440b7c1</anchor>
+      <arglist>(SymbolDocument::Builder &amp;builder, int fileIndex, const jam::Document &amp;document, const jam::Document::Element &amp;element, const juce::File &amp;source) const</arglist>
     </member>
     <member kind="function" protection="private">
       <type>void</type>
       <name>addOutlines</name>
       <anchorfile>class_built_in_language.html</anchorfile>
-      <anchor>aef27de14b0a8325ecf50a085219f2c08</anchor>
-      <arglist>(jam::Document::Element &amp;file, const jam::Document &amp;document, const std::vector&lt; const jam::Document::Element * &gt; &amp;declarations) const</arglist>
+      <anchor>a0ba607b3f35632693f7506f09beb96c0</anchor>
+      <arglist>(SymbolDocument::Builder &amp;builder, int fileIndex, const jam::Document &amp;document, const jam::Array&lt; const jam::Document::Element * &gt; &amp;declarations) const</arglist>
     </member>
     <member kind="function" protection="private">
-      <type>jam::Document::Token</type>
-      <name>getOutline</name>
+      <type>void</type>
+      <name>addOutline</name>
       <anchorfile>class_built_in_language.html</anchorfile>
-      <anchor>a38b1561cd2708c56ae5ee489e41b992c</anchor>
-      <arglist>(const jam::Document &amp;document, const jam::Document::Element &amp;element, const std::vector&lt; const jam::Document::Element * &gt; &amp;declarations) const</arglist>
+      <anchor>ae95ee532859c01b62bc306f962b92a51</anchor>
+      <arglist>(SymbolDocument::Builder &amp;builder, int fileIndex, const jam::Document &amp;document, const jam::Document::Element &amp;element, const jam::HashMap&lt; const jam::Document::Element *, int &gt; &amp;declarationIndices) const</arglist>
     </member>
     <member kind="function" protection="private" static="yes">
       <type>static const Elements &amp;</type>
@@ -981,8 +1193,8 @@
       <type>static int</type>
       <name>getParentIndex</name>
       <anchorfile>class_built_in_language.html</anchorfile>
-      <anchor>a0ce07b35a1cfdd1d2dc3b51c7d3f5929</anchor>
-      <arglist>(const jam::Document::Element &amp;element, const std::vector&lt; const jam::Document::Element * &gt; &amp;declarations)</arglist>
+      <anchor>a3f8a34f0e97dc8ec59545d4550482232</anchor>
+      <arglist>(const jam::Document::Element &amp;element, const jam::HashMap&lt; const jam::Document::Element *, int &gt; &amp;declarationIndices)</arglist>
     </member>
     <member kind="variable" protection="private">
       <type>const juce::String</type>
@@ -1079,13 +1291,6 @@
       <name>watcher</name>
       <anchorfile>class_client.html</anchorfile>
       <anchor>a5d2b39ff4446a3ff048057293c9e5bb7</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private" static="yes">
-      <type>static constexpr int</type>
-      <name>connectTimeoutMs</name>
-      <anchorfile>class_client.html</anchorfile>
-      <anchor>a61d2ac7e18277691aa73738a51ed7b89</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -1290,6 +1495,66 @@
       <arglist></arglist>
     </member>
   </compound>
+  <compound kind="struct">
+    <name>SymbolDocument::CompletionRecord</name>
+    <filename>struct_symbol_document_1_1_completion_record.html</filename>
+    <member kind="variable">
+      <type>int64_t</type>
+      <name>scope</name>
+      <anchorfile>struct_symbol_document_1_1_completion_record.html</anchorfile>
+      <anchor>a3441bf5c3fa4376a1fbdfe4338cc5769</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int64_t</type>
+      <name>symbol</name>
+      <anchorfile>struct_symbol_document_1_1_completion_record.html</anchorfile>
+      <anchor>a844aae10d8f8329e6272b3f2b9093974</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>labelOffset</name>
+      <anchorfile>struct_symbol_document_1_1_completion_record.html</anchorfile>
+      <anchor>a0a50c7339f4cf1c1810c58243c7b8e93</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>labelLength</name>
+      <anchorfile>struct_symbol_document_1_1_completion_record.html</anchorfile>
+      <anchor>a1f2e3d9ee04395985104a1cda8f8f588</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>snippetOffset</name>
+      <anchorfile>struct_symbol_document_1_1_completion_record.html</anchorfile>
+      <anchor>a315029f41df09105725cd6b14dc41669</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>snippetLength</name>
+      <anchorfile>struct_symbol_document_1_1_completion_record.html</anchorfile>
+      <anchor>ae3f6d9f5b2aec661c6c9ff10f14c2a9f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>type</name>
+      <anchorfile>struct_symbol_document_1_1_completion_record.html</anchorfile>
+      <anchor>aa46722128ba629213220e04581ce51f9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>padding</name>
+      <anchorfile>struct_symbol_document_1_1_completion_record.html</anchorfile>
+      <anchor>af6aafed340a21fa9910aa47b3dac4711</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
   <compound kind="class">
     <name>Connection</name>
     <filename>class_connection.html</filename>
@@ -1391,6 +1656,66 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>SymbolDocument::DiagnosticEntry</name>
+    <filename>struct_symbol_document_1_1_diagnostic_entry.html</filename>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>line</name>
+      <anchorfile>struct_symbol_document_1_1_diagnostic_entry.html</anchorfile>
+      <anchor>af59faacd245a9b5ebd5879bf604923d5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>column</name>
+      <anchorfile>struct_symbol_document_1_1_diagnostic_entry.html</anchorfile>
+      <anchor>aabac91337031444fa11e817f7c487cd3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>endLine</name>
+      <anchorfile>struct_symbol_document_1_1_diagnostic_entry.html</anchorfile>
+      <anchor>a1b9f82ea3a5d077367a4baa839bc78de</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>endColumn</name>
+      <anchorfile>struct_symbol_document_1_1_diagnostic_entry.html</anchorfile>
+      <anchor>a8856a049f4b9ec8a3b7699f1898e6b0e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>severity</name>
+      <anchorfile>struct_symbol_document_1_1_diagnostic_entry.html</anchorfile>
+      <anchor>a33ec9a313698a1376cba7c4d38f3f9de</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>messageOffset</name>
+      <anchorfile>struct_symbol_document_1_1_diagnostic_entry.html</anchorfile>
+      <anchor>a38f4f2897ed3af4165f63f71b49f2223</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>messageLength</name>
+      <anchorfile>struct_symbol_document_1_1_diagnostic_entry.html</anchorfile>
+      <anchor>a2fac00d9272b32443b58bfeb35c77715</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>padding</name>
+      <anchorfile>struct_symbol_document_1_1_diagnostic_entry.html</anchorfile>
+      <anchor>a1f79b2cd5ea8b0bea53e5dc74d5fdd53</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>text::Diagnostics</name>
     <filename>structtext_1_1_diagnostics.html</filename>
     <member kind="variable" static="yes">
@@ -1405,13 +1730,6 @@
       <name>failFlagUnknown</name>
       <anchorfile>structtext_1_1_diagnostics.html</anchorfile>
       <anchor>a54030ad642dee1157d22d8255503812d</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" static="yes">
-      <type>static constexpr const char *const</type>
-      <name>failNoUnit</name>
-      <anchorfile>structtext_1_1_diagnostics.html</anchorfile>
-      <anchor>a5860abb386798bd8f94149ffa570bc34</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" static="yes">
@@ -1638,70 +1956,561 @@
     </member>
   </compound>
   <compound kind="struct">
-    <name>Processor::FormatJob</name>
-    <filename>struct_processor_1_1_format_job.html</filename>
-    <base>juce::ThreadPoolJob</base>
-    <member kind="function">
-      <type></type>
-      <name>FormatJob</name>
-      <anchorfile>struct_processor_1_1_format_job.html</anchorfile>
-      <anchor>a8e230c619f64aab8a7d157620a1a3c25</anchor>
-      <arglist>(Processor &amp;ownerToUse, const juce::ValueTree &amp;requestToUse, juce::String &amp;&amp;textToUse, const juce::String &amp;pathToUse, std::shared_ptr&lt; const Language &gt; languageToUse)</arglist>
-    </member>
-    <member kind="function">
-      <type>JobStatus</type>
-      <name>runJob</name>
-      <anchorfile>struct_processor_1_1_format_job.html</anchorfile>
-      <anchor>ab231a594ac648ca8daaed8e09477d072</anchor>
-      <arglist>() override</arglist>
-    </member>
+    <name>SymbolDocument::Builder::FileBuilder</name>
+    <filename>struct_symbol_document_1_1_builder_1_1_file_builder.html</filename>
     <member kind="variable">
-      <type>Processor &amp;</type>
-      <name>owner</name>
-      <anchorfile>struct_processor_1_1_format_job.html</anchorfile>
-      <anchor>addd2fa09daf6bea42c0a2610844012fd</anchor>
+      <type>uint32_t</type>
+      <name>pathOffset</name>
+      <anchorfile>struct_symbol_document_1_1_builder_1_1_file_builder.html</anchorfile>
+      <anchor>a6a0b0cf0ae5401cc0c5eeed77763520b</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>juce::ValueTree</type>
-      <name>request</name>
-      <anchorfile>struct_processor_1_1_format_job.html</anchorfile>
-      <anchor>ac9cec01966d9e7d9b1053261654345a2</anchor>
+      <type>uint32_t</type>
+      <name>pathLength</name>
+      <anchorfile>struct_symbol_document_1_1_builder_1_1_file_builder.html</anchorfile>
+      <anchor>ab3cb5cc3b369e169bf8b8c4e74659db5</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>juce::String</type>
-      <name>text</name>
-      <anchorfile>struct_processor_1_1_format_job.html</anchorfile>
-      <anchor>a099596d9cae7673a3b2c0543e9174455</anchor>
+      <type>jam::Array&lt; SymbolRecord &gt;</type>
+      <name>symbols</name>
+      <anchorfile>struct_symbol_document_1_1_builder_1_1_file_builder.html</anchorfile>
+      <anchor>a99370764b808eeef8c5f9f5e5e9dfe67</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>juce::String</type>
-      <name>path</name>
-      <anchorfile>struct_processor_1_1_format_job.html</anchorfile>
-      <anchor>a777ab1a09560a01bc67ea55d9655edba</anchor>
+      <type>jam::Array&lt; CompletionRecord &gt;</type>
+      <name>completions</name>
+      <anchorfile>struct_symbol_document_1_1_builder_1_1_file_builder.html</anchorfile>
+      <anchor>a1df2f640bcfd9cb128d04b3c2d27dbfe</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>std::shared_ptr&lt; const Language &gt;</type>
-      <name>language</name>
-      <anchorfile>struct_processor_1_1_format_job.html</anchorfile>
-      <anchor>a686ff5ddf529eed4daa3f434e11932d8</anchor>
+      <type>jam::Array&lt; HoverEntry &gt;</type>
+      <name>hovers</name>
+      <anchorfile>struct_symbol_document_1_1_builder_1_1_file_builder.html</anchorfile>
+      <anchor>a16c89312213a95855d34d066c015cb69</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>juce::String</type>
-      <name>result</name>
-      <anchorfile>struct_processor_1_1_format_job.html</anchorfile>
-      <anchor>ad0e94f26f012c682eabbbee801b074b2</anchor>
+      <type>jam::Array&lt; InlayHintEntry &gt;</type>
+      <name>inlayHints</name>
+      <anchorfile>struct_symbol_document_1_1_builder_1_1_file_builder.html</anchorfile>
+      <anchor>a309c1f8247e8f239de3c86439320a104</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>std::atomic&lt; bool &gt;</type>
-      <name>isFinished</name>
-      <anchorfile>struct_processor_1_1_format_job.html</anchorfile>
-      <anchor>ad0ab085e29af7747530420aa60d51b76</anchor>
+      <type>jam::Array&lt; DiagnosticEntry &gt;</type>
+      <name>diagnostics</name>
+      <anchorfile>struct_symbol_document_1_1_builder_1_1_file_builder.html</anchorfile>
+      <anchor>a4c968a160fa917365bcd6237e862caf3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>jam::Array&lt; OutlineEntry &gt;</type>
+      <name>outlines</name>
+      <anchorfile>struct_symbol_document_1_1_builder_1_1_file_builder.html</anchorfile>
+      <anchor>a30275e47041cf67ed7501c0f6782625e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>jam::Array&lt; FixItEntry &gt;</type>
+      <name>fixIts</name>
+      <anchorfile>struct_symbol_document_1_1_builder_1_1_file_builder.html</anchorfile>
+      <anchor>a06350309c0a98a8d27cef057976aa594</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>SymbolDocument::FileEntry</name>
+    <filename>struct_symbol_document_1_1_file_entry.html</filename>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>pathOffset</name>
+      <anchorfile>struct_symbol_document_1_1_file_entry.html</anchorfile>
+      <anchor>a2ecb53e26dc91f7262893d794dbda514</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>pathLength</name>
+      <anchorfile>struct_symbol_document_1_1_file_entry.html</anchorfile>
+      <anchor>ad68254a576decd73a29a2b79f92817ac</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>symbolsStart</name>
+      <anchorfile>struct_symbol_document_1_1_file_entry.html</anchorfile>
+      <anchor>a9a5a7d2165b16c96ed35baa17933d56e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>symbolsCount</name>
+      <anchorfile>struct_symbol_document_1_1_file_entry.html</anchorfile>
+      <anchor>a69d16f0f25985af461425b2034820c3a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>completionsStart</name>
+      <anchorfile>struct_symbol_document_1_1_file_entry.html</anchorfile>
+      <anchor>a62606fa7a48c47200e927ef4932147b5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>completionsCount</name>
+      <anchorfile>struct_symbol_document_1_1_file_entry.html</anchorfile>
+      <anchor>a4c665e5a4e415c240f1565991ce6693a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>hoversStart</name>
+      <anchorfile>struct_symbol_document_1_1_file_entry.html</anchorfile>
+      <anchor>a0fb77dcac4d00b9cc3b1e856f4e8f708</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>hoversCount</name>
+      <anchorfile>struct_symbol_document_1_1_file_entry.html</anchorfile>
+      <anchor>a755c9788f282cb96cce2d66bb01f6ecf</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>inlayHintsStart</name>
+      <anchorfile>struct_symbol_document_1_1_file_entry.html</anchorfile>
+      <anchor>a90b4b61b8bd46161f3c2d9432207b9dc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>inlayHintsCount</name>
+      <anchorfile>struct_symbol_document_1_1_file_entry.html</anchorfile>
+      <anchor>a5a5850b443a99e4f88a5301f0f91ad5b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>diagnosticsStart</name>
+      <anchorfile>struct_symbol_document_1_1_file_entry.html</anchorfile>
+      <anchor>afea098873a9bf4ab23eb27700a30bfd2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>diagnosticsCount</name>
+      <anchorfile>struct_symbol_document_1_1_file_entry.html</anchorfile>
+      <anchor>a2b4c7cbfacb0a72acca9672c1dd4afe8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>outlinesStart</name>
+      <anchorfile>struct_symbol_document_1_1_file_entry.html</anchorfile>
+      <anchor>aee1c784fd0bad3268569c53920fb5122</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>outlinesCount</name>
+      <anchorfile>struct_symbol_document_1_1_file_entry.html</anchorfile>
+      <anchor>a6579a091d655b1c4b060a21f56f77abb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>fixItsStart</name>
+      <anchorfile>struct_symbol_document_1_1_file_entry.html</anchorfile>
+      <anchor>a54f7e277dcab8f3562e11b08bcaf1e9a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>fixItsCount</name>
+      <anchorfile>struct_symbol_document_1_1_file_entry.html</anchorfile>
+      <anchor>aa26144f0e6a87e67e629c1d1e05ddad5</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>SymbolDocument::FixItEntry</name>
+    <filename>struct_symbol_document_1_1_fix_it_entry.html</filename>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>line</name>
+      <anchorfile>struct_symbol_document_1_1_fix_it_entry.html</anchorfile>
+      <anchor>a383cbc67fefd135a337cee8a036c7ef8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>column</name>
+      <anchorfile>struct_symbol_document_1_1_fix_it_entry.html</anchorfile>
+      <anchor>a984cd80c3f1550e0e62195de6cbddd21</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>endLine</name>
+      <anchorfile>struct_symbol_document_1_1_fix_it_entry.html</anchorfile>
+      <anchor>a6bb0b2bd966e8775cc5768157086bc4f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>endColumn</name>
+      <anchorfile>struct_symbol_document_1_1_fix_it_entry.html</anchorfile>
+      <anchor>a076e982f3008706543096edba45438d7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>textOffset</name>
+      <anchorfile>struct_symbol_document_1_1_fix_it_entry.html</anchorfile>
+      <anchor>a48256231b8ddcb34d25719b5da0d70c3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>textLength</name>
+      <anchorfile>struct_symbol_document_1_1_fix_it_entry.html</anchorfile>
+      <anchor>a793fdc57b1f7ab26e1bd3facdf891bd7</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>SymbolDocument::Header</name>
+    <filename>struct_symbol_document_1_1_header.html</filename>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>magic</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>a79e7de9c5029339a2e987e67cbe3e531</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>formatVersion</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>a803160efc8c008cfda3f675902dc4353</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint64_t</type>
+      <name>totalBytes</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>a83155997b974c207a5ad4de0b5b1999b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int64_t</type>
+      <name>hash</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>a74171f58ee377b01e6aa4907d6729925</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int64_t</type>
+      <name>languageHash</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>a87befc1e799a803d8ed74a0e9ec6c222</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>family</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>a2ab981ac775c36b4f647af045b66af95</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>versionOffset</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>a80765baaf2f0e4ff1220a6a03a0be8da</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>versionLength</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>ad99253407776e9525da095b228120767</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>reserved</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>a997862b5b365b8d6c0106e9d3e1e7994</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint64_t</type>
+      <name>filesOffset</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>ab98427eb4a31f31da6f81bf830144f26</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>filesCount</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>a1b9da1c83b4a22431aacc7f4ae982a7f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>filesPadding</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>a1a869790101ef810c249a4fe5c271360</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint64_t</type>
+      <name>symbolsOffset</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>aaaeecd4bd412b187794c8c99175f51e4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>symbolsCount</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>a26742490efac3d3593a14a47cce607d9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>symbolsPadding</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>a93d5f5d63f1a37c1f397254b664933b9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint64_t</type>
+      <name>typeSymbolsOffset</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>abb8ef33ce7eb4e97df2b08348cc5cd2e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>typeSymbolsCount</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>aae9b9d7fd796110efd5ff86695bb3728</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>typeSymbolsPadding</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>a192d8c325a0a708aa26204afb6dca568</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint64_t</type>
+      <name>completionsOffset</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>afc0b58a0c92bdfc508d3e9a9a956b542</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>completionsCount</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>aae55975acc9abdd3ac03fbe3d88e6df6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>completionsPadding</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>aa3ba012227044854a8256cafe48c82a5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint64_t</type>
+      <name>hoversOffset</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>ae803b3385714aa4013598b49517ee186</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>hoversCount</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>aac68817966f9cb91035780be84660fc4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>hoversPadding</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>aee2de7ef766d0ad31e4d59bf61efa609</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint64_t</type>
+      <name>inlayHintsOffset</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>ae943029c765a873dc04118bbe26b619a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>inlayHintsCount</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>a4bb4b761189816f002d21d13ad7ef1fe</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>inlayHintsPadding</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>a0e586356685cb293e076678ad2fccad8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint64_t</type>
+      <name>diagnosticsOffset</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>a68ff9705644648e6546adb39dbbfa485</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>diagnosticsCount</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>a93752206d24854e624812cc0cd4c72e8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>diagnosticsPadding</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>aa316f06f7f54499dab4c3f4536f46516</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint64_t</type>
+      <name>outlinesOffset</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>a26e44f3893a27ee4ab2f5ead29818099</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>outlinesCount</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>a8c8ec8932a0dfd6669fa144769a1d734</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>outlinesPadding</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>a58725e74baee43271f70fc9485e5eb47</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint64_t</type>
+      <name>fixItsOffset</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>a22ee2494ba9cd5fb024961cea8d35280</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>fixItsCount</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>a426a96bdb62918d8a37d95d0ac358b56</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>fixItsPadding</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>ae7f5a098b941269f39d2c9fab86e8dc4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint64_t</type>
+      <name>stringPoolOffset</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>a974dfb5fdc383b2830126737aaeb5732</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint64_t</type>
+      <name>stringPoolSize</name>
+      <anchorfile>struct_symbol_document_1_1_header.html</anchorfile>
+      <anchor>ac402805028b01a8044f50b352c92a5c6</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>SymbolDocument::HoverEntry</name>
+    <filename>struct_symbol_document_1_1_hover_entry.html</filename>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>hoverOffset</name>
+      <anchorfile>struct_symbol_document_1_1_hover_entry.html</anchorfile>
+      <anchor>a5825c0ae8e3ec88e94d58922d6aa745f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>hoverLength</name>
+      <anchorfile>struct_symbol_document_1_1_hover_entry.html</anchorfile>
+      <anchor>aa0ae4023d78b2c931198ff6dbd643c77</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>pathOffset</name>
+      <anchorfile>struct_symbol_document_1_1_hover_entry.html</anchorfile>
+      <anchor>abc3fe30cd9ac8346549bb6309704f96f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>pathLength</name>
+      <anchorfile>struct_symbol_document_1_1_hover_entry.html</anchorfile>
+      <anchor>a56611fc71e66d704479835dfee14b8ab</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>line</name>
+      <anchorfile>struct_symbol_document_1_1_hover_entry.html</anchorfile>
+      <anchor>a79e97fb146380cc03fd15ae4cba02d3f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>column</name>
+      <anchorfile>struct_symbol_document_1_1_hover_entry.html</anchorfile>
+      <anchor>ae9ca270f8ecb65ea8a093bc6220acb54</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>endLine</name>
+      <anchorfile>struct_symbol_document_1_1_hover_entry.html</anchorfile>
+      <anchor>aee872ab5ec5182efe13a93afcedc05de</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>endColumn</name>
+      <anchorfile>struct_symbol_document_1_1_hover_entry.html</anchorfile>
+      <anchor>aec99f0b509d350585244a5e7db393291</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -1735,6 +2544,13 @@
       <anchor>a9e2c1011f5dc02aaaeed34253f3a88b2</anchor>
       <arglist>(std::string_view text, std::string_view stored) const override</arglist>
     </member>
+    <member kind="function" protection="protected">
+      <type>juce::int64</type>
+      <name>getSymbol</name>
+      <anchorfile>class_html_language.html</anchorfile>
+      <anchor>ac7c1227b4222520fa44efc829884cd59</anchor>
+      <arglist>(const juce::File &amp;file, std::string_view name, int role) const override</arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>Index</name>
@@ -1751,13 +2567,6 @@
       <name>applyToDocuments</name>
       <anchorfile>class_index.html</anchorfile>
       <anchor>aab49531fad9100e5e00207727c2ff4a4</anchor>
-      <arglist>(const Function &amp;function) const</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>applyToElements</name>
-      <anchorfile>class_index.html</anchorfile>
-      <anchor>a1659a6c05b1816c5c57ed3a200c64c8a</anchor>
       <arglist>(const Function &amp;function) const</arglist>
     </member>
     <member kind="function">
@@ -1790,10 +2599,45 @@
     </member>
     <member kind="function">
       <type>void</type>
+      <name>addPathRows</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>afcf30a72c421ea970a08fe9b86ec6a20</anchor>
+      <arglist>(const juce::ValueTree &amp;files)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
       <name>addUnitRows</name>
       <anchorfile>class_index.html</anchorfile>
       <anchor>afe3e1aaddd3750eeb377864ce1634db7</anchor>
       <arglist>(const juce::ValueTree &amp;files)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::pair&lt; const jam::Document::Element *, int &gt;</type>
+      <name>getElement</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>afa2139387c86ea9c55e8f9fa75ec857b</anchor>
+      <arglist>(const std::pair&lt; int, const SymbolDocument::SymbolRecord * &gt; &amp;occurrence) const</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isOccurrenceBefore</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>a8602d4c1bbac49890d2f79912efec6e0</anchor>
+      <arglist>(int leftPathIndex, const SymbolDocument::SymbolRecord &amp;left, int rightPathIndex, const SymbolDocument::SymbolRecord &amp;right) const</arglist>
+    </member>
+    <member kind="function">
+      <type>juce::Range&lt; int &gt;</type>
+      <name>getPathRange</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>a8e0bc7ca8c39e3cb5e688f66996d5ac7</anchor>
+      <arglist>(const jam::Array&lt; std::pair&lt; int, const SymbolDocument::SymbolRecord * &gt; &gt; &amp;occurrences, int pathIndex) const</arglist>
+    </member>
+    <member kind="function">
+      <type>const SymbolDocument &amp;</type>
+      <name>getSymbolDocument</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>a54ecdbc2f2343b63b7854466ce514dc3</anchor>
+      <arglist>(int pathIndex) const</arglist>
     </member>
     <member kind="function">
       <type>bool</type>
@@ -1820,8 +2664,22 @@
       <type>void</type>
       <name>applyToOccurrences</name>
       <anchorfile>class_index.html</anchorfile>
-      <anchor>ad6af35a3d7130fd5246dbfae769954db</anchor>
-      <arglist>(const jam::Array&lt; std::pair&lt; int, const jam::Document::Element * &gt; &gt; &amp;occurrences, const Function &amp;function) const</arglist>
+      <anchor>af32449c1e9aaa0de784f64f7f2b70cc8</anchor>
+      <arglist>(const jam::Array&lt; std::pair&lt; int, const SymbolDocument::SymbolRecord * &gt; &gt; &amp;occurrences, juce::Range&lt; int &gt; range, const Function &amp;function) const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>applyToOccurrences</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>a91d42f3944f4b9579875ad32f8fefe28</anchor>
+      <arglist>(const jam::Array&lt; std::pair&lt; int, const SymbolDocument::SymbolRecord * &gt; &gt; &amp;occurrences, const Function &amp;function) const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>applyToOccurrences</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>a2b65707dd49051adfefa1f6fcc4f01cb</anchor>
+      <arglist>(const jam::Array&lt; std::pair&lt; int, const SymbolDocument::SymbolRecord * &gt; &gt; &amp;occurrences, int pathIndex, const Function &amp;function) const</arglist>
     </member>
     <member kind="function" static="yes">
       <type>static std::pair&lt; const jam::Document::Element *, int &gt;</type>
@@ -1834,8 +2692,8 @@
       <type>static bool</type>
       <name>isRecordBefore</name>
       <anchorfile>class_index.html</anchorfile>
-      <anchor>af059ed62eb7143da99988db8feb013af</anchor>
-      <arglist>(const jam::Document::Element &amp;record, const jam::Document::Element &amp;otherRecord)</arglist>
+      <anchor>a5837c1f93d2f053f686a2056533af55a</anchor>
+      <arglist>(const SymbolDocument::SymbolRecord &amp;record, const SymbolDocument::SymbolRecord &amp;otherRecord)</arglist>
     </member>
     <member kind="function" static="yes">
       <type>static int</type>
@@ -1850,13 +2708,6 @@
       <anchorfile>class_index.html</anchorfile>
       <anchor>a3cdbf926c197d2b49cd72b9d3e5e5317</anchor>
       <arglist>(const jam::Document &amp;document, int line, int column, std::string_view encoding)</arglist>
-    </member>
-    <member kind="function" static="yes">
-      <type>static bool</type>
-      <name>isRecordInName</name>
-      <anchorfile>class_index.html</anchorfile>
-      <anchor>a734564ed3677814fd68581f8c234d5f1</anchor>
-      <arglist>(const jam::Document::Element &amp;record, const jam::Document &amp;document, const jam::Document::Token &amp;nameToken)</arglist>
     </member>
     <member kind="function" static="yes">
       <type>static std::unique_ptr&lt; jam::Document &gt;</type>
@@ -1922,31 +2773,24 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>jam::HashMap&lt; juce::int64, jam::Array&lt; std::pair&lt; int, const jam::Document::Element * &gt; &gt; &gt;</type>
+      <type>jam::HashMap&lt; juce::int64, jam::Array&lt; std::pair&lt; int, const SymbolDocument::SymbolRecord * &gt; &gt; &gt;</type>
       <name>declarations</name>
       <anchorfile>class_index.html</anchorfile>
-      <anchor>aea901f3095ce4752c5d3f47399434fbd</anchor>
+      <anchor>aeef16f2bf3f9fb25d67680551df43752</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>jam::HashMap&lt; juce::int64, jam::Array&lt; std::pair&lt; int, const jam::Document::Element * &gt; &gt; &gt;</type>
+      <type>jam::HashMap&lt; juce::int64, jam::Array&lt; std::pair&lt; int, const SymbolDocument::SymbolRecord * &gt; &gt; &gt;</type>
       <name>references</name>
       <anchorfile>class_index.html</anchorfile>
-      <anchor>a7bd1079f4746dfac36a66041c184f7c5</anchor>
+      <anchor>a3a754d7bfe7286140a8b120dca2b2e43</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>jam::HashMap&lt; juce::int64, jam::Array&lt; std::pair&lt; int, const jam::Document::Element * &gt; &gt; &gt;</type>
-      <name>names</name>
-      <anchorfile>class_index.html</anchorfile>
-      <anchor>aaed5c5858b268ac4bc1d28331aa775c3</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>jam::HashMap&lt; juce::int64, jam::Array&lt; std::pair&lt; int, const jam::Document::Element * &gt; &gt; &gt;</type>
+      <type>jam::HashMap&lt; juce::int64, jam::Array&lt; std::pair&lt; int, const SymbolDocument::CompletionRecord * &gt; &gt; &gt;</type>
       <name>completions</name>
       <anchorfile>class_index.html</anchorfile>
-      <anchor>a2720017f4ec90e1eea64e9d886f27176</anchor>
+      <anchor>a2ead8ae2239a07f8e7df07cdb3f0eec4</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -1957,10 +2801,17 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>jam::HashMap&lt; int, std::pair&lt; int, const jam::Document::Element * &gt; &gt;</type>
+      <type>jam::HashMap&lt; int, std::pair&lt; int, const SymbolDocument::FileEntry * &gt; &gt;</type>
       <name>symbolFiles</name>
       <anchorfile>class_index.html</anchorfile>
-      <anchor>af60dff644776d8b55e59b133195012e0</anchor>
+      <anchor>a3423d676022aa03008833a02664e2fc6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>jam::HashMap&lt; int, jam::Array&lt; const SymbolDocument::SymbolRecord * &gt; &gt;</type>
+      <name>records</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>a4d1fa495e81df25eb4f9e9ac80d61d5e</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -1975,6 +2826,13 @@
       <name>pathRows</name>
       <anchorfile>class_index.html</anchorfile>
       <anchor>a1c37d79c13a5a993b6ff8dc8d6e7ac75</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>jam::HashMap&lt; juce::String, jam::Array&lt; int &gt; &gt;</type>
+      <name>stemRows</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>a4e1abe54ba7bf6582e21b15163d17cbf</anchor>
       <arglist></arglist>
     </member>
     <member kind="function" protection="private">
@@ -1993,52 +2851,45 @@
     </member>
     <member kind="function" protection="private">
       <type>void</type>
-      <name>removeRecord</name>
+      <name>removeOccurrences</name>
       <anchorfile>class_index.html</anchorfile>
-      <anchor>a5250c5391231b9a72e7bc228d4619961</anchor>
-      <arglist>(int pathIndex, const jam::Document::Element &amp;record)</arglist>
+      <anchor>a5bd0b6c506e58ab52585a1da35e36e13</anchor>
+      <arglist>(jam::HashMap&lt; juce::int64, jam::Array&lt; std::pair&lt; int, const SymbolDocument::SymbolRecord * &gt; &gt; &gt; &amp;symbols, juce::int64 symbol, int pathIndex)</arglist>
     </member>
     <member kind="function" protection="private">
       <type>void</type>
       <name>removeCompletions</name>
       <anchorfile>class_index.html</anchorfile>
-      <anchor>a209148876109df1b8931fa821d6b213f</anchor>
-      <arglist>(int pathIndex, const jam::Document::Element &amp;file)</arglist>
+      <anchor>aa47fa08dfa76c8e7a09023e474bf8863</anchor>
+      <arglist>(int pathIndex, const SymbolDocument &amp;symbolDocument, const SymbolDocument::FileEntry &amp;file)</arglist>
     </member>
     <member kind="function" protection="private">
       <type>void</type>
       <name>addCompletions</name>
       <anchorfile>class_index.html</anchorfile>
-      <anchor>a5ddb5671bb35d743e09aa1b3b3f7d792</anchor>
-      <arglist>(int pathIndex, const jam::Document::Element &amp;file)</arglist>
+      <anchor>a1b235a0fbfaf240cc47a498d597eb62b</anchor>
+      <arglist>(int pathIndex, const SymbolDocument &amp;symbolDocument, const SymbolDocument::FileEntry &amp;file)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>addRecords</name>
+      <anchorfile>class_index.html</anchorfile>
+      <anchor>ad2be276fb2ebb0b9daab2e45adaa576b</anchor>
+      <arglist>(int pathIndex, const SymbolDocument &amp;symbolDocument, const SymbolDocument::FileEntry &amp;file)</arglist>
     </member>
     <member kind="function" protection="private">
       <type>void</type>
       <name>addSymbols</name>
       <anchorfile>class_index.html</anchorfile>
-      <anchor>a74ee20a97158866789c0c2b0ed13a3d9</anchor>
-      <arglist>(int pathIndex, const jam::Document::Element &amp;file)</arglist>
+      <anchor>ac19cde19cea8e9b6df9881fd05ab9bfc</anchor>
+      <arglist>(int pathIndex, const SymbolDocument &amp;symbolDocument, const SymbolDocument::FileEntry &amp;file)</arglist>
     </member>
     <member kind="function" protection="private">
       <type>void</type>
-      <name>addOccurrence</name>
+      <name>addOccurrences</name>
       <anchorfile>class_index.html</anchorfile>
-      <anchor>a3eaa0f6291b708830be2020eb59e7c86</anchor>
-      <arglist>(jam::Array&lt; std::pair&lt; int, const jam::Document::Element * &gt; &gt; &amp;occurrences, int pathIndex, const jam::Document::Element &amp;element, bool(*isElementBefore)(const jam::Document::Element &amp;, const jam::Document::Element &amp;)) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>removeNames</name>
-      <anchorfile>class_index.html</anchorfile>
-      <anchor>a8b2be502e87ace92ff31f87dd2772896</anchor>
-      <arglist>(int pathIndex)</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>addNames</name>
-      <anchorfile>class_index.html</anchorfile>
-      <anchor>a3a198c47b54723d6f36bb090a2ca4977</anchor>
-      <arglist>(int pathIndex, const jam::Document &amp;document)</arglist>
+      <anchor>ad409713d2fc3fb25b973788623227272</anchor>
+      <arglist>(jam::HashMap&lt; juce::int64, jam::Array&lt; std::pair&lt; int, const SymbolDocument::SymbolRecord * &gt; &gt; &gt; &amp;symbols, int pathIndex, const jam::HashMap&lt; juce::int64, jam::Array&lt; std::pair&lt; int, const SymbolDocument::SymbolRecord * &gt; &gt; &gt; &amp;blocks)</arglist>
     </member>
     <member kind="function" protection="private">
       <type>int</type>
@@ -2046,20 +2897,6 @@
       <anchorfile>class_index.html</anchorfile>
       <anchor>a8725aaa08ef8a830aad9d38a96b252e7</anchor>
       <arglist>(const juce::String &amp;path)</arglist>
-    </member>
-    <member kind="function" protection="private" static="yes">
-      <type>static bool</type>
-      <name>isNameBefore</name>
-      <anchorfile>class_index.html</anchorfile>
-      <anchor>a8451eb73ee895688371c0f10bb8e0a4e</anchor>
-      <arglist>(const jam::Document::Element &amp;element, const jam::Document::Element &amp;otherElement)</arglist>
-    </member>
-    <member kind="function" protection="private" static="yes">
-      <type>static juce::int64</type>
-      <name>getNameHash</name>
-      <anchorfile>class_index.html</anchorfile>
-      <anchor>af373c12aea253965c992a71c6e1552f5</anchor>
-      <arglist>(const jam::Document &amp;document, const jam::Document::Element &amp;element)</arglist>
     </member>
   </compound>
   <compound kind="struct">
@@ -2088,13 +2925,6 @@
       <arglist>()</arglist>
     </member>
     <member kind="function">
-      <type>void</type>
-      <name>addTypeSymbols</name>
-      <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
-      <anchor>a5a2b6abaadf081b53832449139bb908d</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
       <type>int</type>
       <name>getOutlineParent</name>
       <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
@@ -2108,19 +2938,19 @@
       <anchor>ac90acd0c166bfd4dcefa9620de5686f9</anchor>
       <arglist>(const char *recordPath) const</arglist>
     </member>
-    <member kind="function">
-      <type>int</type>
-      <name>getOrCreatePathIndex</name>
-      <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
-      <anchor>a8eafa57b75a9997a8aa0b31771731f92</anchor>
-      <arglist>(const char *recordPath)</arglist>
-    </member>
     <member kind="function" static="yes">
       <type>static void</type>
       <name>addSymbol</name>
       <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
-      <anchor>a18195bcd0ab7d94505e7735e440f471d</anchor>
-      <arglist>(void *context, const char *recordPath, int line, int column, unsigned long long symbol, int nameLength, int role, int type, const char *hover, int definitionStart)</arglist>
+      <anchor>a305ed799c52b5998c412788539ac9d76</anchor>
+      <arglist>(void *context, const char *recordPath, int line, int column, unsigned long long symbol, int nameLength, int role, int type, int hover, const unsigned long long *typeSymbols, int typeCount)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static int</type>
+      <name>addHover</name>
+      <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
+      <anchor>a276fc2a5c1decf8b166f3222fef78c07</anchor>
+      <arglist>(void *context, const char *recordPath, const char *text, const char *definitionPath, int line, int column, int endLine, int endColumn)</arglist>
     </member>
     <member kind="function" static="yes">
       <type>static void</type>
@@ -2145,13 +2975,6 @@
     </member>
     <member kind="function" static="yes">
       <type>static void</type>
-      <name>addTypeDefinition</name>
-      <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
-      <anchor>a4f6430f852ab17122636d9c2e24c8d61</anchor>
-      <arglist>(void *context, unsigned long long symbol, unsigned long long typeSymbol)</arglist>
-    </member>
-    <member kind="function" static="yes">
-      <type>static void</type>
       <name>addCompletion</name>
       <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
       <anchor>a84b2ad5112ad68cd8a06769fbf079a26</anchor>
@@ -2163,13 +2986,6 @@
       <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
       <anchor>a28c90c694ce6e5193c41407420908683</anchor>
       <arglist>(void *context, const char *recordPath, int line, int column, int endLine, int endColumn, const char *text)</arglist>
-    </member>
-    <member kind="function" static="yes">
-      <type>static void</type>
-      <name>addOutlineToken</name>
-      <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
-      <anchor>a37c0106b2e4ae9810846535c2d7c0fd1</anchor>
-      <arglist>(jam::Document::Tokens &amp;tokens, const std::array&lt; int, outlineFieldCount &gt; &amp;fields)</arglist>
     </member>
     <member kind="variable">
       <type>Processor &amp;</type>
@@ -2263,31 +3079,17 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>SymbolDocument::Builder</type>
+      <name>builder</name>
+      <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
+      <anchor>a3b3b60255e8ad7548046a03636e4250f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>std::unique_ptr&lt; SymbolDocument &gt;</type>
       <name>symbols</name>
       <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
       <anchor>afdbf0371c0fa170f7f83aa6bf93a9c60</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>jam::Strings</type>
-      <name>paths</name>
-      <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
-      <anchor>aec6b666dbcb92099b4fd72c4094bab23</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>jam::Array&lt; jam::Document::Element * &gt;</type>
-      <name>fileElements</name>
-      <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
-      <anchor>aadf59b2092e7757283343ca20d07f9ea</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>jam::Array&lt; jam::Document::Element * &gt;</type>
-      <name>recordElements</name>
-      <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
-      <anchor>adbd29511a353c1419e5bf863e5f7c8e4</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -2312,20 +3114,6 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>jam::Array&lt; jam::Document::Element * &gt;</type>
-      <name>completionContainers</name>
-      <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
-      <anchor>a1a860f14665f4de36cfbb738828bb724</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>jam::HashMap&lt; juce::int64, juce::int64 &gt;</type>
-      <name>typeSymbols</name>
-      <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
-      <anchor>abfa6582d2fb72dec0e1c0c61af020891</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
       <type>int</type>
       <name>result</name>
       <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
@@ -2344,6 +3132,66 @@
       <name>outlineFieldCount</name>
       <anchorfile>struct_processor_1_1_index_job.html</anchorfile>
       <anchor>af0bd4539549bf6bb8c486bae4b6d724d</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>SymbolDocument::InlayHintEntry</name>
+    <filename>struct_symbol_document_1_1_inlay_hint_entry.html</filename>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>line</name>
+      <anchorfile>struct_symbol_document_1_1_inlay_hint_entry.html</anchorfile>
+      <anchor>ad2e924e86aef6a634d772e3d1621f171</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>column</name>
+      <anchorfile>struct_symbol_document_1_1_inlay_hint_entry.html</anchorfile>
+      <anchor>a3c38f8866dfbf8c92ffcb3ce31105dc7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>type</name>
+      <anchorfile>struct_symbol_document_1_1_inlay_hint_entry.html</anchorfile>
+      <anchor>aa7fbc27535ce3b7c0ce115deea04e821</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>labelOffset</name>
+      <anchorfile>struct_symbol_document_1_1_inlay_hint_entry.html</anchorfile>
+      <anchor>abf9eb65e66287647792ec6acf84bffc1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>labelLength</name>
+      <anchorfile>struct_symbol_document_1_1_inlay_hint_entry.html</anchorfile>
+      <anchor>ac39a600120f1ede02f979819659adb47</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint8_t</type>
+      <name>paddingLeft</name>
+      <anchorfile>struct_symbol_document_1_1_inlay_hint_entry.html</anchorfile>
+      <anchor>a82f624abc5340b6695cc3b2281838b24</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint8_t</type>
+      <name>paddingRight</name>
+      <anchorfile>struct_symbol_document_1_1_inlay_hint_entry.html</anchorfile>
+      <anchor>a827ddc4170dcfe0f3d7e813513327e7e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint16_t</type>
+      <name>padding</name>
+      <anchorfile>struct_symbol_document_1_1_inlay_hint_entry.html</anchorfile>
+      <anchor>a70fd4e04b38f40b42b9e32c49dec6fd4</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -2496,16 +3344,16 @@
     </member>
     <member kind="function" virtualness="pure">
       <type>virtual int</type>
-      <name>getCompletionKind</name>
+      <name>getCompletionType</name>
       <anchorfile>class_language.html</anchorfile>
-      <anchor>ad098ab2910e40e636ddbdad279fea14e</anchor>
+      <anchor>a05bcdae53a619c323b12598feaf37333</anchor>
       <arglist>(int tokenType) const =0</arglist>
     </member>
     <member kind="function" virtualness="pure">
-      <type>virtual juce::StringArray</type>
+      <type>virtual jam::Strings</type>
       <name>getCounterparts</name>
       <anchorfile>class_language.html</anchorfile>
-      <anchor>a04dff999e9834bedeb4e47a344156ccc</anchor>
+      <anchor>a2108f1f96098f267d4cc1c2f6726a600</anchor>
       <arglist>(const juce::String &amp;extension) const =0</arglist>
     </member>
     <member kind="function" virtualness="pure">
@@ -2514,20 +3362,6 @@
       <anchorfile>class_language.html</anchorfile>
       <anchor>a0d17de8eed2a3cf897188084fc2e9ad7</anchor>
       <arglist>(const jam::Document &amp;document, const juce::String &amp;path) const =0</arglist>
-    </member>
-    <member kind="function" virtualness="pure">
-      <type>virtual juce::String</type>
-      <name>format</name>
-      <anchorfile>class_language.html</anchorfile>
-      <anchor>a5956b93b04652643322b13078edff6da</anchor>
-      <arglist>(std::string_view text, const juce::String &amp;path) const =0</arglist>
-    </member>
-    <member kind="variable" static="yes">
-      <type>static constexpr int</type>
-      <name>noDefinition</name>
-      <anchorfile>class_language.html</anchorfile>
-      <anchor>acb2734bfc3418cdf27c21ec260adfe60</anchor>
-      <arglist></arglist>
     </member>
   </compound>
   <compound kind="struct">
@@ -2678,16 +3512,16 @@
     </member>
     <member kind="function">
       <type>int</type>
-      <name>getCompletionKind</name>
+      <name>getCompletionType</name>
       <anchorfile>class_library_language.html</anchorfile>
-      <anchor>a647b7892ddf861f51769f209235d4801</anchor>
+      <anchor>aa44fd125caa31882deb63e884f0f1ec6</anchor>
       <arglist>(int tokenType) const override</arglist>
     </member>
     <member kind="function">
-      <type>juce::StringArray</type>
+      <type>jam::Strings</type>
       <name>getCounterparts</name>
       <anchorfile>class_library_language.html</anchorfile>
-      <anchor>a47f72a33b631edff980e8da4bd2d01e0</anchor>
+      <anchor>a862e3665ef217999993f67584047225b</anchor>
       <arglist>(const juce::String &amp;extension) const override</arglist>
     </member>
     <member kind="function">
@@ -2696,13 +3530,6 @@
       <anchorfile>class_library_language.html</anchorfile>
       <anchor>a926bfe3bc21bfc36190bd0a1736409fb</anchor>
       <arglist>(const jam::Document &amp;document, const juce::String &amp;path) const override</arglist>
-    </member>
-    <member kind="function">
-      <type>juce::String</type>
-      <name>format</name>
-      <anchorfile>class_library_language.html</anchorfile>
-      <anchor>a44a44e8233c16252c68dc0b1ddbc4e5d</anchor>
-      <arglist>(std::string_view text, const juce::String &amp;path) const override</arglist>
     </member>
     <member kind="variable" protection="private">
       <type>std::shared_ptr&lt; const jam::LanguageLibrary &gt;</type>
@@ -2801,6 +3628,13 @@
       <anchorfile>class_l_i_n_g_model.html</anchorfile>
       <anchor>abf829c79890d961d4b3ac2993aee651b</anchor>
       <arglist>(const juce::File &amp;manifest, std::string_view toolchainArgument)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static juce::File</type>
+      <name>getProjectDirectory</name>
+      <anchorfile>class_l_i_n_g_model.html</anchorfile>
+      <anchor>a0df8e4dfb3d082c1ed0f9eacb7aeb690</anchor>
+      <arglist>(const juce::File &amp;manifest)</arglist>
     </member>
     <member kind="function" static="yes">
       <type>static juce::File</type>
@@ -2909,17 +3743,10 @@
     </member>
     <member kind="function" protection="private" static="yes">
       <type>static int</type>
-      <name>getTimeout</name>
+      <name>getDaemonValue</name>
       <anchorfile>class_manifest.html</anchorfile>
-      <anchor>a74869b90c95c6ef6273bd00526a343c3</anchor>
-      <arglist>(const jam::MarkdownDocument &amp;manifest)</arglist>
-    </member>
-    <member kind="function" protection="private" static="yes">
-      <type>static int</type>
-      <name>getThreads</name>
-      <anchorfile>class_manifest.html</anchorfile>
-      <anchor>a40ac21fa1d90dbc448380bdb1bc713ff</anchor>
-      <arglist>(const jam::MarkdownDocument &amp;manifest)</arglist>
+      <anchor>a4d89d3ab573aa9372e18fd6794a49ecb</anchor>
+      <arglist>(const jam::MarkdownDocument &amp;manifest, const juce::Identifier &amp;rowId, int defaultValue)</arglist>
     </member>
     <member kind="function" protection="private" static="yes">
       <type>static juce::ValueTree</type>
@@ -2975,20 +3802,6 @@
       <name>threadCount</name>
       <anchorfile>class_manifest.html</anchorfile>
       <anchor>ad9ba3fd686009e0c081e691f7058d292</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private" static="yes">
-      <type>static constexpr int</type>
-      <name>waitForJob</name>
-      <anchorfile>class_manifest.html</anchorfile>
-      <anchor>ab18a00ead2bce2284d0ba72bb0ce9af6</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private" static="yes">
-      <type>static constexpr int</type>
-      <name>noWait</name>
-      <anchorfile>class_manifest.html</anchorfile>
-      <anchor>aaeb3295af4b494f526f40f601549f373</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -3637,6 +4450,20 @@
       <anchor>aac8f5f8bb6f9178518af08f7379723ba</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr std::string_view</type>
+      <name>token</name>
+      <anchorfile>structlsp_1_1_member.html</anchorfile>
+      <anchor>ac6e9bdc851cfd79b5e033ab11a54e02c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr std::string_view</type>
+      <name>percentage</name>
+      <anchorfile>structlsp_1_1_member.html</anchorfile>
+      <anchor>a7b726b51796f282a0fdcddfb93e78b17</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>map::MermaidElements</name>
@@ -3787,6 +4614,13 @@
     </member>
     <member kind="variable" static="yes">
       <type>static constexpr std::string_view</type>
+      <name>progress</name>
+      <anchorfile>structlsp_1_1_method.html</anchorfile>
+      <anchor>a59d420cf49f878f36276d3999d7ab374</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr std::string_view</type>
       <name>definition</name>
       <anchorfile>structlsp_1_1_method.html</anchorfile>
       <anchor>a85aaea58a784c44b7825f3df982ccbae</anchor>
@@ -3909,6 +4743,7 @@
     <name>Operation</name>
     <filename>class_operation.html</filename>
     <base>Client</base>
+    <base protection="private">juce::ValueTree::Listener</base>
     <member kind="function">
       <type></type>
       <name>Operation</name>
@@ -3937,6 +4772,13 @@
       <anchor>a114ea0c0f4f8f476bae294004b68b82a</anchor>
       <arglist>(const juce::MemoryBlock &amp;reply) override</arglist>
     </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>valueTreePropertyChanged</name>
+      <anchorfile>class_operation.html</anchorfile>
+      <anchor>aabd2f4f4f81b00a4085034090cd60cde</anchor>
+      <arglist>(juce::ValueTree &amp;tree, const juce::Identifier &amp;property) override</arglist>
+    </member>
     <member kind="variable" protection="private">
       <type>juce::MemoryBlock</type>
       <name>request</name>
@@ -3955,6 +4797,66 @@
       <anchorfile>structmap_1_1_operations.html</anchorfile>
       <anchor>a414b949294e1a503d67ac5730356f791</anchor>
       <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>SymbolDocument::OutlineEntry</name>
+    <filename>struct_symbol_document_1_1_outline_entry.html</filename>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>line</name>
+      <anchorfile>struct_symbol_document_1_1_outline_entry.html</anchorfile>
+      <anchor>a922fc55b63a991c392469793816c9cf3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>column</name>
+      <anchorfile>struct_symbol_document_1_1_outline_entry.html</anchorfile>
+      <anchor>adccf50efe28f906ceee4eb63322e22d2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>endLine</name>
+      <anchorfile>struct_symbol_document_1_1_outline_entry.html</anchorfile>
+      <anchor>ae115ae6739fe547da7a5f1dc582bbe16</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>endColumn</name>
+      <anchorfile>struct_symbol_document_1_1_outline_entry.html</anchorfile>
+      <anchor>a56cfe5ceb9a8389cd124644422a64f81</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>nameLength</name>
+      <anchorfile>struct_symbol_document_1_1_outline_entry.html</anchorfile>
+      <anchor>a250845ffc88a221f70051ff38ac41306</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>qualifierLength</name>
+      <anchorfile>struct_symbol_document_1_1_outline_entry.html</anchorfile>
+      <anchor>a21455bc6fba74e6387259236fe6a6a8e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>type</name>
+      <anchorfile>struct_symbol_document_1_1_outline_entry.html</anchorfile>
+      <anchor>ae91a8fecf53fa7caff0c93e276f850b7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>parent</name>
+      <anchorfile>struct_symbol_document_1_1_outline_entry.html</anchorfile>
+      <anchor>aabbea78d18ad3381e7faa7e587875817</anchor>
+      <arglist></arglist>
     </member>
   </compound>
   <compound kind="struct">
@@ -4112,7 +5014,6 @@
     <class kind="struct">Processor::ParseJob</class>
     <class kind="struct">Processor::IndexJob</class>
     <class kind="struct">Processor::UnitsJob</class>
-    <class kind="struct">Processor::FormatJob</class>
     <member kind="typedef">
       <type>jam::Function::Map&lt; juce::Identifier, jam::Function::pointerCapacity, void(juce::ValueTree &amp;)&gt;</type>
       <name>Events</name>
@@ -4191,17 +5092,10 @@
       <arglist>(juce::ValueTree &amp;request)</arglist>
     </member>
     <member kind="function" protection="private">
-      <type>void</type>
-      <name>runHover</name>
+      <type>bool</type>
+      <name>isRequestReady</name>
       <anchorfile>class_processor.html</anchorfile>
-      <anchor>a73b87328af0323a991d4ab0625558647</anchor>
-      <arglist>(juce::ValueTree &amp;request)</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>juce::ValueTree</type>
-      <name>getReadiness</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>a49cee623b3b0a3e6d4689ab2451a077c</anchor>
+      <anchor>a1dbe9fa7fc1789e85a9c3dfba2761372</anchor>
       <arglist>(const juce::ValueTree &amp;request) const</arglist>
     </member>
     <member kind="function" protection="private">
@@ -4215,8 +5109,8 @@
       <type>void</type>
       <name>runRequests</name>
       <anchorfile>class_processor.html</anchorfile>
-      <anchor>a0910978613bc4df66ce3b95a855fd4f6</anchor>
-      <arglist>(const juce::ValueTree &amp;readiness)</arglist>
+      <anchor>a9cdc6be848450a5d856a71bcb56acedf</anchor>
+      <arglist>()</arglist>
     </member>
     <member kind="function" protection="private">
       <type>void</type>
@@ -4318,13 +5212,6 @@
     </member>
     <member kind="function" protection="private">
       <type>void</type>
-      <name>addFormatJob</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>aff9442e97657247f332c06ebfd53d2a3</anchor>
-      <arglist>(const juce::ValueTree &amp;request, int pathIndex, const jam::Document::Element &amp;record)</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
       <name>addBindings</name>
       <anchorfile>class_processor.html</anchorfile>
       <anchor>ada6bec4ded26df0af355111366519094</anchor>
@@ -4360,9 +5247,9 @@
     </member>
     <member kind="function" protection="private">
       <type>void</type>
-      <name>applyBufferChange</name>
+      <name>setBufferChange</name>
       <anchorfile>class_processor.html</anchorfile>
-      <anchor>a9b6cd167cecde5d86c236760e4196614</anchor>
+      <anchor>ad984788c673b8a32310d227b41719eb4</anchor>
       <arglist>(juce::ValueTree &amp;request)</arglist>
     </member>
     <member kind="function" protection="private">
@@ -4402,9 +5289,9 @@
     </member>
     <member kind="function" protection="private">
       <type>void</type>
-      <name>applyUnitsJobs</name>
+      <name>setUnitsJobs</name>
       <anchorfile>class_processor.html</anchorfile>
-      <anchor>a2bc3e54e9580cd741416f56931c31008</anchor>
+      <anchor>a3b13eabafa4cd0af24ebf4b4bd1e5564</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function" protection="private">
@@ -4506,13 +5393,6 @@
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
-      <type>std::vector&lt; std::unique_ptr&lt; FormatJob &gt; &gt;</type>
-      <name>formatJobs</name>
-      <anchorfile>class_processor.html</anchorfile>
-      <anchor>aad27b0ed44321e5b5b66e5784a069042</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
       <type>std::unique_ptr&lt; juce::ThreadPool &gt;</type>
       <name>pool</name>
       <anchorfile>class_processor.html</anchorfile>
@@ -4552,6 +5432,31 @@
       <name>noWait</name>
       <anchorfile>class_processor.html</anchorfile>
       <anchor>a4a7e8b1f8969a1a0c50484aec56f9ea7</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>text::Progress</name>
+    <filename>structtext_1_1_progress.html</filename>
+    <member kind="variable" static="yes">
+      <type>static constexpr const char *const</type>
+      <name>progressToken</name>
+      <anchorfile>structtext_1_1_progress.html</anchorfile>
+      <anchor>a6f31311cca3d4fafa241a3ab46702ec7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr const char *const</type>
+      <name>progressTitle</name>
+      <anchorfile>structtext_1_1_progress.html</anchorfile>
+      <anchor>abf9c4945370061644cc893b1c0be27f8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr const char *const</type>
+      <name>progressSeparator</name>
+      <anchorfile>structtext_1_1_progress.html</anchorfile>
+      <anchor>a793016a05da81b509c04efadafc250b3</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -4611,15 +5516,8 @@
       <type>void</type>
       <name>hover</name>
       <anchorfile>class_query.html</anchorfile>
-      <anchor>a4b374853461219f939f43fb503cf7d61</anchor>
-      <arglist>(juce::ValueTree &amp;request, const Index &amp;index, int pathIndex, const jam::Document::Element *element, int tokenIndex, const jam::Document::Element *record, const juce::String &amp;formatted) const</arglist>
-    </member>
-    <member kind="function">
-      <type>bool</type>
-      <name>applyToHover</name>
-      <anchorfile>class_query.html</anchorfile>
-      <anchor>a003134916e28ca2f15d713986c25d8e9</anchor>
-      <arglist>(juce::ValueTree &amp;request, const Index &amp;index, const Function &amp;function) const</arglist>
+      <anchor>adf9f19baf3d11420d442548886f453a7</anchor>
+      <arglist>(juce::ValueTree &amp;request, const Index &amp;index) const</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -4776,10 +5674,10 @@
       <arglist></arglist>
     </member>
     <member kind="typedef" protection="private">
-      <type>std::pair&lt; int, const jam::Document::Element * &gt;</type>
+      <type>std::pair&lt; int, const SymbolDocument::SymbolRecord * &gt;</type>
       <name>Occurrence</name>
       <anchorfile>class_query.html</anchorfile>
-      <anchor>a41b82f6261fba7cc8a4959b866a8475b</anchor>
+      <anchor>a0bd2113d0ad4b77e7aa3ce72386398e0</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef" protection="private">
@@ -4812,20 +5710,6 @@
     </member>
     <member kind="function" protection="private">
       <type>void</type>
-      <name>applyToScopeDeclarations</name>
-      <anchorfile>class_query.html</anchorfile>
-      <anchor>ad7f077910e85b8f5ac264e7865a7d2f8</anchor>
-      <arglist>(const jam::Document &amp;document, const jam::Document::Element &amp;element, int tokenIndex, const Function &amp;function, const Index &amp;index) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>applyToDeclarationsOrScope</name>
-      <anchorfile>class_query.html</anchorfile>
-      <anchor>a2d4469dca7b02751a8a39dd146b4eec4</anchor>
-      <arglist>(int pathIndex, const jam::Document &amp;document, const jam::Document::Element &amp;element, int tokenIndex, const Function &amp;function, const Index &amp;index) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
       <name>applyToScopeSymbols</name>
       <anchorfile>class_query.html</anchorfile>
       <anchor>aeee6ea867ed4a19086496c2a0fa48b62</anchor>
@@ -4837,6 +5721,13 @@
       <anchorfile>class_query.html</anchorfile>
       <anchor>a0097f872ff27be74608197a749fa9886</anchor>
       <arglist>(juce::int64 symbol, const Function &amp;function, const Index &amp;index) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>applyToSymbolOccurrences</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>ae12dd6470d5baa9b369f4bd4f41cbf96</anchor>
+      <arglist>(juce::int64 symbol, int pathIndex, const Function &amp;function, const Index &amp;index) const</arglist>
     </member>
     <member kind="function" protection="private">
       <type>void</type>
@@ -4865,6 +5756,13 @@
       <anchorfile>class_query.html</anchorfile>
       <anchor>a6a3a76ddba435ae2ef1768891532c4e5</anchor>
       <arglist>(juce::ValueTree &amp;request, const Index &amp;index, const Function &amp;function) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>applyToArrayResult</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a223c7cbf660b198c6d797c882923a334</anchor>
+      <arglist>(juce::ValueTree &amp;request, const Function &amp;function) const</arglist>
     </member>
     <member kind="function" protection="private">
       <type>void</type>
@@ -4958,32 +5856,18 @@
       <arglist>(const jam::Document::Element &amp;element)</arglist>
     </member>
     <member kind="function" protection="private" static="yes">
-      <type>static int</type>
-      <name>getSegmentCount</name>
-      <anchorfile>class_query.html</anchorfile>
-      <anchor>a869e1271ca87386cef279df079b2b04b</anchor>
-      <arglist>(const jam::Document::Element *leaf)</arglist>
-    </member>
-    <member kind="function" protection="private" static="yes">
-      <type>static std::string_view</type>
-      <name>getSegment</name>
-      <anchorfile>class_query.html</anchorfile>
-      <anchor>a69351438b736520d6a3ec783c0369c2a</anchor>
-      <arglist>(const jam::Document &amp;document, const jam::Document::Element *leaf, int fromEnd)</arglist>
-    </member>
-    <member kind="function" protection="private" static="yes">
-      <type>static bool</type>
-      <name>isVisible</name>
-      <anchorfile>class_query.html</anchorfile>
-      <anchor>ae91364f082fb3ec37c11652ad8a7cb97</anchor>
-      <arglist>(const jam::Document &amp;document, const jam::Document::Element &amp;element, int tokenIndex, const jam::Document &amp;declarationDocument, const jam::Document::Element &amp;declaration)</arglist>
-    </member>
-    <member kind="function" protection="private" static="yes">
       <type>static juce::File</type>
       <name>getCounterpart</name>
       <anchorfile>class_query.html</anchorfile>
       <anchor>a4281c9d2981b5e79c17464ae120ede51</anchor>
       <arglist>(const juce::File &amp;file, const Index &amp;index)</arglist>
+    </member>
+    <member kind="function" protection="private" static="yes">
+      <type>static void</type>
+      <name>applyToSymbolFile</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>a8585cfc4add37b71832b29b09535da00</anchor>
+      <arglist>(const juce::File &amp;file, const Function &amp;function, const Index &amp;index)</arglist>
     </member>
     <member kind="function" protection="private" static="yes">
       <type>static const Occurrences &amp;</type>
@@ -5035,25 +5919,32 @@
       <arglist>(juce::MemoryBlock &amp;entries, juce::int64 symbol, const Index &amp;index, std::string_view encoding)</arglist>
     </member>
     <member kind="function" protection="private" static="yes">
-      <type>static void</type>
+      <type>static int</type>
       <name>appendIncomingRun</name>
       <anchorfile>class_query.html</anchorfile>
-      <anchor>a12d5fe63bbb4a5e578c16af0c96238c8</anchor>
-      <arglist>(juce::MemoryBlock &amp;entries, const Index &amp;index, const Occurrences &amp;references, int runStart, int runEnd, const jam::Document::Element &amp;caller, std::string_view encoding)</arglist>
+      <anchor>aa75e9e6d56e124288941a5c537e7a492</anchor>
+      <arglist>(juce::MemoryBlock &amp;entries, const Index &amp;index, const Occurrences &amp;references, int runStart, const jam::Document::Element &amp;caller, std::string_view encoding)</arglist>
     </member>
     <member kind="function" protection="private" static="yes">
-      <type>static void</type>
+      <type>static int</type>
+      <name>appendCallRanges</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>ab6bddbe84454f7f27e259e9f74e9a019</anchor>
+      <arglist>(juce::MemoryBlock &amp;ranges, const Index &amp;index, const Occurrences &amp;references, int runStart, const jam::Document::Element &amp;caller, const jam::Document &amp;document, std::string_view encoding)</arglist>
+    </member>
+    <member kind="function" protection="private" static="yes">
+      <type>static int</type>
       <name>appendOutlines</name>
       <anchorfile>class_query.html</anchorfile>
-      <anchor>a6585d11f301b484f14d70d6b3f2df97c</anchor>
-      <arglist>(juce::MemoryBlock &amp;json, const jam::Document &amp;document, const jam::Document::Tokens &amp;outlines, int parentIndex, std::string_view encoding)</arglist>
+      <anchor>aac9b5cc0c54b338d12e8906c1c9c207b</anchor>
+      <arglist>(juce::MemoryBlock &amp;json, const jam::Document &amp;document, SymbolDocument::Span&lt; SymbolDocument::OutlineEntry &gt; outlines, int parentIndex, int outlineIndex, std::string_view encoding)</arglist>
     </member>
     <member kind="function" protection="private" static="yes">
-      <type>static void</type>
+      <type>static int</type>
       <name>appendOutline</name>
       <anchorfile>class_query.html</anchorfile>
-      <anchor>abf2846baa91f748bdea450d3d6424ea4</anchor>
-      <arglist>(juce::MemoryBlock &amp;json, const jam::Document &amp;document, const jam::Document::Tokens &amp;outlines, int outlineIndex, std::string_view encoding)</arglist>
+      <anchor>afead9f54d95cfd9c0cdadac4325ddd2c</anchor>
+      <arglist>(juce::MemoryBlock &amp;json, const jam::Document &amp;document, SymbolDocument::Span&lt; SymbolDocument::OutlineEntry &gt; outlines, int outlineIndex, std::string_view encoding)</arglist>
     </member>
     <member kind="function" protection="private" static="yes">
       <type>static void</type>
@@ -5066,8 +5957,8 @@
       <type>static void</type>
       <name>appendFixItActions</name>
       <anchorfile>class_query.html</anchorfile>
-      <anchor>a2c8c592f9bd7ade589f2c216ef062a8f</anchor>
-      <arglist>(juce::MemoryBlock &amp;json, const juce::File &amp;file, const jam::Document &amp;document, const jam::Document::Element &amp;symbolFile, uint32_t rangeStart, uint32_t rangeEnd, std::string_view encoding)</arglist>
+      <anchor>a556bb5accc9b8a0ee57d511261fe6093</anchor>
+      <arglist>(juce::MemoryBlock &amp;json, const juce::File &amp;file, const jam::Document &amp;document, const SymbolDocument &amp;symbolDocument, const SymbolDocument::FileEntry &amp;symbolFile, uint32_t rangeStart, uint32_t rangeEnd, std::string_view encoding)</arglist>
     </member>
     <member kind="function" protection="private" static="yes">
       <type>static void</type>
@@ -5080,8 +5971,8 @@
       <type>static void</type>
       <name>appendCompletionItem</name>
       <anchorfile>class_query.html</anchorfile>
-      <anchor>acf0e315608dcbc3e0ccbee5f4469e643</anchor>
-      <arglist>(juce::MemoryBlock &amp;json, const jam::Document::Element &amp;completion, const Language &amp;language)</arglist>
+      <anchor>ac4dc7ce737d628ad4f1ba257f3b3817e</anchor>
+      <arglist>(juce::MemoryBlock &amp;json, const SymbolDocument &amp;symbolDocument, const SymbolDocument::CompletionRecord &amp;completion, const Language &amp;language)</arglist>
     </member>
     <member kind="function" protection="private" static="yes">
       <type>static uint32_t</type>
@@ -5362,9 +6253,9 @@
     </member>
     <member kind="function" protection="private">
       <type>void</type>
-      <name>applyMessage</name>
+      <name>setMessage</name>
       <anchorfile>class_relay.html</anchorfile>
-      <anchor>ade66e70dac5c690a4f35883ceda02a1d</anchor>
+      <anchor>a328730a21c01b8b7b6d74e5775fa8713</anchor>
       <arglist>(const jam::JsonDocument &amp;document)</arglist>
     </member>
     <member kind="function" protection="private">
@@ -5383,10 +6274,17 @@
     </member>
     <member kind="function" protection="private">
       <type>void</type>
+      <name>sendEmptyResult</name>
+      <anchorfile>class_relay.html</anchorfile>
+      <anchor>a3397767f37e3b9fbd4aa06f8e1f9b98f</anchor>
+      <arglist>(const juce::ValueTree &amp;row)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
       <name>sendResponse</name>
       <anchorfile>class_relay.html</anchorfile>
-      <anchor>adbdb1161cdbeeb9221d193ea0115b96d</anchor>
-      <arglist>(const jam::JsonDocument &amp;document, const jam::Document::Token &amp;idToken, std::string_view member, const Function &amp;appendValue)</arglist>
+      <anchor>a3d4d845465bfe39f1da97ef34d8139bb</anchor>
+      <arglist>(std::string_view id, std::string_view member, const Function &amp;appendValue)</arglist>
     </member>
     <member kind="function" protection="private">
       <type>void</type>
@@ -5408,6 +6306,13 @@
       <anchorfile>class_relay.html</anchorfile>
       <anchor>aef9e159914626bcc5cc412ee50a54b14</anchor>
       <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>bool</type>
+      <name>isSessionActive</name>
+      <anchorfile>class_relay.html</anchorfile>
+      <anchor>a65af6d8315ed543d82eef8ad55e36956</anchor>
+      <arglist>() const</arglist>
     </member>
     <member kind="function" protection="private">
       <type>void</type>
@@ -5540,20 +6445,6 @@
       <name>stdio</name>
       <anchorfile>class_relay.html</anchorfile>
       <anchor>a21757145f215f6bdf8d1718ebc5efc03</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private" static="yes">
-      <type>static constexpr int</type>
-      <name>bufferSize</name>
-      <anchorfile>class_relay.html</anchorfile>
-      <anchor>a704246e35e7cd159ddd0eb278b50d573</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private" static="yes">
-      <type>static constexpr double</type>
-      <name>maximumPeriodMilliseconds</name>
-      <anchorfile>class_relay.html</anchorfile>
-      <anchor>a722a0bfbae366a49399d9c3f17f6cf93</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -6011,6 +6902,7 @@
     <base>juce::InterprocessConnectionServer</base>
     <base protection="private">juce::Timer</base>
     <base protection="private">juce::ValueTree::Listener</base>
+    <base protection="private">jam::File::Watcher::Listener</base>
     <member kind="function">
       <type></type>
       <name>Server</name>
@@ -6038,6 +6930,13 @@
       <anchorfile>class_server.html</anchorfile>
       <anchor>a4eea4c89de21dd82775cd821d7374010</anchor>
       <arglist>(const juce::File &amp;manifest, std::string_view toolchainArgument)</arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr int</type>
+      <name>noPort</name>
+      <anchorfile>class_server.html</anchorfile>
+      <anchor>ac65d04b24db4f4357641cc5e16bb2c3b</anchor>
+      <arglist></arglist>
     </member>
     <member kind="function" protection="private">
       <type>juce::InterprocessConnection *</type>
@@ -6068,11 +6967,25 @@
       <arglist>() override</arglist>
     </member>
     <member kind="function" protection="private">
+      <type>void</type>
+      <name>fileChanged</name>
+      <anchorfile>class_server.html</anchorfile>
+      <anchor>a81198eb3988a03f8c574be1706ab23c4</anchor>
+      <arglist>(const juce::File &amp;file, jam::File::Watcher::Event event) override</arglist>
+    </member>
+    <member kind="function" protection="private">
       <type>juce::File</type>
       <name>getPortFile</name>
       <anchorfile>class_server.html</anchorfile>
       <anchor>a9cc0faedd6b771c2e6a2e91ddf95e50b</anchor>
       <arglist>() const</arglist>
+    </member>
+    <member kind="function" protection="private" static="yes">
+      <type>static juce::MemoryBlock</type>
+      <name>getProgress</name>
+      <anchorfile>class_server.html</anchorfile>
+      <anchor>aece7f9ddae369cfc938b0504dd93bb0e</anchor>
+      <arglist>(std::string_view progressType, int pendingJobs, int totalJobs)</arglist>
     </member>
     <member kind="variable" protection="private">
       <type>LINGModel &amp;</type>
@@ -6096,10 +7009,24 @@
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
+      <type>jam::File::Watcher</type>
+      <name>watcher</name>
+      <anchorfile>class_server.html</anchorfile>
+      <anchor>ada6a7e2fbb9f1bd3ac8b7e6da017382c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
       <type>jam::Model::ParameterAttachment</type>
       <name>message</name>
       <anchorfile>class_server.html</anchorfile>
       <anchor>a936e80685778b09d3ea8ff61819f2ca0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>jam::Model::ParameterAttachment</type>
+      <name>progress</name>
+      <anchorfile>class_server.html</anchorfile>
+      <anchor>a6b59e742a01d2373242868117a9ad85b</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private" static="yes">
@@ -6107,6 +7034,60 @@
       <name>anyPort</name>
       <anchorfile>class_server.html</anchorfile>
       <anchor>a30ea9ecd4c1f78867e08840da331d0df</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>SymbolDocument::Span</name>
+    <filename>struct_symbol_document_1_1_span.html</filename>
+    <templarg>typename Element</templarg>
+    <member kind="function">
+      <type>const Element *</type>
+      <name>begin</name>
+      <anchorfile>struct_symbol_document_1_1_span.html</anchorfile>
+      <anchor>af8dd59f9a7dc07e1decef7faa70557ec</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const Element *</type>
+      <name>end</name>
+      <anchorfile>struct_symbol_document_1_1_span.html</anchorfile>
+      <anchor>a9810448efae3444f69a820bcf6fbf294</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>uint32_t</type>
+      <name>size</name>
+      <anchorfile>struct_symbol_document_1_1_span.html</anchorfile>
+      <anchor>a0f462a4b9c77837c6a0d427b094a08d7</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>empty</name>
+      <anchorfile>struct_symbol_document_1_1_span.html</anchorfile>
+      <anchor>aeeaddf83e09c641edfdfbb2f4fa62f69</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const Element &amp;</type>
+      <name>at</name>
+      <anchorfile>struct_symbol_document_1_1_span.html</anchorfile>
+      <anchor>af19c99afc7b8ade14dbd92bdccbe34b3</anchor>
+      <arglist>(uint32_t index) const noexcept</arglist>
+    </member>
+    <member kind="variable">
+      <type>const Element *</type>
+      <name>ptr</name>
+      <anchorfile>struct_symbol_document_1_1_span.html</anchorfile>
+      <anchor>afe2ade3d8df4306e1021d1298ce75920</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>count</name>
+      <anchorfile>struct_symbol_document_1_1_span.html</anchorfile>
+      <anchor>aa9ac8fb7504061814e1ad42b5eb04160</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -6129,78 +7110,261 @@
       <arglist>(Rules &amp;rules)</arglist>
     </member>
   </compound>
-  <compound kind="struct">
+  <compound kind="class">
     <name>SymbolDocument</name>
-    <filename>struct_symbol_document.html</filename>
-    <base>jam::Document</base>
+    <filename>class_symbol_document.html</filename>
+    <class kind="struct">SymbolDocument::Span</class>
+    <class kind="struct">SymbolDocument::Header</class>
+    <class kind="struct">SymbolDocument::FileEntry</class>
+    <class kind="struct">SymbolDocument::SymbolRecord</class>
+    <class kind="struct">SymbolDocument::CompletionRecord</class>
+    <class kind="struct">SymbolDocument::HoverEntry</class>
+    <class kind="struct">SymbolDocument::InlayHintEntry</class>
+    <class kind="struct">SymbolDocument::DiagnosticEntry</class>
+    <class kind="struct">SymbolDocument::OutlineEntry</class>
+    <class kind="struct">SymbolDocument::FixItEntry</class>
+    <class kind="class">SymbolDocument::Builder</class>
+    <class kind="struct">SymbolDocument::Access</class>
+    <member kind="function">
+      <type>Span&lt; FileEntry &gt;</type>
+      <name>getFiles</name>
+      <anchorfile>class_symbol_document.html</anchorfile>
+      <anchor>a401c4076ca25ce161b3d0c4717f64b95</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>Span&lt; SymbolRecord &gt;</type>
+      <name>getSymbols</name>
+      <anchorfile>class_symbol_document.html</anchorfile>
+      <anchor>a980e39cdf84be9ab8c46b5e26fc0be32</anchor>
+      <arglist>(const FileEntry &amp;file) const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>Span&lt; int64_t &gt;</type>
+      <name>getTypeSymbols</name>
+      <anchorfile>class_symbol_document.html</anchorfile>
+      <anchor>a1b857d2d7857901d942c8a9afd884c96</anchor>
+      <arglist>(const SymbolRecord &amp;record) const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>Span&lt; CompletionRecord &gt;</type>
+      <name>getCompletions</name>
+      <anchorfile>class_symbol_document.html</anchorfile>
+      <anchor>afd2f9b95e556cec2dcc0e83958272c76</anchor>
+      <arglist>(const FileEntry &amp;file) const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>Span&lt; HoverEntry &gt;</type>
+      <name>getHovers</name>
+      <anchorfile>class_symbol_document.html</anchorfile>
+      <anchor>a176879565b3e49bdea0f894d2e6d1abf</anchor>
+      <arglist>(const FileEntry &amp;file) const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>Span&lt; InlayHintEntry &gt;</type>
+      <name>getInlayHints</name>
+      <anchorfile>class_symbol_document.html</anchorfile>
+      <anchor>a3abeff9a43597142c5aec59d756991c9</anchor>
+      <arglist>(const FileEntry &amp;file) const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>Span&lt; DiagnosticEntry &gt;</type>
+      <name>getDiagnostics</name>
+      <anchorfile>class_symbol_document.html</anchorfile>
+      <anchor>a7eabd60a7dc7199dd5ad442393b1ed13</anchor>
+      <arglist>(const FileEntry &amp;file) const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>Span&lt; OutlineEntry &gt;</type>
+      <name>getOutlines</name>
+      <anchorfile>class_symbol_document.html</anchorfile>
+      <anchor>aa8a6e999e47720c45bc9649d566531e6</anchor>
+      <arglist>(const FileEntry &amp;file) const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>Span&lt; FixItEntry &gt;</type>
+      <name>getFixIts</name>
+      <anchorfile>class_symbol_document.html</anchorfile>
+      <anchor>a1837c5eeaac88354c6ac168b7fa8811c</anchor>
+      <arglist>(const FileEntry &amp;file) const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string_view</type>
+      <name>getString</name>
+      <anchorfile>class_symbol_document.html</anchorfile>
+      <anchor>a709803faed5ba02f84e8c1cad1a4606a</anchor>
+      <arglist>(uint32_t offset, uint32_t length) const noexcept</arglist>
+    </member>
     <member kind="function">
       <type></type>
       <name>SymbolDocument</name>
-      <anchorfile>struct_symbol_document.html</anchorfile>
-      <anchor>a581c2bb7ec6b3e1003b6141cb6a5199c</anchor>
-      <arglist>()=default</arglist>
+      <anchorfile>class_symbol_document.html</anchorfile>
+      <anchor>a57b7b4f6791ccd1a10d93b6efd1adf67</anchor>
+      <arglist>(Access, std::unique_ptr&lt; juce::MemoryMappedFile &gt; mappedFile)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SymbolDocument</name>
+      <anchorfile>class_symbol_document.html</anchorfile>
+      <anchor>a024a7254fa9523befde781c706c12e98</anchor>
+      <arglist>(Access, juce::MemoryBlock ownedBlock)</arglist>
     </member>
     <member kind="function" static="yes">
       <type>static std::unique_ptr&lt; SymbolDocument &gt;</type>
-      <name>read</name>
-      <anchorfile>struct_symbol_document.html</anchorfile>
-      <anchor>a6802a7400b26085c61e5441366b91a79</anchor>
-      <arglist>(std::string_view stored)</arglist>
-    </member>
-    <member kind="function" static="yes">
-      <type>static void</type>
-      <name>applyToRecords</name>
-      <anchorfile>struct_symbol_document.html</anchorfile>
-      <anchor>a6111e83e7d3e0393ad9e0bbfc0f36442</anchor>
-      <arglist>(const jam::Document::Element &amp;file, const Function &amp;function)</arglist>
-    </member>
-    <member kind="function" static="yes">
-      <type>static void</type>
-      <name>applyToCompletions</name>
-      <anchorfile>struct_symbol_document.html</anchorfile>
-      <anchor>ac512b0e306008355cbcfa64f3cf7b9a5</anchor>
-      <arglist>(const jam::Document::Element &amp;file, const Function &amp;function)</arglist>
+      <name>open</name>
+      <anchorfile>class_symbol_document.html</anchorfile>
+      <anchor>a660053b5a2d2b3c3ce26bb1c1a93e0a3</anchor>
+      <arglist>(const juce::File &amp;swapFile, juce::int64 hash, juce::int64 languageHash, int family)</arglist>
     </member>
     <member kind="variable" static="yes">
       <type>static constexpr juce::int64</type>
       <name>noSymbol</name>
-      <anchorfile>struct_symbol_document.html</anchorfile>
+      <anchorfile>class_symbol_document.html</anchorfile>
       <anchor>a5d2a4d1f909c9aac5f36f5b1d936033d</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" static="yes">
       <type>static constexpr int</type>
       <name>noParent</name>
-      <anchorfile>struct_symbol_document.html</anchorfile>
+      <anchorfile>class_symbol_document.html</anchorfile>
       <anchor>a07429fecfabe254bc5e70271b580bc10</anchor>
       <arglist></arglist>
     </member>
-    <member kind="function" protection="protected">
-      <type>int</type>
-      <name>getToken</name>
-      <anchorfile>struct_symbol_document.html</anchorfile>
-      <anchor>a4a96d996fb4cbf388dfc914203a740e3</anchor>
-      <arglist>(Cursor &amp;cursor, int segmentType) override</arglist>
+    <member kind="function" protection="private">
+      <type>Header</type>
+      <name>getHeader</name>
+      <anchorfile>class_symbol_document.html</anchorfile>
+      <anchor>a83bcdd9ea09d2075383adf1d3ad1c419</anchor>
+      <arglist>() const noexcept</arglist>
     </member>
-    <member kind="function" protection="protected">
-      <type>void</type>
-      <name>build</name>
-      <anchorfile>struct_symbol_document.html</anchorfile>
-      <anchor>a63f4e30f14ca445b777d1dc6c2e89d9d</anchor>
-      <arglist>() override</arglist>
+    <member kind="function" protection="private">
+      <type>const Record *</type>
+      <name>getTable</name>
+      <anchorfile>class_symbol_document.html</anchorfile>
+      <anchor>a7be0c8dbc9dbe1f3685c2a2c9cbbb77c</anchor>
+      <arglist>(uint64_t offset) const noexcept</arglist>
     </member>
-    <member kind="function" protection="protected">
-      <type>const Vocabulary &amp;</type>
-      <name>getVocabulary</name>
-      <anchorfile>struct_symbol_document.html</anchorfile>
-      <anchor>a0a7e09684cfb4985466dbb4dccb3bc28</anchor>
-      <arglist>() const override</arglist>
+    <member kind="function" protection="private" static="yes">
+      <type>static bool</type>
+      <name>isValidBuffer</name>
+      <anchorfile>class_symbol_document.html</anchorfile>
+      <anchor>aa7de13dec68997b8954909ee38ea6c5b</anchor>
+      <arglist>(const uint8_t *data, size_t size, juce::int64 hash, juce::int64 languageHash, int family) noexcept</arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::unique_ptr&lt; juce::MemoryMappedFile &gt;</type>
+      <name>mapped</name>
+      <anchorfile>class_symbol_document.html</anchorfile>
+      <anchor>aad702cb4972f831e0fb305b5448c1708</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>juce::MemoryBlock</type>
+      <name>owned</name>
+      <anchorfile>class_symbol_document.html</anchorfile>
+      <anchor>a7a04392510754d99dd452d30c785b768</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>const uint8_t *</type>
+      <name>base</name>
+      <anchorfile>class_symbol_document.html</anchorfile>
+      <anchor>ae4ce1aa68fa40432d8e24a4e006540cc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>size_t</type>
+      <name>byteSize</name>
+      <anchorfile>class_symbol_document.html</anchorfile>
+      <anchor>a05116adde5d0404570f149d67a3a3291</anchor>
+      <arglist></arglist>
     </member>
     <member kind="variable" protection="private" static="yes">
-      <type>static constexpr const char *</type>
-      <name>emptySource</name>
-      <anchorfile>struct_symbol_document.html</anchorfile>
-      <anchor>a6e21309162a3d8d5b36bb8cb088c0291</anchor>
+      <type>static constexpr uint32_t</type>
+      <name>fileMagic</name>
+      <anchorfile>class_symbol_document.html</anchorfile>
+      <anchor>a4d8dde7166bb4455b5365dff1f75e7f9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private" static="yes">
+      <type>static constexpr uint32_t</type>
+      <name>currentFormatVersion</name>
+      <anchorfile>class_symbol_document.html</anchorfile>
+      <anchor>a4027a43a655f9c384ff54664be601c90</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private" static="yes">
+      <type>static constexpr uint64_t</type>
+      <name>sectionAlignment</name>
+      <anchorfile>class_symbol_document.html</anchorfile>
+      <anchor>afddb85fdae16b6bbbc35c85f12b1a803</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>SymbolDocument::SymbolRecord</name>
+    <filename>struct_symbol_document_1_1_symbol_record.html</filename>
+    <member kind="variable">
+      <type>int64_t</type>
+      <name>symbol</name>
+      <anchorfile>struct_symbol_document_1_1_symbol_record.html</anchorfile>
+      <anchor>a51241e1e42267efbf017dbbdaf863741</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>line</name>
+      <anchorfile>struct_symbol_document_1_1_symbol_record.html</anchorfile>
+      <anchor>a4e9b806e44148a09ed9f03a4f66ab813</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>column</name>
+      <anchorfile>struct_symbol_document_1_1_symbol_record.html</anchorfile>
+      <anchor>a23f80aa4ab77331e0b1ab7c731c1a091</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>nameLength</name>
+      <anchorfile>struct_symbol_document_1_1_symbol_record.html</anchorfile>
+      <anchor>a4651689f905e2c60d53b6d2c41800203</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>role</name>
+      <anchorfile>struct_symbol_document_1_1_symbol_record.html</anchorfile>
+      <anchor>a9e587fac690bd9a8b7dab7bf1ca8be80</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>type</name>
+      <anchorfile>struct_symbol_document_1_1_symbol_record.html</anchorfile>
+      <anchor>af0c60f99415ccfa3e5f0c88ea59271f7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int32_t</type>
+      <name>hover</name>
+      <anchorfile>struct_symbol_document_1_1_symbol_record.html</anchorfile>
+      <anchor>a0c3ef9cfb17bf2ee6e8dadd17a475143</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>typeSymbolsStart</name>
+      <anchorfile>struct_symbol_document_1_1_symbol_record.html</anchorfile>
+      <anchor>a10efa1f9d41d12eb31c8b4dd20ef0e18</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>typeSymbolsCount</name>
+      <anchorfile>struct_symbol_document_1_1_symbol_record.html</anchorfile>
+      <anchor>a3b2b7fdf0f3f200db974d385ae91968d</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -6415,6 +7579,103 @@
       <arglist></arglist>
     </member>
   </compound>
+  <compound kind="class">
+    <name>ToolRelay</name>
+    <filename>class_tool_relay.html</filename>
+    <base>Client</base>
+    <base protection="private">juce::ValueTree::Listener</base>
+    <member kind="function">
+      <type></type>
+      <name>ToolRelay</name>
+      <anchorfile>class_tool_relay.html</anchorfile>
+      <anchor>a2faa8ce30deab3cd1ccae1774718d63b</anchor>
+      <arglist>(const juce::File &amp;newManifestFile, const juce::String &amp;newToolchainArgument)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~ToolRelay</name>
+      <anchorfile>class_tool_relay.html</anchorfile>
+      <anchor>a4fa159da1e3de2f450cca84d470cad1a</anchor>
+      <arglist>() override</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>start</name>
+      <anchorfile>class_tool_relay.html</anchorfile>
+      <anchor>a3cb108fe641f86e8bd045c52f5d93ac4</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>connectionMade</name>
+      <anchorfile>class_tool_relay.html</anchorfile>
+      <anchor>aa532009e849e74793886d3af923f1677</anchor>
+      <arglist>() override</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>messageReceived</name>
+      <anchorfile>class_tool_relay.html</anchorfile>
+      <anchor>a4cda3d8491875e20fc7b4c868b327843</anchor>
+      <arglist>(const juce::MemoryBlock &amp;reply) override</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>valueTreeChildAdded</name>
+      <anchorfile>class_tool_relay.html</anchorfile>
+      <anchor>a377deae101af920e91d086bac8442c78</anchor>
+      <arglist>(juce::ValueTree &amp;parentTree, juce::ValueTree &amp;childWhichHasBeenAdded) override</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>valueTreePropertyChanged</name>
+      <anchorfile>class_tool_relay.html</anchorfile>
+      <anchor>aca23f7c98f5734fb33547e2c3ee65c25</anchor>
+      <arglist>(juce::ValueTree &amp;tree, const juce::Identifier &amp;property) override</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>addRequest</name>
+      <anchorfile>class_tool_relay.html</anchorfile>
+      <anchor>a3bfb62ecc062c74bdfab260ef720b363</anchor>
+      <arglist>(const juce::String &amp;requestId, const jam::JsonDocument &amp;document, const jam::Document::Element &amp;arguments, const juce::Identifier &amp;command, const juce::Identifier &amp;shape)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>sendRequest</name>
+      <anchorfile>class_tool_relay.html</anchorfile>
+      <anchor>a5601264f86623f40b0030dfab3e387f4</anchor>
+      <arglist>(const juce::ValueTree &amp;row)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>sendEmptyResult</name>
+      <anchorfile>class_tool_relay.html</anchorfile>
+      <anchor>a04938e66ca8a75bc42b3fdf5573fbc56</anchor>
+      <arglist>(const juce::ValueTree &amp;row)</arglist>
+    </member>
+    <member kind="function" protection="private" static="yes">
+      <type>static juce::Array&lt; juce::var &gt;</type>
+      <name>getRequestArguments</name>
+      <anchorfile>class_tool_relay.html</anchorfile>
+      <anchor>ad5825d369f06afc7c187d7c8bc1c6b90</anchor>
+      <arglist>(const jam::JsonDocument &amp;document, const jam::Document::Element &amp;arguments, const juce::Identifier &amp;shape)</arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>juce::ValueTree</type>
+      <name>requests</name>
+      <anchorfile>class_tool_relay.html</anchorfile>
+      <anchor>a3b6b3d0a99879225c5990d5d054b3a65</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>jam::ModelContextServer</type>
+      <name>server</name>
+      <anchorfile>class_tool_relay.html</anchorfile>
+      <anchor>a53b8a891ea4392aefbdb5c53f3540fb1</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
   <compound kind="struct">
     <name>Processor::UnitsJob</name>
     <filename>struct_processor_1_1_units_job.html</filename>
@@ -6566,6 +7827,31 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>lsp::WorkDoneProgressKind</name>
+    <filename>structlsp_1_1_work_done_progress_kind.html</filename>
+    <member kind="variable" static="yes">
+      <type>static constexpr std::string_view</type>
+      <name>Begin</name>
+      <anchorfile>structlsp_1_1_work_done_progress_kind.html</anchorfile>
+      <anchor>a11df04fdb700bcfe05939679e2a0b6ca</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr std::string_view</type>
+      <name>Report</name>
+      <anchorfile>structlsp_1_1_work_done_progress_kind.html</anchorfile>
+      <anchor>a25e72cc08d49fd24ac72da384efa9e1c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr std::string_view</type>
+      <name>End</name>
+      <anchorfile>structlsp_1_1_work_done_progress_kind.html</anchorfile>
+      <anchor>ad29e2f846292bcc2c12cdbdc72783dd3</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>map::XmlElements</name>
     <filename>structmap_1_1_xml_elements.html</filename>
     <base>jam::HashMap&lt; int, jam::Union&lt; uint8_t, uint8_t &gt; &gt;</base>
@@ -6602,6 +7888,7 @@
     <class kind="struct">lsp::Method</class>
     <class kind="struct">lsp::Member</class>
     <class kind="struct">lsp::MarkupType</class>
+    <class kind="struct">lsp::WorkDoneProgressKind</class>
     <class kind="struct">lsp::Message</class>
     <class kind="struct">lsp::MessageType</class>
     <class kind="struct">lsp::InsertTextFormat</class>

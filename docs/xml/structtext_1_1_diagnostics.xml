@@ -19,7 +19,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="generated/Text.h" line="31" column="39" bodyfile="generated/Text.h" bodystart="31" bodyend="31"/>
-        <referencedby refid="_main_8cpp_1a93b96875a990671fc67133af4df14abe" compoundref="_main_8cpp" startline="154" endline="163">getExistingManifestFile</referencedby>
+        <referencedby refid="_main_8cpp_1a93b96875a990671fc67133af4df14abe" compoundref="_main_8cpp" startline="170" endline="178">getExistingManifestFile</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structtext_1_1_diagnostics_1a54030ad642dee1157d22d8255503812d" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>const char *const</type>
@@ -36,23 +36,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="generated/Text.h" line="32" column="39" bodyfile="generated/Text.h" bodystart="32" bodyend="32"/>
-        <referencedby refid="class_application_1a3c8dc9b46966a8ec09fdea562ea98c40" compoundref="_main_8cpp" startline="339" endline="385">Application::runManifest</referencedby>
-      </memberdef>
-      <memberdef kind="variable" id="structtext_1_1_diagnostics_1a5860abb386798bd8f94149ffa570bc34" prot="public" static="yes" constexpr="yes" mutable="no">
-        <type>const char *const</type>
-        <definition>const char* const text::Diagnostics::failNoUnit</definition>
-        <argsstring></argsstring>
-        <name>failNoUnit</name>
-        <qualifiedname>text::Diagnostics::failNoUnit</qualifiedname>
-        <initializer>{ &quot;no unit compiles the file&quot;                                       }</initializer>
-        <briefdescription>
-<para>A file that no unit of the compiler manifest compiles. </para>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="generated/Text.h" line="33" column="39" bodyfile="generated/Text.h" bodystart="33" bodyend="33"/>
+        <referencedby refid="class_application_1a3c8dc9b46966a8ec09fdea562ea98c40" compoundref="_main_8cpp" startline="363" endline="409">Application::runManifest</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structtext_1_1_diagnostics_1a15f1fdeea830a67020306e9b3e5073ea" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>const char *const</type>
@@ -68,8 +52,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Text.h" line="34" column="39" bodyfile="generated/Text.h" bodystart="34" bodyend="34"/>
-        <referencedby refid="class_manifest_1a0334667072db0b66c035e93e94f423c2" compoundref="_manifest_8cpp" startline="211" endline="242">Manifest::getToolchain</referencedby>
+        <location file="generated/Text.h" line="33" column="39" bodyfile="generated/Text.h" bodystart="33" bodyend="33"/>
+        <referencedby refid="class_manifest_1a0334667072db0b66c035e93e94f423c2" compoundref="_manifest_8cpp" startline="217" endline="248">Manifest::getToolchain</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structtext_1_1_diagnostics_1acb39935ba8149723d8a1c9615271f294" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>const char *const</type>
@@ -85,8 +69,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Text.h" line="35" column="39" bodyfile="generated/Text.h" bodystart="35" bodyend="35"/>
-        <referencedby refid="struct_validator_1af387720572933d5519b0597814433c17" compoundref="_validator_8cpp" startline="3" endline="53">Validator::addRules</referencedby>
+        <location file="generated/Text.h" line="34" column="39" bodyfile="generated/Text.h" bodystart="34" bodyend="34"/>
+        <referencedby refid="struct_validator_1af387720572933d5519b0597814433c17" compoundref="_validator_8cpp" startline="3" endline="54">Validator::addRules</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structtext_1_1_diagnostics_1a917b125ae6e7f9b56f438fc8a195cdd4" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>const char *const</type>
@@ -102,7 +86,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Text.h" line="36" column="39" bodyfile="generated/Text.h" bodystart="36" bodyend="36"/>
+        <location file="generated/Text.h" line="35" column="39" bodyfile="generated/Text.h" bodystart="35" bodyend="35"/>
         <referencedby refid="class_client_1a742373e08a80d993d2651b6fff76f5b9" compoundref="_client_8cpp" startline="21" endline="37">Client::start</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structtext_1_1_diagnostics_1a88ef151e729b90b683e17b37f0ca0083" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -119,8 +103,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Text.h" line="37" column="39" bodyfile="generated/Text.h" bodystart="37" bodyend="37"/>
-        <referencedby refid="class_client_1af9ec2edf06d69e92a25c53ce4260fa27" compoundref="_client_8cpp" startline="59" endline="64">Client::connectionLost</referencedby>
+        <location file="generated/Text.h" line="36" column="39" bodyfile="generated/Text.h" bodystart="36" bodyend="36"/>
+        <referencedby refid="class_client_1af9ec2edf06d69e92a25c53ce4260fa27" compoundref="_client_8cpp" startline="64" endline="69">Client::connectionLost</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structtext_1_1_diagnostics_1a204d1ed64e1ddb8a0febcd742369a763" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>const char *const</type>
@@ -136,8 +120,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Text.h" line="38" column="39" bodyfile="generated/Text.h" bodystart="38" bodyend="38"/>
-        <referencedby refid="struct_validator_1af387720572933d5519b0597814433c17" compoundref="_validator_8cpp" startline="3" endline="53">Validator::addRules</referencedby>
+        <location file="generated/Text.h" line="37" column="39" bodyfile="generated/Text.h" bodystart="37" bodyend="37"/>
+        <referencedby refid="struct_validator_1af387720572933d5519b0597814433c17" compoundref="_validator_8cpp" startline="3" endline="54">Validator::addRules</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structtext_1_1_diagnostics_1af30e48722544c30fc73ff0dee4c04506" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>const char *const</type>
@@ -153,8 +137,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Text.h" line="39" column="39" bodyfile="generated/Text.h" bodystart="39" bodyend="39"/>
-        <referencedby refid="struct_validator_1af387720572933d5519b0597814433c17" compoundref="_validator_8cpp" startline="3" endline="53">Validator::addRules</referencedby>
+        <location file="generated/Text.h" line="38" column="39" bodyfile="generated/Text.h" bodystart="38" bodyend="38"/>
+        <referencedby refid="struct_validator_1af387720572933d5519b0597814433c17" compoundref="_validator_8cpp" startline="3" endline="54">Validator::addRules</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structtext_1_1_diagnostics_1a2f45710676ce947b97c6c13fdd411af7" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>const char *const</type>
@@ -170,8 +154,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Text.h" line="40" column="39" bodyfile="generated/Text.h" bodystart="40" bodyend="40"/>
-        <referencedby refid="struct_swap_validator_1a4dd34faa0a529eb6f271de588081117c" compoundref="_swap_validator_8cpp" startline="4" endline="211">SwapValidator::addRules</referencedby>
+        <location file="generated/Text.h" line="39" column="39" bodyfile="generated/Text.h" bodystart="39" bodyend="39"/>
+        <referencedby refid="struct_swap_validator_1a4dd34faa0a529eb6f271de588081117c" compoundref="_swap_validator_8cpp" startline="3" endline="29">SwapValidator::addRules</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structtext_1_1_diagnostics_1afba75a13e6c5d0f3df72f7c969ba90ef" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>const char *const</type>
@@ -187,8 +171,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Text.h" line="41" column="39" bodyfile="generated/Text.h" bodystart="41" bodyend="41"/>
-        <referencedby refid="struct_swap_validator_1a4dd34faa0a529eb6f271de588081117c" compoundref="_swap_validator_8cpp" startline="4" endline="211">SwapValidator::addRules</referencedby>
+        <location file="generated/Text.h" line="40" column="39" bodyfile="generated/Text.h" bodystart="40" bodyend="40"/>
       </memberdef>
       <memberdef kind="variable" id="structtext_1_1_diagnostics_1a80e033dff73412d55aebca931f7dc490" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>const char *const</type>
@@ -204,8 +187,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Text.h" line="42" column="39" bodyfile="generated/Text.h" bodystart="42" bodyend="42"/>
-        <referencedby refid="class_processor_1a08af8205b7fae804fbad9b2e7e320f22" compoundref="_processor_8cpp" startline="462" endline="508">Processor::setLanguage</referencedby>
+        <location file="generated/Text.h" line="41" column="39" bodyfile="generated/Text.h" bodystart="41" bodyend="41"/>
+        <referencedby refid="class_processor_1a08af8205b7fae804fbad9b2e7e320f22" compoundref="_processor_8cpp" startline="483" endline="529">Processor::setLanguage</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structtext_1_1_diagnostics_1a592e63682b3f319b9d9e68c575b81486" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>const char *const</type>
@@ -221,8 +204,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Text.h" line="43" column="39" bodyfile="generated/Text.h" bodystart="43" bodyend="43"/>
-        <referencedby refid="class_built_in_language_1abb7f2d4981fc084fe3f21e6267a94f7b" compoundref="_built_in_language_8h" startline="13" endline="16">BuiltInLanguage&lt; Elements, TokenTypes &gt;::isValid</referencedby>
+        <location file="generated/Text.h" line="42" column="39" bodyfile="generated/Text.h" bodystart="42" bodyend="42"/>
+        <referencedby refid="class_built_in_language_1abb7f2d4981fc084fe3f21e6267a94f7b" compoundref="_built_in_language_8h" startline="34" endline="37">BuiltInLanguage&lt; Elements, TokenTypes &gt;::isValid</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structtext_1_1_diagnostics_1a83d689bacb25dd23510f0a605cc89263" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>const char *const</type>
@@ -238,8 +221,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Text.h" line="44" column="39" bodyfile="generated/Text.h" bodystart="44" bodyend="44"/>
-        <referencedby refid="class_processor_1ada6bec4ded26df0af355111366519094" compoundref="_processor_8cpp" startline="1286" endline="1304">Processor::addBindings</referencedby>
+        <location file="generated/Text.h" line="43" column="39" bodyfile="generated/Text.h" bodystart="43" bodyend="43"/>
+        <referencedby refid="class_processor_1ada6bec4ded26df0af355111366519094" compoundref="_processor_8cpp" startline="1158" endline="1176">Processor::addBindings</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structtext_1_1_diagnostics_1a442b409b3191ecf2bcb010d552a89610" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>const char *const</type>
@@ -255,8 +238,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Text.h" line="45" column="39" bodyfile="generated/Text.h" bodystart="45" bodyend="45"/>
-        <referencedby refid="class_processor_1ab00c859ab19953604870768ae8b054bc" compoundref="_processor_8cpp" startline="589" endline="620">Processor::addLanguages</referencedby>
+        <location file="generated/Text.h" line="44" column="39" bodyfile="generated/Text.h" bodystart="44" bodyend="44"/>
+        <referencedby refid="class_processor_1ab00c859ab19953604870768ae8b054bc" compoundref="_processor_8cpp" startline="611" endline="642">Processor::addLanguages</referencedby>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -264,7 +247,7 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="generated/Text.h" line="29" column="1" bodyfile="generated/Text.h" bodystart="30" bodyend="46"/>
+    <location file="generated/Text.h" line="29" column="1" bodyfile="generated/Text.h" bodystart="30" bodyend="45"/>
     <listofallmembers>
       <member refid="structtext_1_1_diagnostics_1a442b409b3191ecf2bcb010d552a89610" prot="public" virt="non-virtual"><scope>text::Diagnostics</scope><name>failConstructionNotFound</name></member>
       <member refid="structtext_1_1_diagnostics_1a88ef151e729b90b683e17b37f0ca0083" prot="public" virt="non-virtual"><scope>text::Diagnostics</scope><name>failDaemonLost</name></member>
@@ -275,7 +258,6 @@
       <member refid="structtext_1_1_diagnostics_1a80e033dff73412d55aebca931f7dc490" prot="public" virt="non-virtual"><scope>text::Diagnostics</scope><name>failLanguageLoad</name></member>
       <member refid="structtext_1_1_diagnostics_1a592e63682b3f319b9d9e68c575b81486" prot="public" virt="non-virtual"><scope>text::Diagnostics</scope><name>failLanguageParse</name></member>
       <member refid="structtext_1_1_diagnostics_1a614879ccbad6f4edaf1a511bf5a2fa68" prot="public" virt="non-virtual"><scope>text::Diagnostics</scope><name>failNotFound</name></member>
-      <member refid="structtext_1_1_diagnostics_1a5860abb386798bd8f94149ffa570bc34" prot="public" virt="non-virtual"><scope>text::Diagnostics</scope><name>failNoUnit</name></member>
       <member refid="structtext_1_1_diagnostics_1afba75a13e6c5d0f3df72f7c969ba90ef" prot="public" virt="non-virtual"><scope>text::Diagnostics</scope><name>failSwapRecord</name></member>
       <member refid="structtext_1_1_diagnostics_1a2f45710676ce947b97c6c13fdd411af7" prot="public" virt="non-virtual"><scope>text::Diagnostics</scope><name>failSwapVersion</name></member>
       <member refid="structtext_1_1_diagnostics_1a15f1fdeea830a67020306e9b3e5073ea" prot="public" virt="non-virtual"><scope>text::Diagnostics</scope><name>failToolchainArgument</name></member>

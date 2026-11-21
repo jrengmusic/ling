@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="structtext_1_1_progress" kind="struct" language="C++" prot="public">
+    <compoundname>text::Progress</compoundname>
+    <includes refid="_text_8h" local="no">Text.h</includes>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="structtext_1_1_progress_1a6f31311cca3d4fafa241a3ab46702ec7" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>const char *const</type>
+        <definition>const char* const text::Progress::progressToken</definition>
+        <argsstring></argsstring>
+        <name>progressToken</name>
+        <qualifiedname>text::Progress::progressToken</qualifiedname>
+        <initializer>{ &quot;ling/index&quot; }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Text.h" line="54" column="39" bodyfile="generated/Text.h" bodystart="54" bodyend="54"/>
+        <referencedby refid="class_server_1aece7f9ddae369cfc938b0504dd93bb0e" compoundref="_server_8cpp" startline="145" endline="204">Server::getProgress</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structtext_1_1_progress_1abf9c4945370061644cc893b1c0be27f8" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>const char *const</type>
+        <definition>const char* const text::Progress::progressTitle</definition>
+        <argsstring></argsstring>
+        <name>progressTitle</name>
+        <qualifiedname>text::Progress::progressTitle</qualifiedname>
+        <initializer>{ &quot;Indexing&quot;   }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Text.h" line="55" column="39" bodyfile="generated/Text.h" bodystart="55" bodyend="55"/>
+        <referencedby refid="class_server_1aece7f9ddae369cfc938b0504dd93bb0e" compoundref="_server_8cpp" startline="145" endline="204">Server::getProgress</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structtext_1_1_progress_1a793016a05da81b509c04efadafc250b3" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>const char *const</type>
+        <definition>const char* const text::Progress::progressSeparator</definition>
+        <argsstring></argsstring>
+        <name>progressSeparator</name>
+        <qualifiedname>text::Progress::progressSeparator</qualifiedname>
+        <initializer>{ &quot;/&quot;          }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Text.h" line="56" column="39" bodyfile="generated/Text.h" bodystart="56" bodyend="56"/>
+        <referencedby refid="class_server_1aece7f9ddae369cfc938b0504dd93bb0e" compoundref="_server_8cpp" startline="145" endline="204">Server::getProgress</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>ling work done progress texts of the index. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="generated/Text.h" line="52" column="1" bodyfile="generated/Text.h" bodystart="53" bodyend="57"/>
+    <listofallmembers>
+      <member refid="structtext_1_1_progress_1a793016a05da81b509c04efadafc250b3" prot="public" virt="non-virtual"><scope>text::Progress</scope><name>progressSeparator</name></member>
+      <member refid="structtext_1_1_progress_1abf9c4945370061644cc893b1c0be27f8" prot="public" virt="non-virtual"><scope>text::Progress</scope><name>progressTitle</name></member>
+      <member refid="structtext_1_1_progress_1a6f31311cca3d4fafa241a3ab46702ec7" prot="public" virt="non-virtual"><scope>text::Progress</scope><name>progressToken</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

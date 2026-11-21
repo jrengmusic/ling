@@ -38,6 +38,7 @@
 | lingPort                   | @string | `port`                        | Extension of the port file of a daemon.                                             |
 | lingSwap                   | @string | `swap`                        | Extension of the swap file of a source file.                                        |
 | lingSymbols                | @string | `symbols`                     | Extension of the symbol swap file of a unit.                                        |
+| lingTools                  | @string | `tools.json`                  | MCP tool list.                                                                      |
 | lsp                        | @string | `lsp.md`                      | LSP value table file of a language build.                                           |
 | sourceDirectoryVariable    | @string | `${CMAKE_CURRENT_SOURCE_DIR}` | The CMake variable that a manifest cell uses for the project folder.                |
 | syntaxTree                 | @string | `syntax_tree.md`              | Syntax table file of a language build.                                              |

@@ -11,26 +11,6 @@
     <derivedcompoundref refid="class_built_in_language" prot="public" virt="non-virtual">BuiltInLanguage&lt; Elements, TokenTypes &gt;</derivedcompoundref>
     <derivedcompoundref refid="class_library_language" prot="public" virt="non-virtual">LibraryLanguage</derivedcompoundref>
     <includes refid="_language_8h" local="no">Language.h</includes>
-    <sectiondef kind="public-static-attrib">
-      <memberdef kind="variable" id="class_language_1acb2734bfc3418cdf27c21ec260adfe60" prot="public" static="yes" constexpr="yes" mutable="no">
-        <type>int</type>
-        <definition>int Language::noDefinition</definition>
-        <argsstring></argsstring>
-        <name>noDefinition</name>
-        <qualifiedname>Language::noDefinition</qualifiedname>
-        <initializer>{ -1 }</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Language.h" line="10" column="26" bodyfile="Language.h" bodystart="10" bodyend="10"/>
-        <referencedby refid="class_built_in_language_1a854fb2343326f6c8a80add14f0a41d84" compoundref="_built_in_language_8h" startline="191" endline="215">BuiltInLanguage&lt; Elements, TokenTypes &gt;::addRecords</referencedby>
-        <referencedby refid="class_query_1a4b374853461219f939f43fb503cf7d61" compoundref="_query_8cpp" startline="473" endline="511">Query::hover</referencedby>
-        <referencedby refid="class_processor_1a73b87328af0323a991d4ab0625558647" compoundref="_processor_8cpp" startline="395" endline="408">Processor::runHover</referencedby>
-      </memberdef>
-    </sectiondef>
     <sectiondef kind="public-func">
       <memberdef kind="function" id="class_language_1a31ccc6a98a6c40a452a66a18ca604c79" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type></type>
@@ -39,15 +19,16 @@
         <name>~Language</name>
         <qualifiedname>Language::~Language</qualifiedname>
         <briefdescription>
+<para>Releases derived language backends through a base pointer. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Language.h" line="8" column="13"/>
+        <location file="Language.h" line="17" column="13"/>
       </memberdef>
       <memberdef kind="function" id="class_language_1aa23f1df5cd018950d06f9b0ddf1c2e23" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
-        <type>std::pair&lt; std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;, std::unique_ptr&lt; <ref refid="struct_symbol_document" kindref="compound">SymbolDocument</ref> &gt; &gt;</type>
+        <type>std::pair&lt; std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;, std::unique_ptr&lt; <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> &gt; &gt;</type>
         <definition>virtual std::pair&lt; std::unique_ptr&lt; jam::Document &gt;, std::unique_ptr&lt; SymbolDocument &gt; &gt; Language::parse</definition>
         <argsstring>(std::string_view text, const juce::String &amp;path) const =0</argsstring>
         <name>parse</name>
@@ -68,12 +49,34 @@
           <declname>path</declname>
         </param>
         <briefdescription>
+<para>Parses <computeroutput>text</computeroutput> into a <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> and an optional inline <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref>. </para>
         </briefdescription>
         <detaileddescription>
+<para>Built-in languages build both trees synchronously; library languages return a null <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> and populate symbols asynchronously in <ref refid="class_language_1a8be0bd7956e0304c9dfa6f34de424ad9" kindref="member">index()</ref>.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>text</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>UTF-8 source text to parse. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Canonical source file path. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pair of parsed document (or nullptr on failure) and optional symbol document. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Language.h" line="12" column="23"/>
+        <location file="Language.h" line="29" column="23"/>
       </memberdef>
       <memberdef kind="function" id="class_language_1ad9d9019bec5846302d4b69bd308b7183" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
         <type><ref refid="classjuce_1_1Result" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Result</ref></type>
@@ -94,12 +97,25 @@
           <declname>text</declname>
         </param>
         <briefdescription>
+<para>Validates syntax of <computeroutput>text</computeroutput> without building an index entry. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>text</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>UTF-8 source text to validate. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Result indicating syntax validity or an error diagnostic. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Language.h" line="13" column="26"/>
+        <location file="Language.h" line="37" column="26"/>
       </memberdef>
       <memberdef kind="function" id="class_language_1a392c16dfaf08d7ed566e4e3983bb7ac9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
         <type>std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;</type>
@@ -123,12 +139,33 @@
           <declname>stored</declname>
         </param>
         <briefdescription>
+<para>Deserializes a cached swap document against current source <computeroutput>text</computeroutput>. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>text</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Current UTF-8 source bytes that token views reference. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>stored</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Serialized swap file bytes. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Validated <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref>, or nullptr when <computeroutput>stored</computeroutput> is incompatible. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Language.h" line="14" column="29"/>
+        <location file="Language.h" line="46" column="29"/>
       </memberdef>
       <memberdef kind="function" id="class_language_1a8be0bd7956e0304c9dfa6f34de424ad9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
         <type>int</type>
@@ -173,12 +210,73 @@
           <declname>callbacks</declname>
         </param>
         <briefdescription>
+<para>Runs unit-level symbol indexing for one translation unit and reports records via <computeroutput>callbacks</computeroutput>. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>arguments</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Compiler driver argument array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>argumentCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of entries in <computeroutput>arguments</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>directory</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Working directory for the unit. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bufferPaths</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Paths of unsaved editor buffers overriding disk contents. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bufferTexts</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>UTF-8 texts aligned with <computeroutput>bufferPaths</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bufferCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of unsaved buffers in <computeroutput>bufferPaths</computeroutput> and <computeroutput>bufferTexts</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>callbacks</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Callback table receiving symbol, outline, hover, hint, diagnostic, completion, and fix-it records. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Zero on success, or a nonzero error code from the backend. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Language.h" line="15" column="17"/>
+        <location file="Language.h" line="60" column="17"/>
       </memberdef>
       <memberdef kind="function" id="class_language_1a373e97c0fb11550d40cfa069fba7222b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
         <type>bool</type>
@@ -195,12 +293,16 @@
         <reimplementedby refid="class_built_in_language_1a2a9dee54dbdf570fe2538a151ccd32ac">hasIndex</reimplementedby>
         <reimplementedby refid="class_library_language_1a6773bd225fdb2cae1f879f141e2ecec8">hasIndex</reimplementedby>
         <briefdescription>
+<para>Tells whether this backend supports unit-level indexing via <ref refid="class_language_1a8be0bd7956e0304c9dfa6f34de424ad9" kindref="member">index()</ref>. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para><computeroutput>true</computeroutput> for library languages that run external index passes; <computeroutput>false</computeroutput> for built-in grammars. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Language.h" line="16" column="18"/>
+        <location file="Language.h" line="67" column="18"/>
       </memberdef>
       <memberdef kind="function" id="class_language_1aad06a1f0660985eb64023e05e8845bb7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
         <type>int</type>
@@ -241,12 +343,65 @@
           <declname>callbacks</declname>
         </param>
         <briefdescription>
+<para>Discovers translation units from toolchain command rows and reports them via <computeroutput>callbacks</computeroutput>. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>arguments</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flattened command argument strings across all toolchain rows. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>argumentCounts</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Argument count for each toolchain row. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rowCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of rows in <computeroutput>argumentCounts</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>directory</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Project root directory. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cacheDirectory</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Project cache directory for build or compilation databases. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>callbacks</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Callbacks receiving discovered units, build files, and messages. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Zero on success, or a nonzero error code from the backend. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Language.h" line="17" column="17"/>
+        <location file="Language.h" line="80" column="17"/>
       </memberdef>
       <memberdef kind="function" id="class_language_1aba611040df762266ca041ca011ec57e2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
         <type>bool</type>
@@ -271,12 +426,33 @@
           <declname>role</declname>
         </param>
         <briefdescription>
+<para>Tells whether <computeroutput>element</computeroutput> carries the given <ref refid="structjam_1_1LanguageRole" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageRole</ref> bitmask. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>element</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Document element to inspect. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>role</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bitmask of <ref refid="structjam_1_1LanguageRole" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageRole</ref> flags to test. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><computeroutput>true</computeroutput> when any bit of <computeroutput>role</computeroutput> is set on <computeroutput>element</computeroutput>. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Language.h" line="18" column="18"/>
+        <location file="Language.h" line="89" column="18"/>
       </memberdef>
       <memberdef kind="function" id="class_language_1a44c383aa2124008873c41b9d2d9a8861" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
         <type>int</type>
@@ -297,12 +473,25 @@
           <declname>element</declname>
         </param>
         <briefdescription>
+<para>Returns the LSP SymbolKind integer for <computeroutput>element</computeroutput>. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>element</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Document element to classify. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>LSP SymbolKind integer value. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Language.h" line="19" column="17"/>
+        <location file="Language.h" line="97" column="17"/>
       </memberdef>
       <memberdef kind="function" id="class_language_1a8b4bb63191d8379a26ce449c5c11c839" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
         <type>int</type>
@@ -323,12 +512,25 @@
           <declname>tokenType</declname>
         </param>
         <briefdescription>
+<para>Maps a language-specific token type to its index in <ref refid="class_legend_1aaa72d339f7385c6cf4462cb6f6c2294b" kindref="member">Legend::getTypes()</ref>. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tokenType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="class_language" kindref="compound">Language</ref> token type integer. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Zero-based semantic token type index in the shared server legend. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Language.h" line="20" column="17"/>
+        <location file="Language.h" line="105" column="17"/>
       </memberdef>
       <memberdef kind="function" id="class_language_1a47ee33c2a64c73d3169cc3987f89f408" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
         <type>int</type>
@@ -349,67 +551,106 @@
           <declname>tokenType</declname>
         </param>
         <briefdescription>
+<para>Maps a language-specific token type to its bitmask in <ref refid="class_legend_1a4bd9db5976be7ca9af8a41b1e8eb72ee" kindref="member">Legend::getModifiers()</ref>. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tokenType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="class_language" kindref="compound">Language</ref> token type integer. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Bitmask of semantic token modifiers in the shared server legend. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Language.h" line="21" column="17"/>
+        <location file="Language.h" line="113" column="17"/>
       </memberdef>
-      <memberdef kind="function" id="class_language_1ad098ab2910e40e636ddbdad279fea14e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+      <memberdef kind="function" id="class_language_1a05bcdae53a619c323b12598feaf37333" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
         <type>int</type>
-        <definition>virtual int Language::getCompletionKind</definition>
+        <definition>virtual int Language::getCompletionType</definition>
         <argsstring>(int tokenType) const =0</argsstring>
-        <name>getCompletionKind</name>
-        <qualifiedname>Language::getCompletionKind</qualifiedname>
-        <reimplementedby refid="class_built_in_language_1a42553c1c187d0531aa6415cab8dccae0">getCompletionKind</reimplementedby>
-        <reimplementedby refid="class_built_in_language_1a42553c1c187d0531aa6415cab8dccae0">getCompletionKind</reimplementedby>
-        <reimplementedby refid="class_built_in_language_1a42553c1c187d0531aa6415cab8dccae0">getCompletionKind</reimplementedby>
-        <reimplementedby refid="class_built_in_language_1a42553c1c187d0531aa6415cab8dccae0">getCompletionKind</reimplementedby>
-        <reimplementedby refid="class_built_in_language_1a42553c1c187d0531aa6415cab8dccae0">getCompletionKind</reimplementedby>
-        <reimplementedby refid="class_built_in_language_1a42553c1c187d0531aa6415cab8dccae0">getCompletionKind</reimplementedby>
-        <reimplementedby refid="class_built_in_language_1a42553c1c187d0531aa6415cab8dccae0">getCompletionKind</reimplementedby>
-        <reimplementedby refid="class_library_language_1a647b7892ddf861f51769f209235d4801">getCompletionKind</reimplementedby>
+        <name>getCompletionType</name>
+        <qualifiedname>Language::getCompletionType</qualifiedname>
+        <reimplementedby refid="class_built_in_language_1a4333998289e0e9b21c0b422118f4a2f9">getCompletionType</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a4333998289e0e9b21c0b422118f4a2f9">getCompletionType</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a4333998289e0e9b21c0b422118f4a2f9">getCompletionType</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a4333998289e0e9b21c0b422118f4a2f9">getCompletionType</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a4333998289e0e9b21c0b422118f4a2f9">getCompletionType</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a4333998289e0e9b21c0b422118f4a2f9">getCompletionType</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a4333998289e0e9b21c0b422118f4a2f9">getCompletionType</reimplementedby>
+        <reimplementedby refid="class_library_language_1aa44fd125caa31882deb63e884f0f1ec6">getCompletionType</reimplementedby>
         <param>
           <type>int</type>
           <declname>tokenType</declname>
         </param>
         <briefdescription>
+<para>Maps a language-specific token type to an LSP CompletionItemKind integer. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tokenType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="class_language" kindref="compound">Language</ref> token type integer. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>LSP CompletionItemKind integer value. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Language.h" line="22" column="17"/>
+        <location file="Language.h" line="121" column="17"/>
       </memberdef>
-      <memberdef kind="function" id="class_language_1a04dff999e9834bedeb4e47a344156ccc" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
-        <type><ref refid="classjuce_1_1StringArray" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::StringArray</ref></type>
-        <definition>virtual juce::StringArray Language::getCounterparts</definition>
+      <memberdef kind="function" id="class_language_1a2108f1f96098f267d4cc1c2f6726a600" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref></type>
+        <definition>virtual jam::Strings Language::getCounterparts</definition>
         <argsstring>(const juce::String &amp;extension) const =0</argsstring>
         <name>getCounterparts</name>
         <qualifiedname>Language::getCounterparts</qualifiedname>
-        <reimplementedby refid="class_built_in_language_1ae0991e08e6c835ece15cee017dc95fa9">getCounterparts</reimplementedby>
-        <reimplementedby refid="class_built_in_language_1ae0991e08e6c835ece15cee017dc95fa9">getCounterparts</reimplementedby>
-        <reimplementedby refid="class_built_in_language_1ae0991e08e6c835ece15cee017dc95fa9">getCounterparts</reimplementedby>
-        <reimplementedby refid="class_built_in_language_1ae0991e08e6c835ece15cee017dc95fa9">getCounterparts</reimplementedby>
-        <reimplementedby refid="class_built_in_language_1ae0991e08e6c835ece15cee017dc95fa9">getCounterparts</reimplementedby>
-        <reimplementedby refid="class_built_in_language_1ae0991e08e6c835ece15cee017dc95fa9">getCounterparts</reimplementedby>
-        <reimplementedby refid="class_built_in_language_1ae0991e08e6c835ece15cee017dc95fa9">getCounterparts</reimplementedby>
-        <reimplementedby refid="class_library_language_1a47f72a33b631edff980e8da4bd2d01e0">getCounterparts</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1ab9171cafdadc32ff128bcab36156b625">getCounterparts</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1ab9171cafdadc32ff128bcab36156b625">getCounterparts</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1ab9171cafdadc32ff128bcab36156b625">getCounterparts</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1ab9171cafdadc32ff128bcab36156b625">getCounterparts</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1ab9171cafdadc32ff128bcab36156b625">getCounterparts</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1ab9171cafdadc32ff128bcab36156b625">getCounterparts</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1ab9171cafdadc32ff128bcab36156b625">getCounterparts</reimplementedby>
+        <reimplementedby refid="class_library_language_1a862e3665ef217999993f67584047225b">getCounterparts</reimplementedby>
         <param>
           <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
           <declname>extension</declname>
         </param>
         <briefdescription>
+<para>Returns candidate counterpart file extensions for <computeroutput>extension</computeroutput> (without leading dot). </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>extension</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source file extension without a leading dot. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Ordered list of paired counterpart extensions in <ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref>, or empty when none exist. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Language.h" line="23" column="31"/>
+        <location file="Language.h" line="129" column="26"/>
       </memberdef>
       <memberdef kind="function" id="class_language_1a0d17de8eed2a3cf897188084fc2e9ad7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
-        <type>std::unique_ptr&lt; <ref refid="struct_symbol_document" kindref="compound">SymbolDocument</ref> &gt;</type>
+        <type>std::unique_ptr&lt; <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> &gt;</type>
         <definition>virtual std::unique_ptr&lt; SymbolDocument &gt; Language::getSymbols</definition>
         <argsstring>(const jam::Document &amp;document, const juce::String &amp;path) const =0</argsstring>
         <name>getSymbols</name>
@@ -431,47 +672,40 @@
           <declname>path</declname>
         </param>
         <briefdescription>
+<para>Builds an in-memory <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> directly from a parsed <computeroutput>document</computeroutput>. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>document</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parsed <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> to extract symbols and outlines from. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Canonical source file path. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Built <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref>, or nullptr when symbols are produced by <ref refid="class_language_1a8be0bd7956e0304c9dfa6f34de424ad9" kindref="member">index()</ref>. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Language.h" line="24" column="29"/>
-      </memberdef>
-      <memberdef kind="function" id="class_language_1a5956b93b04652643322b13078edff6da" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
-        <type><ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref></type>
-        <definition>virtual juce::String Language::format</definition>
-        <argsstring>(std::string_view text, const juce::String &amp;path) const =0</argsstring>
-        <name>format</name>
-        <qualifiedname>Language::format</qualifiedname>
-        <reimplementedby refid="class_built_in_language_1a50121457ed6568de89c611beed1f55bb">format</reimplementedby>
-        <reimplementedby refid="class_built_in_language_1a50121457ed6568de89c611beed1f55bb">format</reimplementedby>
-        <reimplementedby refid="class_built_in_language_1a50121457ed6568de89c611beed1f55bb">format</reimplementedby>
-        <reimplementedby refid="class_built_in_language_1a50121457ed6568de89c611beed1f55bb">format</reimplementedby>
-        <reimplementedby refid="class_built_in_language_1a50121457ed6568de89c611beed1f55bb">format</reimplementedby>
-        <reimplementedby refid="class_built_in_language_1a50121457ed6568de89c611beed1f55bb">format</reimplementedby>
-        <reimplementedby refid="class_built_in_language_1a50121457ed6568de89c611beed1f55bb">format</reimplementedby>
-        <reimplementedby refid="class_library_language_1a44a44e8233c16252c68dc0b1ddbc4e5d">format</reimplementedby>
-        <param>
-          <type>std::string_view</type>
-          <declname>text</declname>
-        </param>
-        <param>
-          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
-          <declname>path</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Language.h" line="25" column="26"/>
+        <location file="Language.h" line="138" column="29"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
+<para>Abstract language backend interface unifying built-in grammars and loaded language libraries. </para>
     </briefdescription>
     <detaileddescription>
+<para><ref refid="class_processor" kindref="compound">Processor</ref> and <ref refid="class_index" kindref="compound">Index</ref> operate against <ref refid="class_language" kindref="compound">Language</ref> polymorphically for parsing, swap serialization, translation-unit discovery, unit indexing, and LSP symbol classification. </para>
     </detaileddescription>
     <inheritancegraph>
       <node id="14">
@@ -563,11 +797,10 @@
         </childnode>
       </node>
     </inheritancegraph>
-    <location file="Language.h" line="5" column="1" bodyfile="Language.h" bodystart="6" bodyend="26"/>
+    <location file="Language.h" line="13" column="1" bodyfile="Language.h" bodystart="14" bodyend="139"/>
     <listofallmembers>
-      <member refid="class_language_1a5956b93b04652643322b13078edff6da" prot="public" virt="pure-virtual"><scope>Language</scope><name>format</name></member>
-      <member refid="class_language_1ad098ab2910e40e636ddbdad279fea14e" prot="public" virt="pure-virtual"><scope>Language</scope><name>getCompletionKind</name></member>
-      <member refid="class_language_1a04dff999e9834bedeb4e47a344156ccc" prot="public" virt="pure-virtual"><scope>Language</scope><name>getCounterparts</name></member>
+      <member refid="class_language_1a05bcdae53a619c323b12598feaf37333" prot="public" virt="pure-virtual"><scope>Language</scope><name>getCompletionType</name></member>
+      <member refid="class_language_1a2108f1f96098f267d4cc1c2f6726a600" prot="public" virt="pure-virtual"><scope>Language</scope><name>getCounterparts</name></member>
       <member refid="class_language_1a47ee33c2a64c73d3169cc3987f89f408" prot="public" virt="pure-virtual"><scope>Language</scope><name>getSemanticModifiers</name></member>
       <member refid="class_language_1a8b4bb63191d8379a26ce449c5c11c839" prot="public" virt="pure-virtual"><scope>Language</scope><name>getSemanticType</name></member>
       <member refid="class_language_1a0d17de8eed2a3cf897188084fc2e9ad7" prot="public" virt="pure-virtual"><scope>Language</scope><name>getSymbols</name></member>
@@ -576,7 +809,6 @@
       <member refid="class_language_1aba611040df762266ca041ca011ec57e2" prot="public" virt="pure-virtual"><scope>Language</scope><name>hasRole</name></member>
       <member refid="class_language_1a8be0bd7956e0304c9dfa6f34de424ad9" prot="public" virt="pure-virtual"><scope>Language</scope><name>index</name></member>
       <member refid="class_language_1ad9d9019bec5846302d4b69bd308b7183" prot="public" virt="pure-virtual"><scope>Language</scope><name>isValid</name></member>
-      <member refid="class_language_1acb2734bfc3418cdf27c21ec260adfe60" prot="public" virt="non-virtual"><scope>Language</scope><name>noDefinition</name></member>
       <member refid="class_language_1aa23f1df5cd018950d06f9b0ddf1c2e23" prot="public" virt="pure-virtual"><scope>Language</scope><name>parse</name></member>
       <member refid="class_language_1a392c16dfaf08d7ed566e4e3983bb7ac9" prot="public" virt="pure-virtual"><scope>Language</scope><name>read</name></member>
       <member refid="class_language_1aad06a1f0660985eb64023e05e8845bb7" prot="public" virt="pure-virtual"><scope>Language</scope><name>units</name></member>

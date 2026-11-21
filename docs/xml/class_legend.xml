@@ -11,12 +11,16 @@
         <name>getTypes</name>
         <qualifiedname>Legend::getTypes</qualifiedname>
         <briefdescription>
+<para>Returns the deduplicated semantic token type names advertised in server capabilities. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>Const reference to the ordered semantic token type list. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Legend.h" line="7" column="31" bodyfile="Legend.cpp" bodystart="12" bodyend="16"/>
+        <location file="Legend.h" line="16" column="31" bodyfile="Legend.cpp" bodystart="12" bodyend="16"/>
         <references refid="class_legend_1a77bcffb1b5a3fd73567785c058dbc30c" compoundref="_legend_8cpp" startline="34" endline="48">buildTypes</references>
         <referencedby refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</referencedby>
         <referencedby refid="class_legend_1a7b1ca4dddab9afa479bdb78cac0082d0" compoundref="_legend_8cpp" startline="24" endline="27">getTypeIndex</referencedby>
@@ -28,12 +32,16 @@
         <name>getModifiers</name>
         <qualifiedname>Legend::getModifiers</qualifiedname>
         <briefdescription>
+<para>Returns the semantic token modifier names advertised in server capabilities. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>Const reference to the ordered semantic token modifier list. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Legend.h" line="8" column="31" bodyfile="Legend.cpp" bodystart="18" bodyend="22"/>
+        <location file="Legend.h" line="23" column="31" bodyfile="Legend.cpp" bodystart="18" bodyend="22"/>
         <references refid="class_legend_1a2865a46cd9ba7a16b85357d29c08d211" compoundref="_legend_8cpp" startline="50" endline="57">buildModifiers</references>
         <referencedby refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</referencedby>
         <referencedby refid="class_legend_1a146d2f8b0cca15bc8557f8515de1b73b" compoundref="_legend_8cpp" startline="29" endline="32">getModifierBit</referencedby>
@@ -49,15 +57,28 @@
           <declname>name</declname>
         </param>
         <briefdescription>
+<para>Returns the zero-based legend index of <computeroutput>name</computeroutput>, asserting that it exists. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Semantic token type name registered in <ref refid="class_legend_1aaa72d339f7385c6cf4462cb6f6c2294b" kindref="member">getTypes()</ref>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Zero-based index in <ref refid="class_legend_1aaa72d339f7385c6cf4462cb6f6c2294b" kindref="member">getTypes()</ref>. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Legend.h" line="9" column="16" bodyfile="Legend.cpp" bodystart="24" bodyend="27"/>
+        <location file="Legend.h" line="31" column="16" bodyfile="Legend.cpp" bodystart="24" bodyend="27"/>
         <references refid="_legend_8cpp_1a0fd918f02d51a58416750ae65e6ed41e" compoundref="_legend_8cpp" startline="4" endline="10">getNameIndex</references>
         <references refid="class_legend_1aaa72d339f7385c6cf4462cb6f6c2294b" compoundref="_legend_8cpp" startline="12" endline="16">getTypes</references>
-        <referencedby refid="class_built_in_language_1ace5ea3608cde10f16f46dba9dfca664d" compoundref="_built_in_language_8h" startline="106" endline="111">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSemanticType</referencedby>
+        <referencedby refid="class_built_in_language_1ace5ea3608cde10f16f46dba9dfca664d" compoundref="_built_in_language_8h" startline="168" endline="173">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSemanticType</referencedby>
         <referencedby refid="class_library_language_1a3202d343bec470da47e4eefadd8c3dd7" compoundref="_library_language_8cpp" startline="49" endline="52">LibraryLanguage::getSemanticType</referencedby>
       </memberdef>
       <memberdef kind="function" id="class_legend_1a146d2f8b0cca15bc8557f8515de1b73b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -71,12 +92,25 @@
           <declname>name</declname>
         </param>
         <briefdescription>
+<para>Returns the bitmask (<computeroutput>1 &lt;&lt; index</computeroutput>) for modifier <computeroutput>name</computeroutput>, asserting that it exists. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Semantic token modifier name registered in <ref refid="class_legend_1a4bd9db5976be7ca9af8a41b1e8eb72ee" kindref="member">getModifiers()</ref>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Single-bit integer mask for <computeroutput>name</computeroutput>. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Legend.h" line="10" column="16" bodyfile="Legend.cpp" bodystart="29" bodyend="32"/>
+        <location file="Legend.h" line="39" column="16" bodyfile="Legend.cpp" bodystart="29" bodyend="32"/>
         <references refid="class_legend_1a4bd9db5976be7ca9af8a41b1e8eb72ee" compoundref="_legend_8cpp" startline="18" endline="22">getModifiers</references>
         <references refid="_legend_8cpp_1a0fd918f02d51a58416750ae65e6ed41e" compoundref="_legend_8cpp" startline="4" endline="10">getNameIndex</references>
         <referencedby refid="class_library_language_1a76c35a81e58468107899711604caa206" compoundref="_library_language_8cpp" startline="54" endline="64">LibraryLanguage::getSemanticModifiers</referencedby>
@@ -90,12 +124,16 @@
         <name>buildTypes</name>
         <qualifiedname>Legend::buildTypes</qualifiedname>
         <briefdescription>
+<para>Builds the merged list of LSP standard types and built-in grammar token types. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>Ordered list of unique semantic token type names. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Legend.h" line="13" column="25" bodyfile="Legend.cpp" bodystart="34" bodyend="48"/>
+        <location file="Legend.h" line="47" column="25" bodyfile="Legend.cpp" bodystart="34" bodyend="48"/>
         <references refid="class_legend_1a811439acbc425230eb96c845cc45be29" compoundref="_legend_8cpp" startline="59" endline="64">addNames</references>
         <referencedby refid="class_legend_1aaa72d339f7385c6cf4462cb6f6c2294b" compoundref="_legend_8cpp" startline="12" endline="16">getTypes</referencedby>
       </memberdef>
@@ -106,12 +144,16 @@
         <name>buildModifiers</name>
         <qualifiedname>Legend::buildModifiers</qualifiedname>
         <briefdescription>
+<para>Builds the list of LSP standard semantic token modifier names. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>Ordered list of unique semantic token modifier names. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Legend.h" line="14" column="25" bodyfile="Legend.cpp" bodystart="50" bodyend="57"/>
+        <location file="Legend.h" line="54" column="25" bodyfile="Legend.cpp" bodystart="50" bodyend="57"/>
         <references refid="class_legend_1a811439acbc425230eb96c845cc45be29" compoundref="_legend_8cpp" startline="59" endline="64">addNames</references>
         <referencedby refid="class_legend_1a4bd9db5976be7ca9af8a41b1e8eb72ee" compoundref="_legend_8cpp" startline="18" endline="22">getModifiers</referencedby>
       </memberdef>
@@ -130,12 +172,31 @@
           <declname>tokenNames</declname>
         </param>
         <briefdescription>
+<para>Appends each name from <computeroutput>tokenNames</computeroutput> not already present in <computeroutput>names</computeroutput>. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>names</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target string list receiving deduplicated entries. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tokenNames</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bimap providing token type or modifier names. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Legend.h" line="15" column="17" bodyfile="Legend.cpp" bodystart="59" bodyend="64"/>
+        <location file="Legend.h" line="62" column="17" bodyfile="Legend.cpp" bodystart="59" bodyend="64"/>
         <references refid="classjam_1_1Strings_1a9223c1bf16916a52b122ae7e9d871f50">jam::Strings::add</references>
         <references refid="classjam_1_1Strings_1aeeca185858a68b46a46f361ec3dcad77">jam::Strings::contains</references>
         <references refid="classjam_1_1Bimap_1ac808bd5e726f74f35198b371c929558c">jam::Bimap&lt; typename KeyType, typename ValueType &gt;::get</references>
@@ -144,10 +205,11 @@
       </memberdef>
     </sectiondef>
     <briefdescription>
+<para>Provides the unified LSP semantic token type and modifier tables shared across all languages. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="Legend.h" line="4" column="1" bodyfile="Legend.h" bodystart="5" bodyend="16"/>
+    <location file="Legend.h" line="8" column="1" bodyfile="Legend.h" bodystart="9" bodyend="63"/>
     <listofallmembers>
       <member refid="class_legend_1a811439acbc425230eb96c845cc45be29" prot="private" virt="non-virtual"><scope>Legend</scope><name>addNames</name></member>
       <member refid="class_legend_1a2865a46cd9ba7a16b85357d29c08d211" prot="private" virt="non-virtual"><scope>Legend</scope><name>buildModifiers</name></member>

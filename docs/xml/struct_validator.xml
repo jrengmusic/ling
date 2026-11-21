@@ -19,7 +19,7 @@
 <para>Adds the markdown rules, the toolchain rule, and the daemon rule to the rule set. </para>
         </briefdescription>
         <detaileddescription>
-<para>The toolchain rule fails each toolchain table whose header row has no command column or no flag column. The daemon rule fails each timeout row whose value is not a positive integer in canonical decimal form: no sign, no leading zero, and no space.</para>
+<para>The toolchain rule fails each toolchain table whose header row has no command column or no flag column. The daemon rule fails each timeout and threads row whose value is not a positive integer in canonical decimal form: no sign, no leading zero, and no space.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>rules</parametername>
@@ -33,7 +33,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Validator.h" line="23" column="17" bodyfile="Validator.cpp" bodystart="3" bodyend="53"/>
+        <location file="Validator.h" line="23" column="17" bodyfile="Validator.cpp" bodystart="3" bodyend="54"/>
         <references refid="structjam_1_1Function_1_1Map_1ad53732bb862659c66b8112c75f437248">jam::Function::Map&lt; typename KeyType, size_t capacity, typename... Signatures &gt;::add</references>
         <references refid="classjam_1_1Strings_1a9223c1bf16916a52b122ae7e9d871f50">jam::Strings::add</references>
         <references refid="structjam_1_1MarkdownValidator_1ab0e2a87f75380c88eaa06ceba755e901">jam::MarkdownValidator::addRules</references>
@@ -41,18 +41,18 @@
         <references refid="classjuce_1_1String_1ae9c98d84e716c102f00330b3f1ccd4be">juce::String::compare</references>
         <references refid="namespaceId_1ad57a2d4fadbed29a552707db60b01f2a" compoundref="_generated_8cpp" startline="44" endline="44">Id::daemon</references>
         <references refid="namespaceId_1a5e729b9864fd096462b3f08ef1eb4b1a">Id::diagnosticSeparator</references>
-        <references refid="structtext_1_1_diagnostics_1af30e48722544c30fc73ff0dee4c04506" compoundref="_text_8h" startline="39" endline="39">text::Diagnostics::failDaemonThreads</references>
-        <references refid="structtext_1_1_diagnostics_1a204d1ed64e1ddb8a0febcd742369a763" compoundref="_text_8h" startline="38" endline="38">text::Diagnostics::failDaemonTimeout</references>
-        <references refid="structtext_1_1_diagnostics_1acb39935ba8149723d8a1c9615271f294" compoundref="_text_8h" startline="35" endline="35">text::Diagnostics::failToolchainColumn</references>
-        <references refid="namespaceId_1ac8f84d92cb02638b89abb87149be1caf" compoundref="_generated_8cpp" startline="62" endline="62">Id::flag</references>
+        <references refid="structtext_1_1_diagnostics_1af30e48722544c30fc73ff0dee4c04506" compoundref="_text_8h" startline="38" endline="38">text::Diagnostics::failDaemonThreads</references>
+        <references refid="structtext_1_1_diagnostics_1a204d1ed64e1ddb8a0febcd742369a763" compoundref="_text_8h" startline="37" endline="37">text::Diagnostics::failDaemonTimeout</references>
+        <references refid="structtext_1_1_diagnostics_1acb39935ba8149723d8a1c9615271f294" compoundref="_text_8h" startline="34" endline="34">text::Diagnostics::failToolchainColumn</references>
+        <references refid="namespaceId_1ac8f84d92cb02638b89abb87149be1caf" compoundref="_generated_8cpp" startline="61" endline="61">Id::flag</references>
         <references refid="structjam_1_1Document_1_1Validator_1a6a3f64ff32d39935e480ffc593a73af5">jam::Document::Validator::getFailures</references>
         <references refid="structjam_1_1MarkdownValidator_1ac14242a706f2a9509549ab4313ddb371">jam::MarkdownValidator::getLocation</references>
         <references refid="namespaceId_1a383ed3d8cd253c137d67732d175e076b">Id::headerRow</references>
-        <references refid="namespaceId_1ab9bcb45065cb87d579cfa238601236e1" compoundref="_generated_8cpp" startline="125" endline="125">Id::threads</references>
-        <references refid="namespaceId_1ad99de3ca37a30e0bb93696f8de7d2561" compoundref="_generated_8cpp" startline="126" endline="126">Id::timeout</references>
-        <references refid="namespaceId_1a0f9647376c570f4f428258196fa64c61" compoundref="_generated_8cpp" startline="127" endline="127">Id::toolchain</references>
+        <references refid="namespaceId_1ab9bcb45065cb87d579cfa238601236e1" compoundref="_generated_8cpp" startline="128" endline="128">Id::threads</references>
+        <references refid="namespaceId_1ad99de3ca37a30e0bb93696f8de7d2561" compoundref="_generated_8cpp" startline="129" endline="129">Id::timeout</references>
+        <references refid="namespaceId_1a0f9647376c570f4f428258196fa64c61" compoundref="_generated_8cpp" startline="130" endline="130">Id::toolchain</references>
         <references refid="namespaceId_1aa31dd51a36cc1b369f63f498441108e8">Id::value</references>
-        <referencedby refid="struct_validator_1a394659562ffe86296738ed5a5b14f80f" compoundref="_validator_8cpp" startline="55" endline="67">getRules</referencedby>
+        <referencedby refid="struct_validator_1a394659562ffe86296738ed5a5b14f80f" compoundref="_validator_8cpp" startline="56" endline="68">getRules</referencedby>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -73,15 +73,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Validator.h" line="30" column="17" bodyfile="Validator.cpp" bodystart="55" bodyend="67"/>
-        <references refid="struct_validator_1af387720572933d5519b0597814433c17" compoundref="_validator_8cpp" startline="3" endline="53">addRules</references>
+        <location file="Validator.h" line="30" column="17" bodyfile="Validator.cpp" bodystart="56" bodyend="68"/>
+        <references refid="struct_validator_1af387720572933d5519b0597814433c17" compoundref="_validator_8cpp" startline="3" endline="54">addRules</references>
       </memberdef>
     </sectiondef>
     <briefdescription>
-<para>The validator of a LING manifest: the markdown rules, and the rule for the columns of each toolchain table. </para>
+<para>The validator of a LING manifest: the markdown rules, the toolchain column rule, and the daemon settings rule. </para>
     </briefdescription>
     <detaileddescription>
-<para>A toolchain table needs a header row with a command column and a flag column. </para>
+<para>Validates toolchain table headers and positive integer daemon settings. </para>
     </detaileddescription>
     <inheritancegraph>
       <node id="1">

@@ -73,6 +73,8 @@
         </childnode>
         <childnode refid="15" relation="include">
         </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
       </node>
       <node id="9">
         <label>Connection.cpp</label>
@@ -128,7 +130,7 @@
         <childnode refid="6" relation="include">
         </childnode>
       </node>
-      <node id="18">
+      <node id="20">
         <label>Query.cpp</label>
         <link refid="_query_8cpp"/>
       </node>
@@ -139,11 +141,13 @@
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
+        <childnode refid="20" relation="include">
         </childnode>
         <childnode refid="15" relation="include">
         </childnode>
         <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
         </childnode>
       </node>
       <node id="16">
@@ -158,7 +162,7 @@
         <childnode refid="16" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="19">
         <label>Server.cpp</label>
         <link refid="_server_8cpp"/>
       </node>
@@ -169,10 +173,10 @@
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="17" relation="include">
+        <childnode refid="19" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="21">
         <label>SwapValidator.cpp</label>
         <link refid="_swap_validator_8cpp"/>
       </node>
@@ -181,7 +185,19 @@
         <link refid="_swap_validator_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>ToolRelay.cpp</label>
+        <link refid="_tool_relay_8cpp"/>
+      </node>
+      <node id="17">
+        <label>ToolRelay.h</label>
+        <link refid="_tool_relay_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -195,12 +211,12 @@
 <codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;JuceHeader.h&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_generated_8h" kindref="compound">generated/Generated.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="4"><highlight class="normal"></highlight></codeline>
-<codeline lineno="5" refid="struct_swap_validator" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_swap_validator" kindref="compound">SwapValidator</ref><sp/>:<sp/><ref refid="structjam_1_1Document_1_1Validator" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Validator</ref></highlight></codeline>
-<codeline lineno="6"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="struct_swap_validator_1a4dd34faa0a529eb6f271de588081117c" kindref="member">addRules</ref><sp/>(<ref refid="structjam_1_1Document_1_1Validator_1a1b9183befcfa704d9f51497959eecad6" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Rules</ref>&amp;<sp/>rules);</highlight></codeline>
-<codeline lineno="8"><highlight class="normal"></highlight></codeline>
-<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1Document_1_1Validator_1a1b9183befcfa704d9f51497959eecad6" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Rules</ref>&amp;<sp/><ref refid="struct_swap_validator_1abe28c28edda7b07691d9b273cc7e3b2e" kindref="member">getRules</ref>()<sp/></highlight><highlight class="keyword">const<sp/>override</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="10"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="9" refid="struct_swap_validator" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_swap_validator" kindref="compound">SwapValidator</ref><sp/>:<sp/><ref refid="structjam_1_1Document_1_1Validator" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Validator</ref></highlight></codeline>
+<codeline lineno="10"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="struct_swap_validator_1a4dd34faa0a529eb6f271de588081117c" kindref="member">addRules</ref><sp/>(<ref refid="structjam_1_1Document_1_1Validator_1a1b9183befcfa704d9f51497959eecad6" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Rules</ref>&amp;<sp/>rules);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1Document_1_1Validator_1a1b9183befcfa704d9f51497959eecad6" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Rules</ref>&amp;<sp/><ref refid="struct_swap_validator_1abe28c28edda7b07691d9b273cc7e3b2e" kindref="member">getRules</ref>()<sp/></highlight><highlight class="keyword">const<sp/>override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">};</highlight></codeline>
     </programlisting>
     <location file="SwapValidator.h"/>
   </compounddef>

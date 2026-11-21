@@ -1,0 +1,720 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="struct_symbol_document_1_1_header" kind="struct" language="C++" prot="public">
+    <compoundname>SymbolDocument::Header</compoundname>
+    <includes refid="_symbol_document_8h" local="no">SymbolDocument.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1a79e7de9c5029339a2e987e67cbe3e531" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::Header::magic</definition>
+        <argsstring></argsstring>
+        <name>magic</name>
+        <qualifiedname>SymbolDocument::Header::magic</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Magic tag identifying a <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> buffer (fileMagic). </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="65" column="18" bodyfile="SymbolDocument.h" bodystart="65" bodyend="65"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">SymbolDocument::isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1a803160efc8c008cfda3f675902dc4353" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::Header::formatVersion</definition>
+        <argsstring></argsstring>
+        <name>formatVersion</name>
+        <qualifiedname>SymbolDocument::Header::formatVersion</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Binary layout version (currentFormatVersion). </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="66" column="18" bodyfile="SymbolDocument.h" bodystart="66" bodyend="66"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">SymbolDocument::isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1a83155997b974c207a5ad4de0b5b1999b" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t SymbolDocument::Header::totalBytes</definition>
+        <argsstring></argsstring>
+        <name>totalBytes</name>
+        <qualifiedname>SymbolDocument::Header::totalBytes</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Expected total byte size of the serialized buffer. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="67" column="18" bodyfile="SymbolDocument.h" bodystart="67" bodyend="67"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">SymbolDocument::isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1a74171f58ee377b01e6aa4907d6729925" prot="public" static="no" mutable="no">
+        <type>int64_t</type>
+        <definition>int64_t SymbolDocument::Header::hash</definition>
+        <argsstring></argsstring>
+        <name>hash</name>
+        <qualifiedname>SymbolDocument::Header::hash</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Content hash of the translation unit inputs. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="68" column="17" bodyfile="SymbolDocument.h" bodystart="68" bodyend="68"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">SymbolDocument::isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1a87befc1e799a803d8ed74a0e9ec6c222" prot="public" static="no" mutable="no">
+        <type>int64_t</type>
+        <definition>int64_t SymbolDocument::Header::languageHash</definition>
+        <argsstring></argsstring>
+        <name>languageHash</name>
+        <qualifiedname>SymbolDocument::Header::languageHash</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Content hash of the language library that produced the index. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="69" column="17" bodyfile="SymbolDocument.h" bodystart="69" bodyend="69"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">SymbolDocument::isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1a2ab981ac775c36b4f647af045b66af95" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t SymbolDocument::Header::family</definition>
+        <argsstring></argsstring>
+        <name>family</name>
+        <qualifiedname>SymbolDocument::Header::family</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para><ref refid="class_language" kindref="compound">Language</ref> family identifier of the translation unit. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="70" column="17" bodyfile="SymbolDocument.h" bodystart="70" bodyend="70"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">SymbolDocument::isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1a80765baaf2f0e4ff1220a6a03a0be8da" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::Header::versionOffset</definition>
+        <argsstring></argsstring>
+        <name>versionOffset</name>
+        <qualifiedname>SymbolDocument::Header::versionOffset</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Byte offset of the producer version string in the string pool. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="71" column="18" bodyfile="SymbolDocument.h" bodystart="71" bodyend="71"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">SymbolDocument::isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1ad99253407776e9525da095b228120767" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::Header::versionLength</definition>
+        <argsstring></argsstring>
+        <name>versionLength</name>
+        <qualifiedname>SymbolDocument::Header::versionLength</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Byte length of the producer version string. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="72" column="18" bodyfile="SymbolDocument.h" bodystart="72" bodyend="72"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">SymbolDocument::isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1a997862b5b365b8d6c0106e9d3e1e7994" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::Header::reserved</definition>
+        <argsstring></argsstring>
+        <name>reserved</name>
+        <qualifiedname>SymbolDocument::Header::reserved</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Alignment padding reserved for future header fields. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="73" column="18" bodyfile="SymbolDocument.h" bodystart="73" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1ab98427eb4a31f31da6f81bf830144f26" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t SymbolDocument::Header::filesOffset</definition>
+        <argsstring></argsstring>
+        <name>filesOffset</name>
+        <qualifiedname>SymbolDocument::Header::filesOffset</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Byte offset of the <ref refid="struct_symbol_document_1_1_file_entry" kindref="compound">FileEntry</ref> table. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="74" column="18" bodyfile="SymbolDocument.h" bodystart="74" bodyend="74"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">SymbolDocument::isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1a1b9da1c83b4a22431aacc7f4ae982a7f" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::Header::filesCount</definition>
+        <argsstring></argsstring>
+        <name>filesCount</name>
+        <qualifiedname>SymbolDocument::Header::filesCount</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Total number of <ref refid="struct_symbol_document_1_1_file_entry" kindref="compound">FileEntry</ref> records. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="75" column="18" bodyfile="SymbolDocument.h" bodystart="75" bodyend="75"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">SymbolDocument::isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1a1a869790101ef810c249a4fe5c271360" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::Header::filesPadding</definition>
+        <argsstring></argsstring>
+        <name>filesPadding</name>
+        <qualifiedname>SymbolDocument::Header::filesPadding</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Alignment padding for filesCount. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="76" column="18" bodyfile="SymbolDocument.h" bodystart="76" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1aaaeecd4bd412b187794c8c99175f51e4" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t SymbolDocument::Header::symbolsOffset</definition>
+        <argsstring></argsstring>
+        <name>symbolsOffset</name>
+        <qualifiedname>SymbolDocument::Header::symbolsOffset</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Byte offset of the <ref refid="struct_symbol_document_1_1_symbol_record" kindref="compound">SymbolRecord</ref> table. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="77" column="18" bodyfile="SymbolDocument.h" bodystart="77" bodyend="77"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">SymbolDocument::isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1a26742490efac3d3593a14a47cce607d9" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::Header::symbolsCount</definition>
+        <argsstring></argsstring>
+        <name>symbolsCount</name>
+        <qualifiedname>SymbolDocument::Header::symbolsCount</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Total number of <ref refid="struct_symbol_document_1_1_symbol_record" kindref="compound">SymbolRecord</ref> entries. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="78" column="18" bodyfile="SymbolDocument.h" bodystart="78" bodyend="78"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">SymbolDocument::isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1a93d5f5d63f1a37c1f397254b664933b9" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::Header::symbolsPadding</definition>
+        <argsstring></argsstring>
+        <name>symbolsPadding</name>
+        <qualifiedname>SymbolDocument::Header::symbolsPadding</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Alignment padding for symbolsCount. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="79" column="18" bodyfile="SymbolDocument.h" bodystart="79" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1abb8ef33ce7eb4e97df2b08348cc5cd2e" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t SymbolDocument::Header::typeSymbolsOffset</definition>
+        <argsstring></argsstring>
+        <name>typeSymbolsOffset</name>
+        <qualifiedname>SymbolDocument::Header::typeSymbolsOffset</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Byte offset of the int64_t type-symbol array. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="80" column="18" bodyfile="SymbolDocument.h" bodystart="80" bodyend="80"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">SymbolDocument::isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1aae9b9d7fd796110efd5ff86695bb3728" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::Header::typeSymbolsCount</definition>
+        <argsstring></argsstring>
+        <name>typeSymbolsCount</name>
+        <qualifiedname>SymbolDocument::Header::typeSymbolsCount</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Total number of int64_t type-symbol entries. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="81" column="18" bodyfile="SymbolDocument.h" bodystart="81" bodyend="81"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">SymbolDocument::isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1a192d8c325a0a708aa26204afb6dca568" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::Header::typeSymbolsPadding</definition>
+        <argsstring></argsstring>
+        <name>typeSymbolsPadding</name>
+        <qualifiedname>SymbolDocument::Header::typeSymbolsPadding</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Alignment padding for typeSymbolsCount. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="82" column="18" bodyfile="SymbolDocument.h" bodystart="82" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1afc0b58a0c92bdfc508d3e9a9a956b542" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t SymbolDocument::Header::completionsOffset</definition>
+        <argsstring></argsstring>
+        <name>completionsOffset</name>
+        <qualifiedname>SymbolDocument::Header::completionsOffset</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Byte offset of the <ref refid="struct_symbol_document_1_1_completion_record" kindref="compound">CompletionRecord</ref> table. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="83" column="18" bodyfile="SymbolDocument.h" bodystart="83" bodyend="83"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">SymbolDocument::isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1aae55975acc9abdd3ac03fbe3d88e6df6" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::Header::completionsCount</definition>
+        <argsstring></argsstring>
+        <name>completionsCount</name>
+        <qualifiedname>SymbolDocument::Header::completionsCount</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Total number of <ref refid="struct_symbol_document_1_1_completion_record" kindref="compound">CompletionRecord</ref> entries. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="84" column="18" bodyfile="SymbolDocument.h" bodystart="84" bodyend="84"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">SymbolDocument::isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1aa3ba012227044854a8256cafe48c82a5" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::Header::completionsPadding</definition>
+        <argsstring></argsstring>
+        <name>completionsPadding</name>
+        <qualifiedname>SymbolDocument::Header::completionsPadding</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Alignment padding for completionsCount. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="85" column="18" bodyfile="SymbolDocument.h" bodystart="85" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1ae803b3385714aa4013598b49517ee186" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t SymbolDocument::Header::hoversOffset</definition>
+        <argsstring></argsstring>
+        <name>hoversOffset</name>
+        <qualifiedname>SymbolDocument::Header::hoversOffset</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Byte offset of the <ref refid="struct_symbol_document_1_1_hover_entry" kindref="compound">HoverEntry</ref> table. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="86" column="18" bodyfile="SymbolDocument.h" bodystart="86" bodyend="86"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">SymbolDocument::isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1aac68817966f9cb91035780be84660fc4" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::Header::hoversCount</definition>
+        <argsstring></argsstring>
+        <name>hoversCount</name>
+        <qualifiedname>SymbolDocument::Header::hoversCount</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Total number of <ref refid="struct_symbol_document_1_1_hover_entry" kindref="compound">HoverEntry</ref> records. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="87" column="18" bodyfile="SymbolDocument.h" bodystart="87" bodyend="87"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">SymbolDocument::isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1aee2de7ef766d0ad31e4d59bf61efa609" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::Header::hoversPadding</definition>
+        <argsstring></argsstring>
+        <name>hoversPadding</name>
+        <qualifiedname>SymbolDocument::Header::hoversPadding</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Alignment padding for hoversCount. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="88" column="18" bodyfile="SymbolDocument.h" bodystart="88" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1ae943029c765a873dc04118bbe26b619a" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t SymbolDocument::Header::inlayHintsOffset</definition>
+        <argsstring></argsstring>
+        <name>inlayHintsOffset</name>
+        <qualifiedname>SymbolDocument::Header::inlayHintsOffset</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Byte offset of the <ref refid="struct_symbol_document_1_1_inlay_hint_entry" kindref="compound">InlayHintEntry</ref> table. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="89" column="18" bodyfile="SymbolDocument.h" bodystart="89" bodyend="89"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">SymbolDocument::isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1a4bb4b761189816f002d21d13ad7ef1fe" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::Header::inlayHintsCount</definition>
+        <argsstring></argsstring>
+        <name>inlayHintsCount</name>
+        <qualifiedname>SymbolDocument::Header::inlayHintsCount</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Total number of <ref refid="struct_symbol_document_1_1_inlay_hint_entry" kindref="compound">InlayHintEntry</ref> records. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="90" column="18" bodyfile="SymbolDocument.h" bodystart="90" bodyend="90"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">SymbolDocument::isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1a0e586356685cb293e076678ad2fccad8" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::Header::inlayHintsPadding</definition>
+        <argsstring></argsstring>
+        <name>inlayHintsPadding</name>
+        <qualifiedname>SymbolDocument::Header::inlayHintsPadding</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Alignment padding for inlayHintsCount. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="91" column="18" bodyfile="SymbolDocument.h" bodystart="91" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1a68ff9705644648e6546adb39dbbfa485" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t SymbolDocument::Header::diagnosticsOffset</definition>
+        <argsstring></argsstring>
+        <name>diagnosticsOffset</name>
+        <qualifiedname>SymbolDocument::Header::diagnosticsOffset</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Byte offset of the <ref refid="struct_symbol_document_1_1_diagnostic_entry" kindref="compound">DiagnosticEntry</ref> table. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="92" column="18" bodyfile="SymbolDocument.h" bodystart="92" bodyend="92"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">SymbolDocument::isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1a93752206d24854e624812cc0cd4c72e8" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::Header::diagnosticsCount</definition>
+        <argsstring></argsstring>
+        <name>diagnosticsCount</name>
+        <qualifiedname>SymbolDocument::Header::diagnosticsCount</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Total number of <ref refid="struct_symbol_document_1_1_diagnostic_entry" kindref="compound">DiagnosticEntry</ref> records. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="93" column="18" bodyfile="SymbolDocument.h" bodystart="93" bodyend="93"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">SymbolDocument::isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1aa316f06f7f54499dab4c3f4536f46516" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::Header::diagnosticsPadding</definition>
+        <argsstring></argsstring>
+        <name>diagnosticsPadding</name>
+        <qualifiedname>SymbolDocument::Header::diagnosticsPadding</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Alignment padding for diagnosticsCount. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="94" column="18" bodyfile="SymbolDocument.h" bodystart="94" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1a26e44f3893a27ee4ab2f5ead29818099" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t SymbolDocument::Header::outlinesOffset</definition>
+        <argsstring></argsstring>
+        <name>outlinesOffset</name>
+        <qualifiedname>SymbolDocument::Header::outlinesOffset</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Byte offset of the <ref refid="struct_symbol_document_1_1_outline_entry" kindref="compound">OutlineEntry</ref> table. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="95" column="18" bodyfile="SymbolDocument.h" bodystart="95" bodyend="95"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">SymbolDocument::isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1a8c8ec8932a0dfd6669fa144769a1d734" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::Header::outlinesCount</definition>
+        <argsstring></argsstring>
+        <name>outlinesCount</name>
+        <qualifiedname>SymbolDocument::Header::outlinesCount</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Total number of <ref refid="struct_symbol_document_1_1_outline_entry" kindref="compound">OutlineEntry</ref> records. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="96" column="18" bodyfile="SymbolDocument.h" bodystart="96" bodyend="96"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">SymbolDocument::isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1a58725e74baee43271f70fc9485e5eb47" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::Header::outlinesPadding</definition>
+        <argsstring></argsstring>
+        <name>outlinesPadding</name>
+        <qualifiedname>SymbolDocument::Header::outlinesPadding</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Alignment padding for outlinesCount. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="97" column="18" bodyfile="SymbolDocument.h" bodystart="97" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1a22ee2494ba9cd5fb024961cea8d35280" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t SymbolDocument::Header::fixItsOffset</definition>
+        <argsstring></argsstring>
+        <name>fixItsOffset</name>
+        <qualifiedname>SymbolDocument::Header::fixItsOffset</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Byte offset of the <ref refid="struct_symbol_document_1_1_fix_it_entry" kindref="compound">FixItEntry</ref> table. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="98" column="18" bodyfile="SymbolDocument.h" bodystart="98" bodyend="98"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">SymbolDocument::isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1a426a96bdb62918d8a37d95d0ac358b56" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::Header::fixItsCount</definition>
+        <argsstring></argsstring>
+        <name>fixItsCount</name>
+        <qualifiedname>SymbolDocument::Header::fixItsCount</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Total number of <ref refid="struct_symbol_document_1_1_fix_it_entry" kindref="compound">FixItEntry</ref> records. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="99" column="18" bodyfile="SymbolDocument.h" bodystart="99" bodyend="99"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">SymbolDocument::isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1ae7f5a098b941269f39d2c9fab86e8dc4" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::Header::fixItsPadding</definition>
+        <argsstring></argsstring>
+        <name>fixItsPadding</name>
+        <qualifiedname>SymbolDocument::Header::fixItsPadding</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Alignment padding for fixItsCount. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="100" column="18" bodyfile="SymbolDocument.h" bodystart="100" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1a974dfb5fdc383b2830126737aaeb5732" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t SymbolDocument::Header::stringPoolOffset</definition>
+        <argsstring></argsstring>
+        <name>stringPoolOffset</name>
+        <qualifiedname>SymbolDocument::Header::stringPoolOffset</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Byte offset of the UTF-8 string pool. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="101" column="18" bodyfile="SymbolDocument.h" bodystart="101" bodyend="101"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">SymbolDocument::isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_header_1ac402805028b01a8044f50b352c92a5c6" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t SymbolDocument::Header::stringPoolSize</definition>
+        <argsstring></argsstring>
+        <name>stringPoolSize</name>
+        <qualifiedname>SymbolDocument::Header::stringPoolSize</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Total byte size of the string pool. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="102" column="18" bodyfile="SymbolDocument.h" bodystart="102" bodyend="102"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">SymbolDocument::isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Fixed binary header at offset zero of a serialized <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> buffer. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Stores format identity, validation stamps, byte offsets and counts for each section table, and the string pool range. Readers copy it via std::memcpy. </para>
+    </detaileddescription>
+    <location file="SymbolDocument.h" line="63" column="5" bodyfile="SymbolDocument.h" bodystart="64" bodyend="103"/>
+    <listofallmembers>
+      <member refid="struct_symbol_document_1_1_header_1aae55975acc9abdd3ac03fbe3d88e6df6" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>completionsCount</name></member>
+      <member refid="struct_symbol_document_1_1_header_1afc0b58a0c92bdfc508d3e9a9a956b542" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>completionsOffset</name></member>
+      <member refid="struct_symbol_document_1_1_header_1aa3ba012227044854a8256cafe48c82a5" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>completionsPadding</name></member>
+      <member refid="struct_symbol_document_1_1_header_1a93752206d24854e624812cc0cd4c72e8" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>diagnosticsCount</name></member>
+      <member refid="struct_symbol_document_1_1_header_1a68ff9705644648e6546adb39dbbfa485" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>diagnosticsOffset</name></member>
+      <member refid="struct_symbol_document_1_1_header_1aa316f06f7f54499dab4c3f4536f46516" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>diagnosticsPadding</name></member>
+      <member refid="struct_symbol_document_1_1_header_1a2ab981ac775c36b4f647af045b66af95" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>family</name></member>
+      <member refid="struct_symbol_document_1_1_header_1a1b9da1c83b4a22431aacc7f4ae982a7f" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>filesCount</name></member>
+      <member refid="struct_symbol_document_1_1_header_1ab98427eb4a31f31da6f81bf830144f26" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>filesOffset</name></member>
+      <member refid="struct_symbol_document_1_1_header_1a1a869790101ef810c249a4fe5c271360" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>filesPadding</name></member>
+      <member refid="struct_symbol_document_1_1_header_1a426a96bdb62918d8a37d95d0ac358b56" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>fixItsCount</name></member>
+      <member refid="struct_symbol_document_1_1_header_1a22ee2494ba9cd5fb024961cea8d35280" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>fixItsOffset</name></member>
+      <member refid="struct_symbol_document_1_1_header_1ae7f5a098b941269f39d2c9fab86e8dc4" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>fixItsPadding</name></member>
+      <member refid="struct_symbol_document_1_1_header_1a803160efc8c008cfda3f675902dc4353" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>formatVersion</name></member>
+      <member refid="struct_symbol_document_1_1_header_1a74171f58ee377b01e6aa4907d6729925" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>hash</name></member>
+      <member refid="struct_symbol_document_1_1_header_1aac68817966f9cb91035780be84660fc4" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>hoversCount</name></member>
+      <member refid="struct_symbol_document_1_1_header_1ae803b3385714aa4013598b49517ee186" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>hoversOffset</name></member>
+      <member refid="struct_symbol_document_1_1_header_1aee2de7ef766d0ad31e4d59bf61efa609" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>hoversPadding</name></member>
+      <member refid="struct_symbol_document_1_1_header_1a4bb4b761189816f002d21d13ad7ef1fe" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>inlayHintsCount</name></member>
+      <member refid="struct_symbol_document_1_1_header_1ae943029c765a873dc04118bbe26b619a" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>inlayHintsOffset</name></member>
+      <member refid="struct_symbol_document_1_1_header_1a0e586356685cb293e076678ad2fccad8" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>inlayHintsPadding</name></member>
+      <member refid="struct_symbol_document_1_1_header_1a87befc1e799a803d8ed74a0e9ec6c222" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>languageHash</name></member>
+      <member refid="struct_symbol_document_1_1_header_1a79e7de9c5029339a2e987e67cbe3e531" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>magic</name></member>
+      <member refid="struct_symbol_document_1_1_header_1a8c8ec8932a0dfd6669fa144769a1d734" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>outlinesCount</name></member>
+      <member refid="struct_symbol_document_1_1_header_1a26e44f3893a27ee4ab2f5ead29818099" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>outlinesOffset</name></member>
+      <member refid="struct_symbol_document_1_1_header_1a58725e74baee43271f70fc9485e5eb47" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>outlinesPadding</name></member>
+      <member refid="struct_symbol_document_1_1_header_1a997862b5b365b8d6c0106e9d3e1e7994" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>reserved</name></member>
+      <member refid="struct_symbol_document_1_1_header_1a974dfb5fdc383b2830126737aaeb5732" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>stringPoolOffset</name></member>
+      <member refid="struct_symbol_document_1_1_header_1ac402805028b01a8044f50b352c92a5c6" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>stringPoolSize</name></member>
+      <member refid="struct_symbol_document_1_1_header_1a26742490efac3d3593a14a47cce607d9" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>symbolsCount</name></member>
+      <member refid="struct_symbol_document_1_1_header_1aaaeecd4bd412b187794c8c99175f51e4" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>symbolsOffset</name></member>
+      <member refid="struct_symbol_document_1_1_header_1a93d5f5d63f1a37c1f397254b664933b9" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>symbolsPadding</name></member>
+      <member refid="struct_symbol_document_1_1_header_1a83155997b974c207a5ad4de0b5b1999b" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>totalBytes</name></member>
+      <member refid="struct_symbol_document_1_1_header_1aae9b9d7fd796110efd5ff86695bb3728" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>typeSymbolsCount</name></member>
+      <member refid="struct_symbol_document_1_1_header_1abb8ef33ce7eb4e97df2b08348cc5cd2e" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>typeSymbolsOffset</name></member>
+      <member refid="struct_symbol_document_1_1_header_1a192d8c325a0a708aa26204afb6dca568" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>typeSymbolsPadding</name></member>
+      <member refid="struct_symbol_document_1_1_header_1ad99253407776e9525da095b228120767" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>versionLength</name></member>
+      <member refid="struct_symbol_document_1_1_header_1a80765baaf2f0e4ff1220a6a03a0be8da" prot="public" virt="non-virtual"><scope>SymbolDocument::Header</scope><name>versionOffset</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -17,11 +17,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="62" column="39" bodyfile="generated/Lsp.h" bodystart="62" bodyend="62"/>
-        <referencedby refid="class_query_1a845ffafccd1af88a159ed366c9bc9a77" compoundref="_query_8cpp" startline="228" endline="249">Query::appendItem</referencedby>
-        <referencedby refid="class_query_1a0441e751976c47bdcb4e92abd80acd62" compoundref="_query_8cpp" startline="211" endline="221">Query::appendLocation</referencedby>
-        <referencedby refid="class_relay_1a7423972ba523fc9ce8118d99052e31d1" compoundref="_relay_8cpp" startline="355" endline="362">Relay::getFile</referencedby>
-        <referencedby refid="class_query_1acd635f36a483f60a544499f9734711d9" compoundref="_query_8cpp" startline="648" endline="670">Query::publishDiagnostics</referencedby>
+        <location file="generated/Lsp.h" line="63" column="39" bodyfile="generated/Lsp.h" bodystart="63" bodyend="63"/>
+        <referencedby refid="class_query_1a845ffafccd1af88a159ed366c9bc9a77" compoundref="_query_8cpp" startline="183" endline="204">Query::appendItem</referencedby>
+        <referencedby refid="class_query_1a0441e751976c47bdcb4e92abd80acd62" compoundref="_query_8cpp" startline="166" endline="176">Query::appendLocation</referencedby>
+        <referencedby refid="class_relay_1a7423972ba523fc9ce8118d99052e31d1" compoundref="_relay_8cpp" startline="399" endline="406">Relay::getFile</referencedby>
+        <referencedby refid="class_query_1acd635f36a483f60a544499f9734711d9" compoundref="_query_8cpp" startline="593" endline="615">Query::publishDiagnostics</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a3b30289019679b678e16f9c62952af0d" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -36,18 +36,18 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="63" column="39" bodyfile="generated/Lsp.h" bodystart="63" bodyend="63"/>
+        <location file="generated/Lsp.h" line="64" column="39" bodyfile="generated/Lsp.h" bodystart="64" bodyend="64"/>
         <referencedby refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</referencedby>
-        <referencedby refid="class_query_1a59f0b916e64bca9e3a53ab112922ffcf" compoundref="_query_8cpp" startline="672" endline="703">Query::appendDiagnostics</referencedby>
-        <referencedby refid="class_query_1a3ce554af28b12354af3d1ba57b8748ee" compoundref="_query_8cpp" startline="251" endline="261">Query::appendHighlight</referencedby>
-        <referencedby refid="class_query_1a845ffafccd1af88a159ed366c9bc9a77" compoundref="_query_8cpp" startline="228" endline="249">Query::appendItem</referencedby>
-        <referencedby refid="class_query_1a0441e751976c47bdcb4e92abd80acd62" compoundref="_query_8cpp" startline="211" endline="221">Query::appendLocation</referencedby>
-        <referencedby refid="class_query_1abf2846baa91f748bdea450d3d6424ea4" compoundref="_query_8cpp" startline="720" endline="747">Query::appendOutline</referencedby>
-        <referencedby refid="class_query_1ab0a0831c6185bab1ed37ce7dfd9878c1" compoundref="_query_8cpp" startline="1164" endline="1179">Query::appendSelectionChain</referencedby>
-        <referencedby refid="class_query_1aec3fcf2f6240f940d221f1a2924e7c77" compoundref="_query_8cpp" startline="1181" endline="1205">Query::appendSelectionRanges</referencedby>
-        <referencedby refid="class_query_1ae2c68385edc00de097f75c8f33faa54d" compoundref="_query_8cpp" startline="263" endline="273">Query::appendTextEdit</referencedby>
-        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="388" endline="416">Relay::getRequestArguments</referencedby>
-        <referencedby refid="class_query_1a4b374853461219f939f43fb503cf7d61" compoundref="_query_8cpp" startline="473" endline="511">Query::hover</referencedby>
+        <referencedby refid="class_query_1a59f0b916e64bca9e3a53ab112922ffcf" compoundref="_query_8cpp" startline="617" endline="637">Query::appendDiagnostics</referencedby>
+        <referencedby refid="class_query_1a3ce554af28b12354af3d1ba57b8748ee" compoundref="_query_8cpp" startline="206" endline="216">Query::appendHighlight</referencedby>
+        <referencedby refid="class_query_1a845ffafccd1af88a159ed366c9bc9a77" compoundref="_query_8cpp" startline="183" endline="204">Query::appendItem</referencedby>
+        <referencedby refid="class_query_1a0441e751976c47bdcb4e92abd80acd62" compoundref="_query_8cpp" startline="166" endline="176">Query::appendLocation</referencedby>
+        <referencedby refid="class_query_1afead9f54d95cfd9c0cdadac4325ddd2c" compoundref="_query_8cpp" startline="655" endline="687">Query::appendOutline</referencedby>
+        <referencedby refid="class_query_1ab0a0831c6185bab1ed37ce7dfd9878c1" compoundref="_query_8cpp" startline="1079" endline="1094">Query::appendSelectionChain</referencedby>
+        <referencedby refid="class_query_1aec3fcf2f6240f940d221f1a2924e7c77" compoundref="_query_8cpp" startline="1096" endline="1120">Query::appendSelectionRanges</referencedby>
+        <referencedby refid="class_query_1ae2c68385edc00de097f75c8f33faa54d" compoundref="_query_8cpp" startline="218" endline="228">Query::appendTextEdit</referencedby>
+        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="432" endline="460">Relay::getRequestArguments</referencedby>
+        <referencedby refid="class_query_1adf9f19baf3d11420d442548886f453a7" compoundref="_query_8cpp" startline="406" endline="479">Query::hover</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a95ebfa0e94b63d5a24cee309e89675ca" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -62,10 +62,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="64" column="39" bodyfile="generated/Lsp.h" bodystart="64" bodyend="64"/>
-        <referencedby refid="class_query_1a8d9110a46b4e0d9d3fa5164cae29a3af" compoundref="_query_8cpp" startline="194" endline="204">Query::appendRange</referencedby>
-        <referencedby refid="class_relay_1a7bfa0fddda4f4de7ab07cafe087a9c2d" compoundref="_relay_8cpp" startline="364" endline="386">Relay::getPosition</referencedby>
-        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="388" endline="416">Relay::getRequestArguments</referencedby>
+        <location file="generated/Lsp.h" line="65" column="39" bodyfile="generated/Lsp.h" bodystart="65" bodyend="65"/>
+        <referencedby refid="class_query_1a8d9110a46b4e0d9d3fa5164cae29a3af" compoundref="_query_8cpp" startline="149" endline="159">Query::appendRange</referencedby>
+        <referencedby refid="class_relay_1a7bfa0fddda4f4de7ab07cafe087a9c2d" compoundref="_relay_8cpp" startline="408" endline="430">Relay::getPosition</referencedby>
+        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="432" endline="460">Relay::getRequestArguments</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a35caed4083234bc1790ef6c86fa542e7" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -80,9 +80,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="65" column="39" bodyfile="generated/Lsp.h" bodystart="65" bodyend="65"/>
-        <referencedby refid="class_query_1a8d9110a46b4e0d9d3fa5164cae29a3af" compoundref="_query_8cpp" startline="194" endline="204">Query::appendRange</referencedby>
-        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="388" endline="416">Relay::getRequestArguments</referencedby>
+        <location file="generated/Lsp.h" line="66" column="39" bodyfile="generated/Lsp.h" bodystart="66" bodyend="66"/>
+        <referencedby refid="class_query_1a8d9110a46b4e0d9d3fa5164cae29a3af" compoundref="_query_8cpp" startline="149" endline="159">Query::appendRange</referencedby>
+        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="432" endline="460">Relay::getRequestArguments</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1adb6295e7cc9a9df38b2d56f584af03b0" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -97,9 +97,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="66" column="39" bodyfile="generated/Lsp.h" bodystart="66" bodyend="66"/>
+        <location file="generated/Lsp.h" line="67" column="39" bodyfile="generated/Lsp.h" bodystart="67" bodyend="67"/>
         <referencedby refid="_relay_8cpp_1a6a4c5230ae9f07bdb1a3083ea12b63b0" compoundref="_relay_8cpp" startline="16" endline="20">addPositionArguments</referencedby>
-        <referencedby refid="class_query_1ad9570124cf0f5cce94b65905c0af0575" compoundref="_query_8cpp" startline="182" endline="192">Query::appendPosition</referencedby>
+        <referencedby refid="class_query_1ad9570124cf0f5cce94b65905c0af0575" compoundref="_query_8cpp" startline="137" endline="147">Query::appendPosition</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a10241f0b9db2d6516db44487aef28622" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -114,9 +114,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="67" column="39" bodyfile="generated/Lsp.h" bodystart="67" bodyend="67"/>
+        <location file="generated/Lsp.h" line="68" column="39" bodyfile="generated/Lsp.h" bodystart="68" bodyend="68"/>
         <referencedby refid="_relay_8cpp_1a6a4c5230ae9f07bdb1a3083ea12b63b0" compoundref="_relay_8cpp" startline="16" endline="20">addPositionArguments</referencedby>
-        <referencedby refid="class_query_1ad9570124cf0f5cce94b65905c0af0575" compoundref="_query_8cpp" startline="182" endline="192">Query::appendPosition</referencedby>
+        <referencedby refid="class_query_1ad9570124cf0f5cce94b65905c0af0575" compoundref="_query_8cpp" startline="137" endline="147">Query::appendPosition</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1aa1e9c42a38ce78690556c0cec92096d3" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -131,10 +131,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="68" column="39" bodyfile="generated/Lsp.h" bodystart="68" bodyend="68"/>
-        <referencedby refid="class_query_1a845ffafccd1af88a159ed366c9bc9a77" compoundref="_query_8cpp" startline="228" endline="249">Query::appendItem</referencedby>
-        <referencedby refid="class_query_1abf2846baa91f748bdea450d3d6424ea4" compoundref="_query_8cpp" startline="720" endline="747">Query::appendOutline</referencedby>
-        <referencedby refid="class_relay_1a7bfa0fddda4f4de7ab07cafe087a9c2d" compoundref="_relay_8cpp" startline="364" endline="386">Relay::getPosition</referencedby>
+        <location file="generated/Lsp.h" line="69" column="39" bodyfile="generated/Lsp.h" bodystart="69" bodyend="69"/>
+        <referencedby refid="class_query_1a845ffafccd1af88a159ed366c9bc9a77" compoundref="_query_8cpp" startline="183" endline="204">Query::appendItem</referencedby>
+        <referencedby refid="class_query_1afead9f54d95cfd9c0cdadac4325ddd2c" compoundref="_query_8cpp" startline="655" endline="687">Query::appendOutline</referencedby>
+        <referencedby refid="class_relay_1a7bfa0fddda4f4de7ab07cafe087a9c2d" compoundref="_relay_8cpp" startline="408" endline="430">Relay::getPosition</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1ab4f7efd0e1e72b2d7e9fc37d2a1dbb47" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -149,11 +149,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="69" column="39" bodyfile="generated/Lsp.h" bodystart="69" bodyend="69"/>
-        <referencedby refid="class_query_1a845ffafccd1af88a159ed366c9bc9a77" compoundref="_query_8cpp" startline="228" endline="249">Query::appendItem</referencedby>
-        <referencedby refid="class_query_1abf2846baa91f748bdea450d3d6424ea4" compoundref="_query_8cpp" startline="720" endline="747">Query::appendOutline</referencedby>
+        <location file="generated/Lsp.h" line="70" column="39" bodyfile="generated/Lsp.h" bodystart="70" bodyend="70"/>
+        <referencedby refid="class_query_1a845ffafccd1af88a159ed366c9bc9a77" compoundref="_query_8cpp" startline="183" endline="204">Query::appendItem</referencedby>
+        <referencedby refid="class_query_1afead9f54d95cfd9c0cdadac4325ddd2c" compoundref="_query_8cpp" startline="655" endline="687">Query::appendOutline</referencedby>
         <referencedby refid="_relay_8cpp_1a302468b898a8c0cb2ca46887967e83c6" compoundref="_relay_8cpp" startline="65" endline="74">appendServerInfo</referencedby>
-        <referencedby refid="class_query_1a15ad9b779e57720f864388a75863b93b" compoundref="_query_8cpp" startline="1259" endline="1293">Query::workspaceSymbol</referencedby>
+        <referencedby refid="class_query_1a15ad9b779e57720f864388a75863b93b" compoundref="_query_8cpp" startline="1191" endline="1220">Query::workspaceSymbol</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1ae36ebac9b79611f03ae8a2cec76b26e5" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -168,15 +168,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="70" column="39" bodyfile="generated/Lsp.h" bodystart="70" bodyend="70"/>
-        <referencedby refid="class_query_1a03ebf677d16cd07e33b0375104e4c6f5" compoundref="_query_8cpp" startline="797" endline="825">Query::appendCodeAction</referencedby>
-        <referencedby refid="class_query_1acf0e315608dcbc3e0ccbee5f4469e643" compoundref="_query_8cpp" startline="761" endline="780">Query::appendCompletionItem</referencedby>
-        <referencedby refid="class_query_1a3ce554af28b12354af3d1ba57b8748ee" compoundref="_query_8cpp" startline="251" endline="261">Query::appendHighlight</referencedby>
-        <referencedby refid="class_query_1a845ffafccd1af88a159ed366c9bc9a77" compoundref="_query_8cpp" startline="228" endline="249">Query::appendItem</referencedby>
-        <referencedby refid="class_query_1abf2846baa91f748bdea450d3d6424ea4" compoundref="_query_8cpp" startline="720" endline="747">Query::appendOutline</referencedby>
-        <referencedby refid="class_query_1a4b374853461219f939f43fb503cf7d61" compoundref="_query_8cpp" startline="473" endline="511">Query::hover</referencedby>
-        <referencedby refid="class_query_1aad6e5a1c4754d6605f90f30699fc7769" compoundref="_query_8cpp" startline="580" endline="629">Query::inlayHint</referencedby>
-        <referencedby refid="class_query_1a15ad9b779e57720f864388a75863b93b" compoundref="_query_8cpp" startline="1259" endline="1293">Query::workspaceSymbol</referencedby>
+        <location file="generated/Lsp.h" line="71" column="39" bodyfile="generated/Lsp.h" bodystart="71" bodyend="71"/>
+        <referencedby refid="class_query_1a03ebf677d16cd07e33b0375104e4c6f5" compoundref="_query_8cpp" startline="741" endline="769">Query::appendCodeAction</referencedby>
+        <referencedby refid="class_query_1ac4dc7ce737d628ad4f1ba257f3b3817e" compoundref="_query_8cpp" startline="705" endline="724">Query::appendCompletionItem</referencedby>
+        <referencedby refid="class_query_1a3ce554af28b12354af3d1ba57b8748ee" compoundref="_query_8cpp" startline="206" endline="216">Query::appendHighlight</referencedby>
+        <referencedby refid="class_query_1a845ffafccd1af88a159ed366c9bc9a77" compoundref="_query_8cpp" startline="183" endline="204">Query::appendItem</referencedby>
+        <referencedby refid="class_query_1afead9f54d95cfd9c0cdadac4325ddd2c" compoundref="_query_8cpp" startline="655" endline="687">Query::appendOutline</referencedby>
+        <referencedby refid="class_server_1aece7f9ddae369cfc938b0504dd93bb0e" compoundref="_server_8cpp" startline="145" endline="204">Server::getProgress</referencedby>
+        <referencedby refid="class_query_1adf9f19baf3d11420d442548886f453a7" compoundref="_query_8cpp" startline="406" endline="479">Query::hover</referencedby>
+        <referencedby refid="class_query_1aad6e5a1c4754d6605f90f30699fc7769" compoundref="_query_8cpp" startline="548" endline="580">Query::inlayHint</referencedby>
+        <referencedby refid="class_query_1a15ad9b779e57720f864388a75863b93b" compoundref="_query_8cpp" startline="1191" endline="1220">Query::workspaceSymbol</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1ab6c1b1f4336a4c1824f32234706693f3" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -191,8 +192,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="71" column="39" bodyfile="generated/Lsp.h" bodystart="71" bodyend="71"/>
-        <referencedby refid="class_query_1abf2846baa91f748bdea450d3d6424ea4" compoundref="_query_8cpp" startline="720" endline="747">Query::appendOutline</referencedby>
+        <location file="generated/Lsp.h" line="72" column="39" bodyfile="generated/Lsp.h" bodystart="72" bodyend="72"/>
+        <referencedby refid="class_query_1afead9f54d95cfd9c0cdadac4325ddd2c" compoundref="_query_8cpp" startline="655" endline="687">Query::appendOutline</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a64bac27892c8863ab1851856df514e95" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -207,8 +208,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="72" column="39" bodyfile="generated/Lsp.h" bodystart="72" bodyend="72"/>
-        <referencedby refid="class_query_1a4b374853461219f939f43fb503cf7d61" compoundref="_query_8cpp" startline="473" endline="511">Query::hover</referencedby>
+        <location file="generated/Lsp.h" line="73" column="39" bodyfile="generated/Lsp.h" bodystart="73" bodyend="73"/>
+        <referencedby refid="class_query_1adf9f19baf3d11420d442548886f453a7" compoundref="_query_8cpp" startline="406" endline="479">Query::hover</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a304ac3a986d7a9a9350767b9c06da10e" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -223,8 +224,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="73" column="39" bodyfile="generated/Lsp.h" bodystart="73" bodyend="73"/>
-        <referencedby refid="class_query_1a4b374853461219f939f43fb503cf7d61" compoundref="_query_8cpp" startline="473" endline="511">Query::hover</referencedby>
+        <location file="generated/Lsp.h" line="74" column="39" bodyfile="generated/Lsp.h" bodystart="74" bodyend="74"/>
+        <referencedby refid="class_server_1aece7f9ddae369cfc938b0504dd93bb0e" compoundref="_server_8cpp" startline="145" endline="204">Server::getProgress</referencedby>
+        <referencedby refid="class_query_1adf9f19baf3d11420d442548886f453a7" compoundref="_query_8cpp" startline="406" endline="479">Query::hover</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a3c038da5d295768dc86b97ef7a105ec9" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -239,9 +241,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="74" column="39" bodyfile="generated/Lsp.h" bodystart="74" bodyend="74"/>
-        <referencedby refid="class_query_1acf0e315608dcbc3e0ccbee5f4469e643" compoundref="_query_8cpp" startline="761" endline="780">Query::appendCompletionItem</referencedby>
-        <referencedby refid="class_query_1aad6e5a1c4754d6605f90f30699fc7769" compoundref="_query_8cpp" startline="580" endline="629">Query::inlayHint</referencedby>
+        <location file="generated/Lsp.h" line="75" column="39" bodyfile="generated/Lsp.h" bodystart="75" bodyend="75"/>
+        <referencedby refid="class_query_1ac4dc7ce737d628ad4f1ba257f3b3817e" compoundref="_query_8cpp" startline="705" endline="724">Query::appendCompletionItem</referencedby>
+        <referencedby refid="class_query_1aad6e5a1c4754d6605f90f30699fc7769" compoundref="_query_8cpp" startline="548" endline="580">Query::inlayHint</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a47c1a3c09d2f0c36870ba249db868fe4" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -256,10 +258,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="75" column="39" bodyfile="generated/Lsp.h" bodystart="75" bodyend="75"/>
-        <referencedby refid="class_relay_1a7bfa0fddda4f4de7ab07cafe087a9c2d" compoundref="_relay_8cpp" startline="364" endline="386">Relay::getPosition</referencedby>
-        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="388" endline="416">Relay::getRequestArguments</referencedby>
-        <referencedby refid="class_query_1aad6e5a1c4754d6605f90f30699fc7769" compoundref="_query_8cpp" startline="580" endline="629">Query::inlayHint</referencedby>
+        <location file="generated/Lsp.h" line="76" column="39" bodyfile="generated/Lsp.h" bodystart="76" bodyend="76"/>
+        <referencedby refid="class_relay_1a7bfa0fddda4f4de7ab07cafe087a9c2d" compoundref="_relay_8cpp" startline="408" endline="430">Relay::getPosition</referencedby>
+        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="432" endline="460">Relay::getRequestArguments</referencedby>
+        <referencedby refid="class_query_1aad6e5a1c4754d6605f90f30699fc7769" compoundref="_query_8cpp" startline="548" endline="580">Query::inlayHint</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1ad485bba07c55df528f7bfb1bb39f12bb" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -274,8 +276,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="76" column="39" bodyfile="generated/Lsp.h" bodystart="76" bodyend="76"/>
-        <referencedby refid="class_query_1aad6e5a1c4754d6605f90f30699fc7769" compoundref="_query_8cpp" startline="580" endline="629">Query::inlayHint</referencedby>
+        <location file="generated/Lsp.h" line="77" column="39" bodyfile="generated/Lsp.h" bodystart="77" bodyend="77"/>
+        <referencedby refid="class_query_1aad6e5a1c4754d6605f90f30699fc7769" compoundref="_query_8cpp" startline="548" endline="580">Query::inlayHint</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a5b39a0df63e820549f51c712fbbf1789" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -290,8 +292,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="77" column="39" bodyfile="generated/Lsp.h" bodystart="77" bodyend="77"/>
-        <referencedby refid="class_query_1aad6e5a1c4754d6605f90f30699fc7769" compoundref="_query_8cpp" startline="580" endline="629">Query::inlayHint</referencedby>
+        <location file="generated/Lsp.h" line="78" column="39" bodyfile="generated/Lsp.h" bodystart="78" bodyend="78"/>
+        <referencedby refid="class_query_1aad6e5a1c4754d6605f90f30699fc7769" compoundref="_query_8cpp" startline="548" endline="580">Query::inlayHint</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1aa56d577cebe3067e4fe62407bb8e1b6f" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -306,8 +308,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="78" column="39" bodyfile="generated/Lsp.h" bodystart="78" bodyend="78"/>
-        <referencedby refid="class_query_1a59f0b916e64bca9e3a53ab112922ffcf" compoundref="_query_8cpp" startline="672" endline="703">Query::appendDiagnostics</referencedby>
+        <location file="generated/Lsp.h" line="79" column="39" bodyfile="generated/Lsp.h" bodystart="79" bodyend="79"/>
+        <referencedby refid="class_query_1a59f0b916e64bca9e3a53ab112922ffcf" compoundref="_query_8cpp" startline="617" endline="637">Query::appendDiagnostics</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1aa9dc40ea8adab90b093e8f650a57954e" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -322,10 +324,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="79" column="39" bodyfile="generated/Lsp.h" bodystart="79" bodyend="79"/>
-        <referencedby refid="class_query_1a59f0b916e64bca9e3a53ab112922ffcf" compoundref="_query_8cpp" startline="672" endline="703">Query::appendDiagnostics</referencedby>
-        <referencedby refid="class_operation_1a114ea0c0f4f8f476bae294004b68b82a" compoundref="_operation_8cpp" startline="19" endline="42">Operation::messageReceived</referencedby>
-        <referencedby refid="class_relay_1adfc8d65e761104323bba423f23d4ffb6" compoundref="_relay_8cpp" startline="213" endline="227">Relay::sendError</referencedby>
+        <location file="generated/Lsp.h" line="80" column="39" bodyfile="generated/Lsp.h" bodystart="80" bodyend="80"/>
+        <referencedby refid="class_query_1a59f0b916e64bca9e3a53ab112922ffcf" compoundref="_query_8cpp" startline="617" endline="637">Query::appendDiagnostics</referencedby>
+        <referencedby refid="class_server_1aece7f9ddae369cfc938b0504dd93bb0e" compoundref="_server_8cpp" startline="145" endline="204">Server::getProgress</referencedby>
+        <referencedby refid="class_operation_1a114ea0c0f4f8f476bae294004b68b82a" compoundref="_operation_8cpp" startline="21" endline="47">Operation::messageReceived</referencedby>
+        <referencedby refid="class_tool_relay_1a4cda3d8491875e20fc7b4c868b327843" compoundref="_tool_relay_8cpp" startline="79" endline="111">ToolRelay::messageReceived</referencedby>
+        <referencedby refid="class_server_1ad5ec9462b520e59f7ea831e157ee5e59" compoundref="_server_8cpp" startline="3" endline="47">Server::Server</referencedby>
         <referencedby refid="class_query_1a1522169f77764d3ff8615957d2f46405" compoundref="_query_8cpp" startline="3" endline="30">Query::setError</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1ad59c4a1cbae0b2b24d4b470bbdbae837" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -341,7 +345,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="80" column="39" bodyfile="generated/Lsp.h" bodystart="80" bodyend="80"/>
+        <location file="generated/Lsp.h" line="81" column="39" bodyfile="generated/Lsp.h" bodystart="81" bodyend="81"/>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a280338069ffa5774cec39fe096296729" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -356,8 +360,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="81" column="39" bodyfile="generated/Lsp.h" bodystart="81" bodyend="81"/>
-        <referencedby refid="class_query_1acf0e315608dcbc3e0ccbee5f4469e643" compoundref="_query_8cpp" startline="761" endline="780">Query::appendCompletionItem</referencedby>
+        <location file="generated/Lsp.h" line="82" column="39" bodyfile="generated/Lsp.h" bodystart="82" bodyend="82"/>
+        <referencedby refid="class_query_1ac4dc7ce737d628ad4f1ba257f3b3817e" compoundref="_query_8cpp" startline="705" endline="724">Query::appendCompletionItem</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a28afcf87b3b8dc3e5208613e10ed218a" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -372,8 +376,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="82" column="39" bodyfile="generated/Lsp.h" bodystart="82" bodyend="82"/>
-        <referencedby refid="class_query_1acf0e315608dcbc3e0ccbee5f4469e643" compoundref="_query_8cpp" startline="761" endline="780">Query::appendCompletionItem</referencedby>
+        <location file="generated/Lsp.h" line="83" column="39" bodyfile="generated/Lsp.h" bodystart="83" bodyend="83"/>
+        <referencedby refid="class_query_1ac4dc7ce737d628ad4f1ba257f3b3817e" compoundref="_query_8cpp" startline="705" endline="724">Query::appendCompletionItem</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1af10e10394a6b68bec5e157033dcc8b1f" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -388,8 +392,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="83" column="39" bodyfile="generated/Lsp.h" bodystart="83" bodyend="83"/>
-        <referencedby refid="class_query_1a12d5fe63bbb4a5e578c16af0c96238c8" compoundref="_query_8cpp" startline="1379" endline="1404">Query::appendIncomingRun</referencedby>
+        <location file="generated/Lsp.h" line="84" column="39" bodyfile="generated/Lsp.h" bodystart="84" bodyend="84"/>
+        <referencedby refid="class_query_1aa75e9e6d56e124288941a5c537e7a492" compoundref="_query_8cpp" startline="1282" endline="1304">Query::appendIncomingRun</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a5ed3c86a4cfdf03d8eac4e12f0cf3300" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -404,8 +408,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="84" column="39" bodyfile="generated/Lsp.h" bodystart="84" bodyend="84"/>
-        <referencedby refid="class_query_1adc9652cdecb42aef9e899a2216882f37" compoundref="_query_8cpp" startline="1426" endline="1464">Query::outgoingCalls</referencedby>
+        <location file="generated/Lsp.h" line="85" column="39" bodyfile="generated/Lsp.h" bodystart="85" bodyend="85"/>
+        <referencedby refid="class_query_1adc9652cdecb42aef9e899a2216882f37" compoundref="_query_8cpp" startline="1338" endline="1370">Query::outgoingCalls</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a3e6466d1980010b515d4e04551f74fa1" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -420,9 +424,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="85" column="39" bodyfile="generated/Lsp.h" bodystart="85" bodyend="85"/>
-        <referencedby refid="class_query_1a12d5fe63bbb4a5e578c16af0c96238c8" compoundref="_query_8cpp" startline="1379" endline="1404">Query::appendIncomingRun</referencedby>
-        <referencedby refid="class_query_1adc9652cdecb42aef9e899a2216882f37" compoundref="_query_8cpp" startline="1426" endline="1464">Query::outgoingCalls</referencedby>
+        <location file="generated/Lsp.h" line="86" column="39" bodyfile="generated/Lsp.h" bodystart="86" bodyend="86"/>
+        <referencedby refid="class_query_1aa75e9e6d56e124288941a5c537e7a492" compoundref="_query_8cpp" startline="1282" endline="1304">Query::appendIncomingRun</referencedby>
+        <referencedby refid="class_query_1adc9652cdecb42aef9e899a2216882f37" compoundref="_query_8cpp" startline="1338" endline="1370">Query::outgoingCalls</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a5e0ea1e7ad4f360a66e29d179ce6576a" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -437,8 +441,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="86" column="39" bodyfile="generated/Lsp.h" bodystart="86" bodyend="86"/>
-        <referencedby refid="class_query_1a15ad9b779e57720f864388a75863b93b" compoundref="_query_8cpp" startline="1259" endline="1293">Query::workspaceSymbol</referencedby>
+        <location file="generated/Lsp.h" line="87" column="39" bodyfile="generated/Lsp.h" bodystart="87" bodyend="87"/>
+        <referencedby refid="class_query_1a15ad9b779e57720f864388a75863b93b" compoundref="_query_8cpp" startline="1191" endline="1220">Query::workspaceSymbol</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1ae9bfa39d11b9fef5e326242f2fef977e" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -453,10 +457,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="87" column="39" bodyfile="generated/Lsp.h" bodystart="87" bodyend="87"/>
-        <referencedby refid="class_relay_1ac1f705eac1ffab6d0fdedca63c0975c0" compoundref="_relay_8cpp" startline="229" endline="246">Relay::initialize</referencedby>
-        <referencedby refid="class_query_1ae6ef066ef3e91ce050309430c41c5833" compoundref="_query_8h" startline="664" endline="684">Query::setResult</referencedby>
-        <referencedby refid="class_relay_1a9a70dcfd3b2456116dd23b37c70fa56b" compoundref="_relay_8cpp" startline="317" endline="321">Relay::shutdown</referencedby>
+        <location file="generated/Lsp.h" line="88" column="39" bodyfile="generated/Lsp.h" bodystart="88" bodyend="88"/>
+        <referencedby refid="class_relay_1ac1f705eac1ffab6d0fdedca63c0975c0" compoundref="_relay_8cpp" startline="256" endline="273">Relay::initialize</referencedby>
+        <referencedby refid="class_tool_relay_1a4cda3d8491875e20fc7b4c868b327843" compoundref="_tool_relay_8cpp" startline="79" endline="111">ToolRelay::messageReceived</referencedby>
+        <referencedby refid="class_relay_1a3397767f37e3b9fbd4aa06f8e1f9b98f" compoundref="_relay_8cpp" startline="228" endline="238">Relay::sendEmptyResult</referencedby>
+        <referencedby refid="class_query_1ae6ef066ef3e91ce050309430c41c5833" compoundref="_query_8h" startline="1108" endline="1128">Query::setResult</referencedby>
+        <referencedby refid="class_relay_1a9a70dcfd3b2456116dd23b37c70fa56b" compoundref="_relay_8cpp" startline="361" endline="365">Relay::shutdown</referencedby>
+        <referencedby refid="class_operation_1aabd2f4f4f81b00a4085034090cd60cde" compoundref="_operation_8cpp" startline="49" endline="69">Operation::valueTreePropertyChanged</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a8413533706e5a2170bfed01445d08bca" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -471,11 +478,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="88" column="39" bodyfile="generated/Lsp.h" bodystart="88" bodyend="88"/>
-        <referencedby refid="class_relay_1ade66e70dac5c690a4f35883ceda02a1d" compoundref="_relay_8cpp" startline="160" endline="181">Relay::applyMessage</referencedby>
-        <referencedby refid="class_operation_1a114ea0c0f4f8f476bae294004b68b82a" compoundref="_operation_8cpp" startline="19" endline="42">Operation::messageReceived</referencedby>
-        <referencedby refid="class_relay_1adfc8d65e761104323bba423f23d4ffb6" compoundref="_relay_8cpp" startline="213" endline="227">Relay::sendError</referencedby>
-        <referencedby refid="class_query_1a2f2e56d877973dc1a75add8e3ef24624" compoundref="_query_8h" startline="687" endline="703">Query::setNotification</referencedby>
+        <location file="generated/Lsp.h" line="89" column="39" bodyfile="generated/Lsp.h" bodystart="89" bodyend="89"/>
+        <referencedby refid="class_server_1aece7f9ddae369cfc938b0504dd93bb0e" compoundref="_server_8cpp" startline="145" endline="204">Server::getProgress</referencedby>
+        <referencedby refid="class_operation_1a114ea0c0f4f8f476bae294004b68b82a" compoundref="_operation_8cpp" startline="21" endline="47">Operation::messageReceived</referencedby>
+        <referencedby refid="class_tool_relay_1a4cda3d8491875e20fc7b4c868b327843" compoundref="_tool_relay_8cpp" startline="79" endline="111">ToolRelay::messageReceived</referencedby>
+        <referencedby refid="class_server_1ad5ec9462b520e59f7ea831e157ee5e59" compoundref="_server_8cpp" startline="3" endline="47">Server::Server</referencedby>
+        <referencedby refid="class_relay_1a328730a21c01b8b7b6d74e5775fa8713" compoundref="_relay_8cpp" startline="175" endline="196">Relay::setMessage</referencedby>
+        <referencedby refid="class_query_1a2f2e56d877973dc1a75add8e3ef24624" compoundref="_query_8h" startline="1139" endline="1155">Query::setNotification</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1ac346c32145b8977fe701d383e98219e5" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -490,14 +499,17 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="89" column="39" bodyfile="generated/Lsp.h" bodystart="89" bodyend="89"/>
-        <referencedby refid="class_relay_1aaf892c60bc1099a6f42f795a595a64d6" compoundref="_relay_8cpp" startline="256" endline="263">Relay::cancelRequest</referencedby>
-        <referencedby refid="class_relay_1ac8467fe6a84d80cae61f5b436147c8c8" compoundref="_relay_8cpp" startline="298" endline="308">Relay::didChange</referencedby>
-        <referencedby refid="class_relay_1a75c3b886036fc7c0ae314e48990ea00d" compoundref="_relay_8cpp" startline="288" endline="296">Relay::didOpen</referencedby>
-        <referencedby refid="class_relay_1a03dcf69baa5a5a38ac638dbc92456a5d" compoundref="_relay_8cpp" startline="329" endline="353">Relay::getPositionEncoding</referencedby>
-        <referencedby refid="class_relay_1ab1ca96f9eed2a2ac1c3161037219f923" compoundref="_relay_8cpp" startline="265" endline="286">Relay::getRequest</referencedby>
-        <referencedby refid="class_operation_1a114ea0c0f4f8f476bae294004b68b82a" compoundref="_operation_8cpp" startline="19" endline="42">Operation::messageReceived</referencedby>
-        <referencedby refid="class_query_1a2f2e56d877973dc1a75add8e3ef24624" compoundref="_query_8h" startline="687" endline="703">Query::setNotification</referencedby>
+        <location file="generated/Lsp.h" line="90" column="39" bodyfile="generated/Lsp.h" bodystart="90" bodyend="90"/>
+        <referencedby refid="class_relay_1aaf892c60bc1099a6f42f795a595a64d6" compoundref="_relay_8cpp" startline="288" endline="298">Relay::cancelRequest</referencedby>
+        <referencedby refid="class_relay_1ac8467fe6a84d80cae61f5b436147c8c8" compoundref="_relay_8cpp" startline="336" endline="349">Relay::didChange</referencedby>
+        <referencedby refid="class_relay_1a75c3b886036fc7c0ae314e48990ea00d" compoundref="_relay_8cpp" startline="323" endline="334">Relay::didOpen</referencedby>
+        <referencedby refid="class_relay_1a03dcf69baa5a5a38ac638dbc92456a5d" compoundref="_relay_8cpp" startline="373" endline="397">Relay::getPositionEncoding</referencedby>
+        <referencedby refid="class_server_1aece7f9ddae369cfc938b0504dd93bb0e" compoundref="_server_8cpp" startline="145" endline="204">Server::getProgress</referencedby>
+        <referencedby refid="class_relay_1ab1ca96f9eed2a2ac1c3161037219f923" compoundref="_relay_8cpp" startline="300" endline="321">Relay::getRequest</referencedby>
+        <referencedby refid="class_operation_1a114ea0c0f4f8f476bae294004b68b82a" compoundref="_operation_8cpp" startline="21" endline="47">Operation::messageReceived</referencedby>
+        <referencedby refid="class_tool_relay_1a4cda3d8491875e20fc7b4c868b327843" compoundref="_tool_relay_8cpp" startline="79" endline="111">ToolRelay::messageReceived</referencedby>
+        <referencedby refid="class_server_1ad5ec9462b520e59f7ea831e157ee5e59" compoundref="_server_8cpp" startline="3" endline="47">Server::Server</referencedby>
+        <referencedby refid="class_query_1a2f2e56d877973dc1a75add8e3ef24624" compoundref="_query_8h" startline="1139" endline="1155">Query::setNotification</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a15adc485bd56c484bd9540adb21a1a81" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -512,7 +524,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="90" column="39" bodyfile="generated/Lsp.h" bodystart="90" bodyend="90"/>
+        <location file="generated/Lsp.h" line="91" column="39" bodyfile="generated/Lsp.h" bodystart="91" bodyend="91"/>
+        <referencedby refid="class_server_1ad5ec9462b520e59f7ea831e157ee5e59" compoundref="_server_8cpp" startline="3" endline="47">Server::Server</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a2882ba938e59654d45713f31a3f83cfd" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -527,8 +540,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="91" column="39" bodyfile="generated/Lsp.h" bodystart="91" bodyend="91"/>
-        <referencedby refid="class_query_1a2c571f5680b49031d21f195688b73598" compoundref="_query_8h" startline="206" endline="210">Query::appendJsonRpc</referencedby>
+        <location file="generated/Lsp.h" line="92" column="39" bodyfile="generated/Lsp.h" bodystart="92" bodyend="92"/>
+        <referencedby refid="class_query_1a2c571f5680b49031d21f195688b73598" compoundref="_query_8h" startline="244" endline="248">Query::appendJsonRpc</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a7d93bc5b332cdf72fc94c5c7272b7cca" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -543,12 +556,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="92" column="39" bodyfile="generated/Lsp.h" bodystart="92" bodyend="92"/>
-        <referencedby refid="class_relay_1ade66e70dac5c690a4f35883ceda02a1d" compoundref="_relay_8cpp" startline="160" endline="181">Relay::applyMessage</referencedby>
-        <referencedby refid="class_relay_1aaf892c60bc1099a6f42f795a595a64d6" compoundref="_relay_8cpp" startline="256" endline="263">Relay::cancelRequest</referencedby>
-        <referencedby refid="class_relay_1adbdb1161cdbeeb9221d193ea0115b96d" compoundref="_relay_8h" startline="122" endline="136">Relay::sendResponse</referencedby>
+        <location file="generated/Lsp.h" line="93" column="39" bodyfile="generated/Lsp.h" bodystart="93" bodyend="93"/>
+        <referencedby refid="class_relay_1aaf892c60bc1099a6f42f795a595a64d6" compoundref="_relay_8cpp" startline="288" endline="298">Relay::cancelRequest</referencedby>
+        <referencedby refid="class_tool_relay_1a4cda3d8491875e20fc7b4c868b327843" compoundref="_tool_relay_8cpp" startline="79" endline="111">ToolRelay::messageReceived</referencedby>
+        <referencedby refid="class_relay_1a3d4d845465bfe39f1da97ef34d8139bb" compoundref="_relay_8h" startline="128" endline="142">Relay::sendResponse</referencedby>
         <referencedby refid="class_query_1a1522169f77764d3ff8615957d2f46405" compoundref="_query_8cpp" startline="3" endline="30">Query::setError</referencedby>
-        <referencedby refid="class_query_1ae6ef066ef3e91ce050309430c41c5833" compoundref="_query_8h" startline="664" endline="684">Query::setResult</referencedby>
+        <referencedby refid="class_relay_1a328730a21c01b8b7b6d74e5775fa8713" compoundref="_relay_8cpp" startline="175" endline="196">Relay::setMessage</referencedby>
+        <referencedby refid="class_query_1ae6ef066ef3e91ce050309430c41c5833" compoundref="_query_8h" startline="1108" endline="1128">Query::setResult</referencedby>
+        <referencedby refid="class_operation_1aabd2f4f4f81b00a4085034090cd60cde" compoundref="_operation_8cpp" startline="49" endline="69">Operation::valueTreePropertyChanged</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a86a3bddd064a1d2541fc6b07256eb505" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -563,9 +578,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="93" column="39" bodyfile="generated/Lsp.h" bodystart="93" bodyend="93"/>
-        <referencedby refid="class_operation_1a114ea0c0f4f8f476bae294004b68b82a" compoundref="_operation_8cpp" startline="19" endline="42">Operation::messageReceived</referencedby>
-        <referencedby refid="class_relay_1adfc8d65e761104323bba423f23d4ffb6" compoundref="_relay_8cpp" startline="213" endline="227">Relay::sendError</referencedby>
+        <location file="generated/Lsp.h" line="94" column="39" bodyfile="generated/Lsp.h" bodystart="94" bodyend="94"/>
+        <referencedby refid="class_operation_1a114ea0c0f4f8f476bae294004b68b82a" compoundref="_operation_8cpp" startline="21" endline="47">Operation::messageReceived</referencedby>
+        <referencedby refid="class_tool_relay_1a4cda3d8491875e20fc7b4c868b327843" compoundref="_tool_relay_8cpp" startline="79" endline="111">ToolRelay::messageReceived</referencedby>
+        <referencedby refid="class_relay_1adfc8d65e761104323bba423f23d4ffb6" compoundref="_relay_8cpp" startline="240" endline="254">Relay::sendError</referencedby>
         <referencedby refid="class_query_1a1522169f77764d3ff8615957d2f46405" compoundref="_query_8cpp" startline="3" endline="30">Query::setError</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a80bb4b05aba8dc12e50057dd5cd7891e" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -581,8 +597,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="94" column="39" bodyfile="generated/Lsp.h" bodystart="94" bodyend="94"/>
-        <referencedby refid="class_relay_1adfc8d65e761104323bba423f23d4ffb6" compoundref="_relay_8cpp" startline="213" endline="227">Relay::sendError</referencedby>
+        <location file="generated/Lsp.h" line="95" column="39" bodyfile="generated/Lsp.h" bodystart="95" bodyend="95"/>
         <referencedby refid="class_query_1a1522169f77764d3ff8615957d2f46405" compoundref="_query_8cpp" startline="3" endline="30">Query::setError</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a0651cd39cd60a2069caff05e71ba88cc" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -598,9 +613,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="95" column="39" bodyfile="generated/Lsp.h" bodystart="95" bodyend="95"/>
-        <referencedby refid="class_relay_1a75c3b886036fc7c0ae314e48990ea00d" compoundref="_relay_8cpp" startline="288" endline="296">Relay::didOpen</referencedby>
-        <referencedby refid="class_relay_1a7423972ba523fc9ce8118d99052e31d1" compoundref="_relay_8cpp" startline="355" endline="362">Relay::getFile</referencedby>
+        <location file="generated/Lsp.h" line="96" column="39" bodyfile="generated/Lsp.h" bodystart="96" bodyend="96"/>
+        <referencedby refid="class_relay_1a75c3b886036fc7c0ae314e48990ea00d" compoundref="_relay_8cpp" startline="323" endline="334">Relay::didOpen</referencedby>
+        <referencedby refid="class_relay_1a7423972ba523fc9ce8118d99052e31d1" compoundref="_relay_8cpp" startline="399" endline="406">Relay::getFile</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1adcb04ab5b069194f2a73ecbd2cd655e8" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -615,9 +630,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="96" column="39" bodyfile="generated/Lsp.h" bodystart="96" bodyend="96"/>
-        <referencedby refid="class_relay_1ac8467fe6a84d80cae61f5b436147c8c8" compoundref="_relay_8cpp" startline="298" endline="308">Relay::didChange</referencedby>
-        <referencedby refid="class_relay_1a75c3b886036fc7c0ae314e48990ea00d" compoundref="_relay_8cpp" startline="288" endline="296">Relay::didOpen</referencedby>
+        <location file="generated/Lsp.h" line="97" column="39" bodyfile="generated/Lsp.h" bodystart="97" bodyend="97"/>
+        <referencedby refid="class_relay_1ac8467fe6a84d80cae61f5b436147c8c8" compoundref="_relay_8cpp" startline="336" endline="349">Relay::didChange</referencedby>
+        <referencedby refid="class_relay_1a75c3b886036fc7c0ae314e48990ea00d" compoundref="_relay_8cpp" startline="323" endline="334">Relay::didOpen</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a20a5c8018a87a4b1255d7d83e4008527" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -632,8 +647,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="97" column="39" bodyfile="generated/Lsp.h" bodystart="97" bodyend="97"/>
-        <referencedby refid="class_relay_1ac8467fe6a84d80cae61f5b436147c8c8" compoundref="_relay_8cpp" startline="298" endline="308">Relay::didChange</referencedby>
+        <location file="generated/Lsp.h" line="98" column="39" bodyfile="generated/Lsp.h" bodystart="98" bodyend="98"/>
+        <referencedby refid="class_relay_1ac8467fe6a84d80cae61f5b436147c8c8" compoundref="_relay_8cpp" startline="336" endline="349">Relay::didChange</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1aef646b4f51af4d8b9a533e9553fbaa9d" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -648,8 +663,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="98" column="39" bodyfile="generated/Lsp.h" bodystart="98" bodyend="98"/>
-        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="388" endline="416">Relay::getRequestArguments</referencedby>
+        <location file="generated/Lsp.h" line="99" column="39" bodyfile="generated/Lsp.h" bodystart="99" bodyend="99"/>
+        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="432" endline="460">Relay::getRequestArguments</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a684664cae093b98faa21797561053c5a" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -664,10 +679,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="99" column="39" bodyfile="generated/Lsp.h" bodystart="99" bodyend="99"/>
-        <referencedby refid="class_relay_1a7423972ba523fc9ce8118d99052e31d1" compoundref="_relay_8cpp" startline="355" endline="362">Relay::getFile</referencedby>
-        <referencedby refid="class_relay_1a7bfa0fddda4f4de7ab07cafe087a9c2d" compoundref="_relay_8cpp" startline="364" endline="386">Relay::getPosition</referencedby>
-        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="388" endline="416">Relay::getRequestArguments</referencedby>
+        <location file="generated/Lsp.h" line="100" column="39" bodyfile="generated/Lsp.h" bodystart="100" bodyend="100"/>
+        <referencedby refid="class_relay_1a7423972ba523fc9ce8118d99052e31d1" compoundref="_relay_8cpp" startline="399" endline="406">Relay::getFile</referencedby>
+        <referencedby refid="class_relay_1a7bfa0fddda4f4de7ab07cafe087a9c2d" compoundref="_relay_8cpp" startline="408" endline="430">Relay::getPosition</referencedby>
+        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="432" endline="460">Relay::getRequestArguments</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a1d35ad24c7a2c6ec2a5fd383ed25b818" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -682,9 +697,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="100" column="39" bodyfile="generated/Lsp.h" bodystart="100" bodyend="100"/>
-        <referencedby refid="class_relay_1a03dcf69baa5a5a38ac638dbc92456a5d" compoundref="_relay_8cpp" startline="329" endline="353">Relay::getPositionEncoding</referencedby>
-        <referencedby refid="class_relay_1ac1f705eac1ffab6d0fdedca63c0975c0" compoundref="_relay_8cpp" startline="229" endline="246">Relay::initialize</referencedby>
+        <location file="generated/Lsp.h" line="101" column="39" bodyfile="generated/Lsp.h" bodystart="101" bodyend="101"/>
+        <referencedby refid="class_relay_1a03dcf69baa5a5a38ac638dbc92456a5d" compoundref="_relay_8cpp" startline="373" endline="397">Relay::getPositionEncoding</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1ab585c878ec473d35f57fa6e0636eb12c" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -699,8 +713,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="101" column="39" bodyfile="generated/Lsp.h" bodystart="101" bodyend="101"/>
-        <referencedby refid="class_relay_1a03dcf69baa5a5a38ac638dbc92456a5d" compoundref="_relay_8cpp" startline="329" endline="353">Relay::getPositionEncoding</referencedby>
+        <location file="generated/Lsp.h" line="102" column="39" bodyfile="generated/Lsp.h" bodystart="102" bodyend="102"/>
+        <referencedby refid="class_relay_1a03dcf69baa5a5a38ac638dbc92456a5d" compoundref="_relay_8cpp" startline="373" endline="397">Relay::getPositionEncoding</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a8ed983f3b57296dd2f017a02affb4425" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -715,8 +729,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="102" column="39" bodyfile="generated/Lsp.h" bodystart="102" bodyend="102"/>
-        <referencedby refid="class_relay_1a03dcf69baa5a5a38ac638dbc92456a5d" compoundref="_relay_8cpp" startline="329" endline="353">Relay::getPositionEncoding</referencedby>
+        <location file="generated/Lsp.h" line="103" column="39" bodyfile="generated/Lsp.h" bodystart="103" bodyend="103"/>
+        <referencedby refid="class_relay_1a03dcf69baa5a5a38ac638dbc92456a5d" compoundref="_relay_8cpp" startline="373" endline="397">Relay::getPositionEncoding</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a368e911cc6145cd9f19daaa76ebc55c7" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -731,7 +745,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="103" column="39" bodyfile="generated/Lsp.h" bodystart="103" bodyend="103"/>
+        <location file="generated/Lsp.h" line="104" column="39" bodyfile="generated/Lsp.h" bodystart="104" bodyend="104"/>
         <referencedby refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a852efff2199bf9e847fedc58617ab6f7" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -747,7 +761,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="104" column="39" bodyfile="generated/Lsp.h" bodystart="104" bodyend="104"/>
+        <location file="generated/Lsp.h" line="105" column="39" bodyfile="generated/Lsp.h" bodystart="105" bodyend="105"/>
         <referencedby refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a0a87710cd4cfe9e7031ca6a124fe1136" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -763,7 +777,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="105" column="39" bodyfile="generated/Lsp.h" bodystart="105" bodyend="105"/>
+        <location file="generated/Lsp.h" line="106" column="39" bodyfile="generated/Lsp.h" bodystart="106" bodyend="106"/>
         <referencedby refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a4a61da8ac612c8271b6517e92335cd9c" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -779,7 +793,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="106" column="39" bodyfile="generated/Lsp.h" bodystart="106" bodyend="106"/>
+        <location file="generated/Lsp.h" line="107" column="39" bodyfile="generated/Lsp.h" bodystart="107" bodyend="107"/>
         <referencedby refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a980ea298a286f9c2707e60717c244452" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -795,7 +809,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="107" column="39" bodyfile="generated/Lsp.h" bodystart="107" bodyend="107"/>
+        <location file="generated/Lsp.h" line="108" column="39" bodyfile="generated/Lsp.h" bodystart="108" bodyend="108"/>
         <referencedby refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1af3ab8f05c89ffab2630dcfc9b3677d98" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -811,7 +825,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="108" column="39" bodyfile="generated/Lsp.h" bodystart="108" bodyend="108"/>
+        <location file="generated/Lsp.h" line="109" column="39" bodyfile="generated/Lsp.h" bodystart="109" bodyend="109"/>
         <referencedby refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1ab942107c3cd5a8405a29a39febd41ed8" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -827,7 +841,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="109" column="39" bodyfile="generated/Lsp.h" bodystart="109" bodyend="109"/>
+        <location file="generated/Lsp.h" line="110" column="39" bodyfile="generated/Lsp.h" bodystart="110" bodyend="110"/>
         <referencedby refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a29fe0557df42f629c73d6c33b2cf1212" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -843,7 +857,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="110" column="39" bodyfile="generated/Lsp.h" bodystart="110" bodyend="110"/>
+        <location file="generated/Lsp.h" line="111" column="39" bodyfile="generated/Lsp.h" bodystart="111" bodyend="111"/>
         <referencedby refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1ad2680cbaf79b7a00afda989fc21b3a83" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -859,7 +873,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="111" column="39" bodyfile="generated/Lsp.h" bodystart="111" bodyend="111"/>
+        <location file="generated/Lsp.h" line="112" column="39" bodyfile="generated/Lsp.h" bodystart="112" bodyend="112"/>
         <referencedby refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a34aaf03b47cc53b968453e8857d4d4c0" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -875,7 +889,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="112" column="39" bodyfile="generated/Lsp.h" bodystart="112" bodyend="112"/>
+        <location file="generated/Lsp.h" line="113" column="39" bodyfile="generated/Lsp.h" bodystart="113" bodyend="113"/>
         <referencedby refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1adc200cf5e396a818fbe83f35a3f4b9bd" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -891,7 +905,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="113" column="39" bodyfile="generated/Lsp.h" bodystart="113" bodyend="113"/>
+        <location file="generated/Lsp.h" line="114" column="39" bodyfile="generated/Lsp.h" bodystart="114" bodyend="114"/>
         <referencedby refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a7f3a19284cf5d5c60a3c82b0d4564aec" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -907,7 +921,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="114" column="39" bodyfile="generated/Lsp.h" bodystart="114" bodyend="114"/>
+        <location file="generated/Lsp.h" line="115" column="39" bodyfile="generated/Lsp.h" bodystart="115" bodyend="115"/>
         <referencedby refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a27492cb671cf37c41af89165ef73e9d9" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -923,7 +937,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="115" column="39" bodyfile="generated/Lsp.h" bodystart="115" bodyend="115"/>
+        <location file="generated/Lsp.h" line="116" column="39" bodyfile="generated/Lsp.h" bodystart="116" bodyend="116"/>
         <referencedby refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a517c75c43107e60d74459b43c2640904" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -939,8 +953,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="116" column="39" bodyfile="generated/Lsp.h" bodystart="116" bodyend="116"/>
-        <referencedby refid="class_relay_1ac1f705eac1ffab6d0fdedca63c0975c0" compoundref="_relay_8cpp" startline="229" endline="246">Relay::initialize</referencedby>
+        <location file="generated/Lsp.h" line="117" column="39" bodyfile="generated/Lsp.h" bodystart="117" bodyend="117"/>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1acd3c7ffbaa983e9ff1c1a042ca3466f3" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -955,7 +968,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="117" column="39" bodyfile="generated/Lsp.h" bodystart="117" bodyend="117"/>
+        <location file="generated/Lsp.h" line="118" column="39" bodyfile="generated/Lsp.h" bodystart="118" bodyend="118"/>
         <referencedby refid="_relay_8cpp_1a302468b898a8c0cb2ca46887967e83c6" compoundref="_relay_8cpp" startline="65" endline="74">appendServerInfo</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a58004b108b4396ec324af0d0d3e2268a" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -971,8 +984,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="118" column="39" bodyfile="generated/Lsp.h" bodystart="118" bodyend="118"/>
-        <referencedby refid="class_query_1acd635f36a483f60a544499f9734711d9" compoundref="_query_8cpp" startline="648" endline="670">Query::publishDiagnostics</referencedby>
+        <location file="generated/Lsp.h" line="119" column="39" bodyfile="generated/Lsp.h" bodystart="119" bodyend="119"/>
+        <referencedby refid="class_query_1acd635f36a483f60a544499f9734711d9" compoundref="_query_8cpp" startline="593" endline="615">Query::publishDiagnostics</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1ae8ab1f8f15008843b1f6f43ed3be04ae" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -987,7 +1000,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="119" column="39" bodyfile="generated/Lsp.h" bodystart="119" bodyend="119"/>
+        <location file="generated/Lsp.h" line="120" column="39" bodyfile="generated/Lsp.h" bodystart="120" bodyend="120"/>
         <referencedby refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a75d513d136fd4b7a8257d91537fa4081" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -1003,7 +1016,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="120" column="39" bodyfile="generated/Lsp.h" bodystart="120" bodyend="120"/>
+        <location file="generated/Lsp.h" line="121" column="39" bodyfile="generated/Lsp.h" bodystart="121" bodyend="121"/>
         <referencedby refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1ac9f39f46259eb268e2e244311aa0ea97" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -1019,7 +1032,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="121" column="39" bodyfile="generated/Lsp.h" bodystart="121" bodyend="121"/>
+        <location file="generated/Lsp.h" line="122" column="39" bodyfile="generated/Lsp.h" bodystart="122" bodyend="122"/>
         <referencedby refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a2b2d6cd4ac9108c2b7c3fcee843189fa" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -1035,7 +1048,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="122" column="39" bodyfile="generated/Lsp.h" bodystart="122" bodyend="122"/>
+        <location file="generated/Lsp.h" line="123" column="39" bodyfile="generated/Lsp.h" bodystart="123" bodyend="123"/>
         <referencedby refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a875685cf1c4bb081f25683d3ebdb490a" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -1051,8 +1064,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="123" column="39" bodyfile="generated/Lsp.h" bodystart="123" bodyend="123"/>
-        <referencedby refid="class_query_1a8b4b8879491b426324edd38e0f92c794" compoundref="_query_8cpp" startline="1002" endline="1026">Query::appendSemanticTokens</referencedby>
+        <location file="generated/Lsp.h" line="124" column="39" bodyfile="generated/Lsp.h" bodystart="124" bodyend="124"/>
+        <referencedby refid="class_query_1a8b4b8879491b426324edd38e0f92c794" compoundref="_query_8cpp" startline="918" endline="942">Query::appendSemanticTokens</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1ad215eaba1208b542f6b66c6f2eab237c" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -1067,9 +1080,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="124" column="39" bodyfile="generated/Lsp.h" bodystart="124" bodyend="124"/>
-        <referencedby refid="class_relay_1a7bfa0fddda4f4de7ab07cafe087a9c2d" compoundref="_relay_8cpp" startline="364" endline="386">Relay::getPosition</referencedby>
-        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="388" endline="416">Relay::getRequestArguments</referencedby>
+        <location file="generated/Lsp.h" line="125" column="39" bodyfile="generated/Lsp.h" bodystart="125" bodyend="125"/>
+        <referencedby refid="class_relay_1a7bfa0fddda4f4de7ab07cafe087a9c2d" compoundref="_relay_8cpp" startline="408" endline="430">Relay::getPosition</referencedby>
+        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="432" endline="460">Relay::getRequestArguments</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a3c0556886dd6da7b281021bebf9cd601" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -1084,9 +1097,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="125" column="39" bodyfile="generated/Lsp.h" bodystart="125" bodyend="125"/>
-        <referencedby refid="class_query_1ab0a0831c6185bab1ed37ce7dfd9878c1" compoundref="_query_8cpp" startline="1164" endline="1179">Query::appendSelectionChain</referencedby>
-        <referencedby refid="class_query_1aec3fcf2f6240f940d221f1a2924e7c77" compoundref="_query_8cpp" startline="1181" endline="1205">Query::appendSelectionRanges</referencedby>
+        <location file="generated/Lsp.h" line="126" column="39" bodyfile="generated/Lsp.h" bodystart="126" bodyend="126"/>
+        <referencedby refid="class_query_1ab0a0831c6185bab1ed37ce7dfd9878c1" compoundref="_query_8cpp" startline="1079" endline="1094">Query::appendSelectionChain</referencedby>
+        <referencedby refid="class_query_1aec3fcf2f6240f940d221f1a2924e7c77" compoundref="_query_8cpp" startline="1096" endline="1120">Query::appendSelectionRanges</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1aaad380564ef564ab140837a66d18b8b7" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -1101,7 +1114,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="126" column="39" bodyfile="generated/Lsp.h" bodystart="126" bodyend="126"/>
+        <location file="generated/Lsp.h" line="127" column="39" bodyfile="generated/Lsp.h" bodystart="127" bodyend="127"/>
         <referencedby refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a41b58b1068532acbf33514417a7a1021" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -1117,7 +1130,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="127" column="39" bodyfile="generated/Lsp.h" bodystart="127" bodyend="127"/>
+        <location file="generated/Lsp.h" line="128" column="39" bodyfile="generated/Lsp.h" bodystart="128" bodyend="128"/>
         <referencedby refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a988b8177c931f9f88fae16af2b04bed7" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -1133,7 +1146,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="128" column="39" bodyfile="generated/Lsp.h" bodystart="128" bodyend="128"/>
+        <location file="generated/Lsp.h" line="129" column="39" bodyfile="generated/Lsp.h" bodystart="129" bodyend="129"/>
         <referencedby refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a083846af9d320903d33fb3773b9f7e1f" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -1149,9 +1162,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="129" column="39" bodyfile="generated/Lsp.h" bodystart="129" bodyend="129"/>
-        <referencedby refid="class_query_1a03ebf677d16cd07e33b0375104e4c6f5" compoundref="_query_8cpp" startline="797" endline="825">Query::appendCodeAction</referencedby>
-        <referencedby refid="class_query_1a59004d043d73a0ae73f59b908156438f" compoundref="_query_8cpp" startline="322" endline="332">Query::appendWorkspaceEdit</referencedby>
+        <location file="generated/Lsp.h" line="130" column="39" bodyfile="generated/Lsp.h" bodystart="130" bodyend="130"/>
+        <referencedby refid="class_query_1a03ebf677d16cd07e33b0375104e4c6f5" compoundref="_query_8cpp" startline="741" endline="769">Query::appendCodeAction</referencedby>
+        <referencedby refid="class_query_1a59004d043d73a0ae73f59b908156438f" compoundref="_query_8cpp" startline="276" endline="286">Query::appendWorkspaceEdit</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a9d9c1f148d345c7318b04f3e5a40eada" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -1166,8 +1179,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="130" column="39" bodyfile="generated/Lsp.h" bodystart="130" bodyend="130"/>
-        <referencedby refid="class_query_1ae2c68385edc00de097f75c8f33faa54d" compoundref="_query_8cpp" startline="263" endline="273">Query::appendTextEdit</referencedby>
+        <location file="generated/Lsp.h" line="131" column="39" bodyfile="generated/Lsp.h" bodystart="131" bodyend="131"/>
+        <referencedby refid="class_query_1ae2c68385edc00de097f75c8f33faa54d" compoundref="_query_8cpp" startline="218" endline="228">Query::appendTextEdit</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a4995b5281faffffe667fd094b4834b29" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -1182,8 +1195,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="131" column="39" bodyfile="generated/Lsp.h" bodystart="131" bodyend="131"/>
-        <referencedby refid="class_query_1a03ebf677d16cd07e33b0375104e4c6f5" compoundref="_query_8cpp" startline="797" endline="825">Query::appendCodeAction</referencedby>
+        <location file="generated/Lsp.h" line="132" column="39" bodyfile="generated/Lsp.h" bodystart="132" bodyend="132"/>
+        <referencedby refid="class_query_1a03ebf677d16cd07e33b0375104e4c6f5" compoundref="_query_8cpp" startline="741" endline="769">Query::appendCodeAction</referencedby>
+        <referencedby refid="class_server_1aece7f9ddae369cfc938b0504dd93bb0e" compoundref="_server_8cpp" startline="145" endline="204">Server::getProgress</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a669e9f0c80aa03569475bb291e412d25" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -1198,8 +1212,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="132" column="39" bodyfile="generated/Lsp.h" bodystart="132" bodyend="132"/>
-        <referencedby refid="class_query_1a03ebf677d16cd07e33b0375104e4c6f5" compoundref="_query_8cpp" startline="797" endline="825">Query::appendCodeAction</referencedby>
+        <location file="generated/Lsp.h" line="133" column="39" bodyfile="generated/Lsp.h" bodystart="133" bodyend="133"/>
+        <referencedby refid="class_query_1a03ebf677d16cd07e33b0375104e4c6f5" compoundref="_query_8cpp" startline="741" endline="769">Query::appendCodeAction</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1aac8486c271fcd091bc15c5ddb2463bdb" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -1214,7 +1228,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="133" column="39" bodyfile="generated/Lsp.h" bodystart="133" bodyend="133"/>
+        <location file="generated/Lsp.h" line="134" column="39" bodyfile="generated/Lsp.h" bodystart="134" bodyend="134"/>
         <referencedby refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1aac8f5f8bb6f9178518af08f7379723ba" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -1230,8 +1244,40 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="generated/Lsp.h" line="134" column="39" bodyfile="generated/Lsp.h" bodystart="134" bodyend="134"/>
+        <location file="generated/Lsp.h" line="135" column="39" bodyfile="generated/Lsp.h" bodystart="135" bodyend="135"/>
         <referencedby refid="_relay_8cpp_1afb6aae18503e7436142f5ccde9336f53" compoundref="_relay_8cpp" startline="22" endline="63">appendCapabilities</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_member_1ac6e9bdc851cfd79b5e033ab11a54e02c" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Member::token</definition>
+        <argsstring></argsstring>
+        <name>token</name>
+        <qualifiedname>lsp::Member::token</qualifiedname>
+        <initializer>{ &quot;token&quot;                     }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="136" column="39" bodyfile="generated/Lsp.h" bodystart="136" bodyend="136"/>
+        <referencedby refid="class_server_1aece7f9ddae369cfc938b0504dd93bb0e" compoundref="_server_8cpp" startline="145" endline="204">Server::getProgress</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlsp_1_1_member_1a7b726b51796f282a0fdcddfb93e78b17" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view lsp::Member::percentage</definition>
+        <argsstring></argsstring>
+        <name>percentage</name>
+        <qualifiedname>lsp::Member::percentage</qualifiedname>
+        <initializer>{ &quot;percentage&quot;                }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="generated/Lsp.h" line="137" column="39" bodyfile="generated/Lsp.h" bodystart="137" bodyend="137"/>
+        <referencedby refid="class_server_1aece7f9ddae369cfc938b0504dd93bb0e" compoundref="_server_8cpp" startline="145" endline="204">Server::getProgress</referencedby>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -1266,7 +1312,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="generated/Lsp.h" line="60" column="1" bodyfile="generated/Lsp.h" bodystart="61" bodyend="135"/>
+    <location file="generated/Lsp.h" line="61" column="1" bodyfile="generated/Lsp.h" bodystart="62" bodyend="138"/>
     <listofallmembers>
       <member refid="structlsp_1_1_member_1a34aaf03b47cc53b968453e8857d4d4c0" prot="public" virt="non-virtual"><scope>lsp::Member</scope><name>callHierarchyProvider</name></member>
       <member refid="structlsp_1_1_member_1a1d35ad24c7a2c6ec2a5fd383ed25b818" prot="public" virt="non-virtual"><scope>lsp::Member</scope><name>capabilities</name></member>
@@ -1313,6 +1359,7 @@
       <member refid="structlsp_1_1_member_1a5b39a0df63e820549f51c712fbbf1789" prot="public" virt="non-virtual"><scope>lsp::Member</scope><name>paddingRight</name></member>
       <member refid="structlsp_1_1_member_1ac346c32145b8977fe701d383e98219e5" prot="public" virt="non-virtual"><scope>lsp::Member</scope><name>params</name></member>
       <member refid="structlsp_1_1_member_1a3c0556886dd6da7b281021bebf9cd601" prot="public" virt="non-virtual"><scope>lsp::Member</scope><name>parent</name></member>
+      <member refid="structlsp_1_1_member_1a7b726b51796f282a0fdcddfb93e78b17" prot="public" virt="non-virtual"><scope>lsp::Member</scope><name>percentage</name></member>
       <member refid="structlsp_1_1_member_1a47c1a3c09d2f0c36870ba249db868fe4" prot="public" virt="non-virtual"><scope>lsp::Member</scope><name>position</name></member>
       <member refid="structlsp_1_1_member_1a368e911cc6145cd9f19daaa76ebc55c7" prot="public" virt="non-virtual"><scope>lsp::Member</scope><name>positionEncoding</name></member>
       <member refid="structlsp_1_1_member_1a8ed983f3b57296dd2f017a02affb4425" prot="public" virt="non-virtual"><scope>lsp::Member</scope><name>positionEncodings</name></member>
@@ -1333,6 +1380,7 @@
       <member refid="structlsp_1_1_member_1a852efff2199bf9e847fedc58617ab6f7" prot="public" virt="non-virtual"><scope>lsp::Member</scope><name>textDocumentSync</name></member>
       <member refid="structlsp_1_1_member_1a4995b5281faffffe667fd094b4834b29" prot="public" virt="non-virtual"><scope>lsp::Member</scope><name>title</name></member>
       <member refid="structlsp_1_1_member_1a5ed3c86a4cfdf03d8eac4e12f0cf3300" prot="public" virt="non-virtual"><scope>lsp::Member</scope><name>to</name></member>
+      <member refid="structlsp_1_1_member_1ac6e9bdc851cfd79b5e033ab11a54e02c" prot="public" virt="non-virtual"><scope>lsp::Member</scope><name>token</name></member>
       <member refid="structlsp_1_1_member_1ac9f39f46259eb268e2e244311aa0ea97" prot="public" virt="non-virtual"><scope>lsp::Member</scope><name>tokenModifiers</name></member>
       <member refid="structlsp_1_1_member_1a75d513d136fd4b7a8257d91537fa4081" prot="public" virt="non-virtual"><scope>lsp::Member</scope><name>tokenTypes</name></member>
       <member refid="structlsp_1_1_member_1ae36ebac9b79611f03ae8a2cec76b26e5" prot="public" virt="non-virtual"><scope>lsp::Member</scope><name>type</name></member>

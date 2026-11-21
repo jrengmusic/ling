@@ -21,13 +21,14 @@
         <qualifiedname>BuiltInLanguage::noModifiers</qualifiedname>
         <initializer>{ 0 }</initializer>
         <briefdescription>
+<para>Semantic modifier bitmask for built-in grammars. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="BuiltInLanguage.h" line="148" column="26" bodyfile="BuiltInLanguage.h" bodystart="148" bodyend="148"/>
-        <referencedby refid="class_built_in_language_1a2c9129f7d2681f60bbf7caa35f039a5b" compoundref="_built_in_language_8h" startline="113" endline="116">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSemanticModifiers</referencedby>
+        <location file="BuiltInLanguage.h" line="241" column="26" bodyfile="BuiltInLanguage.h" bodystart="241" bodyend="241"/>
+        <referencedby refid="class_built_in_language_1a2c9129f7d2681f60bbf7caa35f039a5b" compoundref="_built_in_language_8h" startline="180" endline="183">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSemanticModifiers</referencedby>
       </memberdef>
       <memberdef kind="variable" id="class_built_in_language_1a2e9a4db2c617a56b1a64368389ae7b45" prot="private" static="yes" constexpr="yes" mutable="no">
         <type>int</type>
@@ -37,13 +38,14 @@
         <qualifiedname>BuiltInLanguage::noQualifierLength</qualifiedname>
         <initializer>{ 0 }</initializer>
         <briefdescription>
+<para>Qualifier prefix byte length for built-in outlines. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="BuiltInLanguage.h" line="149" column="26" bodyfile="BuiltInLanguage.h" bodystart="149" bodyend="149"/>
-        <referencedby refid="class_built_in_language_1a38b1561cd2708c56ae5ee489e41b992c" compoundref="_built_in_language_8h" startline="223" endline="240">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getOutline</referencedby>
+        <location file="BuiltInLanguage.h" line="242" column="26" bodyfile="BuiltInLanguage.h" bodystart="242" bodyend="242"/>
+        <referencedby refid="class_built_in_language_1ae95ee532859c01b62bc306f962b92a51" compoundref="_built_in_language_8h" startline="385" endline="400">BuiltInLanguage&lt; Elements, TokenTypes &gt;::addOutline</referencedby>
       </memberdef>
     </sectiondef>
     <sectiondef kind="private-attrib">
@@ -54,14 +56,15 @@
         <name>extension</name>
         <qualifiedname>BuiltInLanguage::extension</qualifiedname>
         <briefdescription>
+<para>Lowercase file extension (without leading dot) handled by this instance. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="BuiltInLanguage.h" line="151" column="24" bodyfile="BuiltInLanguage.h" bodystart="151" bodyend="-1"/>
-        <referencedby refid="class_built_in_language_1a44546630431ac2c9165064d4a2ff84d3" compoundref="_built_in_language_8h" startline="153" endline="168">BuiltInLanguage&lt; Elements, TokenTypes &gt;::addUnits</referencedby>
-        <referencedby refid="class_built_in_language_1a0ae6244ea1331d0689d8fa7bc89b2a83" compoundref="_built_in_language_8h" startline="11" endline="11">BuiltInLanguage&lt; Elements, TokenTypes &gt;::BuiltInLanguage</referencedby>
+        <location file="BuiltInLanguage.h" line="244" column="24" bodyfile="BuiltInLanguage.h" bodystart="244" bodyend="-1"/>
+        <referencedby refid="class_built_in_language_1a44546630431ac2c9165064d4a2ff84d3" compoundref="_built_in_language_8h" startline="253" endline="268">BuiltInLanguage&lt; Elements, TokenTypes &gt;::addUnits</referencedby>
+        <referencedby refid="class_built_in_language_1a0ae6244ea1331d0689d8fa7bc89b2a83" compoundref="_built_in_language_8h" startline="27" endline="27">BuiltInLanguage&lt; Elements, TokenTypes &gt;::BuiltInLanguage</referencedby>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -76,13 +79,24 @@
           <declname>extensionToUse</declname>
         </param>
         <briefdescription>
+<para>Creates a built-in language backend matching files with <computeroutput>extensionToUse</computeroutput>. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>extensionToUse</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>File extension without a leading dot (such as &quot;md&quot; or &quot;html&quot;). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="BuiltInLanguage.h" line="11" column="14" bodyfile="BuiltInLanguage.h" bodystart="11" bodyend="11"/>
-        <references refid="class_built_in_language_1ae26f80b21d62c5b223e44557fa40e26f" compoundref="_built_in_language_8h" startline="151">BuiltInLanguage&lt; Elements, TokenTypes &gt;::extension</references>
+        <location file="BuiltInLanguage.h" line="27" column="14" bodyfile="BuiltInLanguage.h" bodystart="27" bodyend="27"/>
+        <references refid="class_built_in_language_1ae26f80b21d62c5b223e44557fa40e26f" compoundref="_built_in_language_8h" startline="244">BuiltInLanguage&lt; Elements, TokenTypes &gt;::extension</references>
       </memberdef>
       <memberdef kind="function" id="class_built_in_language_1abb7f2d4981fc084fe3f21e6267a94f7b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
         <type><ref refid="classjuce_1_1Result" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Result</ref></type>
@@ -95,14 +109,18 @@
           <type>std::string_view</type>
         </param>
         <briefdescription>
+<para>Returns a parse failure result because built-in languages validate during <ref refid="class_language_1aa23f1df5cd018950d06f9b0ddf1c2e23" kindref="member">parse()</ref>. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>Failed <ref refid="classjuce_1_1Result" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Result</ref> carrying <ref refid="structtext_1_1_diagnostics_1a592e63682b3f319b9d9e68c575b81486" kindref="member">text::Diagnostics::failLanguageParse</ref>. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="BuiltInLanguage.h" line="13" column="18" bodyfile="BuiltInLanguage.h" bodystart="13" bodyend="16"/>
+        <location file="BuiltInLanguage.h" line="34" column="18" bodyfile="BuiltInLanguage.h" bodystart="34" bodyend="37"/>
         <references refid="classjuce_1_1Result_1a27205a4dc7a973aebd1976270867be80">juce::Result::fail</references>
-        <references refid="structtext_1_1_diagnostics_1a592e63682b3f319b9d9e68c575b81486" compoundref="_text_8h" startline="43" endline="43">text::Diagnostics::failLanguageParse</references>
+        <references refid="structtext_1_1_diagnostics_1a592e63682b3f319b9d9e68c575b81486" compoundref="_text_8h" startline="42" endline="42">text::Diagnostics::failLanguageParse</references>
       </memberdef>
       <memberdef kind="function" id="class_built_in_language_1a1655e858f06b9f31966dd473b2cf4294" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
         <type>int</type>
@@ -133,12 +151,16 @@
           <type>const <ref refid="structjam_1_1LanguageCallbacks" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageCallbacks</ref> &amp;</type>
         </param>
         <briefdescription>
+<para>No-op because built-in languages build symbols inline from <ref refid="class_language_1aa23f1df5cd018950d06f9b0ddf1c2e23" kindref="member">parse()</ref> rather than an index pass. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>Zero. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="BuiltInLanguage.h" line="18" column="9" bodyfile="BuiltInLanguage.h" bodystart="18" bodyend="21"/>
+        <location file="BuiltInLanguage.h" line="44" column="9" bodyfile="BuiltInLanguage.h" bodystart="44" bodyend="47"/>
       </memberdef>
       <memberdef kind="function" id="class_built_in_language_1a2a9dee54dbdf570fe2538a151ccd32ac" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
         <type>bool</type>
@@ -148,12 +170,16 @@
         <qualifiedname>BuiltInLanguage::hasIndex</qualifiedname>
         <reimplements refid="class_language_1a373e97c0fb11550d40cfa069fba7222b">hasIndex</reimplements>
         <briefdescription>
+<para>Reports that built-in languages have no external unit-level index pass. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para><computeroutput>false</computeroutput>. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="BuiltInLanguage.h" line="23" column="10" bodyfile="BuiltInLanguage.h" bodystart="23" bodyend="26"/>
+        <location file="BuiltInLanguage.h" line="54" column="10" bodyfile="BuiltInLanguage.h" bodystart="54" bodyend="57"/>
       </memberdef>
       <memberdef kind="function" id="class_built_in_language_1ae167081944e4d638161909ea4f18a1df" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
         <type>int</type>
@@ -186,38 +212,87 @@
           <declname>callbacks</declname>
         </param>
         <briefdescription>
+<para>Discovers matching source files from sourceGlob, layoutGlob, and binary toolchain rows. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>arguments</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flattened command argument strings across all toolchain rows. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>argumentCounts</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Argument count for each toolchain row. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rowCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of rows in <computeroutput>argumentCounts</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>directory</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Project root directory passed to each discovered unit. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>callbacks</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Callbacks receiving each discovered file via addUnit. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Zero. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="BuiltInLanguage.h" line="28" column="9" bodyfile="BuiltInLanguage.h" bodystart="28" bodyend="43"/>
-        <references refid="class_built_in_language_1a44546630431ac2c9165064d4a2ff84d3" compoundref="_built_in_language_8h" startline="153" endline="168">BuiltInLanguage&lt; Elements, TokenTypes &gt;::addUnits</references>
+        <location file="BuiltInLanguage.h" line="69" column="9" bodyfile="BuiltInLanguage.h" bodystart="69" bodyend="84"/>
+        <references refid="class_built_in_language_1a44546630431ac2c9165064d4a2ff84d3" compoundref="_built_in_language_8h" startline="253" endline="268">BuiltInLanguage&lt; Elements, TokenTypes &gt;::addUnits</references>
         <references refid="namespaceId_1a205f65ce28a57fee4f8312f071e67b11" compoundref="_generated_8cpp" startline="29" endline="29">Id::binary</references>
         <references refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223">juce::String::fromUTF8</references>
         <references refid="namespaceId_1a82a6625e4945f97d04c60b7676a6eb91" compoundref="_generated_8cpp" startline="81" endline="81">Id::layoutGlob</references>
-        <references refid="namespaceId_1ad0f235a1d46f27519fd2402d4a6b1e92" compoundref="_generated_8cpp" startline="115" endline="115">Id::sourceGlob</references>
+        <references refid="namespaceId_1ad0f235a1d46f27519fd2402d4a6b1e92" compoundref="_generated_8cpp" startline="118" endline="118">Id::sourceGlob</references>
       </memberdef>
-      <memberdef kind="function" id="class_built_in_language_1ae0991e08e6c835ece15cee017dc95fa9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
-        <type><ref refid="classjuce_1_1StringArray" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::StringArray</ref></type>
-        <definition>juce::StringArray BuiltInLanguage&lt; Elements, TokenTypes &gt;::getCounterparts</definition>
+      <memberdef kind="function" id="class_built_in_language_1ab9171cafdadc32ff128bcab36156b625" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref></type>
+        <definition>jam::Strings BuiltInLanguage&lt; Elements, TokenTypes &gt;::getCounterparts</definition>
         <argsstring>(const juce::String &amp;) const override</argsstring>
         <name>getCounterparts</name>
         <qualifiedname>BuiltInLanguage::getCounterparts</qualifiedname>
-        <reimplements refid="class_language_1a04dff999e9834bedeb4e47a344156ccc">getCounterparts</reimplements>
+        <reimplements refid="class_language_1a2108f1f96098f267d4cc1c2f6726a600">getCounterparts</reimplements>
         <param>
           <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
         </param>
         <briefdescription>
+<para>Returns an empty <ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref> list because built-in languages have no counterpart extensions. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>Empty <ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref>. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="BuiltInLanguage.h" line="45" column="23" bodyfile="BuiltInLanguage.h" bodystart="45" bodyend="48"/>
+        <location file="BuiltInLanguage.h" line="91" column="18" bodyfile="BuiltInLanguage.h" bodystart="91" bodyend="94"/>
       </memberdef>
       <memberdef kind="function" id="class_built_in_language_1a496cd39d0c2ab8fd1626a6454a3bc714" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
-        <type>std::unique_ptr&lt; <ref refid="struct_symbol_document" kindref="compound">SymbolDocument</ref> &gt;</type>
+        <type>std::unique_ptr&lt; <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> &gt;</type>
         <definition>std::unique_ptr&lt; SymbolDocument &gt; BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSymbols</definition>
         <argsstring>(const jam::Document &amp;document, const juce::String &amp;path) const override</argsstring>
         <name>getSymbols</name>
@@ -232,47 +307,42 @@
           <declname>path</declname>
         </param>
         <briefdescription>
+<para>Builds an in-memory <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> from <computeroutput>document</computeroutput> by collecting records and outlines. </para>
         </briefdescription>
         <detaileddescription>
+<para>Walks the AST into a <ref refid="class_symbol_document_1_1_builder" kindref="compound">SymbolDocument::Builder</ref>, appends declaration elements into a <ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>, and constructs nested outline entries with parent links.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>document</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parsed <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> to index. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Canonical source file path. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>In-memory <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> holding all emitted symbol and outline entries. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="BuiltInLanguage.h" line="50" column="21" bodyfile="BuiltInLanguage.h" bodystart="50" bodyend="77"/>
-        <references refid="class_built_in_language_1aef27de14b0a8325ecf50a085219f2c08" compoundref="_built_in_language_8h" startline="217" endline="221">BuiltInLanguage&lt; Elements, TokenTypes &gt;::addOutlines</references>
-        <references refid="class_built_in_language_1a854fb2343326f6c8a80add14f0a41d84" compoundref="_built_in_language_8h" startline="191" endline="215">BuiltInLanguage&lt; Elements, TokenTypes &gt;::addRecords</references>
-        <references refid="namespaceId_1a5e6be41c1ff350abe3152556c096fded" compoundref="_generated_8cpp" startline="41" endline="41">Id::completions</references>
+        <location file="BuiltInLanguage.h" line="106" column="21" bodyfile="BuiltInLanguage.h" bodystart="106" bodyend="125"/>
+        <references refid="class_built_in_language_1a0ba607b3f35632693f7506f09beb96c0" compoundref="_built_in_language_8h" startline="365" endline="374">BuiltInLanguage&lt; Elements, TokenTypes &gt;::addOutlines</references>
+        <references refid="class_built_in_language_1aa10d62c0ee79fbb2a93559083440b7c1" compoundref="_built_in_language_8h" startline="326" endline="355">BuiltInLanguage&lt; Elements, TokenTypes &gt;::addRecords</references>
+        <references refid="class_symbol_document_1_1_builder_1ad1a1d53b04b41676ac3ae2f57f7a0ee8" compoundref="_symbol_document_8cpp" startline="439" endline="442">SymbolDocument::Builder::buildInMemory</references>
         <references refid="structjam_1_1LanguageRole_1aa57ab486efc0ee9fcf67aff944739560a312e669975fd2c712a8ae31e760279d8">jam::LanguageRole::declaration</references>
-        <references refid="namespaceId_1a2107cf267116a0b24ec9915fde2a636d" compoundref="_generated_8cpp" startline="48" endline="48">Id::diagnostics</references>
-        <references refid="namespaceId_1a5d963020f2ab66034cf12eef33500c62">Id::file</references>
-        <references refid="namespaceId_1aa38d85eb75a090b965fada418592e680" compoundref="_generated_8cpp" startline="61" endline="61">Id::fixIts</references>
-        <references refid="class_built_in_language_1aa221b4be556c9066437170b575592d4e" compoundref="_built_in_language_8h" startline="84" endline="96">BuiltInLanguage&lt; Elements, TokenTypes &gt;::hasRole</references>
-        <references refid="namespaceId_1a57355c1803ce65140650b0d18d8f34d9" compoundref="_generated_8cpp" startline="73" endline="73">Id::inlayHints</references>
-        <references refid="namespaceId_1abf5f80a58a47c4c4bc9949f6a1c5d8da" compoundref="_generated_8cpp" startline="87" endline="87">Id::outline</references>
-        <references refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab">Id::path</references>
-        <referencedby refid="class_built_in_language_1a6a79e4a7a37067b17146992e88430a4c" compoundref="_built_in_language_8h" startline="124" endline="132">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getParsed</referencedby>
-      </memberdef>
-      <memberdef kind="function" id="class_built_in_language_1a50121457ed6568de89c611beed1f55bb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
-        <type><ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref></type>
-        <definition>juce::String BuiltInLanguage&lt; Elements, TokenTypes &gt;::format</definition>
-        <argsstring>(std::string_view text, const juce::String &amp;) const override</argsstring>
-        <name>format</name>
-        <qualifiedname>BuiltInLanguage::format</qualifiedname>
-        <reimplements refid="class_language_1a5956b93b04652643322b13078edff6da">format</reimplements>
-        <param>
-          <type>std::string_view</type>
-          <declname>text</declname>
-        </param>
-        <param>
-          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="BuiltInLanguage.h" line="79" column="18" bodyfile="BuiltInLanguage.h" bodystart="79" bodyend="82"/>
-        <references refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223">juce::String::fromUTF8</references>
+        <references refid="class_symbol_document_1_1_builder_1a69dbcd989fa1c2b7d521101c268ed9cb" compoundref="_symbol_document_8cpp" startline="108" endline="129">SymbolDocument::Builder::getOrCreateFile</references>
+        <references refid="classjam_1_1Strings_1adfb32d159be94dc4a4004c50be876e3c">jam::Strings::getView</references>
+        <references refid="class_built_in_language_1aa221b4be556c9066437170b575592d4e" compoundref="_built_in_language_8h" startline="134" endline="146">BuiltInLanguage&lt; Elements, TokenTypes &gt;::hasRole</references>
+        <referencedby refid="class_built_in_language_1a6a79e4a7a37067b17146992e88430a4c" compoundref="_built_in_language_8h" startline="203" endline="211">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getParsed</referencedby>
       </memberdef>
       <memberdef kind="function" id="class_built_in_language_1aa221b4be556c9066437170b575592d4e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
         <type>bool</type>
@@ -290,16 +360,37 @@
           <declname>role</declname>
         </param>
         <briefdescription>
+<para>Tells whether <computeroutput>element</computeroutput> carries <computeroutput>role</computeroutput> according to the Elements table. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>element</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Document element to inspect. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>role</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bitmask of <ref refid="structjam_1_1LanguageRole" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageRole</ref> flags to test. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><computeroutput>true</computeroutput> when the element&apos;s packed role mask intersects <computeroutput>role</computeroutput>. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="BuiltInLanguage.h" line="84" column="10" bodyfile="BuiltInLanguage.h" bodystart="84" bodyend="96"/>
-        <references refid="class_built_in_language_1ace52a9601451c2bf4531db93a34fb7b5" compoundref="_built_in_language_8h" startline="170" endline="174">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getElements</references>
-        <references refid="class_built_in_language_1ab43398b9a1f03d1c23a0397af02e171b" compoundref="_built_in_language_8h" startline="176" endline="179">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getKey</references>
-        <references refid="class_built_in_language_1a0e7a479e443e6d871735613f00a87d9f" compoundref="_built_in_language_8h" startline="186" endline="189">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getLastTokenIndex</references>
-        <referencedby refid="class_built_in_language_1a496cd39d0c2ab8fd1626a6454a3bc714" compoundref="_built_in_language_8h" startline="50" endline="77">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSymbols</referencedby>
+        <location file="BuiltInLanguage.h" line="134" column="10" bodyfile="BuiltInLanguage.h" bodystart="134" bodyend="146"/>
+        <references refid="class_built_in_language_1ace52a9601451c2bf4531db93a34fb7b5" compoundref="_built_in_language_8h" startline="275" endline="279">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getElements</references>
+        <references refid="class_built_in_language_1ab43398b9a1f03d1c23a0397af02e171b" compoundref="_built_in_language_8h" startline="287" endline="290">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getKey</references>
+        <references refid="class_built_in_language_1a0e7a479e443e6d871735613f00a87d9f" compoundref="_built_in_language_8h" startline="309" endline="312">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getLastTokenIndex</references>
+        <referencedby refid="class_built_in_language_1a496cd39d0c2ab8fd1626a6454a3bc714" compoundref="_built_in_language_8h" startline="106" endline="125">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSymbols</referencedby>
       </memberdef>
       <memberdef kind="function" id="class_built_in_language_1afaa4de8cb0889d305a658a8171d654a5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
         <type>int</type>
@@ -313,16 +404,29 @@
           <declname>element</declname>
         </param>
         <briefdescription>
+<para>Returns the LSP SymbolKind integer packed for <computeroutput>element</computeroutput> in Elements. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>element</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Document element to classify. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>LSP SymbolKind integer value. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="BuiltInLanguage.h" line="98" column="9" bodyfile="BuiltInLanguage.h" bodystart="98" bodyend="104"/>
-        <references refid="class_built_in_language_1ace52a9601451c2bf4531db93a34fb7b5" compoundref="_built_in_language_8h" startline="170" endline="174">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getElements</references>
-        <references refid="class_built_in_language_1ab43398b9a1f03d1c23a0397af02e171b" compoundref="_built_in_language_8h" startline="176" endline="179">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getKey</references>
-        <references refid="class_built_in_language_1a0e7a479e443e6d871735613f00a87d9f" compoundref="_built_in_language_8h" startline="186" endline="189">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getLastTokenIndex</references>
-        <referencedby refid="class_built_in_language_1a38b1561cd2708c56ae5ee489e41b992c" compoundref="_built_in_language_8h" startline="223" endline="240">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getOutline</referencedby>
+        <location file="BuiltInLanguage.h" line="154" column="9" bodyfile="BuiltInLanguage.h" bodystart="154" bodyend="160"/>
+        <references refid="class_built_in_language_1ace52a9601451c2bf4531db93a34fb7b5" compoundref="_built_in_language_8h" startline="275" endline="279">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getElements</references>
+        <references refid="class_built_in_language_1ab43398b9a1f03d1c23a0397af02e171b" compoundref="_built_in_language_8h" startline="287" endline="290">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getKey</references>
+        <references refid="class_built_in_language_1a0e7a479e443e6d871735613f00a87d9f" compoundref="_built_in_language_8h" startline="309" endline="312">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getLastTokenIndex</references>
+        <referencedby refid="class_built_in_language_1ae95ee532859c01b62bc306f962b92a51" compoundref="_built_in_language_8h" startline="385" endline="400">BuiltInLanguage&lt; Elements, TokenTypes &gt;::addOutline</referencedby>
       </memberdef>
       <memberdef kind="function" id="class_built_in_language_1ace5ea3608cde10f16f46dba9dfca664d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
         <type>int</type>
@@ -336,12 +440,25 @@
           <declname>tokenType</declname>
         </param>
         <briefdescription>
+<para>Maps a grammar <computeroutput>tokenType</computeroutput> via TokenTypes to its index in <ref refid="class_legend_1aaa72d339f7385c6cf4462cb6f6c2294b" kindref="member">Legend::getTypes()</ref>. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tokenType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Grammar token type integer. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Zero-based semantic token type index. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="BuiltInLanguage.h" line="106" column="9" bodyfile="BuiltInLanguage.h" bodystart="106" bodyend="111"/>
+        <location file="BuiltInLanguage.h" line="168" column="9" bodyfile="BuiltInLanguage.h" bodystart="168" bodyend="173"/>
         <references refid="class_legend_1a7b1ca4dddab9afa479bdb78cac0082d0" compoundref="_legend_8cpp" startline="24" endline="27">Legend::getTypeIndex</references>
       </memberdef>
       <memberdef kind="function" id="class_built_in_language_1a2c9129f7d2681f60bbf7caa35f039a5b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
@@ -355,37 +472,45 @@
           <type>int</type>
         </param>
         <briefdescription>
+<para>Returns zero because built-in grammars define no semantic token modifiers. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>noModifiers. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="BuiltInLanguage.h" line="113" column="9" bodyfile="BuiltInLanguage.h" bodystart="113" bodyend="116"/>
-        <references refid="class_built_in_language_1ab6da376e318c89f3f2d42d52f1b7c9ae" compoundref="_built_in_language_8h" startline="148" endline="148">BuiltInLanguage&lt; Elements, TokenTypes &gt;::noModifiers</references>
+        <location file="BuiltInLanguage.h" line="180" column="9" bodyfile="BuiltInLanguage.h" bodystart="180" bodyend="183"/>
+        <references refid="class_built_in_language_1ab6da376e318c89f3f2d42d52f1b7c9ae" compoundref="_built_in_language_8h" startline="241" endline="241">BuiltInLanguage&lt; Elements, TokenTypes &gt;::noModifiers</references>
       </memberdef>
-      <memberdef kind="function" id="class_built_in_language_1a42553c1c187d0531aa6415cab8dccae0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+      <memberdef kind="function" id="class_built_in_language_1a4333998289e0e9b21c0b422118f4a2f9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
         <type>int</type>
-        <definition>int BuiltInLanguage&lt; Elements, TokenTypes &gt;::getCompletionKind</definition>
+        <definition>int BuiltInLanguage&lt; Elements, TokenTypes &gt;::getCompletionType</definition>
         <argsstring>(int) const override</argsstring>
-        <name>getCompletionKind</name>
-        <qualifiedname>BuiltInLanguage::getCompletionKind</qualifiedname>
-        <reimplements refid="class_language_1ad098ab2910e40e636ddbdad279fea14e">getCompletionKind</reimplements>
+        <name>getCompletionType</name>
+        <qualifiedname>BuiltInLanguage::getCompletionType</qualifiedname>
+        <reimplements refid="class_language_1a05bcdae53a619c323b12598feaf37333">getCompletionType</reimplements>
         <param>
           <type>int</type>
         </param>
         <briefdescription>
+<para>Returns the default Text completion item kind for built-in grammars. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para><ref refid="structlsp_1_1_completion_item_type_1ab9bec8d0ab8232f659ebf8a4d13e49a6" kindref="member">lsp::CompletionItemType::Text</ref>. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="BuiltInLanguage.h" line="118" column="9" bodyfile="BuiltInLanguage.h" bodystart="118" bodyend="121"/>
-        <references refid="structlsp_1_1_completion_item_type_1ab9bec8d0ab8232f659ebf8a4d13e49a6" compoundref="_lsp_8h" startline="194" endline="194">lsp::CompletionItemType::Text</references>
+        <location file="BuiltInLanguage.h" line="190" column="9" bodyfile="BuiltInLanguage.h" bodystart="190" bodyend="193"/>
+        <references refid="structlsp_1_1_completion_item_type_1ab9bec8d0ab8232f659ebf8a4d13e49a6" compoundref="_lsp_8h" startline="204" endline="204">lsp::CompletionItemType::Text</references>
       </memberdef>
     </sectiondef>
     <sectiondef kind="protected-func">
       <memberdef kind="function" id="class_built_in_language_1a6a79e4a7a37067b17146992e88430a4c" prot="protected" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type>std::pair&lt; std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;, std::unique_ptr&lt; <ref refid="struct_symbol_document" kindref="compound">SymbolDocument</ref> &gt; &gt;</type>
+        <type>std::pair&lt; std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;, std::unique_ptr&lt; <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> &gt; &gt;</type>
         <definition>std::pair&lt; std::unique_ptr&lt; jam::Document &gt;, std::unique_ptr&lt; SymbolDocument &gt; &gt; BuiltInLanguage&lt; Elements, TokenTypes &gt;::getParsed</definition>
         <argsstring>(std::unique_ptr&lt; jam::Document &gt; document, const juce::String &amp;path) const</argsstring>
         <name>getParsed</name>
@@ -399,13 +524,34 @@
           <declname>path</declname>
         </param>
         <briefdescription>
+<para>Pairs a parsed <computeroutput>document</computeroutput> with its <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> when <computeroutput>document</computeroutput> is non-null. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>document</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parsed <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref>, or nullptr on parse failure. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Canonical source file path. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pair of <computeroutput>document</computeroutput> and its generated <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> (or nullptr). </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="BuiltInLanguage.h" line="124" column="15" bodyfile="BuiltInLanguage.h" bodystart="124" bodyend="132"/>
-        <references refid="class_built_in_language_1a496cd39d0c2ab8fd1626a6454a3bc714" compoundref="_built_in_language_8h" startline="50" endline="77">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSymbols</references>
+        <location file="BuiltInLanguage.h" line="203" column="15" bodyfile="BuiltInLanguage.h" bodystart="203" bodyend="211"/>
+        <references refid="class_built_in_language_1a496cd39d0c2ab8fd1626a6454a3bc714" compoundref="_built_in_language_8h" startline="106" endline="125">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSymbols</references>
       </memberdef>
       <memberdef kind="function" id="class_built_in_language_1a28bcb8d7e1d8d47ec696b7feab03c529" prot="protected" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
         <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
@@ -413,6 +559,7 @@
         <argsstring>(const juce::File &amp;file, std::string_view name, int) const</argsstring>
         <name>getSymbol</name>
         <qualifiedname>BuiltInLanguage::getSymbol</qualifiedname>
+        <reimplementedby refid="class_html_language_1ac7c1227b4222520fa44efc829884cd59">getSymbol</reimplementedby>
         <reimplementedby refid="class_markdown_language_1a195362b067143bffd65c3e3adc81f9dc">getSymbol</reimplementedby>
         <param>
           <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
@@ -426,14 +573,36 @@
           <type>int</type>
         </param>
         <briefdescription>
+<para>Computes the symbol identifier for an element token; subclasses override for link targets. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source file containing the element. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Token text of the element name or link target. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>64-bit symbol identifier. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="BuiltInLanguage.h" line="134" column="25" bodyfile="BuiltInLanguage.h" bodystart="134" bodyend="137"/>
-        <references refid="class_built_in_language_1a554a0a4d4b5ab2d93603ddd8a43b2c61" compoundref="_built_in_language_8h" startline="139" endline="145">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSymbolHash</references>
-        <referencedby refid="class_built_in_language_1a854fb2343326f6c8a80add14f0a41d84" compoundref="_built_in_language_8h" startline="191" endline="215">BuiltInLanguage&lt; Elements, TokenTypes &gt;::addRecords</referencedby>
+        <location file="BuiltInLanguage.h" line="220" column="25" bodyfile="BuiltInLanguage.h" bodystart="220" bodyend="223"/>
+        <references refid="class_built_in_language_1a554a0a4d4b5ab2d93603ddd8a43b2c61" compoundref="_built_in_language_8h" startline="232" endline="238">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSymbolHash</references>
+        <referencedby refid="class_built_in_language_1aa10d62c0ee79fbb2a93559083440b7c1" compoundref="_built_in_language_8h" startline="326" endline="355">BuiltInLanguage&lt; Elements, TokenTypes &gt;::addRecords</referencedby>
+        <referencedby refid="class_html_language_1ac7c1227b4222520fa44efc829884cd59" compoundref="_html_language_8cpp" startline="13" endline="27">HtmlLanguage::getSymbol</referencedby>
         <referencedby refid="class_markdown_language_1a195362b067143bffd65c3e3adc81f9dc" compoundref="_markdown_language_8cpp" startline="13" endline="27">MarkdownLanguage::getSymbol</referencedby>
       </memberdef>
     </sectiondef>
@@ -453,17 +622,38 @@
           <declname>anchor</declname>
         </param>
         <briefdescription>
+<para>Hashes <computeroutput>file</computeroutput> path and normalized <computeroutput>anchor</computeroutput> into a 64-bit symbol identifier. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target source file. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>anchor</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Anchor or identifier text normalized with <ref refid="structjam_1_1Format_1a75c62fa3f9db98ba096b0c6d34729f4b" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Format::toValidID</ref>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>64-bit folded Wyhash symbol identifier. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="BuiltInLanguage.h" line="139" column="24" bodyfile="BuiltInLanguage.h" bodystart="139" bodyend="145"/>
+        <location file="BuiltInLanguage.h" line="232" column="24" bodyfile="BuiltInLanguage.h" bodystart="232" bodyend="238"/>
         <references refid="structjam_1_1Wyhash_1a7fa8db19e86572da868364ec6491242e">jam::Wyhash::fold</references>
         <references refid="classjam_1_1Strings_1aca02ec79e3d857bca6f9647dce6415fc">jam::Strings::fromView</references>
         <references refid="structjam_1_1Wyhash_1a1c7777b76b75b7cab9dc4c9eaedec2bc">jam::Wyhash::hashBytes</references>
         <references refid="structjam_1_1Format_1a75c62fa3f9db98ba096b0c6d34729f4b">jam::Format::toValidID</references>
-        <referencedby refid="class_built_in_language_1a28bcb8d7e1d8d47ec696b7feab03c529" compoundref="_built_in_language_8h" startline="134" endline="137">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSymbol</referencedby>
+        <referencedby refid="class_built_in_language_1a28bcb8d7e1d8d47ec696b7feab03c529" compoundref="_built_in_language_8h" startline="220" endline="223">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSymbol</referencedby>
       </memberdef>
     </sectiondef>
     <sectiondef kind="private-func">
@@ -486,39 +676,66 @@
           <declname>callbacks</declname>
         </param>
         <briefdescription>
+<para>Collects files matching <computeroutput>wildcard</computeroutput> into sorted <ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref> and registers each unit. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>wildcard</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>File wildcard path from a pattern toolchain row. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>directory</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Project root directory passed to callbacks.addUnit. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>callbacks</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Callback table receiving each sorted unit path. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="BuiltInLanguage.h" line="153" column="10" bodyfile="BuiltInLanguage.h" bodystart="153" bodyend="168"/>
-        <references refid="classjuce_1_1StringArray_1aa73d26821acfb994327d27619703c8fc">juce::StringArray::add</references>
+        <location file="BuiltInLanguage.h" line="253" column="10" bodyfile="BuiltInLanguage.h" bodystart="253" bodyend="268"/>
+        <references refid="classjam_1_1Strings_1a9223c1bf16916a52b122ae7e9d871f50">jam::Strings::add</references>
         <references refid="structjam_1_1LanguageCallbacks_1ac2a0758d079dd05c5dd681a57c49d597">jam::LanguageCallbacks::addUnit</references>
         <references refid="classjuce_1_1String_1ae9c98d84e716c102f00330b3f1ccd4be">juce::String::compare</references>
         <references refid="structjam_1_1LanguageCallbacks_1ac2ebcf8835a0e765986ca8672d8bec73">jam::LanguageCallbacks::context</references>
-        <references refid="class_built_in_language_1ae26f80b21d62c5b223e44557fa40e26f" compoundref="_built_in_language_8h" startline="151">BuiltInLanguage&lt; Elements, TokenTypes &gt;::extension</references>
+        <references refid="class_built_in_language_1ae26f80b21d62c5b223e44557fa40e26f" compoundref="_built_in_language_8h" startline="244">BuiltInLanguage&lt; Elements, TokenTypes &gt;::extension</references>
         <references refid="classjuce_1_1File_1a186bee442ee37ba51a3975f1253a1d00">juce::File::findChildFiles</references>
         <references refid="classjuce_1_1File_1a7f2a6dd2500753c44eaa5febc68fe435afcc07481192152404da0e5e807a697bd">juce::File::findFiles</references>
         <references refid="classjuce_1_1File_1a2ddaa0281a3af3022c970199950e312e">juce::File::getFileExtension</references>
         <references refid="classjuce_1_1File_1a5309789281ea7721eb832d21da99708f">juce::File::getFileName</references>
         <references refid="classjuce_1_1File_1ab6bec65fbcf19ce10e38cf9d1015770d">juce::File::getParentDirectory</references>
-        <references refid="classjuce_1_1StringArray_1a7092c9881df074406a3e57a54512d969">juce::StringArray::sort</references>
+        <references refid="classjam_1_1Strings_1ab0c928245655856ffbacc8b4d6ea5a33">jam::Strings::sort</references>
         <references refid="classjuce_1_1String_1abdadcd93345db39575b8b40b7e96e987">juce::String::substring</references>
-        <referencedby refid="class_built_in_language_1ae167081944e4d638161909ea4f18a1df" compoundref="_built_in_language_8h" startline="28" endline="43">BuiltInLanguage&lt; Elements, TokenTypes &gt;::units</referencedby>
+        <referencedby refid="class_built_in_language_1ae167081944e4d638161909ea4f18a1df" compoundref="_built_in_language_8h" startline="69" endline="84">BuiltInLanguage&lt; Elements, TokenTypes &gt;::units</referencedby>
       </memberdef>
-      <memberdef kind="function" id="class_built_in_language_1a854fb2343326f6c8a80add14f0a41d84" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="class_built_in_language_1aa10d62c0ee79fbb2a93559083440b7c1" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
         <definition>void BuiltInLanguage&lt; Elements, TokenTypes &gt;::addRecords</definition>
-        <argsstring>(SymbolDocument &amp;symbols, jam::Document::Element &amp;file, const jam::Document &amp;document, const jam::Document::Element &amp;element, const juce::File &amp;source) const</argsstring>
+        <argsstring>(SymbolDocument::Builder &amp;builder, int fileIndex, const jam::Document &amp;document, const jam::Document::Element &amp;element, const juce::File &amp;source) const</argsstring>
         <name>addRecords</name>
         <qualifiedname>BuiltInLanguage::addRecords</qualifiedname>
         <param>
-          <type><ref refid="struct_symbol_document" kindref="compound">SymbolDocument</ref> &amp;</type>
-          <declname>symbols</declname>
+          <type><ref refid="class_symbol_document_1_1_builder" kindref="compound">SymbolDocument::Builder</ref> &amp;</type>
+          <declname>builder</declname>
         </param>
         <param>
-          <type><ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
-          <declname>file</declname>
+          <type>int</type>
+          <declname>fileIndex</declname>
         </param>
         <param>
           <type>const <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &amp;</type>
@@ -533,66 +750,149 @@
           <declname>source</declname>
         </param>
         <briefdescription>
+<para>Emits symbol records for each non-empty name token of <computeroutput>element</computeroutput> present in Elements. </para>
         </briefdescription>
         <detaileddescription>
+<para>Skips zero-length placeholder tokens so absent optional slots (such as missing attributes in positional name-token lists) emit no empty symbol records.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>builder</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> builder receiving the symbol records. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fileIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>File index in <computeroutput>builder</computeroutput> for <computeroutput>source</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>document</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parsed <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> owning <computeroutput>element</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>element</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Element whose name tokens are inspected. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Canonical source file for symbol hashing. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="BuiltInLanguage.h" line="191" column="10" bodyfile="BuiltInLanguage.h" bodystart="191" bodyend="215"/>
-        <references refid="namespaceId_1af2239fe8341ea76506105b6ce8f3b749" compoundref="_generated_8cpp" startline="39" endline="39">Id::column</references>
-        <references refid="namespaceId_1a39864fc470c72e655b422ca5f6508da4" compoundref="_generated_8cpp" startline="46" endline="46">Id::definition</references>
+        <location file="BuiltInLanguage.h" line="326" column="10" bodyfile="BuiltInLanguage.h" bodystart="326" bodyend="355"/>
+        <references refid="class_symbol_document_1_1_builder_1ac4353fd209e4a4a8a4932ea36215fda7" compoundref="_symbol_document_8cpp" startline="131" endline="151">SymbolDocument::Builder::addSymbol</references>
         <references refid="structjam_1_1Document_1a86fec10b6cc4ec41143d30bddb906a23">jam::Document::getColumnNumber</references>
-        <references refid="class_built_in_language_1ace52a9601451c2bf4531db93a34fb7b5" compoundref="_built_in_language_8h" startline="170" endline="174">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getElements</references>
-        <references refid="class_built_in_language_1ab43398b9a1f03d1c23a0397af02e171b" compoundref="_built_in_language_8h" startline="176" endline="179">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getKey</references>
+        <references refid="class_built_in_language_1ace52a9601451c2bf4531db93a34fb7b5" compoundref="_built_in_language_8h" startline="275" endline="279">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getElements</references>
+        <references refid="class_built_in_language_1ab43398b9a1f03d1c23a0397af02e171b" compoundref="_built_in_language_8h" startline="287" endline="290">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getKey</references>
         <references refid="structjam_1_1Document_1afc26cd1da23ba0b9eaaef1548fc2120b">jam::Document::getLineNumber</references>
-        <references refid="class_built_in_language_1a28bcb8d7e1d8d47ec696b7feab03c529" compoundref="_built_in_language_8h" startline="134" endline="137">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSymbol</references>
+        <references refid="class_built_in_language_1a28bcb8d7e1d8d47ec696b7feab03c529" compoundref="_built_in_language_8h" startline="220" endline="223">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSymbol</references>
         <references refid="structjam_1_1Document_1a87bb9275594c8b0da70139d14782597d">jam::Document::getView</references>
-        <references refid="namespaceId_1a9acf3e231e632c1b02ad3a0d4c0fc008">Id::line</references>
-        <references refid="namespaceId_1ae6e24732fa060311144e2849ead777c0" compoundref="_generated_8cpp" startline="84" endline="84">Id::nameLength</references>
         <references refid="namespaceId_1a8bfd7b9bf69d5c6ed89037211840e06e">Id::nameTokens</references>
-        <references refid="class_language_1acb2734bfc3418cdf27c21ec260adfe60" compoundref="_language_8h" startline="10" endline="10">Language::noDefinition</references>
-        <references refid="struct_symbol_document_1a5d2a4d1f909c9aac5f36f5b1d936033d" compoundref="_symbol_document_8h" startline="29" endline="29">SymbolDocument::noSymbol</references>
-        <references refid="namespaceId_1aa2febc0d8c19ea0cd03b41d80241f301" compoundref="_generated_8cpp" startline="103" endline="103">Id::role</references>
-        <references refid="namespaceId_1a1117a23bc746c82b2e9fa021d6937fda" compoundref="_generated_8cpp" startline="122" endline="122">Id::symbol</references>
-        <references refid="namespaceId_1ab4956db6d5e735af8b4e202830ac73f7">Id::type</references>
-        <references refid="namespaceId_1a7090d650f6ae62a6d09059b7c1f5133d" compoundref="_generated_8cpp" startline="130" endline="130">Id::typeSymbol</references>
-        <referencedby refid="class_built_in_language_1a496cd39d0c2ab8fd1626a6454a3bc714" compoundref="_built_in_language_8h" startline="50" endline="77">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSymbols</referencedby>
+        <references refid="structjam_1_1LanguageCallbacks_1a41f0bf20e8cafe5a5f3e02c8be9355b4">jam::LanguageCallbacks::noHover</references>
+        <referencedby refid="class_built_in_language_1a496cd39d0c2ab8fd1626a6454a3bc714" compoundref="_built_in_language_8h" startline="106" endline="125">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSymbols</referencedby>
       </memberdef>
-      <memberdef kind="function" id="class_built_in_language_1aef27de14b0a8325ecf50a085219f2c08" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="class_built_in_language_1a0ba607b3f35632693f7506f09beb96c0" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
         <definition>void BuiltInLanguage&lt; Elements, TokenTypes &gt;::addOutlines</definition>
-        <argsstring>(jam::Document::Element &amp;file, const jam::Document &amp;document, const std::vector&lt; const jam::Document::Element * &gt; &amp;declarations) const</argsstring>
+        <argsstring>(SymbolDocument::Builder &amp;builder, int fileIndex, const jam::Document &amp;document, const jam::Array&lt; const jam::Document::Element * &gt; &amp;declarations) const</argsstring>
         <name>addOutlines</name>
         <qualifiedname>BuiltInLanguage::addOutlines</qualifiedname>
         <param>
-          <type><ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
-          <declname>file</declname>
+          <type><ref refid="class_symbol_document_1_1_builder" kindref="compound">SymbolDocument::Builder</ref> &amp;</type>
+          <declname>builder</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>fileIndex</declname>
         </param>
         <param>
           <type>const <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &amp;</type>
           <declname>document</declname>
         </param>
         <param>
-          <type>const std::vector&lt; const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> * &gt; &amp;</type>
+          <type>const <ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>&lt; const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> * &gt; &amp;</type>
           <declname>declarations</declname>
         </param>
         <briefdescription>
+<para>Builds an index map for <computeroutput>declarations</computeroutput> and appends an outline entry for each declaration. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>builder</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> builder receiving the outline entries. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fileIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>File index in <computeroutput>builder</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>document</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parsed <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> owning <computeroutput>declarations</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>declarations</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Ordered array of declaration elements in <computeroutput>document</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="BuiltInLanguage.h" line="217" column="10" bodyfile="BuiltInLanguage.h" bodystart="217" bodyend="221"/>
-        <references refid="class_built_in_language_1a38b1561cd2708c56ae5ee489e41b992c" compoundref="_built_in_language_8h" startline="223" endline="240">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getOutline</references>
-        <references refid="namespaceId_1abf5f80a58a47c4c4bc9949f6a1c5d8da" compoundref="_generated_8cpp" startline="87" endline="87">Id::outline</references>
-        <referencedby refid="class_built_in_language_1a496cd39d0c2ab8fd1626a6454a3bc714" compoundref="_built_in_language_8h" startline="50" endline="77">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSymbols</referencedby>
+        <location file="BuiltInLanguage.h" line="365" column="10" bodyfile="BuiltInLanguage.h" bodystart="365" bodyend="374"/>
+        <references refid="class_built_in_language_1ae95ee532859c01b62bc306f962b92a51" compoundref="_built_in_language_8h" startline="385" endline="400">BuiltInLanguage&lt; Elements, TokenTypes &gt;::addOutline</references>
+        <references refid="classjam_1_1HashMap_1af3ef015438ac55ee2401cb66441ae4f5">jam::HashMap&lt; typename Key, typename Mapped, typename HashFn, typename KeyEqual, typename AllocatorOrContainer, typename Bucket, typename BucketContainer, bool IsSegmented &gt;::try_emplace</references>
+        <referencedby refid="class_built_in_language_1a496cd39d0c2ab8fd1626a6454a3bc714" compoundref="_built_in_language_8h" startline="106" endline="125">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSymbols</referencedby>
       </memberdef>
-      <memberdef kind="function" id="class_built_in_language_1a38b1561cd2708c56ae5ee489e41b992c" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="structjam_1_1Document_1_1Token" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Token</ref></type>
-        <definition>jam::Document::Token BuiltInLanguage&lt; Elements, TokenTypes &gt;::getOutline</definition>
-        <argsstring>(const jam::Document &amp;document, const jam::Document::Element &amp;element, const std::vector&lt; const jam::Document::Element * &gt; &amp;declarations) const</argsstring>
-        <name>getOutline</name>
-        <qualifiedname>BuiltInLanguage::getOutline</qualifiedname>
+      <memberdef kind="function" id="class_built_in_language_1ae95ee532859c01b62bc306f962b92a51" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BuiltInLanguage&lt; Elements, TokenTypes &gt;::addOutline</definition>
+        <argsstring>(SymbolDocument::Builder &amp;builder, int fileIndex, const jam::Document &amp;document, const jam::Document::Element &amp;element, const jam::HashMap&lt; const jam::Document::Element *, int &gt; &amp;declarationIndices) const</argsstring>
+        <name>addOutline</name>
+        <qualifiedname>BuiltInLanguage::addOutline</qualifiedname>
+        <param>
+          <type><ref refid="class_symbol_document_1_1_builder" kindref="compound">SymbolDocument::Builder</ref> &amp;</type>
+          <declname>builder</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>fileIndex</declname>
+        </param>
         <param>
           <type>const <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &amp;</type>
           <declname>document</declname>
@@ -602,32 +902,68 @@
           <declname>element</declname>
         </param>
         <param>
-          <type>const std::vector&lt; const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> * &gt; &amp;</type>
-          <declname>declarations</declname>
+          <type>const <ref refid="classjam_1_1HashMap" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::HashMap</ref>&lt; const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> *, int &gt; &amp;</type>
+          <declname>declarationIndices</declname>
         </param>
         <briefdescription>
+<para>Appends one outline entry for <computeroutput>element</computeroutput> using its last name token and full range. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>builder</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> builder receiving the outline entry. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fileIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>File index in <computeroutput>builder</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>document</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parsed <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> owning <computeroutput>element</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>element</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Declaration element to emit. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>declarationIndices</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Map from declaration element pointer to its outline slot index. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="BuiltInLanguage.h" line="223" column="26" bodyfile="BuiltInLanguage.h" bodystart="223" bodyend="240"/>
-        <references refid="namespaceId_1af2239fe8341ea76506105b6ce8f3b749" compoundref="_generated_8cpp" startline="39" endline="39">Id::column</references>
-        <references refid="namespaceId_1aec8c6b382a320136b773715118a4f795" compoundref="_generated_8cpp" startline="55" endline="55">Id::endColumn</references>
-        <references refid="namespaceId_1af902e71983fbb006dd0efea464ba935e">Id::endLine</references>
+        <location file="BuiltInLanguage.h" line="385" column="10" bodyfile="BuiltInLanguage.h" bodystart="385" bodyend="400"/>
+        <references refid="class_symbol_document_1_1_builder_1a480e5fb8d4dad25e3617ae5fc627e01c" compoundref="_symbol_document_8cpp" startline="206" endline="223">SymbolDocument::Builder::addOutline</references>
         <references refid="structjam_1_1Document_1a86fec10b6cc4ec41143d30bddb906a23">jam::Document::getColumnNumber</references>
         <references refid="structjam_1_1Document_1afc26cd1da23ba0b9eaaef1548fc2120b">jam::Document::getLineNumber</references>
-        <references refid="class_built_in_language_1a0ce07b35a1cfdd1d2dc3b51c7d3f5929" compoundref="_built_in_language_8h" startline="242" endline="251">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getParentIndex</references>
-        <references refid="class_built_in_language_1afaa4de8cb0889d305a658a8171d654a5" compoundref="_built_in_language_8h" startline="98" endline="104">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSymbolType</references>
-        <references refid="namespaceId_1a9acf3e231e632c1b02ad3a0d4c0fc008">Id::line</references>
-        <references refid="namespaceId_1ae6e24732fa060311144e2849ead777c0" compoundref="_generated_8cpp" startline="84" endline="84">Id::nameLength</references>
+        <references refid="class_built_in_language_1a3f8a34f0e97dc8ec59545d4550482232" compoundref="_built_in_language_8h" startline="409" endline="422">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getParentIndex</references>
+        <references refid="class_built_in_language_1afaa4de8cb0889d305a658a8171d654a5" compoundref="_built_in_language_8h" startline="154" endline="160">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSymbolType</references>
         <references refid="namespaceId_1a8bfd7b9bf69d5c6ed89037211840e06e">Id::nameTokens</references>
-        <references refid="class_built_in_language_1a2e9a4db2c617a56b1a64368389ae7b45" compoundref="_built_in_language_8h" startline="149" endline="149">BuiltInLanguage&lt; Elements, TokenTypes &gt;::noQualifierLength</references>
-        <references refid="namespaceId_1a56be0d86267c7ade64d16019d54247a6">Id::parent</references>
-        <references refid="namespaceId_1ad463f53f829518acc22258a3b4b85521" compoundref="_generated_8cpp" startline="97" endline="97">Id::qualifierLength</references>
+        <references refid="class_built_in_language_1a2e9a4db2c617a56b1a64368389ae7b45" compoundref="_built_in_language_8h" startline="242" endline="242">BuiltInLanguage&lt; Elements, TokenTypes &gt;::noQualifierLength</references>
         <references refid="namespaceId_1aec4170f20f580e8736befa263a18bd93">Id::range</references>
-        <references refid="namespaceId_1ab4956db6d5e735af8b4e202830ac73f7">Id::type</references>
-        <referencedby refid="class_built_in_language_1aef27de14b0a8325ecf50a085219f2c08" compoundref="_built_in_language_8h" startline="217" endline="221">BuiltInLanguage&lt; Elements, TokenTypes &gt;::addOutlines</referencedby>
+        <referencedby refid="class_built_in_language_1a0ba607b3f35632693f7506f09beb96c0" compoundref="_built_in_language_8h" startline="365" endline="374">BuiltInLanguage&lt; Elements, TokenTypes &gt;::addOutlines</referencedby>
       </memberdef>
     </sectiondef>
     <sectiondef kind="private-static-func">
@@ -638,15 +974,19 @@
         <name>getElements</name>
         <qualifiedname>BuiltInLanguage::getElements</qualifiedname>
         <briefdescription>
+<para>Returns the static Elements table mapping keys to (role, symbolType) pairs. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>Const reference to the Elements table. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="BuiltInLanguage.h" line="170" column="27" bodyfile="BuiltInLanguage.h" bodystart="170" bodyend="174"/>
-        <referencedby refid="class_built_in_language_1a854fb2343326f6c8a80add14f0a41d84" compoundref="_built_in_language_8h" startline="191" endline="215">BuiltInLanguage&lt; Elements, TokenTypes &gt;::addRecords</referencedby>
-        <referencedby refid="class_built_in_language_1afaa4de8cb0889d305a658a8171d654a5" compoundref="_built_in_language_8h" startline="98" endline="104">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSymbolType</referencedby>
-        <referencedby refid="class_built_in_language_1aa221b4be556c9066437170b575592d4e" compoundref="_built_in_language_8h" startline="84" endline="96">BuiltInLanguage&lt; Elements, TokenTypes &gt;::hasRole</referencedby>
+        <location file="BuiltInLanguage.h" line="275" column="27" bodyfile="BuiltInLanguage.h" bodystart="275" bodyend="279"/>
+        <referencedby refid="class_built_in_language_1aa10d62c0ee79fbb2a93559083440b7c1" compoundref="_built_in_language_8h" startline="326" endline="355">BuiltInLanguage&lt; Elements, TokenTypes &gt;::addRecords</referencedby>
+        <referencedby refid="class_built_in_language_1afaa4de8cb0889d305a658a8171d654a5" compoundref="_built_in_language_8h" startline="154" endline="160">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSymbolType</referencedby>
+        <referencedby refid="class_built_in_language_1aa221b4be556c9066437170b575592d4e" compoundref="_built_in_language_8h" startline="134" endline="146">BuiltInLanguage&lt; Elements, TokenTypes &gt;::hasRole</referencedby>
       </memberdef>
       <memberdef kind="function" id="class_built_in_language_1ab43398b9a1f03d1c23a0397af02e171b" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="classjuce_1_1Identifier" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref></type>
@@ -665,15 +1005,28 @@
           <type>const <ref refid="classjuce_1_1Identifier" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref> *</type>
         </param>
         <briefdescription>
+<para>Extracts the Elements key when keyed by element identifier. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>element</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Document element whose id is the key. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Element identifier key. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="BuiltInLanguage.h" line="176" column="29" bodyfile="BuiltInLanguage.h" bodystart="176" bodyend="179"/>
-        <referencedby refid="class_built_in_language_1a854fb2343326f6c8a80add14f0a41d84" compoundref="_built_in_language_8h" startline="191" endline="215">BuiltInLanguage&lt; Elements, TokenTypes &gt;::addRecords</referencedby>
-        <referencedby refid="class_built_in_language_1afaa4de8cb0889d305a658a8171d654a5" compoundref="_built_in_language_8h" startline="98" endline="104">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSymbolType</referencedby>
-        <referencedby refid="class_built_in_language_1aa221b4be556c9066437170b575592d4e" compoundref="_built_in_language_8h" startline="84" endline="96">BuiltInLanguage&lt; Elements, TokenTypes &gt;::hasRole</referencedby>
+        <location file="BuiltInLanguage.h" line="287" column="29" bodyfile="BuiltInLanguage.h" bodystart="287" bodyend="290"/>
+        <referencedby refid="class_built_in_language_1aa10d62c0ee79fbb2a93559083440b7c1" compoundref="_built_in_language_8h" startline="326" endline="355">BuiltInLanguage&lt; Elements, TokenTypes &gt;::addRecords</referencedby>
+        <referencedby refid="class_built_in_language_1afaa4de8cb0889d305a658a8171d654a5" compoundref="_built_in_language_8h" startline="154" endline="160">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSymbolType</referencedby>
+        <referencedby refid="class_built_in_language_1aa221b4be556c9066437170b575592d4e" compoundref="_built_in_language_8h" startline="134" endline="146">BuiltInLanguage&lt; Elements, TokenTypes &gt;::hasRole</referencedby>
       </memberdef>
       <memberdef kind="function" id="class_built_in_language_1a77991e9fd45b0ed475f78606f0a10314" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>int</type>
@@ -692,12 +1045,25 @@
           <type>const int *</type>
         </param>
         <briefdescription>
+<para>Extracts the Elements key when keyed by name-token slot index. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tokenIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Zero-based index in <ref refid="namespaceId_1a8bfd7b9bf69d5c6ed89037211840e06e" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::nameTokens</ref>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Token slot index key. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="BuiltInLanguage.h" line="181" column="16" bodyfile="BuiltInLanguage.h" bodystart="181" bodyend="184"/>
+        <location file="BuiltInLanguage.h" line="298" column="16" bodyfile="BuiltInLanguage.h" bodystart="298" bodyend="301"/>
       </memberdef>
       <memberdef kind="function" id="class_built_in_language_1a0e7a479e443e6d871735613f00a87d9f" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>int</type>
@@ -710,20 +1076,33 @@
           <declname>element</declname>
         </param>
         <briefdescription>
+<para>Returns the index of the last token in <computeroutput>element&apos;s</computeroutput> <ref refid="namespaceId_1a8bfd7b9bf69d5c6ed89037211840e06e" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::nameTokens</ref> array. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>element</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Document element carrying <ref refid="namespaceId_1a8bfd7b9bf69d5c6ed89037211840e06e" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::nameTokens</ref>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Last token index. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="BuiltInLanguage.h" line="186" column="16" bodyfile="BuiltInLanguage.h" bodystart="186" bodyend="189"/>
+        <location file="BuiltInLanguage.h" line="309" column="16" bodyfile="BuiltInLanguage.h" bodystart="309" bodyend="312"/>
         <references refid="namespaceId_1a8bfd7b9bf69d5c6ed89037211840e06e">Id::nameTokens</references>
-        <referencedby refid="class_built_in_language_1afaa4de8cb0889d305a658a8171d654a5" compoundref="_built_in_language_8h" startline="98" endline="104">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSymbolType</referencedby>
-        <referencedby refid="class_built_in_language_1aa221b4be556c9066437170b575592d4e" compoundref="_built_in_language_8h" startline="84" endline="96">BuiltInLanguage&lt; Elements, TokenTypes &gt;::hasRole</referencedby>
+        <referencedby refid="class_built_in_language_1afaa4de8cb0889d305a658a8171d654a5" compoundref="_built_in_language_8h" startline="154" endline="160">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSymbolType</referencedby>
+        <referencedby refid="class_built_in_language_1aa221b4be556c9066437170b575592d4e" compoundref="_built_in_language_8h" startline="134" endline="146">BuiltInLanguage&lt; Elements, TokenTypes &gt;::hasRole</referencedby>
       </memberdef>
-      <memberdef kind="function" id="class_built_in_language_1a0ce07b35a1cfdd1d2dc3b51c7d3f5929" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="class_built_in_language_1a3f8a34f0e97dc8ec59545d4550482232" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>int</type>
         <definition>static int BuiltInLanguage&lt; Elements, TokenTypes &gt;::getParentIndex</definition>
-        <argsstring>(const jam::Document::Element &amp;element, const std::vector&lt; const jam::Document::Element * &gt; &amp;declarations)</argsstring>
+        <argsstring>(const jam::Document::Element &amp;element, const jam::HashMap&lt; const jam::Document::Element *, int &gt; &amp;declarationIndices)</argsstring>
         <name>getParentIndex</name>
         <qualifiedname>BuiltInLanguage::getParentIndex</qualifiedname>
         <param>
@@ -731,23 +1110,66 @@
           <declname>element</declname>
         </param>
         <param>
-          <type>const std::vector&lt; const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> * &gt; &amp;</type>
-          <declname>declarations</declname>
+          <type>const <ref refid="classjam_1_1HashMap" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::HashMap</ref>&lt; const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> *, int &gt; &amp;</type>
+          <declname>declarationIndices</declname>
         </param>
         <briefdescription>
+<para>Finds the outline slot index of <computeroutput>element&apos;s</computeroutput> nearest enclosing declaration ancestor. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>element</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Declaration element whose parent is sought. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>declarationIndices</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Map from declaration element pointer to its outline slot index. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Enclosing declaration index, or <ref refid="class_symbol_document_1a07429fecfabe254bc5e70271b580bc10" kindref="member">SymbolDocument::noParent</ref> when top-level. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="BuiltInLanguage.h" line="242" column="16" bodyfile="BuiltInLanguage.h" bodystart="242" bodyend="251"/>
-        <references refid="struct_symbol_document_1a07429fecfabe254bc5e70271b580bc10" compoundref="_symbol_document_8h" startline="30" endline="30">SymbolDocument::noParent</references>
-        <referencedby refid="class_built_in_language_1a38b1561cd2708c56ae5ee489e41b992c" compoundref="_built_in_language_8h" startline="223" endline="240">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getOutline</referencedby>
+        <location file="BuiltInLanguage.h" line="409" column="16" bodyfile="BuiltInLanguage.h" bodystart="409" bodyend="422"/>
+        <references refid="classjam_1_1HashMap_1aeb3706b7cb8b6a92790644ed3eb240ea">jam::HashMap&lt; typename Key, typename Mapped, typename HashFn, typename KeyEqual, typename AllocatorOrContainer, typename Bucket, typename BucketContainer, bool IsSegmented &gt;::end</references>
+        <references refid="classjam_1_1HashMap_1aa8cd30d951846463b373eb6e82d96a3d">jam::HashMap&lt; typename Key, typename Mapped, typename HashFn, typename KeyEqual, typename AllocatorOrContainer, typename Bucket, typename BucketContainer, bool IsSegmented &gt;::find</references>
+        <references refid="class_symbol_document_1a07429fecfabe254bc5e70271b580bc10" compoundref="_symbol_document_8h" startline="21" endline="21">SymbolDocument::noParent</references>
+        <referencedby refid="class_built_in_language_1ae95ee532859c01b62bc306f962b92a51" compoundref="_built_in_language_8h" startline="385" endline="400">BuiltInLanguage&lt; Elements, TokenTypes &gt;::addOutline</referencedby>
       </memberdef>
     </sectiondef>
     <briefdescription>
+<para>Template base implementing <ref refid="class_language" kindref="compound">Language</ref> for built-in document grammars. </para>
     </briefdescription>
     <detaileddescription>
+<para>Maps element identifiers or name-token positions through <computeroutput>Elements</computeroutput> to emit in-memory <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> records and outlines directly from parsed ASTs, and maps token types through <computeroutput>TokenTypes</computeroutput> to <ref refid="class_legend_1aaa72d339f7385c6cf4462cb6f6c2294b" kindref="member">Legend::getTypes()</ref>.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Elements</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Lookup table mapping element ID or token index to packed (role, symbolType). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TokenTypes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bimap mapping grammar token types to semantic token type names. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
     </detaileddescription>
     <inheritancegraph>
       <node id="1">
@@ -780,22 +1202,21 @@
         <link refid="classjuce_1_1String" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
       </node>
     </collaborationgraph>
-    <location file="BuiltInLanguage.h" line="8" column="1" bodyfile="BuiltInLanguage.h" bodystart="9" bodyend="252"/>
+    <location file="BuiltInLanguage.h" line="19" column="1" bodyfile="BuiltInLanguage.h" bodystart="20" bodyend="423"/>
     <listofallmembers>
-      <member refid="class_built_in_language_1aef27de14b0a8325ecf50a085219f2c08" prot="private" virt="non-virtual"><scope>BuiltInLanguage</scope><name>addOutlines</name></member>
-      <member refid="class_built_in_language_1a854fb2343326f6c8a80add14f0a41d84" prot="private" virt="non-virtual"><scope>BuiltInLanguage</scope><name>addRecords</name></member>
+      <member refid="class_built_in_language_1ae95ee532859c01b62bc306f962b92a51" prot="private" virt="non-virtual"><scope>BuiltInLanguage</scope><name>addOutline</name></member>
+      <member refid="class_built_in_language_1a0ba607b3f35632693f7506f09beb96c0" prot="private" virt="non-virtual"><scope>BuiltInLanguage</scope><name>addOutlines</name></member>
+      <member refid="class_built_in_language_1aa10d62c0ee79fbb2a93559083440b7c1" prot="private" virt="non-virtual"><scope>BuiltInLanguage</scope><name>addRecords</name></member>
       <member refid="class_built_in_language_1a44546630431ac2c9165064d4a2ff84d3" prot="private" virt="non-virtual"><scope>BuiltInLanguage</scope><name>addUnits</name></member>
       <member refid="class_built_in_language_1a0ae6244ea1331d0689d8fa7bc89b2a83" prot="public" virt="non-virtual"><scope>BuiltInLanguage</scope><name>BuiltInLanguage</name></member>
       <member refid="class_built_in_language_1ae26f80b21d62c5b223e44557fa40e26f" prot="private" virt="non-virtual"><scope>BuiltInLanguage</scope><name>extension</name></member>
-      <member refid="class_built_in_language_1a50121457ed6568de89c611beed1f55bb" prot="public" virt="virtual"><scope>BuiltInLanguage</scope><name>format</name></member>
-      <member refid="class_built_in_language_1a42553c1c187d0531aa6415cab8dccae0" prot="public" virt="virtual"><scope>BuiltInLanguage</scope><name>getCompletionKind</name></member>
-      <member refid="class_built_in_language_1ae0991e08e6c835ece15cee017dc95fa9" prot="public" virt="virtual"><scope>BuiltInLanguage</scope><name>getCounterparts</name></member>
+      <member refid="class_built_in_language_1a4333998289e0e9b21c0b422118f4a2f9" prot="public" virt="virtual"><scope>BuiltInLanguage</scope><name>getCompletionType</name></member>
+      <member refid="class_built_in_language_1ab9171cafdadc32ff128bcab36156b625" prot="public" virt="virtual"><scope>BuiltInLanguage</scope><name>getCounterparts</name></member>
       <member refid="class_built_in_language_1ace52a9601451c2bf4531db93a34fb7b5" prot="private" virt="non-virtual"><scope>BuiltInLanguage</scope><name>getElements</name></member>
       <member refid="class_built_in_language_1ab43398b9a1f03d1c23a0397af02e171b" prot="private" virt="non-virtual"><scope>BuiltInLanguage</scope><name>getKey</name></member>
       <member refid="class_built_in_language_1a77991e9fd45b0ed475f78606f0a10314" prot="private" virt="non-virtual"><scope>BuiltInLanguage</scope><name>getKey</name></member>
       <member refid="class_built_in_language_1a0e7a479e443e6d871735613f00a87d9f" prot="private" virt="non-virtual"><scope>BuiltInLanguage</scope><name>getLastTokenIndex</name></member>
-      <member refid="class_built_in_language_1a38b1561cd2708c56ae5ee489e41b992c" prot="private" virt="non-virtual"><scope>BuiltInLanguage</scope><name>getOutline</name></member>
-      <member refid="class_built_in_language_1a0ce07b35a1cfdd1d2dc3b51c7d3f5929" prot="private" virt="non-virtual"><scope>BuiltInLanguage</scope><name>getParentIndex</name></member>
+      <member refid="class_built_in_language_1a3f8a34f0e97dc8ec59545d4550482232" prot="private" virt="non-virtual"><scope>BuiltInLanguage</scope><name>getParentIndex</name></member>
       <member refid="class_built_in_language_1a6a79e4a7a37067b17146992e88430a4c" prot="protected" virt="non-virtual"><scope>BuiltInLanguage</scope><name>getParsed</name></member>
       <member refid="class_built_in_language_1a2c9129f7d2681f60bbf7caa35f039a5b" prot="public" virt="virtual"><scope>BuiltInLanguage</scope><name>getSemanticModifiers</name></member>
       <member refid="class_built_in_language_1ace5ea3608cde10f16f46dba9dfca664d" prot="public" virt="virtual"><scope>BuiltInLanguage</scope><name>getSemanticType</name></member>
@@ -807,7 +1228,6 @@
       <member refid="class_built_in_language_1aa221b4be556c9066437170b575592d4e" prot="public" virt="virtual"><scope>BuiltInLanguage</scope><name>hasRole</name></member>
       <member refid="class_built_in_language_1a1655e858f06b9f31966dd473b2cf4294" prot="public" virt="virtual"><scope>BuiltInLanguage</scope><name>index</name></member>
       <member refid="class_built_in_language_1abb7f2d4981fc084fe3f21e6267a94f7b" prot="public" virt="virtual"><scope>BuiltInLanguage</scope><name>isValid</name></member>
-      <member refid="class_language_1acb2734bfc3418cdf27c21ec260adfe60" prot="public" virt="non-virtual"><scope>BuiltInLanguage</scope><name>noDefinition</name></member>
       <member refid="class_built_in_language_1ab6da376e318c89f3f2d42d52f1b7c9ae" prot="private" virt="non-virtual"><scope>BuiltInLanguage</scope><name>noModifiers</name></member>
       <member refid="class_built_in_language_1a2e9a4db2c617a56b1a64368389ae7b45" prot="private" virt="non-virtual"><scope>BuiltInLanguage</scope><name>noQualifierLength</name></member>
       <member refid="class_language_1aa23f1df5cd018950d06f9b0ddf1c2e23" prot="public" virt="pure-virtual"><scope>BuiltInLanguage</scope><name>parse</name></member>

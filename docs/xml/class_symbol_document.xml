@@ -1,0 +1,934 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="class_symbol_document" kind="class" language="C++" prot="public">
+    <compoundname>SymbolDocument</compoundname>
+    <includes refid="_symbol_document_8h" local="no">SymbolDocument.h</includes>
+    <innerclass refid="struct_symbol_document_1_1_span" prot="public">SymbolDocument::Span</innerclass>
+    <innerclass refid="struct_symbol_document_1_1_header" prot="public">SymbolDocument::Header</innerclass>
+    <innerclass refid="struct_symbol_document_1_1_file_entry" prot="public">SymbolDocument::FileEntry</innerclass>
+    <innerclass refid="struct_symbol_document_1_1_symbol_record" prot="public">SymbolDocument::SymbolRecord</innerclass>
+    <innerclass refid="struct_symbol_document_1_1_completion_record" prot="public">SymbolDocument::CompletionRecord</innerclass>
+    <innerclass refid="struct_symbol_document_1_1_hover_entry" prot="public">SymbolDocument::HoverEntry</innerclass>
+    <innerclass refid="struct_symbol_document_1_1_inlay_hint_entry" prot="public">SymbolDocument::InlayHintEntry</innerclass>
+    <innerclass refid="struct_symbol_document_1_1_diagnostic_entry" prot="public">SymbolDocument::DiagnosticEntry</innerclass>
+    <innerclass refid="struct_symbol_document_1_1_outline_entry" prot="public">SymbolDocument::OutlineEntry</innerclass>
+    <innerclass refid="struct_symbol_document_1_1_fix_it_entry" prot="public">SymbolDocument::FixItEntry</innerclass>
+    <innerclass refid="class_symbol_document_1_1_builder" prot="public">SymbolDocument::Builder</innerclass>
+    <innerclass refid="struct_symbol_document_1_1_access" prot="private">SymbolDocument::Access</innerclass>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="class_symbol_document_1a5d2a4d1f909c9aac5f36f5b1d936033d" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
+        <definition>juce::int64 SymbolDocument::noSymbol</definition>
+        <argsstring></argsstring>
+        <name>noSymbol</name>
+        <qualifiedname>SymbolDocument::noSymbol</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Sentinel symbol identifier for global or root scope. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="18" column="34" bodyfile="SymbolDocument.h" bodystart="18" bodyend="18"/>
+        <referencedby refid="class_query_1aeee6ea867ed4a19086496c2a0fa48b62" compoundref="_query_8h" startline="397" endline="433">Query::applyToScopeSymbols</referencedby>
+        <referencedby refid="class_query_1ab610e34818feb1149c05e046c74e9a50" compoundref="_query_8cpp" startline="377" endline="404">Query::rename</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_symbol_document_1a07429fecfabe254bc5e70271b580bc10" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int SymbolDocument::noParent</definition>
+        <argsstring></argsstring>
+        <name>noParent</name>
+        <qualifiedname>SymbolDocument::noParent</qualifiedname>
+        <initializer>{ -1 }</initializer>
+        <briefdescription>
+<para>Sentinel parent index for top-level outline entries. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="21" column="26" bodyfile="SymbolDocument.h" bodystart="21" bodyend="21"/>
+        <referencedby refid="class_query_1a163faae03873f24fd5fb7ba47a310df3" compoundref="_query_8cpp" startline="853" endline="865">Query::documentSymbol</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a6bd61c6eae95b51c30924ca8a9fa27a3" compoundref="_processor_8cpp" startline="945" endline="956">Processor::IndexJob::getOutlineParent</referencedby>
+        <referencedby refid="class_built_in_language_1a3f8a34f0e97dc8ec59545d4550482232" compoundref="_built_in_language_8h" startline="409" endline="422">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getParentIndex</referencedby>
+        <referencedby refid="_symbol_document_8cpp_1a77f9c45bdb580c50346bd15659ccec6c" compoundref="_symbol_document_8cpp" startline="62" endline="94">sortOutlineEntries</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_symbol_document_1a4d8dde7166bb4455b5365dff1f75e7f9" prot="private" static="yes" constexpr="yes" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::fileMagic</definition>
+        <argsstring></argsstring>
+        <name>fileMagic</name>
+        <qualifiedname>SymbolDocument::fileMagic</qualifiedname>
+        <initializer>{ 0x4c494e47 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="499" column="31" bodyfile="SymbolDocument.h" bodystart="499" bodyend="499"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_symbol_document_1a4027a43a655f9c384ff54664be601c90" prot="private" static="yes" constexpr="yes" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::currentFormatVersion</definition>
+        <argsstring></argsstring>
+        <name>currentFormatVersion</name>
+        <qualifiedname>SymbolDocument::currentFormatVersion</qualifiedname>
+        <initializer>{ 1 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="500" column="31" bodyfile="SymbolDocument.h" bodystart="500" bodyend="500"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_symbol_document_1afddb85fdae16b6bbbc35c85f12b1a803" prot="private" static="yes" constexpr="yes" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t SymbolDocument::sectionAlignment</definition>
+        <argsstring></argsstring>
+        <name>sectionAlignment</name>
+        <qualifiedname>SymbolDocument::sectionAlignment</qualifiedname>
+        <initializer>{ 8 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="501" column="31" bodyfile="SymbolDocument.h" bodystart="501" bodyend="501"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_symbol_document_1aad702cb4972f831e0fb305b5448c1708" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="classjuce_1_1MemoryMappedFile" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::MemoryMappedFile</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;juce::MemoryMappedFile&gt; SymbolDocument::mapped</definition>
+        <argsstring></argsstring>
+        <name>mapped</name>
+        <qualifiedname>SymbolDocument::mapped</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="561" column="21" bodyfile="SymbolDocument.h" bodystart="561" bodyend="-1"/>
+        <referencedby refid="class_symbol_document_1a660053b5a2d2b3c3ce26bb1c1a93e0a3" compoundref="_symbol_document_8cpp" startline="554" endline="563">open</referencedby>
+        <referencedby refid="class_symbol_document_1a57b7b4f6791ccd1a10d93b6efd1adf67" compoundref="_symbol_document_8cpp" startline="444" endline="449">SymbolDocument</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_symbol_document_1a7a04392510754d99dd452d30c785b768" prot="private" static="no" mutable="no">
+        <type><ref refid="classjuce_1_1MemoryBlock" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::MemoryBlock</ref></type>
+        <definition>juce::MemoryBlock SymbolDocument::owned</definition>
+        <argsstring></argsstring>
+        <name>owned</name>
+        <qualifiedname>SymbolDocument::owned</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="562" column="23" bodyfile="SymbolDocument.h" bodystart="562" bodyend="-1"/>
+        <referencedby refid="class_symbol_document_1a024a7254fa9523befde781c706c12e98" compoundref="_symbol_document_8cpp" startline="451" endline="456">SymbolDocument</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_symbol_document_1ae4ce1aa68fa40432d8e24a4e006540cc" prot="private" static="no" mutable="no">
+        <type>const uint8_t *</type>
+        <definition>const uint8_t* SymbolDocument::base</definition>
+        <argsstring></argsstring>
+        <name>base</name>
+        <qualifiedname>SymbolDocument::base</qualifiedname>
+        <initializer>{ nullptr }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="563" column="19" bodyfile="SymbolDocument.h" bodystart="563" bodyend="563"/>
+        <referencedby refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="565" endline="570">getHeader</referencedby>
+        <referencedby refid="class_symbol_document_1a709803faed5ba02f84e8c1cad1a4606a" compoundref="_symbol_document_8cpp" startline="635" endline="640">getString</referencedby>
+        <referencedby refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="554" endline="559">getTable</referencedby>
+        <referencedby refid="class_symbol_document_1a024a7254fa9523befde781c706c12e98" compoundref="_symbol_document_8cpp" startline="451" endline="456">SymbolDocument</referencedby>
+        <referencedby refid="class_symbol_document_1a57b7b4f6791ccd1a10d93b6efd1adf67" compoundref="_symbol_document_8cpp" startline="444" endline="449">SymbolDocument</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_symbol_document_1a05116adde5d0404570f149d67a3a3291" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t SymbolDocument::byteSize</definition>
+        <argsstring></argsstring>
+        <name>byteSize</name>
+        <qualifiedname>SymbolDocument::byteSize</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="564" column="12" bodyfile="SymbolDocument.h" bodystart="564" bodyend="564"/>
+        <referencedby refid="class_symbol_document_1a024a7254fa9523befde781c706c12e98" compoundref="_symbol_document_8cpp" startline="451" endline="456">SymbolDocument</referencedby>
+        <referencedby refid="class_symbol_document_1a57b7b4f6791ccd1a10d93b6efd1adf67" compoundref="_symbol_document_8cpp" startline="444" endline="449">SymbolDocument</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_symbol_document_1a660053b5a2d2b3c3ce26bb1c1a93e0a3" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::unique_ptr&lt; <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> &gt;</type>
+        <definition>std::unique_ptr&lt; SymbolDocument &gt; SymbolDocument::open</definition>
+        <argsstring>(const juce::File &amp;swapFile, juce::int64 hash, juce::int64 languageHash, int family)</argsstring>
+        <name>open</name>
+        <qualifiedname>SymbolDocument::open</qualifiedname>
+        <param>
+          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
+          <declname>swapFile</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
+          <declname>hash</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
+          <declname>languageHash</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>family</declname>
+        </param>
+        <briefdescription>
+<para>Maps <computeroutput>swapFile</computeroutput> read-only and returns a <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> when <ref refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" kindref="member">isValidBuffer()</ref> succeeds. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>swapFile</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Swap file to map. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>hash</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Expected content hash of the unit inputs. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>languageHash</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Expected hash of the language library. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>family</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Expected language family identifier. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Validated <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref>, or nullptr when mapping or validation fails. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="418" column="28" bodyfile="SymbolDocument.cpp" bodystart="554" bodyend="563"/>
+        <references refid="classjuce_1_1MemoryMappedFile_1a2a557f42e076cd4b5ccbb4cb80930f97">juce::MemoryMappedFile::getData</references>
+        <references refid="classjuce_1_1MemoryMappedFile_1a82218b9347cf7bf8ac8192b59ea35fdd">juce::MemoryMappedFile::getSize</references>
+        <references refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">isValidBuffer</references>
+        <references refid="class_symbol_document_1aad702cb4972f831e0fb305b5448c1708" compoundref="_symbol_document_8h" startline="561">mapped</references>
+        <references refid="classjuce_1_1MemoryMappedFile_1acb17e1ac2c4919de6cca24e6d92b13f7a9db38fcd6341ddc8e94f020f41e3fa5d">juce::MemoryMappedFile::readOnly</references>
+        <referencedby refid="class_symbol_document_1_1_builder_1a21460171b97dba1d6fcf8dbd05328b18" compoundref="_symbol_document_8cpp" startline="424" endline="437">SymbolDocument::Builder::buildToSwap</referencedby>
+        <referencedby refid="class_index_1af12e54a1917f3495b54fe591594f4b4b" compoundref="_index_8cpp" startline="57" endline="60">Index::readSwapFile</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_symbol_document_1a401c4076ca25ce161b3d0c4717f64b95" prot="public" static="no" const="yes" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="struct_symbol_document_1_1_span" kindref="compound">Span</ref>&lt; <ref refid="struct_symbol_document_1_1_file_entry" kindref="compound">FileEntry</ref> &gt;</type>
+        <definition>SymbolDocument::Span&lt; SymbolDocument::FileEntry &gt; SymbolDocument::getFiles</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>getFiles</name>
+        <qualifiedname>SymbolDocument::getFiles</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><ref refid="struct_symbol_document_1_1_span" kindref="compound">Span</ref> of all <ref refid="struct_symbol_document_1_1_file_entry" kindref="compound">FileEntry</ref> records in the document. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="421" column="10" bodyfile="SymbolDocument.cpp" bodystart="572" bodyend="577"/>
+        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="565" endline="570">getHeader</references>
+        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="554" endline="559">getTable</references>
+      </memberdef>
+      <memberdef kind="function" id="class_symbol_document_1a980e39cdf84be9ab8c46b5e26fc0be32" prot="public" static="no" const="yes" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="struct_symbol_document_1_1_span" kindref="compound">Span</ref>&lt; <ref refid="struct_symbol_document_1_1_symbol_record" kindref="compound">SymbolRecord</ref> &gt;</type>
+        <definition>SymbolDocument::Span&lt; SymbolDocument::SymbolRecord &gt; SymbolDocument::getSymbols</definition>
+        <argsstring>(const FileEntry &amp;file) const noexcept</argsstring>
+        <name>getSymbols</name>
+        <qualifiedname>SymbolDocument::getSymbols</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_symbol_document_1_1_file_entry" kindref="compound">FileEntry</ref> &amp;</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+<para>Returns the <ref refid="struct_symbol_document_1_1_symbol_record" kindref="compound">SymbolRecord</ref> slice belonging to <computeroutput>file</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>File entry within this document. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="struct_symbol_document_1_1_span" kindref="compound">Span</ref> of symbol records for <computeroutput>file</computeroutput>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="429" column="10" bodyfile="SymbolDocument.cpp" bodystart="579" bodyend="584"/>
+        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="565" endline="570">getHeader</references>
+        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="554" endline="559">getTable</references>
+        <referencedby refid="class_index_1ad2be276fb2ebb0b9daab2e45adaa576b" compoundref="_index_8cpp" startline="421" endline="437">Index::addRecords</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_symbol_document_1a1b857d2d7857901d942c8a9afd884c96" prot="public" static="no" const="yes" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="struct_symbol_document_1_1_span" kindref="compound">Span</ref>&lt; int64_t &gt;</type>
+        <definition>SymbolDocument::Span&lt; int64_t &gt; SymbolDocument::getTypeSymbols</definition>
+        <argsstring>(const SymbolRecord &amp;record) const noexcept</argsstring>
+        <name>getTypeSymbols</name>
+        <qualifiedname>SymbolDocument::getTypeSymbols</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_symbol_document_1_1_symbol_record" kindref="compound">SymbolRecord</ref> &amp;</type>
+          <declname>record</declname>
+        </param>
+        <briefdescription>
+<para>Returns the type-symbol identifiers associated with <computeroutput>record</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>record</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Symbol record within this document. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="struct_symbol_document_1_1_span" kindref="compound">Span</ref> of type symbol identifiers for <computeroutput>record</computeroutput>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="437" column="10" bodyfile="SymbolDocument.cpp" bodystart="586" bodyend="591"/>
+        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="565" endline="570">getHeader</references>
+        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="554" endline="559">getTable</references>
+      </memberdef>
+      <memberdef kind="function" id="class_symbol_document_1afd2f9b95e556cec2dcc0e83958272c76" prot="public" static="no" const="yes" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="struct_symbol_document_1_1_span" kindref="compound">Span</ref>&lt; <ref refid="struct_symbol_document_1_1_completion_record" kindref="compound">CompletionRecord</ref> &gt;</type>
+        <definition>SymbolDocument::Span&lt; SymbolDocument::CompletionRecord &gt; SymbolDocument::getCompletions</definition>
+        <argsstring>(const FileEntry &amp;file) const noexcept</argsstring>
+        <name>getCompletions</name>
+        <qualifiedname>SymbolDocument::getCompletions</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_symbol_document_1_1_file_entry" kindref="compound">FileEntry</ref> &amp;</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+<para>Returns the <ref refid="struct_symbol_document_1_1_completion_record" kindref="compound">CompletionRecord</ref> slice belonging to <computeroutput>file</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>File entry within this document. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="struct_symbol_document_1_1_span" kindref="compound">Span</ref> of completion records for <computeroutput>file</computeroutput>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="445" column="10" bodyfile="SymbolDocument.cpp" bodystart="593" bodyend="598"/>
+        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="565" endline="570">getHeader</references>
+        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="554" endline="559">getTable</references>
+        <referencedby refid="class_index_1a1b235a0fbfaf240cc47a498d597eb62b" compoundref="_index_8cpp" startline="363" endline="372">Index::addCompletions</referencedby>
+        <referencedby refid="class_index_1aa47fa08dfa76c8e7a09023e474bf8863" compoundref="_index_8cpp" startline="339" endline="361">Index::removeCompletions</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_symbol_document_1a176879565b3e49bdea0f894d2e6d1abf" prot="public" static="no" const="yes" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="struct_symbol_document_1_1_span" kindref="compound">Span</ref>&lt; <ref refid="struct_symbol_document_1_1_hover_entry" kindref="compound">HoverEntry</ref> &gt;</type>
+        <definition>SymbolDocument::Span&lt; SymbolDocument::HoverEntry &gt; SymbolDocument::getHovers</definition>
+        <argsstring>(const FileEntry &amp;file) const noexcept</argsstring>
+        <name>getHovers</name>
+        <qualifiedname>SymbolDocument::getHovers</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_symbol_document_1_1_file_entry" kindref="compound">FileEntry</ref> &amp;</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+<para>Returns the <ref refid="struct_symbol_document_1_1_hover_entry" kindref="compound">HoverEntry</ref> slice belonging to <computeroutput>file</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>File entry within this document. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="struct_symbol_document_1_1_span" kindref="compound">Span</ref> of hover entries for <computeroutput>file</computeroutput>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="453" column="10" bodyfile="SymbolDocument.cpp" bodystart="600" bodyend="605"/>
+        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="565" endline="570">getHeader</references>
+        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="554" endline="559">getTable</references>
+      </memberdef>
+      <memberdef kind="function" id="class_symbol_document_1a3abeff9a43597142c5aec59d756991c9" prot="public" static="no" const="yes" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="struct_symbol_document_1_1_span" kindref="compound">Span</ref>&lt; <ref refid="struct_symbol_document_1_1_inlay_hint_entry" kindref="compound">InlayHintEntry</ref> &gt;</type>
+        <definition>SymbolDocument::Span&lt; SymbolDocument::InlayHintEntry &gt; SymbolDocument::getInlayHints</definition>
+        <argsstring>(const FileEntry &amp;file) const noexcept</argsstring>
+        <name>getInlayHints</name>
+        <qualifiedname>SymbolDocument::getInlayHints</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_symbol_document_1_1_file_entry" kindref="compound">FileEntry</ref> &amp;</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+<para>Returns the <ref refid="struct_symbol_document_1_1_inlay_hint_entry" kindref="compound">InlayHintEntry</ref> slice belonging to <computeroutput>file</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>File entry within this document. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="struct_symbol_document_1_1_span" kindref="compound">Span</ref> of inlay hint entries for <computeroutput>file</computeroutput>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="461" column="10" bodyfile="SymbolDocument.cpp" bodystart="607" bodyend="612"/>
+        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="565" endline="570">getHeader</references>
+        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="554" endline="559">getTable</references>
+        <referencedby refid="class_query_1aad6e5a1c4754d6605f90f30699fc7769" compoundref="_query_8cpp" startline="548" endline="580">Query::inlayHint</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_symbol_document_1a7eabd60a7dc7199dd5ad442393b1ed13" prot="public" static="no" const="yes" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="struct_symbol_document_1_1_span" kindref="compound">Span</ref>&lt; <ref refid="struct_symbol_document_1_1_diagnostic_entry" kindref="compound">DiagnosticEntry</ref> &gt;</type>
+        <definition>SymbolDocument::Span&lt; SymbolDocument::DiagnosticEntry &gt; SymbolDocument::getDiagnostics</definition>
+        <argsstring>(const FileEntry &amp;file) const noexcept</argsstring>
+        <name>getDiagnostics</name>
+        <qualifiedname>SymbolDocument::getDiagnostics</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_symbol_document_1_1_file_entry" kindref="compound">FileEntry</ref> &amp;</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+<para>Returns the <ref refid="struct_symbol_document_1_1_diagnostic_entry" kindref="compound">DiagnosticEntry</ref> slice belonging to <computeroutput>file</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>File entry within this document. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="struct_symbol_document_1_1_span" kindref="compound">Span</ref> of diagnostic entries for <computeroutput>file</computeroutput>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="469" column="10" bodyfile="SymbolDocument.cpp" bodystart="614" bodyend="619"/>
+        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="565" endline="570">getHeader</references>
+        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="554" endline="559">getTable</references>
+        <referencedby refid="class_query_1a59f0b916e64bca9e3a53ab112922ffcf" compoundref="_query_8cpp" startline="617" endline="637">Query::appendDiagnostics</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_symbol_document_1aa8a6e999e47720c45bc9649d566531e6" prot="public" static="no" const="yes" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="struct_symbol_document_1_1_span" kindref="compound">Span</ref>&lt; <ref refid="struct_symbol_document_1_1_outline_entry" kindref="compound">OutlineEntry</ref> &gt;</type>
+        <definition>SymbolDocument::Span&lt; SymbolDocument::OutlineEntry &gt; SymbolDocument::getOutlines</definition>
+        <argsstring>(const FileEntry &amp;file) const noexcept</argsstring>
+        <name>getOutlines</name>
+        <qualifiedname>SymbolDocument::getOutlines</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_symbol_document_1_1_file_entry" kindref="compound">FileEntry</ref> &amp;</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+<para>Returns the <ref refid="struct_symbol_document_1_1_outline_entry" kindref="compound">OutlineEntry</ref> slice belonging to <computeroutput>file</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>File entry within this document. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="struct_symbol_document_1_1_span" kindref="compound">Span</ref> of outline entries in preorder for <computeroutput>file</computeroutput>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="477" column="10" bodyfile="SymbolDocument.cpp" bodystart="621" bodyend="626"/>
+        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="565" endline="570">getHeader</references>
+        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="554" endline="559">getTable</references>
+        <referencedby refid="class_query_1a163faae03873f24fd5fb7ba47a310df3" compoundref="_query_8cpp" startline="853" endline="865">Query::documentSymbol</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_symbol_document_1a1837c5eeaac88354c6ac168b7fa8811c" prot="public" static="no" const="yes" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="struct_symbol_document_1_1_span" kindref="compound">Span</ref>&lt; <ref refid="struct_symbol_document_1_1_fix_it_entry" kindref="compound">FixItEntry</ref> &gt;</type>
+        <definition>SymbolDocument::Span&lt; SymbolDocument::FixItEntry &gt; SymbolDocument::getFixIts</definition>
+        <argsstring>(const FileEntry &amp;file) const noexcept</argsstring>
+        <name>getFixIts</name>
+        <qualifiedname>SymbolDocument::getFixIts</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_symbol_document_1_1_file_entry" kindref="compound">FileEntry</ref> &amp;</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+<para>Returns the <ref refid="struct_symbol_document_1_1_fix_it_entry" kindref="compound">FixItEntry</ref> slice belonging to <computeroutput>file</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>File entry within this document. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="struct_symbol_document_1_1_span" kindref="compound">Span</ref> of fix-it entries for <computeroutput>file</computeroutput>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="485" column="10" bodyfile="SymbolDocument.cpp" bodystart="628" bodyend="633"/>
+        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="565" endline="570">getHeader</references>
+        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="554" endline="559">getTable</references>
+        <referencedby refid="class_query_1a556bb5accc9b8a0ee57d511261fe6093" compoundref="_query_8cpp" startline="726" endline="739">Query::appendFixItActions</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_symbol_document_1a709803faed5ba02f84e8c1cad1a4606a" prot="public" static="no" const="yes" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>std::string_view</type>
+        <definition>std::string_view SymbolDocument::getString</definition>
+        <argsstring>(uint32_t offset, uint32_t length) const noexcept</argsstring>
+        <name>getString</name>
+        <qualifiedname>SymbolDocument::getString</qualifiedname>
+        <param>
+          <type>uint32_t</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>Returns a string-pool slice at [<computeroutput>offset</computeroutput>, <computeroutput>offset</computeroutput> + <computeroutput>length</computeroutput>). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Byte offset inside the string pool. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Byte length of the slice. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>View into the validated string pool. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="494" column="22" bodyfile="SymbolDocument.cpp" bodystart="635" bodyend="640"/>
+        <references refid="class_symbol_document_1ae4ce1aa68fa40432d8e24a4e006540cc" compoundref="_symbol_document_8h" startline="563" endline="563">base</references>
+        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="565" endline="570">getHeader</references>
+        <referencedby refid="class_query_1ac4dc7ce737d628ad4f1ba257f3b3817e" compoundref="_query_8cpp" startline="705" endline="724">Query::appendCompletionItem</referencedby>
+        <referencedby refid="class_query_1a59f0b916e64bca9e3a53ab112922ffcf" compoundref="_query_8cpp" startline="617" endline="637">Query::appendDiagnostics</referencedby>
+        <referencedby refid="class_query_1a556bb5accc9b8a0ee57d511261fe6093" compoundref="_query_8cpp" startline="726" endline="739">Query::appendFixItActions</referencedby>
+        <referencedby refid="class_query_1aad6e5a1c4754d6605f90f30699fc7769" compoundref="_query_8cpp" startline="548" endline="580">Query::inlayHint</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_symbol_document_1a57b7b4f6791ccd1a10d93b6efd1adf67" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>SymbolDocument::SymbolDocument</definition>
+        <argsstring>(Access, std::unique_ptr&lt; juce::MemoryMappedFile &gt; mappedFile)</argsstring>
+        <name>SymbolDocument</name>
+        <qualifiedname>SymbolDocument::SymbolDocument</qualifiedname>
+        <param>
+          <type><ref refid="struct_symbol_document_1_1_access" kindref="compound">Access</ref></type>
+        </param>
+        <param>
+          <type>std::unique_ptr&lt; <ref refid="classjuce_1_1MemoryMappedFile" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::MemoryMappedFile</ref> &gt;</type>
+          <declname>mappedFile</declname>
+        </param>
+        <briefdescription>
+<para>Constructs a <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> backed by a validated memory-mapped file. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The private <ref refid="struct_symbol_document_1_1_access" kindref="compound">Access</ref> passkey restricts construction to <ref refid="class_symbol_document_1a660053b5a2d2b3c3ce26bb1c1a93e0a3" kindref="member">open()</ref> and <ref refid="class_symbol_document_1_1_builder" kindref="compound">Builder</ref>.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mappedFile</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Validated read-only mapped file. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="511" column="5" bodyfile="SymbolDocument.cpp" bodystart="444" bodyend="449"/>
+        <references refid="class_symbol_document_1ae4ce1aa68fa40432d8e24a4e006540cc" compoundref="_symbol_document_8h" startline="563" endline="563">base</references>
+        <references refid="class_symbol_document_1a05116adde5d0404570f149d67a3a3291" compoundref="_symbol_document_8h" startline="564" endline="564">byteSize</references>
+        <references refid="class_symbol_document_1aad702cb4972f831e0fb305b5448c1708" compoundref="_symbol_document_8h" startline="561">mapped</references>
+      </memberdef>
+      <memberdef kind="function" id="class_symbol_document_1a024a7254fa9523befde781c706c12e98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>SymbolDocument::SymbolDocument</definition>
+        <argsstring>(Access, juce::MemoryBlock ownedBlock)</argsstring>
+        <name>SymbolDocument</name>
+        <qualifiedname>SymbolDocument::SymbolDocument</qualifiedname>
+        <param>
+          <type><ref refid="struct_symbol_document_1_1_access" kindref="compound">Access</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classjuce_1_1MemoryBlock" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::MemoryBlock</ref></type>
+          <declname>ownedBlock</declname>
+        </param>
+        <briefdescription>
+<para>Constructs a <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> backed by an owned serialized memory block. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The private <ref refid="struct_symbol_document_1_1_access" kindref="compound">Access</ref> passkey restricts construction to <ref refid="class_symbol_document_1a660053b5a2d2b3c3ce26bb1c1a93e0a3" kindref="member">open()</ref> and <ref refid="class_symbol_document_1_1_builder" kindref="compound">Builder</ref>.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ownedBlock</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Serialized buffer produced by <ref refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" kindref="member">Builder::serialize()</ref>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="520" column="5" bodyfile="SymbolDocument.cpp" bodystart="451" bodyend="456"/>
+        <references refid="class_symbol_document_1ae4ce1aa68fa40432d8e24a4e006540cc" compoundref="_symbol_document_8h" startline="563" endline="563">base</references>
+        <references refid="class_symbol_document_1a05116adde5d0404570f149d67a3a3291" compoundref="_symbol_document_8h" startline="564" endline="564">byteSize</references>
+        <references refid="class_symbol_document_1a7a04392510754d99dd452d30c785b768" compoundref="_symbol_document_8h" startline="562">owned</references>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" prot="private" static="yes" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool SymbolDocument::isValidBuffer</definition>
+        <argsstring>(const uint8_t *data, size_t size, juce::int64 hash, juce::int64 languageHash, int family) noexcept</argsstring>
+        <name>isValidBuffer</name>
+        <qualifiedname>SymbolDocument::isValidBuffer</qualifiedname>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
+          <declname>hash</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
+          <declname>languageHash</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>family</declname>
+        </param>
+        <briefdescription>
+<para>Validates header stamps, section alignment and bounds, version string, and all per-record indices and string-pool slices. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Ensures no section overflows <computeroutput>size</computeroutput>, every non-empty section offset satisfies alignof(Record), and every <ref refid="struct_symbol_document_1_1_file_entry" kindref="compound">FileEntry</ref>, <ref refid="struct_symbol_document_1_1_symbol_record" kindref="compound">SymbolRecord</ref>, <ref refid="struct_symbol_document_1_1_hover_entry" kindref="compound">HoverEntry</ref>, <ref refid="struct_symbol_document_1_1_completion_record" kindref="compound">CompletionRecord</ref>, <ref refid="struct_symbol_document_1_1_inlay_hint_entry" kindref="compound">InlayHintEntry</ref>, <ref refid="struct_symbol_document_1_1_diagnostic_entry" kindref="compound">DiagnosticEntry</ref>, and <ref refid="struct_symbol_document_1_1_fix_it_entry" kindref="compound">FixItEntry</ref> index or string slice is in bounds.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Start of the candidate buffer. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Byte size of the buffer. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>hash</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Expected content hash. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>languageHash</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Expected language library hash. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>family</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Expected language family identifier. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True when the entire binary layout passes validation. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="537" column="17" bodyfile="SymbolDocument.cpp" bodystart="458" bodyend="552"/>
+        <references refid="struct_symbol_document_1_1_header_1aae55975acc9abdd3ac03fbe3d88e6df6" compoundref="_symbol_document_8h" startline="84" endline="84">SymbolDocument::Header::completionsCount</references>
+        <references refid="struct_symbol_document_1_1_header_1afc0b58a0c92bdfc508d3e9a9a956b542" compoundref="_symbol_document_8h" startline="83" endline="83">SymbolDocument::Header::completionsOffset</references>
+        <references refid="class_symbol_document_1a4027a43a655f9c384ff54664be601c90" compoundref="_symbol_document_8h" startline="500" endline="500">currentFormatVersion</references>
+        <references refid="struct_symbol_document_1_1_header_1a93752206d24854e624812cc0cd4c72e8" compoundref="_symbol_document_8h" startline="93" endline="93">SymbolDocument::Header::diagnosticsCount</references>
+        <references refid="struct_symbol_document_1_1_header_1a68ff9705644648e6546adb39dbbfa485" compoundref="_symbol_document_8h" startline="92" endline="92">SymbolDocument::Header::diagnosticsOffset</references>
+        <references refid="struct_symbol_document_1_1_header_1a2ab981ac775c36b4f647af045b66af95" compoundref="_symbol_document_8h" startline="70" endline="70">SymbolDocument::Header::family</references>
+        <references refid="class_symbol_document_1a4d8dde7166bb4455b5365dff1f75e7f9" compoundref="_symbol_document_8h" startline="499" endline="499">fileMagic</references>
+        <references refid="struct_symbol_document_1_1_header_1a1b9da1c83b4a22431aacc7f4ae982a7f" compoundref="_symbol_document_8h" startline="75" endline="75">SymbolDocument::Header::filesCount</references>
+        <references refid="struct_symbol_document_1_1_header_1ab98427eb4a31f31da6f81bf830144f26" compoundref="_symbol_document_8h" startline="74" endline="74">SymbolDocument::Header::filesOffset</references>
+        <references refid="struct_symbol_document_1_1_header_1a426a96bdb62918d8a37d95d0ac358b56" compoundref="_symbol_document_8h" startline="99" endline="99">SymbolDocument::Header::fixItsCount</references>
+        <references refid="struct_symbol_document_1_1_header_1a22ee2494ba9cd5fb024961cea8d35280" compoundref="_symbol_document_8h" startline="98" endline="98">SymbolDocument::Header::fixItsOffset</references>
+        <references refid="struct_symbol_document_1_1_header_1a803160efc8c008cfda3f675902dc4353" compoundref="_symbol_document_8h" startline="66" endline="66">SymbolDocument::Header::formatVersion</references>
+        <references refid="struct_symbol_document_1_1_header_1a74171f58ee377b01e6aa4907d6729925" compoundref="_symbol_document_8h" startline="68" endline="68">SymbolDocument::Header::hash</references>
+        <references refid="struct_symbol_document_1_1_header_1aac68817966f9cb91035780be84660fc4" compoundref="_symbol_document_8h" startline="87" endline="87">SymbolDocument::Header::hoversCount</references>
+        <references refid="struct_symbol_document_1_1_header_1ae803b3385714aa4013598b49517ee186" compoundref="_symbol_document_8h" startline="86" endline="86">SymbolDocument::Header::hoversOffset</references>
+        <references refid="struct_symbol_document_1_1_header_1a4bb4b761189816f002d21d13ad7ef1fe" compoundref="_symbol_document_8h" startline="90" endline="90">SymbolDocument::Header::inlayHintsCount</references>
+        <references refid="struct_symbol_document_1_1_header_1ae943029c765a873dc04118bbe26b619a" compoundref="_symbol_document_8h" startline="89" endline="89">SymbolDocument::Header::inlayHintsOffset</references>
+        <references refid="_symbol_document_8cpp_1a83ccdec92c56fc172a301a3eda8a107d" compoundref="_symbol_document_8cpp" startline="25" endline="28">isRangeValid</references>
+        <references refid="_symbol_document_8cpp_1a68b8c6234dfc6f5083026c2e1550ae41" compoundref="_symbol_document_8cpp" startline="18" endline="23">isSectionValid</references>
+        <references refid="struct_symbol_document_1_1_header_1a87befc1e799a803d8ed74a0e9ec6c222" compoundref="_symbol_document_8h" startline="69" endline="69">SymbolDocument::Header::languageHash</references>
+        <references refid="struct_symbol_document_1_1_header_1a79e7de9c5029339a2e987e67cbe3e531" compoundref="_symbol_document_8h" startline="65" endline="65">SymbolDocument::Header::magic</references>
+        <references refid="structjam_1_1LanguageCallbacks_1a41f0bf20e8cafe5a5f3e02c8be9355b4">jam::LanguageCallbacks::noHover</references>
+        <references refid="struct_symbol_document_1_1_header_1a8c8ec8932a0dfd6669fa144769a1d734" compoundref="_symbol_document_8h" startline="96" endline="96">SymbolDocument::Header::outlinesCount</references>
+        <references refid="struct_symbol_document_1_1_header_1a26e44f3893a27ee4ab2f5ead29818099" compoundref="_symbol_document_8h" startline="95" endline="95">SymbolDocument::Header::outlinesOffset</references>
+        <references refid="struct_symbol_document_1_1_header_1a974dfb5fdc383b2830126737aaeb5732" compoundref="_symbol_document_8h" startline="101" endline="101">SymbolDocument::Header::stringPoolOffset</references>
+        <references refid="struct_symbol_document_1_1_header_1ac402805028b01a8044f50b352c92a5c6" compoundref="_symbol_document_8h" startline="102" endline="102">SymbolDocument::Header::stringPoolSize</references>
+        <references refid="struct_symbol_document_1_1_header_1a26742490efac3d3593a14a47cce607d9" compoundref="_symbol_document_8h" startline="78" endline="78">SymbolDocument::Header::symbolsCount</references>
+        <references refid="struct_symbol_document_1_1_header_1aaaeecd4bd412b187794c8c99175f51e4" compoundref="_symbol_document_8h" startline="77" endline="77">SymbolDocument::Header::symbolsOffset</references>
+        <references refid="struct_symbol_document_1_1_header_1a83155997b974c207a5ad4de0b5b1999b" compoundref="_symbol_document_8h" startline="67" endline="67">SymbolDocument::Header::totalBytes</references>
+        <references refid="struct_symbol_document_1_1_header_1aae9b9d7fd796110efd5ff86695bb3728" compoundref="_symbol_document_8h" startline="81" endline="81">SymbolDocument::Header::typeSymbolsCount</references>
+        <references refid="struct_symbol_document_1_1_header_1abb8ef33ce7eb4e97df2b08348cc5cd2e" compoundref="_symbol_document_8h" startline="80" endline="80">SymbolDocument::Header::typeSymbolsOffset</references>
+        <references refid="struct_symbol_document_1_1_header_1ad99253407776e9525da095b228120767" compoundref="_symbol_document_8h" startline="72" endline="72">SymbolDocument::Header::versionLength</references>
+        <references refid="struct_symbol_document_1_1_header_1a80765baaf2f0e4ff1220a6a03a0be8da" compoundref="_symbol_document_8h" startline="71" endline="71">SymbolDocument::Header::versionOffset</references>
+        <referencedby refid="class_symbol_document_1a660053b5a2d2b3c3ce26bb1c1a93e0a3" compoundref="_symbol_document_8cpp" startline="554" endline="563">open</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" prot="private" static="no" const="yes" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="struct_symbol_document_1_1_header" kindref="compound">Header</ref></type>
+        <definition>SymbolDocument::Header SymbolDocument::getHeader</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>getHeader</name>
+        <qualifiedname>SymbolDocument::getHeader</qualifiedname>
+        <briefdescription>
+<para>Copies the <ref refid="struct_symbol_document_1_1_header" kindref="compound">Header</ref> from <computeroutput>base</computeroutput> by value via std::memcpy. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Copy of the buffer <ref refid="struct_symbol_document_1_1_header" kindref="compound">Header</ref> without unaligned or type-punned access. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="544" column="12" bodyfile="SymbolDocument.cpp" bodystart="565" bodyend="570"/>
+        <references refid="class_symbol_document_1ae4ce1aa68fa40432d8e24a4e006540cc" compoundref="_symbol_document_8h" startline="563" endline="563">base</references>
+        <referencedby refid="class_symbol_document_1afd2f9b95e556cec2dcc0e83958272c76" compoundref="_symbol_document_8cpp" startline="593" endline="598">getCompletions</referencedby>
+        <referencedby refid="class_symbol_document_1a7eabd60a7dc7199dd5ad442393b1ed13" compoundref="_symbol_document_8cpp" startline="614" endline="619">getDiagnostics</referencedby>
+        <referencedby refid="class_symbol_document_1a401c4076ca25ce161b3d0c4717f64b95" compoundref="_symbol_document_8cpp" startline="572" endline="577">getFiles</referencedby>
+        <referencedby refid="class_symbol_document_1a1837c5eeaac88354c6ac168b7fa8811c" compoundref="_symbol_document_8cpp" startline="628" endline="633">getFixIts</referencedby>
+        <referencedby refid="class_symbol_document_1a176879565b3e49bdea0f894d2e6d1abf" compoundref="_symbol_document_8cpp" startline="600" endline="605">getHovers</referencedby>
+        <referencedby refid="class_symbol_document_1a3abeff9a43597142c5aec59d756991c9" compoundref="_symbol_document_8cpp" startline="607" endline="612">getInlayHints</referencedby>
+        <referencedby refid="class_symbol_document_1aa8a6e999e47720c45bc9649d566531e6" compoundref="_symbol_document_8cpp" startline="621" endline="626">getOutlines</referencedby>
+        <referencedby refid="class_symbol_document_1a709803faed5ba02f84e8c1cad1a4606a" compoundref="_symbol_document_8cpp" startline="635" endline="640">getString</referencedby>
+        <referencedby refid="class_symbol_document_1a980e39cdf84be9ab8c46b5e26fc0be32" compoundref="_symbol_document_8cpp" startline="579" endline="584">getSymbols</referencedby>
+        <referencedby refid="class_symbol_document_1a1b857d2d7857901d942c8a9afd884c96" compoundref="_symbol_document_8cpp" startline="586" endline="591">getTypeSymbols</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" prot="private" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Record</type>
+          </param>
+        </templateparamlist>
+        <type>const Record *</type>
+        <definition>const Record * SymbolDocument::getTable</definition>
+        <argsstring>(uint64_t offset) const noexcept</argsstring>
+        <name>getTable</name>
+        <qualifiedname>SymbolDocument::getTable</qualifiedname>
+        <param>
+          <type>uint64_t</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+<para>Returns a typed pointer to a validated section table at <computeroutput>offset</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Record</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Trivially copyable record type of the target section. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Section byte offset from the <ref refid="struct_symbol_document_1_1_header" kindref="compound">Header</ref>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to the first Record in the section. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="554" column="18" bodyfile="SymbolDocument.h" bodystart="554" bodyend="559"/>
+        <references refid="class_symbol_document_1ae4ce1aa68fa40432d8e24a4e006540cc" compoundref="_symbol_document_8h" startline="563" endline="563">base</references>
+        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="554" endline="559">getTable</references>
+        <referencedby refid="class_symbol_document_1afd2f9b95e556cec2dcc0e83958272c76" compoundref="_symbol_document_8cpp" startline="593" endline="598">getCompletions</referencedby>
+        <referencedby refid="class_symbol_document_1a7eabd60a7dc7199dd5ad442393b1ed13" compoundref="_symbol_document_8cpp" startline="614" endline="619">getDiagnostics</referencedby>
+        <referencedby refid="class_symbol_document_1a401c4076ca25ce161b3d0c4717f64b95" compoundref="_symbol_document_8cpp" startline="572" endline="577">getFiles</referencedby>
+        <referencedby refid="class_symbol_document_1a1837c5eeaac88354c6ac168b7fa8811c" compoundref="_symbol_document_8cpp" startline="628" endline="633">getFixIts</referencedby>
+        <referencedby refid="class_symbol_document_1a176879565b3e49bdea0f894d2e6d1abf" compoundref="_symbol_document_8cpp" startline="600" endline="605">getHovers</referencedby>
+        <referencedby refid="class_symbol_document_1a3abeff9a43597142c5aec59d756991c9" compoundref="_symbol_document_8cpp" startline="607" endline="612">getInlayHints</referencedby>
+        <referencedby refid="class_symbol_document_1aa8a6e999e47720c45bc9649d566531e6" compoundref="_symbol_document_8cpp" startline="621" endline="626">getOutlines</referencedby>
+        <referencedby refid="class_symbol_document_1a980e39cdf84be9ab8c46b5e26fc0be32" compoundref="_symbol_document_8cpp" startline="579" endline="584">getSymbols</referencedby>
+        <referencedby refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="554" endline="559">getTable</referencedby>
+        <referencedby refid="class_symbol_document_1a1b857d2d7857901d942c8a9afd884c96" compoundref="_symbol_document_8cpp" startline="586" endline="591">getTypeSymbols</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Memory-mapped or owned binary index of symbols, completions, hovers, hints, diagnostics, outlines, and fix-its for one translation unit. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><ref refid="class_symbol_document_1_1_builder" kindref="compound">Builder</ref> collects records on a pool thread and writes one aligned, little-endian buffer with a fixed <ref refid="struct_symbol_document_1_1_header" kindref="compound">Header</ref>, typed section tables, and a trailing string pool. <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> validates the buffer once in <ref refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" kindref="member">isValidBuffer()</ref> and exposes typed <ref refid="struct_symbol_document_1_1_span" kindref="compound">Span</ref> views directly over the validated bytes. </para>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>SymbolDocument</label>
+        <link refid="class_symbol_document"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>mapped</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>owned</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>juce::MemoryBlock</label>
+        <link refid="classjuce_1_1MemoryBlock" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="3">
+        <label>juce::MemoryMappedFile</label>
+        <link refid="classjuce_1_1MemoryMappedFile" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="2">
+        <label>std::unique_ptr&lt; juce::MemoryMappedFile &gt;</label>
+        <childnode refid="3" relation="usage">
+          <edgelabel>ptr</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="SymbolDocument.h" line="14" column="1" bodyfile="SymbolDocument.h" bodystart="15" bodyend="567"/>
+    <listofallmembers>
+      <member refid="class_symbol_document_1ae4ce1aa68fa40432d8e24a4e006540cc" prot="private" virt="non-virtual"><scope>SymbolDocument</scope><name>base</name></member>
+      <member refid="class_symbol_document_1a05116adde5d0404570f149d67a3a3291" prot="private" virt="non-virtual"><scope>SymbolDocument</scope><name>byteSize</name></member>
+      <member refid="class_symbol_document_1a4027a43a655f9c384ff54664be601c90" prot="private" virt="non-virtual"><scope>SymbolDocument</scope><name>currentFormatVersion</name></member>
+      <member refid="class_symbol_document_1a4d8dde7166bb4455b5365dff1f75e7f9" prot="private" virt="non-virtual"><scope>SymbolDocument</scope><name>fileMagic</name></member>
+      <member refid="class_symbol_document_1afd2f9b95e556cec2dcc0e83958272c76" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getCompletions</name></member>
+      <member refid="class_symbol_document_1a7eabd60a7dc7199dd5ad442393b1ed13" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getDiagnostics</name></member>
+      <member refid="class_symbol_document_1a401c4076ca25ce161b3d0c4717f64b95" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getFiles</name></member>
+      <member refid="class_symbol_document_1a1837c5eeaac88354c6ac168b7fa8811c" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getFixIts</name></member>
+      <member refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" prot="private" virt="non-virtual"><scope>SymbolDocument</scope><name>getHeader</name></member>
+      <member refid="class_symbol_document_1a176879565b3e49bdea0f894d2e6d1abf" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getHovers</name></member>
+      <member refid="class_symbol_document_1a3abeff9a43597142c5aec59d756991c9" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getInlayHints</name></member>
+      <member refid="class_symbol_document_1aa8a6e999e47720c45bc9649d566531e6" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getOutlines</name></member>
+      <member refid="class_symbol_document_1a709803faed5ba02f84e8c1cad1a4606a" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getString</name></member>
+      <member refid="class_symbol_document_1a980e39cdf84be9ab8c46b5e26fc0be32" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getSymbols</name></member>
+      <member refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" prot="private" virt="non-virtual"><scope>SymbolDocument</scope><name>getTable</name></member>
+      <member refid="class_symbol_document_1a1b857d2d7857901d942c8a9afd884c96" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getTypeSymbols</name></member>
+      <member refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" prot="private" virt="non-virtual"><scope>SymbolDocument</scope><name>isValidBuffer</name></member>
+      <member refid="class_symbol_document_1aad702cb4972f831e0fb305b5448c1708" prot="private" virt="non-virtual"><scope>SymbolDocument</scope><name>mapped</name></member>
+      <member refid="class_symbol_document_1a07429fecfabe254bc5e70271b580bc10" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>noParent</name></member>
+      <member refid="class_symbol_document_1a5d2a4d1f909c9aac5f36f5b1d936033d" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>noSymbol</name></member>
+      <member refid="class_symbol_document_1a660053b5a2d2b3c3ce26bb1c1a93e0a3" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>open</name></member>
+      <member refid="class_symbol_document_1a7a04392510754d99dd452d30c785b768" prot="private" virt="non-virtual"><scope>SymbolDocument</scope><name>owned</name></member>
+      <member refid="class_symbol_document_1afddb85fdae16b6bbbc35c85f12b1a803" prot="private" virt="non-virtual"><scope>SymbolDocument</scope><name>sectionAlignment</name></member>
+      <member refid="class_symbol_document_1a57b7b4f6791ccd1a10d93b6efd1adf67" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>SymbolDocument</name></member>
+      <member refid="class_symbol_document_1a024a7254fa9523befde781c706c12e98" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>SymbolDocument</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

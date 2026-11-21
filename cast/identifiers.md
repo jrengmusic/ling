@@ -72,6 +72,7 @@
 | @id  | language             | `language`             |             |
 | @id  | layoutGlob           | `layout_glob`          |             |
 | @id  | ling                 | `ling`                 |             |
+| @id  | mcp                  | `mcp`                  |             |
 | @id  | module               | `module`               |             |
 | @id  | nameLength           | `nameLength`           |             |
 | @id  | newName              | `newName`              |             |

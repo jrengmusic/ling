@@ -133,6 +133,8 @@
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
       </node>
       <node id="2">
         <label>Connection.cpp</label>
@@ -174,7 +176,7 @@
         <childnode refid="10" relation="include">
         </childnode>
       </node>
-      <node id="11">
+      <node id="13">
         <label>Server.cpp</label>
         <link refid="_server_8cpp"/>
       </node>
@@ -185,7 +187,19 @@
         </childnode>
         <childnode refid="7" relation="include">
         </childnode>
-        <childnode refid="11" relation="include">
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>ToolRelay.cpp</label>
+        <link refid="_tool_relay_8cpp"/>
+      </node>
+      <node id="11">
+        <label>ToolRelay.h</label>
+        <link refid="_tool_relay_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -214,18 +228,18 @@
 <codeline lineno="39"><highlight class="normal"></highlight></codeline>
 <codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_connection_1a23c012c1e2740f1e11efe2253220fa1d" kindref="member">connectionLost</ref>()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="46"><highlight class="normal"></highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_connection_1a3c2abaa7098986a8b534a5433bdb9fcd" kindref="member">messageReceived</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1MemoryBlock" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::MemoryBlock</ref>&amp;<sp/>message)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="58"><highlight class="normal"></highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_connection_1a0d634509374cada8ffd175a382829a1e" kindref="member">valueTreePropertyChanged</ref><sp/>(<ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref>&amp;<sp/>tree,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1Identifier" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref>&amp;<sp/>property)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"></highlight></codeline>
-<codeline lineno="70" refid="class_connection_1a26432575991b48175a23f5f234182617" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjam_1_1Owner" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Owner&lt;Connection&gt;</ref>&amp;<sp/><ref refid="class_connection_1a26432575991b48175a23f5f234182617" kindref="member">connections</ref>;</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"></highlight></codeline>
-<codeline lineno="73" refid="class_connection_1a239a1ae3ddb9efb16f16e5b1bcd48172" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_l_i_n_g_model" kindref="compound">LINGModel</ref>&amp;<sp/><ref refid="class_connection_1a239a1ae3ddb9efb16f16e5b1bcd48172" kindref="member">model</ref><sp/>{<sp/>*<ref refid="structjam_1_1Instance_1ad5d2bbb58e37d8d260b428b334823140" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">LINGModel::getInstance</ref>()<sp/>};</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"></highlight></codeline>
-<codeline lineno="76" refid="class_connection_1a5fc585653ad920f89ad3c6247cb91c55" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref><sp/><ref refid="class_connection_1a5fc585653ad920f89ad3c6247cb91c55" kindref="member">state</ref>;</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"></highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="juce__PlatformDefs_8h_1a851b02724a8158a7f746c66b5758b3dd" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR</ref><sp/>(<ref refid="class_connection_1a158007fe27d7e591b637c752372a7047" kindref="member">Connection</ref>)</highlight></codeline>
-<codeline lineno="79"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_connection_1a3c2abaa7098986a8b534a5433bdb9fcd" kindref="member">messageReceived</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1MemoryBlock" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::MemoryBlock</ref>&amp;<sp/>message)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_connection_1a0d634509374cada8ffd175a382829a1e" kindref="member">valueTreePropertyChanged</ref><sp/>(<ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref>&amp;<sp/>tree,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1Identifier" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref>&amp;<sp/>property)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69" refid="class_connection_1a26432575991b48175a23f5f234182617" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjam_1_1Owner" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Owner&lt;Connection&gt;</ref>&amp;<sp/><ref refid="class_connection_1a26432575991b48175a23f5f234182617" kindref="member">connections</ref>;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72" refid="class_connection_1a239a1ae3ddb9efb16f16e5b1bcd48172" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_l_i_n_g_model" kindref="compound">LINGModel</ref>&amp;<sp/><ref refid="class_connection_1a239a1ae3ddb9efb16f16e5b1bcd48172" kindref="member">model</ref><sp/>{<sp/>*<ref refid="structjam_1_1Instance_1ad5d2bbb58e37d8d260b428b334823140" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">LINGModel::getInstance</ref>()<sp/>};</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75" refid="class_connection_1a5fc585653ad920f89ad3c6247cb91c55" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref><sp/><ref refid="class_connection_1a5fc585653ad920f89ad3c6247cb91c55" kindref="member">state</ref>;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="juce__PlatformDefs_8h_1a851b02724a8158a7f746c66b5758b3dd" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR</ref><sp/>(<ref refid="class_connection_1a158007fe27d7e591b637c752372a7047" kindref="member">Connection</ref>)</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">};</highlight></codeline>
     </programlisting>
     <location file="Connection.h"/>
   </compounddef>

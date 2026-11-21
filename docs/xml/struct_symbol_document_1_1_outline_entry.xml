@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="struct_symbol_document_1_1_outline_entry" kind="struct" language="C++" prot="public">
+    <compoundname>SymbolDocument::OutlineEntry</compoundname>
+    <includes refid="_symbol_document_8h" local="no">SymbolDocument.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_symbol_document_1_1_outline_entry_1a922fc55b63a991c392469793816c9cf3" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t SymbolDocument::OutlineEntry::line</definition>
+        <argsstring></argsstring>
+        <name>line</name>
+        <qualifiedname>SymbolDocument::OutlineEntry::line</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>1-based start line of the symbol range. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="219" column="17" bodyfile="SymbolDocument.h" bodystart="219" bodyend="219"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1a480e5fb8d4dad25e3617ae5fc627e01c" compoundref="_symbol_document_8cpp" startline="206" endline="223">SymbolDocument::Builder::addOutline</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_outline_entry_1adccf50efe28f906ceee4eb63322e22d2" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t SymbolDocument::OutlineEntry::column</definition>
+        <argsstring></argsstring>
+        <name>column</name>
+        <qualifiedname>SymbolDocument::OutlineEntry::column</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>1-based start column of the symbol range. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="220" column="17" bodyfile="SymbolDocument.h" bodystart="220" bodyend="220"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1a480e5fb8d4dad25e3617ae5fc627e01c" compoundref="_symbol_document_8cpp" startline="206" endline="223">SymbolDocument::Builder::addOutline</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_outline_entry_1ae115ae6739fe547da7a5f1dc582bbe16" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t SymbolDocument::OutlineEntry::endLine</definition>
+        <argsstring></argsstring>
+        <name>endLine</name>
+        <qualifiedname>SymbolDocument::OutlineEntry::endLine</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>1-based end line of the symbol range. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="221" column="17" bodyfile="SymbolDocument.h" bodystart="221" bodyend="221"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1a480e5fb8d4dad25e3617ae5fc627e01c" compoundref="_symbol_document_8cpp" startline="206" endline="223">SymbolDocument::Builder::addOutline</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_outline_entry_1a56cfe5ceb9a8389cd124644422a64f81" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t SymbolDocument::OutlineEntry::endColumn</definition>
+        <argsstring></argsstring>
+        <name>endColumn</name>
+        <qualifiedname>SymbolDocument::OutlineEntry::endColumn</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>1-based end column of the symbol range. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="222" column="17" bodyfile="SymbolDocument.h" bodystart="222" bodyend="222"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1a480e5fb8d4dad25e3617ae5fc627e01c" compoundref="_symbol_document_8cpp" startline="206" endline="223">SymbolDocument::Builder::addOutline</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_outline_entry_1a250845ffc88a221f70051ff38ac41306" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t SymbolDocument::OutlineEntry::nameLength</definition>
+        <argsstring></argsstring>
+        <name>nameLength</name>
+        <qualifiedname>SymbolDocument::OutlineEntry::nameLength</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Byte length of the symbol name. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="223" column="17" bodyfile="SymbolDocument.h" bodystart="223" bodyend="223"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1a480e5fb8d4dad25e3617ae5fc627e01c" compoundref="_symbol_document_8cpp" startline="206" endline="223">SymbolDocument::Builder::addOutline</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_outline_entry_1a21455bc6fba74e6387259236fe6a6a8e" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t SymbolDocument::OutlineEntry::qualifierLength</definition>
+        <argsstring></argsstring>
+        <name>qualifierLength</name>
+        <qualifiedname>SymbolDocument::OutlineEntry::qualifierLength</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Byte length of the leading scope qualifier. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="224" column="17" bodyfile="SymbolDocument.h" bodystart="224" bodyend="224"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1a480e5fb8d4dad25e3617ae5fc627e01c" compoundref="_symbol_document_8cpp" startline="206" endline="223">SymbolDocument::Builder::addOutline</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_outline_entry_1ae91a8fecf53fa7caff0c93e276f850b7" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t SymbolDocument::OutlineEntry::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <qualifiedname>SymbolDocument::OutlineEntry::type</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>LSP symbol kind. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="225" column="17" bodyfile="SymbolDocument.h" bodystart="225" bodyend="225"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1a480e5fb8d4dad25e3617ae5fc627e01c" compoundref="_symbol_document_8cpp" startline="206" endline="223">SymbolDocument::Builder::addOutline</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_outline_entry_1aabbea78d18ad3381e7faa7e587875817" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t SymbolDocument::OutlineEntry::parent</definition>
+        <argsstring></argsstring>
+        <name>parent</name>
+        <qualifiedname>SymbolDocument::OutlineEntry::parent</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para><ref refid="class_index" kindref="compound">Index</ref> of the parent <ref refid="struct_symbol_document_1_1_outline_entry" kindref="compound">OutlineEntry</ref> in the file&apos;s slice, or noParent. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="226" column="17" bodyfile="SymbolDocument.h" bodystart="226" bodyend="226"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1a480e5fb8d4dad25e3617ae5fc627e01c" compoundref="_symbol_document_8cpp" startline="206" endline="223">SymbolDocument::Builder::addOutline</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>One hierarchical document-symbol entry stored in depth-first preorder. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="SymbolDocument.h" line="217" column="5" bodyfile="SymbolDocument.h" bodystart="218" bodyend="227"/>
+    <listofallmembers>
+      <member refid="struct_symbol_document_1_1_outline_entry_1adccf50efe28f906ceee4eb63322e22d2" prot="public" virt="non-virtual"><scope>SymbolDocument::OutlineEntry</scope><name>column</name></member>
+      <member refid="struct_symbol_document_1_1_outline_entry_1a56cfe5ceb9a8389cd124644422a64f81" prot="public" virt="non-virtual"><scope>SymbolDocument::OutlineEntry</scope><name>endColumn</name></member>
+      <member refid="struct_symbol_document_1_1_outline_entry_1ae115ae6739fe547da7a5f1dc582bbe16" prot="public" virt="non-virtual"><scope>SymbolDocument::OutlineEntry</scope><name>endLine</name></member>
+      <member refid="struct_symbol_document_1_1_outline_entry_1a922fc55b63a991c392469793816c9cf3" prot="public" virt="non-virtual"><scope>SymbolDocument::OutlineEntry</scope><name>line</name></member>
+      <member refid="struct_symbol_document_1_1_outline_entry_1a250845ffc88a221f70051ff38ac41306" prot="public" virt="non-virtual"><scope>SymbolDocument::OutlineEntry</scope><name>nameLength</name></member>
+      <member refid="struct_symbol_document_1_1_outline_entry_1aabbea78d18ad3381e7faa7e587875817" prot="public" virt="non-virtual"><scope>SymbolDocument::OutlineEntry</scope><name>parent</name></member>
+      <member refid="struct_symbol_document_1_1_outline_entry_1a21455bc6fba74e6387259236fe6a6a8e" prot="public" virt="non-virtual"><scope>SymbolDocument::OutlineEntry</scope><name>qualifierLength</name></member>
+      <member refid="struct_symbol_document_1_1_outline_entry_1ae91a8fecf53fa7caff0c93e276f850b7" prot="public" virt="non-virtual"><scope>SymbolDocument::OutlineEntry</scope><name>type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

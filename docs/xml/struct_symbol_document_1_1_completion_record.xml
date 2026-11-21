@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="struct_symbol_document_1_1_completion_record" kind="struct" language="C++" prot="public">
+    <compoundname>SymbolDocument::CompletionRecord</compoundname>
+    <includes refid="_symbol_document_8h" local="no">SymbolDocument.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_symbol_document_1_1_completion_record_1a3441bf5c3fa4376a1fbdfe4338cc5769" prot="public" static="no" mutable="no">
+        <type>int64_t</type>
+        <definition>int64_t SymbolDocument::CompletionRecord::scope</definition>
+        <argsstring></argsstring>
+        <name>scope</name>
+        <qualifiedname>SymbolDocument::CompletionRecord::scope</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Enclosing scope symbol identifier, or noSymbol for global scope. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="155" column="17" bodyfile="SymbolDocument.h" bodystart="155" bodyend="155"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1adde8e236b020f2ac2272652b48fea2b9" compoundref="_symbol_document_8cpp" startline="225" endline="240">SymbolDocument::Builder::addCompletion</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_completion_record_1a844aae10d8f8329e6272b3f2b9093974" prot="public" static="no" mutable="no">
+        <type>int64_t</type>
+        <definition>int64_t SymbolDocument::CompletionRecord::symbol</definition>
+        <argsstring></argsstring>
+        <name>symbol</name>
+        <qualifiedname>SymbolDocument::CompletionRecord::symbol</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Candidate symbol identifier. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="156" column="17" bodyfile="SymbolDocument.h" bodystart="156" bodyend="156"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1adde8e236b020f2ac2272652b48fea2b9" compoundref="_symbol_document_8cpp" startline="225" endline="240">SymbolDocument::Builder::addCompletion</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_completion_record_1a0a50c7339f4cf1c1810c58243c7b8e93" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::CompletionRecord::labelOffset</definition>
+        <argsstring></argsstring>
+        <name>labelOffset</name>
+        <qualifiedname>SymbolDocument::CompletionRecord::labelOffset</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Byte offset of the display label in the string pool. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="157" column="18" bodyfile="SymbolDocument.h" bodystart="157" bodyend="157"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1adde8e236b020f2ac2272652b48fea2b9" compoundref="_symbol_document_8cpp" startline="225" endline="240">SymbolDocument::Builder::addCompletion</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_completion_record_1a1f2e3d9ee04395985104a1cda8f8f588" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::CompletionRecord::labelLength</definition>
+        <argsstring></argsstring>
+        <name>labelLength</name>
+        <qualifiedname>SymbolDocument::CompletionRecord::labelLength</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Byte length of the display label. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="158" column="18" bodyfile="SymbolDocument.h" bodystart="158" bodyend="158"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1adde8e236b020f2ac2272652b48fea2b9" compoundref="_symbol_document_8cpp" startline="225" endline="240">SymbolDocument::Builder::addCompletion</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_completion_record_1a315029f41df09105725cd6b14dc41669" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::CompletionRecord::snippetOffset</definition>
+        <argsstring></argsstring>
+        <name>snippetOffset</name>
+        <qualifiedname>SymbolDocument::CompletionRecord::snippetOffset</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Byte offset of the insert text or snippet in the string pool. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="159" column="18" bodyfile="SymbolDocument.h" bodystart="159" bodyend="159"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1adde8e236b020f2ac2272652b48fea2b9" compoundref="_symbol_document_8cpp" startline="225" endline="240">SymbolDocument::Builder::addCompletion</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_completion_record_1ae3f6d9f5b2aec661c6c9ff10f14c2a9f" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::CompletionRecord::snippetLength</definition>
+        <argsstring></argsstring>
+        <name>snippetLength</name>
+        <qualifiedname>SymbolDocument::CompletionRecord::snippetLength</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Byte length of the insert text or snippet. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="160" column="18" bodyfile="SymbolDocument.h" bodystart="160" bodyend="160"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1adde8e236b020f2ac2272652b48fea2b9" compoundref="_symbol_document_8cpp" startline="225" endline="240">SymbolDocument::Builder::addCompletion</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_completion_record_1aa46722128ba629213220e04581ce51f9" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t SymbolDocument::CompletionRecord::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <qualifiedname>SymbolDocument::CompletionRecord::type</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Completion item kind index. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="161" column="17" bodyfile="SymbolDocument.h" bodystart="161" bodyend="161"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1adde8e236b020f2ac2272652b48fea2b9" compoundref="_symbol_document_8cpp" startline="225" endline="240">SymbolDocument::Builder::addCompletion</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_completion_record_1af6aafed340a21fa9910aa47b3dac4711" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::CompletionRecord::padding</definition>
+        <argsstring></argsstring>
+        <name>padding</name>
+        <qualifiedname>SymbolDocument::CompletionRecord::padding</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Alignment padding to 8-byte record boundary. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="162" column="18" bodyfile="SymbolDocument.h" bodystart="162" bodyend="162"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>One completion item associated with a scope symbol. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="SymbolDocument.h" line="153" column="5" bodyfile="SymbolDocument.h" bodystart="154" bodyend="163"/>
+    <listofallmembers>
+      <member refid="struct_symbol_document_1_1_completion_record_1a1f2e3d9ee04395985104a1cda8f8f588" prot="public" virt="non-virtual"><scope>SymbolDocument::CompletionRecord</scope><name>labelLength</name></member>
+      <member refid="struct_symbol_document_1_1_completion_record_1a0a50c7339f4cf1c1810c58243c7b8e93" prot="public" virt="non-virtual"><scope>SymbolDocument::CompletionRecord</scope><name>labelOffset</name></member>
+      <member refid="struct_symbol_document_1_1_completion_record_1af6aafed340a21fa9910aa47b3dac4711" prot="public" virt="non-virtual"><scope>SymbolDocument::CompletionRecord</scope><name>padding</name></member>
+      <member refid="struct_symbol_document_1_1_completion_record_1a3441bf5c3fa4376a1fbdfe4338cc5769" prot="public" virt="non-virtual"><scope>SymbolDocument::CompletionRecord</scope><name>scope</name></member>
+      <member refid="struct_symbol_document_1_1_completion_record_1ae3f6d9f5b2aec661c6c9ff10f14c2a9f" prot="public" virt="non-virtual"><scope>SymbolDocument::CompletionRecord</scope><name>snippetLength</name></member>
+      <member refid="struct_symbol_document_1_1_completion_record_1a315029f41df09105725cd6b14dc41669" prot="public" virt="non-virtual"><scope>SymbolDocument::CompletionRecord</scope><name>snippetOffset</name></member>
+      <member refid="struct_symbol_document_1_1_completion_record_1a844aae10d8f8329e6272b3f2b9093974" prot="public" virt="non-virtual"><scope>SymbolDocument::CompletionRecord</scope><name>symbol</name></member>
+      <member refid="struct_symbol_document_1_1_completion_record_1aa46722128ba629213220e04581ce51f9" prot="public" virt="non-virtual"><scope>SymbolDocument::CompletionRecord</scope><name>type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

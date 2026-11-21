@@ -384,6 +384,7 @@ endif()
 
 file(GLOB CAST_BINARY_FILES CONFIGURE_DEPENDS
 Source/HELP.md
+Source/tools.json
 ../jam/jam_tui/page/style.css
 language/cLang/spell.md
 language/cLang/language.cast

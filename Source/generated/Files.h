@@ -50,6 +50,7 @@ extern const juce::String lingLocalCache;            ///< Cache folder of LING i
 extern const juce::String lingPort;                  ///< Extension of the port file of a daemon.
 extern const juce::String lingSwap;                  ///< Extension of the swap file of a source file.
 extern const juce::String lingSymbols;               ///< Extension of the symbol swap file of a unit.
+extern const juce::String lingTools;                 ///< MCP tool list.
 extern const juce::String lsp;                       ///< LSP value table file of a language build.
 extern const juce::String sourceDirectoryVariable;   ///< The CMake variable that a manifest cell uses for the project folder.
 extern const juce::String syntaxTree;                ///< Syntax table file of a language build.

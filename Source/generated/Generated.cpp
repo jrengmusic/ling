@@ -80,6 +80,7 @@ namespace Id
     const juce::Identifier language             { juce::String::fromUTF8 ("language") };
     const juce::Identifier layoutGlob           { juce::String::fromUTF8 ("layout_glob") };
     const juce::Identifier ling                 { juce::String::fromUTF8 ("ling") };
+    const juce::Identifier mcp                  { juce::String::fromUTF8 ("mcp") };
     const juce::Identifier module               { juce::String::fromUTF8 ("module") };
     const juce::Identifier nameLength           { juce::String::fromUTF8 ("nameLength") };
     const juce::Identifier newName              { juce::String::fromUTF8 ("newName") };
@@ -164,6 +165,7 @@ const juce::String lingLocalCache             { juce::String::fromUTF8 ("ling") 
 const juce::String lingPort                   { juce::String::fromUTF8 ("port") };
 const juce::String lingSwap                   { juce::String::fromUTF8 ("swap") };
 const juce::String lingSymbols                { juce::String::fromUTF8 ("symbols") };
+const juce::String lingTools                  { juce::String::fromUTF8 ("tools.json") };
 const juce::String lsp                        { juce::String::fromUTF8 ("lsp.md") };
 const juce::String sourceDirectoryVariable    { juce::String::fromUTF8 ("${CMAKE_CURRENT_SOURCE_DIR}") };
 const juce::String syntaxTree                 { juce::String::fromUTF8 ("syntax_tree.md") };

@@ -192,6 +192,7 @@ Every field is a complete literal; nothing downstream derives, concatenates, or 
 | name                 | value                                                                      | description                                               |
 +======================+============================================================================+===========================================================+
 | help                 | Source/HELP.md                                                             | Help document source                                      |
+| tools                | Source/tools.json                                                          | MCP tool list, embedded as BinaryData                     |
 | styleSheet           | ../jam/jam_tui/page/style.css                                              | Stylesheet, embedded as BinaryData                        |
 | languageSpell        | language/cLang/spell.md                                                    | Default spell of the embedded language                    |
 | languageTemplate     | language/cLang/language.cast                                               | Default template of the embedded language                 |

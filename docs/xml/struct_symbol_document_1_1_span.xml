@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="struct_symbol_document_1_1_span" kind="struct" language="C++" prot="public">
+    <compoundname>SymbolDocument::Span</compoundname>
+    <includes refid="_symbol_document_8h" local="no">SymbolDocument.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename Element</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_symbol_document_1_1_span_1afe2ade3d8df4306e1021d1298ce75920" prot="public" static="no" mutable="no">
+        <type>const Element *</type>
+        <definition>const Element* SymbolDocument::Span&lt; Element &gt;::ptr</definition>
+        <argsstring></argsstring>
+        <name>ptr</name>
+        <qualifiedname>SymbolDocument::Span::ptr</qualifiedname>
+        <initializer>{ nullptr }</initializer>
+        <briefdescription>
+<para>First element in the slice, or nullptr when empty. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="32" column="23" bodyfile="SymbolDocument.h" bodystart="32" bodyend="32"/>
+        <referencedby refid="struct_symbol_document_1_1_span_1af19c99afc7b8ade14dbd92bdccbe34b3" compoundref="_symbol_document_8h" startline="53" endline="53">SymbolDocument::Span&lt; Element &gt;::at</referencedby>
+        <referencedby refid="struct_symbol_document_1_1_span_1af8dd59f9a7dc07e1decef7faa70557ec" compoundref="_symbol_document_8h" startline="36" endline="36">SymbolDocument::Span&lt; Element &gt;::begin</referencedby>
+        <referencedby refid="struct_symbol_document_1_1_span_1a9810448efae3444f69a820bcf6fbf294" compoundref="_symbol_document_8h" startline="39" endline="39">SymbolDocument::Span&lt; Element &gt;::end</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_symbol_document_1_1_span_1aa9ac8fb7504061814e1ad42b5eb04160" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::Span&lt; Element &gt;::count</definition>
+        <argsstring></argsstring>
+        <name>count</name>
+        <qualifiedname>SymbolDocument::Span::count</qualifiedname>
+        <initializer>{ 0 }</initializer>
+        <briefdescription>
+<para>Number of elements in the slice. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="33" column="18" bodyfile="SymbolDocument.h" bodystart="33" bodyend="33"/>
+        <referencedby refid="struct_symbol_document_1_1_span_1af19c99afc7b8ade14dbd92bdccbe34b3" compoundref="_symbol_document_8h" startline="53" endline="53">SymbolDocument::Span&lt; Element &gt;::at</referencedby>
+        <referencedby refid="struct_symbol_document_1_1_span_1aeeaddf83e09c641edfdfbb2f4fa62f69" compoundref="_symbol_document_8h" startline="45" endline="45">SymbolDocument::Span&lt; Element &gt;::empty</referencedby>
+        <referencedby refid="struct_symbol_document_1_1_span_1a9810448efae3444f69a820bcf6fbf294" compoundref="_symbol_document_8h" startline="39" endline="39">SymbolDocument::Span&lt; Element &gt;::end</referencedby>
+        <referencedby refid="struct_symbol_document_1_1_span_1a0f462a4b9c77837c6a0d427b094a08d7" compoundref="_symbol_document_8h" startline="42" endline="42">SymbolDocument::Span&lt; Element &gt;::size</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_symbol_document_1_1_span_1af8dd59f9a7dc07e1decef7faa70557ec" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>const Element *</type>
+        <definition>const Element * SymbolDocument::Span&lt; Element &gt;::begin</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>begin</name>
+        <qualifiedname>SymbolDocument::Span::begin</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Pointer to the first element in the slice. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="36" column="23" bodyfile="SymbolDocument.h" bodystart="36" bodyend="36"/>
+        <references refid="struct_symbol_document_1_1_span_1afe2ade3d8df4306e1021d1298ce75920" compoundref="_symbol_document_8h" startline="32" endline="32">SymbolDocument::Span&lt; Element &gt;::ptr</references>
+      </memberdef>
+      <memberdef kind="function" id="struct_symbol_document_1_1_span_1a9810448efae3444f69a820bcf6fbf294" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>const Element *</type>
+        <definition>const Element * SymbolDocument::Span&lt; Element &gt;::end</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>end</name>
+        <qualifiedname>SymbolDocument::Span::end</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Pointer one past the last element in the slice. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="39" column="23" bodyfile="SymbolDocument.h" bodystart="39" bodyend="39"/>
+        <references refid="struct_symbol_document_1_1_span_1aa9ac8fb7504061814e1ad42b5eb04160" compoundref="_symbol_document_8h" startline="33" endline="33">SymbolDocument::Span&lt; Element &gt;::count</references>
+        <references refid="struct_symbol_document_1_1_span_1afe2ade3d8df4306e1021d1298ce75920" compoundref="_symbol_document_8h" startline="32" endline="32">SymbolDocument::Span&lt; Element &gt;::ptr</references>
+      </memberdef>
+      <memberdef kind="function" id="struct_symbol_document_1_1_span_1a0f462a4b9c77837c6a0d427b094a08d7" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t SymbolDocument::Span&lt; Element &gt;::size</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>size</name>
+        <qualifiedname>SymbolDocument::Span::size</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Number of elements in the slice. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="42" column="18" bodyfile="SymbolDocument.h" bodystart="42" bodyend="42"/>
+        <references refid="struct_symbol_document_1_1_span_1aa9ac8fb7504061814e1ad42b5eb04160" compoundref="_symbol_document_8h" startline="33" endline="33">SymbolDocument::Span&lt; Element &gt;::count</references>
+        <referencedby refid="class_query_1aac9b5cc0c54b338d12e8906c1c9c207b" compoundref="_query_8cpp" startline="639" endline="653">Query::appendOutlines</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="struct_symbol_document_1_1_span_1aeeaddf83e09c641edfdfbb2f4fa62f69" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool SymbolDocument::Span&lt; Element &gt;::empty</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>empty</name>
+        <qualifiedname>SymbolDocument::Span::empty</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>True when the slice holds zero elements. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="45" column="14" bodyfile="SymbolDocument.h" bodystart="45" bodyend="45"/>
+        <references refid="struct_symbol_document_1_1_span_1aa9ac8fb7504061814e1ad42b5eb04160" compoundref="_symbol_document_8h" startline="33" endline="33">SymbolDocument::Span&lt; Element &gt;::count</references>
+      </memberdef>
+      <memberdef kind="function" id="struct_symbol_document_1_1_span_1af19c99afc7b8ade14dbd92bdccbe34b3" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>const Element &amp;</type>
+        <definition>const Element &amp; SymbolDocument::Span&lt; Element &gt;::at</definition>
+        <argsstring>(uint32_t index) const noexcept</argsstring>
+        <name>at</name>
+        <qualifiedname>SymbolDocument::Span::at</qualifiedname>
+        <param>
+          <type>uint32_t</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Returns the element at <computeroutput>index</computeroutput> after asserting bounds. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Zero-based element index in [0, count). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Reference to the element at <computeroutput>index</computeroutput>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="53" column="23" bodyfile="SymbolDocument.h" bodystart="53" bodyend="53"/>
+        <references refid="struct_symbol_document_1_1_span_1aa9ac8fb7504061814e1ad42b5eb04160" compoundref="_symbol_document_8h" startline="33" endline="33">SymbolDocument::Span&lt; Element &gt;::count</references>
+        <references refid="struct_symbol_document_1_1_span_1afe2ade3d8df4306e1021d1298ce75920" compoundref="_symbol_document_8h" startline="32" endline="32">SymbolDocument::Span&lt; Element &gt;::ptr</references>
+        <referencedby refid="class_query_1afead9f54d95cfd9c0cdadac4325ddd2c" compoundref="_query_8cpp" startline="655" endline="687">Query::appendOutline</referencedby>
+        <referencedby refid="class_query_1aac9b5cc0c54b338d12e8906c1c9c207b" compoundref="_query_8cpp" startline="639" endline="653">Query::appendOutlines</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Non-owning typed view over a contiguous slice of records inside a <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> buffer. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Element</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The record type in the backing table. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+    <location file="SymbolDocument.h" line="30" column="5" bodyfile="SymbolDocument.h" bodystart="31" bodyend="54"/>
+    <listofallmembers>
+      <member refid="struct_symbol_document_1_1_span_1af19c99afc7b8ade14dbd92bdccbe34b3" prot="public" virt="non-virtual"><scope>SymbolDocument::Span</scope><name>at</name></member>
+      <member refid="struct_symbol_document_1_1_span_1af8dd59f9a7dc07e1decef7faa70557ec" prot="public" virt="non-virtual"><scope>SymbolDocument::Span</scope><name>begin</name></member>
+      <member refid="struct_symbol_document_1_1_span_1aa9ac8fb7504061814e1ad42b5eb04160" prot="public" virt="non-virtual"><scope>SymbolDocument::Span</scope><name>count</name></member>
+      <member refid="struct_symbol_document_1_1_span_1aeeaddf83e09c641edfdfbb2f4fa62f69" prot="public" virt="non-virtual"><scope>SymbolDocument::Span</scope><name>empty</name></member>
+      <member refid="struct_symbol_document_1_1_span_1a9810448efae3444f69a820bcf6fbf294" prot="public" virt="non-virtual"><scope>SymbolDocument::Span</scope><name>end</name></member>
+      <member refid="struct_symbol_document_1_1_span_1afe2ade3d8df4306e1021d1298ce75920" prot="public" virt="non-virtual"><scope>SymbolDocument::Span</scope><name>ptr</name></member>
+      <member refid="struct_symbol_document_1_1_span_1a0f462a4b9c77837c6a0d427b094a08d7" prot="public" virt="non-virtual"><scope>SymbolDocument::Span</scope><name>size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -2,6 +2,15 @@
 show-metadata: false
 column-widths:
 - Command: 0.4
+- Method: 0.27
+- Operation: 0.23
+- Arguments: 0.16
+- Word: 0.24
+- File: 0.27
+- Entry: 0.26
+- Kind: 0.16
+- Callback: 0.21
+- Called by: 0.13
 ---
 
 # LING: Language Index Navigation Graph
@@ -48,6 +57,7 @@ Before `initialize`, each request gets error `-32002`. After `shutdown`, each re
 | `ling --help`                                               | Prints this guide.                                                                                                                                                     | 0                          |
 | `ling --version`                                            | Prints `ling <version> (<commit>)`.                                                                                                                                    | 0                          |
 | `ling --build <folder>`                                     | Builds the language library of the folder. See Build.                                                                                                                  | The exit code of `cast`    |
+| `ling --mcp <manifest> [--<word>]`                          | Serves the operations of the daemon as Model Context Protocol tools over stdio (revision 2026-07-28). Ends when stdin closes.                                          | 0                          |
 | `ling <manifest> [--<word>]`                                | Starts the server on stdio. See Server.                                                                                                                                | 0 after `shutdown` and `exit`, otherwise 1 |
 | `ling <manifest>` with no folder that holds it              | Starts the server on stdio for the working folder. See Server.                                                                                                         | 0 after `shutdown` and `exit`, otherwise 1 |
 | `ling daemon <manifest> [--<word>]`                         | Starts the daemon. Exits at once when a daemon with the same name runs.                                                                                                | 0                          |
