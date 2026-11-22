@@ -42,6 +42,7 @@ struct Diagnostics
     static constexpr const char* const failLanguageParse        { "file did not parse"                                              };///< A file that its language did not parse.
     static constexpr const char* const failUnitIndex            { "unit index failed"                                               };///< A unit whose index call returned nonzero.
     static constexpr const char* const failConstructionNotFound { "no language folder holds a construction file"                    };///< No folder of the language folder holds construction.md.
+    static constexpr const char* const failNoDaemon             { "no daemon for manifest"                                          };///< A manifest whose daemon exited with no indexable files.
 };
 /** @brief ling code action titles. */
 struct CodeAction

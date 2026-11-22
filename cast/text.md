@@ -21,6 +21,7 @@
 | failLanguageParse        | `file did not parse`                                              | A file that its language did not parse.                               |
 | failUnitIndex            | `unit index failed`                                               | A unit whose index call returned nonzero.                             |
 | failConstructionNotFound | `no language folder holds a construction file`                    | No folder of the language folder holds construction.md.               |
+| failNoDaemon             | `no daemon for manifest`                                          | A manifest whose daemon exited with no indexable files.               |
 +--------------------------+-------------------------------------------------------------------+-----------------------------------------------------------------------+
 
 ## codeAction

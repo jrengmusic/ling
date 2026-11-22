@@ -62,9 +62,9 @@ private:
     void messageReceived (const juce::MemoryBlock& reply) override;
 
     /**
-     * @brief Dispatches a child added to @c requests, or drains it when no daemon port exists.
+     * @brief Dispatches a child added to @c requests, or reports no daemon when no daemon port exists.
      *
-     * Sends @p childWhichHasBeenAdded when connected, or calls sendEmptyResult() when
+     * Sends @p childWhichHasBeenAdded when connected, or calls sendNoDaemonError() when
      * @c model.state Id::port equals @c Server::noPort. Ignores other parent trees.
      *
      * @param parentTree              The tree that gained the child.
@@ -73,9 +73,9 @@ private:
     void valueTreeChildAdded (juce::ValueTree& parentTree, juce::ValueTree& childWhichHasBeenAdded) override;
 
     /**
-     * @brief Drains @c requests via sendEmptyResult() when @c model.state Id::port becomes @c Server::noPort.
+     * @brief Drains @c requests via sendNoDaemonError() when @c model.state Id::port becomes @c Server::noPort.
      *
-     * Clears pending rows so MCP callers receive an immediate null result when no daemon
+     * Clears pending rows so MCP callers receive an immediate tool error when no daemon
      * serves the manifest.
      *
      * @param tree      The tree whose property changed.
@@ -105,11 +105,14 @@ private:
     void sendRequest (const juce::ValueTree& row);
 
     /**
-     * @brief Sends a null tool result when @p row is an identified request, then removes @p row.
+     * @brief Sends an `isError: true` tool error when @p row is an identified request, then removes @p row.
+     *
+     * Formats the error text from @c text::Diagnostics::failNoDaemon and @c manifestFile
+     * via @c server.sendToolError().
      *
      * @param row  The queued row to drain from @c requests.
      */
-    void sendEmptyResult (const juce::ValueTree& row);
+    void sendNoDaemonError (const juce::ValueTree& row);
 
     /**
      * @brief Extracts the positional argument array of a request row from MCP tool arguments.

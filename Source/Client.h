@@ -61,17 +61,17 @@ private:
      */
     void connectionLost() override;
 
+protected:
     /** @brief The manifest of the run. Its path names the port file. */
     const juce::File manifestFile;
 
-    /** @brief The toolchain argument of the run. Empty when none is given. */
-    const juce::String toolchainArgument;
-
-protected:
     /** @brief The model of the run. Holds overlay messages and the daemon port property. */
     LINGModel& model { *LINGModel::getInstance() };
 
 private:
+    /** @brief The toolchain argument of the run. Empty when none is given. */
+    const juce::String toolchainArgument;
+
     /** @brief The file watcher of the cache folder. It reports the change of the port file. */
     jam::File::Watcher watcher;
 

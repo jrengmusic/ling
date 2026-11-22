@@ -114,6 +114,56 @@
 <!-- The entry format is in /log (commands/log.md). It is the only source. -->
 <!-- Sprint entries go here, written by PRIMARY agents -->
 
+## Sprint 18: Universal MCP `content` + `structuredContent` contract, explicit `noPort` error, Windows Job breakaway fallback, `goToImplementation` crash fix, and audit ✅
+
+**Date:** 2026-11-22
+**Duration:** 02:35
+
+### Agents Participated
+- COUNSELOR: Built Framework Inventory across `jam` and `ling`, authored and executed `PLAN-mcp-empty-responses-and-manifest-cwd.md`, diagnosed `Query::applyToImplementations` root-parent null dereference, validated all Engineer steps, confirmed and resolved all 3 Auditor findings, verified all Pathfinder Doxygen edits, and logged Sprint 18.
+- Pathfinder (`flash`): Gathered `jam` and `ling` inventory excerpts, investigated Windows stdio vs MCP response framing, verified git history for `test/` and `benchmark/`, ran the 13/13 sequential raw MCP stdio verification, `noPort` error verification, `ling` and `end` Windows `clang-cl` accuracy checks, and executed the post-audit Doxygen pass.
+- Engineer (`inherit`): Implemented `appendTextContent` and updated `ModelContextServer::sendResponse`/`sendToolError`, added `failNoDaemon` and `ToolRelay::sendNoDaemonError`, added `CREATE_BREAKAWAY_FROM_JOB` `ERROR_ACCESS_DENIED` fallback in `ChildProcess::startDetached`, and resolved all 3 Auditor findings (`isValidMeta` → `applyValidMeta`, `Source/HELP.md`, `CLAUDE.md`, `README.md`, and deletion of `PLAN-mcp-empty-responses-and-manifest-cwd.md`).
+- Auditor (`inherit`): Audited all 10 sprint files and root docs against `MANIFESTO.md`, `CODING.md`, `NAMES.md`, `LANGUAGE.md`, and `PLAN-mcp-empty-responses-and-manifest-cwd.md` (`NEEDS_WORK`, 3 findings — all 3 confirmed and resolved).
+
+### Files Modified (13 total: 4 in `jam`, 9 in `ling` including 1 deleted)
+- `../jam/jam_model_context_protocol/server/jam_ModelContextServer.h:44-53, 106-138` — updated `sendResponse` Doxygen, replaced `isValidMeta` with template `applyValidMeta` (NAMES.md Rule 1 Verb Contract), and added `applyValidMeta` Doxygen.
+- `../jam/jam_model_context_protocol/server/jam_ModelContextServer.cpp:109-156, 288-386` — added file-local `static void appendTextContent`, updated `sendResponse` to emit `content` text block alongside `structuredContent` and `sendToolError` to reuse it, and migrated `discover`/`listTools`/`callTool` to `applyValidMeta`.
+- `../jam/jam_subprocess/subprocess/jam_ChildProcess.h:46-61` — updated `startDetached` Doxygen for Windows breakaway fallback.
+- `../jam/jam_subprocess/subprocess/native/jam_ChildProcess_windows.cpp:233-267` — added `baseCreationFlags` and retry without `CREATE_BREAKAWAY_FROM_JOB` when `CreateProcessW` returns `ERROR_ACCESS_DENIED`.
+- `cast/text.md:24` — added `failNoDaemon` diagnostic text (`no daemon for manifest`).
+- `Source/Client.h:64-78` — moved `const juce::File manifestFile` to `protected:` (preserving member order relative to `Client.cpp:5-6`) without adding a getter.
+- `Source/ToolRelay.h:64-84, 107-115` — renamed `sendEmptyResult` to `sendNoDaemonError` and updated Doxygen blocks.
+- `Source/ToolRelay.cpp:115-171` — replaced `sendEmptyResult` (`null`) with `sendNoDaemonError` calling `server.sendToolError` with `failNoDaemon` + `Id::diagnosticSeparator` + `manifestFile.getFullPathName()`.
+- `Source/Query.h:681-705` — guarded `applyToImplementations` with `declaration.parent != nullptr and declaration.parent != document.getRoot()` to prevent null `Id::type` dereference on top-level out-of-line definitions, and updated Doxygen.
+- `Source/HELP.md:32, 309` — documented `ling --mcp` tool error on `-1` port file and Windows `%LOCALAPPDATA%\ling` cache path.
+- `CLAUDE.md:13, 20-28` — synced Sprint 18 summary, removed non-existent `test/` and `benchmark/` layout entries, and updated sprint log range.
+- `README.md:46` — clarified pre-installation PATH collision statement.
+- `PLAN-mcp-empty-responses-and-manifest-cwd.md` — deleted completed Sprint 18 plan.
+
+### Alignment Check
+- [x] BLESSED principles followed
+- [x] NAMES.md adhered
+- [x] MANIFESTO.md principles applied
+
+### Problems Solved
+- **Empty MCP tool output for standard `content`-reading clients:** `jam::ModelContextServer::sendResponse` emitted `"content": []` and relied on a single host's `structuredContent` fallback; now emits both `content: [{"type":"text","text":"..."}]` and `structuredContent` for all JAM MCP servers (`ling`, `whatdbg`, `scout`).
+- **Silent `null` on `Server::noPort` in `ToolRelay`:** Replaced `sendEmptyResult` with `sendNoDaemonError`, returning an explicit MCP `isError: true` message naming the manifest path.
+- **Windows restricted Job Object daemon spawn failure:** `jam::ChildProcess::startDetached` now retries `CreateProcessW` without `CREATE_BREAKAWAY_FROM_JOB` on `ERROR_ACCESS_DENIED`.
+- **`goToImplementation` daemon crash on out-of-line member definitions:** `Query::applyToImplementations` called `index.hasRole` on `document.getRoot()` (no `Id::type`), crashing in `LibraryLanguage::hasRole`; fixed with `declaration.parent != nullptr and declaration.parent != document.getRoot()`, passing 13/13 MCP tools in one sequential stdio session (`EXIT_CODE=0`).
+- **Audit clean sweep (3/3 resolved):** Replaced side-effecting `ModelContextServer::isValidMeta` with `applyValidMeta`, synced `Source/HELP.md`/`CLAUDE.md`/`README.md`, and deleted the completed plan.
+
+### State for Continuation
+- Build `ling` (`cast cast/spell.md --no-sign`) exited 0 and installed `ling 0.0.1 (a550b12)` to `C:\Users\jreng\.local\bin\ling.exe`.
+- Rebuild `whatdbg` and `scout` when needed so they pick up the `jam::ModelContextServer` fix.
+- Regenerate Doxygen XML in `jam` (`<leader>bd`) and `ling` when Doxygen config/target is available.
+- Live `carol_ling` MCP host spawns `ling --mcp project-info.md` in `C:\Users\jreng\.gemini\config\plugins\carol`; verify host CWD configuration separately if needed.
+
+### Debts Paid
+- None
+
+### Debts Deferred
+- None
+
 ## Sprint 17: Windows build, `cLang` `clang-cl` indexing, path normalization, `addUnits` rename, and audit ✅
 
 **Date:** 2026-11-22

@@ -117,7 +117,7 @@ void ToolRelay::valueTreeChildAdded (juce::ValueTree& parentTree, juce::ValueTre
         if (isConnected())
             sendRequest (childWhichHasBeenAdded);
         else if (static_cast<int> (model.state[Id::port]) == Server::noPort)
-            sendEmptyResult (childWhichHasBeenAdded);
+            sendNoDaemonError (childWhichHasBeenAdded);
     }
 }
 
@@ -129,7 +129,7 @@ void ToolRelay::valueTreePropertyChanged (juce::ValueTree& tree, const juce::Ide
         {
             const auto row { requests.getChild (0) };
 
-            sendEmptyResult (row);
+            sendNoDaemonError (row);
         }
     }
 }
@@ -157,10 +157,15 @@ void ToolRelay::sendRequest (const juce::ValueTree& row)
     requests.removeChild (row, nullptr);
 }
 
-void ToolRelay::sendEmptyResult (const juce::ValueTree& row)
+void ToolRelay::sendNoDaemonError (const juce::ValueTree& row)
 {
     if (row.hasType (jam::Format::toType (Id::request)) and row.hasProperty (Id::id))
-        server.sendResponse (row[Id::id].toString(), jam::Strings::getView (Id::null.toString()));
+    {
+        std::string errorMessage { text::Diagnostics::failNoDaemon };
+        errorMessage.append (jam::Strings::getView (Id::diagnosticSeparator));
+        errorMessage.append (jam::Strings::getView (manifestFile.getFullPathName()));
+        server.sendToolError (row[Id::id].toString(), errorMessage);
+    }
 
     requests.removeChild (row, nullptr);
 }

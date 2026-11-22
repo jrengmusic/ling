@@ -43,4 +43,4 @@ The Chinese and Germanic-root claims are not used. They are contested, unverifie
 
 Cloudozer's LING (formerly Erlang on Xen) uses the same name. It is an Erlang runtime that runs as a unikernel on Xen. Its maintenance state is unclear: a 2020 Elixir Forum post calls it inactive, and no recent commit date was read. The check ran two queries and found no code-intelligence tool named Ling. It is not exhaustive.
 
-On the development machine, `ling` is not on PATH and Homebrew has no formula `ling`.
+Before installation, no existing `ling` binary was on PATH and Homebrew has no formula `ling`.

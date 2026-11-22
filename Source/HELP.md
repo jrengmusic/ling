@@ -29,7 +29,7 @@ When the manifest is a bare file name that the working folder does not hold, the
 
 When no folder holds it, the server uses the working folder as the project. The daemon of that folder asks each language for its units with no toolchain rows.
 
-A daemon with zero units writes `-1` to its port file and ends at once. Then the server answers each operation with a `null` result.
+A daemon with zero units writes `-1` to its port file and ends at once. Then the LSP server answers each operation with a `null` result, and `ling --mcp` answers with a tool error (`no daemon for manifest: <manifest>`).
 
 The daemon reads the manifest. It parses each file of each unit and keeps the index.
 
@@ -306,7 +306,7 @@ A library calls these callbacks. ling gives each callback a context and a functi
 
 ## Carried Libraries
 
-The release carries the language libraries as archives. The daemon unpacks the archives once into `<cache>/language/<hash>`. The cache is `~/.cache/ling`.
+The release carries the language libraries as archives. The daemon unpacks the archives once into `<cache>/language/<hash>`. The cache is `~/.cache/ling` (on Windows, `%LOCALAPPDATA%\ling`).
 
 A language folder with a library in `build/` uses that library. Otherwise, the daemon uses the carried library of the folder name.
 

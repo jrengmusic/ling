@@ -681,8 +681,8 @@ private:
     /**
      * @brief Calls @p function for each derived-class or overridden-member implementation of @p declaration.
      *
-     * A class declaration visits all derived classes; a member of a class visits
-     * matching-name declarations inside each derived class.
+     * A class declaration visits all derived classes; a member with a non-null,
+     * non-root class parent visits matching-name declarations inside each derived class.
      *
      * @tparam Function    Callable taking (int pathIndex, const jam::Document&, const jam::Document::Element&, int tokenIndex).
      * @param pathIndex    Path index of the document containing @p declaration.
@@ -702,7 +702,7 @@ private:
                 applyToDerived (record.symbol, function, index);
             });
         }
-        else if (index.hasRole (document, *declaration.parent, jam::LanguageRole::classToken))
+        else if (declaration.parent != nullptr and declaration.parent != document.getRoot() and index.hasRole (document, *declaration.parent, jam::LanguageRole::classToken))
         {
             const auto memberName { document.getView (declaration.get<jam::Document::Tokens> (Id::nameTokens)->last()) };
 
