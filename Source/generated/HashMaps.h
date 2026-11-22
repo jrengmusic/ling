@@ -47,9 +47,8 @@ struct Readiness : public jam::HashMap<juce::Identifier, juce::Identifier>
     { Id::prepareCallHierarchy, Id::file },
     { Id::incomingCalls,        Id::file },
     { Id::outgoingCalls,        Id::file },
-    { Id::didOpen,              Id::file },
-    { Id::didChange,            Id::file },
-    { Id::didClose,             Id::file },
+    { Id::setBuffer,            Id::file },
+    { Id::removeBuffer,         Id::file },
     { Id::semanticTokens,       Id::file },
     { Id::semanticTokensRange,  Id::file },
     { Id::selectionRange,       Id::file },
@@ -89,9 +88,8 @@ struct Parameters : public jam::HashMap<juce::Identifier, juce::Identifier>
     { Id::semanticTokens,       Id::file },
     { Id::semanticTokensRange,  Id::range },
     { Id::workspaceSymbol,      Id::query },
-    { Id::didOpen,              Id::file },
-    { Id::didChange,            Id::file },
-    { Id::didClose,             Id::file },
+    { Id::setBuffer,            Id::file },
+    { Id::removeBuffer,         Id::file },
     } {}
 };
 

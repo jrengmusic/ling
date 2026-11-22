@@ -29,7 +29,6 @@
 | Id::semanticTokens       | Id::file     |
 | Id::semanticTokensRange  | Id::range    |
 | Id::workspaceSymbol      | Id::query    |
-| Id::didOpen              | Id::file     |
-| Id::didChange            | Id::file     |
-| Id::didClose             | Id::file     |
+| Id::setBuffer            | Id::file     |
+| Id::removeBuffer         | Id::file     |
 +--------------------------+--------------+

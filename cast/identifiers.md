@@ -37,9 +37,6 @@
 | @id  | declarations         | `declarations`         |             |
 | @id  | dependencies         | `dependencies`         |             |
 | @id  | diagnostics          | `diagnostics`          |             |
-| @id  | didChange            | `didChange`            |             |
-| @id  | didClose             | `didClose`             |             |
-| @id  | didOpen              | `didOpen`              |             |
 | @id  | documentHighlight    | `documentHighlight`    |             |
 | @id  | documentSymbol       | `documentSymbol`       |             |
 | @id  | documents            | `documents`            |             |
@@ -92,6 +89,7 @@
 | @id  | qualifierLength      | `qualifierLength`      |             |
 | @id  | query                | `query`                |             |
 | @id  | references           | `references`           |             |
+| @id  | removeBuffer         | `removeBuffer`         |             |
 | @id  | rename               | `rename`               |             |
 | @id  | request              | `request`              |             |
 | @id  | result               | `result`               |             |
@@ -104,6 +102,7 @@
 | @id  | selectionRange       | `selectionRange`       |             |
 | @id  | semanticTokens       | `semanticTokens`       |             |
 | @id  | semanticTokensRange  | `semanticTokensRange`  |             |
+| @id  | setBuffer            | `setBuffer`            |             |
 | @id  | setDocuments         | `setDocuments`         |             |
 | @id  | severity             | `severity`             |             |
 | @id  | snippet              | `snippet`              |             |

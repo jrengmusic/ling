@@ -180,28 +180,22 @@ private:
     void cancelRequest (const jam::JsonDocument& document, const jam::Document::Element& root);
 
     /**
-     * @brief Queues an Id::didOpen request row carrying the opened buffer text when the session is active.
+     * @brief Queues an Id::setBuffer request row for the daemon when the session is active.
+     *
+     * Sets Id::text from params.contentChanges[0].text when present, or from params.textDocument.text otherwise.
      *
      * @param document  The parsed notification message.
-     * @param root      The root element holding params.textDocument.
+     * @param root      The root element holding params.
      */
-    void didOpen (const jam::JsonDocument& document, const jam::Document::Element& root);
+    void setBuffer (const jam::JsonDocument& document, const jam::Document::Element& root);
 
     /**
-     * @brief Queues an Id::didChange request row carrying the updated buffer text when the session is active.
+     * @brief Queues an Id::removeBuffer request row for the daemon when the session is active.
      *
      * @param document  The parsed notification message.
-     * @param root      The root element holding params.contentChanges.
+     * @param root      The root element holding params.
      */
-    void didChange (const jam::JsonDocument& document, const jam::Document::Element& root);
-
-    /**
-     * @brief Queues an Id::didClose request row to drop the unsaved buffer when the session is active.
-     *
-     * @param document  The parsed notification message.
-     * @param root      The root element holding params.textDocument.
-     */
-    void didClose (const jam::JsonDocument& document, const jam::Document::Element& root);
+    void removeBuffer (const jam::JsonDocument& document, const jam::Document::Element& root);
 
     /**
      * @brief Builds an Id::request row from an LSP message's params and operation identifier.

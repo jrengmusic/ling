@@ -136,9 +136,8 @@ void Processor::registerEvents()
     events.add (Id::typeDefinition, [this] (const juce::Identifier&, juce::ValueTree& request) { query.typeDefinition (request, index); });
     events.add (Id::codeAction, [this] (const juce::Identifier&, juce::ValueTree& request) { query.codeAction (request, index); });
 
-    events.add (Id::didOpen, [this] (const juce::Identifier&, juce::ValueTree& request) { setBuffer (request); });
-    events.add (Id::didChange, [this] (const juce::Identifier&, juce::ValueTree& request) { setBuffer (request); });
-    events.add (Id::didClose, [this] (const juce::Identifier&, juce::ValueTree& request) { removeBuffer (request); });
+    events.add (Id::setBuffer, [this] (const juce::Identifier&, juce::ValueTree& request) { setBuffer (request); });
+    events.add (Id::removeBuffer, [this] (const juce::Identifier&, juce::ValueTree& request) { removeBuffer (request); });
 
     propertyEvents.add (Id::path, [this] (const juce::Identifier&, juce::ValueTree& tree)
     {
@@ -691,7 +690,10 @@ void Processor::setBufferChange (juce::ValueTree& request)
         files.getChild (rowIndex).sendPropertyChangeMessage (Id::path);
     }
 
-    request.getParent().removeChild (request, nullptr);
+    if (request.getParent().hasProperty (Id::positionEncoding))
+        request.getParent().removeChild (request, nullptr);
+    else
+        Query::setResult (request, [] (juce::MemoryBlock& message) { jam::JsonWriter::appendNull (message); });
 }
 
 void Processor::setFile (const juce::ValueTree& file)

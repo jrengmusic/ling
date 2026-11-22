@@ -256,6 +256,36 @@ public:
     static void setError (juce::ValueTree& request, int code);
 
     /**
+     * @brief Serializes a JSON-RPC response object with @p appendValue as `result` onto @p request Id::result.
+     *
+     * @tparam Function     Callable taking (juce::MemoryBlock& message).
+     * @param request       The request row providing optional Id::id (null when absent) and receiving Id::result.
+     * @param appendValue   Callable writing the JSON value of the `result` member.
+     */
+    template <typename Function>
+    static void setResult (juce::ValueTree& request, const Function& appendValue)
+    {
+        juce::MemoryBlock json;
+
+        jam::JsonWriter::appendObject (json, [&request, &appendValue] (juce::MemoryBlock& message)
+        {
+            appendJsonRpc (message);
+
+            jam::JsonWriter::appendKey (message, lsp::Member::id);
+
+            if (request.hasProperty (Id::id))
+                jam::Format::appendBytes (message, jam::Strings::getView (request[Id::id].toString()));
+            else
+                jam::JsonWriter::appendNull (message);
+
+            jam::JsonWriter::appendKey (message, lsp::Member::result);
+            appendValue (message);
+        });
+
+        request.setProperty (Id::result, juce::var (std::move (json)), nullptr);
+    }
+
+    /**
      * @brief Validates that @p request has a known command shape and matching positive position/range arguments.
      *
      * @param request  The request row to validate before dispatch.
@@ -1096,36 +1126,6 @@ private:
      * @return Resolved byte range, or empty when @p typeName is unknown or unmatched.
      */
     static juce::Range<uint32_t> getTextObjectRange (const jam::Document& document, const Language& language, const juce::String& typeName, const juce::Identifier& scopeName, uint32_t offset);
-
-    /**
-     * @brief Serializes a JSON-RPC response object with @p appendValue as `result` onto @p request Id::result.
-     *
-     * @tparam Function     Callable taking (juce::MemoryBlock& message).
-     * @param request       The request row providing Id::id and receiving Id::result.
-     * @param appendValue   Callable writing the JSON value of the `result` member.
-     */
-    template <typename Function>
-    void setResult (juce::ValueTree& request, const Function& appendValue) const
-    {
-        juce::MemoryBlock json;
-
-        jam::JsonWriter::appendObject (json, [&request, &appendValue] (juce::MemoryBlock& message)
-        {
-            appendJsonRpc (message);
-
-            jam::JsonWriter::appendKey (message, lsp::Member::id);
-
-            if (request.hasProperty (Id::id))
-                jam::Format::appendBytes (message, jam::Strings::getView (request[Id::id].toString()));
-            else
-                jam::JsonWriter::appendNull (message);
-
-            jam::JsonWriter::appendKey (message, lsp::Member::result);
-            appendValue (message);
-        });
-
-        request.setProperty (Id::result, juce::var (std::move (json)), nullptr);
-    }
 
     /**
      * @brief Serializes a JSON-RPC notification object for @p method onto @p request Id::result.

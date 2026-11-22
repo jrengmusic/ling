@@ -21,9 +21,8 @@
 | Id::prepareCallHierarchy | Id::file         |
 | Id::incomingCalls        | Id::file         |
 | Id::outgoingCalls        | Id::file         |
-| Id::didOpen              | Id::file         |
-| Id::didChange            | Id::file         |
-| Id::didClose             | Id::file         |
+| Id::setBuffer            | Id::file         |
+| Id::removeBuffer         | Id::file         |
 | Id::semanticTokens       | Id::file         |
 | Id::semanticTokensRange  | Id::file         |
 | Id::selectionRange       | Id::file         |

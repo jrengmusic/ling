@@ -81,9 +81,9 @@ Relay::Relay (const juce::File& newManifestFile, const juce::String& newToolchai
     requestMethods.add (juce::Identifier { jam::Strings::fromView (lsp::Method::shutdown) }, [this] (const juce::Identifier&, const jam::JsonDocument& document, const jam::Document::Element&, const jam::Document::Token& idToken) { shutdown (document, idToken); });
     notificationMethods.add (juce::Identifier { jam::Strings::fromView (lsp::Method::exit) }, [this] (const juce::Identifier&, const jam::JsonDocument&, const jam::Document::Element&) { exit(); });
     notificationMethods.add (juce::Identifier { jam::Strings::fromView (lsp::Method::cancelRequest) }, [this] (const juce::Identifier&, const jam::JsonDocument& document, const jam::Document::Element& root) { cancelRequest (document, root); });
-    notificationMethods.add (juce::Identifier { jam::Strings::fromView (lsp::Method::didOpen) }, [this] (const juce::Identifier&, const jam::JsonDocument& document, const jam::Document::Element& root) { didOpen (document, root); });
-    notificationMethods.add (juce::Identifier { jam::Strings::fromView (lsp::Method::didChange) }, [this] (const juce::Identifier&, const jam::JsonDocument& document, const jam::Document::Element& root) { didChange (document, root); });
-    notificationMethods.add (juce::Identifier { jam::Strings::fromView (lsp::Method::didClose) }, [this] (const juce::Identifier&, const jam::JsonDocument& document, const jam::Document::Element& root) { didClose (document, root); });
+    notificationMethods.add (juce::Identifier { jam::Strings::fromView (lsp::Method::didOpen) }, [this] (const juce::Identifier&, const jam::JsonDocument& document, const jam::Document::Element& root) { setBuffer (document, root); });
+    notificationMethods.add (juce::Identifier { jam::Strings::fromView (lsp::Method::didChange) }, [this] (const juce::Identifier&, const jam::JsonDocument& document, const jam::Document::Element& root) { setBuffer (document, root); });
+    notificationMethods.add (juce::Identifier { jam::Strings::fromView (lsp::Method::didClose) }, [this] (const juce::Identifier&, const jam::JsonDocument& document, const jam::Document::Element& root) { removeBuffer (document, root); });
 
     stdio.onBytesReady = [this] (int numBytes)
     {
@@ -320,39 +320,37 @@ juce::ValueTree Relay::getRequest (const jam::JsonDocument& document, const jam:
     return request;
 }
 
-void Relay::didOpen (const jam::JsonDocument& document, const jam::Document::Element& root)
+void Relay::setBuffer (const jam::JsonDocument& document, const jam::Document::Element& root)
 {
     if (isSessionActive())
     {
         const auto& params { *document.getChildByToken (root, document.get (root, lsp::Member::params)) };
-        const auto& textDocument { *document.getChildByToken (params, document.get (params, lsp::Member::textDocument)) };
-        auto request { getRequest (document, root, Id::didOpen) };
+        auto request { getRequest (document, root, Id::setBuffer) };
 
-        request.setProperty (Id::text, jam::Strings::fromView (document.getString (document.get (textDocument, lsp::Member::text))), nullptr);
+        if (document.contains (params, lsp::Member::contentChanges))
+        {
+            const auto& contentChanges { *document.getChildByToken (params, document.get (params, lsp::Member::contentChanges)) };
+            const auto& changes { *contentChanges.get<jam::Document::Tokens> (Id::tokens) };
+            const auto& change { *document.getChildByToken (contentChanges, changes.at (0)) };
+
+            request.setProperty (Id::text, jam::Strings::fromView (document.getString (document.get (change, lsp::Member::text))), nullptr);
+        }
+        else
+        {
+            const auto& textDocument { *document.getChildByToken (params, document.get (params, lsp::Member::textDocument)) };
+
+            request.setProperty (Id::text, jam::Strings::fromView (document.getString (document.get (textDocument, lsp::Member::text))), nullptr);
+        }
+
         requests.appendChild (request, nullptr);
     }
 }
 
-void Relay::didChange (const jam::JsonDocument& document, const jam::Document::Element& root)
+void Relay::removeBuffer (const jam::JsonDocument& document, const jam::Document::Element& root)
 {
     if (isSessionActive())
     {
-        const auto& params { *document.getChildByToken (root, document.get (root, lsp::Member::params)) };
-        const auto& contentChanges { *document.getChildByToken (params, document.get (params, lsp::Member::contentChanges)) };
-        const auto& changes { *contentChanges.get<jam::Document::Tokens> (Id::tokens) };
-        const auto& change { *document.getChildByToken (contentChanges, changes.at (0)) };
-        auto request { getRequest (document, root, Id::didChange) };
-
-        request.setProperty (Id::text, jam::Strings::fromView (document.getString (document.get (change, lsp::Member::text))), nullptr);
-        requests.appendChild (request, nullptr);
-    }
-}
-
-void Relay::didClose (const jam::JsonDocument& document, const jam::Document::Element& root)
-{
-    if (isSessionActive())
-    {
-        auto request { getRequest (document, root, Id::didClose) };
+        auto request { getRequest (document, root, Id::removeBuffer) };
 
         requests.appendChild (request, nullptr);
     }

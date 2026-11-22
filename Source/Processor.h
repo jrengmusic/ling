@@ -703,23 +703,27 @@ private:
     void setFile (const juce::ValueTree& file);
 
     /**
-     * @brief Stores or updates an unsaved editor buffer for a @c didOpen or @c didChange request.
+     * @brief Stores or updates an unsaved editor buffer for an Id::setBuffer request and triggers a re-parse.
      *
-     * @param request  Buffer notification request row.
+     * @param request  Request row providing the file path, Id::directory, and Id::text.
      */
     void setBuffer (juce::ValueTree& request);
 
     /**
-     * @brief Removes an unsaved editor buffer for a @c didClose request.
+     * @brief Removes an unsaved editor buffer for an Id::removeBuffer request and triggers a re-parse.
      *
-     * @param request  Buffer notification request row.
+     * @param request  Request row providing the file path and Id::directory.
      */
     void removeBuffer (juce::ValueTree& request);
 
     /**
-     * @brief Triggers a re-parse of the file named by @p request and removes @p request from its parent.
+     * @brief Notifies the matching file row to re-parse and completes @p request.
      *
-     * @param request  Buffer notification request row.
+     * Sends an Id::path property change on the matching file row in Id::files when indexed.
+     * Removes @p request from its parent when the parent has Id::positionEncoding,
+     * and writes a JSON-RPC @c null result via Query::setResult() otherwise.
+     *
+     * @param request  Buffer request row to notify and complete.
      */
     void setBufferChange (juce::ValueTree& request);
 

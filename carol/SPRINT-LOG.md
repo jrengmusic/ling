@@ -114,6 +114,50 @@
 <!-- The entry format is in /log (commands/log.md). It is the only source. -->
 <!-- Sprint entries go here, written by PRIMARY agents -->
 
+## Sprint 16: CLI buffer notification hang fix and `setBuffer`/`removeBuffer` naming ✅
+
+**Date:** 2026-11-22
+**Duration:** 02:03
+
+### Agents Participated
+- COUNSELOR: Consumed `RFC-cli-notification-operations-hang.md`, built Framework Inventory, settled Option A with ARCHITECT, authored `PLAN-cli-notification-operations-hang.md`, validated Steps 1–5 against CONTRACT, verified Auditor PASS and Pathfinder Doxygen edits, and logged Sprint 16.
+- Pathfinder (`flash`): Discovered CLI/LSP notification pipeline, `did*` blast radius, `cast/spell.md` codegen mappings, and completed the post-audit Doxygen pass on `Source/Query.h`, `Source/Processor.h`, and `Source/Relay.h`.
+- Engineer (`inherit`): Replaced `didOpen`/`didChange`/`didClose` with `setBuffer`/`removeBuffer` in `cast/` tables, exposed `Query::setResult` as `public static`, updated `Processor::registerEvents` and `Processor::setBufferChange`, unified `Relay::setBuffer`/`Relay::removeBuffer`, and updated `Source/HELP.md`.
+- Auditor (`inherit`): Audited Steps 1–5 against `MANIFESTO.md`, `CODING.md`, `NAMES.md`, `LANGUAGE.md`, and `PLAN-cli-notification-operations-hang.md` (`PASS`, 0 findings).
+
+### Files Modified (10 total)
+- `cast/identifiers.md:92, 105` — removed `didChange`, `didClose`, `didOpen`; added `removeBuffer` and `setBuffer` in alphabetical order.
+- `cast/readiness.md:24-25` — replaced `Id::didOpen`/`Id::didChange`/`Id::didClose` with `Id::setBuffer` and `Id::removeBuffer`.
+- `cast/parameters.md:32-33` — replaced `Id::didOpen`/`Id::didChange`/`Id::didClose` with `Id::setBuffer` and `Id::removeBuffer`.
+- `Source/Query.h:258-286` — exposed `Query::setResult` as `public static` beside `Query::setError` and updated its Doxygen block.
+- `Source/Processor.cpp:139-140, 682-697` — bound `Id::setBuffer`/`Id::removeBuffer`; `setBufferChange` removes `request` silently when parent has `Id::positionEncoding` (`Relay`) and writes `result: null` via `Query::setResult` otherwise (`Operation`).
+- `Source/Processor.h:705-728` — updated Doxygen blocks for `setBuffer`, `removeBuffer`, and `setBufferChange`.
+- `Source/Relay.h:182-198`, `Source/Relay.cpp:84-86, 323-357` — replaced `Relay::didOpen`/`didChange`/`didClose` with `Relay::setBuffer` and `Relay::removeBuffer` (preserving external `lsp::Method::did*` wire constants) and added Doxygen blocks.
+- `Source/HELP.md:97-99, 156-157` — updated `Methods` and `Operation Words` tables to `setBuffer` and `removeBuffer` with CLI `result: null` contract.
+- `PLAN-cli-notification-operations-hang.md` — wrote execution plan for this sprint.
+
+### Alignment Check
+- [x] BLESSED principles followed
+- [x] NAMES.md adhered
+- [x] MANIFESTO.md principles applied
+
+### Problems Solved
+- **CLI buffer notification infinite hang:** `Processor::setBufferChange` previously removed `request` without setting `Id::result`, leaving CLI `Operation` waiting forever. `setBufferChange` now checks `request.getParent().hasProperty (Id::positionEncoding)` so LSP `Relay` stays silent while CLI `Operation` receives `{"jsonrpc":"2.0","id":null,"result":null}` via `Query::setResult` and exits `0` after `Id::isIndexed` clears synchronously.
+- **Foreign `did*` semantics (`NAMES.md` Rule -1, Rule 1, Rule 5):** Collapsed duplicate `Id::didOpen`/`Id::didChange` and `Relay::didOpen`/`Relay::didChange` into `setBuffer`, and renamed `didClose` to `removeBuffer`, matching `Processor::setBuffer`/`Processor::removeBuffer` 1:1 while keeping external `lsp::Method::did*` wire strings intact (`NAMES.md` Rule 2).
+
+### State for Continuation
+- Build with `cast cast/spell.md` to regenerate `Source/generated/*` and verify `ling setBuffer`/`ling removeBuffer` output and LSP `test/buffer.lua`.
+- Run `ninja doxygen` after build to regenerate `docs/xml/`.
+- Ephemeral `RFC-cli-notification-operations-hang.md` and `PLAN-cli-notification-operations-hang.md` remain at project root until ARCHITECT deletes or archives them.
+
+### Debts Paid
+- None
+
+### Debts Deferred
+- None
+
+---
+
 ## Sprint 15: MCP Part 6 (ling --mcp), help layout & doxygen hygiene, T28 built-ins, and END fixture refresh ✅
 
 **Date:** 2026-11-22

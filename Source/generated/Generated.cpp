@@ -45,9 +45,6 @@ namespace Id
     const juce::Identifier declarations         { juce::String::fromUTF8 ("declarations") };
     const juce::Identifier dependencies         { juce::String::fromUTF8 ("dependencies") };
     const juce::Identifier diagnostics          { juce::String::fromUTF8 ("diagnostics") };
-    const juce::Identifier didChange            { juce::String::fromUTF8 ("didChange") };
-    const juce::Identifier didClose             { juce::String::fromUTF8 ("didClose") };
-    const juce::Identifier didOpen              { juce::String::fromUTF8 ("didOpen") };
     const juce::Identifier documentHighlight    { juce::String::fromUTF8 ("documentHighlight") };
     const juce::Identifier documentSymbol       { juce::String::fromUTF8 ("documentSymbol") };
     const juce::Identifier documents            { juce::String::fromUTF8 ("documents") };
@@ -100,6 +97,7 @@ namespace Id
     const juce::Identifier qualifierLength      { juce::String::fromUTF8 ("qualifierLength") };
     const juce::Identifier query                { juce::String::fromUTF8 ("query") };
     const juce::Identifier references           { juce::String::fromUTF8 ("references") };
+    const juce::Identifier removeBuffer         { juce::String::fromUTF8 ("removeBuffer") };
     const juce::Identifier rename               { juce::String::fromUTF8 ("rename") };
     const juce::Identifier request              { juce::String::fromUTF8 ("request") };
     const juce::Identifier result               { juce::String::fromUTF8 ("result") };
@@ -112,6 +110,7 @@ namespace Id
     const juce::Identifier selectionRange       { juce::String::fromUTF8 ("selectionRange") };
     const juce::Identifier semanticTokens       { juce::String::fromUTF8 ("semanticTokens") };
     const juce::Identifier semanticTokensRange  { juce::String::fromUTF8 ("semanticTokensRange") };
+    const juce::Identifier setBuffer            { juce::String::fromUTF8 ("setBuffer") };
     const juce::Identifier setDocuments         { juce::String::fromUTF8 ("setDocuments") };
     const juce::Identifier severity             { juce::String::fromUTF8 ("severity") };
     const juce::Identifier snippet              { juce::String::fromUTF8 ("snippet") };
