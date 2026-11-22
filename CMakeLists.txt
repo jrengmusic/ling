@@ -377,11 +377,6 @@ elseif(WIN32)
     set(CAST_PACK_platform "Windows")
 endif()
 
-if(WIN32)
-    string(TOLOWER "${CMAKE_CXX_COMPILER_ARCHITECTURE_ID}" CAST_PACK_architecture)
-    set(CAST_PACK_platform "${CAST_PACK_platform} ${CAST_PACK_architecture}")
-endif()
-
 file(GLOB CAST_BINARY_FILES CONFIGURE_DEPENDS
 Source/HELP.md
 Source/tools.json
@@ -421,6 +416,11 @@ include(CheckIPOSupported)
 
 set(CAST_POST_BUILD_STAMP_FILE "${CMAKE_BINARY_DIR}/post-build.stamp")
 set(CAST_POST_BUILD_DEPENDS $<TARGET_FILE:${PROJECT_NAME}>)
+
+if(WIN32)
+    string(TOLOWER "${CMAKE_CXX_COMPILER_ARCHITECTURE_ID}" CAST_PACK_architecture)
+    set(CAST_PACK_platform "${CAST_PACK_platform} ${CAST_PACK_architecture}")
+endif()
 
 set(CAST_PACK_ARCHIVE "${CMAKE_SOURCE_DIR}/${CAST_PACK_folder}/ling v${PROJECT_VERSION} ${CAST_PACK_platform}.${CAST_PACK_format}")
 
