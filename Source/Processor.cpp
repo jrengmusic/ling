@@ -879,7 +879,7 @@ void Processor::IndexJob::addSymbols()
 
 bool Processor::IndexJob::isForeign (const char* recordPath) const
 {
-    return foreignPaths.indexOf (juce::StringRef { juce::CharPointer_UTF8 { recordPath } }, false, 0) >= 0;
+    return foreignPaths.indexOf (juce::File { juce::String::fromUTF8 (recordPath) }.getFullPathName(), false, 0) >= 0;
 }
 
 void Processor::IndexJob::addSymbol (void* context, const char* recordPath, int line, int column, unsigned long long symbol, int nameLength, int role, int type, int hover, const unsigned long long* typeSymbols, int typeCount)
@@ -1266,7 +1266,7 @@ juce::ThreadPoolJob::JobStatus Processor::UnitsJob::runJob()
         callbacks.addMessage = &UnitsJob::addMessage;
 
         for (const auto& [family, language] : languages)
-            language->units (pointers.data(), argumentCounts.data(), argumentCounts.size(), directory.toRawUTF8(), cacheDirectory.toRawUTF8(), callbacks);
+            language->addUnits (pointers.data(), argumentCounts.data(), argumentCounts.size(), directory.toRawUTF8(), cacheDirectory.toRawUTF8(), callbacks);
 
         files.setProperty (Id::buildFiles, buildFiles, nullptr);
     }
@@ -1310,7 +1310,7 @@ void Processor::UnitsJob::addBuildFile (void* context, const char* path)
 {
     auto& job { *static_cast<UnitsJob*> (context) };
 
-    job.buildFiles.add (juce::String::fromUTF8 (path));
+    job.buildFiles.add (juce::File { juce::String::fromUTF8 (path) }.getFullPathName());
 }
 
 void Processor::UnitsJob::addMessage (void* context, const char* text)
@@ -1322,15 +1322,17 @@ void Processor::UnitsJob::addMessage (void* context, const char* text)
 
 int Processor::UnitsJob::getOrCreatePathIndex (const juce::String& path, int family)
 {
-    if (const auto pathIndex { paths.indexOf (path, false, 0) }; pathIndex >= 0)
+    const auto fullPath { juce::File { path }.getFullPathName() };
+
+    if (const auto pathIndex { paths.indexOf (fullPath, false, 0) }; pathIndex >= 0)
         return pathIndex;
 
     juce::ValueTree row { jam::Format::toType (Id::file) };
 
-    row.setProperty (Id::path, path, nullptr);
+    row.setProperty (Id::path, fullPath, nullptr);
     row.setProperty (Id::family, family, nullptr);
     files.appendChild (row, nullptr);
-    paths.add (path);
+    paths.add (fullPath);
     return paths.size() - 1;
 }
 

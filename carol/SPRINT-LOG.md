@@ -114,6 +114,55 @@
 <!-- The entry format is in /log (commands/log.md). It is the only source. -->
 <!-- Sprint entries go here, written by PRIMARY agents -->
 
+## Sprint 17: Windows build, `cLang` `clang-cl` indexing, path normalization, `addUnits` rename, and audit ✅
+
+**Date:** 2026-11-22
+**Duration:** 02:00
+
+### Agents Participated
+- COUNSELOR: Diagnosed Windows build, `cLang` `clang-cl` indexing, path separator mismatch, and `units()` contract smells; validated Engineer implementations and all 4 Auditor findings; verified Pathfinder post-audit Doxygen edits; logged Sprint 17.
+- Pathfinder (`flash`): Inspected Windows build/bundle pipeline, verified LSP stdio and CLI behavior on Windows, probed `language.dll` `units()`/`index()` return codes, mapped the `LanguageEntry::units` blast radius across `jam` and `ling`, and executed the post-audit Doxygen pass.
+- Engineer (`inherit`): Implemented `databaseDrivers`, `argumentPrefixRemovals`, `/Fo` output extraction, CRLF trimming, `clang-cl` `/clang:` argument ordering, `getManifestDriver`/`getInstallDirectory`, `units` → `addUnits` rename across `jam` and `ling`, canonical `juce::File::getFullPathName()` normalization in `Processor.cpp`, and resolved all 4 Auditor findings (`getArguments` return-by-value, `getManifestDriver` `"arguments"` path handling, `Source/HELP.md`, `CLAUDE.md`, `README.md`, and deletion of `PLAN-cli-notification-operations-hang.md`).
+- Auditor (`inherit`): Audited all 13 modified files plus root docs against `MANIFESTO.md`, `CODING.md`, `NAMES.md`, and `LANGUAGE.md` (`NEEDS_WORK`, 4 findings — all 4 confirmed and resolved).
+
+### Files Modified (17 total: 3 in `jam`, 14 in `ling` including 1 deleted)
+- `../jam/jam_syntax_tree/document/jam_LanguageInterface.h:62, 100, 162` — renamed `LanguageEntry::units` → `addUnits` and `LanguageUnits` → `LanguageAddUnits`; updated Doxygen references.
+- `../jam/jam_syntax_tree/document/jam_LanguageLibrary.h:84` — renamed `LanguageLibrary::units` → `addUnits` and updated Doxygen comment.
+- `../jam/jam_syntax_tree/document/jam_LanguageLibrary.cpp:13, 103` — updated `LanguageEntry::addUnits` and `LanguageAddUnits` lookup.
+- `language/cLang/construction.md:360-364, 524-529, 581-586, 601-609` — replaced scalar `databaseDriver` with platform-keyed `databaseDrivers` (`c++` / `clang-cl`), removed `clang-cl.exe` from `drivers`, added `outputPrefix`, `clangDriverPrefix`, `clangClDriver`, `commandKey`, `argumentsKey`, and `argumentPrefixRemovals` (`/Fo`, `/Fd`, `/Yc`, `/Yu`, `/Fp`).
+- `language/cLang/spell.md:109, 341-344, 381-384, 440-451, 489` — wired `addUnits`, `getDatabaseDrivers`, `getArgumentPrefixRemovals`, `getPrefixPosition`, `getManifestDriver`, `getInstallDirectory`, and `addUnitRows`.
+- `language/cLang/language.cast:715-765, 2000-2109, 2209-2416, 2610-2880, 6074, 6095-6123` — set Windows `CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded"` and `_CRT_SECURE_NO_WARNINGS`; stripped `\r` in `getCommandOutput`, `getVersionInstallDirectory`, and `addRecord`; added `/Fo` extraction via `getPrefixPosition`; returned `ling::Texts` from `getArguments` with `/clang:` flags placed before `-- <source>`; added `compile_commands.json`-first `getManifestDriver`/`getInstallDirectory`; renamed `units` → `addUnits` and internal helper to `addUnitRows`.
+- `cast/cmake.cast:217-220` — moved Windows architecture suffix on `CAST_PACK_platform` after `file(GLOB CAST_BINARY_FILES ...)` so BinaryData finds `Source/languages/Windows/*.zip`.
+- `.gitignore:36` — narrowed `Source/languages/` to `Source/languages/*/` so built-in language `.h`/`.cpp` files stay tracked while per-machine platform archives stay untracked.
+- `Source/Language.h:80`, `Source/BuiltInLanguage.h:69`, `Source/LibraryLanguage.h:78`, `Source/LibraryLanguage.cpp:34-36` — renamed `units` → `addUnits`.
+- `Source/Processor.h:452-556`, `Source/Processor.cpp:880-883, 1269, 1309-1337` — renamed `language->addUnits`, normalized `cLang` paths through `juce::File::getFullPathName()` in `UnitsJob::getOrCreatePathIndex`, `UnitsJob::addBuildFile`, and `IndexJob::isForeign`, and updated Doxygen blocks.
+- `Source/HELP.md:248, 281, 301-305` — synced `addUnits` entry/callbacks, `definition` role (`1024`), and `isForeign` callback.
+- `CLAUDE.md:13, 18, 30`, `README.md:7` — synced sprint state, `ToolRelay`/`tools.json`, and removed deleted tracker links.
+- `PLAN-cli-notification-operations-hang.md` — deleted completed Sprint 16 plan.
+
+### Alignment Check
+- [x] BLESSED principles followed
+- [x] NAMES.md adhered
+- [x] MANIFESTO.md principles applied
+
+### Problems Solved
+- **Windows `cLang` DLL link mismatch and warning:** `language.cast` omitted `CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded"` (conflicting with `languageCore.lib`) and `_CRT_SECURE_NO_WARNINGS`.
+- **Windows BinaryData pack path and `.gitignore`:** Narrowed `.gitignore` to `Source/languages/*/` and deferred the Windows `x64` suffix on `CAST_PACK_platform` until after the BinaryData glob.
+- **Windows `clang-cl` indexing produced zero `.symbols` files:** `getArguments` placed `/clang:` flags after `-- <source>` (`CXError_InvalidArguments`), `databaseDriver` (`c++`) hit MSYS2 GCC, `drivers` rewrote Visual Studio `clang-cl.exe` to MSYS2 (`'windows.h' file not found`), CRLF `\r` broke paths, and `/Fo<path>` was not parsed for `ninja -t deps`.
+- **Windows path separator mismatch (`/` vs `\`):** Normalized incoming `cLang` paths through `juce::File::getFullPathName()` at the `UnitsJob`/`IndexJob` boundary so `index.paths`, `pathRows`, `unitRows`, and `Query::getPathIndex` share one canonical representation.
+- **`units()` contract smells:** Renamed `units` → `addUnits` (`NAMES.md` Rule 1, Rule 5) across `jam` and `ling`, and resolved `libclang` from `compile_commands.json`'s compiler path first instead of `PATH`.
+- **Audit clean sweep (4/4 resolved):** Removed out-parameter from `getArguments`, fixed space-splitting for `"arguments"` entries in `getManifestDriver`, synced `Source/HELP.md`/`CLAUDE.md`/`README.md`, and deleted completed Sprint 16 plan.
+
+### State for Continuation
+- Rebuild `ling` (`cast cast/spell.md`) after deleting `C:\Users\jreng\.config\ling\language\cLang`, then verify `.symbols` generation and Neovim `gd` (`textDocument/definition`) on Windows.
+- Regenerate Doxygen XML (`doxygen Doxyfile` in `../jam` and `ninja -C Builds/Release doxygen` in `ling`) after build.
+
+### Debts Paid
+- None
+
+### Debts Deferred
+- None
+
 ## Sprint 16: CLI buffer notification hang fix and `setBuffer`/`removeBuffer` naming ✅
 
 **Date:** 2026-11-22

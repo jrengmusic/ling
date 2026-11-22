@@ -20,8 +20,8 @@
         </inbodydescription>
         <location file="SymbolDocument.h" line="138" column="17" bodyfile="SymbolDocument.h" bodystart="138" bodyend="138"/>
         <referencedby refid="class_symbol_document_1_1_builder_1ac4353fd209e4a4a8a4932ea36215fda7" compoundref="_symbol_document_8cpp" startline="131" endline="151">SymbolDocument::Builder::addSymbol</referencedby>
-        <referencedby refid="class_query_1a1af630e950e748883bd8aace09b6e235" compoundref="_query_8h" startline="374" endline="380">Query::applyToDeclarations</referencedby>
-        <referencedby refid="class_query_1a7d98690db81b3e8de810ea6b0bc3b0f7" compoundref="_query_8h" startline="664" endline="692">Query::applyToImplementations</referencedby>
+        <referencedby refid="class_query_1a1af630e950e748883bd8aace09b6e235" compoundref="_query_8h" startline="404" endline="410">Query::applyToDeclarations</referencedby>
+        <referencedby refid="class_query_1a7d98690db81b3e8de810ea6b0bc3b0f7" compoundref="_query_8h" startline="694" endline="722">Query::applyToImplementations</referencedby>
         <referencedby refid="class_query_1a76c1f274a78046412fbf74511ae165fb" compoundref="_query_8cpp" startline="359" endline="375">Query::documentHighlight</referencedby>
         <referencedby refid="class_query_1a852e9ede3402713f66bb2abf97ed1436" compoundref="_query_8cpp" startline="341" endline="357">Query::findReferences</referencedby>
         <referencedby refid="class_query_1ae6923bd8f08e5fc9296cc680e164bca0" compoundref="_query_8cpp" startline="888" endline="916">Query::getRecordType</referencedby>
@@ -89,7 +89,7 @@
         <qualifiedname>SymbolDocument::SymbolRecord::role</qualifiedname>
         <initializer>{ 0 }</initializer>
         <briefdescription>
-<para>Bitmask of <ref refid="structjam_1_1LanguageRole" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageRole</ref> flags for this occurrence. </para>
+<para>Bitmask of <ref refid="structjam_1_1LanguageRole" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::LanguageRole</ref> flags for this occurrence. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
@@ -97,7 +97,7 @@
         </inbodydescription>
         <location file="SymbolDocument.h" line="142" column="17" bodyfile="SymbolDocument.h" bodystart="142" bodyend="142"/>
         <referencedby refid="class_symbol_document_1_1_builder_1ac4353fd209e4a4a8a4932ea36215fda7" compoundref="_symbol_document_8cpp" startline="131" endline="151">SymbolDocument::Builder::addSymbol</referencedby>
-        <referencedby refid="class_query_1a274081916912f104cac7113c72e8a1b3" compoundref="_query_8h" startline="721" endline="744">Query::applyToDerivedFrom</referencedby>
+        <referencedby refid="class_query_1a274081916912f104cac7113c72e8a1b3" compoundref="_query_8h" startline="751" endline="774">Query::applyToDerivedFrom</referencedby>
         <referencedby refid="class_query_1a6be8d158cd564f0019757e508702795b" compoundref="_query_8cpp" startline="771" endline="827">Query::typeDefinition</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_symbol_document_1_1_symbol_record_1af0c60f99415ccfa3e5f0c88ea59271f7" prot="public" static="no" mutable="no">
@@ -108,7 +108,7 @@
         <qualifiedname>SymbolDocument::SymbolRecord::type</qualifiedname>
         <initializer>{ 0 }</initializer>
         <briefdescription>
-<para>Token type (<ref refid="structmap_1_1SyntaxTokenType" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">map::SyntaxTokenType</ref>) of the symbol. </para>
+<para>Token type (<ref refid="structmap_1_1SyntaxTokenType" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">map::SyntaxTokenType</ref>) of the symbol. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
@@ -125,7 +125,7 @@
         <qualifiedname>SymbolDocument::SymbolRecord::hover</qualifiedname>
         <initializer>{ 0 }</initializer>
         <briefdescription>
-<para><ref refid="class_index" kindref="compound">Index</ref> into the file&apos;s <ref refid="struct_symbol_document_1_1_hover_entry" kindref="compound">HoverEntry</ref> slice, or <ref refid="structjam_1_1LanguageCallbacks_1a41f0bf20e8cafe5a5f3e02c8be9355b4" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageCallbacks::noHover</ref>. </para>
+<para><ref refid="class_index" kindref="compound">Index</ref> into the file&apos;s <ref refid="struct_symbol_document_1_1_hover_entry" kindref="compound">HoverEntry</ref> slice, or <ref refid="structjam_1_1LanguageCallbacks_1a41f0bf20e8cafe5a5f3e02c8be9355b4" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::LanguageCallbacks::noHover</ref>. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>

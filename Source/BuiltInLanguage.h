@@ -66,7 +66,7 @@ public:
      * @param callbacks       Callbacks receiving each discovered file via addUnit.
      * @return Zero.
      */
-    int units (const char* const* arguments, const int* argumentCounts, int rowCount, const char* directory, const char*, const jam::LanguageCallbacks& callbacks) const override
+    int addUnits (const char* const* arguments, const int* argumentCounts, int rowCount, const char* directory, const char*, const jam::LanguageCallbacks& callbacks) const override
     {
         int offset { 0 };
 

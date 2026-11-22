@@ -20,7 +20,7 @@
         <location file="generated/Lsp.h" line="63" column="39" bodyfile="generated/Lsp.h" bodystart="63" bodyend="63"/>
         <referencedby refid="class_query_1a845ffafccd1af88a159ed366c9bc9a77" compoundref="_query_8cpp" startline="183" endline="204">Query::appendItem</referencedby>
         <referencedby refid="class_query_1a0441e751976c47bdcb4e92abd80acd62" compoundref="_query_8cpp" startline="166" endline="176">Query::appendLocation</referencedby>
-        <referencedby refid="class_relay_1a7423972ba523fc9ce8118d99052e31d1" compoundref="_relay_8cpp" startline="399" endline="406">Relay::getFile</referencedby>
+        <referencedby refid="class_relay_1a7423972ba523fc9ce8118d99052e31d1" compoundref="_relay_8cpp" startline="397" endline="404">Relay::getFile</referencedby>
         <referencedby refid="class_query_1acd635f36a483f60a544499f9734711d9" compoundref="_query_8cpp" startline="593" endline="615">Query::publishDiagnostics</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a3b30289019679b678e16f9c62952af0d" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -46,7 +46,7 @@
         <referencedby refid="class_query_1ab0a0831c6185bab1ed37ce7dfd9878c1" compoundref="_query_8cpp" startline="1079" endline="1094">Query::appendSelectionChain</referencedby>
         <referencedby refid="class_query_1aec3fcf2f6240f940d221f1a2924e7c77" compoundref="_query_8cpp" startline="1096" endline="1120">Query::appendSelectionRanges</referencedby>
         <referencedby refid="class_query_1ae2c68385edc00de097f75c8f33faa54d" compoundref="_query_8cpp" startline="218" endline="228">Query::appendTextEdit</referencedby>
-        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="432" endline="460">Relay::getRequestArguments</referencedby>
+        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="430" endline="458">Relay::getRequestArguments</referencedby>
         <referencedby refid="class_query_1adf9f19baf3d11420d442548886f453a7" compoundref="_query_8cpp" startline="406" endline="479">Query::hover</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a95ebfa0e94b63d5a24cee309e89675ca" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -64,8 +64,8 @@
         </inbodydescription>
         <location file="generated/Lsp.h" line="65" column="39" bodyfile="generated/Lsp.h" bodystart="65" bodyend="65"/>
         <referencedby refid="class_query_1a8d9110a46b4e0d9d3fa5164cae29a3af" compoundref="_query_8cpp" startline="149" endline="159">Query::appendRange</referencedby>
-        <referencedby refid="class_relay_1a7bfa0fddda4f4de7ab07cafe087a9c2d" compoundref="_relay_8cpp" startline="408" endline="430">Relay::getPosition</referencedby>
-        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="432" endline="460">Relay::getRequestArguments</referencedby>
+        <referencedby refid="class_relay_1a7bfa0fddda4f4de7ab07cafe087a9c2d" compoundref="_relay_8cpp" startline="406" endline="428">Relay::getPosition</referencedby>
+        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="430" endline="458">Relay::getRequestArguments</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a35caed4083234bc1790ef6c86fa542e7" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -82,7 +82,7 @@
         </inbodydescription>
         <location file="generated/Lsp.h" line="66" column="39" bodyfile="generated/Lsp.h" bodystart="66" bodyend="66"/>
         <referencedby refid="class_query_1a8d9110a46b4e0d9d3fa5164cae29a3af" compoundref="_query_8cpp" startline="149" endline="159">Query::appendRange</referencedby>
-        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="432" endline="460">Relay::getRequestArguments</referencedby>
+        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="430" endline="458">Relay::getRequestArguments</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1adb6295e7cc9a9df38b2d56f584af03b0" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -134,7 +134,7 @@
         <location file="generated/Lsp.h" line="69" column="39" bodyfile="generated/Lsp.h" bodystart="69" bodyend="69"/>
         <referencedby refid="class_query_1a845ffafccd1af88a159ed366c9bc9a77" compoundref="_query_8cpp" startline="183" endline="204">Query::appendItem</referencedby>
         <referencedby refid="class_query_1afead9f54d95cfd9c0cdadac4325ddd2c" compoundref="_query_8cpp" startline="655" endline="687">Query::appendOutline</referencedby>
-        <referencedby refid="class_relay_1a7bfa0fddda4f4de7ab07cafe087a9c2d" compoundref="_relay_8cpp" startline="408" endline="430">Relay::getPosition</referencedby>
+        <referencedby refid="class_relay_1a7bfa0fddda4f4de7ab07cafe087a9c2d" compoundref="_relay_8cpp" startline="406" endline="428">Relay::getPosition</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1ab4f7efd0e1e72b2d7e9fc37d2a1dbb47" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -259,8 +259,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="generated/Lsp.h" line="76" column="39" bodyfile="generated/Lsp.h" bodystart="76" bodyend="76"/>
-        <referencedby refid="class_relay_1a7bfa0fddda4f4de7ab07cafe087a9c2d" compoundref="_relay_8cpp" startline="408" endline="430">Relay::getPosition</referencedby>
-        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="432" endline="460">Relay::getRequestArguments</referencedby>
+        <referencedby refid="class_relay_1a7bfa0fddda4f4de7ab07cafe087a9c2d" compoundref="_relay_8cpp" startline="406" endline="428">Relay::getPosition</referencedby>
+        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="430" endline="458">Relay::getRequestArguments</referencedby>
         <referencedby refid="class_query_1aad6e5a1c4754d6605f90f30699fc7769" compoundref="_query_8cpp" startline="548" endline="580">Query::inlayHint</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1ad485bba07c55df528f7bfb1bb39f12bb" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -461,8 +461,8 @@
         <referencedby refid="class_relay_1ac1f705eac1ffab6d0fdedca63c0975c0" compoundref="_relay_8cpp" startline="256" endline="273">Relay::initialize</referencedby>
         <referencedby refid="class_tool_relay_1a4cda3d8491875e20fc7b4c868b327843" compoundref="_tool_relay_8cpp" startline="79" endline="111">ToolRelay::messageReceived</referencedby>
         <referencedby refid="class_relay_1a3397767f37e3b9fbd4aa06f8e1f9b98f" compoundref="_relay_8cpp" startline="228" endline="238">Relay::sendEmptyResult</referencedby>
-        <referencedby refid="class_query_1ae6ef066ef3e91ce050309430c41c5833" compoundref="_query_8h" startline="1108" endline="1128">Query::setResult</referencedby>
-        <referencedby refid="class_relay_1a9a70dcfd3b2456116dd23b37c70fa56b" compoundref="_relay_8cpp" startline="361" endline="365">Relay::shutdown</referencedby>
+        <referencedby refid="class_query_1ad9336e7536e4ee2277cfa401bff2a678" compoundref="_query_8h" startline="266" endline="286">Query::setResult</referencedby>
+        <referencedby refid="class_relay_1a9a70dcfd3b2456116dd23b37c70fa56b" compoundref="_relay_8cpp" startline="359" endline="363">Relay::shutdown</referencedby>
         <referencedby refid="class_operation_1aabd2f4f4f81b00a4085034090cd60cde" compoundref="_operation_8cpp" startline="49" endline="69">Operation::valueTreePropertyChanged</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a8413533706e5a2170bfed01445d08bca" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -501,14 +501,13 @@
         </inbodydescription>
         <location file="generated/Lsp.h" line="90" column="39" bodyfile="generated/Lsp.h" bodystart="90" bodyend="90"/>
         <referencedby refid="class_relay_1aaf892c60bc1099a6f42f795a595a64d6" compoundref="_relay_8cpp" startline="288" endline="298">Relay::cancelRequest</referencedby>
-        <referencedby refid="class_relay_1ac8467fe6a84d80cae61f5b436147c8c8" compoundref="_relay_8cpp" startline="336" endline="349">Relay::didChange</referencedby>
-        <referencedby refid="class_relay_1a75c3b886036fc7c0ae314e48990ea00d" compoundref="_relay_8cpp" startline="323" endline="334">Relay::didOpen</referencedby>
-        <referencedby refid="class_relay_1a03dcf69baa5a5a38ac638dbc92456a5d" compoundref="_relay_8cpp" startline="373" endline="397">Relay::getPositionEncoding</referencedby>
+        <referencedby refid="class_relay_1a03dcf69baa5a5a38ac638dbc92456a5d" compoundref="_relay_8cpp" startline="371" endline="395">Relay::getPositionEncoding</referencedby>
         <referencedby refid="class_server_1aece7f9ddae369cfc938b0504dd93bb0e" compoundref="_server_8cpp" startline="145" endline="204">Server::getProgress</referencedby>
         <referencedby refid="class_relay_1ab1ca96f9eed2a2ac1c3161037219f923" compoundref="_relay_8cpp" startline="300" endline="321">Relay::getRequest</referencedby>
         <referencedby refid="class_operation_1a114ea0c0f4f8f476bae294004b68b82a" compoundref="_operation_8cpp" startline="21" endline="47">Operation::messageReceived</referencedby>
         <referencedby refid="class_tool_relay_1a4cda3d8491875e20fc7b4c868b327843" compoundref="_tool_relay_8cpp" startline="79" endline="111">ToolRelay::messageReceived</referencedby>
         <referencedby refid="class_server_1ad5ec9462b520e59f7ea831e157ee5e59" compoundref="_server_8cpp" startline="3" endline="47">Server::Server</referencedby>
+        <referencedby refid="class_relay_1ab18182483d77feec7a10d23e7e0feaf0" compoundref="_relay_8cpp" startline="323" endline="347">Relay::setBuffer</referencedby>
         <referencedby refid="class_query_1a2f2e56d877973dc1a75add8e3ef24624" compoundref="_query_8h" startline="1139" endline="1155">Query::setNotification</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a15adc485bd56c484bd9540adb21a1a81" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -562,7 +561,7 @@
         <referencedby refid="class_relay_1a3d4d845465bfe39f1da97ef34d8139bb" compoundref="_relay_8h" startline="128" endline="142">Relay::sendResponse</referencedby>
         <referencedby refid="class_query_1a1522169f77764d3ff8615957d2f46405" compoundref="_query_8cpp" startline="3" endline="30">Query::setError</referencedby>
         <referencedby refid="class_relay_1a328730a21c01b8b7b6d74e5775fa8713" compoundref="_relay_8cpp" startline="175" endline="196">Relay::setMessage</referencedby>
-        <referencedby refid="class_query_1ae6ef066ef3e91ce050309430c41c5833" compoundref="_query_8h" startline="1108" endline="1128">Query::setResult</referencedby>
+        <referencedby refid="class_query_1ad9336e7536e4ee2277cfa401bff2a678" compoundref="_query_8h" startline="266" endline="286">Query::setResult</referencedby>
         <referencedby refid="class_operation_1aabd2f4f4f81b00a4085034090cd60cde" compoundref="_operation_8cpp" startline="49" endline="69">Operation::valueTreePropertyChanged</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a86a3bddd064a1d2541fc6b07256eb505" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -614,8 +613,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="generated/Lsp.h" line="96" column="39" bodyfile="generated/Lsp.h" bodystart="96" bodyend="96"/>
-        <referencedby refid="class_relay_1a75c3b886036fc7c0ae314e48990ea00d" compoundref="_relay_8cpp" startline="323" endline="334">Relay::didOpen</referencedby>
-        <referencedby refid="class_relay_1a7423972ba523fc9ce8118d99052e31d1" compoundref="_relay_8cpp" startline="399" endline="406">Relay::getFile</referencedby>
+        <referencedby refid="class_relay_1a7423972ba523fc9ce8118d99052e31d1" compoundref="_relay_8cpp" startline="397" endline="404">Relay::getFile</referencedby>
+        <referencedby refid="class_relay_1ab18182483d77feec7a10d23e7e0feaf0" compoundref="_relay_8cpp" startline="323" endline="347">Relay::setBuffer</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1adcb04ab5b069194f2a73ecbd2cd655e8" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -631,8 +630,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="generated/Lsp.h" line="97" column="39" bodyfile="generated/Lsp.h" bodystart="97" bodyend="97"/>
-        <referencedby refid="class_relay_1ac8467fe6a84d80cae61f5b436147c8c8" compoundref="_relay_8cpp" startline="336" endline="349">Relay::didChange</referencedby>
-        <referencedby refid="class_relay_1a75c3b886036fc7c0ae314e48990ea00d" compoundref="_relay_8cpp" startline="323" endline="334">Relay::didOpen</referencedby>
+        <referencedby refid="class_relay_1ab18182483d77feec7a10d23e7e0feaf0" compoundref="_relay_8cpp" startline="323" endline="347">Relay::setBuffer</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a20a5c8018a87a4b1255d7d83e4008527" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -648,7 +646,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="generated/Lsp.h" line="98" column="39" bodyfile="generated/Lsp.h" bodystart="98" bodyend="98"/>
-        <referencedby refid="class_relay_1ac8467fe6a84d80cae61f5b436147c8c8" compoundref="_relay_8cpp" startline="336" endline="349">Relay::didChange</referencedby>
+        <referencedby refid="class_relay_1ab18182483d77feec7a10d23e7e0feaf0" compoundref="_relay_8cpp" startline="323" endline="347">Relay::setBuffer</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1aef646b4f51af4d8b9a533e9553fbaa9d" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -664,7 +662,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="generated/Lsp.h" line="99" column="39" bodyfile="generated/Lsp.h" bodystart="99" bodyend="99"/>
-        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="432" endline="460">Relay::getRequestArguments</referencedby>
+        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="430" endline="458">Relay::getRequestArguments</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a684664cae093b98faa21797561053c5a" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -680,9 +678,9 @@
         <inbodydescription>
         </inbodydescription>
         <location file="generated/Lsp.h" line="100" column="39" bodyfile="generated/Lsp.h" bodystart="100" bodyend="100"/>
-        <referencedby refid="class_relay_1a7423972ba523fc9ce8118d99052e31d1" compoundref="_relay_8cpp" startline="399" endline="406">Relay::getFile</referencedby>
-        <referencedby refid="class_relay_1a7bfa0fddda4f4de7ab07cafe087a9c2d" compoundref="_relay_8cpp" startline="408" endline="430">Relay::getPosition</referencedby>
-        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="432" endline="460">Relay::getRequestArguments</referencedby>
+        <referencedby refid="class_relay_1a7423972ba523fc9ce8118d99052e31d1" compoundref="_relay_8cpp" startline="397" endline="404">Relay::getFile</referencedby>
+        <referencedby refid="class_relay_1a7bfa0fddda4f4de7ab07cafe087a9c2d" compoundref="_relay_8cpp" startline="406" endline="428">Relay::getPosition</referencedby>
+        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="430" endline="458">Relay::getRequestArguments</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a1d35ad24c7a2c6ec2a5fd383ed25b818" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -698,7 +696,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="generated/Lsp.h" line="101" column="39" bodyfile="generated/Lsp.h" bodystart="101" bodyend="101"/>
-        <referencedby refid="class_relay_1a03dcf69baa5a5a38ac638dbc92456a5d" compoundref="_relay_8cpp" startline="373" endline="397">Relay::getPositionEncoding</referencedby>
+        <referencedby refid="class_relay_1a03dcf69baa5a5a38ac638dbc92456a5d" compoundref="_relay_8cpp" startline="371" endline="395">Relay::getPositionEncoding</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1ab585c878ec473d35f57fa6e0636eb12c" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -714,7 +712,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="generated/Lsp.h" line="102" column="39" bodyfile="generated/Lsp.h" bodystart="102" bodyend="102"/>
-        <referencedby refid="class_relay_1a03dcf69baa5a5a38ac638dbc92456a5d" compoundref="_relay_8cpp" startline="373" endline="397">Relay::getPositionEncoding</referencedby>
+        <referencedby refid="class_relay_1a03dcf69baa5a5a38ac638dbc92456a5d" compoundref="_relay_8cpp" startline="371" endline="395">Relay::getPositionEncoding</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a8ed983f3b57296dd2f017a02affb4425" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -730,7 +728,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="generated/Lsp.h" line="103" column="39" bodyfile="generated/Lsp.h" bodystart="103" bodyend="103"/>
-        <referencedby refid="class_relay_1a03dcf69baa5a5a38ac638dbc92456a5d" compoundref="_relay_8cpp" startline="373" endline="397">Relay::getPositionEncoding</referencedby>
+        <referencedby refid="class_relay_1a03dcf69baa5a5a38ac638dbc92456a5d" compoundref="_relay_8cpp" startline="371" endline="395">Relay::getPositionEncoding</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a368e911cc6145cd9f19daaa76ebc55c7" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>
@@ -1081,8 +1079,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="generated/Lsp.h" line="125" column="39" bodyfile="generated/Lsp.h" bodystart="125" bodyend="125"/>
-        <referencedby refid="class_relay_1a7bfa0fddda4f4de7ab07cafe087a9c2d" compoundref="_relay_8cpp" startline="408" endline="430">Relay::getPosition</referencedby>
-        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="432" endline="460">Relay::getRequestArguments</referencedby>
+        <referencedby refid="class_relay_1a7bfa0fddda4f4de7ab07cafe087a9c2d" compoundref="_relay_8cpp" startline="406" endline="428">Relay::getPosition</referencedby>
+        <referencedby refid="class_relay_1a05fe55b33b15665242d297a36251da4e" compoundref="_relay_8cpp" startline="430" endline="458">Relay::getRequestArguments</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structlsp_1_1_member_1a3c0556886dd6da7b281021bebf9cd601" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>std::string_view</type>

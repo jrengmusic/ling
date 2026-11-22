@@ -357,7 +357,11 @@
 | includeFlag | `-include` |
 | precompiledIncludeFlag | `-include-pch` |
 | noValidatePrecompiledFlag | `-fno-validate-pch` |
-| databaseDriver | `c++` |
+| outputPrefix           | `/Fo`                |
+| clangDriverPrefix      | `/clang:`            |
+| clangClDriver          | `clang-cl`           |
+| commandKey             | `"command"`          |
+| argumentsKey           | `"arguments"`        |
 | messageSeparator | `: ` |
 | unitNotFound | `unit file not found` |
 | compilerManifestNotFound | `compiler manifest not found` |
@@ -519,6 +523,13 @@
 | platformMac     | `../lib/libclang.dylib`   |
 | platformWindows | `libclang.dll`            |
 
+## databaseDrivers
+
+| key             | value      |
+| --------------- | ---------- |
+| platformMac     | `c++`      |
+| platformWindows | `clang-cl` |
+
 ## sdkCommands
 
 | key         | value                   |
@@ -575,7 +586,6 @@
 | `c++`           | `clang++`         |
 | `clang`         | `clang`           |
 | `clang++`       | `clang++`         |
-| `clang-cl.exe`  | `clang-cl.exe`    |
 
 ## argumentRemovals
 
@@ -588,6 +598,16 @@
 | `-c`     | 0     |
 | `-MD`    | 0     |
 | `-MMD`   | 0     |
+
+## argumentPrefixRemovals
+
+| key   | value |
+| ----- | ----- |
+| `/Fo` | 0     |
+| `/Fd` | 0     |
+| `/Yc` | 0     |
+| `/Yu` | 0     |
+| `/Fp` | 0     |
 
 ## simpleBuiltins
 

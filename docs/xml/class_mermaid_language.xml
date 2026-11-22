@@ -6,7 +6,7 @@
     <includes refid="_mermaid_language_8h" local="no">MermaidLanguage.h</includes>
     <sectiondef kind="public-func">
       <memberdef kind="function" id="class_mermaid_language_1a9dff601b4eb70a5afce80b8ae4d86d9f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type>std::pair&lt; std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;, std::unique_ptr&lt; <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> &gt; &gt;</type>
+        <type>std::pair&lt; std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;, std::unique_ptr&lt; <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> &gt; &gt;</type>
         <definition>std::pair&lt; std::unique_ptr&lt; jam::Document &gt;, std::unique_ptr&lt; SymbolDocument &gt; &gt; MermaidLanguage::parse</definition>
         <argsstring>(std::string_view text, const juce::String &amp;path) const override</argsstring>
         <name>parse</name>
@@ -17,11 +17,11 @@
           <declname>text</declname>
         </param>
         <param>
-          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
           <declname>path</declname>
         </param>
         <briefdescription>
-<para>Parses <computeroutput>text</computeroutput> into a <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> and an optional inline <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref>. </para>
+<para>Parses <computeroutput>text</computeroutput> into a <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> and an optional inline <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref>. </para>
         </briefdescription>
         <detaileddescription>
 <para>Built-in languages build both trees synchronously; library languages return a null <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> and populate symbols asynchronously in <ref refid="class_built_in_language_1a1655e858f06b9f31966dd473b2cf4294" kindref="member">index()</ref>.</para>
@@ -53,7 +53,7 @@
         <references refid="structjam_1_1MermaidDiagram_1af7d66aa286c128f4db3f89b686cd4d6c">jam::MermaidDiagram::parse</references>
       </memberdef>
       <memberdef kind="function" id="class_mermaid_language_1a299d31b903a5c5a63d3999c15c710e6a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type>std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;</type>
+        <type>std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;</type>
         <definition>std::unique_ptr&lt; jam::Document &gt; MermaidLanguage::read</definition>
         <argsstring>(std::string_view text, std::string_view stored) const override</argsstring>
         <name>read</name>
@@ -88,7 +88,7 @@
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>Validated <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref>, or nullptr when <computeroutput>stored</computeroutput> is incompatible. </para>
+<simplesect kind="return"><para>Validated <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref>, or nullptr when <computeroutput>stored</computeroutput> is incompatible. </para>
 </simplesect>
 </para>
         </detaileddescription>
@@ -142,7 +142,7 @@
       </node>
       <node id="4">
         <label>juce::String</label>
-        <link refid="classjuce_1_1String" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1String" external="D:/Poems/JUCE/docs/tagfile.xml"/>
       </node>
     </collaborationgraph>
     <location file="languages/MermaidLanguage.h" line="5" column="1" bodyfile="languages/MermaidLanguage.h" bodystart="6" bodyend="15"/>
@@ -150,7 +150,7 @@
       <member refid="class_built_in_language_1ae95ee532859c01b62bc306f962b92a51" prot="private" virt="non-virtual"><scope>MermaidLanguage</scope><name>addOutline</name></member>
       <member refid="class_built_in_language_1a0ba607b3f35632693f7506f09beb96c0" prot="private" virt="non-virtual"><scope>MermaidLanguage</scope><name>addOutlines</name></member>
       <member refid="class_built_in_language_1aa10d62c0ee79fbb2a93559083440b7c1" prot="private" virt="non-virtual"><scope>MermaidLanguage</scope><name>addRecords</name></member>
-      <member refid="class_built_in_language_1a44546630431ac2c9165064d4a2ff84d3" prot="private" virt="non-virtual"><scope>MermaidLanguage</scope><name>addUnits</name></member>
+      <member refid="class_built_in_language_1a3e18e6431f523f96cefd64c9b562b507" prot="public" virt="virtual"><scope>MermaidLanguage</scope><name>addUnits</name></member>
       <member refid="class_built_in_language_1a0ae6244ea1331d0689d8fa7bc89b2a83" prot="public" virt="non-virtual"><scope>MermaidLanguage</scope><name>BuiltInLanguage</name></member>
       <member refid="class_built_in_language_1ae26f80b21d62c5b223e44557fa40e26f" prot="private" virt="non-virtual"><scope>MermaidLanguage</scope><name>extension</name></member>
       <member refid="class_built_in_language_1a4333998289e0e9b21c0b422118f4a2f9" prot="public" virt="virtual"><scope>MermaidLanguage</scope><name>getCompletionType</name></member>
@@ -174,7 +174,6 @@
       <member refid="class_built_in_language_1a2e9a4db2c617a56b1a64368389ae7b45" prot="private" virt="non-virtual"><scope>MermaidLanguage</scope><name>noQualifierLength</name></member>
       <member refid="class_mermaid_language_1a9dff601b4eb70a5afce80b8ae4d86d9f" prot="public" virt="virtual"><scope>MermaidLanguage</scope><name>parse</name></member>
       <member refid="class_mermaid_language_1a299d31b903a5c5a63d3999c15c710e6a" prot="public" virt="virtual"><scope>MermaidLanguage</scope><name>read</name></member>
-      <member refid="class_built_in_language_1ae167081944e4d638161909ea4f18a1df" prot="public" virt="virtual"><scope>MermaidLanguage</scope><name>units</name></member>
       <member refid="class_language_1a31ccc6a98a6c40a452a66a18ca604c79" prot="public" virt="virtual"><scope>MermaidLanguage</scope><name>~Language</name></member>
     </listofallmembers>
   </compounddef>

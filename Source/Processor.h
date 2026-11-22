@@ -452,6 +452,8 @@ private:
         /**
          * @brief Tells whether @p recordPath is a translation unit owned by another IndexJob.
          *
+         * Normalizes @p recordPath via juce::File::getFullPathName() before testing against @c foreignPaths.
+         *
          * @param recordPath  File path to test against @c foreignPaths.
          * @return @c true when @p recordPath belongs to another unit.
          */
@@ -482,7 +484,7 @@ private:
     /**
      * @brief One-shot unit discovery job over toolchain commands run on the thread pool.
      *
-     * Queries each language's units() callback, builds a fresh Id::files ValueTree
+     * Queries each language's addUnits() callback, builds a fresh Id::files ValueTree
      * with buildFiles, catches std::exception at the job boundary, and signals
      * handleAsyncUpdate() on completion.
      */
@@ -502,7 +504,7 @@ private:
         UnitsJob (Processor& ownerToUse, jam::Array<char> argumentsToUse, jam::Array<int> argumentCountsToUse, const juce::String& directoryToUse, const juce::String& cacheDirectoryToUse, jam::HashMap<int, std::shared_ptr<const Language>> languagesToUse, jam::HashMap<juce::String, int> familiesToUse);
 
         /**
-         * @brief Invokes units() for each language, stores buildFiles, catches boundary exceptions, and signals @c owner.
+         * @brief Invokes addUnits() for each language, stores buildFiles, catches boundary exceptions, and signals @c owner.
          *
          * @return jobHasFinished when complete.
          */
@@ -527,6 +529,8 @@ private:
         /**
          * @brief Callback appending a build system file path watched for manifest reload.
          *
+         * Normalizes @p path via juce::File::getFullPathName() before storing it in @c buildFiles.
+         *
          * @param context  Pointer to the owning UnitsJob.
          * @param path     Build file path reported by the language.
          */
@@ -542,6 +546,8 @@ private:
 
         /**
          * @brief Returns the row index for @p path in @c files, appending a new Id::file row when absent.
+         *
+         * Normalizes @p path via juce::File::getFullPathName() before deduplicating against @c paths and storing Id::path.
          *
          * @param path    File path to intern.
          * @param family  Language family identifier for newly added rows.

@@ -60,7 +60,7 @@
     <member refid="class_built_in_language_1abb7f2d4981fc084fe3f21e6267a94f7b" kind="function"><name>isValid</name></member>
     <member refid="class_built_in_language_1a1655e858f06b9f31966dd473b2cf4294" kind="function"><name>index</name></member>
     <member refid="class_built_in_language_1a2a9dee54dbdf570fe2538a151ccd32ac" kind="function"><name>hasIndex</name></member>
-    <member refid="class_built_in_language_1ae167081944e4d638161909ea4f18a1df" kind="function"><name>units</name></member>
+    <member refid="class_built_in_language_1a3e18e6431f523f96cefd64c9b562b507" kind="function"><name>addUnits</name></member>
     <member refid="class_built_in_language_1ab9171cafdadc32ff128bcab36156b625" kind="function"><name>getCounterparts</name></member>
     <member refid="class_built_in_language_1a496cd39d0c2ab8fd1626a6454a3bc714" kind="function"><name>getSymbols</name></member>
     <member refid="class_built_in_language_1aa221b4be556c9066437170b575592d4e" kind="function"><name>hasRole</name></member>
@@ -417,7 +417,7 @@
     <member refid="class_language_1a392c16dfaf08d7ed566e4e3983bb7ac9" kind="function"><name>read</name></member>
     <member refid="class_language_1a8be0bd7956e0304c9dfa6f34de424ad9" kind="function"><name>index</name></member>
     <member refid="class_language_1a373e97c0fb11550d40cfa069fba7222b" kind="function"><name>hasIndex</name></member>
-    <member refid="class_language_1aad06a1f0660985eb64023e05e8845bb7" kind="function"><name>units</name></member>
+    <member refid="class_language_1a43b8120736963690a482aae116019105" kind="function"><name>addUnits</name></member>
     <member refid="class_language_1aba611040df762266ca041ca011ec57e2" kind="function"><name>hasRole</name></member>
     <member refid="class_language_1a44c383aa2124008873c41b9d2d9a8861" kind="function"><name>getSymbolType</name></member>
     <member refid="class_language_1a8b4bb63191d8379a26ce449c5c11c839" kind="function"><name>getSemanticType</name></member>
@@ -446,7 +446,7 @@
     <member refid="class_library_language_1a6f24cd64a8f6439dc68442a9bcb6dab3" kind="function"><name>read</name></member>
     <member refid="class_library_language_1a97aeb0f0b63caccf1ccc2aaa28957aab" kind="function"><name>index</name></member>
     <member refid="class_library_language_1a6773bd225fdb2cae1f879f141e2ecec8" kind="function"><name>hasIndex</name></member>
-    <member refid="class_library_language_1ad62d27a5d4bb08cc20062550040942b8" kind="function"><name>units</name></member>
+    <member refid="class_library_language_1a4300332c29ec78e9b28590e102a79b60" kind="function"><name>addUnits</name></member>
     <member refid="class_library_language_1a4feadd63445dcbd5c5fe788151579e86" kind="function"><name>hasRole</name></member>
     <member refid="class_library_language_1aa5ba07dec1c80d999a12c799df7298e8" kind="function"><name>getSymbolType</name></member>
     <member refid="class_library_language_1a3202d343bec470da47e4eefadd8c3dd7" kind="function"><name>getSemanticType</name></member>
@@ -793,6 +793,7 @@
     <member refid="class_query_1a2436862865adf7b1e292b123205f154a" kind="function"><name>getFile</name></member>
     <member refid="class_query_1a2c571f5680b49031d21f195688b73598" kind="function"><name>appendJsonRpc</name></member>
     <member refid="class_query_1a1522169f77764d3ff8615957d2f46405" kind="function"><name>setError</name></member>
+    <member refid="class_query_1ad9336e7536e4ee2277cfa401bff2a678" kind="function"><name>setResult</name></member>
     <member refid="class_query_1af182fd647d1b9cf7be765d88d8323668" kind="function"><name>isValidRequest</name></member>
     <member refid="class_query_1a252aeb46bd682380187e9d183c5d5697" kind="function"><name>getArgumentShape</name></member>
     <member refid="class_query_1a21904ccf28761fd9637b31115a869281" kind="function"><name>getLastTokenIndex</name></member>
@@ -855,7 +856,6 @@
     <member refid="class_query_1a8f4bc08d4ab4ae23ab4f76dbed5ea8ec" kind="function"><name>appendScopeCompletions</name></member>
     <member refid="class_query_1ae6923bd8f08e5fc9296cc680e164bca0" kind="function"><name>getRecordType</name></member>
     <member refid="class_query_1a8b4b8879491b426324edd38e0f92c794" kind="function"><name>appendSemanticTokens</name></member>
-    <member refid="class_query_1ae6ef066ef3e91ce050309430c41c5833" kind="function"><name>setResult</name></member>
     <member refid="class_query_1a2f2e56d877973dc1a75add8e3ef24624" kind="function"><name>setNotification</name></member>
     <member refid="class_query_1a2ae4ab02c14df0ad3aaf29d3b46fe8a9" kind="function"><name>getMatches</name></member>
     <member refid="class_query_1aca8ff1edf10e14fc5e1d7b5c5b13aa7c" kind="function"><name>getMatch</name></member>
@@ -889,9 +889,8 @@
     <member refid="class_relay_1aef9e159914626bcc5cc412ee50a54b14" kind="function"><name>initialized</name></member>
     <member refid="class_relay_1a65af6d8315ed543d82eef8ad55e36956" kind="function"><name>isSessionActive</name></member>
     <member refid="class_relay_1aaf892c60bc1099a6f42f795a595a64d6" kind="function"><name>cancelRequest</name></member>
-    <member refid="class_relay_1a75c3b886036fc7c0ae314e48990ea00d" kind="function"><name>didOpen</name></member>
-    <member refid="class_relay_1ac8467fe6a84d80cae61f5b436147c8c8" kind="function"><name>didChange</name></member>
-    <member refid="class_relay_1a0e68888453bcf8a301bcdd1ddf2fcf75" kind="function"><name>didClose</name></member>
+    <member refid="class_relay_1ab18182483d77feec7a10d23e7e0feaf0" kind="function"><name>setBuffer</name></member>
+    <member refid="class_relay_1a0f10210359ac3fe60cfb0e9f35fd1a2d" kind="function"><name>removeBuffer</name></member>
     <member refid="class_relay_1ab1ca96f9eed2a2ac1c3161037219f923" kind="function"><name>getRequest</name></member>
     <member refid="class_relay_1a9a70dcfd3b2456116dd23b37c70fa56b" kind="function"><name>shutdown</name></member>
     <member refid="class_relay_1a5cdde8ad2025b0988a65f498f532ffa2" kind="function"><name>exit</name></member>

@@ -10,12 +10,12 @@
 
 **Current state**
 
-- Last sprint: Sprint 14 (2026-11-22) — Part 8 close, profiling vs clangd, full `ling` + `jam` audit, doxygen pass.
+- Last sprint: Sprint 17 (2026-11-22) — Windows build, cLang clang-cl indexing, path normalization, addUnits rename, audit and doxygen pass.
 - Active debt: none (`DEBT.md` is empty).
 
 **Layout**
 
-- `Source/`: daemon (`Server`, `Processor`, `Index`, `Query`, `SymbolDocument`, `Manifest`), stdio relay (`Relay`, `Client`, `Operation`), built-in languages (`BuiltInLanguage`, `languages/`), generated tables (`generated/`), and `HELP.md`.
+- `Source/`: daemon (`Server`, `Processor`, `Index`, `Query`, `SymbolDocument`, `Manifest`), stdio relay (`Relay`, `ToolRelay`, `Client`, `Operation`), built-in languages (`BuiltInLanguage`, `languages/`), generated tables (`generated/`), `HELP.md`, and `tools.json`.
 - `language/`: carried language extension sources (`cLang/`, `core/`).
 - `cast/`: cast codegen tables and `spell.md`.
 - `test/`: headless Neovim acceptance harness and expected fixtures.
@@ -27,7 +27,7 @@
 |---|---|
 | `README.md` | States what LING is. Records the name, its reason, and the name collision. |
 | `Source/HELP.md` | Command line, LSP methods, manifest contract, and language library guide. |
-| `carol/SPRINT-LOG.md` | Sprint log (through Sprint 14). |
+| `carol/SPRINT-LOG.md` | Sprint log (through Sprint 17). |
 | `DEBT.md` | Inter-sprint debt ledger. |
 
 **API docs**

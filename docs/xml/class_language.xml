@@ -28,7 +28,7 @@
         <location file="Language.h" line="17" column="13"/>
       </memberdef>
       <memberdef kind="function" id="class_language_1aa23f1df5cd018950d06f9b0ddf1c2e23" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
-        <type>std::pair&lt; std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;, std::unique_ptr&lt; <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> &gt; &gt;</type>
+        <type>std::pair&lt; std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;, std::unique_ptr&lt; <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> &gt; &gt;</type>
         <definition>virtual std::pair&lt; std::unique_ptr&lt; jam::Document &gt;, std::unique_ptr&lt; SymbolDocument &gt; &gt; Language::parse</definition>
         <argsstring>(std::string_view text, const juce::String &amp;path) const =0</argsstring>
         <name>parse</name>
@@ -45,11 +45,11 @@
           <declname>text</declname>
         </param>
         <param>
-          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
           <declname>path</declname>
         </param>
         <briefdescription>
-<para>Parses <computeroutput>text</computeroutput> into a <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> and an optional inline <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref>. </para>
+<para>Parses <computeroutput>text</computeroutput> into a <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> and an optional inline <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref>. </para>
         </briefdescription>
         <detaileddescription>
 <para>Built-in languages build both trees synchronously; library languages return a null <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> and populate symbols asynchronously in <ref refid="class_language_1a8be0bd7956e0304c9dfa6f34de424ad9" kindref="member">index()</ref>.</para>
@@ -79,7 +79,7 @@
         <location file="Language.h" line="29" column="23"/>
       </memberdef>
       <memberdef kind="function" id="class_language_1ad9d9019bec5846302d4b69bd308b7183" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
-        <type><ref refid="classjuce_1_1Result" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Result</ref></type>
+        <type><ref refid="classjuce_1_1Result" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::Result</ref></type>
         <definition>virtual juce::Result Language::isValid</definition>
         <argsstring>(std::string_view text) const =0</argsstring>
         <name>isValid</name>
@@ -118,7 +118,7 @@
         <location file="Language.h" line="37" column="26"/>
       </memberdef>
       <memberdef kind="function" id="class_language_1a392c16dfaf08d7ed566e4e3983bb7ac9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
-        <type>std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;</type>
+        <type>std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;</type>
         <definition>virtual std::unique_ptr&lt; jam::Document &gt; Language::read</definition>
         <argsstring>(std::string_view text, std::string_view stored) const =0</argsstring>
         <name>read</name>
@@ -159,7 +159,7 @@
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>Validated <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref>, or nullptr when <computeroutput>stored</computeroutput> is incompatible. </para>
+<simplesect kind="return"><para>Validated <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref>, or nullptr when <computeroutput>stored</computeroutput> is incompatible. </para>
 </simplesect>
 </para>
         </detaileddescription>
@@ -206,7 +206,7 @@
           <declname>bufferCount</declname>
         </param>
         <param>
-          <type>const <ref refid="structjam_1_1LanguageCallbacks" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageCallbacks</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1LanguageCallbacks" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::LanguageCallbacks</ref> &amp;</type>
           <declname>callbacks</declname>
         </param>
         <briefdescription>
@@ -304,20 +304,20 @@
         </inbodydescription>
         <location file="Language.h" line="67" column="18"/>
       </memberdef>
-      <memberdef kind="function" id="class_language_1aad06a1f0660985eb64023e05e8845bb7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+      <memberdef kind="function" id="class_language_1a43b8120736963690a482aae116019105" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
         <type>int</type>
-        <definition>virtual int Language::units</definition>
+        <definition>virtual int Language::addUnits</definition>
         <argsstring>(const char *const *arguments, const int *argumentCounts, int rowCount, const char *directory, const char *cacheDirectory, const jam::LanguageCallbacks &amp;callbacks) const =0</argsstring>
-        <name>units</name>
-        <qualifiedname>Language::units</qualifiedname>
-        <reimplementedby refid="class_built_in_language_1ae167081944e4d638161909ea4f18a1df">units</reimplementedby>
-        <reimplementedby refid="class_built_in_language_1ae167081944e4d638161909ea4f18a1df">units</reimplementedby>
-        <reimplementedby refid="class_built_in_language_1ae167081944e4d638161909ea4f18a1df">units</reimplementedby>
-        <reimplementedby refid="class_built_in_language_1ae167081944e4d638161909ea4f18a1df">units</reimplementedby>
-        <reimplementedby refid="class_built_in_language_1ae167081944e4d638161909ea4f18a1df">units</reimplementedby>
-        <reimplementedby refid="class_built_in_language_1ae167081944e4d638161909ea4f18a1df">units</reimplementedby>
-        <reimplementedby refid="class_built_in_language_1ae167081944e4d638161909ea4f18a1df">units</reimplementedby>
-        <reimplementedby refid="class_library_language_1ad62d27a5d4bb08cc20062550040942b8">units</reimplementedby>
+        <name>addUnits</name>
+        <qualifiedname>Language::addUnits</qualifiedname>
+        <reimplementedby refid="class_built_in_language_1a3e18e6431f523f96cefd64c9b562b507">addUnits</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a3e18e6431f523f96cefd64c9b562b507">addUnits</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a3e18e6431f523f96cefd64c9b562b507">addUnits</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a3e18e6431f523f96cefd64c9b562b507">addUnits</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a3e18e6431f523f96cefd64c9b562b507">addUnits</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a3e18e6431f523f96cefd64c9b562b507">addUnits</reimplementedby>
+        <reimplementedby refid="class_built_in_language_1a3e18e6431f523f96cefd64c9b562b507">addUnits</reimplementedby>
+        <reimplementedby refid="class_library_language_1a4300332c29ec78e9b28590e102a79b60">addUnits</reimplementedby>
         <param>
           <type>const char *const *</type>
           <declname>arguments</declname>
@@ -339,7 +339,7 @@
           <declname>cacheDirectory</declname>
         </param>
         <param>
-          <type>const <ref refid="structjam_1_1LanguageCallbacks" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageCallbacks</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1LanguageCallbacks" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::LanguageCallbacks</ref> &amp;</type>
           <declname>callbacks</declname>
         </param>
         <briefdescription>
@@ -418,7 +418,7 @@
         <reimplementedby refid="class_built_in_language_1aa221b4be556c9066437170b575592d4e">hasRole</reimplementedby>
         <reimplementedby refid="class_library_language_1a4feadd63445dcbd5c5fe788151579e86">hasRole</reimplementedby>
         <param>
-          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
           <declname>element</declname>
         </param>
         <param>
@@ -426,7 +426,7 @@
           <declname>role</declname>
         </param>
         <briefdescription>
-<para>Tells whether <computeroutput>element</computeroutput> carries the given <ref refid="structjam_1_1LanguageRole" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageRole</ref> bitmask. </para>
+<para>Tells whether <computeroutput>element</computeroutput> carries the given <ref refid="structjam_1_1LanguageRole" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::LanguageRole</ref> bitmask. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
@@ -442,7 +442,7 @@
 <parametername>role</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Bitmask of <ref refid="structjam_1_1LanguageRole" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageRole</ref> flags to test. </para>
+<para>Bitmask of <ref refid="structjam_1_1LanguageRole" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::LanguageRole</ref> flags to test. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -469,7 +469,7 @@
         <reimplementedby refid="class_built_in_language_1afaa4de8cb0889d305a658a8171d654a5">getSymbolType</reimplementedby>
         <reimplementedby refid="class_library_language_1aa5ba07dec1c80d999a12c799df7298e8">getSymbolType</reimplementedby>
         <param>
-          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
           <declname>element</declname>
         </param>
         <briefdescription>
@@ -611,7 +611,7 @@
         <location file="Language.h" line="121" column="17"/>
       </memberdef>
       <memberdef kind="function" id="class_language_1a2108f1f96098f267d4cc1c2f6726a600" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
-        <type><ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref></type>
+        <type><ref refid="classjam_1_1Strings" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref></type>
         <definition>virtual jam::Strings Language::getCounterparts</definition>
         <argsstring>(const juce::String &amp;extension) const =0</argsstring>
         <name>getCounterparts</name>
@@ -625,7 +625,7 @@
         <reimplementedby refid="class_built_in_language_1ab9171cafdadc32ff128bcab36156b625">getCounterparts</reimplementedby>
         <reimplementedby refid="class_library_language_1a862e3665ef217999993f67584047225b">getCounterparts</reimplementedby>
         <param>
-          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
           <declname>extension</declname>
         </param>
         <briefdescription>
@@ -641,7 +641,7 @@
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>Ordered list of paired counterpart extensions in <ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref>, or empty when none exist. </para>
+<simplesect kind="return"><para>Ordered list of paired counterpart extensions in <ref refid="classjam_1_1Strings" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref>, or empty when none exist. </para>
 </simplesect>
 </para>
         </detaileddescription>
@@ -664,11 +664,11 @@
         <reimplementedby refid="class_built_in_language_1a496cd39d0c2ab8fd1626a6454a3bc714">getSymbols</reimplementedby>
         <reimplementedby refid="class_library_language_1a926bfe3bc21bfc36190bd0a1736409fb">getSymbols</reimplementedby>
         <param>
-          <type>const <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &amp;</type>
           <declname>document</declname>
         </param>
         <param>
-          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
           <declname>path</declname>
         </param>
         <briefdescription>
@@ -680,7 +680,7 @@
 <parametername>document</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Parsed <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> to extract symbols and outlines from. </para>
+<para>Parsed <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> to extract symbols and outlines from. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -799,6 +799,7 @@
     </inheritancegraph>
     <location file="Language.h" line="13" column="1" bodyfile="Language.h" bodystart="14" bodyend="139"/>
     <listofallmembers>
+      <member refid="class_language_1a43b8120736963690a482aae116019105" prot="public" virt="pure-virtual"><scope>Language</scope><name>addUnits</name></member>
       <member refid="class_language_1a05bcdae53a619c323b12598feaf37333" prot="public" virt="pure-virtual"><scope>Language</scope><name>getCompletionType</name></member>
       <member refid="class_language_1a2108f1f96098f267d4cc1c2f6726a600" prot="public" virt="pure-virtual"><scope>Language</scope><name>getCounterparts</name></member>
       <member refid="class_language_1a47ee33c2a64c73d3169cc3987f89f408" prot="public" virt="pure-virtual"><scope>Language</scope><name>getSemanticModifiers</name></member>
@@ -811,7 +812,6 @@
       <member refid="class_language_1ad9d9019bec5846302d4b69bd308b7183" prot="public" virt="pure-virtual"><scope>Language</scope><name>isValid</name></member>
       <member refid="class_language_1aa23f1df5cd018950d06f9b0ddf1c2e23" prot="public" virt="pure-virtual"><scope>Language</scope><name>parse</name></member>
       <member refid="class_language_1a392c16dfaf08d7ed566e4e3983bb7ac9" prot="public" virt="pure-virtual"><scope>Language</scope><name>read</name></member>
-      <member refid="class_language_1aad06a1f0660985eb64023e05e8845bb7" prot="public" virt="pure-virtual"><scope>Language</scope><name>units</name></member>
       <member refid="class_language_1a31ccc6a98a6c40a452a66a18ca604c79" prot="public" virt="virtual"><scope>Language</scope><name>~Language</name></member>
     </listofallmembers>
   </compounddef>

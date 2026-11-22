@@ -712,7 +712,11 @@ static int index (const char* const* arguments, int argumentCount, const char* d
 
     if (session.isLoaded())
     {
-        const auto commandLine (getArguments (arguments, argumentCount, directory));
+        const auto argumentTexts (getArguments (arguments, argumentCount, directory));
+        ling::Pointers commandLine;
+
+        for (int position { 0 }; position < argumentTexts.size(); ++position)
+            commandLine.add (argumentTexts.getPointer (position));
         const auto precompiledPath { getOutputPath (arguments, argumentCount, directory) };
         int result { indexFailure };
         auto indexUnit { [&session, &commandLine, &callbacks, directory, &precompiledPath, bufferPaths, bufferTexts, bufferCount, &result] { result = indexSource (session, commandLine, callbacks, directory, precompiledPath, bufferPaths, bufferTexts, bufferCount); } };
@@ -725,10 +729,10 @@ static int index (const char* const* arguments, int argumentCount, const char* d
 }
 
 ```
-```units
-static int units (const char* const* arguments, const int* argumentCounts, int rowCount, const char* directory, const char* cacheDirectory, const LanguageCallbacks& callbacks)
+```addUnits
+static int addUnits (const char* const* arguments, const int* argumentCounts, int rowCount, const char* directory, const char* cacheDirectory, const LanguageCallbacks& callbacks)
 {
-    const auto installDirectory { getVersionInstallDirectory (getCommandOutput (std::string (ToolchainWord::databaseDriver) + static_cast<char> (Chars::space) + ToolchainWord::versionFlag, directory).value_or (std::string {})) };
+    const auto installDirectory { getInstallDirectory (arguments, argumentCounts, rowCount, directory) };
     const LibClang libclang ((std::filesystem::path (installDirectory) / static_cast<const char*> (getLibraryPaths().getAddress (currentPlatform))).string());
 
     if (not installDirectory.empty() and libclang.isLoaded())
@@ -751,7 +755,7 @@ static int units (const char* const* arguments, const int* argumentCounts, int r
                 addDependencies (row, argumentCount, directory, texts, unitRows, outputs, dependencies, callbacks);
         });
         addPrerequisites (texts, unitRows, unitArguments, outputs, cacheDirectory, prerequisites);
-        addUnits (texts, unitRows, unitArguments, dependencies, prerequisites, callbacks);
+        addUnitRows (texts, unitRows, unitArguments, dependencies, prerequisites, callbacks);
 
         if (rowCount == 0)
             addModuleUnits (installDirectory, sdkPath, directory, callbacks);
@@ -1996,6 +2000,17 @@ static const ling::WordMap& getLibraryPaths()
 }
 
 ```
+```getDatabaseDrivers
+static const ling::WordMap& getDatabaseDrivers()
+{
+    static const ling::WordMap databaseDrivers {
+:::[list]:::
+    };
+
+    return databaseDrivers;
+}
+
+```
 ```getSdkCommands
 static const ling::WordMap& getSdkCommands()
 {
@@ -2081,6 +2096,17 @@ static const ling::TextMap& getArgumentRemovals()
     } };
 
     return argumentRemovals;
+}
+
+```
+```getArgumentPrefixRemovals
+static const ling::TextMap& getArgumentPrefixRemovals()
+{
+    static const ling::TextMap argumentPrefixRemovals { std::initializer_list<std::pair<std::string_view, int>> {
+:::[list]:::
+    } };
+
+    return argumentPrefixRemovals;
 }
 
 ```
@@ -2189,7 +2215,11 @@ static std::optional<std::string> getCommandOutput (const std::string& command, 
     auto output { ling::Subprocess::getOutput (command, workingDirectory) };
 
     if (output.has_value())
-        output->erase (output->find_last_not_of (static_cast<char> (Chars::newline)) + 1);
+    {
+        const std::string lineEnds { static_cast<char> (Chars::newline), static_cast<char> (Chars::carriageReturn) };
+
+        output->erase (output->find_last_not_of (lineEnds) + 1);
+    }
 
     return output;
 }
@@ -2217,13 +2247,98 @@ static std::string getVersionInstallDirectory (const std::string& versionText)
 
         if (start != std::string::npos)
         {
-            const auto end { versionText.find (static_cast<char> (Chars::newline), start) };
+            const std::string lineEnds { static_cast<char> (Chars::newline), static_cast<char> (Chars::carriageReturn) };
+            const auto end { versionText.find_first_of (lineEnds, start) };
 
             installDirectory = versionText.substr (start, end - start);
         }
     }
 
     return installDirectory;
+}
+
+```
+```getManifestDriver
+static std::string getManifestDriver (const std::string& compilerManifest)
+{
+    const std::string content { ling::File (compilerManifest.c_str()).loadFileAsString() };
+    const auto commandPosition { content.find (ToolchainWord::commandKey) };
+    const auto keyPosition { commandPosition != std::string::npos ? commandPosition : content.find (ToolchainWord::argumentsKey) };
+    std::string driver;
+
+    if (keyPosition != std::string::npos)
+    {
+        const auto colon { content.find (static_cast<char> (Chars::colon), keyPosition) };
+        const auto quote { colon != std::string::npos ? content.find (static_cast<char> (Chars::doubleQuote), colon + 1) : std::string::npos };
+
+        if (quote != std::string::npos)
+        {
+            std::string value;
+
+            for (std::size_t index { quote + 1 }; index < content.size(); ++index)
+            {
+                const char character { content.at (index) };
+
+                if (character == static_cast<char> (Chars::backslash) and index + 1 < content.size())
+                    value.push_back (content.at (++index));
+                else if (character == static_cast<char> (Chars::doubleQuote))
+                    break;
+                else
+                    value.push_back (character);
+            }
+
+            if (not value.empty())
+            {
+                if (commandPosition == std::string::npos)
+                    driver = value;
+                else if (value.at (0) == static_cast<char> (Chars::doubleQuote))
+                {
+                    const auto end { value.find (static_cast<char> (Chars::doubleQuote), 1) };
+
+                    driver = end != std::string::npos ? value.substr (1, end - 1) : std::string {};
+                }
+                else
+                {
+                    const auto end { value.find (static_cast<char> (Chars::space)) };
+
+                    driver = value.substr (0, end);
+                }
+            }
+        }
+    }
+
+    return driver;
+}
+
+```
+```getInstallDirectory
+static std::string getInstallDirectory (const char* const* arguments, const int* argumentCounts, int rowCount, const char* directory)
+{
+    std::string driver;
+
+    applyToRows (arguments, argumentCounts, rowCount, [directory, &driver] (const char* const* row, int argumentCount)
+    {
+        if (driver.empty() and std::string_view (row[0]).compare (ToolchainWord::compilerManifestCommand) == 0 and not getFlagValue (row + 1, row + argumentCount, ToolchainWord::flagBuildDirectory).empty())
+        {
+            const auto buildDirectory { getNormalPath ((std::filesystem::path (directory) / std::string (getFlagValue (row + 1, row + argumentCount, ToolchainWord::flagBuildDirectory))).string()) };
+            const auto compilerManifest { getNormalPath ((std::filesystem::path (buildDirectory) / ToolchainWord::compilerManifest).string()) };
+
+            if (std::filesystem::exists (compilerManifest))
+                driver = getManifestDriver (compilerManifest);
+        }
+    });
+
+    if (not driver.empty())
+    {
+        const auto driverParent { std::filesystem::path (driver).parent_path() };
+
+        if (not driverParent.empty() and std::filesystem::exists (driverParent / static_cast<const char*> (getLibraryPaths().getAddress (currentPlatform))))
+            return driverParent.string();
+
+        return getVersionInstallDirectory (getCommandOutput (getQuoted (driver) + static_cast<char> (Chars::space) + ToolchainWord::versionFlag, directory).value_or (std::string {}));
+    }
+
+    return getVersionInstallDirectory (getCommandOutput (std::string (static_cast<const char*> (getDatabaseDrivers().getAddress (currentPlatform))) + static_cast<char> (Chars::space) + ToolchainWord::versionFlag, directory).value_or (std::string {}));
 }
 
 ```
@@ -2257,36 +2372,48 @@ static std::string getOutputPath (const char* const* arguments, int argumentCoun
 
 ```
 ```getArguments
-static ling::Pointers getArguments (const char* const* arguments, int argumentCount, const char* directory)
+static ling::Texts getArguments (const char* const* arguments, int argumentCount, const char* directory)
 {
-    ling::Pointers commandLine;
-    commandLine.add (arguments[0]);
-    commandLine.add (ToolchainWord::workingDirectoryFlag);
-    commandLine.add (directory);
+    const bool isClangCl { std::filesystem::path (arguments[0]).filename().string().compare (0, std::string_view (ToolchainWord::clangClDriver).size(), ToolchainWord::clangClDriver) == 0 };
+    const std::string prefix { isClangCl ? ToolchainWord::clangDriverPrefix : "" };
+    ling::Texts argumentTexts;
+
+    argumentTexts.add (arguments[0]);
+    argumentTexts.add (prefix + ToolchainWord::workingDirectoryFlag);
+    argumentTexts.add (prefix + directory);
+
+    getArgumentAdditions().applyToEntries ([&argumentTexts, &prefix] (std::string_view key, unsigned long long)
+    {
+        argumentTexts.add (prefix + std::string (key));
+    });
 
     for (int position { 1 }; position < argumentCount; ++position)
     {
         const std::string_view argument { arguments[position] };
 
         if (getArgumentRemovals().contains (argument))
-        {
             position += static_cast<int> (getArgumentRemovals().at (argument));
-        }
         else
-            commandLine.add (arguments[position]);
+        {
+            bool isRemoved { false };
+
+            getArgumentPrefixRemovals().applyToEntries ([&argument, &isRemoved] (std::string_view key, unsigned long long)
+            {
+                if (argument.size() >= key.size() and argument.compare (0, key.size(), key) == 0)
+                    isRemoved = true;
+            });
+
+            if (not isRemoved)
+                argumentTexts.add (argument);
+        }
     }
 
-    getArgumentAdditions().applyToEntries ([&commandLine] (std::string_view key, unsigned long long)
-    {
-        commandLine.add (key.data());
-    });
-
-    return commandLine;
+    return argumentTexts;
 }
 
 ```
-```addUnits
-static void addUnits (const ling::Texts& texts, const ling::Words& unitRows, const ling::WordLists& unitArguments, const ling::WordLists& dependencies, const ling::WordLists& prerequisites, const LanguageCallbacks& callbacks)
+```addUnitRows
+static void addUnitRows (const ling::Texts& texts, const ling::Words& unitRows, const ling::WordLists& unitArguments, const ling::WordLists& dependencies, const ling::WordLists& prerequisites, const LanguageCallbacks& callbacks)
 {
     ling::WordLists consumers;
 
@@ -2375,7 +2502,7 @@ static ling::Texts getModuleArguments (std::string_view declaration, const std::
     const auto closure { getModuleClosure (declaration, moduleFolder.parent_path(), juceModulesPath) };
     const std::string juceModulesFlag { std::string (ToolchainWord::includeDirectoryFlag) + juceModulesPath };
 
-    arguments.add (getDriver (installDirectory, ToolchainWord::databaseDriver));
+    arguments.add (getDriver (installDirectory, static_cast<const char*> (getDatabaseDrivers().getAddress (currentPlatform))));
     arguments.add (std::string (ToolchainWord::standardFlag) + std::string (standardValue));
     arguments.add (std::string (ToolchainWord::includeDirectoryFlag) + moduleFolder.parent_path().string());
 
@@ -2566,7 +2693,9 @@ static void addUnitCommand (ling::Texts& texts, ling::Words& unitRows, ling::Wor
                 setToolchain (texts, unitArguments, unit, installDirectory, sdkPath);
 
                 const auto outputPosition { getFlagPosition (texts, unitArguments, unit, ToolchainWord::outputFlag) };
-                const auto outputText { outputPosition != invalidPosition ? texts.add (getNormalPath ((std::filesystem::path (unitDirectory) / std::string (texts.get (static_cast<int> (unitArguments.at (static_cast<unsigned long long> (unit), outputPosition))))).string())) : invalidPosition };
+                const auto prefixPosition { outputPosition == invalidPosition ? getPrefixPosition (texts, unitArguments, unit, ToolchainWord::outputPrefix) : invalidPosition };
+                const std::string_view outputValue { outputPosition != invalidPosition ? texts.get (static_cast<int> (unitArguments.at (static_cast<unsigned long long> (unit), outputPosition))) : prefixPosition != invalidPosition ? texts.get (static_cast<int> (unitArguments.at (static_cast<unsigned long long> (unit), prefixPosition))).substr (std::string_view (ToolchainWord::outputPrefix).size()) : std::string_view {} };
+                const auto outputText { not outputValue.empty() ? texts.add (getNormalPath ((std::filesystem::path (unitDirectory) / std::string (outputValue)).string())) : invalidPosition };
 
                 paths.add (path, static_cast<unsigned long long> (unit));
                 unitRows.add (ling::HalfWords::pack (texts.add (path), directoryText));
@@ -2688,9 +2817,17 @@ static void setCachePath (ling::Texts& texts, ling::Words& unitRows, ling::WordL
     const auto cacheText { texts.add (cachePath) };
     const auto outputPosition { getFlagPosition (texts, unitArguments, producer, ToolchainWord::outputFlag) };
 
-    assert (outputPosition != invalidPosition);
     unitRows.set (producer * unitStride + 1, ling::HalfWords::pack (cacheText, 0));
-    unitArguments.set (static_cast<unsigned long long> (producer), outputPosition, static_cast<unsigned long long> (cacheText));
+
+    if (outputPosition != invalidPosition)
+        unitArguments.set (static_cast<unsigned long long> (producer), outputPosition, static_cast<unsigned long long> (cacheText));
+    else
+    {
+        const auto prefixPosition { getPrefixPosition (texts, unitArguments, producer, ToolchainWord::outputPrefix) };
+
+        assert (prefixPosition != invalidPosition);
+        unitArguments.set (static_cast<unsigned long long> (producer), prefixPosition, static_cast<unsigned long long> (texts.add (std::string (ToolchainWord::outputPrefix) + cachePath)));
+    }
 }
 
 ```
@@ -2727,7 +2864,11 @@ static void addDependencies (const char* const* row, int argumentCount, const ch
 static std::size_t addRecord (ling::Texts& texts, ling::WordLists& dependencies, const std::string& record, std::size_t position, const std::string& buildDirectory, const ling::TextMap& outputs)
 {
     const auto headEnd { std::min (record.find (static_cast<char> (Chars::newline), position), record.size()) };
-    const std::string head { record.substr (position, headEnd - position) };
+    std::string head { record.substr (position, headEnd - position) };
+
+    if (not head.empty() and head.back() == static_cast<char> (Chars::carriageReturn))
+        head.pop_back();
+
     const auto outputEnd { head.find (ToolchainWord::dependencyHead) };
     const auto unitOutput { outputEnd != std::string::npos ? getNormalPath ((std::filesystem::path (buildDirectory) / head.substr (0, outputEnd)).string()) : std::string {} };
     const bool isUnit { outputEnd != std::string::npos and outputs.contains (unitOutput) };
@@ -2736,7 +2877,11 @@ static std::size_t addRecord (ling::Texts& texts, ling::WordLists& dependencies,
     while (lineStart < record.size() and record.at (lineStart) == static_cast<char> (Chars::space))
     {
         const auto lineEnd { std::min (record.find (static_cast<char> (Chars::newline), lineStart), record.size()) };
-        const std::string line { record.substr (lineStart, lineEnd - lineStart) };
+        std::string line { record.substr (lineStart, lineEnd - lineStart) };
+
+        if (not line.empty() and line.back() == static_cast<char> (Chars::carriageReturn))
+            line.pop_back();
+
         const auto pathStart { line.find_first_not_of (static_cast<char> (Chars::space)) };
 
         if (isUnit)
@@ -2784,6 +2929,22 @@ static int getFlagPosition (const ling::Texts& texts, const ling::WordLists& uni
 
     for (int position { 0 }; position + 1 < unitArguments.getSize (key); ++position)
         if (texts.get (static_cast<int> (unitArguments.at (key, position))).compare (flag) == 0) return position + 1;
+
+    return invalidPosition;
+}
+
+```
+```getPrefixPosition
+static int getPrefixPosition (const ling::Texts& texts, const ling::WordLists& unitArguments, int unit, std::string_view prefix)
+{
+    const auto key { static_cast<unsigned long long> (unit) };
+
+    for (int position { 0 }; position < unitArguments.getSize (key); ++position)
+    {
+        const auto argument { texts.get (static_cast<int> (unitArguments.at (key, position))) };
+
+        if (argument.size() > prefix.size() and argument.compare (0, prefix.size(), prefix) == 0) return position;
+    }
 
     return invalidPosition;
 }
@@ -5903,7 +6064,7 @@ extern "C" const void* ling_get_language (const char* name)
     static const ling::TextMap languageEntries {
         { LanguageEntry::build, reinterpret_cast<const void*> (&CLanguageDocument::build) },
         { LanguageEntry::index, reinterpret_cast<const void*> (&CLanguageDocument::index) },
-        { LanguageEntry::units, reinterpret_cast<const void*> (&CLanguageDocument::units) },
+        { LanguageEntry::addUnits, reinterpret_cast<const void*> (&CLanguageDocument::addUnits) },
         { LanguageEntry::code, code.begin() },
         { LanguageEntry::commentOpen, Chars::cssCommentOpen },
         { LanguageEntry::commentClose, Chars::cssCommentClose },

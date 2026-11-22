@@ -63,7 +63,7 @@
     </sectiondef>
     <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="class_l_i_n_g_model_1a0f5c4a85d80ca163d85c7cc496fbab46" prot="private" static="no" mutable="no">
-        <type><ref refid="classjam_1_1File_1_1Watcher" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::File::Watcher</ref></type>
+        <type><ref refid="classjam_1_1File_1_1Watcher" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::File::Watcher</ref></type>
         <definition>jam::File::Watcher LINGModel::watcher</definition>
         <argsstring></argsstring>
         <name>watcher</name>
@@ -92,7 +92,7 @@
 <para>Initializes state children, overlay parameters, default timeout, and file watcher listener. </para>
         </briefdescription>
         <detaileddescription>
-<para>Creates files, roots, connections, buffers, and overlay (with <ref refid="namespaceId_1a0e0b9ef1fb687c4c7c73d2bd7213ac01" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::message</ref>, <ref refid="namespaceId_1a00ce6b91715e4b8e01502083b4a41bbf" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::jobCount</ref>, and <ref refid="namespaceId_1a71fc2c9dc899902d41f5827f5ee562c5" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::pendingJobCount</ref>), stores defaultTimeoutMs in <ref refid="namespaceId_1ad99de3ca37a30e0bb93696f8de7d2561" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::timeout</ref>, and configures watcher coalescing with coalesceMs. </para>
+<para>Creates files, roots, connections, buffers, and overlay (with <ref refid="namespaceId_1a0e0b9ef1fb687c4c7c73d2bd7213ac01" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Id::message</ref>, <ref refid="namespaceId_1a00ce6b91715e4b8e01502083b4a41bbf" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Id::jobCount</ref>, and <ref refid="namespaceId_1a71fc2c9dc899902d41f5827f5ee562c5" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Id::pendingJobCount</ref>), stores defaultTimeoutMs in <ref refid="namespaceId_1ad99de3ca37a30e0bb93696f8de7d2561" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Id::timeout</ref>, and configures watcher coalescing with coalesceMs. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -104,17 +104,17 @@
         <references refid="namespaceId_1a743670993dd005f0f872a89a5d009560" compoundref="_generated_8cpp" startline="43" endline="43">Id::connections</references>
         <references refid="classjam_1_1Model_1ac250f7a4c969aa2d05602b9805dd63ce">jam::Model::createAndAddParameter</references>
         <references refid="class_l_i_n_g_model_1a98c415ab589e5c16c6e98d1a8f0859a5" compoundref="_l_i_n_g_model_8h" startline="40" endline="40">defaultTimeoutMs</references>
-        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="58" endline="58">Id::files</references>
+        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="55" endline="55">Id::files</references>
         <references refid="classjam_1_1Model_1a322c866d6fc435eb6799562d6d6db8b1">jam::Model::getOrCreateChildWithName</references>
-        <references refid="namespaceId_1a00ce6b91715e4b8e01502083b4a41bbf" compoundref="_generated_8cpp" startline="77" endline="77">Id::jobCount</references>
+        <references refid="namespaceId_1a00ce6b91715e4b8e01502083b4a41bbf" compoundref="_generated_8cpp" startline="74" endline="74">Id::jobCount</references>
         <references refid="namespaceId_1a0e0b9ef1fb687c4c7c73d2bd7213ac01">Id::message</references>
         <references refid="classjam_1_1Model_1afbe837fa9d9c8086381333783bb1db3b">jam::Model::Model</references>
         <references refid="namespaceId_1a3c4b99c0119059fde6024a09a758312e">Id::overlay</references>
-        <references refid="namespaceId_1a71fc2c9dc899902d41f5827f5ee562c5" compoundref="_generated_8cpp" startline="93" endline="93">Id::pendingJobCount</references>
-        <references refid="namespaceId_1a038e5bcd36ba8b6ec1ec7013b8179d08" compoundref="_generated_8cpp" startline="107" endline="107">Id::roots</references>
+        <references refid="namespaceId_1a71fc2c9dc899902d41f5827f5ee562c5" compoundref="_generated_8cpp" startline="90" endline="90">Id::pendingJobCount</references>
+        <references refid="namespaceId_1a038e5bcd36ba8b6ec1ec7013b8179d08" compoundref="_generated_8cpp" startline="105" endline="105">Id::roots</references>
         <references refid="classjuce_1_1ValueTree_1a86de4a6662eb049c21c30c627616fb0e">juce::ValueTree::setProperty</references>
         <references refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857">jam::Model::state</references>
-        <references refid="namespaceId_1ad99de3ca37a30e0bb93696f8de7d2561" compoundref="_generated_8cpp" startline="129" endline="129">Id::timeout</references>
+        <references refid="namespaceId_1ad99de3ca37a30e0bb93696f8de7d2561" compoundref="_generated_8cpp" startline="128" endline="128">Id::timeout</references>
         <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
         <references refid="class_l_i_n_g_model_1a0f5c4a85d80ca163d85c7cc496fbab46" compoundref="_l_i_n_g_model_8h" startline="185">watcher</references>
       </memberdef>
@@ -142,11 +142,11 @@
         <name>setMessage</name>
         <qualifiedname>LINGModel::setMessage</qualifiedname>
         <param>
-          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
           <declname>text</declname>
         </param>
         <briefdescription>
-<para>Writes <computeroutput>text</computeroutput> to the <ref refid="namespaceId_1a0e0b9ef1fb687c4c7c73d2bd7213ac01" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::message</ref> parameter of the overlay row. </para>
+<para>Writes <computeroutput>text</computeroutput> to the <ref refid="namespaceId_1a0e0b9ef1fb687c4c7c73d2bd7213ac01" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Id::message</ref> parameter of the overlay row. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
@@ -167,31 +167,31 @@
         <references refid="namespaceId_1a0e0b9ef1fb687c4c7c73d2bd7213ac01">Id::message</references>
         <references refid="namespaceId_1a3c4b99c0119059fde6024a09a758312e">Id::overlay</references>
         <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
-        <referencedby refid="class_processor_1ada6bec4ded26df0af355111366519094" compoundref="_processor_8cpp" startline="1158" endline="1176">Processor::addBindings</referencedby>
-        <referencedby refid="class_processor_1a87bca016816c718f0b53d670f34e27b0" compoundref="_processor_8cpp" startline="1112" endline="1156">Processor::addDocument</referencedby>
-        <referencedby refid="class_processor_1ab00c859ab19953604870768ae8b054bc" compoundref="_processor_8cpp" startline="611" endline="642">Processor::addLanguages</referencedby>
+        <referencedby refid="class_processor_1ada6bec4ded26df0af355111366519094" compoundref="_processor_8cpp" startline="1160" endline="1178">Processor::addBindings</referencedby>
+        <referencedby refid="class_processor_1a87bca016816c718f0b53d670f34e27b0" compoundref="_processor_8cpp" startline="1114" endline="1158">Processor::addDocument</referencedby>
+        <referencedby refid="class_processor_1ab00c859ab19953604870768ae8b054bc" compoundref="_processor_8cpp" startline="610" endline="641">Processor::addLanguages</referencedby>
         <referencedby refid="class_client_1af9ec2edf06d69e92a25c53ce4260fa27" compoundref="_client_8cpp" startline="64" endline="69">Client::connectionLost</referencedby>
         <referencedby refid="class_operation_1a114ea0c0f4f8f476bae294004b68b82a" compoundref="_operation_8cpp" startline="21" endline="47">Operation::messageReceived</referencedby>
         <referencedby refid="class_tool_relay_1a4cda3d8491875e20fc7b4c868b327843" compoundref="_tool_relay_8cpp" startline="79" endline="111">ToolRelay::messageReceived</referencedby>
-        <referencedby refid="class_processor_1a1dcabcb77d254b34ff0c04c9b483028d" compoundref="_processor_8cpp" startline="389" endline="429">Processor::runRequest</referencedby>
-        <referencedby refid="class_processor_1a0adfaefd08877fd8db3e940de2ce690b" compoundref="_processor_8cpp" startline="1229" endline="1236">Processor::setFiles</referencedby>
-        <referencedby refid="class_processor_1a08af8205b7fae804fbad9b2e7e320f22" compoundref="_processor_8cpp" startline="483" endline="529">Processor::setLanguage</referencedby>
+        <referencedby refid="class_processor_1a1dcabcb77d254b34ff0c04c9b483028d" compoundref="_processor_8cpp" startline="388" endline="428">Processor::runRequest</referencedby>
+        <referencedby refid="class_processor_1a0adfaefd08877fd8db3e940de2ce690b" compoundref="_processor_8cpp" startline="1231" endline="1238">Processor::setFiles</referencedby>
+        <referencedby refid="class_processor_1a08af8205b7fae804fbad9b2e7e320f22" compoundref="_processor_8cpp" startline="482" endline="528">Processor::setLanguage</referencedby>
         <referencedby refid="class_manifest_1ac293516e7c3a7cec11be4fac5210dc25" compoundref="_manifest_8cpp" startline="167" endline="179">Manifest::setToolchain</referencedby>
         <referencedby refid="class_client_1a742373e08a80d993d2651b6fff76f5b9" compoundref="_client_8cpp" startline="21" endline="37">Client::start</referencedby>
         <referencedby refid="class_l_i_n_g_model_1aed5183a1e913ceaaf115ac1d666e89a0">~LINGModel</referencedby>
       </memberdef>
       <memberdef kind="function" id="class_l_i_n_g_model_1a5bcff53e4014ed726cd537a497919beb" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref></type>
+        <type><ref refid="classjuce_1_1File" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::File</ref></type>
         <definition>juce::File LINGModel::getSwapFile</definition>
         <argsstring>(const juce::File &amp;file, juce::StringRef extension) const</argsstring>
         <name>getSwapFile</name>
         <qualifiedname>LINGModel::getSwapFile</qualifiedname>
         <param>
-          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
           <declname>file</declname>
         </param>
         <param>
-          <type><ref refid="classjuce_1_1StringRef" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::StringRef</ref></type>
+          <type><ref refid="classjuce_1_1StringRef" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::StringRef</ref></type>
           <declname>extension</declname>
         </param>
         <briefdescription>
@@ -211,7 +211,7 @@
 <parametername>extension</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Swap file extension (such as <ref refid="namespacefiles_1afae65caa5a326fb90e540222b14e96ae" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">files::lingSwap</ref> or <ref refid="namespacefiles_1a061e59c2393c71acbb801dcbf9169326" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">files::lingSymbols</ref>). </para>
+<para>Swap file extension (such as <ref refid="namespacefiles_1afae65caa5a326fb90e540222b14e96ae" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">files::lingSwap</ref> or <ref refid="namespacefiles_1a061e59c2393c71acbb801dcbf9169326" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">files::lingSymbols</ref>). </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -233,15 +233,15 @@
         <references refid="classjuce_1_1Identifier_1aa11734917f2bc61608c3bcd3e6611a6c">juce::Identifier::isValid</references>
         <references refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f">Id::manifest</references>
         <references refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab">Id::path</references>
-        <references refid="namespaceId_1a038e5bcd36ba8b6ec1ec7013b8179d08" compoundref="_generated_8cpp" startline="107" endline="107">Id::roots</references>
+        <references refid="namespaceId_1a038e5bcd36ba8b6ec1ec7013b8179d08" compoundref="_generated_8cpp" startline="105" endline="105">Id::roots</references>
         <references refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857">jam::Model::state</references>
-        <references refid="namespaceId_1a08e2e5b233f73c3b9139a2a5dda89120" compoundref="_generated_8cpp" startline="123" endline="123">Id::swap</references>
+        <references refid="namespaceId_1a08e2e5b233f73c3b9139a2a5dda89120" compoundref="_generated_8cpp" startline="122" endline="122">Id::swap</references>
         <references refid="structjam_1_1Format_1a0df527b612e533614787d3aa103c8d2c">jam::Format::toFileName</references>
-        <references refid="namespaceId_1ad2d03a036d57999f43066f5737dc8008" compoundref="_generated_8cpp" startline="131" endline="131">Id::toolchainArgument</references>
+        <references refid="namespaceId_1ad2d03a036d57999f43066f5737dc8008" compoundref="_generated_8cpp" startline="130" endline="130">Id::toolchainArgument</references>
         <references refid="classjuce_1_1Identifier_1ab6f0db1de2c36cacd1a9d7280f73aeeb">juce::Identifier::toString</references>
         <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
-        <referencedby refid="class_processor_1ab20331a25e35784eca39d7d2673fe68e" compoundref="_processor_8cpp" startline="995" endline="1027">Processor::addIndexJob</referencedby>
-        <referencedby refid="class_processor_1a547e161d2e24134f3c95df35019aeddb" compoundref="_processor_8cpp" startline="980" endline="993">Processor::addJob</referencedby>
+        <referencedby refid="class_processor_1ab20331a25e35784eca39d7d2673fe68e" compoundref="_processor_8cpp" startline="997" endline="1029">Processor::addIndexJob</referencedby>
+        <referencedby refid="class_processor_1a547e161d2e24134f3c95df35019aeddb" compoundref="_processor_8cpp" startline="982" endline="995">Processor::addJob</referencedby>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-static-func">
@@ -252,7 +252,7 @@
         <name>getProjectName</name>
         <qualifiedname>LINGModel::getProjectName</qualifiedname>
         <param>
-          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
           <declname>manifest</declname>
         </param>
         <param>
@@ -304,7 +304,7 @@
         <name>getDaemonName</name>
         <qualifiedname>LINGModel::getDaemonName</qualifiedname>
         <param>
-          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
           <declname>manifest</declname>
         </param>
         <param>
@@ -352,7 +352,7 @@
         <referencedby refid="class_application_1a44869ba74fd55eadd5d183e0ca7d2c7c" compoundref="_main_8cpp" startline="421" endline="441">Application::runDaemon</referencedby>
       </memberdef>
       <memberdef kind="function" id="class_l_i_n_g_model_1a418ec05ca5a75c35b3187e995a82fb5c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref></type>
+        <type><ref refid="classjuce_1_1File" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::File</ref></type>
         <definition>juce::File LINGModel::getCacheDirectory</definition>
         <argsstring>()</argsstring>
         <name>getCacheDirectory</name>
@@ -371,20 +371,20 @@
         <location file="LINGModel.h" line="79" column="23" bodyfile="LINGModel.cpp" bodystart="57" bodyend="64"/>
         <references refid="classjuce_1_1File_1a57b992aacb19e09ee5905cd0f0e9bb31">juce::File::getChildFile</references>
         <references refid="classjuce_1_1File_1a3e0950b0d0dbe71a8bc4a7ed3c7ab067">juce::File::getSpecialLocation</references>
-        <references refid="namespacefiles_1a4fa25fc64adbec36e00fff9632295c44" compoundref="_generated_8cpp" startline="161" endline="161">files::lingCache</references>
-        <references refid="namespacefiles_1aa079c0253a0187189d6d99d6c3584be6" compoundref="_generated_8cpp" startline="164" endline="164">files::lingLocalCache</references>
+        <references refid="namespacefiles_1a4fa25fc64adbec36e00fff9632295c44" compoundref="_generated_8cpp" startline="160" endline="160">files::lingCache</references>
+        <references refid="namespacefiles_1aa079c0253a0187189d6d99d6c3584be6" compoundref="_generated_8cpp" startline="163" endline="163">files::lingLocalCache</references>
         <references refid="classjuce_1_1File_1a6efe0648697f59af5952171d5e7b0317afc7a0751112d5d2a2b7a5d139e65b967">juce::File::userHomeDirectory</references>
         <references refid="classjuce_1_1File_1a6efe0648697f59af5952171d5e7b0317a4027faec552772ef6dec955e0016031d">juce::File::windowsLocalAppData</references>
-        <referencedby refid="class_processor_1a50d0c4af07b79f48b07329a53c46ac3a" compoundref="_processor_8cpp" startline="537" endline="562">Processor::addJobs</referencedby>
+        <referencedby refid="class_processor_1a50d0c4af07b79f48b07329a53c46ac3a" compoundref="_processor_8cpp" startline="536" endline="561">Processor::addJobs</referencedby>
         <referencedby refid="class_l_i_n_g_model_1abf829c79890d961d4b3ac2993aee651b" compoundref="_l_i_n_g_model_8cpp" startline="108" endline="111">getCacheDirectory</referencedby>
-        <referencedby refid="class_processor_1a2d6424cd284c59f9b2e289e8a780d819" compoundref="_processor_8cpp" startline="431" endline="481">Processor::getOrCreateLanguages</referencedby>
+        <referencedby refid="class_processor_1a2d6424cd284c59f9b2e289e8a780d819" compoundref="_processor_8cpp" startline="430" endline="480">Processor::getOrCreateLanguages</referencedby>
         <referencedby refid="class_server_1a4eea4c89de21dd82775cd821d7374010" compoundref="_server_8cpp" startline="63" endline="66">Server::getPortFile</referencedby>
         <referencedby refid="class_l_i_n_g_model_1a5bcff53e4014ed726cd537a497919beb" compoundref="_l_i_n_g_model_8cpp" startline="145" endline="173">getSwapFile</referencedby>
-        <referencedby refid="class_processor_1a1f668f02a5ca16270f8258f5a290f2ae" compoundref="_processor_8cpp" startline="1189" endline="1216">Processor::getUnitsJob</referencedby>
-        <referencedby refid="class_processor_1a08af8205b7fae804fbad9b2e7e320f22" compoundref="_processor_8cpp" startline="483" endline="529">Processor::setLanguage</referencedby>
+        <referencedby refid="class_processor_1a1f668f02a5ca16270f8258f5a290f2ae" compoundref="_processor_8cpp" startline="1191" endline="1218">Processor::getUnitsJob</referencedby>
+        <referencedby refid="class_processor_1a08af8205b7fae804fbad9b2e7e320f22" compoundref="_processor_8cpp" startline="482" endline="528">Processor::setLanguage</referencedby>
       </memberdef>
       <memberdef kind="function" id="class_l_i_n_g_model_1a0ebd93b9b8bd9a4d665a1e5274410d64" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref></type>
+        <type><ref refid="classjuce_1_1File" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::File</ref></type>
         <definition>juce::File LINGModel::getConfigDirectory</definition>
         <argsstring>()</argsstring>
         <name>getConfigDirectory</name>
@@ -403,14 +403,14 @@
         <location file="LINGModel.h" line="89" column="23" bodyfile="LINGModel.cpp" bodystart="66" bodyend="69"/>
         <references refid="classjuce_1_1File_1a57b992aacb19e09ee5905cd0f0e9bb31">juce::File::getChildFile</references>
         <references refid="classjuce_1_1File_1a3e0950b0d0dbe71a8bc4a7ed3c7ab067">juce::File::getSpecialLocation</references>
-        <references refid="namespacefiles_1a34a2e2350e731fefbfa367b997f91a4f" compoundref="_generated_8cpp" startline="162" endline="162">files::lingConfig</references>
+        <references refid="namespacefiles_1a34a2e2350e731fefbfa367b997f91a4f" compoundref="_generated_8cpp" startline="161" endline="161">files::lingConfig</references>
         <references refid="classjuce_1_1File_1a6efe0648697f59af5952171d5e7b0317afc7a0751112d5d2a2b7a5d139e65b967">juce::File::userHomeDirectory</references>
-        <referencedby refid="class_processor_1ab00c859ab19953604870768ae8b054bc" compoundref="_processor_8cpp" startline="611" endline="642">Processor::addLanguages</referencedby>
+        <referencedby refid="class_processor_1ab00c859ab19953604870768ae8b054bc" compoundref="_processor_8cpp" startline="610" endline="641">Processor::addLanguages</referencedby>
         <referencedby refid="class_l_i_n_g_model_1a29b44dc7f1b23d71cb935c4c021b7466" compoundref="_l_i_n_g_model_8cpp" startline="71" endline="78">getLanguageDirectories</referencedby>
         <referencedby refid="class_l_i_n_g_model_1a3c669014d96fcc38c6be04426a2b603b" compoundref="_l_i_n_g_model_8cpp" startline="80" endline="97">getOrCreateLanguageDirectories</referencedby>
       </memberdef>
       <memberdef kind="function" id="class_l_i_n_g_model_1a29b44dc7f1b23d71cb935c4c021b7466" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classjuce_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Array</ref>&lt; <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &gt;</type>
+        <type><ref refid="classjuce_1_1Array" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::Array</ref>&lt; <ref refid="classjuce_1_1File" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &gt;</type>
         <definition>juce::Array&lt; juce::File &gt; LINGModel::getLanguageDirectories</definition>
         <argsstring>()</argsstring>
         <name>getLanguageDirectories</name>
@@ -430,19 +430,19 @@
         <references refid="classjuce_1_1File_1a7f2a6dd2500753c44eaa5febc68fe435a4d089555b1434cc25f77e208926a14e6">juce::File::findDirectories</references>
         <references refid="classjuce_1_1File_1a57b992aacb19e09ee5905cd0f0e9bb31">juce::File::getChildFile</references>
         <references refid="class_l_i_n_g_model_1a0ebd93b9b8bd9a4d665a1e5274410d64" compoundref="_l_i_n_g_model_8cpp" startline="66" endline="69">getConfigDirectory</references>
-        <references refid="namespacefiles_1a50eeb249ab52e23ac671220a1bf0b9b8" compoundref="_generated_8cpp" startline="150" endline="150">files::language</references>
-        <references refid="namespacefiles_1a393849e0600a2afb2ddab619770482a0" compoundref="_generated_8cpp" startline="151" endline="151">files::languageConstruction</references>
+        <references refid="namespacefiles_1a50eeb249ab52e23ac671220a1bf0b9b8" compoundref="_generated_8cpp" startline="149" endline="149">files::language</references>
+        <references refid="namespacefiles_1a393849e0600a2afb2ddab619770482a0" compoundref="_generated_8cpp" startline="150" endline="150">files::languageConstruction</references>
         <referencedby refid="class_l_i_n_g_model_1a3c669014d96fcc38c6be04426a2b603b" compoundref="_l_i_n_g_model_8cpp" startline="80" endline="97">getOrCreateLanguageDirectories</referencedby>
-        <referencedby refid="class_processor_1a2d6424cd284c59f9b2e289e8a780d819" compoundref="_processor_8cpp" startline="431" endline="481">Processor::getOrCreateLanguages</referencedby>
+        <referencedby refid="class_processor_1a2d6424cd284c59f9b2e289e8a780d819" compoundref="_processor_8cpp" startline="430" endline="480">Processor::getOrCreateLanguages</referencedby>
       </memberdef>
       <memberdef kind="function" id="class_l_i_n_g_model_1a3c669014d96fcc38c6be04426a2b603b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classjuce_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Array</ref>&lt; <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &gt;</type>
+        <type><ref refid="classjuce_1_1Array" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::Array</ref>&lt; <ref refid="classjuce_1_1File" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &gt;</type>
         <definition>juce::Array&lt; juce::File &gt; LINGModel::getOrCreateLanguageDirectories</definition>
         <argsstring>()</argsstring>
         <name>getOrCreateLanguageDirectories</name>
         <qualifiedname>LINGModel::getOrCreateLanguageDirectories</qualifiedname>
         <briefdescription>
-<para>Returns language directories, seeding the default language files from <ref refid="namespaceBinaryData" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">BinaryData</ref> if none exist. </para>
+<para>Returns language directories, seeding the default language files from <ref refid="namespaceBinaryData" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">BinaryData</ref> if none exist. </para>
         </briefdescription>
         <detaileddescription>
 <para><simplesect kind="return"><para>Sorted array of valid language folders. </para>
@@ -453,25 +453,25 @@
         </inbodydescription>
         <location file="LINGModel.h" line="103" column="24" bodyfile="LINGModel.cpp" bodystart="80" bodyend="97"/>
         <references refid="structBinaryData_1_1Raw_1a50f1331dd30f0df2d6614a9c67be4a66">BinaryData::Raw::data</references>
-        <references refid="namespacefiles_1a5ef79677aed5cc47bb352671032af7f9" compoundref="_generated_8cpp" startline="149" endline="149">files::defaultLanguage</references>
+        <references refid="namespacefiles_1a5ef79677aed5cc47bb352671032af7f9" compoundref="_generated_8cpp" startline="148" endline="148">files::defaultLanguage</references>
         <references refid="classjuce_1_1File_1a57b992aacb19e09ee5905cd0f0e9bb31">juce::File::getChildFile</references>
         <references refid="class_l_i_n_g_model_1a0ebd93b9b8bd9a4d665a1e5274410d64" compoundref="_l_i_n_g_model_8cpp" startline="66" endline="69">getConfigDirectory</references>
         <references refid="class_l_i_n_g_model_1a29b44dc7f1b23d71cb935c4c021b7466" compoundref="_l_i_n_g_model_8cpp" startline="71" endline="78">getLanguageDirectories</references>
-        <references refid="namespacefiles_1a50eeb249ab52e23ac671220a1bf0b9b8" compoundref="_generated_8cpp" startline="150" endline="150">files::language</references>
-        <references refid="namespacefiles_1a393849e0600a2afb2ddab619770482a0" compoundref="_generated_8cpp" startline="151" endline="151">files::languageConstruction</references>
-        <references refid="namespacefiles_1a6e25aacb13dbcf4d202f89b1d771feb7" compoundref="_generated_8cpp" startline="159" endline="159">files::languageSpell</references>
-        <references refid="namespacefiles_1ae5dddb0f339d0506f8d19e8551259cdf" compoundref="_generated_8cpp" startline="160" endline="160">files::languageTemplate</references>
+        <references refid="namespacefiles_1a50eeb249ab52e23ac671220a1bf0b9b8" compoundref="_generated_8cpp" startline="149" endline="149">files::language</references>
+        <references refid="namespacefiles_1a393849e0600a2afb2ddab619770482a0" compoundref="_generated_8cpp" startline="150" endline="150">files::languageConstruction</references>
+        <references refid="namespacefiles_1a6e25aacb13dbcf4d202f89b1d771feb7" compoundref="_generated_8cpp" startline="158" endline="158">files::languageSpell</references>
+        <references refid="namespacefiles_1ae5dddb0f339d0506f8d19e8551259cdf" compoundref="_generated_8cpp" startline="159" endline="159">files::languageTemplate</references>
         <references refid="structBinaryData_1_1Raw_1aa6b91267d82ca52f42b607aa0064a05d">BinaryData::Raw::size</references>
-        <referencedby refid="class_processor_1ab00c859ab19953604870768ae8b054bc" compoundref="_processor_8cpp" startline="611" endline="642">Processor::addLanguages</referencedby>
+        <referencedby refid="class_processor_1ab00c859ab19953604870768ae8b054bc" compoundref="_processor_8cpp" startline="610" endline="641">Processor::addLanguages</referencedby>
       </memberdef>
       <memberdef kind="function" id="class_l_i_n_g_model_1af7419c5552c6ea25171ae51a02d746e2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref></type>
+        <type><ref refid="classjuce_1_1File" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::File</ref></type>
         <definition>juce::File LINGModel::getLanguageLibrary</definition>
         <argsstring>(const juce::File &amp;languageFolder)</argsstring>
         <name>getLanguageLibrary</name>
         <qualifiedname>LINGModel::getLanguageLibrary</qualifiedname>
         <param>
-          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
           <declname>languageFolder</declname>
         </param>
         <briefdescription>
@@ -495,19 +495,19 @@
         </inbodydescription>
         <location file="LINGModel.h" line="111" column="23" bodyfile="LINGModel.cpp" bodystart="99" bodyend="106"/>
         <references refid="classjuce_1_1File_1a57b992aacb19e09ee5905cd0f0e9bb31">juce::File::getChildFile</references>
-        <references refid="namespacefiles_1af8930407d3664ba1344ccb62859880fc" compoundref="_generated_8cpp" startline="157" endline="157">files::languageLibrary</references>
-        <references refid="namespacefiles_1a493979fc85144dea70de1262336697d4" compoundref="_generated_8cpp" startline="158" endline="158">files::languageLibraryWindows</references>
+        <references refid="namespacefiles_1af8930407d3664ba1344ccb62859880fc" compoundref="_generated_8cpp" startline="156" endline="156">files::languageLibrary</references>
+        <references refid="namespacefiles_1a493979fc85144dea70de1262336697d4" compoundref="_generated_8cpp" startline="157" endline="157">files::languageLibraryWindows</references>
         <referencedby refid="class_l_i_n_g_model_1a69cf1f824a69271ac205f6432f0b8955" compoundref="_l_i_n_g_model_8cpp" startline="207" endline="236">fileChanged</referencedby>
-        <referencedby refid="class_processor_1a08af8205b7fae804fbad9b2e7e320f22" compoundref="_processor_8cpp" startline="483" endline="529">Processor::setLanguage</referencedby>
+        <referencedby refid="class_processor_1a08af8205b7fae804fbad9b2e7e320f22" compoundref="_processor_8cpp" startline="482" endline="528">Processor::setLanguage</referencedby>
       </memberdef>
       <memberdef kind="function" id="class_l_i_n_g_model_1abf829c79890d961d4b3ac2993aee651b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref></type>
+        <type><ref refid="classjuce_1_1File" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::File</ref></type>
         <definition>juce::File LINGModel::getCacheDirectory</definition>
         <argsstring>(const juce::File &amp;manifest, std::string_view toolchainArgument)</argsstring>
         <name>getCacheDirectory</name>
         <qualifiedname>LINGModel::getCacheDirectory</qualifiedname>
         <param>
-          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
           <declname>manifest</declname>
         </param>
         <param>
@@ -548,13 +548,13 @@
         <references refid="class_l_i_n_g_model_1a6aeffa4a00ed2e45d072e5e850eaad6b" compoundref="_l_i_n_g_model_8cpp" startline="29" endline="39">getProjectName</references>
       </memberdef>
       <memberdef kind="function" id="class_l_i_n_g_model_1a0df8e4dfb3d082c1ed0f9eacb7aeb690" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref></type>
+        <type><ref refid="classjuce_1_1File" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::File</ref></type>
         <definition>juce::File LINGModel::getProjectDirectory</definition>
         <argsstring>(const juce::File &amp;manifest)</argsstring>
         <name>getProjectDirectory</name>
         <qualifiedname>LINGModel::getProjectDirectory</qualifiedname>
         <param>
-          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
           <declname>manifest</declname>
         </param>
         <briefdescription>
@@ -580,11 +580,11 @@
         <referencedby refid="class_manifest_1aa5df2324809e27afd2c2f3a110ed7c17" compoundref="_manifest_8cpp" startline="250" endline="266">Manifest::addPatternRows</referencedby>
         <referencedby refid="_manifest_8cpp_1aa0e8d8e5a54b35ea73cb28bdf95bcfa8" compoundref="_manifest_8cpp" startline="31" endline="39">getProjectRoots</referencedby>
         <referencedby refid="class_manifest_1a8d5113738228ea9088627ed4bbba47f7" compoundref="_manifest_8cpp" startline="190" endline="215">Manifest::getRoots</referencedby>
-        <referencedby refid="class_processor_1a1f668f02a5ca16270f8258f5a290f2ae" compoundref="_processor_8cpp" startline="1189" endline="1216">Processor::getUnitsJob</referencedby>
+        <referencedby refid="class_processor_1a1f668f02a5ca16270f8258f5a290f2ae" compoundref="_processor_8cpp" startline="1191" endline="1218">Processor::getUnitsJob</referencedby>
         <referencedby refid="class_l_i_n_g_model_1a3cd783d99a31ffc14afb62bdd6abe103" compoundref="_l_i_n_g_model_8cpp" startline="175" endline="181">valueTreePropertyChanged</referencedby>
       </memberdef>
       <memberdef kind="function" id="class_l_i_n_g_model_1a9f03f6d6767d7e5f88afd5c412e75208" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref></type>
+        <type><ref refid="classjuce_1_1File" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::File</ref></type>
         <definition>juce::File LINGModel::getPatchedDirectory</definition>
         <argsstring>(std::string_view version, const jam::Strings &amp;patchFiles)</argsstring>
         <name>getPatchedDirectory</name>
@@ -594,7 +594,7 @@
           <declname>version</declname>
         </param>
         <param>
-          <type>const <ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref> &amp;</type>
+          <type>const <ref refid="classjam_1_1Strings" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref> &amp;</type>
           <declname>patchFiles</declname>
         </param>
         <briefdescription>
@@ -627,8 +627,8 @@
         </inbodydescription>
         <location file="LINGModel.h" line="140" column="23" bodyfile="LINGModel.cpp" bodystart="118" bodyend="143"/>
         <references refid="structChars_1a4db3b142f5d69046eab6be2586aa25f7">Chars::carriageReturn</references>
-        <references refid="namespacefiles_1a48ec295864d9ef1d6a3b9dd810bc4deb" compoundref="_generated_8cpp" startline="146" endline="146">files::castJuceCache</references>
-        <references refid="namespacefiles_1ad6588f5989a358bc659eea09b65e290a" compoundref="_generated_8cpp" startline="147" endline="147">files::castJuceLocalCache</references>
+        <references refid="namespacefiles_1a48ec295864d9ef1d6a3b9dd810bc4deb" compoundref="_generated_8cpp" startline="145" endline="145">files::castJuceCache</references>
+        <references refid="namespacefiles_1ad6588f5989a358bc659eea09b65e290a" compoundref="_generated_8cpp" startline="146" endline="146">files::castJuceLocalCache</references>
         <references refid="classjuce_1_1File_1a57b992aacb19e09ee5905cd0f0e9bb31">juce::File::getChildFile</references>
         <references refid="classjuce_1_1File_1a3e0950b0d0dbe71a8bc4a7ed3c7ab067">juce::File::getSpecialLocation</references>
         <references refid="classjam_1_1Strings_1adfb32d159be94dc4a4004c50be876e3c">jam::Strings::getView</references>
@@ -649,15 +649,15 @@
         <qualifiedname>LINGModel::valueTreePropertyChanged</qualifiedname>
         <reimplements refid="classjuce_1_1ValueTree_1_1Listener_1a1a5481aafc0faa40aa3404a10c7b3785">valueTreePropertyChanged</reimplements>
         <param>
-          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
           <declname>tree</declname>
         </param>
         <param>
-          <type>const <ref refid="classjuce_1_1Identifier" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1Identifier" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref> &amp;</type>
           <declname>property</declname>
         </param>
         <briefdescription>
-<para>Adds the manifest folder to <computeroutput>watcher</computeroutput> when <ref refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::manifest</ref> changes on <computeroutput>state</computeroutput>. </para>
+<para>Adds the manifest folder to <computeroutput>watcher</computeroutput> when <ref refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Id::manifest</ref> changes on <computeroutput>state</computeroutput>. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
@@ -697,18 +697,18 @@
         <qualifiedname>LINGModel::valueTreeChildAdded</qualifiedname>
         <reimplements refid="classjuce_1_1ValueTree_1_1Listener_1ac26fa68e6f4625f71b52ab6fe776e0dc">valueTreeChildAdded</reimplements>
         <param>
-          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
           <declname>parentTree</declname>
         </param>
         <param>
-          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
           <declname>childWhichHasBeenAdded</declname>
         </param>
         <briefdescription>
-<para>Adds watched folders when <ref refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::files</ref> or <ref refid="namespaceId_1ad51576be43bd12d5c10355459608635b" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::language</ref> children are added. </para>
+<para>Adds watched folders when <ref refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Id::files</ref> or <ref refid="namespaceId_1ad51576be43bd12d5c10355459608635b" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Id::language</ref> children are added. </para>
         </briefdescription>
         <detaileddescription>
-<para>For <ref refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::files</ref>, watches existing parent directories of file rows and parent directories of <ref refid="namespaceId_1a3ccf49d60d6cf69aa6206aa0b836c359" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::buildFiles</ref> entries. For <ref refid="namespaceId_1ad51576be43bd12d5c10355459608635b" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::language</ref> with <ref refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::path</ref>, watches the language directory.</para>
+<para>For <ref refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Id::files</ref>, watches existing parent directories of file rows and parent directories of <ref refid="namespaceId_1a3ccf49d60d6cf69aa6206aa0b836c359" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Id::buildFiles</ref> entries. For <ref refid="namespaceId_1ad51576be43bd12d5c10355459608635b" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Id::language</ref> with <ref refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Id::path</ref>, watches the language directory.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>parentTree</parametername>
@@ -733,11 +733,11 @@
         <location file="LINGModel.h" line="170" column="10" bodyfile="LINGModel.cpp" bodystart="183" bodyend="205"/>
         <references refid="classjam_1_1File_1_1Watcher_1af3b174cc017a51839fcfa19d0e9f9cbc">jam::File::Watcher::addFolder</references>
         <references refid="namespaceId_1a3ccf49d60d6cf69aa6206aa0b836c359" compoundref="_generated_8cpp" startline="33" endline="33">Id::buildFiles</references>
-        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="58" endline="58">Id::files</references>
+        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="55" endline="55">Id::files</references>
         <references refid="classjuce_1_1File_1ab6bec65fbcf19ce10e38cf9d1015770d">juce::File::getParentDirectory</references>
         <references refid="classjuce_1_1ValueTree_1afa89ceabad600c371dc13c96b6167d91">juce::ValueTree::hasProperty</references>
         <references refid="classjuce_1_1ValueTree_1a21ae8143e7abb766a9a3b4961d74be2b">juce::ValueTree::hasType</references>
-        <references refid="namespaceId_1ad51576be43bd12d5c10355459608635b" compoundref="_generated_8cpp" startline="80" endline="80">Id::language</references>
+        <references refid="namespaceId_1ad51576be43bd12d5c10355459608635b" compoundref="_generated_8cpp" startline="77" endline="77">Id::language</references>
         <references refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab">Id::path</references>
         <references refid="classjuce_1_1Identifier_1ab6f0db1de2c36cacd1a9d7280f73aeeb">juce::Identifier::toString</references>
         <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
@@ -752,18 +752,18 @@
         <qualifiedname>LINGModel::fileChanged</qualifiedname>
         <reimplements refid="classjam_1_1File_1_1Watcher_1_1Listener_1a6c2ac76c28bc3b6bfaaba46af4f0b049">fileChanged</reimplements>
         <param>
-          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
           <declname>file</declname>
         </param>
         <param>
-          <type><ref refid="classjam_1_1File_1_1Watcher_1a67463011ada054bc1dc66cdf49d446f2" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::File::Watcher::Event</ref></type>
+          <type><ref refid="classjam_1_1File_1_1Watcher_1a67463011ada054bc1dc66cdf49d446f2" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::File::Watcher::Event</ref></type>
           <declname>event</declname>
         </param>
         <briefdescription>
-<para>Routes file-system changes to <ref refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::manifest</ref>, an <ref refid="namespaceId_1ad51576be43bd12d5c10355459608635b" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::language</ref> row, or an <ref refid="namespaceId_1a5d963020f2ab66034cf12eef33500c62" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::file</ref> row. </para>
+<para>Routes file-system changes to <ref refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Id::manifest</ref>, an <ref refid="namespaceId_1ad51576be43bd12d5c10355459608635b" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Id::language</ref> row, or an <ref refid="namespaceId_1a5d963020f2ab66034cf12eef33500c62" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Id::file</ref> row. </para>
         </briefdescription>
         <detaileddescription>
-<para><ref refid="class_manifest" kindref="compound">Manifest</ref> and <ref refid="namespaceId_1a3ccf49d60d6cf69aa6206aa0b836c359" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::buildFiles</ref> changes emit <ref refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::manifest</ref>; files or compiled libraries inside a watched language folder emit <ref refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::path</ref> on that language row; matching source paths emit <ref refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::path</ref> on their file row.</para>
+<para><ref refid="class_manifest" kindref="compound">Manifest</ref> and <ref refid="namespaceId_1a3ccf49d60d6cf69aa6206aa0b836c359" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Id::buildFiles</ref> changes emit <ref refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Id::manifest</ref>; files or compiled libraries inside a watched language folder emit <ref refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Id::path</ref> on that language row; matching source paths emit <ref refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Id::path</ref> on their file row.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>file</parametername>
@@ -787,12 +787,12 @@
         </inbodydescription>
         <location file="LINGModel.h" line="182" column="10" bodyfile="LINGModel.cpp" bodystart="207" bodyend="236"/>
         <references refid="namespaceId_1a3ccf49d60d6cf69aa6206aa0b836c359" compoundref="_generated_8cpp" startline="33" endline="33">Id::buildFiles</references>
-        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="58" endline="58">Id::files</references>
+        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="55" endline="55">Id::files</references>
         <references refid="classjuce_1_1ValueTree_1ac9bbcb6db4464f77b512b9bd8bbb8c3f">juce::ValueTree::getChildWithName</references>
         <references refid="classjuce_1_1ValueTree_1ae75bed92e299905f8e6a03ddfd63bea4">juce::ValueTree::getChildWithProperty</references>
         <references refid="class_l_i_n_g_model_1af7419c5552c6ea25171ae51a02d746e2" compoundref="_l_i_n_g_model_8cpp" startline="99" endline="106">getLanguageLibrary</references>
         <references refid="classjuce_1_1Identifier_1aa11734917f2bc61608c3bcd3e6611a6c">juce::Identifier::isValid</references>
-        <references refid="namespaceId_1ad51576be43bd12d5c10355459608635b" compoundref="_generated_8cpp" startline="80" endline="80">Id::language</references>
+        <references refid="namespaceId_1ad51576be43bd12d5c10355459608635b" compoundref="_generated_8cpp" startline="77" endline="77">Id::language</references>
         <references refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f">Id::manifest</references>
         <references refid="namespaceId_1ac0d6bb21fb6eb483624e52f9002294ab">Id::path</references>
         <references refid="classjuce_1_1ValueTree_1ae48f6072bff41f419d5ec15ff1765c5e">juce::ValueTree::sendPropertyChangeMessage</references>
@@ -804,7 +804,7 @@
 <para>Shared state of one LING run: files, roots, connections, buffers, languages, overlay parameters, and directory watcher. </para>
     </briefdescription>
     <detaileddescription>
-<para>Holds the state trees of one run. Changing <ref refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::manifest</ref> watches the manifest folder; adding <ref refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::files</ref> watches row folders and <ref refid="namespaceId_1a3ccf49d60d6cf69aa6206aa0b836c359" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::buildFiles</ref> folders; adding <ref refid="namespaceId_1ad51576be43bd12d5c10355459608635b" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::language</ref> watches the language folder. File changes notify the manifest, language row, or file row via property change messages. </para>
+<para>Holds the state trees of one run. Changing <ref refid="namespaceId_1a14ad76a66641361dbfbfc9424e6a2f3f" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Id::manifest</ref> watches the manifest folder; adding <ref refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Id::files</ref> watches row folders and <ref refid="namespaceId_1a3ccf49d60d6cf69aa6206aa0b836c359" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Id::buildFiles</ref> folders; adding <ref refid="namespaceId_1ad51576be43bd12d5c10355459608635b" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Id::language</ref> watches the language folder. File changes notify the manifest, language row, or file row via property change messages. </para>
     </detaileddescription>
     <inheritancegraph>
       <node id="1">
@@ -819,15 +819,15 @@
       </node>
       <node id="6">
         <label>jam::File::Watcher::Listener</label>
-        <link refid="classjam_1_1File_1_1Watcher_1_1Listener" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <link refid="classjam_1_1File_1_1Watcher_1_1Listener" external="D:/Poems/dev/jam/docs/tagfile.xml"/>
       </node>
       <node id="5">
         <label>jam::Instance&lt; LINGModel &gt;</label>
-        <link refid="structjam_1_1Instance" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <link refid="structjam_1_1Instance" external="D:/Poems/dev/jam/docs/tagfile.xml"/>
       </node>
       <node id="2">
         <label>jam::Model</label>
-        <link refid="classjam_1_1Model" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <link refid="classjam_1_1Model" external="D:/Poems/dev/jam/docs/tagfile.xml"/>
         <childnode refid="3" relation="public-inheritance">
         </childnode>
         <childnode refid="4" relation="public-inheritance">
@@ -835,11 +835,11 @@
       </node>
       <node id="3">
         <label>juce::Timer</label>
-        <link refid="classjuce_1_1Timer" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1Timer" external="D:/Poems/JUCE/docs/tagfile.xml"/>
       </node>
       <node id="4">
         <label>juce::ValueTree::Listener</label>
-        <link refid="classjuce_1_1ValueTree_1_1Listener" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1ValueTree_1_1Listener" external="D:/Poems/JUCE/docs/tagfile.xml"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
@@ -858,7 +858,7 @@
       </node>
       <node id="5">
         <label>jam::AnyMap&lt; typename TypeOfCriticalSectionToUse &gt;</label>
-        <link refid="classjam_1_1AnyMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <link refid="classjam_1_1AnyMap" external="D:/Poems/dev/jam/docs/tagfile.xml"/>
         <childnode refid="6" relation="public-inheritance">
         </childnode>
         <childnode refid="7" relation="usage">
@@ -870,7 +870,7 @@
       </node>
       <node id="14">
         <label>jam::File::Watcher</label>
-        <link refid="classjam_1_1File_1_1Watcher" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <link refid="classjam_1_1File_1_1Watcher" external="D:/Poems/dev/jam/docs/tagfile.xml"/>
         <childnode refid="15" relation="private-inheritance">
         </childnode>
         <childnode refid="3" relation="private-inheritance">
@@ -890,27 +890,27 @@
       </node>
       <node id="13">
         <label>jam::File::Watcher::Listener</label>
-        <link refid="classjam_1_1File_1_1Watcher_1_1Listener" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <link refid="classjam_1_1File_1_1Watcher_1_1Listener" external="D:/Poems/dev/jam/docs/tagfile.xml"/>
       </node>
       <node id="8">
         <label>jam::HashMap&lt; juce::Identifier, jam::AnyMap::Trait &gt;</label>
-        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <link refid="classjam_1_1HashMap" external="D:/Poems/dev/jam/docs/tagfile.xml"/>
       </node>
       <node id="11">
         <label>jam::HashMap&lt; juce::Identifier, jam::HashMap&lt; juce::Identifier, std::unique_ptr&lt; ParameterAdapter &gt; &gt; &gt;</label>
-        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <link refid="classjam_1_1HashMap" external="D:/Poems/dev/jam/docs/tagfile.xml"/>
       </node>
       <node id="7">
         <label>jam::HashMap&lt; juce::Identifier, std::unique_ptr&lt; void, Deleter &gt; &gt;</label>
-        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <link refid="classjam_1_1HashMap" external="D:/Poems/dev/jam/docs/tagfile.xml"/>
       </node>
       <node id="12">
         <label>jam::Instance&lt; LINGModel &gt;</label>
-        <link refid="structjam_1_1Instance" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <link refid="structjam_1_1Instance" external="D:/Poems/dev/jam/docs/tagfile.xml"/>
       </node>
       <node id="2">
         <label>jam::Model</label>
-        <link refid="classjam_1_1Model" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <link refid="classjam_1_1Model" external="D:/Poems/dev/jam/docs/tagfile.xml"/>
         <childnode refid="3" relation="public-inheritance">
         </childnode>
         <childnode refid="4" relation="public-inheritance">
@@ -930,39 +930,39 @@
       </node>
       <node id="15">
         <label>juce::AsyncUpdater</label>
-        <link refid="classjuce_1_1AsyncUpdater" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1AsyncUpdater" external="D:/Poems/JUCE/docs/tagfile.xml"/>
       </node>
       <node id="10">
         <label>juce::CriticalSection</label>
-        <link refid="classjuce_1_1CriticalSection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1CriticalSection" external="D:/Poems/JUCE/docs/tagfile.xml"/>
       </node>
       <node id="6">
         <label>juce::DummyCriticalSection</label>
-        <link refid="classjuce_1_1DummyCriticalSection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1DummyCriticalSection" external="D:/Poems/JUCE/docs/tagfile.xml"/>
       </node>
       <node id="17">
         <label>juce::File</label>
-        <link refid="classjuce_1_1File" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1File" external="D:/Poems/JUCE/docs/tagfile.xml"/>
       </node>
       <node id="18">
         <label>juce::ListenerList&lt; jam::File::Watcher::Listener &gt;</label>
-        <link refid="classjuce_1_1ListenerList" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1ListenerList" external="D:/Poems/JUCE/docs/tagfile.xml"/>
       </node>
       <node id="19">
         <label>juce::OwnedArray&lt; Source &gt;</label>
-        <link refid="classjuce_1_1OwnedArray" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1OwnedArray" external="D:/Poems/JUCE/docs/tagfile.xml"/>
       </node>
       <node id="3">
         <label>juce::Timer</label>
-        <link refid="classjuce_1_1Timer" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1Timer" external="D:/Poems/JUCE/docs/tagfile.xml"/>
       </node>
       <node id="9">
         <label>juce::ValueTree</label>
-        <link refid="classjuce_1_1ValueTree" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1ValueTree" external="D:/Poems/JUCE/docs/tagfile.xml"/>
       </node>
       <node id="4">
         <label>juce::ValueTree::Listener</label>
-        <link refid="classjuce_1_1ValueTree_1_1Listener" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1ValueTree_1_1Listener" external="D:/Poems/JUCE/docs/tagfile.xml"/>
       </node>
       <node id="16">
         <label>std::map&lt; juce::File, Event &gt;</label>

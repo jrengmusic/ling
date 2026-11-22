@@ -31,9 +31,9 @@ bool LibraryLanguage::hasIndex() const
     return true;
 }
 
-int LibraryLanguage::units (const char* const* arguments, const int* argumentCounts, int rowCount, const char* directory, const char* cacheDirectory, const jam::LanguageCallbacks& callbacks) const
+int LibraryLanguage::addUnits (const char* const* arguments, const int* argumentCounts, int rowCount, const char* directory, const char* cacheDirectory, const jam::LanguageCallbacks& callbacks) const
 {
-    return library->units (arguments, argumentCounts, rowCount, directory, cacheDirectory, callbacks);
+    return library->addUnits (arguments, argumentCounts, rowCount, directory, cacheDirectory, callbacks);
 }
 
 bool LibraryLanguage::hasRole (const jam::Document::Element& element, int role) const

@@ -10,7 +10,7 @@
     <includes refid="_client_8h" local="no">Client.h</includes>
     <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="class_client_1ada497223de332fd90f251dcd387b5181" prot="private" static="no" mutable="no">
-        <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref></type>
+        <type>const <ref refid="classjuce_1_1File" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::File</ref></type>
         <definition>const juce::File Client::manifestFile</definition>
         <argsstring></argsstring>
         <name>manifestFile</name>
@@ -30,7 +30,7 @@
         <referencedby refid="class_client_1a742373e08a80d993d2651b6fff76f5b9" compoundref="_client_8cpp" startline="21" endline="37">start</referencedby>
       </memberdef>
       <memberdef kind="variable" id="class_client_1a58e679174623e64752fb4f1111186a36" prot="private" static="no" mutable="no">
-        <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref></type>
+        <type>const <ref refid="classjuce_1_1String" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String</ref></type>
         <definition>const juce::String Client::toolchainArgument</definition>
         <argsstring></argsstring>
         <name>toolchainArgument</name>
@@ -50,7 +50,7 @@
         <referencedby refid="class_client_1a742373e08a80d993d2651b6fff76f5b9" compoundref="_client_8cpp" startline="21" endline="37">start</referencedby>
       </memberdef>
       <memberdef kind="variable" id="class_client_1a5d2b39ff4446a3ff048057293c9e5bb7" prot="private" static="no" mutable="no">
-        <type><ref refid="classjam_1_1File_1_1Watcher" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::File::Watcher</ref></type>
+        <type><ref refid="classjam_1_1File_1_1Watcher" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::File::Watcher</ref></type>
         <definition>jam::File::Watcher Client::watcher</definition>
         <argsstring></argsstring>
         <name>watcher</name>
@@ -76,7 +76,7 @@
         <argsstring></argsstring>
         <name>model</name>
         <qualifiedname>Client::model</qualifiedname>
-        <initializer>{ *<ref refid="structjam_1_1Instance_1ad5d2bbb58e37d8d260b428b334823140" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">LINGModel::getInstance</ref>() }</initializer>
+        <initializer>{ *<ref refid="structjam_1_1Instance_1ad5d2bbb58e37d8d260b428b334823140" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">LINGModel::getInstance</ref>() }</initializer>
         <briefdescription>
 <para>The model of the run. </para>
         </briefdescription>
@@ -112,11 +112,11 @@
         <name>Client</name>
         <qualifiedname>Client::Client</qualifiedname>
         <param>
-          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
           <declname>newManifestFile</declname>
         </param>
         <param>
-          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
           <declname>newToolchainArgument</declname>
         </param>
         <briefdescription>
@@ -255,15 +255,15 @@
         <qualifiedname>Client::fileChanged</qualifiedname>
         <reimplements refid="classjam_1_1File_1_1Watcher_1_1Listener_1a6c2ac76c28bc3b6bfaaba46af4f0b049">fileChanged</reimplements>
         <param>
-          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
           <declname>file</declname>
         </param>
         <param>
-          <type><ref refid="classjam_1_1File_1_1Watcher_1a67463011ada054bc1dc66cdf49d446f2" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::File::Watcher::Event</ref></type>
+          <type><ref refid="classjam_1_1File_1_1Watcher_1a67463011ada054bc1dc66cdf49d446f2" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::File::Watcher::Event</ref></type>
           <declname>event</declname>
         </param>
         <briefdescription>
-<para>Records <ref refid="namespaceId_1a8e9903ef5a2fd9423eb45b0570318adc" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::port</ref> on model.state and tries to connect when the port file changes. </para>
+<para>Records <ref refid="namespaceId_1a8e9903ef5a2fd9423eb45b0570318adc" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Id::port</ref> on model.state and tries to connect when the port file changes. </para>
         </briefdescription>
         <detaileddescription>
 <para>A change of any other file does nothing.</para>
@@ -295,7 +295,7 @@
         <references refid="classjuce_1_1InterprocessConnection_1a9159f2606dbc6fb0f971bd12c824fec0">juce::InterprocessConnection::isConnected</references>
         <references refid="class_client_1ada497223de332fd90f251dcd387b5181" compoundref="_client_8h" startline="65">manifestFile</references>
         <references refid="class_client_1a156ea116c333d0160312d53971a2a709" compoundref="_client_8h" startline="72" endline="72">model</references>
-        <references refid="namespaceId_1a8e9903ef5a2fd9423eb45b0570318adc" compoundref="_generated_8cpp" startline="94" endline="94">Id::port</references>
+        <references refid="namespaceId_1a8e9903ef5a2fd9423eb45b0570318adc" compoundref="_generated_8cpp" startline="91" endline="91">Id::port</references>
         <references refid="classjuce_1_1ValueTree_1a86de4a6662eb049c21c30c627616fb0e">juce::ValueTree::setProperty</references>
         <references refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857">jam::Model::state</references>
         <references refid="class_client_1a58e679174623e64752fb4f1111186a36" compoundref="_client_8h" startline="68">toolchainArgument</references>
@@ -358,11 +358,11 @@
       </node>
       <node id="3">
         <label>jam::File::Watcher::Listener</label>
-        <link refid="classjam_1_1File_1_1Watcher_1_1Listener" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <link refid="classjam_1_1File_1_1Watcher_1_1Listener" external="D:/Poems/dev/jam/docs/tagfile.xml"/>
       </node>
       <node id="2">
         <label>juce::InterprocessConnection</label>
-        <link refid="classjuce_1_1InterprocessConnection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1InterprocessConnection" external="D:/Poems/JUCE/docs/tagfile.xml"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
@@ -401,7 +401,7 @@
       </node>
       <node id="10">
         <label>jam::AnyMap&lt; typename TypeOfCriticalSectionToUse &gt;</label>
-        <link refid="classjam_1_1AnyMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <link refid="classjam_1_1AnyMap" external="D:/Poems/dev/jam/docs/tagfile.xml"/>
         <childnode refid="11" relation="public-inheritance">
         </childnode>
         <childnode refid="12" relation="usage">
@@ -413,7 +413,7 @@
       </node>
       <node id="18">
         <label>jam::File::Watcher</label>
-        <link refid="classjam_1_1File_1_1Watcher" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <link refid="classjam_1_1File_1_1Watcher" external="D:/Poems/dev/jam/docs/tagfile.xml"/>
         <childnode refid="19" relation="private-inheritance">
         </childnode>
         <childnode refid="8" relation="private-inheritance">
@@ -433,27 +433,27 @@
       </node>
       <node id="3">
         <label>jam::File::Watcher::Listener</label>
-        <link refid="classjam_1_1File_1_1Watcher_1_1Listener" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <link refid="classjam_1_1File_1_1Watcher_1_1Listener" external="D:/Poems/dev/jam/docs/tagfile.xml"/>
       </node>
       <node id="13">
         <label>jam::HashMap&lt; juce::Identifier, jam::AnyMap::Trait &gt;</label>
-        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <link refid="classjam_1_1HashMap" external="D:/Poems/dev/jam/docs/tagfile.xml"/>
       </node>
       <node id="16">
         <label>jam::HashMap&lt; juce::Identifier, jam::HashMap&lt; juce::Identifier, std::unique_ptr&lt; ParameterAdapter &gt; &gt; &gt;</label>
-        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <link refid="classjam_1_1HashMap" external="D:/Poems/dev/jam/docs/tagfile.xml"/>
       </node>
       <node id="12">
         <label>jam::HashMap&lt; juce::Identifier, std::unique_ptr&lt; void, Deleter &gt; &gt;</label>
-        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <link refid="classjam_1_1HashMap" external="D:/Poems/dev/jam/docs/tagfile.xml"/>
       </node>
       <node id="17">
         <label>jam::Instance&lt; LINGModel &gt;</label>
-        <link refid="structjam_1_1Instance" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <link refid="structjam_1_1Instance" external="D:/Poems/dev/jam/docs/tagfile.xml"/>
       </node>
       <node id="7">
         <label>jam::Model</label>
-        <link refid="classjam_1_1Model" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <link refid="classjam_1_1Model" external="D:/Poems/dev/jam/docs/tagfile.xml"/>
         <childnode refid="8" relation="public-inheritance">
         </childnode>
         <childnode refid="9" relation="public-inheritance">
@@ -473,47 +473,47 @@
       </node>
       <node id="19">
         <label>juce::AsyncUpdater</label>
-        <link refid="classjuce_1_1AsyncUpdater" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1AsyncUpdater" external="D:/Poems/JUCE/docs/tagfile.xml"/>
       </node>
       <node id="15">
         <label>juce::CriticalSection</label>
-        <link refid="classjuce_1_1CriticalSection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1CriticalSection" external="D:/Poems/JUCE/docs/tagfile.xml"/>
       </node>
       <node id="11">
         <label>juce::DummyCriticalSection</label>
-        <link refid="classjuce_1_1DummyCriticalSection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1DummyCriticalSection" external="D:/Poems/JUCE/docs/tagfile.xml"/>
       </node>
       <node id="4">
         <label>juce::File</label>
-        <link refid="classjuce_1_1File" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1File" external="D:/Poems/JUCE/docs/tagfile.xml"/>
       </node>
       <node id="2">
         <label>juce::InterprocessConnection</label>
-        <link refid="classjuce_1_1InterprocessConnection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1InterprocessConnection" external="D:/Poems/JUCE/docs/tagfile.xml"/>
       </node>
       <node id="21">
         <label>juce::ListenerList&lt; jam::File::Watcher::Listener &gt;</label>
-        <link refid="classjuce_1_1ListenerList" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1ListenerList" external="D:/Poems/JUCE/docs/tagfile.xml"/>
       </node>
       <node id="22">
         <label>juce::OwnedArray&lt; Source &gt;</label>
-        <link refid="classjuce_1_1OwnedArray" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1OwnedArray" external="D:/Poems/JUCE/docs/tagfile.xml"/>
       </node>
       <node id="5">
         <label>juce::String</label>
-        <link refid="classjuce_1_1String" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1String" external="D:/Poems/JUCE/docs/tagfile.xml"/>
       </node>
       <node id="8">
         <label>juce::Timer</label>
-        <link refid="classjuce_1_1Timer" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1Timer" external="D:/Poems/JUCE/docs/tagfile.xml"/>
       </node>
       <node id="14">
         <label>juce::ValueTree</label>
-        <link refid="classjuce_1_1ValueTree" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1ValueTree" external="D:/Poems/JUCE/docs/tagfile.xml"/>
       </node>
       <node id="9">
         <label>juce::ValueTree::Listener</label>
-        <link refid="classjuce_1_1ValueTree_1_1Listener" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1ValueTree_1_1Listener" external="D:/Poems/JUCE/docs/tagfile.xml"/>
       </node>
       <node id="20">
         <label>std::map&lt; juce::File, Event &gt;</label>

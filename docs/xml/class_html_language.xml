@@ -6,7 +6,7 @@
     <includes refid="_html_language_8h" local="no">HtmlLanguage.h</includes>
     <sectiondef kind="public-func">
       <memberdef kind="function" id="class_html_language_1ab70a874e005e765e4bc3f505c7817b98" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type>std::pair&lt; std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;, std::unique_ptr&lt; <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> &gt; &gt;</type>
+        <type>std::pair&lt; std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;, std::unique_ptr&lt; <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> &gt; &gt;</type>
         <definition>std::pair&lt; std::unique_ptr&lt; jam::Document &gt;, std::unique_ptr&lt; SymbolDocument &gt; &gt; HtmlLanguage::parse</definition>
         <argsstring>(std::string_view text, const juce::String &amp;path) const override</argsstring>
         <name>parse</name>
@@ -17,7 +17,7 @@
           <declname>text</declname>
         </param>
         <param>
-          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
           <declname>path</declname>
         </param>
         <briefdescription>
@@ -41,7 +41,7 @@
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>Pair of parsed <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> and its built <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref>. </para>
+<simplesect kind="return"><para>Pair of parsed <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> and its built <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref>. </para>
 </simplesect>
 </para>
         </detaileddescription>
@@ -52,7 +52,7 @@
         <references refid="structjam_1_1HtmlDocument_1a1c0e8ec5802662dcd3edd8fa8a350a59">jam::HtmlDocument::parse</references>
       </memberdef>
       <memberdef kind="function" id="class_html_language_1a9e2c1011f5dc02aaaeed34253f3a88b2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type>std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;</type>
+        <type>std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;</type>
         <definition>std::unique_ptr&lt; jam::Document &gt; HtmlLanguage::read</definition>
         <argsstring>(std::string_view text, std::string_view stored) const override</argsstring>
         <name>read</name>
@@ -67,7 +67,7 @@
           <declname>stored</declname>
         </param>
         <briefdescription>
-<para>Reconstructs a cached HTML <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> from <computeroutput>text</computeroutput> and swap bytes <computeroutput>stored</computeroutput>. </para>
+<para>Reconstructs a cached HTML <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> from <computeroutput>text</computeroutput> and swap bytes <computeroutput>stored</computeroutput>. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
@@ -87,7 +87,7 @@
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>Deserialized <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref>, or nullptr if incompatible. </para>
+<simplesect kind="return"><para>Deserialized <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref>, or nullptr if incompatible. </para>
 </simplesect>
 </para>
         </detaileddescription>
@@ -99,14 +99,14 @@
     </sectiondef>
     <sectiondef kind="protected-func">
       <memberdef kind="function" id="class_html_language_1ac7c1227b4222520fa44efc829884cd59" prot="protected" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
+        <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
         <definition>juce::int64 HtmlLanguage::getSymbol</definition>
         <argsstring>(const juce::File &amp;file, std::string_view name, int role) const override</argsstring>
         <name>getSymbol</name>
         <qualifiedname>HtmlLanguage::getSymbol</qualifiedname>
         <reimplements refid="class_built_in_language_1a28bcb8d7e1d8d47ec696b7feab03c529">getSymbol</reimplements>
         <param>
-          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
           <declname>file</declname>
         </param>
         <param>
@@ -121,7 +121,7 @@
 <para>Resolves <computeroutput>#id</computeroutput> anchor references to the target file and normalized fragment identifier. </para>
         </briefdescription>
         <detaileddescription>
-<para>For tokens carrying <ref refid="structjam_1_1LanguageRole_1aa57ab486efc0ee9fcf67aff944739560ad7df63664e092d445c3779e56fc8a1bb" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageRole::reference</ref> (such as <computeroutput>href</computeroutput> values), splits <computeroutput>name</computeroutput> at <computeroutput>#</computeroutput>: the substring before <computeroutput>#</computeroutput> resolves relative to <computeroutput>file&apos;s</computeroutput> parent directory (or <computeroutput>file</computeroutput> itself when empty for same-file <computeroutput>#id</computeroutput> anchors), and the substring after <computeroutput>#</computeroutput> is hashed via <ref refid="class_built_in_language_1a554a0a4d4b5ab2d93603ddd8a43b2c61" kindref="member">getSymbolHash()</ref>. Declarations fall back to <ref refid="class_built_in_language_1a28bcb8d7e1d8d47ec696b7feab03c529" kindref="member">BuiltInLanguage::getSymbol()</ref>.</para>
+<para>For tokens carrying <ref refid="structjam_1_1LanguageRole_1aa57ab486efc0ee9fcf67aff944739560ad7df63664e092d445c3779e56fc8a1bb" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::LanguageRole::reference</ref> (such as <computeroutput>href</computeroutput> values), splits <computeroutput>name</computeroutput> at <computeroutput>#</computeroutput>: the substring before <computeroutput>#</computeroutput> resolves relative to <computeroutput>file&apos;s</computeroutput> parent directory (or <computeroutput>file</computeroutput> itself when empty for same-file <computeroutput>#id</computeroutput> anchors), and the substring after <computeroutput>#</computeroutput> is hashed via <ref refid="class_built_in_language_1a554a0a4d4b5ab2d93603ddd8a43b2c61" kindref="member">getSymbolHash()</ref>. Declarations fall back to <ref refid="class_built_in_language_1a28bcb8d7e1d8d47ec696b7feab03c529" kindref="member">BuiltInLanguage::getSymbol()</ref>.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>file</parametername>
@@ -143,7 +143,7 @@
 <parametername>role</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Bitmask of <ref refid="structjam_1_1LanguageRole" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageRole</ref> flags for the token slot. </para>
+<para>Bitmask of <ref refid="structjam_1_1LanguageRole" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::LanguageRole</ref> flags for the token slot. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -162,7 +162,7 @@
       </memberdef>
     </sectiondef>
     <briefdescription>
-<para><ref refid="class_built_in_language" kindref="compound">BuiltInLanguage</ref> specialization for HTML documents using <ref refid="structmap_1_1_html_elements" kindref="compound">map::HtmlElements</ref> and <ref refid="structmap_1_1HtmlTokenType" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">map::HtmlTokenType</ref>. </para>
+<para><ref refid="class_built_in_language" kindref="compound">BuiltInLanguage</ref> specialization for HTML documents using <ref refid="structmap_1_1_html_elements" kindref="compound">map::HtmlElements</ref> and <ref refid="structmap_1_1HtmlTokenType" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">map::HtmlTokenType</ref>. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
@@ -206,7 +206,7 @@
       </node>
       <node id="4">
         <label>juce::String</label>
-        <link refid="classjuce_1_1String" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1String" external="D:/Poems/JUCE/docs/tagfile.xml"/>
       </node>
     </collaborationgraph>
     <location file="languages/HtmlLanguage.h" line="9" column="1" bodyfile="languages/HtmlLanguage.h" bodystart="10" bodyend="50"/>
@@ -214,7 +214,7 @@
       <member refid="class_built_in_language_1ae95ee532859c01b62bc306f962b92a51" prot="private" virt="non-virtual"><scope>HtmlLanguage</scope><name>addOutline</name></member>
       <member refid="class_built_in_language_1a0ba607b3f35632693f7506f09beb96c0" prot="private" virt="non-virtual"><scope>HtmlLanguage</scope><name>addOutlines</name></member>
       <member refid="class_built_in_language_1aa10d62c0ee79fbb2a93559083440b7c1" prot="private" virt="non-virtual"><scope>HtmlLanguage</scope><name>addRecords</name></member>
-      <member refid="class_built_in_language_1a44546630431ac2c9165064d4a2ff84d3" prot="private" virt="non-virtual"><scope>HtmlLanguage</scope><name>addUnits</name></member>
+      <member refid="class_built_in_language_1a3e18e6431f523f96cefd64c9b562b507" prot="public" virt="virtual"><scope>HtmlLanguage</scope><name>addUnits</name></member>
       <member refid="class_built_in_language_1a0ae6244ea1331d0689d8fa7bc89b2a83" prot="public" virt="non-virtual"><scope>HtmlLanguage</scope><name>BuiltInLanguage</name></member>
       <member refid="class_built_in_language_1ae26f80b21d62c5b223e44557fa40e26f" prot="private" virt="non-virtual"><scope>HtmlLanguage</scope><name>extension</name></member>
       <member refid="class_built_in_language_1a4333998289e0e9b21c0b422118f4a2f9" prot="public" virt="virtual"><scope>HtmlLanguage</scope><name>getCompletionType</name></member>
@@ -238,7 +238,6 @@
       <member refid="class_built_in_language_1a2e9a4db2c617a56b1a64368389ae7b45" prot="private" virt="non-virtual"><scope>HtmlLanguage</scope><name>noQualifierLength</name></member>
       <member refid="class_html_language_1ab70a874e005e765e4bc3f505c7817b98" prot="public" virt="virtual"><scope>HtmlLanguage</scope><name>parse</name></member>
       <member refid="class_html_language_1a9e2c1011f5dc02aaaeed34253f3a88b2" prot="public" virt="virtual"><scope>HtmlLanguage</scope><name>read</name></member>
-      <member refid="class_built_in_language_1ae167081944e4d638161909ea4f18a1df" prot="public" virt="virtual"><scope>HtmlLanguage</scope><name>units</name></member>
       <member refid="class_language_1a31ccc6a98a6c40a452a66a18ca604c79" prot="public" virt="virtual"><scope>HtmlLanguage</scope><name>~Language</name></member>
     </listofallmembers>
   </compounddef>

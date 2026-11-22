@@ -1058,9 +1058,9 @@
     </member>
     <member kind="function">
       <type>int</type>
-      <name>units</name>
+      <name>addUnits</name>
       <anchorfile>class_built_in_language.html</anchorfile>
-      <anchor>ae167081944e4d638161909ea4f18a1df</anchor>
+      <anchor>a3e18e6431f523f96cefd64c9b562b507</anchor>
       <arglist>(const char *const *arguments, const int *argumentCounts, int rowCount, const char *directory, const char *, const jam::LanguageCallbacks &amp;callbacks) const override</arglist>
     </member>
     <member kind="function">
@@ -3309,9 +3309,9 @@
     </member>
     <member kind="function" virtualness="pure">
       <type>virtual int</type>
-      <name>units</name>
+      <name>addUnits</name>
       <anchorfile>class_language.html</anchorfile>
-      <anchor>aad06a1f0660985eb64023e05e8845bb7</anchor>
+      <anchor>a43b8120736963690a482aae116019105</anchor>
       <arglist>(const char *const *arguments, const int *argumentCounts, int rowCount, const char *directory, const char *cacheDirectory, const jam::LanguageCallbacks &amp;callbacks) const =0</arglist>
     </member>
     <member kind="function" virtualness="pure">
@@ -3477,9 +3477,9 @@
     </member>
     <member kind="function">
       <type>int</type>
-      <name>units</name>
+      <name>addUnits</name>
       <anchorfile>class_library_language.html</anchorfile>
-      <anchor>ad62d27a5d4bb08cc20062550040942b8</anchor>
+      <anchor>a4300332c29ec78e9b28590e102a79b60</anchor>
       <arglist>(const char *const *arguments, const int *argumentCounts, int rowCount, const char *directory, const char *cacheDirectory, const jam::LanguageCallbacks &amp;callbacks) const override</arglist>
     </member>
     <member kind="function">
@@ -5653,6 +5653,13 @@
       <arglist>(juce::ValueTree &amp;request, int code)</arglist>
     </member>
     <member kind="function" static="yes">
+      <type>static void</type>
+      <name>setResult</name>
+      <anchorfile>class_query.html</anchorfile>
+      <anchor>ad9336e7536e4ee2277cfa401bff2a678</anchor>
+      <arglist>(juce::ValueTree &amp;request, const Function &amp;appendValue)</arglist>
+    </member>
+    <member kind="function" static="yes">
       <type>static bool</type>
       <name>isValidRequest</name>
       <anchorfile>class_query.html</anchorfile>
@@ -5819,13 +5826,6 @@
       <anchorfile>class_query.html</anchorfile>
       <anchor>a8b4b8879491b426324edd38e0f92c794</anchor>
       <arglist>(juce::MemoryBlock &amp;json, int pathIndex, const Index &amp;index, std::string_view encoding, uint32_t startOffset, uint32_t endOffset) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>setResult</name>
-      <anchorfile>class_query.html</anchorfile>
-      <anchor>ae6ef066ef3e91ce050309430c41c5833</anchor>
-      <arglist>(juce::ValueTree &amp;request, const Function &amp;appendValue) const</arglist>
     </member>
     <member kind="function" protection="private">
       <type>void</type>
@@ -6323,23 +6323,16 @@
     </member>
     <member kind="function" protection="private">
       <type>void</type>
-      <name>didOpen</name>
+      <name>setBuffer</name>
       <anchorfile>class_relay.html</anchorfile>
-      <anchor>a75c3b886036fc7c0ae314e48990ea00d</anchor>
+      <anchor>ab18182483d77feec7a10d23e7e0feaf0</anchor>
       <arglist>(const jam::JsonDocument &amp;document, const jam::Document::Element &amp;root)</arglist>
     </member>
     <member kind="function" protection="private">
       <type>void</type>
-      <name>didChange</name>
+      <name>removeBuffer</name>
       <anchorfile>class_relay.html</anchorfile>
-      <anchor>ac8467fe6a84d80cae61f5b436147c8c8</anchor>
-      <arglist>(const jam::JsonDocument &amp;document, const jam::Document::Element &amp;root)</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>didClose</name>
-      <anchorfile>class_relay.html</anchorfile>
-      <anchor>a0e68888453bcf8a301bcdd1ddf2fcf75</anchor>
+      <anchor>a0f10210359ac3fe60cfb0e9f35fd1a2d</anchor>
       <arglist>(const jam::JsonDocument &amp;document, const jam::Document::Element &amp;root)</arglist>
     </member>
     <member kind="function" protection="private">

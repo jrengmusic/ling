@@ -50,7 +50,7 @@
     </sectiondef>
     <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="class_built_in_language_1ae26f80b21d62c5b223e44557fa40e26f" prot="private" static="no" mutable="no">
-        <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref></type>
+        <type>const <ref refid="classjuce_1_1String" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String</ref></type>
         <definition>const juce::String BuiltInLanguage&lt; Elements, TokenTypes &gt;::extension</definition>
         <argsstring></argsstring>
         <name>extension</name>
@@ -75,7 +75,7 @@
         <name>BuiltInLanguage</name>
         <qualifiedname>BuiltInLanguage::BuiltInLanguage</qualifiedname>
         <param>
-          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
           <declname>extensionToUse</declname>
         </param>
         <briefdescription>
@@ -99,7 +99,7 @@
         <references refid="class_built_in_language_1ae26f80b21d62c5b223e44557fa40e26f" compoundref="_built_in_language_8h" startline="244">BuiltInLanguage&lt; Elements, TokenTypes &gt;::extension</references>
       </memberdef>
       <memberdef kind="function" id="class_built_in_language_1abb7f2d4981fc084fe3f21e6267a94f7b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
-        <type><ref refid="classjuce_1_1Result" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Result</ref></type>
+        <type><ref refid="classjuce_1_1Result" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::Result</ref></type>
         <definition>juce::Result BuiltInLanguage&lt; Elements, TokenTypes &gt;::isValid</definition>
         <argsstring>(std::string_view) const override</argsstring>
         <name>isValid</name>
@@ -112,7 +112,7 @@
 <para>Returns a parse failure result because built-in languages validate during <ref refid="class_language_1aa23f1df5cd018950d06f9b0ddf1c2e23" kindref="member">parse()</ref>. </para>
         </briefdescription>
         <detaileddescription>
-<para><simplesect kind="return"><para>Failed <ref refid="classjuce_1_1Result" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Result</ref> carrying <ref refid="structtext_1_1_diagnostics_1a592e63682b3f319b9d9e68c575b81486" kindref="member">text::Diagnostics::failLanguageParse</ref>. </para>
+<para><simplesect kind="return"><para>Failed <ref refid="classjuce_1_1Result" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::Result</ref> carrying <ref refid="structtext_1_1_diagnostics_1a592e63682b3f319b9d9e68c575b81486" kindref="member">text::Diagnostics::failLanguageParse</ref>. </para>
 </simplesect>
 </para>
         </detaileddescription>
@@ -148,7 +148,7 @@
           <type>int</type>
         </param>
         <param>
-          <type>const <ref refid="structjam_1_1LanguageCallbacks" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageCallbacks</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1LanguageCallbacks" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::LanguageCallbacks</ref> &amp;</type>
         </param>
         <briefdescription>
 <para>No-op because built-in languages build symbols inline from <ref refid="class_language_1aa23f1df5cd018950d06f9b0ddf1c2e23" kindref="member">parse()</ref> rather than an index pass. </para>
@@ -181,13 +181,13 @@
         </inbodydescription>
         <location file="BuiltInLanguage.h" line="54" column="10" bodyfile="BuiltInLanguage.h" bodystart="54" bodyend="57"/>
       </memberdef>
-      <memberdef kind="function" id="class_built_in_language_1ae167081944e4d638161909ea4f18a1df" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+      <memberdef kind="function" id="class_built_in_language_1a3e18e6431f523f96cefd64c9b562b507" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
         <type>int</type>
-        <definition>int BuiltInLanguage&lt; Elements, TokenTypes &gt;::units</definition>
+        <definition>int BuiltInLanguage&lt; Elements, TokenTypes &gt;::addUnits</definition>
         <argsstring>(const char *const *arguments, const int *argumentCounts, int rowCount, const char *directory, const char *, const jam::LanguageCallbacks &amp;callbacks) const override</argsstring>
-        <name>units</name>
-        <qualifiedname>BuiltInLanguage::units</qualifiedname>
-        <reimplements refid="class_language_1aad06a1f0660985eb64023e05e8845bb7">units</reimplements>
+        <name>addUnits</name>
+        <qualifiedname>BuiltInLanguage::addUnits</qualifiedname>
+        <reimplements refid="class_language_1a43b8120736963690a482aae116019105">addUnits</reimplements>
         <param>
           <type>const char *const *</type>
           <declname>arguments</declname>
@@ -208,7 +208,7 @@
           <type>const char *</type>
         </param>
         <param>
-          <type>const <ref refid="structjam_1_1LanguageCallbacks" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageCallbacks</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1LanguageCallbacks" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::LanguageCallbacks</ref> &amp;</type>
           <declname>callbacks</declname>
         </param>
         <briefdescription>
@@ -263,27 +263,28 @@
         <inbodydescription>
         </inbodydescription>
         <location file="BuiltInLanguage.h" line="69" column="9" bodyfile="BuiltInLanguage.h" bodystart="69" bodyend="84"/>
-        <references refid="class_built_in_language_1a44546630431ac2c9165064d4a2ff84d3" compoundref="_built_in_language_8h" startline="253" endline="268">BuiltInLanguage&lt; Elements, TokenTypes &gt;::addUnits</references>
+        <references refid="class_built_in_language_1a3e18e6431f523f96cefd64c9b562b507" compoundref="_built_in_language_8h" startline="69" endline="84">BuiltInLanguage&lt; Elements, TokenTypes &gt;::addUnits</references>
         <references refid="namespaceId_1a205f65ce28a57fee4f8312f071e67b11" compoundref="_generated_8cpp" startline="29" endline="29">Id::binary</references>
         <references refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223">juce::String::fromUTF8</references>
-        <references refid="namespaceId_1a82a6625e4945f97d04c60b7676a6eb91" compoundref="_generated_8cpp" startline="81" endline="81">Id::layoutGlob</references>
-        <references refid="namespaceId_1ad0f235a1d46f27519fd2402d4a6b1e92" compoundref="_generated_8cpp" startline="118" endline="118">Id::sourceGlob</references>
+        <references refid="namespaceId_1a82a6625e4945f97d04c60b7676a6eb91" compoundref="_generated_8cpp" startline="78" endline="78">Id::layoutGlob</references>
+        <references refid="namespaceId_1ad0f235a1d46f27519fd2402d4a6b1e92" compoundref="_generated_8cpp" startline="117" endline="117">Id::sourceGlob</references>
+        <referencedby refid="class_built_in_language_1a3e18e6431f523f96cefd64c9b562b507" compoundref="_built_in_language_8h" startline="69" endline="84">BuiltInLanguage&lt; Elements, TokenTypes &gt;::addUnits</referencedby>
       </memberdef>
       <memberdef kind="function" id="class_built_in_language_1ab9171cafdadc32ff128bcab36156b625" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
-        <type><ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref></type>
+        <type><ref refid="classjam_1_1Strings" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref></type>
         <definition>jam::Strings BuiltInLanguage&lt; Elements, TokenTypes &gt;::getCounterparts</definition>
         <argsstring>(const juce::String &amp;) const override</argsstring>
         <name>getCounterparts</name>
         <qualifiedname>BuiltInLanguage::getCounterparts</qualifiedname>
         <reimplements refid="class_language_1a2108f1f96098f267d4cc1c2f6726a600">getCounterparts</reimplements>
         <param>
-          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
         </param>
         <briefdescription>
-<para>Returns an empty <ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref> list because built-in languages have no counterpart extensions. </para>
+<para>Returns an empty <ref refid="classjam_1_1Strings" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref> list because built-in languages have no counterpart extensions. </para>
         </briefdescription>
         <detaileddescription>
-<para><simplesect kind="return"><para>Empty <ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref>. </para>
+<para><simplesect kind="return"><para>Empty <ref refid="classjam_1_1Strings" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref>. </para>
 </simplesect>
 </para>
         </detaileddescription>
@@ -299,24 +300,24 @@
         <qualifiedname>BuiltInLanguage::getSymbols</qualifiedname>
         <reimplements refid="class_language_1a0d17de8eed2a3cf897188084fc2e9ad7">getSymbols</reimplements>
         <param>
-          <type>const <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &amp;</type>
           <declname>document</declname>
         </param>
         <param>
-          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
           <declname>path</declname>
         </param>
         <briefdescription>
 <para>Builds an in-memory <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> from <computeroutput>document</computeroutput> by collecting records and outlines. </para>
         </briefdescription>
         <detaileddescription>
-<para>Walks the AST into a <ref refid="class_symbol_document_1_1_builder" kindref="compound">SymbolDocument::Builder</ref>, appends declaration elements into a <ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>, and constructs nested outline entries with parent links.</para>
+<para>Walks the AST into a <ref refid="class_symbol_document_1_1_builder" kindref="compound">SymbolDocument::Builder</ref>, appends declaration elements into a <ref refid="classjam_1_1Array" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>, and constructs nested outline entries with parent links.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>document</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Parsed <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> to index. </para>
+<para>Parsed <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> to index. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -352,7 +353,7 @@
         <qualifiedname>BuiltInLanguage::hasRole</qualifiedname>
         <reimplements refid="class_language_1aba611040df762266ca041ca011ec57e2">hasRole</reimplements>
         <param>
-          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
           <declname>element</declname>
         </param>
         <param>
@@ -376,7 +377,7 @@
 <parametername>role</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Bitmask of <ref refid="structjam_1_1LanguageRole" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageRole</ref> flags to test. </para>
+<para>Bitmask of <ref refid="structjam_1_1LanguageRole" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::LanguageRole</ref> flags to test. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -400,7 +401,7 @@
         <qualifiedname>BuiltInLanguage::getSymbolType</qualifiedname>
         <reimplements refid="class_language_1a44c383aa2124008873c41b9d2d9a8861">getSymbolType</reimplements>
         <param>
-          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
           <declname>element</declname>
         </param>
         <briefdescription>
@@ -510,17 +511,17 @@
     </sectiondef>
     <sectiondef kind="protected-func">
       <memberdef kind="function" id="class_built_in_language_1a6a79e4a7a37067b17146992e88430a4c" prot="protected" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type>std::pair&lt; std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;, std::unique_ptr&lt; <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> &gt; &gt;</type>
+        <type>std::pair&lt; std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;, std::unique_ptr&lt; <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> &gt; &gt;</type>
         <definition>std::pair&lt; std::unique_ptr&lt; jam::Document &gt;, std::unique_ptr&lt; SymbolDocument &gt; &gt; BuiltInLanguage&lt; Elements, TokenTypes &gt;::getParsed</definition>
         <argsstring>(std::unique_ptr&lt; jam::Document &gt; document, const juce::String &amp;path) const</argsstring>
         <name>getParsed</name>
         <qualifiedname>BuiltInLanguage::getParsed</qualifiedname>
         <param>
-          <type>std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;</type>
+          <type>std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;</type>
           <declname>document</declname>
         </param>
         <param>
-          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
           <declname>path</declname>
         </param>
         <briefdescription>
@@ -532,7 +533,7 @@
 <parametername>document</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Parsed <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref>, or nullptr on parse failure. </para>
+<para>Parsed <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref>, or nullptr on parse failure. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -554,7 +555,7 @@
         <references refid="class_built_in_language_1a496cd39d0c2ab8fd1626a6454a3bc714" compoundref="_built_in_language_8h" startline="106" endline="125">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSymbols</references>
       </memberdef>
       <memberdef kind="function" id="class_built_in_language_1a28bcb8d7e1d8d47ec696b7feab03c529" prot="protected" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
-        <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
+        <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
         <definition>virtual juce::int64 BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSymbol</definition>
         <argsstring>(const juce::File &amp;file, std::string_view name, int) const</argsstring>
         <name>getSymbol</name>
@@ -562,7 +563,7 @@
         <reimplementedby refid="class_html_language_1ac7c1227b4222520fa44efc829884cd59">getSymbol</reimplementedby>
         <reimplementedby refid="class_markdown_language_1a195362b067143bffd65c3e3adc81f9dc">getSymbol</reimplementedby>
         <param>
-          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
           <declname>file</declname>
         </param>
         <param>
@@ -608,13 +609,13 @@
     </sectiondef>
     <sectiondef kind="protected-static-func">
       <memberdef kind="function" id="class_built_in_language_1a554a0a4d4b5ab2d93603ddd8a43b2c61" prot="protected" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
+        <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
         <definition>static juce::int64 BuiltInLanguage&lt; Elements, TokenTypes &gt;::getSymbolHash</definition>
         <argsstring>(const juce::File &amp;file, std::string_view anchor)</argsstring>
         <name>getSymbolHash</name>
         <qualifiedname>BuiltInLanguage::getSymbolHash</qualifiedname>
         <param>
-          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
           <declname>file</declname>
         </param>
         <param>
@@ -638,7 +639,7 @@
 <parametername>anchor</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Anchor or identifier text normalized with <ref refid="structjam_1_1Format_1a75c62fa3f9db98ba096b0c6d34729f4b" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Format::toValidID</ref>. </para>
+<para>Anchor or identifier text normalized with <ref refid="structjam_1_1Format_1a75c62fa3f9db98ba096b0c6d34729f4b" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Format::toValidID</ref>. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -664,7 +665,7 @@
         <name>addUnits</name>
         <qualifiedname>BuiltInLanguage::addUnits</qualifiedname>
         <param>
-          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
           <declname>wildcard</declname>
         </param>
         <param>
@@ -672,11 +673,11 @@
           <declname>directory</declname>
         </param>
         <param>
-          <type>const <ref refid="structjam_1_1LanguageCallbacks" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageCallbacks</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1LanguageCallbacks" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::LanguageCallbacks</ref> &amp;</type>
           <declname>callbacks</declname>
         </param>
         <briefdescription>
-<para>Collects files matching <computeroutput>wildcard</computeroutput> into sorted <ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref> and registers each unit. </para>
+<para>Collects files matching <computeroutput>wildcard</computeroutput> into sorted <ref refid="classjam_1_1Strings" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref> and registers each unit. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
@@ -721,7 +722,6 @@
         <references refid="classjuce_1_1File_1ab6bec65fbcf19ce10e38cf9d1015770d">juce::File::getParentDirectory</references>
         <references refid="classjam_1_1Strings_1ab0c928245655856ffbacc8b4d6ea5a33">jam::Strings::sort</references>
         <references refid="classjuce_1_1String_1abdadcd93345db39575b8b40b7e96e987">juce::String::substring</references>
-        <referencedby refid="class_built_in_language_1ae167081944e4d638161909ea4f18a1df" compoundref="_built_in_language_8h" startline="69" endline="84">BuiltInLanguage&lt; Elements, TokenTypes &gt;::units</referencedby>
       </memberdef>
       <memberdef kind="function" id="class_built_in_language_1aa10d62c0ee79fbb2a93559083440b7c1" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -738,15 +738,15 @@
           <declname>fileIndex</declname>
         </param>
         <param>
-          <type>const <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &amp;</type>
           <declname>document</declname>
         </param>
         <param>
-          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
           <declname>element</declname>
         </param>
         <param>
-          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
           <declname>source</declname>
         </param>
         <briefdescription>
@@ -775,7 +775,7 @@
 <parametername>document</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Parsed <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> owning <computeroutput>element</computeroutput>. </para>
+<para>Parsed <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> owning <computeroutput>element</computeroutput>. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -826,11 +826,11 @@
           <declname>fileIndex</declname>
         </param>
         <param>
-          <type>const <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &amp;</type>
           <declname>document</declname>
         </param>
         <param>
-          <type>const <ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>&lt; const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> * &gt; &amp;</type>
+          <type>const <ref refid="classjam_1_1Array" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>&lt; const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> * &gt; &amp;</type>
           <declname>declarations</declname>
         </param>
         <briefdescription>
@@ -858,7 +858,7 @@
 <parametername>document</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Parsed <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> owning <computeroutput>declarations</computeroutput>. </para>
+<para>Parsed <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> owning <computeroutput>declarations</computeroutput>. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -894,15 +894,15 @@
           <declname>fileIndex</declname>
         </param>
         <param>
-          <type>const <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &amp;</type>
           <declname>document</declname>
         </param>
         <param>
-          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
           <declname>element</declname>
         </param>
         <param>
-          <type>const <ref refid="classjam_1_1HashMap" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::HashMap</ref>&lt; const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> *, int &gt; &amp;</type>
+          <type>const <ref refid="classjam_1_1HashMap" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::HashMap</ref>&lt; const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> *, int &gt; &amp;</type>
           <declname>declarationIndices</declname>
         </param>
         <briefdescription>
@@ -930,7 +930,7 @@
 <parametername>document</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Parsed <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> owning <computeroutput>element</computeroutput>. </para>
+<para>Parsed <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> owning <computeroutput>element</computeroutput>. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -989,20 +989,20 @@
         <referencedby refid="class_built_in_language_1aa221b4be556c9066437170b575592d4e" compoundref="_built_in_language_8h" startline="134" endline="146">BuiltInLanguage&lt; Elements, TokenTypes &gt;::hasRole</referencedby>
       </memberdef>
       <memberdef kind="function" id="class_built_in_language_1ab43398b9a1f03d1c23a0397af02e171b" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="classjuce_1_1Identifier" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref></type>
+        <type><ref refid="classjuce_1_1Identifier" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref></type>
         <definition>static juce::Identifier BuiltInLanguage&lt; Elements, TokenTypes &gt;::getKey</definition>
         <argsstring>(const jam::Document::Element &amp;element, int, const juce::Identifier *)</argsstring>
         <name>getKey</name>
         <qualifiedname>BuiltInLanguage::getKey</qualifiedname>
         <param>
-          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
           <declname>element</declname>
         </param>
         <param>
           <type>int</type>
         </param>
         <param>
-          <type>const <ref refid="classjuce_1_1Identifier" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref> *</type>
+          <type>const <ref refid="classjuce_1_1Identifier" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref> *</type>
         </param>
         <briefdescription>
 <para>Extracts the Elements key when keyed by element identifier. </para>
@@ -1035,7 +1035,7 @@
         <name>getKey</name>
         <qualifiedname>BuiltInLanguage::getKey</qualifiedname>
         <param>
-          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
         </param>
         <param>
           <type>int</type>
@@ -1053,7 +1053,7 @@
 <parametername>tokenIndex</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Zero-based index in <ref refid="namespaceId_1a8bfd7b9bf69d5c6ed89037211840e06e" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::nameTokens</ref>. </para>
+<para>Zero-based index in <ref refid="namespaceId_1a8bfd7b9bf69d5c6ed89037211840e06e" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Id::nameTokens</ref>. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -1072,11 +1072,11 @@
         <name>getLastTokenIndex</name>
         <qualifiedname>BuiltInLanguage::getLastTokenIndex</qualifiedname>
         <param>
-          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
           <declname>element</declname>
         </param>
         <briefdescription>
-<para>Returns the index of the last token in <computeroutput>element&apos;s</computeroutput> <ref refid="namespaceId_1a8bfd7b9bf69d5c6ed89037211840e06e" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::nameTokens</ref> array. </para>
+<para>Returns the index of the last token in <computeroutput>element&apos;s</computeroutput> <ref refid="namespaceId_1a8bfd7b9bf69d5c6ed89037211840e06e" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Id::nameTokens</ref> array. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
@@ -1084,7 +1084,7 @@
 <parametername>element</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Document element carrying <ref refid="namespaceId_1a8bfd7b9bf69d5c6ed89037211840e06e" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::nameTokens</ref>. </para>
+<para>Document element carrying <ref refid="namespaceId_1a8bfd7b9bf69d5c6ed89037211840e06e" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Id::nameTokens</ref>. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -1106,11 +1106,11 @@
         <name>getParentIndex</name>
         <qualifiedname>BuiltInLanguage::getParentIndex</qualifiedname>
         <param>
-          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
+          <type>const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> &amp;</type>
           <declname>element</declname>
         </param>
         <param>
-          <type>const <ref refid="classjam_1_1HashMap" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::HashMap</ref>&lt; const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> *, int &gt; &amp;</type>
+          <type>const <ref refid="classjam_1_1HashMap" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::HashMap</ref>&lt; const <ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref> *, int &gt; &amp;</type>
           <declname>declarationIndices</declname>
         </param>
         <briefdescription>
@@ -1199,7 +1199,7 @@
       </node>
       <node id="3">
         <label>juce::String</label>
-        <link refid="classjuce_1_1String" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1String" external="D:/Poems/JUCE/docs/tagfile.xml"/>
       </node>
     </collaborationgraph>
     <location file="BuiltInLanguage.h" line="19" column="1" bodyfile="BuiltInLanguage.h" bodystart="20" bodyend="423"/>
@@ -1207,6 +1207,7 @@
       <member refid="class_built_in_language_1ae95ee532859c01b62bc306f962b92a51" prot="private" virt="non-virtual"><scope>BuiltInLanguage</scope><name>addOutline</name></member>
       <member refid="class_built_in_language_1a0ba607b3f35632693f7506f09beb96c0" prot="private" virt="non-virtual"><scope>BuiltInLanguage</scope><name>addOutlines</name></member>
       <member refid="class_built_in_language_1aa10d62c0ee79fbb2a93559083440b7c1" prot="private" virt="non-virtual"><scope>BuiltInLanguage</scope><name>addRecords</name></member>
+      <member refid="class_built_in_language_1a3e18e6431f523f96cefd64c9b562b507" prot="public" virt="virtual"><scope>BuiltInLanguage</scope><name>addUnits</name></member>
       <member refid="class_built_in_language_1a44546630431ac2c9165064d4a2ff84d3" prot="private" virt="non-virtual"><scope>BuiltInLanguage</scope><name>addUnits</name></member>
       <member refid="class_built_in_language_1a0ae6244ea1331d0689d8fa7bc89b2a83" prot="public" virt="non-virtual"><scope>BuiltInLanguage</scope><name>BuiltInLanguage</name></member>
       <member refid="class_built_in_language_1ae26f80b21d62c5b223e44557fa40e26f" prot="private" virt="non-virtual"><scope>BuiltInLanguage</scope><name>extension</name></member>
@@ -1232,7 +1233,6 @@
       <member refid="class_built_in_language_1a2e9a4db2c617a56b1a64368389ae7b45" prot="private" virt="non-virtual"><scope>BuiltInLanguage</scope><name>noQualifierLength</name></member>
       <member refid="class_language_1aa23f1df5cd018950d06f9b0ddf1c2e23" prot="public" virt="pure-virtual"><scope>BuiltInLanguage</scope><name>parse</name></member>
       <member refid="class_language_1a392c16dfaf08d7ed566e4e3983bb7ac9" prot="public" virt="pure-virtual"><scope>BuiltInLanguage</scope><name>read</name></member>
-      <member refid="class_built_in_language_1ae167081944e4d638161909ea4f18a1df" prot="public" virt="virtual"><scope>BuiltInLanguage</scope><name>units</name></member>
       <member refid="class_language_1a31ccc6a98a6c40a452a66a18ca604c79" prot="public" virt="virtual"><scope>BuiltInLanguage</scope><name>~Language</name></member>
     </listofallmembers>
   </compounddef>

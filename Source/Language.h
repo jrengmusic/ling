@@ -77,7 +77,7 @@ public:
      * @param callbacks       Callbacks receiving discovered units, build files, and messages.
      * @return Zero on success, or a nonzero error code from the backend.
      */
-    virtual int units (const char* const* arguments, const int* argumentCounts, int rowCount, const char* directory, const char* cacheDirectory, const jam::LanguageCallbacks& callbacks) const = 0;
+    virtual int addUnits (const char* const* arguments, const int* argumentCounts, int rowCount, const char* directory, const char* cacheDirectory, const jam::LanguageCallbacks& callbacks) const = 0;
 
     /**
      * @brief Tells whether @p element carries the given jam::LanguageRole bitmask.

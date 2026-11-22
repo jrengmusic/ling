@@ -17,7 +17,7 @@
     <innerclass refid="struct_symbol_document_1_1_access" prot="private">SymbolDocument::Access</innerclass>
     <sectiondef kind="public-static-attrib">
       <memberdef kind="variable" id="class_symbol_document_1a5d2a4d1f909c9aac5f36f5b1d936033d" prot="public" static="yes" constexpr="yes" mutable="no">
-        <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
+        <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
         <definition>juce::int64 SymbolDocument::noSymbol</definition>
         <argsstring></argsstring>
         <name>noSymbol</name>
@@ -31,7 +31,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="SymbolDocument.h" line="18" column="34" bodyfile="SymbolDocument.h" bodystart="18" bodyend="18"/>
-        <referencedby refid="class_query_1aeee6ea867ed4a19086496c2a0fa48b62" compoundref="_query_8h" startline="397" endline="433">Query::applyToScopeSymbols</referencedby>
+        <referencedby refid="class_query_1aeee6ea867ed4a19086496c2a0fa48b62" compoundref="_query_8h" startline="427" endline="463">Query::applyToScopeSymbols</referencedby>
         <referencedby refid="class_query_1ab610e34818feb1149c05e046c74e9a50" compoundref="_query_8cpp" startline="377" endline="404">Query::rename</referencedby>
       </memberdef>
       <memberdef kind="variable" id="class_symbol_document_1a07429fecfabe254bc5e70271b580bc10" prot="public" static="yes" constexpr="yes" mutable="no">
@@ -50,7 +50,7 @@
         </inbodydescription>
         <location file="SymbolDocument.h" line="21" column="26" bodyfile="SymbolDocument.h" bodystart="21" bodyend="21"/>
         <referencedby refid="class_query_1a163faae03873f24fd5fb7ba47a310df3" compoundref="_query_8cpp" startline="853" endline="865">Query::documentSymbol</referencedby>
-        <referencedby refid="struct_processor_1_1_index_job_1a6bd61c6eae95b51c30924ca8a9fa27a3" compoundref="_processor_8cpp" startline="945" endline="956">Processor::IndexJob::getOutlineParent</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a6bd61c6eae95b51c30924ca8a9fa27a3" compoundref="_processor_8cpp" startline="947" endline="958">Processor::IndexJob::getOutlineParent</referencedby>
         <referencedby refid="class_built_in_language_1a3f8a34f0e97dc8ec59545d4550482232" compoundref="_built_in_language_8h" startline="409" endline="422">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getParentIndex</referencedby>
         <referencedby refid="_symbol_document_8cpp_1a77f9c45bdb580c50346bd15659ccec6c" compoundref="_symbol_document_8cpp" startline="62" endline="94">sortOutlineEntries</referencedby>
       </memberdef>
@@ -109,7 +109,7 @@
     </sectiondef>
     <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="class_symbol_document_1aad702cb4972f831e0fb305b5448c1708" prot="private" static="no" mutable="no">
-        <type>std::unique_ptr&lt; <ref refid="classjuce_1_1MemoryMappedFile" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::MemoryMappedFile</ref> &gt;</type>
+        <type>std::unique_ptr&lt; <ref refid="classjuce_1_1MemoryMappedFile" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::MemoryMappedFile</ref> &gt;</type>
         <definition>std::unique_ptr&lt;juce::MemoryMappedFile&gt; SymbolDocument::mapped</definition>
         <argsstring></argsstring>
         <name>mapped</name>
@@ -125,7 +125,7 @@
         <referencedby refid="class_symbol_document_1a57b7b4f6791ccd1a10d93b6efd1adf67" compoundref="_symbol_document_8cpp" startline="444" endline="449">SymbolDocument</referencedby>
       </memberdef>
       <memberdef kind="variable" id="class_symbol_document_1a7a04392510754d99dd452d30c785b768" prot="private" static="no" mutable="no">
-        <type><ref refid="classjuce_1_1MemoryBlock" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::MemoryBlock</ref></type>
+        <type><ref refid="classjuce_1_1MemoryBlock" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::MemoryBlock</ref></type>
         <definition>juce::MemoryBlock SymbolDocument::owned</definition>
         <argsstring></argsstring>
         <name>owned</name>
@@ -185,15 +185,15 @@
         <name>open</name>
         <qualifiedname>SymbolDocument::open</qualifiedname>
         <param>
-          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
           <declname>swapFile</declname>
         </param>
         <param>
-          <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
+          <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
           <declname>hash</declname>
         </param>
         <param>
-          <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
+          <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
           <declname>languageHash</declname>
         </param>
         <param>
@@ -603,7 +603,7 @@
           <type><ref refid="struct_symbol_document_1_1_access" kindref="compound">Access</ref></type>
         </param>
         <param>
-          <type>std::unique_ptr&lt; <ref refid="classjuce_1_1MemoryMappedFile" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::MemoryMappedFile</ref> &gt;</type>
+          <type>std::unique_ptr&lt; <ref refid="classjuce_1_1MemoryMappedFile" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::MemoryMappedFile</ref> &gt;</type>
           <declname>mappedFile</declname>
         </param>
         <briefdescription>
@@ -639,7 +639,7 @@
           <type><ref refid="struct_symbol_document_1_1_access" kindref="compound">Access</ref></type>
         </param>
         <param>
-          <type><ref refid="classjuce_1_1MemoryBlock" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::MemoryBlock</ref></type>
+          <type><ref refid="classjuce_1_1MemoryBlock" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::MemoryBlock</ref></type>
           <declname>ownedBlock</declname>
         </param>
         <briefdescription>
@@ -682,11 +682,11 @@
           <declname>size</declname>
         </param>
         <param>
-          <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
+          <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
           <declname>hash</declname>
         </param>
         <param>
-          <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
+          <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
           <declname>languageHash</declname>
         </param>
         <param>
@@ -889,11 +889,11 @@
       </node>
       <node id="4">
         <label>juce::MemoryBlock</label>
-        <link refid="classjuce_1_1MemoryBlock" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1MemoryBlock" external="D:/Poems/JUCE/docs/tagfile.xml"/>
       </node>
       <node id="3">
         <label>juce::MemoryMappedFile</label>
-        <link refid="classjuce_1_1MemoryMappedFile" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1MemoryMappedFile" external="D:/Poems/JUCE/docs/tagfile.xml"/>
       </node>
       <node id="2">
         <label>std::unique_ptr&lt; juce::MemoryMappedFile &gt;</label>

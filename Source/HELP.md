@@ -245,7 +245,7 @@ A language library answers these entries. The library exports each entry by name
 | :----------------------- | :----------------- | :--------------------------------------------------------------------------------------------------- |
 | `build`                  | function           | Builds the element tree of one source from its token records.                                        |
 | `index`                  | function           | Indexes one unit and reports its symbols through the callbacks. Returns zero on success.            |
-| `units`                  | function           | Lists the units of each row through the callbacks.                                                   |
+| `addUnits`               | function           | Lists the units of each row through the callbacks.                                                   |
 | `code`                   | int table, 256 rows | The byte class of each byte value.                                                                  |
 | `commentOpen`            | string             | The opening text of a block comment.                                                                 |
 | `commentClose`           | string             | The closing text of a block comment.                                                                 |
@@ -278,6 +278,7 @@ A role set is a bit set. Each token type holds one role set in the `roles` entry
 | `base`        | 128   | The token type names a base class.                     |
 | `loop`        | 256   | The token type is a loop. `ling/textObject` reads it.  |
 | `conditional` | 512   | The token type is a conditional. `ling/textObject` reads it. |
+| `definition`  | 1024  | The token type defines an entity body.                 |
 
 ### Callbacks
 
@@ -297,10 +298,11 @@ A library calls these callbacks. ling gives each callback a context and a functi
 | `addCompletion`     | index     | Adds one completion item to a scope symbol: the label, the insert text, and the token type.                |
 | `addFixIt`          | index     | Adds one replacement text for a range.                                                                     |
 | `shouldExit`        | index     | Returns a nonzero value to stop the index pass.                                                            |
-| `addUnit`           | units     | Adds one unit: the path, the directory, the output, the arguments, the dependencies, and the prerequisites. |
-| `addBuildFile`      | units     | Adds a build file. A change of that file runs the manifest again.                                          |
-| `addMessage`        | units     | Sets a failure text for the unit list.                                                                     |
+| `addUnit`           | addUnits  | Adds one unit: the path, the directory, the output, the arguments, the dependencies, and the prerequisites. |
+| `addBuildFile`      | addUnits  | Adds a build file. A change of that file runs the manifest again.                                          |
+| `addMessage`        | addUnits  | Sets a failure text for the unit list.                                                                     |
 | `addHover`          | index     | Adds one hover text of a file, with the line and column span of its definition in the source. Returns its index in the file. |
+| `isForeign`         | index     | Returns a nonzero value when the path is owned by another translation unit.                                |
 
 ## Carried Libraries
 
