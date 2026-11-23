@@ -360,17 +360,16 @@ public:
         void sortAndDeduplicate();
 
         /**
-         * @brief Serializes the built tables to @p swapFile atomically and opens a mapped SymbolDocument.
+         * @brief Serializes the built tables and writes them directly to swapFile.
          *
-         * Writes to a temporary file, replaces @p swapFile, and maps it with SymbolDocument::open().
-         *
-         * @param swapFile      Destination swap file path.
+         * @param swapFile      The swap file to write.
          * @param hash          Content hash of the unit inputs.
          * @param languageHash  Hash of the producing language library.
          * @param family        Language family identifier.
-         * @return Mapped SymbolDocument, or nullptr if mapping or validation fails.
+         * @return ok when the write succeeds. Otherwise the text is text::Diagnostics::failSwapWrite,
+         *         the full path of swapFile, and the system error text, separated by Id::diagnosticSeparator.
          */
-        std::unique_ptr<SymbolDocument> buildToSwap (const juce::File& swapFile, juce::int64 hash, juce::int64 languageHash, int family) const;
+        juce::Result writeSwapFile (const juce::File& swapFile, juce::int64 hash, juce::int64 languageHash, int family) const;
 
         /**
          * @brief Serializes the built tables into an owned memory block and wraps it in a SymbolDocument.

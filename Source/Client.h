@@ -19,12 +19,14 @@ public:
     /**
      * @brief Stores the manifest and toolchain argument, creates the port directory, and watches it for the port file.
      *
+     * The constructor also appends state to the connections child of model.state.
+     *
      * @param newManifestFile       The manifest of the run.
      * @param newToolchainArgument  The toolchain argument. Empty when none is given.
      */
     Client (const juce::File& newManifestFile, const juce::String& newToolchainArgument);
 
-    /** @brief Removes the client from the listeners of the watcher. */
+    /** @brief Removes the client from the listeners of the watcher, and removes state from its parent. */
     ~Client() override;
 
     /**
@@ -47,7 +49,7 @@ private:
     bool connectToDaemon();
 
     /**
-     * @brief Records Id::port on model.state and tries to connect when the port file changes.
+     * @brief Records Id::port on state and tries to connect when the port file changes.
      *
      * A change of any other file does nothing.
      *
@@ -61,12 +63,50 @@ private:
      */
     void connectionLost() override;
 
+    /**
+     * @brief Sends each queued request row to the daemon, when the connection is made.
+     *
+     * A row leaves the requests when it is sent.
+     */
+    void connectionMade() override;
+
 protected:
+    /**
+     * @brief Sends a request row to the daemon connection, and removes the row from the requests.
+     *
+     * The row is written to a memory block as a tree, and the block is sent as one message.
+     *
+     * @param row  The request row to send.
+     */
+    void sendRequest (const juce::ValueTree& row);
+
+    /**
+     * @brief Forwards a showMessage notification to model.setMessage(). Other methods are ignored.
+     *
+     * @param document  The parsed JSON-RPC message.
+     * @param root      The root element of the message.
+     */
+    void setMessage (const jam::JsonDocument& document, const jam::Document::Element& root);
+
     /** @brief The manifest of the run. Its path names the port file. */
     const juce::File manifestFile;
 
-    /** @brief The model of the run. Holds overlay messages and the daemon port property. */
+    /** @brief The model of the run. Holds overlay messages. */
     LINGModel& model { *LINGModel::getInstance() };
+
+    /**
+     * @brief The connection state of this client. It is a child of the connections child of model.state.
+     *
+     * Id::port is set from the port file when the file changes.
+     */
+    juce::ValueTree state { jam::Format::toType (Id::connection) };
+
+    /**
+     * @brief The request rows waiting for the daemon connection. Each row is a child of state.
+     *
+     * connectionMade() sends the rows, and each row leaves the list when it is sent.
+     */
+    juce::ValueTree requests { state.getOrCreateChildWithName (jam::Format::toType (Id::requests), nullptr) };
 
 private:
     /** @brief The toolchain argument of the run. Empty when none is given. */

@@ -4,12 +4,12 @@ Operation::Operation (const juce::File& newManifestFile, const juce::String& new
     : Client (newManifestFile, newToolchainArgument)
     , request (std::move (newRequest))
 {
-    model.state.addListener (this);
+    state.addListener (this);
 }
 
 Operation::~Operation()
 {
-    model.state.removeListener (this);
+    state.removeListener (this);
     disconnect();
 }
 
@@ -28,11 +28,7 @@ void Operation::messageReceived (const juce::MemoryBlock& reply)
 
     if (document->contains (root, lsp::Member::method))
     {
-        if (document->getString (document->get (root, lsp::Member::method)).compare (lsp::Method::showMessage) == 0)
-        {
-            const auto& params { *document->getChildByToken (root, document->get (root, lsp::Member::params)) };
-            model.setMessage (jam::Strings::fromView (document->getString (document->get (params, lsp::Member::message))));
-        }
+        setMessage (*document, root);
     }
     else
     {
@@ -48,7 +44,7 @@ void Operation::messageReceived (const juce::MemoryBlock& reply)
 
 void Operation::valueTreePropertyChanged (juce::ValueTree& tree, const juce::Identifier& property)
 {
-    if (tree == model.state and property == Id::port and static_cast<int> (tree[property]) == Server::noPort)
+    if (tree == state and property == Id::port and static_cast<int> (tree[property]) == Server::noPort)
     {
         std::string json;
 

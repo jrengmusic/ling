@@ -10,7 +10,7 @@ class Operation : public Client,
 {
 public:
     /**
-     * @brief Stores the serialized request payload and listens to model.state for Server::noPort.
+     * @brief Stores the serialized request payload and listens to state, the connection state of this client, for Server::noPort.
      *
      * @param newManifestFile       The manifest identifying the target daemon.
      * @param newToolchainArgument  The toolchain argument, or empty when none is given.
@@ -18,7 +18,7 @@ public:
      */
     Operation (const juce::File& newManifestFile, const juce::String& newToolchainArgument, juce::MemoryBlock&& newRequest);
 
-    /** @brief Removes the listener from model.state and disconnects from the daemon socket. */
+    /** @brief Removes the listener from state and disconnects from the daemon socket. */
     ~Operation() override;
 
 private:
@@ -33,7 +33,7 @@ private:
     void messageReceived (const juce::MemoryBlock& reply) override;
 
     /**
-     * @brief Prints a null JSON-RPC result and quits with success when model.state Id::port becomes Server::noPort.
+     * @brief Prints a JSON-RPC object with a null id and a null result, and quits with success, when Id::port of state becomes Server::noPort.
      *
      * @param tree      The ValueTree whose property changed.
      * @param property  The changed property identifier.

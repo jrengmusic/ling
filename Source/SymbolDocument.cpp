@@ -421,19 +421,21 @@ juce::MemoryBlock SymbolDocument::Builder::serialize (juce::int64 hash, juce::in
     return bytes;
 }
 
-std::unique_ptr<SymbolDocument> SymbolDocument::Builder::buildToSwap (const juce::File& swapFile, juce::int64 hash, juce::int64 languageHash, int family) const
+juce::Result SymbolDocument::Builder::writeSwapFile (const juce::File& swapFile, juce::int64 hash, juce::int64 languageHash, int family) const
 {
     const auto bytes { serialize (hash, languageHash, family) };
-    juce::TemporaryFile temporary { swapFile };
+    juce::FileOutputStream stream { swapFile };
 
+    if (stream.openedOk())
     {
-        juce::FileOutputStream stream { temporary.getFile() };
         stream.write (bytes.getData(), bytes.getSize());
+        stream.flush();
     }
 
-    temporary.overwriteTargetFileWithTemporary();
+    const auto status { stream.getStatus() };
 
-    return SymbolDocument::open (swapFile, hash, languageHash, family);
+    return status.wasOk() ? status
+                          : juce::Result::fail (juce::String (text::Diagnostics::failSwapWrite) + Id::diagnosticSeparator + swapFile.getFullPathName() + Id::diagnosticSeparator + status.getErrorMessage());
 }
 
 std::unique_ptr<SymbolDocument> SymbolDocument::Builder::buildInMemory (juce::int64 hash, juce::int64 languageHash, int family) const

@@ -115,6 +115,20 @@ juce::File LINGModel::getProjectDirectory (const juce::File& manifest)
     return manifest.isDirectory() ? manifest : manifest.getParentDirectory();
 }
 
+juce::File LINGModel::getManifestFile (const juce::File& folder, const juce::String& fileName)
+{
+    auto parent { folder };
+    auto candidate { parent.getChildFile (fileName) };
+
+    while (not candidate.existsAsFile() and not parent.isRoot())
+    {
+        parent = parent.getParentDirectory();
+        candidate = parent.getChildFile (fileName);
+    }
+
+    return candidate.existsAsFile() ? candidate.getLinkedTarget() : juce::File {};
+}
+
 juce::File LINGModel::getPatchedDirectory (std::string_view version, const jam::Strings& patchFiles)
 {
     std::string concatenation { version };

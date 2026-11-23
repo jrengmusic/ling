@@ -38,6 +38,7 @@ struct Diagnostics
     static constexpr const char* const failDaemonThreads        { "daemon threads must be a positive integer"                       };///< A ## daemon threads cell is not a positive integer.
     static constexpr const char* const failSwapVersion          { "swap of another version: remove the swap folder and build again" };///< A swap file that another version of LING wrote.
     static constexpr const char* const failSwapRecord           { "swap record incomplete"                                          };///< A swap file whose root or record misses a field.
+    static constexpr const char* const failSwapWrite            { "swap file not written"                                           };///< A swap file that was not written or did not replace its target.
     static constexpr const char* const failLanguageLoad         { "language library did not load"                                   };///< A language library that does not open or has no entry.
     static constexpr const char* const failLanguageParse        { "file did not parse"                                              };///< A file that its language did not parse.
     static constexpr const char* const failUnitIndex            { "unit index failed"                                               };///< A unit whose index call returned nonzero.

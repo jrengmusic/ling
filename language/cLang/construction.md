@@ -523,6 +523,19 @@
 | platformMac     | `../lib/libclang.dylib`   |
 | platformWindows | `libclang.dll`            |
 
+## indexFailures
+
+| key              | value                                   |
+| ---------------- | --------------------------------------- |
+| indexFailure     | `libclang failed`                       |
+| crashFailure     | `libclang crashed`                      |
+| argumentsFailure | `libclang rejected the arguments`       |
+| readFailure      | `libclang did not read the AST`         |
+| unitFailure      | `libclang gave no translation unit`     |
+| sessionFailure   | `libclang did not load`                 |
+| threadFailure    | `libclang thread did not run`           |
+| saveFailure      | `precompiled header was not saved`      |
+
 ## databaseDrivers
 
 | key             | value      |
@@ -598,6 +611,7 @@
 | `-c`     | 0     |
 | `-MD`    | 0     |
 | `-MMD`   | 0     |
+| `--`     | 0     |
 
 ## argumentPrefixRemovals
 

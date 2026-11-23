@@ -43,13 +43,6 @@ public:
 
 private:
     /**
-     * @brief Sends each queued request row to the daemon, when the connection is made.
-     *
-     * A row leaves the requests when it is sent.
-     */
-    void connectionMade() override;
-
-    /**
      * @brief Writes a daemon reply to the standard output as one frame.
      *
      * @param reply  The reply bytes. They form the body of the frame.
@@ -69,10 +62,11 @@ private:
     /**
      * @brief Applies complete standard-input frames on numMessages, exits on close, and drains requests when no daemon port exists.
      *
-     * Each frame body is parsed with jam::JsonDocument::read, which borrows the bytes. The parse must succeed (jassert).
-     * When model.state Id::port equals Server::noPort, all queued requests receive a null result via sendEmptyResult().
+     * Each frame body is parsed with jam::JsonDocument::read. The parse must succeed (jassert).
+     * When Id::port of state equals Server::noPort, all queued requests receive a null result via sendEmptyResult().
+     * The listener is on model.state, and it also receives the changes of state, a descendant of model.state.
      *
-     * @param tree      The tree that changed (messages or model.state).
+     * @param tree      The tree that changed (messages or state).
      * @param property  The property that changed (Id::numMessages, Id::isOpen, or Id::port).
      */
     void valueTreePropertyChanged (juce::ValueTree& tree, const juce::Identifier& property) override;
@@ -96,15 +90,6 @@ private:
      * @param operation  The command name that the row carries.
      */
     void addRequest (const jam::JsonDocument& document, const jam::Document::Element& root, const jam::Document::Token& idToken, const juce::Identifier& operation);
-
-    /**
-     * @brief Sends a request row to the daemon connection, and removes the row from the requests.
-     *
-     * The row is written to a memory block as a tree, and the block is sent as one message.
-     *
-     * @param row  The request row to send.
-     */
-    void sendRequest (const juce::ValueTree& row);
 
     /**
      * @brief Sends a null JSON-RPC result for an unanswered request row, then removes the row from requests.
@@ -276,9 +261,6 @@ private:
 
     /** @brief The messages tree of the model. It holds the standard input counters and the connection state. */
     juce::ValueTree messages { model.state.getOrCreateChildWithName (jam::Format::toType (Id::messages), nullptr) };
-
-    /** @brief The request rows that wait for the daemon connection. */
-    juce::ValueTree requests { model.state.getOrCreateChildWithName (jam::Format::toType (Id::requests), nullptr) };
 
     /** @brief The operations table. Each method name maps to the command name of its request row. */
     jam::SharedInstance<map::Operations> operations { std::in_place };

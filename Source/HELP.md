@@ -31,9 +31,13 @@ When no folder holds it, the server uses the working folder as the project. The 
 
 A daemon with zero units writes `-1` to its port file and ends at once. Then the LSP server answers each operation with a `null` result, and `ling --mcp` answers with a tool error (`no daemon for manifest: <manifest>`).
 
+`ling --mcp` sends each request that names a file to the daemon of the manifest above that file. That manifest has the file name of the command line manifest. When no folder above the file holds it, the request goes to the command line manifest. `workspaceSymbol` goes to the command line manifest. The first request for a manifest starts its daemon.
+
 The daemon reads the manifest. It parses each file of each unit and keeps the index.
 
 The daemon answers the requests of each connected server. A request waits until the files that it needs are indexed.
+
+A request that needs a failed unit runs the index of that unit again. When the unit fails again, the request gets error `-32803`. The error message holds one line `<path>: <message>` for each failed unit. `ling --mcp` answers with a tool error that holds the same text.
 
 The daemon writes its port file when it starts. The port file holds the local port of the daemon.
 
@@ -57,7 +61,7 @@ Before `initialize`, each request gets error `-32002`. After `shutdown`, each re
 | `ling --help`                                               | Prints this guide.                                                                                                                                                     | 0                          |
 | `ling --version`                                            | Prints `ling <version> (<commit>)`.                                                                                                                                    | 0                          |
 | `ling --build <folder>`                                     | Builds the language library of the folder. See Build.                                                                                                                  | The exit code of `cast`    |
-| `ling --mcp <manifest> [--<word>]`                          | Serves the operations of the daemon as Model Context Protocol tools over stdio (revision 2026-07-28). Ends when stdin closes.                                          | 0                          |
+| `ling --mcp <manifest> [--<word>]`                          | Serves the operations of the daemon as Model Context Protocol tools over stdio (revision 2026-07-28). Ends when stdin closes.                                          | 0, or 1 when the daemon connection ends |
 | `ling <manifest> [--<word>]`                                | Starts the server on stdio. See Server.                                                                                                                                | 0 after `shutdown` and `exit`, otherwise 1 |
 | `ling <manifest>` with no folder that holds it              | Starts the server on stdio for the working folder. See Server.                                                                                                         | 0 after `shutdown` and `exit`, otherwise 1 |
 | `ling daemon <manifest> [--<word>]`                         | Starts the daemon. Exits at once when a daemon with the same name runs.                                                                                                | 0                          |
@@ -69,15 +73,16 @@ On a terminal, `ling` clears the screen first.
 
 Each failure prints `ling: <first argument>: <message>` on stderr.
 
-| Message                                             | Cause                                                                                   |
-| :-------------------------------------------------- | :-------------------------------------------------------------------------------------- |
-| `daemon did not start`                              | The server or the operation cannot start the daemon.                                    |
-| `daemon connection lost`                            | The connection to the daemon ends before the answer.                                    |
-| `<word>: toolchain argument not declared`           | No row of the `## toolchain` table holds the word in its `argument` column.             |
-| `language library did not load`                     | A language library does not open, or has no entry.                                      |
-| `file did not parse`                                | The language does not parse the file.                                                   |
-| `unit index failed`                                 | The index pass of a unit returns a nonzero value.                                       |
-| `no language folder holds a construction file`      | No folder of the language folders holds `construction.md`.                             |
+| Message                                             | Cause                                                                                                                |
+| :-------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------- |
+| `daemon did not start`                              | The server or the operation cannot start the daemon.                                                                 |
+| `daemon connection lost`                            | The connection to the daemon ends before the answer.                                                                 |
+| `<word>: toolchain argument not declared`           | No row of the `## toolchain` table holds the word in its `argument` column.                                          |
+| `language library did not load`                     | A language library does not open, or has no entry.                                                                   |
+| `file did not parse`                                | The language does not parse the file.                                                                                |
+| `unit index failed: <cause>`                        | The index pass of a unit returns a nonzero value. The language sends the cause, for example "libclang did not load". |
+| `swap file not written: <path>`                     | ling does not write a swap file, or the swap file does not replace its target.                                       |
+| `no language folder holds a construction file`      | No folder of the language folders holds `construction.md`.                                                           |
 
 ## Methods
 
@@ -118,7 +123,7 @@ Each answer is a JSON array unless the row says otherwise. Each array is sorted 
 | `textDocument/selectionRange`       | selectionRange         | `uri`, the first entry of `positions`     | Array with one `SelectionRange`. The innermost range comes first, then each enclosing range up to the file. The file range is always present.             |
 | `ling/textObject`                   | textObject             | `uri`, `position`, params `type`, `scope` | `Range` with `start` and `end`, or `null`. `type` is `function`, `class`, `loop`, or `conditional`. `scope` is `outer` for the whole element or `inner` for the body. |
 | `textDocument/switchSourceHeader`   | switchSourceHeader     | `uri`                                     | The URI of the first counterpart file, or `null`. A counterpart has the same name and an extension that the language pairs with it.                     |
-| `textDocument/publishDiagnostics`   | diagnostics            | none (sent by the daemon)                 | A notification after each indexed file: `uri`, and `diagnostics` of `{range, severity, message}`. The daemon sends it to each initialized server.       |
+| `textDocument/publishDiagnostics`   | diagnostics            | none (sent by the daemon)                 | A notification after each indexed file whose unit has no failure: `uri`, and `diagnostics` of `{range, severity, message}`. The daemon sends it to each initialized server. |
 
 The capabilities of `initialize` hold `textDocumentSync` 1 (Full). They hold each provider of the methods above, except `switchSourceHeader`. The server answers `switchSourceHeader` without a capability.
 
@@ -165,6 +170,11 @@ The stdout of an operation is one JSON-RPC response: `jsonrpc` is `2.0`, `id` is
 | `typeDefinition`     | `textDocument/typeDefinition`       | position  |                                                                                     |
 
 A request waits until the files that it needs are indexed. Then the daemon answers it.
+
+- `findReferences`, `goToImplementation`, `incomingCalls`, `rename`, and `workspaceSymbol` need every file.
+- `goToDefinition`, `typeDefinition`, `prepareCallHierarchy`, and `outgoingCalls` need the file and the files that its unit includes.
+- Each other operation needs the file.
+- A file that is not in the project needs every file.
 
 ## Manifest
 
@@ -244,7 +254,7 @@ A language library answers these entries. The library exports each entry by name
 | Entry                    | Kind               | Meaning                                                                                              |
 | :----------------------- | :----------------- | :--------------------------------------------------------------------------------------------------- |
 | `build`                  | function           | Builds the element tree of one source from its token records.                                        |
-| `index`                  | function           | Indexes one unit and reports its symbols through the callbacks. Returns zero on success.            |
+| `index`                  | function           | Indexes one unit and reports its symbols through the callbacks. Returns zero on success. On a failure it sends the cause through `addMessage`. |
 | `addUnits`               | function           | Lists the units of each row through the callbacks.                                                   |
 | `code`                   | int table, 256 rows | The byte class of each byte value.                                                                  |
 | `commentOpen`            | string             | The opening text of a block comment.                                                                 |
@@ -300,7 +310,7 @@ A library calls these callbacks. ling gives each callback a context and a functi
 | `shouldExit`        | index     | Returns a nonzero value to stop the index pass.                                                            |
 | `addUnit`           | addUnits  | Adds one unit: the path, the directory, the output, the arguments, the dependencies, and the prerequisites. |
 | `addBuildFile`      | addUnits  | Adds a build file. A change of that file runs the manifest again.                                          |
-| `addMessage`        | addUnits  | Sets a failure text for the unit list.                                                                     |
+| `addMessage`        | index, addUnits | Sets a failure text for the unit, or for the unit list.                                                    |
 | `addHover`          | index     | Adds one hover text of a file, with the line and column span of its definition in the source. Returns its index in the file. |
 | `isForeign`         | index     | Returns a nonzero value when the path is owned by another translation unit.                                |
 

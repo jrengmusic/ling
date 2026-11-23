@@ -157,11 +157,9 @@ static juce::File getManifestFile (const juce::ArgumentList& arguments, int argu
 
     if (argumentFile.getFileName().compare (arguments[argumentIndex].text) == 0)
     {
-        for (auto folder { workingFolder }; not folder.isRoot(); folder = folder.getParentDirectory())
-            if (const auto candidate { folder.getParentDirectory().getChildFile (argumentFile.getFileName()) }; candidate.existsAsFile())
-                return candidate.getLinkedTarget();
+        const auto manifestFile { LINGModel::getManifestFile (workingFolder, argumentFile.getFileName()) };
 
-        return workingFolder;
+        return manifestFile != juce::File {} ? manifestFile : workingFolder;
     }
 
     return argumentFile;
@@ -356,7 +354,7 @@ private:
         const auto manifestFile { getExistingManifestFile (arguments, manifestIndex) };
         const auto toolchainArgument { getToolchainArgument (arguments, manifestIndex) };
 
-        toolRelay = std::make_unique<ToolRelay> (manifestFile, toolchainArgument);
+        toolRelay = std::make_unique<ToolRelay> (manifestFile, arguments[manifestIndex].resolveAsFile().getFileName(), toolchainArgument);
         toolRelay->start();
     }
 

@@ -1,10 +1,10 @@
 #include "Query.h"
 
-void Query::setError (juce::ValueTree& request, int code)
+void Query::setError (juce::ValueTree& request, int code, std::string_view messageText)
 {
     juce::MemoryBlock json;
 
-    jam::JsonWriter::appendObject (json, [&request, code] (juce::MemoryBlock& message)
+    jam::JsonWriter::appendObject (json, [&request, code, messageText] (juce::MemoryBlock& message)
     {
         appendJsonRpc (message);
 
@@ -16,17 +16,31 @@ void Query::setError (juce::ValueTree& request, int code)
             jam::JsonWriter::appendNull (message);
 
         jam::JsonWriter::appendKey (message, lsp::Member::error);
-        jam::JsonWriter::appendObject (message, [&request, code] (juce::MemoryBlock& members)
+        jam::JsonWriter::appendObject (message, [code, messageText] (juce::MemoryBlock& members)
         {
             jam::JsonWriter::appendKey (members, lsp::Member::code);
             jam::Format::appendDecimal (members, code);
 
             jam::JsonWriter::appendKey (members, lsp::Member::message);
-            jam::JsonWriter::appendString (members, jam::Strings::getView (request[Id::command].toString()));
+            jam::JsonWriter::appendString (members, messageText, juce::JSON::Encoding::utf8);
         });
     });
 
     request.setProperty (Id::result, juce::var (std::move (json)), nullptr);
+}
+
+void Query::setError (juce::ValueTree& request, int code)
+{
+    const auto command { request[Id::command].toString() };
+
+    setError (request, code, jam::Strings::getView (command));
+}
+
+juce::Identifier Query::getCommand (const juce::ValueTree& request)
+{
+    const auto word { request[Id::command].toString() };
+
+    return word.isNotEmpty() ? juce::Identifier { word } : juce::Identifier {};
 }
 
 juce::Identifier Query::getArgumentShape (const juce::Identifier& operation)
@@ -49,10 +63,8 @@ bool Query::isValidRequest (const juce::ValueTree& request)
     static constexpr int rangeArgumentCount { 5 };
     static constexpr int fileArgumentCount { 1 };
 
-    const auto word { request[Id::command].toString() };
-    const juce::Identifier command { word.isNotEmpty() ? juce::Identifier { word } : juce::Identifier {} };
     const auto& arguments { *request[Id::arguments].getArray() };
-    const auto shape { getArgumentShape (command) };
+    const auto shape { getArgumentShape (getCommand (request)) };
 
     if (shape == Id::position)
         return arguments.size() == positionArgumentCount and static_cast<int> (arguments[lineIndex]) > 0 and static_cast<int> (arguments[columnIndex]) > 0;

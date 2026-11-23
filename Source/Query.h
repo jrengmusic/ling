@@ -248,12 +248,25 @@ public:
     }
 
     /**
-     * @brief Writes a JSON-RPC error response with @p code and the command name onto @p request Id::result.
+     * @brief Writes a JSON-RPC error response onto @p request Id::result, with the command name of @p request as the message.
+     *
+     * The response id is the Id::id of @p request, or null when the request has none.
      *
      * @param request  The request row receiving Id::result.
      * @param code     JSON-RPC error code from lsp::ErrorCodes.
      */
     static void setError (juce::ValueTree& request, int code);
+
+    /**
+     * @brief Writes a JSON-RPC error response onto @p request Id::result, with @p messageText as the message.
+     *
+     * The response id is the Id::id of @p request, or null when the request has none.
+     *
+     * @param request      The request row receiving Id::result.
+     * @param code         JSON-RPC error code from lsp::ErrorCodes.
+     * @param messageText  The error message text.
+     */
+    static void setError (juce::ValueTree& request, int code, std::string_view messageText);
 
     /**
      * @brief Serializes a JSON-RPC response object with @p appendValue as `result` onto @p request Id::result.
@@ -292,6 +305,14 @@ public:
      * @return @c true when the command and its argument count and bounds are valid.
      */
     static bool isValidRequest (const juce::ValueTree& request);
+
+    /**
+     * @brief Returns the command word of @p request as an identifier.
+     *
+     * @param request  The request row that holds Id::command.
+     * @return The command identifier, or an empty identifier when the request has no command.
+     */
+    static juce::Identifier getCommand (const juce::ValueTree& request);
 
     /**
      * @brief Returns the parameter shape identifier (position, range, file, or query) for @p operation.

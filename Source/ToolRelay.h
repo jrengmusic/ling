@@ -4,115 +4,54 @@
  */
 
 #pragma once
-#include "Client.h"
+#include "ToolClient.h"
 #include "Query.h"
 
 /**
  * @class ToolRelay
- * @brief Serves MCP tool calls over standard input for one manifest.
+ * @brief Serves MCP tool calls over standard input, with one ToolClient for each manifest.
  *
- * The relay exposes the declared tools through an MCP server and translates each
+ * The clients are keyed by the full path name of their manifest. The relay exposes the declared tools through an MCP server and translates each
  * call into a request row. It queues cancel rows for cancelled requests. Each
  * daemon reply goes back to the MCP caller as a tool result or a tool error.
  * Daemon showMessage notifications update the model message.
  */
-class ToolRelay : public Client,
-                  private juce::ValueTree::Listener
+class ToolRelay
 {
 public:
     /**
      * @brief Creates the tool relay for a manifest and binds the MCP server handlers.
      *
      * Registers each query tool on @c server. Sets @c onInputClosed to quit with
-     * success and @c onCancelled to queue an Id::cancel row. Adds this relay as a
-     * listener to @c model.state.
+     * success and @c onCancelled to queue an Id::cancel row on each client.
      *
-     * @param newManifestFile       The manifest that the Client base receives.
-     * @param newToolchainArgument  The toolchain argument that the Client base receives.
+     * @param newManifestFile       The default manifest. start() creates its client. getManifestFile() returns it for a query, or when no manifest is found.
+     * @param newManifestName       The file name that a request manifest must match.
+     * @param newToolchainArgument  The toolchain argument that the clients receive.
      */
-    ToolRelay (const juce::File& newManifestFile, const juce::String& newToolchainArgument);
-
-    /** @brief Removes the relay from the listeners of @c model.state and disconnects. */
-    ~ToolRelay() override;
+    ToolRelay (const juce::File& newManifestFile, const juce::String& newManifestName, const juce::String& newToolchainArgument);
 
     /**
-     * @brief Starts the daemon client connection and opens the MCP standard input server.
+     * @brief Starts the daemon client of the manifest and opens the MCP standard input server.
      *
-     * Starts @c Client before @c server so incoming tool calls queue onto an active client.
+     * Starts the client before @c server so incoming tool calls queue onto an active client.
      */
     void start();
 
 private:
     /**
-     * @brief Sends every queued row in @c requests to the daemon when the connection opens.
+     * @brief Builds an Id::request row for a tool call, and adds it to the client of the manifest that getManifestFile() returns for it.
      *
-     * Each row leaves @c requests as sendRequest() sends it.
-     */
-    void connectionMade() override;
-
-    /**
-     * @brief Routes a daemon JSON-RPC message to the model or the MCP server.
-     *
-     * Parses @p reply and asserts valid JSON. Forwards @c showMessage notifications to
-     * @c model.setMessage(). Sends @c result payloads via @c server.sendResponse() and
-     * @c error messages via @c server.sendToolError().
-     *
-     * @param reply  JSON-RPC message bytes received from the daemon.
-     */
-    void messageReceived (const juce::MemoryBlock& reply) override;
-
-    /**
-     * @brief Dispatches a child added to @c requests, or reports no daemon when no daemon port exists.
-     *
-     * Sends @p childWhichHasBeenAdded when connected, or calls sendNoDaemonError() when
-     * @c model.state Id::port equals @c Server::noPort. Ignores other parent trees.
-     *
-     * @param parentTree              The tree that gained the child.
-     * @param childWhichHasBeenAdded  The added request or cancel row.
-     */
-    void valueTreeChildAdded (juce::ValueTree& parentTree, juce::ValueTree& childWhichHasBeenAdded) override;
-
-    /**
-     * @brief Drains @c requests via sendNoDaemonError() when @c model.state Id::port becomes @c Server::noPort.
-     *
-     * Clears pending rows so MCP callers receive an immediate tool error when no daemon
-     * serves the manifest.
-     *
-     * @param tree      The tree whose property changed.
-     * @param property  The changed property identifier.
-     */
-    void valueTreePropertyChanged (juce::ValueTree& tree, const juce::Identifier& property) override;
-
-    /**
-     * @brief Builds an Id::request row for a tool call and appends it to @c requests.
-     *
-     * Sets UTF-16 position encoding to match the tool schema. Stores the current working
-     * directory so the daemon resolves relative file paths.
+     * Sets Id::positionEncoding to lsp::PositionEncodingType::UTF16. Stores the current working
+     * directory in Id::directory, so the daemon resolves relative file paths against it.
      *
      * @param requestId  The JSON-RPC request identifier from the MCP call.
      * @param document   The parsed JSON document holding the tool arguments.
-     * @param arguments  The validated arguments object element of the tool call.
+     * @param arguments  The arguments object element of the tool call.
      * @param command    The ling operation identifier for the tool.
      * @param shape      The argument shape identifier from Query::getArgumentShape().
      */
     void addRequest (const juce::String& requestId, const jam::JsonDocument& document, const jam::Document::Element& arguments, const juce::Identifier& command, const juce::Identifier& shape);
-
-    /**
-     * @brief Serializes a queued row, sends it to the daemon, and removes it from @c requests.
-     *
-     * @param row  The Id::request or Id::cancel row to send.
-     */
-    void sendRequest (const juce::ValueTree& row);
-
-    /**
-     * @brief Sends an `isError: true` tool error when @p row is an identified request, then removes @p row.
-     *
-     * Formats the error text from @c text::Diagnostics::failNoDaemon and @c manifestFile
-     * via @c server.sendToolError().
-     *
-     * @param row  The queued row to drain from @c requests.
-     */
-    void sendNoDaemonError (const juce::ValueTree& row);
 
     /**
      * @brief Extracts the positional argument array of a request row from MCP tool arguments.
@@ -127,11 +66,41 @@ private:
      */
     static juce::Array<juce::var> getRequestArguments (const jam::JsonDocument& document, const jam::Document::Element& arguments, const juce::Identifier& shape);
 
-    /** @brief Queued Id::request and Id::cancel rows waiting for the daemon connection. */
-    juce::ValueTree requests { model.state.getOrCreateChildWithName (jam::Format::toType (Id::requests), nullptr) };
+    /**
+     * @brief Returns the manifest of a request: the manifest found upward from the folder of its file, or manifestFile.
+     *
+     * A query request has no file, so it always gets manifestFile. For any other shape, the parent
+     * folder of the request file is searched by LINGModel::getManifestFile() for manifestName. When
+     * no manifest is found, manifestFile is returned.
+     *
+     * @param request  The request row. Its directory and its file argument give the file.
+     * @param shape    The argument shape identifier from Query::getArgumentShape().
+     * @return The manifest file of the request.
+     */
+    juce::File getManifestFile (const juce::ValueTree& request, const juce::Identifier& shape) const;
+
+    /**
+     * @brief Returns the client of a manifest, and creates and starts it when no client exists for the manifest path.
+     *
+     * @param requestManifest  The manifest that the client serves.
+     * @return The client of the manifest.
+     */
+    ToolClient& getOrCreateClient (const juce::File& requestManifest);
+
+    /** @brief The default manifest. start() creates its client, and getManifestFile() returns it when no other manifest applies. */
+    const juce::File manifestFile;
+
+    /** @brief The file name that a request manifest must have. getManifestFile() searches upward for it. */
+    const juce::String manifestName;
+
+    /** @brief The toolchain argument that each client receives. */
+    const juce::String toolchainArgument;
 
     /** @brief MCP server exposing the tools from @c files::lingTools over standard input and output. */
     jam::ModelContextServer server { BinaryData::getString (files::lingTools).toStdString(), ProjectInfo::projectName, ProjectInfo::versionString };
+
+    /** @brief One ToolClient for each manifest, keyed by the full path name of the manifest. */
+    jam::HashMap<juce::String, std::unique_ptr<ToolClient>> clients;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ToolRelay)
 };

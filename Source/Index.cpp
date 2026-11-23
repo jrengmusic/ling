@@ -21,20 +21,10 @@ void Index::removeDocuments (const juce::ValueTree& files)
         }
     }
 
-    for (auto entry { symbolDocuments.begin() }; entry != symbolDocuments.end();)
-    {
-        const auto& [rowIndex, symbolDocument] { *entry };
+    for (const auto& [rowIndex, symbolDocument] : symbolDocuments)
+        removeBindings (rowIndex);
 
-        if (rowIndex < files.getNumChildren() and files.getChild (rowIndex).hasProperty (Id::arguments))
-        {
-            ++entry;
-        }
-        else
-        {
-            removeBindings (rowIndex);
-            entry = symbolDocuments.erase (entry);
-        }
-    }
+    symbolDocuments.clear();
 }
 
 std::unique_ptr<jam::Document> Index::readSwapFile (const juce::File& swapFile, std::string_view sourceText, const std::shared_ptr<const Language>& language, juce::int64 hash, juce::int64 languageHash, int family)
@@ -67,18 +57,32 @@ void Index::addStamp (jam::Document& document, juce::int64 hash, juce::int64 lan
     document.getRoot()->add<juce::String> (Id::version, ProjectInfo::versionString);
 }
 
-void Index::writeSwapFile (const juce::File& swapFile, jam::Document& document, juce::int64 hash, juce::int64 languageHash, int family)
+juce::Result Index::writeSwapFile (const juce::File& swapFile, jam::Document& document, juce::int64 hash, juce::int64 languageHash, int family)
 {
     addStamp (document, hash, languageHash, family);
 
     juce::TemporaryFile temporary { swapFile };
+    auto result { juce::Result::ok() };
 
     {
         juce::FileOutputStream stream { temporary.getFile() };
-        document.write (stream);
+
+        if (stream.openedOk())
+        {
+            document.write (stream);
+            stream.flush();
+        }
+
+        result = stream.getStatus();
     }
 
-    temporary.overwriteTargetFileWithTemporary();
+    if (not result.wasOk())
+        return juce::Result::fail (juce::String (text::Diagnostics::failSwapWrite) + Id::diagnosticSeparator + swapFile.getFullPathName() + Id::diagnosticSeparator + result.getErrorMessage());
+
+    if (not temporary.overwriteTargetFileWithTemporary())
+        return juce::Result::fail (juce::String (text::Diagnostics::failSwapWrite) + Id::diagnosticSeparator + swapFile.getFullPathName());
+
+    return result;
 }
 
 void Index::addDocument (const juce::String& path, std::unique_ptr<jam::Document> document)
@@ -139,6 +143,23 @@ void Index::addBindings (int rowIndex, std::unique_ptr<SymbolDocument> symbolDoc
     }
 
     symbolDocuments.addOrReplace (rowIndex, std::move (symbolDocument));
+}
+
+juce::Result Index::addBindings (int rowIndex, const juce::TemporaryFile& temporary, juce::int64 hash, juce::int64 languageHash, int family)
+{
+    removeBindings (rowIndex);
+    symbolDocuments.erase (rowIndex);
+
+    if (temporary.overwriteTargetFileWithTemporary())
+    {
+        if (auto symbolDocument { readSwapFile (temporary.getTargetFile(), hash, languageHash, family) }; symbolDocument != nullptr)
+        {
+            addBindings (rowIndex, std::move (symbolDocument));
+            return juce::Result::ok();
+        }
+    }
+
+    return juce::Result::fail (juce::String (text::Diagnostics::failSwapWrite) + Id::diagnosticSeparator + temporary.getTargetFile().getFullPathName());
 }
 
 void Index::addPathRows (const juce::ValueTree& files)

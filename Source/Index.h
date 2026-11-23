@@ -49,11 +49,10 @@ public:
     }
 
     /**
-     * @brief Erases documents and symbol bindings whose rows no longer exist in @p files.
+     * @brief Erases each stored document whose path is absent from @p files, and removes every SymbolDocument with its bindings.
      *
-     * Removes entries from documents whose path is absent from @p files, and
-     * removes SymbolDocument entries whose row index is out of bounds or no
-     * longer holds Id::arguments, clearing their bound symbols via removeBindings().
+     * Each SymbolDocument of symbolDocuments is unbound through removeBindings(), and then
+     * symbolDocuments is cleared.
      *
      * @param files  The current files child tree to retain entries against.
      */
@@ -87,6 +86,22 @@ public:
      * @param symbolDocument  Validated SymbolDocument produced for the unit.
      */
     void addBindings (int rowIndex, std::unique_ptr<SymbolDocument> symbolDocument);
+
+    /**
+     * @brief Erases the SymbolDocument of @p rowIndex, moves @p temporary over its target, and binds the target as the SymbolDocument of @p rowIndex.
+     *
+     * The bindings of @p rowIndex are removed first. The target is read with readSwapFile(), and
+     * a valid result is bound through addBindings(int, std::unique_ptr<SymbolDocument>).
+     *
+     * @param rowIndex      Translation unit row index in the files child.
+     * @param temporary     The temporary file that holds the serialized SymbolDocument. Its target file is read.
+     * @param hash          Expected content hash of the unit inputs.
+     * @param languageHash  Expected hash of the language library.
+     * @param family        Expected language family identifier.
+     * @return ok when the target reads as a valid SymbolDocument and is bound. Otherwise the text is
+     *         text::Diagnostics::failSwapWrite and the full path of the target file.
+     */
+    juce::Result addBindings (int rowIndex, const juce::TemporaryFile& temporary, juce::int64 hash, juce::int64 languageHash, int family);
 
     /**
      * @brief Rebuilds pathRows and stemRows from the rows of @p files.
@@ -336,19 +351,22 @@ public:
     readSwapFile (const juce::File& swapFile, juce::int64 hash, juce::int64 languageHash, int family);
 
     /**
-     * @brief Stamps and atomically writes @p document to @p swapFile via a temporary file.
+     * @brief Stamps @p document, writes it to a temporary file, and overwrites @p swapFile with that file.
      *
      * @param swapFile      Destination swap file path.
      * @param document      Document to stamp and serialize.
      * @param hash          Source content hash.
      * @param languageHash  Language library hash.
      * @param family        Language family identifier.
+     * @return ok when the write and the overwrite succeed. When the stream fails, the text is
+     *         text::Diagnostics::failSwapWrite, the full path of swapFile, and the system error text.
+     *         When the overwrite fails, the text is text::Diagnostics::failSwapWrite and the full path of swapFile.
      */
-    static void writeSwapFile (const juce::File& swapFile,
-                               jam::Document& document,
-                               juce::int64 hash,
-                               juce::int64 languageHash,
-                               int family);
+    static juce::Result writeSwapFile (const juce::File& swapFile,
+                                       jam::Document& document,
+                                       juce::int64 hash,
+                                       juce::int64 languageHash,
+                                       int family);
 
     /**
      * @brief Attaches source hash, language hash, family, and version stamps to @p document's root.
@@ -374,6 +392,9 @@ public:
 
     /** @brief Loaded Language instances keyed by family identifier. */
     jam::HashMap<int, std::shared_ptr<const Language>> languages;
+
+    /** @brief Holds a shared reference to each language that Processor::setLanguage loads. Each successful load adds an entry, so the library of a replaced language stays loaded for the threads that ran it. */
+    jam::Array<std::shared_ptr<const Language>> loadedLanguages;
 
     /**
      * @brief Declaration occurrences per symbol identifier, sorted by path byte order.

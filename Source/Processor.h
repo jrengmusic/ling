@@ -141,23 +141,71 @@ private:
     void registerEvents();
 
     /**
-     * @brief Executes the request handler for @p request or writes an InvalidParams error.
+     * @brief Executes the request handler for @p request, or writes an error reply.
      *
-     * Clears any Id::isRequested flags on the owning unit and its prerequisites,
-     * forwards unit or language diagnostic messages to @c model, and dispatches
-     * valid commands through @c events.
+     * Clears Id::isRequested on the owning unit and its prerequisites. When the language row of the
+     * unit holds Id::message, sends the file path and that message to @c model. A valid command runs
+     * through @c bufferEvents or @c events. A request that has a failed unit row receives
+     * lsp::ErrorCodes::RequestFailed, with the failed row messages, except a buffer request, which
+     * runs without this check. A request without a valid command or valid arguments receives
+     * lsp::ErrorCodes::InvalidParams.
      *
      * @param request  The request row whose command selects the operation and receives Id::result.
      */
     void runRequest (juce::ValueTree& request);
 
     /**
-     * @brief Tells whether the files or unit required by @p request have finished indexing.
+     * @brief Tells whether the rows that @p request needs have finished indexing.
+     *
+     * For the files scope, the files child must be indexed. For any other scope, the file row of the
+     * request must be indexed. For a scope other than Id::file, every dependency row of the unit of
+     * the request must be indexed too, when the file has a unit row.
      *
      * @param request  The request row to check against map::Readiness scope rules.
      * @return @c true when the request can run immediately.
      */
     bool isRequestReady (const juce::ValueTree& request) const;
+
+    /**
+     * @brief Returns the readiness scope of the command of @p request.
+     *
+     * Returns the scope that map::Readiness gives the command, when the file of the request is a
+     * stored path row and the command has an entry. Otherwise returns Id::files.
+     *
+     * @param request  The request row whose command and file give the scope.
+     * @return The scope identifier.
+     */
+    juce::Identifier getScope (const juce::ValueTree& request) const;
+
+    /**
+     * @brief Returns the unit rows that @p request waits for.
+     *
+     * For the files scope, every row that holds Id::arguments. For any other scope, the unit row that
+     * owns the file of the request. For the dependencies scope, the unit rows that own the dependencies
+     * of that unit are added too.
+     *
+     * @param request  The request row.
+     * @return The row indices.
+     */
+    jam::Array<int> getUnitRows (const juce::ValueTree& request) const;
+
+    /**
+     * @brief Returns the rows of getUnitRows() that hold Id::message.
+     *
+     * @param request  The request row.
+     * @return The row indices of the failed units.
+     */
+    jam::Array<int> getFailedRows (const juce::ValueTree& request) const;
+
+    /**
+     * @brief Joins the path and the Id::message of each row into one text, one line for each row.
+     *
+     * Each line is the path, the diagnostic separator, and the message of the row.
+     *
+     * @param rows  The row indices to report.
+     * @return The joined text.
+     */
+    juce::String getMessage (const jam::Array<int>& rows) const;
 
     /**
      * @brief Marks the target unit requested and moves its blocking parse and index jobs to the front of @c pool.
@@ -172,7 +220,9 @@ private:
     void runRequests();
 
     /**
-     * @brief Appends a synthetic publishDiagnostics request to each connection supporting position encoding when @p file finishes indexing.
+     * @brief Appends a publishDiagnostics request to each connection that supports position encoding, when @p file finishes indexing.
+     *
+     * Skips the file when its unit row holds Id::message.
      *
      * @param file  Indexed file row whose path is published.
      */
@@ -201,9 +251,10 @@ private:
     /**
      * @brief Dispatches child additions on @c model.state via @c childEvents.
      *
-     * Handles Id::files (starts parse jobs), Id::request (runs immediately or
-     * prioritizes blocking jobs), Id::language (loads the language library and
-     * starts unit discovery), and Id::toolchain (starts unit discovery).
+     * Handles Id::files (starts parse jobs), Id::request (queues the failed units through
+     * addIndexJobs() when the command has an event, then runs the request when it is ready,
+     * or moves its blocking jobs to the front otherwise), Id::language (loads the language
+     * library and starts unit discovery), and Id::toolchain (starts unit discovery).
      *
      * @param parentTree              Tree that received the child (unused).
      * @param childWhichHasBeenAdded  Added child tree whose type selects the action.
@@ -330,7 +381,11 @@ private:
         JobStatus runJob() override;
 
         /**
-         * @brief Invokes language->index() with builder callbacks and writes the resulting SymbolDocument swap file.
+         * @brief Invokes language->index() with the builder callbacks, and writes the SymbolDocument to temporary.
+         *
+         * When index returns zero, the builder is sorted and deduplicated, and its SymbolDocument is
+         * written to temporary, a juce::TemporaryFile that targets symbolSwapFile. Otherwise result
+         * keeps the failure set before the call, or the message that addMessage() recorded.
          */
         void addSymbols();
 
@@ -437,6 +492,14 @@ private:
          */
         static void addFixIt (void* context, const char* recordPath, int line, int column, int endLine, int endColumn, const char* text);
 
+        /**
+         * @brief Records the message text of a language failure as the result of the job, after failUnitIndex.
+         *
+         * @param context      Pointer to the owning IndexJob.
+         * @param messageText  The message text from the language library.
+         */
+        static void addMessage (void* context, const char* messageText);
+
         /** @brief Number of integer fields hashed to deduplicate outline entries. */
         static constexpr int outlineFieldCount { 8 };
 
@@ -473,11 +536,12 @@ private:
         juce::StringArray bufferTexts;///< Text contents of open editor buffers aligned with @c bufferPaths.
         jam::Strings foreignPaths;///< Paths of other translation units excluded from foreign re-indexing.
         SymbolDocument::Builder builder;///< Accumulator populated by static indexer callbacks.
-        std::unique_ptr<SymbolDocument> symbols;///< Built or mapped SymbolDocument transferred to @c index.
+        std::unique_ptr<SymbolDocument> symbols;///< SymbolDocument read from a valid swap file by runJob(), or null. addBindings() moves it into index.
         jam::Array<std::pair<int, int>> outlineSlots;///< Maps callback slot indices to (fileIndex, per-file outlineIndex).
         jam::HashMap<juce::int64, int> outlineKeys;///< Hash set deduplicating identical outline entries.
         jam::HashSet<juce::int64> completionKeys;///< Hash set deduplicating (scopeSymbol, symbol) completions.
-        int result { 0 };///< Return code from language->index(), or nonzero on failure.
+        juce::Result result { juce::Result::ok() };///< Job result. addSymbols() sets failUnitIndex before the index call. addMessage() replaces it with the language message. A zero index result replaces it with the swap write result. An exception replaces it with the exception text.
+        std::unique_ptr<juce::TemporaryFile> temporary;///< Temporary file that holds the swap written by addSymbols(), targeting symbolSwapFile. It is null when addSymbols() does not write a swap.
         std::atomic<bool> isFinished { false };///< Release-stored completion flag read by handleAsyncUpdate().
     };
 
@@ -537,10 +601,10 @@ private:
         static void addBuildFile (void* context, const char* path);
 
         /**
-         * @brief Callback storing a diagnostic message on @c files when unit discovery reports an error.
+         * @brief Callback storing the message text on @c files, as its Id::message property.
          *
          * @param context  Pointer to the owning UnitsJob.
-         * @param text     Diagnostic message text.
+         * @param text     Message text from the language library.
          */
         static void addMessage (void* context, const char* text);
 
@@ -674,12 +738,15 @@ private:
     }
 
     /**
-     * @brief Queues an IndexJob for unit @p row at @p rowIndex and interrupts any active IndexJob on that row.
+     * @brief Queues an IndexJob for unit @p row at @p rowIndex, and signals any running IndexJob of that row to stop.
+     *
+     * Removes Id::message from the row. The running job, when it leaves the pool without a wait, is
+     * erased from indexJobs. Otherwise it keeps running, and the new job waits in nextIndexJobs.
      *
      * @param row       Translation unit row holding arguments, directory, path, output, and family.
      * @param rowIndex  Index of @p row in the files child.
      */
-    void addIndexJob (const juce::ValueTree& row, int rowIndex);
+    void addIndexJob (juce::ValueTree row, int rowIndex);
 
     /**
      * @brief Starts queued IndexJobs whose prerequisite units are idle, prioritizing requested and producer units.
@@ -687,10 +754,21 @@ private:
     void addIndexJobs();
 
     /**
-     * @brief Applies the SymbolDocument of finished @p job to @c index or records failure diagnostics.
+     * @brief Queues the IndexJobs of the failed unit rows of @p request, and of their failed prerequisites.
      *
-     * Moves @c job.symbols into index.addBindings() when the row path matches and
-     * @c job.result is zero; otherwise sets the overlay and row error messages.
+     * For each row of getFailedRows(), each prerequisite that holds Id::message is queued first.
+     * Then the row itself is queued through addIndexJob().
+     *
+     * @param request  The request row whose failed unit rows are queued again.
+     */
+    void addIndexJobs (const juce::ValueTree& request);
+
+    /**
+     * @brief Applies the result of a finished IndexJob to @c index, when the row path matches the job path.
+     *
+     * With @c job.symbols set, the document is moved into index.addBindings(). Otherwise, when
+     * @c job.result is ok, the temporary file of the job is bound through index.addBindings(). A failed
+     * result sets the overlay message, and sets Id::message on the row.
      *
      * @param job  Finished IndexJob.
      */
@@ -816,6 +894,9 @@ private:
 
     /** @brief Request command handlers keyed by command identifier. */
     Events events;
+
+    /** @brief The setBuffer and removeBuffer operations, keyed by command identifier. runRequest() runs them without a check of the failed units. */
+    Events bufferEvents;
 
     /** @brief Model property-change handlers keyed by property identifier. */
     Events propertyEvents;

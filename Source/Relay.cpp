@@ -118,16 +118,6 @@ void Relay::start()
     juce::ignoreUnused (isOpen);
 }
 
-void Relay::connectionMade()
-{
-    while (requests.getNumChildren() > 0)
-    {
-        const auto row { requests.getChild (0) };
-
-        sendRequest (row);
-    }
-}
-
 void Relay::messageReceived (const juce::MemoryBlock& reply)
 {
     jam::StdioProtocol::writeMessage (stdio, std::string_view { static_cast<const char*> (reply.getData()), reply.getSize() });
@@ -139,7 +129,7 @@ void Relay::valueTreeChildAdded (juce::ValueTree& parentTree, juce::ValueTree& c
     {
         if (isConnected())
             sendRequest (childWhichHasBeenAdded);
-        else if (static_cast<int> (model.state[Id::port]) == Server::noPort)
+        else if (static_cast<int> (state[Id::port]) == Server::noPort)
             sendEmptyResult (childWhichHasBeenAdded);
     }
 }
@@ -161,7 +151,7 @@ void Relay::valueTreePropertyChanged (juce::ValueTree& tree, const juce::Identif
     }
     else if (tree == messages and property == Id::isOpen and not static_cast<bool> (tree[property]))
         exit();
-    else if (tree == model.state and property == Id::port and static_cast<int> (tree[property]) == Server::noPort)
+    else if (tree == state and property == Id::port and static_cast<int> (tree[property]) == Server::noPort)
     {
         while (requests.getNumChildren() > 0)
         {
@@ -212,17 +202,6 @@ void Relay::addRequest (const jam::JsonDocument& document, const jam::Document::
     {
         sendError (document, idToken, lsp::ErrorCodes::ServerNotInitialized);
     }
-}
-
-void Relay::sendRequest (const juce::ValueTree& row)
-{
-    juce::MemoryBlock data;
-    juce::MemoryOutputStream stream { data, false };
-
-    row.writeToStream (stream);
-    stream.flush();
-    sendMessage (data);
-    requests.removeChild (row, nullptr);
 }
 
 void Relay::sendEmptyResult (const juce::ValueTree& row)

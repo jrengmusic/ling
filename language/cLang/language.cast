@@ -439,8 +439,9 @@ static const ling::LookupTable referenceRoles {
 
 struct LibClang
 {
-    explicit LibClang (const std::string& path)
-        : library { path.c_str() }
+    explicit LibClang (const std::string& newPath)
+        : path { newPath },
+          library { newPath.c_str() }
 :::[list]:::
     {
     }
@@ -457,15 +458,35 @@ struct LibClang
         return std::all_of (symbols.begin(), symbols.end(), [] (const void* symbol) { return symbol != nullptr; });
     }
 
+    const std::string path;
     ling::DynamicLibrary library;
 :::[list]:::
 };
+
+static std::shared_ptr<const LibClang> getOrCreateLibClang (const std::string& path)
+{
+    static std::mutex librariesMutex;
+    static std::vector<std::shared_ptr<const LibClang>> libraries;
+
+    const std::scoped_lock<std::mutex> lock { librariesMutex };
+    const auto stored { std::find_if (libraries.begin(), libraries.end(), [&path] (const std::shared_ptr<const LibClang>& library) { return library->path.compare (path) == 0; }) };
+
+    if (stored != libraries.end())
+        return *stored;
+
+    const auto candidate { std::make_shared<const LibClang> (path) };
+
+    if (candidate->isLoaded())
+        libraries.push_back (candidate);
+
+    return candidate;
+}
 
 struct IndexSession
 {
     void setLoaded (const std::string& path, int excludeDeclarationsFromPCH, int displayDiagnostics)
     {
-        if (libclang == nullptr or libraryPath.compare (path) != 0)
+        if (libclang == nullptr or libclang->path.compare (path) != 0)
         {
             static std::mutex initMutex;
             const std::scoped_lock<std::mutex> lock { initMutex };
@@ -473,9 +494,8 @@ struct IndexSession
             action.reset();
             indexHandle.reset();
             libclang.reset();
-            libraryPath = path;
 
-            auto candidate { std::make_unique<LibClang> (path) };
+            auto candidate { getOrCreateLibClang (path) };
 
             if (candidate->isLoaded())
             {
@@ -491,8 +511,7 @@ struct IndexSession
         return libclang != nullptr and indexHandle != nullptr and action != nullptr;
     }
 
-    std::string libraryPath;
-    std::unique_ptr<LibClang> libclang;
+    std::shared_ptr<const LibClang> libclang;
     std::unique_ptr<void, decltype (LibClang::disposeIndex)> indexHandle { nullptr, nullptr };
     std::unique_ptr<void, decltype (LibClang::disposeIndexAction)> action { nullptr, nullptr };
 };
@@ -655,6 +674,13 @@ private:
 
     static constexpr int invalidPosition { -1 };
     static constexpr int indexFailure { 1 };
+    static constexpr int crashFailure { 2 };
+    static constexpr int argumentsFailure { 3 };
+    static constexpr int readFailure { 4 };
+    static constexpr int unitFailure { 5 };
+    static constexpr int sessionFailure { 6 };
+    static constexpr int threadFailure { 7 };
+    static constexpr int saveFailure { 8 };
     static constexpr int quoteLength { 1 };
     static constexpr int qualifierLength { 3 };
     static constexpr int accessSpecifierLength { 2 };
@@ -709,6 +735,7 @@ static int index (const char* const* arguments, int argumentCount, const char* d
 
     const auto installDirectory { std::filesystem::path (arguments[0]).parent_path().string() };
     auto& session { getIndexSession ((std::filesystem::path (installDirectory) / static_cast<const char*> (getLibraryPaths().getAddress (currentPlatform))).string(), excludeDeclarationsFromPCH, displayDiagnostics) };
+    int result { sessionFailure };
 
     if (session.isLoaded())
     {
@@ -717,15 +744,18 @@ static int index (const char* const* arguments, int argumentCount, const char* d
 
         for (int position { 0 }; position < argumentTexts.size(); ++position)
             commandLine.add (argumentTexts.getPointer (position));
+
         const auto precompiledPath { getOutputPath (arguments, argumentCount, directory) };
-        int result { indexFailure };
         auto indexUnit { [&session, &commandLine, &callbacks, directory, &precompiledPath, bufferPaths, bufferTexts, bufferCount, &result] { result = indexSource (session, commandLine, callbacks, directory, precompiledPath, bufferPaths, bufferTexts, bufferCount); } };
 
+        result = threadFailure;
         session.libclang->executeOnThread ([] (void* data) { (*static_cast<decltype (indexUnit)*> (data))(); }, &indexUnit, defaultStackSize);
-        return result;
     }
 
-    return indexFailure;
+    if (result != 0)
+        callbacks.addMessage (callbacks.context, static_cast<const char*> (getIndexFailures().getAddress (static_cast<unsigned long long> (result))));
+
+    return result;
 }
 
 ```
@@ -733,7 +763,8 @@ static int index (const char* const* arguments, int argumentCount, const char* d
 static int addUnits (const char* const* arguments, const int* argumentCounts, int rowCount, const char* directory, const char* cacheDirectory, const LanguageCallbacks& callbacks)
 {
     const auto installDirectory { getInstallDirectory (arguments, argumentCounts, rowCount, directory) };
-    const LibClang libclang ((std::filesystem::path (installDirectory) / static_cast<const char*> (getLibraryPaths().getAddress (currentPlatform))).string());
+    const auto library { getOrCreateLibClang ((std::filesystem::path (installDirectory) / static_cast<const char*> (getLibraryPaths().getAddress (currentPlatform))).string()) };
+    const auto& libclang { *library };
 
     if (not installDirectory.empty() and libclang.isLoaded())
     {
@@ -1429,10 +1460,40 @@ static int addDirective (const int&, CLanguageDocument& document, int scope, con
 }
 
 ```
+```getInvocationEnd
+static int getInvocationEnd (const CLanguageDocument& document, int scope, const ling::Tokens& tokens, int position, int end)
+{
+    const auto source { document.source };
+
+    if (getScopeType (document, scope) == map::SyntaxTokenType::namespaceToken
+        and position + 1 < end
+        and tokens.at (position).type == map::SyntaxTokenType::identifier
+        and isPunctuation (source, tokens.at (position + 1), Chars::openParen))
+    {
+        const auto invocationEnd { getBlockEnd (source, tokens, position + 1, end) + 1 };
+
+        if (invocationEnd < end
+            and (tokens.at (invocationEnd).type == map::SyntaxTokenType::identifier
+                 or tokens.at (invocationEnd).type == map::SyntaxTokenType::keyword
+                 or isPunctuation (source, tokens.at (invocationEnd), Chars::hash)))
+            return invocationEnd;
+    }
+
+    return invalidPosition;
+}
+
+```
 ```addDeclaration
 static int addDeclaration (const int&, CLanguageDocument& document, int scope, const ling::Tokens& tokens, int position, int end)
 {
     const auto source { document.source };
+
+    if (const auto invocationEnd { getInvocationEnd (document, scope, tokens, position, end) }; invocationEnd != invalidPosition)
+    {
+        addReferences (document, scope, tokens, position, invocationEnd, map::SyntaxTokenType::reference);
+        return invocationEnd;
+    }
+
     const auto preludeEnd { getPreludeEnd (source, tokens, position, end) };
     const auto statementEnd { getStatementEnd (source, tokens, position, end) };
     const auto bodyOpen { getBodyOpen (source, tokens, position, preludeEnd, end) };
@@ -1997,6 +2058,17 @@ static const ling::WordMap& getLibraryPaths()
     };
 
     return libraryPaths;
+}
+
+```
+```getIndexFailures
+static const ling::WordMap& getIndexFailures()
+{
+    static const ling::WordMap indexFailures {
+:::[list]:::
+    };
+
+    return indexFailures;
 }
 
 ```
@@ -5945,7 +6017,10 @@ static int applyToTranslationUnit (const IndexSession& session, const ling::Poin
 
     const std::unique_ptr<void, decltype (LibClang::disposeTranslationUnit)> unit { translationUnit, libclang.disposeTranslationUnit };
 
-    if (result == 0 and translationUnit != nullptr)
+    if (result == 0 and translationUnit == nullptr)
+        result = unitFailure;
+
+    if (result == 0)
     {
         context.translationUnit = translationUnit;
         result = function (translationUnit);
@@ -5973,7 +6048,7 @@ static ling::WordLists addContextPass (const IndexSession& session, const ling::
         return 0;
     }) };
 
-    return result == 0 and context.translationUnit != nullptr ? std::move (remaining) : std::move (context.keptRanges);
+    return result == 0 ? std::move (remaining) : std::move (context.keptRanges);
 }
 
 ```
@@ -6041,7 +6116,7 @@ static int indexSource (const IndexSession& session, const ling::Pointers& comma
                 platformMask = addSkippedDirectives (context, keptRanges, directiveTexts, directiveEntries);
             }
 
-            return saveResult;
+            return saveResult == 0 ? 0 : saveFailure;
         });
     }
 

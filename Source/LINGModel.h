@@ -128,6 +128,18 @@ public:
     static juce::File getProjectDirectory (const juce::File& manifest);
 
     /**
+     * @brief Returns the file named fileName, searched from folder upward through the parent folders.
+     *
+     * The search stops at the first folder that holds the file, or at the root folder. A link is
+     * resolved to its linked target.
+     *
+     * @param folder    The folder where the search starts.
+     * @param fileName  The file name to find.
+     * @return The file found, or an empty juce::File when no folder up to the root holds it.
+     */
+    static juce::File getManifestFile (const juce::File& folder, const juce::String& fileName);
+
+    /**
      * @brief Returns the patched JUCE cache directory keyed by SHA-256 of @p version and @p patchFiles.
      *
      * Strips CR before LF from each patch file so line endings produce stable

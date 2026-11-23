@@ -22,8 +22,10 @@ juce::Array<juce::var> ToolRelay::getRequestArguments (const jam::JsonDocument& 
     return requestArguments;
 }
 
-ToolRelay::ToolRelay (const juce::File& newManifestFile, const juce::String& newToolchainArgument)
-    : Client (newManifestFile, newToolchainArgument)
+ToolRelay::ToolRelay (const juce::File& newManifestFile, const juce::String& newManifestName, const juce::String& newToolchainArgument)
+    : manifestFile (newManifestFile)
+    , manifestName (newManifestName)
+    , toolchainArgument (newToolchainArgument)
 {
     for (const auto& command : { Id::goToDefinition, Id::findReferences, Id::hover, Id::completion,
                                  Id::goToImplementation, Id::prepareCallHierarchy, Id::incomingCalls, Id::outgoingCalls,
@@ -45,93 +47,20 @@ ToolRelay::ToolRelay (const juce::File& newManifestFile, const juce::String& new
 
     server.onCancelled = [this] (const juce::String& requestId)
     {
-        juce::ValueTree cancel { jam::Format::toType (Id::cancel) };
+        for (const auto& [path, client] : clients)
+        {
+            juce::ValueTree cancel { jam::Format::toType (Id::cancel) };
 
-        cancel.setProperty (Id::id, requestId, nullptr);
-        requests.appendChild (cancel, nullptr);
+            cancel.setProperty (Id::id, requestId, nullptr);
+            client->addRequest (cancel);
+        }
     };
-
-    model.state.addListener (this);
-}
-
-ToolRelay::~ToolRelay()
-{
-    model.state.removeListener (this);
-    disconnect();
 }
 
 void ToolRelay::start()
 {
-    Client::start();
+    getOrCreateClient (manifestFile);
     server.start();
-}
-
-void ToolRelay::connectionMade()
-{
-    while (requests.getNumChildren() > 0)
-    {
-        const auto row { requests.getChild (0) };
-
-        sendRequest (row);
-    }
-}
-
-void ToolRelay::messageReceived (const juce::MemoryBlock& reply)
-{
-    const auto document { jam::JsonDocument::read (std::string_view { static_cast<const char*> (reply.getData()), reply.getSize() }) };
-    jassert (document != nullptr);
-    const auto& root { *document->getChildByToken (*document->getRoot(), document->getValue()) };
-
-    if (document->contains (root, lsp::Member::method))
-    {
-        if (document->getString (document->get (root, lsp::Member::method)).compare (lsp::Method::showMessage) == 0)
-        {
-            const auto& params { *document->getChildByToken (root, document->get (root, lsp::Member::params)) };
-
-            model.setMessage (jam::Strings::fromView (document->getString (document->get (params, lsp::Member::message))));
-        }
-    }
-    else if (document->contains (root, lsp::Member::result))
-    {
-        const auto id { jam::Strings::fromView (document->getView (document->get (root, lsp::Member::id))) };
-        const auto& resultToken { document->get (root, lsp::Member::result) };
-        const auto* resultElement { document->getChildByToken (root, resultToken) };
-        const auto resultView { resultElement != nullptr ? document->getView (resultElement->get<jam::Document::Tokens> (Id::range)->at (0))
-                                                         : document->getView (resultToken) };
-
-        server.sendResponse (id, resultView);
-    }
-    else if (document->contains (root, lsp::Member::error))
-    {
-        const auto id { jam::Strings::fromView (document->getView (document->get (root, lsp::Member::id))) };
-        const auto& error { *document->getChildByToken (root, document->get (root, lsp::Member::error)) };
-
-        server.sendToolError (id, document->getString (document->get (error, lsp::Member::message)));
-    }
-}
-
-void ToolRelay::valueTreeChildAdded (juce::ValueTree& parentTree, juce::ValueTree& childWhichHasBeenAdded)
-{
-    if (parentTree == requests)
-    {
-        if (isConnected())
-            sendRequest (childWhichHasBeenAdded);
-        else if (static_cast<int> (model.state[Id::port]) == Server::noPort)
-            sendNoDaemonError (childWhichHasBeenAdded);
-    }
-}
-
-void ToolRelay::valueTreePropertyChanged (juce::ValueTree& tree, const juce::Identifier& property)
-{
-    if (tree == model.state and property == Id::port and static_cast<int> (tree[property]) == Server::noPort)
-    {
-        while (requests.getNumChildren() > 0)
-        {
-            const auto row { requests.getChild (0) };
-
-            sendNoDaemonError (row);
-        }
-    }
 }
 
 void ToolRelay::addRequest (const juce::String& requestId, const jam::JsonDocument& document, const jam::Document::Element& arguments, const juce::Identifier& command, const juce::Identifier& shape)
@@ -143,29 +72,32 @@ void ToolRelay::addRequest (const juce::String& requestId, const jam::JsonDocume
     request.setProperty (Id::positionEncoding, jam::Strings::fromView (lsp::PositionEncodingType::UTF16), nullptr);
     request.setProperty (Id::directory, juce::File::getCurrentWorkingDirectory().getFullPathName(), nullptr);
     request.setProperty (Id::arguments, getRequestArguments (document, arguments, shape), nullptr);
-    requests.appendChild (request, nullptr);
+    getOrCreateClient (getManifestFile (request, shape)).addRequest (request);
 }
 
-void ToolRelay::sendRequest (const juce::ValueTree& row)
+juce::File ToolRelay::getManifestFile (const juce::ValueTree& request, const juce::Identifier& shape) const
 {
-    juce::MemoryBlock data;
-    juce::MemoryOutputStream stream { data, false };
-
-    row.writeToStream (stream);
-    stream.flush();
-    sendMessage (data);
-    requests.removeChild (row, nullptr);
-}
-
-void ToolRelay::sendNoDaemonError (const juce::ValueTree& row)
-{
-    if (row.hasType (jam::Format::toType (Id::request)) and row.hasProperty (Id::id))
+    if (shape != Id::query)
     {
-        std::string errorMessage { text::Diagnostics::failNoDaemon };
-        errorMessage.append (jam::Strings::getView (Id::diagnosticSeparator));
-        errorMessage.append (jam::Strings::getView (manifestFile.getFullPathName()));
-        server.sendToolError (row[Id::id].toString(), errorMessage);
+        const auto requestManifest { LINGModel::getManifestFile (Query::getFile (request).getParentDirectory(), manifestName) };
+
+        if (requestManifest != juce::File {})
+            return requestManifest;
     }
 
-    requests.removeChild (row, nullptr);
+    return manifestFile;
+}
+
+ToolClient& ToolRelay::getOrCreateClient (const juce::File& requestManifest)
+{
+    const auto [entry, isAdded] { clients.try_emplace (requestManifest.getFullPathName()) };
+    auto& [path, client] { *entry };
+
+    if (isAdded)
+    {
+        client = std::make_unique<ToolClient> (requestManifest, toolchainArgument, server);
+        client->start();
+    }
+
+    return *client;
 }

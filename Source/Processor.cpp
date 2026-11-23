@@ -136,8 +136,8 @@ void Processor::registerEvents()
     events.add (Id::typeDefinition, [this] (const juce::Identifier&, juce::ValueTree& request) { query.typeDefinition (request, index); });
     events.add (Id::codeAction, [this] (const juce::Identifier&, juce::ValueTree& request) { query.codeAction (request, index); });
 
-    events.add (Id::setBuffer, [this] (const juce::Identifier&, juce::ValueTree& request) { setBuffer (request); });
-    events.add (Id::removeBuffer, [this] (const juce::Identifier&, juce::ValueTree& request) { removeBuffer (request); });
+    bufferEvents.add (Id::setBuffer, [this] (const juce::Identifier&, juce::ValueTree& request) { setBuffer (request); });
+    bufferEvents.add (Id::removeBuffer, [this] (const juce::Identifier&, juce::ValueTree& request) { removeBuffer (request); });
 
     propertyEvents.add (Id::path, [this] (const juce::Identifier&, juce::ValueTree& tree)
     {
@@ -159,10 +159,10 @@ void Processor::registerEvents()
     {
         if (static_cast<bool> (tree[Id::isIndexed]))
         {
-            runRequests();
-
             if (tree.hasType (jam::Format::toType (Id::file)))
                 addDiagnosticRequests (tree);
+
+            runRequests();
         }
     });
     propertyEvents.add (Id::threads, [this] (const juce::Identifier&, juce::ValueTree&)
@@ -189,6 +189,9 @@ void Processor::registerEvents()
     });
     childEvents.add (jam::Format::toType (Id::request), [this] (const juce::Identifier&, juce::ValueTree& request)
     {
+        if (events.contains (Query::getCommand (request)))
+            addIndexJobs (request);
+
         if (isRequestReady (request))
             runRequest (request);
         else
@@ -206,12 +209,89 @@ void Processor::registerEvents()
     });
 }
 
-bool Processor::isRequestReady (const juce::ValueTree& request) const
+juce::Identifier Processor::getScope (const juce::ValueTree& request) const
 {
     static const map::Readiness readiness;
 
+    if (index.pathRows.contains (Query::getFile (request).getFullPathName()))
+    {
+        if (const auto entry { readiness.find (Query::getCommand (request)) }; entry != readiness.end())
+        {
+            const auto& [operation, scope] { *entry };
+
+            return scope;
+        }
+    }
+
+    return Id::files;
+}
+
+jam::Array<int> Processor::getUnitRows (const juce::ValueTree& request) const
+{
     const auto files { model.state.getChildWithName (jam::Format::toType (Id::files)) };
-    const auto word { request[Id::command].toString() };
+    const auto scope { getScope (request) };
+    jam::Array<int> rows;
+
+    if (scope == Id::files)
+    {
+        for (int rowIndex { 0 }; rowIndex < files.getNumChildren(); ++rowIndex)
+            if (files.getChild (rowIndex).hasProperty (Id::arguments))
+                rows.add (rowIndex);
+    }
+    else if (const auto unit { index.unitRows.find (Query::getFile (request).getFullPathName()) }; unit != index.unitRows.end())
+    {
+        const auto& [unitPath, unitRow] { *unit };
+        const auto* dependencies { files.getChild (unitRow)[Id::dependencies].getArray() };
+
+        rows.add (unitRow);
+
+        if (scope == Id::dependencies and dependencies != nullptr)
+        {
+            for (const auto& dependency : *dependencies)
+            {
+                if (const auto owner { index.unitRows.find (files.getChild (static_cast<int> (dependency))[Id::path].toString()) }; owner != index.unitRows.end())
+                {
+                    const auto& [ownerPath, ownerRow] { *owner };
+
+                    rows.addIfNotAlreadyThere (ownerRow);
+                }
+            }
+        }
+    }
+
+    return rows;
+}
+
+jam::Array<int> Processor::getFailedRows (const juce::ValueTree& request) const
+{
+    const auto files { model.state.getChildWithName (jam::Format::toType (Id::files)) };
+    jam::Array<int> rows;
+
+    for (const auto rowIndex : getUnitRows (request))
+        if (files.getChild (rowIndex).hasProperty (Id::message))
+            rows.add (rowIndex);
+
+    return rows;
+}
+
+juce::String Processor::getMessage (const jam::Array<int>& rows) const
+{
+    const auto files { model.state.getChildWithName (jam::Format::toType (Id::files)) };
+    jam::Strings messages;
+
+    for (const auto rowIndex : rows)
+    {
+        const auto row { files.getChild (rowIndex) };
+
+        messages.add (row[Id::path].toString() + Id::diagnosticSeparator + row[Id::message].toString());
+    }
+
+    return messages.joinIntoString (juce::String::charToString (Chars::newline));
+}
+
+bool Processor::isRequestReady (const juce::ValueTree& request) const
+{
+    const auto files { model.state.getChildWithName (jam::Format::toType (Id::files)) };
     const auto hasIndexedDependencies { [this, &files] (const juce::String& path)
     {
         if (const auto unit { index.unitRows.find (path) }; unit != index.unitRows.end())
@@ -224,21 +304,13 @@ bool Processor::isRequestReady (const juce::ValueTree& request) const
 
         return true;
     } };
+    const auto scope { getScope (request) };
 
-    if (word.isNotEmpty())
+    if (scope != Id::files)
     {
-        if (const auto entry { readiness.find (juce::Identifier { word }) }; entry != readiness.end())
-        {
-            const auto& [operation, scope] { *entry };
-            const auto path { Query::getFile (request).getFullPathName() };
+        const auto path { Query::getFile (request).getFullPathName() };
 
-            if (const auto row { index.pathRows.find (path) }; scope != Id::files and row != index.pathRows.end())
-            {
-                const auto& [rowPath, rowIndex] { *row };
-
-                return static_cast<bool> (files.getChild (rowIndex)[Id::isIndexed]) and (scope == Id::file or hasIndexedDependencies (path));
-            }
-        }
+        return static_cast<bool> (files.getChild (index.pathRows.at (path))[Id::isIndexed]) and (scope == Id::file or hasIndexedDependencies (path));
     }
 
     return static_cast<bool> (files[Id::isIndexed]);
@@ -313,17 +385,20 @@ void Processor::addDiagnosticRequests (const juce::ValueTree& file)
 {
     const auto directory { juce::File { file[Id::path].toString() }.getParentDirectory().getFullPathName() };
 
-    for (auto connection : model.state.getChildWithName (jam::Format::toType (Id::connections)))
+    if (not getUnit (file[Id::path].toString()).hasProperty (Id::message))
     {
-        if (connection.hasProperty (Id::positionEncoding))
+        for (auto connection : model.state.getChildWithName (jam::Format::toType (Id::connections)))
         {
-            juce::ValueTree request { jam::Format::toType (Id::request) };
+            if (connection.hasProperty (Id::positionEncoding))
+            {
+                juce::ValueTree request { jam::Format::toType (Id::request) };
 
-            request.setProperty (Id::command, Id::publishDiagnostics.toString(), nullptr);
-            request.setProperty (Id::directory, directory, nullptr);
-            request.setProperty (Id::arguments, juce::Array<juce::var> { file[Id::path] }, nullptr);
-            request.setProperty (Id::positionEncoding, connection[Id::positionEncoding], nullptr);
-            connection.appendChild (request, nullptr);
+                request.setProperty (Id::command, Id::publishDiagnostics.toString(), nullptr);
+                request.setProperty (Id::directory, directory, nullptr);
+                request.setProperty (Id::arguments, juce::Array<juce::var> { file[Id::path] }, nullptr);
+                request.setProperty (Id::positionEncoding, connection[Id::positionEncoding], nullptr);
+                connection.appendChild (request, nullptr);
+            }
         }
     }
 }
@@ -402,24 +477,32 @@ void Processor::runRequest (juce::ValueTree& request)
         unit.removeProperty (Id::isRequested, nullptr);
     }
 
-    const auto word { request[Id::command].toString() };
-    const juce::Identifier key { word.isNotEmpty() ? juce::Identifier { word } : juce::Identifier {} };
+    const auto key { Query::getCommand (request) };
 
-    if (events.contains (key) and Query::isValidRequest (request))
+    if ((events.contains (key) or bufferEvents.contains (key)) and Query::isValidRequest (request))
     {
         const auto path { Query::getFile (request).getFullPathName() };
-        const auto unit { getUnit (path) };
 
-        if (unit.hasProperty (Id::message))
-            model.setMessage (path + Id::diagnosticSeparator + unit[Id::message].toString());
-
-        if (unit.isValid())
+        if (const auto unit { getUnit (path) }; unit.isValid())
         {
             if (const auto languageRow { model.state.getChildWithProperty (Id::family, unit[Id::family]) }; languageRow.hasType (jam::Format::toType (Id::language)) and languageRow.hasProperty (Id::message))
                 model.setMessage (path + Id::diagnosticSeparator + languageRow[Id::message].toString());
         }
 
-        events.get (key, request);
+        if (bufferEvents.contains (key))
+        {
+            bufferEvents.get (key, request);
+        }
+        else if (const auto failedRows (getFailedRows (request)); failedRows.isEmpty())
+        {
+            events.get (key, request);
+        }
+        else
+        {
+            const auto message { getMessage (failedRows) };
+
+            Query::setError (request, lsp::ErrorCodes::RequestFailed, jam::Strings::getView (message));
+        }
     }
     else
     {
@@ -518,6 +601,7 @@ void Processor::setLanguage (juce::ValueTree languageRow)
         if (auto language { jam::LanguageLibrary::getLanguageLibrary (library, entryName) }; language != nullptr)
         {
             index.languages.addOrReplace (static_cast<int> (languageRow[Id::family]), std::make_shared<const LibraryLanguage> (language));
+            index.loadedLanguages.add (index.languages.at (static_cast<int> (languageRow[Id::family])));
             languageRow.setProperty (Id::hash, hash, nullptr);
         }
         else
@@ -777,7 +861,7 @@ juce::ThreadPoolJob::JobStatus Processor::ParseJob::runJob()
                 result = document == nullptr ? language->isValid (view) : juce::Result::ok();
 
                 if (document != nullptr)
-                    Index::writeSwapFile (swapFile, *document, hash, languageHash, family);
+                    result = Index::writeSwapFile (swapFile, *document, hash, languageHash, family);
             }
             else
             {
@@ -824,8 +908,6 @@ juce::ThreadPoolJob::JobStatus Processor::IndexJob::runJob()
     const jam::Profiler::Zone zone { Id::runIndexJob };
 #endif
 
-    static constexpr int indexFailure { 1 };
-
     try
     {
         symbols = Index::readSwapFile (symbolSwapFile, hash, languageHash, family);
@@ -833,9 +915,9 @@ juce::ThreadPoolJob::JobStatus Processor::IndexJob::runJob()
         if (symbols == nullptr)
             addSymbols();
     }
-    catch (const std::exception&)
+    catch (const std::exception& error)
     {
-        result = indexFailure;
+        result = juce::Result::fail (error.what());
     }
 
     isFinished.store (true, std::memory_order_release);
@@ -865,15 +947,17 @@ void Processor::IndexJob::addSymbols()
     callbacks.addOutline = &IndexJob::addOutline;
     callbacks.addCompletion = &IndexJob::addCompletion;
     callbacks.addFixIt = &IndexJob::addFixIt;
+    callbacks.addMessage = &IndexJob::addMessage;
     callbacks.shouldExit = [] (void* context) { return static_cast<IndexJob*> (context)->shouldExit() ? 1 : 0; };
     callbacks.isForeign = [] (void* context, const char* path) { return static_cast<IndexJob*> (context)->isForeign (path) ? 1 : 0; };
 
-    result = language->index (pointers.data(), pointers.size(), directory.toRawUTF8(), bufferPathPointers.data(), bufferTextPointers.data(), bufferPathPointers.size(), callbacks);
+    result = juce::Result::fail (text::Diagnostics::failUnitIndex);
 
-    if (result == 0)
+    if (language->index (pointers.data(), pointers.size(), directory.toRawUTF8(), bufferPathPointers.data(), bufferTextPointers.data(), bufferPathPointers.size(), callbacks) == 0)
     {
         builder.sortAndDeduplicate();
-        symbols = builder.buildToSwap (symbolSwapFile, hash, languageHash, family);
+        temporary = std::make_unique<juce::TemporaryFile> (symbolSwapFile);
+        result = builder.writeSwapFile (temporary->getFile(), hash, languageHash, family);
     }
 }
 
@@ -979,6 +1063,13 @@ void Processor::IndexJob::addFixIt (void* context, const char* recordPath, int l
     job.builder.addFixIt (fileIndex, line, column, endLine, endColumn, std::string_view { text });
 }
 
+void Processor::IndexJob::addMessage (void* context, const char* messageText)
+{
+    auto& job { *static_cast<IndexJob*> (context) };
+
+    job.result = juce::Result::fail (juce::String (text::Diagnostics::failUnitIndex) + Id::diagnosticSeparator + juce::String::fromUTF8 (messageText));
+}
+
 void Processor::addJob (const juce::ValueTree& row, int rowIndex)
 {
     const auto family { static_cast<int> (row[Id::family]) };
@@ -994,7 +1085,7 @@ void Processor::addJob (const juce::ValueTree& row, int rowIndex)
     setIndexed();
 }
 
-void Processor::addIndexJob (const juce::ValueTree& row, int rowIndex)
+void Processor::addIndexJob (juce::ValueTree row, int rowIndex)
 {
     auto arguments (getArguments (row));
     juce::StringArray bufferPaths;
@@ -1022,6 +1113,8 @@ void Processor::addIndexJob (const juce::ValueTree& row, int rowIndex)
     for (const auto& [unitPath, unitRow] : index.unitRows)
         if (unitRow != rowIndex)
             foreignPaths.add (unitPath);
+
+    row.removeProperty (Id::message, nullptr);
 
     nextIndexJobs.addOrReplace (rowIndex, std::make_unique<IndexJob> (*this, rowIndex, row[Id::path].toString(), row[Id::directory].toString(), std::move (arguments), hash, model.getSwapFile (juce::File { row[Id::path].toString() }, files::lingSymbols), static_cast<juce::int64> (model.state.getChildWithProperty (Id::family, family)[Id::hash]), index.languages.at (family), family, std::move (bufferPaths), std::move (bufferTexts), std::move (foreignPaths)));
     setUnitIndexed (row, rowIndex);
@@ -1074,6 +1167,30 @@ void Processor::addIndexJobs()
 
         if (static_cast<bool> (files.getChild (rowIndex)[Id::isRequested]) or files.getChild (rowIndex)[Id::output].toString().isNotEmpty())
             pool->moveJobToFront (indexJobs.at (rowIndex).get());
+    }
+}
+
+void Processor::addIndexJobs (const juce::ValueTree& request)
+{
+    const auto files { model.state.getChildWithName (jam::Format::toType (Id::files)) };
+
+    for (const auto rowIndex : getFailedRows (request))
+    {
+        const auto row { files.getChild (rowIndex) };
+
+        if (const auto* prerequisites { row[Id::prerequisites].getArray() }; prerequisites != nullptr)
+        {
+            for (const auto& prerequisite : *prerequisites)
+            {
+                const auto producer { files.getChild (static_cast<int> (prerequisite)) };
+
+                if (producer.hasProperty (Id::message))
+                    addIndexJob (producer, static_cast<int> (prerequisite));
+            }
+        }
+
+        addIndexJob (row, rowIndex);
+        triggerAsyncUpdate();
     }
 }
 
@@ -1164,15 +1281,15 @@ void Processor::addBindings (IndexJob& job)
 
     if (row[Id::path].toString().compare (job.path) == 0)
     {
-        if (job.result == 0 and job.symbols != nullptr)
-        {
+        if (job.symbols != nullptr)
             index.addBindings (job.rowIndex, std::move (job.symbols));
-            row.removeProperty (Id::message, nullptr);
-        }
-        else
+        else if (job.result.wasOk())
+            job.result = index.addBindings (job.rowIndex, *job.temporary, job.hash, job.languageHash, job.family);
+
+        if (not job.result.wasOk())
         {
-            model.setMessage (job.path + Id::diagnosticSeparator + text::Diagnostics::failUnitIndex);
-            row.setProperty (Id::message, text::Diagnostics::failUnitIndex, nullptr);
+            model.setMessage (job.path + Id::diagnosticSeparator + job.result.getErrorMessage());
+            row.setProperty (Id::message, job.result.getErrorMessage(), nullptr);
         }
     }
 }

@@ -40,13 +40,13 @@ struct Readiness : public jam::HashMap<juce::Identifier, juce::Identifier>
     { Id::diagnostics,          Id::file },
     { Id::publishDiagnostics,   Id::file },
     { Id::goToDefinition,       Id::dependencies },
-    { Id::findReferences,       Id::file },
+    { Id::findReferences,       Id::files },
     { Id::workspaceSymbol,      Id::files },
     { Id::completion,           Id::file },
-    { Id::goToImplementation,   Id::file },
-    { Id::prepareCallHierarchy, Id::file },
-    { Id::incomingCalls,        Id::file },
-    { Id::outgoingCalls,        Id::file },
+    { Id::goToImplementation,   Id::files },
+    { Id::prepareCallHierarchy, Id::dependencies },
+    { Id::incomingCalls,        Id::files },
+    { Id::outgoingCalls,        Id::dependencies },
     { Id::setBuffer,            Id::file },
     { Id::removeBuffer,         Id::file },
     { Id::semanticTokens,       Id::file },
@@ -56,7 +56,7 @@ struct Readiness : public jam::HashMap<juce::Identifier, juce::Identifier>
     { Id::documentHighlight,    Id::file },
     { Id::codeAction,           Id::file },
     { Id::typeDefinition,       Id::dependencies },
-    { Id::rename,               Id::file },
+    { Id::rename,               Id::files },
     } {}
 };
 
