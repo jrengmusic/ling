@@ -114,6 +114,36 @@
 <!-- The entry format is in /log (commands/log.md). It is the only source. -->
 <!-- Sprint entries go here, written by PRIMARY agents -->
 
+## Sprint 20: Align `languageCore` `JuceHeader` includes with linked `jam_core` modules ✅
+
+**Date:** 2026-11-24
+**Duration:** 00:21
+
+### Agents Participated
+- COUNSELOR: Traced the `languageBundle.cmake:58` macOS linker failure (`juce::Colour::Colour(unsigned int)`), verified `jam_core` and `jam_subprocess` dependencies, removed the two unlinked includes from `language/core/core.cast`, and logged Sprint 20.
+- Pathfinder (`flash`): Surveyed workspace orientation, ran read-only `nm`/`lipo` symbol analysis on `language.cpp.o` and `liblanguageCore.a`, checked `jam_core` working-tree diff and history, and verified `juce_generate_juce_header` in `JUCEUtils.cmake`.
+
+### Files Modified (1 total)
+- `language/core/core.cast:823-830` — removed `#include <juce_data_structures/juce_data_structures.h>` and `#include <juce_graphics/juce_graphics.h>` from `juce-header` so `Builds/languages/core/JuceHeader.h` matches the modules linked by `languageCore` (`juce_core`, `juce_events`, `jam_core`, `jam_subprocess`).
+
+### Alignment Check
+- [x] BLESSED principles followed
+- [x] NAMES.md adhered
+- [x] MANIFESTO.md principles applied
+
+### Problems Solved
+- **`liblanguage.dylib` macOS link error (`juce::Colour::Colour(unsigned int)`):** Uncommitted `jam_core/jam_core.h:10, 52-60` changes removed `juce_data_structures`, `juce_events`, and `juce_graphics` from `jam_core` dependencies and guarded their includes. `jam_Raw.cpp:1` still included `<JuceHeader.h>`, and `language/core/core.cast:823-832` generated an unconditional `<juce_graphics/juce_graphics.h>` include without linking `juce_graphics`. Removing the two unlinked module headers from `core.cast:823-830` eliminates the missing symbol.
+
+### State for Continuation
+- Build `ling` (`cast cast/spell.md`) to regenerate `Builds/languages/core/JuceHeader.h`, rebuild `liblanguageCore.a` and `liblanguage.dylib`, and verify the full macOS build passes.
+- Working tree also carries regenerated `CMakeLists.txt:138-139` (`juce-posix-file-hook.patch`, `juce-sha256-hook.patch`) from prior `cast` run.
+
+### Debts Paid
+- None
+
+### Debts Deferred
+- None
+
 ## Sprint 19: Loud failed units, swap write results, manifest of the requested file, open-buffer index fix on `clang-cl`, and one libclang owner ✅
 
 **Date:** 2026-11-24
@@ -313,62 +343,6 @@
 
 ### Debts Deferred
 - None
-
----
-
-## Sprint 15: MCP Part 6 (ling --mcp), help layout & doxygen hygiene, T28 built-ins, and END fixture refresh ✅
-
-**Date:** 2026-11-22
-**Duration:** 02:43
-
-### Agents Participated
-- COUNSELOR: Root-cause investigation of Neovim `--debug` mismatch, terminal markdown rendering analysis, `RFC-nvim-ling-configuration.md` authorship, `HELP.md` column-width tuning, `style.css` inline-code padding fix, MCP Part 6 orchestration, Design by Contract filtering of all 3 Auditor findings, Doxygen verification, `CLAUDE.md` refresh, MCP tracker update, and sprint log.
-- Engineer (`inherit`): Implemented MCP Part 6 (`Source/tools.json`, `Source/ToolRelay.h/.cpp`, `--mcp` CLI wiring, `test/mcp.lua`, `benchmark/mcp.md`/`mcp.sh`), fixed `ToolRelay::messageReceived` container JSON span, resolved Auditor Finding 3, created self-contained T28 built-in fixtures (`test/builtin/`, `test/config/builtin.json`, `test/lsp.lua`), refreshed END fixtures (`end-positions.json`, `end-definition.json`, `end-methods.json`, `end-hover.json`), and deleted completed plan/RFC files.
-- Auditor (`inherit`): Audited MCP Part 6 scope against CONTRACT and `PLAN-model-context-protocol-6-ling.md` (3 findings, all 3 resolved).
-- Pathfinder (`flash`): Verified codebase/runtime state, ran END/KANJUT/T28 acceptance suites, ran `scout` verification of `benchmark/mcp.md`, fixed Sprint 14 leftover Doxygen warnings (`jam_UriReference.h`, `MarkdownLanguage.h`), and completed the post-audit Doxygen pass on `Source/ToolRelay.h`.
-
-### Files Modified (32 total)
-**LING**
-- `Source/ToolRelay.h`, `Source/ToolRelay.cpp` — added MCP tool relay (`Client` + `jam::ModelContextServer`), zero-copy `JsonDocument::read` with `Id::range` container span, `Server::noPort` null drain, and post-audit Doxygen pass.
-- `Source/tools.json` — added 13 read-only MCP tool schemas matching `Query.cpp` result shapes.
-- `Source/Main.cpp:8, 304, 354-361, 525` — wired `--mcp` command and `runToolRelay`.
-- `Source/HELP.md:1-14, 59` — tuned YAML `column-widths` (`Method`, `Operation`, `Arguments`, `Word`, `File`, `Entry`, `Kind`, `Callback`, `Called by`) and documented `ling --mcp`.
-- `Source/languages/MarkdownLanguage.h:14-28` — documented `MarkdownLanguage::getSymbol` (`file`, `name`, `role`) to clear Doxygen warning.
-- `project-info.md:195`, `cast/files.md:41`, `cast/identifiers.md:75` — embedded `Source/tools.json` as `files::lingTools` and added `Id::mcp`.
-- `test/mcp.lua`, `test/baseline/mcp.txt`, `benchmark/mcp.md`, `benchmark/mcp.sh`, `benchmark/mcp-report.md` — added 8-scenario MCP smoke harness and `scout` manifest (`exit 0`, `scout: Fine.`).
-- `test/builtin/project-info.md`, `sample.{md,css,json,xml,html,mmd}`, `test/config/builtin.json`, `test/lsp.lua:81-82` — added self-contained T28 built-in fixture project (`8/8 PASS`, `0 SKIP`) and nil-checked `project` in `lsp.lua`.
-- `test/end-positions.json`, `test/expected/end-definition.json`, `test/expected/end-methods.json`, `test/expected/end-hover.json` — removed 2 deleted END positions (`exclusiveZoom`, `setRow`) and refreshed shifted target lines verified on disk (`0 disagree`, `0 stale`).
-- `CLAUDE.md` — refreshed orientation facts via `synthesis-writer`.
-- Deleted: `RFC-ling-runs-from-anywhere.md`, `MACHINIST-REPORT-nvim-ling-test.md`, `PLAN-ling-0-tracker.md`, `PLAN-ling-lsp-0-tracker.md`.
-
-**JAM & `~/.config/`**
-- `jam/jam_tui/page/style.css:152` — set `inlineCodePaddingHorizontal: 0em` to remove extra blank cells around inline code in terminal markdown rendering.
-- `jam/jam_model_context_protocol/schema/jam_UriReference.h:46` — removed backticks around `.` and `..` to clear Doxygen `<tt>` mismatch warning.
-- `jam/PLAN-model-context-protocol-0-tracker.md:60` — marked Part 6 (`ling --mcp`) done on macOS.
-- `~/.config/RFC-nvim-ling-configuration.md` — authored MACHINIST RFC for deterministic Neovim `lingCmd` built-configuration selection.
-
-### Alignment Check
-- [x] BLESSED principles followed
-- [x] NAMES.md adhered
-- [x] MANIFESTO.md principles applied
-
-### Problems Solved
-- **MCP Part 6 (`ling --mcp`):** Fixed container result serialization in `ToolRelay::messageReceived` where `JsonDocument::get` returns a 1-byte opening token (`[`/`{`) by reading the full JSON span from `getChildByToken (root, resultToken)->get<Tokens> (Id::range)->at (0)` (zero copy). Resolved all 3 Auditor findings (`BinaryData::getString`, `completion` and `inlayHint` descriptions). Verified `scout benchmark/mcp.md` exits `0` (`scout: Fine.`).
-- **Help rendering & Doxygen:** Fixed `HELP.md` column proportions via YAML `column-widths` and removed extra inline-code spaces by setting `inlineCodePaddingHorizontal: 0em` in `jam/jam_tui/page/style.css:152`. Cleared both Sprint 14 leftover Doxygen warnings.
-- **Neovim `Client.h` go-to-definition (`No locations found`):** Traced root cause to `nvim/lua/lsp/servers.lua:19-31` passing `--debug` from `.project` when `Builds/Debug` does not exist; wrote `~/.config/RFC-nvim-ling-configuration.md` for MACHINIST.
-- **T28 built-ins & END fixtures:** Self-contained `test/builtin/` passes all 6 built-in languages (`8/8 PASS`, `0 SKIP`); END `definition` (`256/0`), `methods` (`0 disagree`), and `hover` (`230/0`) pass with zero stale or disagreeing entries.
-
-### State for Continuation
-- `ling` is complete on macOS (LSP Parts 1–8 and MCP Part 6).
-- Remaining work outside macOS `ling`: Windows verification (`stdio-client-windows.md`, `benchmark/mcp.md`), MCP Parts 7–8 (`whatdbg --mcp`, `scout --mcp`) and Close in `jam/PLAN-model-context-protocol-0-tracker.md`, `~/.config/RFC-nvim-ling-configuration.md` (MACHINIST), and scope ruling on Sprint 14 Auditor 2 Finding `#4` (`jam_MermaidDiagram`).
-
-### Debts Paid
-- None
-
-### Debts Deferred
-- None
-
----
 
 ---
 

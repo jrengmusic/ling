@@ -135,6 +135,8 @@ set(CAST_JUCE_PATCHES
 "${CAST_USER_MODULE_PATH}/patch/juce-plugin-editor-once-hook.patch"         # VST2 plugin client opens the editor that effEditGetRect created, so the editor is built once; applies after juce-plugin-transparency-hook.patch
 "${CAST_USER_MODULE_PATH}/patch/juce-plugin-window-size-hook.patch"         # VST2 host child window takes the plugin's effEditGetRect size in physical pixels on Windows; applies after juce-plugin-transparency-hook.patch
 "${CAST_USER_MODULE_PATH}/patch/juce-value-tree-synchroniser-hook.patch"    # Listener exclusion for ValueTree senders: juce_ValueTree.cpp, juce_ValueTree.h, juce_ValueTreeSynchroniser.cpp, juce_ValueTreeSynchroniser.h; child and remove-property senders take a listener to exclude; ValueTree gains removePropertyExcludingListener, addChildExcludingListener, removeChildExcludingListener, moveChildExcludingListener; ValueTreeSynchroniser gains applyChange that excludes itself
+"${CAST_USER_MODULE_PATH}/patch/juce-posix-file-hook.patch"                 # POSIX file, link, folder, home and CPU-count functions on macOS when JUCE_USE_FOUNDATION=0: juce_Files_mac.mm, juce_Strings_mac.mm, juce_SystemStats_mac.mm, juce_core.h
+"${CAST_USER_MODULE_PATH}/patch/juce-sha256-hook.patch"                     # SHA-256 on the ARMv8 hash instructions.
 )
 
 if(WIN32)
