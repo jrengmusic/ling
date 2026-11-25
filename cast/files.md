@@ -33,13 +33,14 @@
 | languageTemplate           | @string | `language.cast`               | Template file of a language.                                                        |
 | lingCache                  | @string | `.cache/ling`                 | Cache folder of LING below the home folder or a repository root.                    |
 | lingConfig                 | @string | `.config/ling`                | Config folder of LING below the home folder.                                        |
-| lingHelp                   | @string | `HELP.md`                     | Rendered help text.                                                                 |
+| lingHelp                   | @string | `HELP.frame`                  | Rendered help text.                                                                 |
 | lingLocalCache             | @string | `ling`                        | Cache folder of LING in %LOCALAPPDATA%.                                             |
 | lingPort                   | @string | `port`                        | Extension of the port file of a daemon.                                             |
 | lingSwap                   | @string | `swap`                        | Extension of the swap file of a source file.                                        |
 | lingSymbols                | @string | `symbols`                     | Extension of the symbol swap file of a unit.                                        |
 | lingTools                  | @string | `tools.json`                  | MCP tool list.                                                                      |
 | lsp                        | @string | `lsp.md`                      | LSP value table file of a language build.                                           |
+| screenErase                | @string | `erase.frame`                 | Screen erase sequence.                                                              |
 | sourceDirectoryVariable    | @string | `${CMAKE_CURRENT_SOURCE_DIR}` | The CMake variable that a manifest cell uses for the project folder.                |
 | syntaxTree                 | @string | `syntax_tree.md`              | Syntax table file of a language build.                                              |
 | userModulePathVariable     | @string | `${CAST_USER_MODULE_PATH}`    | The CMake variable that a manifest cell uses for the user module folder.            |

@@ -98,14 +98,11 @@ static void printBannerAndHelp()
     const BinaryData::Raw binary { files::lingHelp };
     std::string newlineText;
     jam::Format::appendUtf8 (newlineText, Chars::newline);
-    jam::TerminalPage page { { BinaryData::fetcher }, jam::Strings { files::styleSheet } };
-    juce::MemoryOutputStream frame;
 
     printBanner();
     fwrite (newlineText.data(), sizeof (char), newlineText.size(), stdout);
-    page.setDocument (std::move (*jam::MarkdownDocument::parse (std::string_view (binary.data, static_cast<size_t> (binary.size)), files::lingHelp)));
-    page.writeToStream (frame);
-    fwrite (frame.getData(), sizeof (char), frame.getDataSize(), stdout);
+    assert (binary.exists());
+    fwrite (binary.data, sizeof (char), static_cast<size_t> (binary.size), stdout);
 }
 
 #if JAM_USING_PROFILER
@@ -259,9 +256,9 @@ public:
 
         if (isTerminalOutput())
         {
-            juce::MemoryOutputStream erase;
-            jam::TerminalEncoder::writeEraseScreen (erase);
-            fwrite (erase.getData(), sizeof (char), erase.getDataSize(), stdout);
+            const BinaryData::Raw erase { files::screenErase };
+            assert (erase.exists());
+            fwrite (erase.data, sizeof (char), static_cast<size_t> (erase.size), stdout);
             fflush (stdout);
         }
 

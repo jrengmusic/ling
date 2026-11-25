@@ -114,6 +114,45 @@
 <!-- The entry format is in /log (commands/log.md). It is the only source. -->
 <!-- Sprint entries go here, written by PRIMARY agents -->
 
+## Sprint 21: Adopt slim CLI module layout and build-time HelpFrames in archetype and JAM CLIs ✅
+
+**Date:** 2026-11-25
+**Duration:** 01:06
+
+### Agents Participated
+- COUNSELOR: Audited `saw` and `jam` slim linking mechanics, mapped per-CLI runtime module dependencies across all JAM CLIs and `archetype/cli`, validated all Engineer outputs against CONTRACT, fixed two minor `archetype/cli` alignment/constant issues, and logged Sprint 21.
+- Pathfinder (`flash`): Surveyed `saw`, `jam`, `archetype/cli`, and every CLI under `~/Documents/Poems/dev/` for `HELP.md`, `jam::TerminalPage`, `## binary`, `cast/files.md`, and runtime module usage.
+- Engineer (`flash`): Implemented the slim + `*_HelpFrames` pattern in `archetype/cli`, `whatdbg`, `scout`, `tit` (full slim) and `ling`, `cast`, `ggwp` (partial slim).
+
+### Files Modified (47 total across 7 repositories)
+- `archetype/cli/cast/cmake.cast:105-290` — added `## program user module`, Apple `CAST_CORE_FRAMEWORKS` stripping, `CAST_HELP_MODULES`, `## program module` target linking, `*_HelpDocuments`, `*_HelpFrames`, and separated `## help` from runtime `## binary`.
+- `archetype/cli/init.cast:104-632`, `archetype/cli/INIT.md:1-67`, `archetype/ARCHETYPE.md:96-284`, and stubs `archetype/cli/cast/files.md`, `archetype/cli/help/HelpFrames.cpp`, `archetype/cli/Source/HELP.md`, `archetype/cli/Source/Main.cpp` — added slim CLI tables, macros, linker flags, and cookie-cutter skeleton outputs.
+- `whatdbg/{project-info.md,cast/cmake.cast,cast/spell.md,cast/files.md,help/HelpFrames.cpp,Source/Main.cpp}` — switched to full-slim `whatdbg_HelpFrames` with `JUCE_USE_FOUNDATION=0` and pre-rendered `HELP.frame`.
+- `scout/{project-info.md,cast/cmake.cast,cast/spell.md,cast/files.md,help/HelpFrames.cpp,Source/Main.cpp}` — switched to full-slim `scout_HelpFrames` with `JUCE_USE_FOUNDATION=0` and pre-rendered `HELP.frame` / `erase.frame`.
+- `tit/{project-info.md,cast/cmake.cast,cast/spell.md,cast/files.md,help/HelpFrames.cpp,Source/Main.cpp}` — switched to full-slim `titc_HelpFrames` with `JUCE_USE_FOUNDATION=0` and pre-rendered `HELP.frame` / `erase.frame`.
+- `ling/{project-info.md,cast/cmake.cast,cast/spell.md,cast/files.md,help/HelpFrames.cpp,Source/Main.cpp}` — switched to partial-slim `ling_HelpFrames` (kept `juce_gui_basics` for `jam::AnsiDocument::getText` at `Source/Processor.cpp:834,850`; dropped `jam_tui`, `jam_gui`, `jam_markdown_graphics`, `jam_markdown`, `jam_animation`, `jam_web`, `jam_mermaid_diagram`, `juce_audio_processors`) and pre-rendered `HELP.frame` / `erase.frame`.
+- `cast/{project-info.md,cast/cmake.cast,cast/spell.md,cast/files.md,help/HelpFrames.cpp,Source/main.cpp}` — switched to partial-slim `cast_HelpFrames` (dropped `jam_tui`, `jam_gui`, `jam_markdown_graphics`, `jam_pdf`, `jam_animation`, `jam_web`, `jam_mermaid_diagram`, `jam_terminal`) and pre-rendered `HELP.frame` / `erase.frame`.
+- `ggwp/{project-info.md,cast/cmake.cast,cast/spell.md,cast/files.md,help/HelpFrames.cpp,Source/Main.cpp}` — switched to partial-slim `ggwp_HelpFrames` (dropped `jam_tui`, `jam_gui`, `jam_markdown_graphics`, `jam_animation`, `jam_web`, `jam_mermaid_diagram`, `jam_terminal`, `jam_profiler`, `jam_subprocess`, `juce_audio_processors`) and pre-rendered `HELP.frame` / `erase.frame`.
+
+### Alignment Check
+- [x] BLESSED principles followed
+- [x] NAMES.md adhered
+- [x] MANIFESTO.md principles applied
+
+### Problems Solved
+- **GUI/FreeType bloat in JAM CLIs:** Moved `jam::TerminalPage` (`jam::TextEditor`) help rendering into build-time `*_HelpFrames` helper targets and separated `## help` from runtime `## binary`, enabling full-slim builds (`JUCE_USE_FOUNDATION=0`, zero Apple GUI/Foundation frameworks) in `archetype/cli`, `whatdbg`, `scout`, and `tit`, and partial-slim builds in `ling`, `cast`, and `ggwp` (`stamp` skipped per ARCHITECT ruling).
+
+### State for Continuation
+- Build each updated CLI via `cast cast/spell.md` (starting with `cast`, then `ling`, `whatdbg`, `scout`, `tit`, `ggwp`) to regenerate `CMakeLists.txt` and `Source/generated/Files.h` and verify compilation and `--help` output.
+- Verify `cast INIT.md <temp-target>` from `archetype/cli/` generates the complete slim CLI skeleton.
+- `ling` can move to full-slim later if `jam::AnsiDocument::getText (std::string_view)` (`jam/jam_terminal/document/jam_AnsiDocument.h:171`) is unguarded from `#if JUCE_MODULE_AVAILABLE_juce_gui_basics`.
+
+### Debts Paid
+- None
+
+### Debts Deferred
+- None
+
 ## Sprint 20: Align `languageCore` `JuceHeader` includes with linked `jam_core` modules ✅
 
 **Date:** 2026-11-24
