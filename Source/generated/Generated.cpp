@@ -159,13 +159,14 @@ const juce::String languageSpell              { juce::String::fromUTF8 ("spell.m
 const juce::String languageTemplate           { juce::String::fromUTF8 ("language.cast") };
 const juce::String lingCache                  { juce::String::fromUTF8 (".cache/ling") };
 const juce::String lingConfig                 { juce::String::fromUTF8 (".config/ling") };
-const juce::String lingHelp                   { juce::String::fromUTF8 ("HELP.md") };
+const juce::String lingHelp                   { juce::String::fromUTF8 ("HELP.frame") };
 const juce::String lingLocalCache             { juce::String::fromUTF8 ("ling") };
 const juce::String lingPort                   { juce::String::fromUTF8 ("port") };
 const juce::String lingSwap                   { juce::String::fromUTF8 ("swap") };
 const juce::String lingSymbols                { juce::String::fromUTF8 ("symbols") };
 const juce::String lingTools                  { juce::String::fromUTF8 ("tools.json") };
 const juce::String lsp                        { juce::String::fromUTF8 ("lsp.md") };
+const juce::String screenErase                { juce::String::fromUTF8 ("erase.frame") };
 const juce::String sourceDirectoryVariable    { juce::String::fromUTF8 ("${CMAKE_CURRENT_SOURCE_DIR}") };
 const juce::String syntaxTree                 { juce::String::fromUTF8 ("syntax_tree.md") };
 const juce::String userModulePathVariable     { juce::String::fromUTF8 ("${CAST_USER_MODULE_PATH}") };

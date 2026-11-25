@@ -135,8 +135,10 @@ set(CAST_JUCE_PATCHES
 "${CAST_USER_MODULE_PATH}/patch/juce-plugin-editor-once-hook.patch"         # VST2 plugin client opens the editor that effEditGetRect created, so the editor is built once; applies after juce-plugin-transparency-hook.patch
 "${CAST_USER_MODULE_PATH}/patch/juce-plugin-window-size-hook.patch"         # VST2 host child window takes the plugin's effEditGetRect size in physical pixels on Windows; applies after juce-plugin-transparency-hook.patch
 "${CAST_USER_MODULE_PATH}/patch/juce-value-tree-synchroniser-hook.patch"    # Listener exclusion for ValueTree senders: juce_ValueTree.cpp, juce_ValueTree.h, juce_ValueTreeSynchroniser.cpp, juce_ValueTreeSynchroniser.h; child and remove-property senders take a listener to exclude; ValueTree gains removePropertyExcludingListener, addChildExcludingListener, removeChildExcludingListener, moveChildExcludingListener; ValueTreeSynchroniser gains applyChange that excludes itself
-"${CAST_USER_MODULE_PATH}/patch/juce-posix-file-hook.patch"                 # POSIX file, link, folder, home and CPU-count functions on macOS when JUCE_USE_FOUNDATION=0: juce_Files_mac.mm, juce_Strings_mac.mm, juce_SystemStats_mac.mm, juce_core.h
+"${CAST_USER_MODULE_PATH}/patch/juce-posix-file-hook.patch"                 # POSIX file, link, folder, home and CPU-count functions on macOS when JUCE_USE_FOUNDATION=0: juce_Files_mac.mm, juce_Strings_mac.mm, juce_SystemStats_mac.mm, juce_core.h; read-only maps of MemoryMappedFile that give no fault when JUCE_USE_RESILIENT_MAPPING=1: juce_SharedCode_posix.h
 "${CAST_USER_MODULE_PATH}/patch/juce-sha256-hook.patch"                     # SHA-256 on the ARMv8 hash instructions.
+"${CAST_USER_MODULE_PATH}/patch/juce-posix-event-hook.patch"                # JUCE's POSIX message loop on macOS when JUCE_USE_FOUNDATION=0 and juce_gui_basics is not linked: juce_events.h, juce_events.cpp, juce_MessageManager.cpp, juce_ApplicationBase.cpp, juce_ScopedLowPowerModeDisabler.cpp, juce_Memory.h, juce_SharedCode_posix.h
+"${CAST_USER_MODULE_PATH}/patch/juce-child-process-hook.patch"              # ChildProcessManager singleton defined in its .cpp, so that a translation unit that includes juce_events.h has no initializer: juce_ChildProcessManager.h, juce_ChildProcessManager.cpp
 )
 
 if(WIN32)
@@ -225,21 +227,21 @@ endif()
 
 message(STATUS "CAST: JUCE ${CAST_FOUND_JUCE_VERSION} patched at ${CAST_JUCE_PATH}")
 
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_core")                  # JAM Core
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_core")             # JAM Core
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_document")         # Universal line break and reflow (UAX #14)
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_markdown")         # Clean-room native CommonMark + GFM markdown parsing and rendering
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_freetype")         # Vendored FreeType font rasterization library
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_graphics")         # Graphics utilities, blur, shadows, colours, fonts, mesh
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_data_structures")  # ValueTree management and data model utilities — model, parameters
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_web")              # HTML authored-subset and CSS Syntax Level 3 subset tokenizers and parsers
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_style")            # JAM Style — LookAndFeel base + ColourScheme-backed colour registry
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_gui")              # GUI foundation — Window, Modal, Glass
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_mermaid_diagram")  # Clean-room native mermaid diagram parsing over jam::Document producing the semantic Element tree
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_markdown_graphics")# Markdown and mermaid materialisation, layout and view component
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_terminal")         # VT read-side engine, TTY, protocol vocabulary, keyboard encoding
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_tui")              # Terminal user interface components, painted through the terminal graphics context
+
 juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_syntax_tree")           # Programming-language tokenizers and parsers over jam::Document
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_document")              # Universal line break and reflow (UAX #14)
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_markdown")              # Clean-room native CommonMark + GFM markdown parsing and rendering
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_freetype")              # Vendored FreeType font rasterization library
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_graphics")              # Graphics utilities, blur, shadows, colours, fonts, mesh
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_data_structures")       # ValueTree management and data model utilities — model, parameters
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_animation")             # Foundation animation classes (Animator, AnimationBase, AnimationScrollingText)
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_web")                   # HTML authored-subset and CSS Syntax Level 3 subset tokenizers and parsers
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_style")                 # JAM Style — LookAndFeel base + ColourScheme-backed colour registry
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_gui")                   # GUI foundation — Window, Modal, Glass
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_mermaid_diagram")       # Clean-room native mermaid diagram parsing over jam::Document producing the semantic Element tree
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_markdown_graphics")     # Markdown and mermaid materialisation, layout and view component
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_terminal")              # VT read-side engine, TTY, protocol vocabulary, keyboard encoding
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_tui")                   # Terminal user interface components, painted through the terminal graphics context
 juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_subprocess")            # JUCE-based subprocess launcher with streaming output and byte-cap truncation
 juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_fuzzy")                 # Fuzzy search (Levenshtein) and fzf-algorithm matching engine
 juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_profiler")              # Profiler zones and samples
@@ -283,7 +285,7 @@ file(GLOB CAST_MODULE_SOURCES
 
 set_source_files_properties(${CAST_MODULE_SOURCES} PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
 
-target_compile_definitions(${PROJECT_NAME} PUBLIC
+set(CAST_COMPILE_DEFINITIONS
     CAST_COMMIT="${CAST_COMMIT_HASH}"
 DONT_SET_USING_JUCE_NAMESPACE=1
 JUCE_DONT_DECLARE_PROJECTINFO=1
@@ -302,11 +304,38 @@ HAVE_FREETYPE
 "$<$<BOOL:${CAST_SCHEMA}>:LING_USING_SCHEMA=1>"
 )
 
-target_include_directories(${PROJECT_NAME} PRIVATE
+target_compile_definitions(${PROJECT_NAME} PUBLIC ${CAST_COMPILE_DEFINITIONS})
+
+set(CAST_INCLUDE_DIRECTORIES
 ${CMAKE_CURRENT_SOURCE_DIR}/../jam
 ${CMAKE_CURRENT_SOURCE_DIR}/Source/generated
 "${CAST_USER_MODULE_PATH}/jam_freetype/freetype/include"
 "${CAST_JUCE_PATH}/modules/juce_graphics/fonts/harfbuzz"
+)
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${CAST_INCLUDE_DIRECTORIES})
+
+set(CAST_HELP_MODULES
+juce_core
+juce_data_structures
+juce_events
+juce_graphics
+juce_gui_basics
+juce_cryptography
+juce_audio_processors
+jam_core
+jam_document
+jam_markdown
+jam_freetype
+jam_graphics
+jam_data_structures
+jam_web
+jam_style
+jam_gui
+jam_mermaid_diagram
+jam_markdown_graphics
+jam_terminal
+jam_tui
 )
 
 target_link_libraries(${PROJECT_NAME}
@@ -316,23 +345,18 @@ juce_data_structures
 juce_events
 juce_graphics
 juce_gui_basics
-juce_audio_processors
 juce_cryptography
 jam_core
-jam_syntax_tree
 jam_document
 jam_markdown
+jam_web
+jam_mermaid_diagram
 jam_freetype
 jam_graphics
-jam_data_structures
-jam_animation
-jam_web
 jam_style
-jam_gui
-jam_mermaid_diagram
-jam_markdown_graphics
+jam_data_structures
 jam_terminal
-jam_tui
+jam_syntax_tree
 jam_subprocess
 jam_fuzzy
 jam_profiler
@@ -380,9 +404,7 @@ elseif(WIN32)
 endif()
 
 file(GLOB CAST_BINARY_FILES CONFIGURE_DEPENDS
-Source/HELP.md
 Source/tools.json
-../jam/jam_tui/page/style.css
 language/cLang/spell.md
 language/cLang/language.cast
 language/cLang/construction.md
@@ -406,9 +428,70 @@ string(SHA256 CAST_LANGUAGES_HASH "${CAST_LANGUAGES_HASH_CONCAT}")
 
 set_source_files_properties("${CMAKE_CURRENT_SOURCE_DIR}/Source/Processor.cpp" PROPERTIES COMPILE_DEFINITIONS "CAST_LANGUAGES_HASH=\"${CAST_LANGUAGES_HASH}\"" SKIP_PRECOMPILE_HEADERS ON)
 
+file(GLOB CAST_HELP_FILES CONFIGURE_DEPENDS
+Source/HELP.md
+../jam/jam_tui/page/style.css
+)
+
+juce_add_binary_data(${PROJECT_NAME}_HelpDocuments
+    NAMESPACE "BinaryData"
+    SOURCES
+        ${CAST_HELP_FILES}
+)
+
+juce_add_console_app(${PROJECT_NAME}_HelpFrames
+    PRODUCT_NAME "${PROJECT_NAME}_HelpFrames"
+    COMPANY_NAME "JRENG"
+    NEEDS_CURL OFF
+    NEEDS_WEB_BROWSER OFF
+    NEEDS_WEBVIEW2 OFF
+    NEEDS_STORE_KIT OFF
+)
+
+juce_generate_juce_header(${PROJECT_NAME}_HelpFrames)
+
+target_sources(${PROJECT_NAME}_HelpFrames PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}/help/HelpFrames.cpp"
+)
+
+target_compile_definitions(${PROJECT_NAME}_HelpFrames PRIVATE ${CAST_COMPILE_DEFINITIONS})
+target_include_directories(${PROJECT_NAME}_HelpFrames PRIVATE ${CAST_INCLUDE_DIRECTORIES})
+
+target_link_libraries(${PROJECT_NAME}_HelpFrames
+    PRIVATE
+        ${CAST_HELP_MODULES}
+        ${PROJECT_NAME}_HelpDocuments
+        juce::juce_recommended_config_flags
+)
+
+set(CAST_FRAME_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/frames")
+file(MAKE_DIRECTORY "${CAST_FRAME_DIRECTORY}")
+set(CAST_ERASE_FRAME "erase.frame")
+set(CAST_FRAME_FILES "${CAST_FRAME_DIRECTORY}/${CAST_ERASE_FRAME}")
+
+foreach(CAST_HELP_FILE ${CAST_HELP_FILES})
+    get_filename_component(CAST_DOCUMENT_EXTENSION "${CAST_HELP_FILE}" LAST_EXT)
+
+    if(CAST_DOCUMENT_EXTENSION STREQUAL ".md")
+        get_filename_component(CAST_DOCUMENT_NAME "${CAST_HELP_FILE}" NAME)
+        get_filename_component(CAST_DOCUMENT_STEM "${CAST_HELP_FILE}" NAME_WLE)
+        list(APPEND CAST_DOCUMENT_NAMES "${CAST_DOCUMENT_NAME}")
+        list(APPEND CAST_FRAME_FILES "${CAST_FRAME_DIRECTORY}/${CAST_DOCUMENT_STEM}.frame")
+    endif()
+endforeach()
+
+add_custom_command(
+    OUTPUT ${CAST_FRAME_FILES}
+    COMMAND ${PROJECT_NAME}_HelpFrames "${CAST_FRAME_DIRECTORY}" "${CAST_ERASE_FRAME}" ${CAST_DOCUMENT_NAMES}
+    DEPENDS ${PROJECT_NAME}_HelpFrames ${CAST_HELP_FILES}
+    COMMENT "CAST: help frames"
+    VERBATIM
+)
+
 juce_add_binary_data(${PROJECT_NAME}_BinaryData
     NAMESPACE "BinaryData"
     SOURCES
+        ${CAST_FRAME_FILES}
         ${CAST_BINARY_FILES}
 )
 

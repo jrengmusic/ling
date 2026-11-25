@@ -52,6 +52,7 @@ extern const juce::String lingSwap;                  ///< Extension of the swap 
 extern const juce::String lingSymbols;               ///< Extension of the symbol swap file of a unit.
 extern const juce::String lingTools;                 ///< MCP tool list.
 extern const juce::String lsp;                       ///< LSP value table file of a language build.
+extern const juce::String screenErase;               ///< Screen erase sequence.
 extern const juce::String sourceDirectoryVariable;   ///< The CMake variable that a manifest cell uses for the project folder.
 extern const juce::String syntaxTree;                ///< Syntax table file of a language build.
 extern const juce::String userModulePathVariable;    ///< The CMake variable that a manifest cell uses for the user module folder.
