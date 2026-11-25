@@ -227,7 +227,7 @@ void Index::addUnitRows (const juce::ValueTree& files)
 
 std::pair<const jam::Document::Element*, int> Index::getElement (const jam::Document& document, int line, int column)
 {
-    const auto lineCount { static_cast<int> (document.getLineNumber (static_cast<uint32_t> (document.getSource().size()))) };
+    const auto lineCount { static_cast<int> (document.getLineNumber (document.getSource().size())) };
 
     if (line <= lineCount) return document.getNameToken (document.getByteOffset (static_cast<uint32_t> (line), static_cast<uint32_t> (column)));
 
@@ -248,7 +248,7 @@ std::pair<const jam::Document::Element*, int> Index::getElement (const std::pair
     return { nullptr, -1 };
 }
 
-int Index::getCharacter (const jam::Document& document, uint32_t offset, std::string_view encoding)
+int Index::getCharacter (const jam::Document& document, size_t offset, std::string_view encoding)
 {
     const auto lineStart { document.getByteOffset (document.getLineNumber (offset), 1) };
 
@@ -266,7 +266,7 @@ int Index::getCharacter (const jam::Document& document, uint32_t offset, std::st
 
 int Index::getByteColumn (const jam::Document& document, int line, int column, std::string_view encoding)
 {
-    const auto lineCount { static_cast<int> (document.getLineNumber (static_cast<uint32_t> (document.getSource().size()))) };
+    const auto lineCount { static_cast<int> (document.getLineNumber (document.getSource().size())) };
     int byteColumn { column };
 
     if (encoding.compare (lsp::PositionEncodingType::UTF8) != 0 and line <= lineCount)

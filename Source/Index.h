@@ -186,7 +186,7 @@ public:
      * @return 0-based column count on the offset's line.
      */
     static int getCharacter (const jam::Document& document,
-                             uint32_t offset,
+                             size_t offset,
                              std::string_view encoding);
 
     /**

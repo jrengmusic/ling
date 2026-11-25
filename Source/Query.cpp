@@ -146,7 +146,7 @@ bool Query::isBefore (int pathIndex, const jam::Document::Element& element, int 
     return order < 0;
 }
 
-void Query::appendPosition (juce::MemoryBlock& json, const jam::Document& document, uint32_t offset, std::string_view encoding)
+void Query::appendPosition (juce::MemoryBlock& json, const jam::Document& document, size_t offset, std::string_view encoding)
 {
     jam::JsonWriter::appendObject (json, [&document, offset, encoding] (juce::MemoryBlock& members)
     {
@@ -158,7 +158,7 @@ void Query::appendPosition (juce::MemoryBlock& json, const jam::Document& docume
     });
 }
 
-void Query::appendRange (juce::MemoryBlock& json, const jam::Document& document, uint32_t startOffset, uint32_t endOffset, std::string_view encoding)
+void Query::appendRange (juce::MemoryBlock& json, const jam::Document& document, size_t startOffset, size_t endOffset, std::string_view encoding)
 {
     jam::JsonWriter::appendObject (json, [&document, startOffset, endOffset, encoding] (juce::MemoryBlock& members)
     {
@@ -494,7 +494,7 @@ void Query::semanticTokens (juce::ValueTree& request, const Index& index) const
 {
     applyToDocument (request, index, [this, &index] (juce::MemoryBlock& message, int pathIndex, const jam::Document& document, std::string_view encoding)
     {
-        appendSemanticTokens (message, pathIndex, index, encoding, 0, static_cast<uint32_t> (document.getSource().size()));
+        appendSemanticTokens (message, pathIndex, index, encoding, 0, document.getSource().size());
     });
 }
 
@@ -670,8 +670,8 @@ int Query::appendOutline (juce::MemoryBlock& json, const jam::Document& document
     const auto line { outline.line };
     const auto column { outline.column };
     const auto nameStart { document.getByteOffset (static_cast<uint32_t> (line), static_cast<uint32_t> (column)) };
-    const auto nameEnd { nameStart + static_cast<uint32_t> (outline.nameLength) };
-    const auto start { nameStart - static_cast<uint32_t> (outline.qualifierLength) };
+    const auto nameEnd { nameStart + static_cast<size_t> (outline.nameLength) };
+    const auto start { nameStart - static_cast<size_t> (outline.qualifierLength) };
     const auto end { document.getByteOffset (static_cast<uint32_t> (outline.endLine), static_cast<uint32_t> (outline.endColumn)) };
 
     jam::JsonWriter::appendKey (json, lsp::Member::name);
@@ -735,7 +735,7 @@ void Query::appendCompletionItem (juce::MemoryBlock& json, const SymbolDocument&
     });
 }
 
-void Query::appendFixItActions (juce::MemoryBlock& json, const juce::File& file, const jam::Document& document, const SymbolDocument& symbolDocument, const SymbolDocument::FileEntry& symbolFile, uint32_t rangeStart, uint32_t rangeEnd, std::string_view encoding)
+void Query::appendFixItActions (juce::MemoryBlock& json, const juce::File& file, const jam::Document& document, const SymbolDocument& symbolDocument, const SymbolDocument::FileEntry& symbolFile, size_t rangeStart, size_t rangeEnd, std::string_view encoding)
 {
     for (const auto& fixIt : symbolDocument.getFixIts (symbolFile))
     {
@@ -927,13 +927,13 @@ int Query::getRecordType (int pathIndex, const jam::Document& document, const ja
     return ownType;
 }
 
-void Query::appendSemanticTokens (juce::MemoryBlock& json, int pathIndex, const Index& index, std::string_view encoding, uint32_t startOffset, uint32_t endOffset) const
+void Query::appendSemanticTokens (juce::MemoryBlock& json, int pathIndex, const Index& index, std::string_view encoding, size_t startOffset, size_t endOffset) const
 {
     const auto& document { *index.documents.at (pathIndex) };
     const auto& language { *index.languages.at (*document.getRoot()->get<int> (Id::family)) };
     const auto& stream { *document.getRoot()->get<jam::Document::Tokens> (Id::tokens) };
-    const auto first { std::lower_bound (stream.begin(), stream.end(), startOffset, [] (const jam::Document::Token& token, uint32_t offset) { return token.offset() + token.length() <= offset; }) };
-    uint32_t previousOffset { 0 };
+    const auto first { std::lower_bound (stream.begin(), stream.end(), startOffset, [] (const jam::Document::Token& token, size_t offset) { return token.offset() + token.length() <= offset; }) };
+    size_t previousOffset { 0 };
 
     jam::JsonWriter::appendObject (json, [this, pathIndex, &index, &document, &language, &stream, first, startOffset, endOffset, encoding, &previousOffset] (juce::MemoryBlock& members)
     {
@@ -953,9 +953,9 @@ void Query::appendSemanticTokens (juce::MemoryBlock& json, int pathIndex, const 
     });
 }
 
-uint32_t Query::appendTokenLines (juce::MemoryBlock& json, const jam::Document& document, uint32_t previousOffset, uint32_t startOffset, uint32_t endOffset, int type, int modifiers, std::string_view encoding)
+size_t Query::appendTokenLines (juce::MemoryBlock& json, const jam::Document& document, size_t previousOffset, size_t startOffset, size_t endOffset, int type, int modifiers, std::string_view encoding)
 {
-    const auto sourceSize { static_cast<uint32_t> (document.getSource().size()) };
+    const auto sourceSize { document.getSource().size() };
     const auto lastLine { document.getLineNumber (sourceSize) };
     auto previous { previousOffset };
 
@@ -977,7 +977,7 @@ uint32_t Query::appendTokenLines (juce::MemoryBlock& json, const jam::Document& 
     return previous;
 }
 
-void Query::appendSegment (juce::MemoryBlock& json, const jam::Document& document, uint32_t previousOffset, uint32_t startOffset, uint32_t endOffset, int type, int modifiers, std::string_view encoding)
+void Query::appendSegment (juce::MemoryBlock& json, const jam::Document& document, size_t previousOffset, size_t startOffset, size_t endOffset, int type, int modifiers, std::string_view encoding)
 {
     const auto line { static_cast<int> (document.getLineNumber (startOffset)) };
     const auto previousLine { static_cast<int> (document.getLineNumber (previousOffset)) };
@@ -1002,9 +1002,9 @@ void Query::appendSegment (juce::MemoryBlock& json, const jam::Document& documen
     jam::Format::appendDecimal (json, modifiers);
 }
 
-uint32_t Query::getOffset (const jam::Document& document, int line, int column, std::string_view encoding)
+size_t Query::getOffset (const jam::Document& document, int line, int column, std::string_view encoding)
 {
-    const auto sourceSize { static_cast<uint32_t> (document.getSource().size()) };
+    const auto sourceSize { document.getSource().size() };
     const auto lineCount { document.getLineNumber (sourceSize) };
 
     if (static_cast<uint32_t> (line) <= lineCount)
@@ -1013,12 +1013,12 @@ uint32_t Query::getOffset (const jam::Document& document, int line, int column, 
     return sourceSize;
 }
 
-juce::Range<uint32_t> Query::getElementSpan (const jam::Document::Element& element)
+juce::Range<size_t> Query::getElementSpan (const jam::Document::Element& element)
 {
     return element.get<jam::Document::Tokens> (Id::range)->at (0).span;
 }
 
-const jam::Document::Element* Query::getEnclosingChild (const jam::Document::Element& element, uint32_t offset)
+const jam::Document::Element* Query::getEnclosingChild (const jam::Document::Element& element, size_t offset)
 {
     for (const auto* child : element)
         if (const auto span { getElementSpan (*child) }; span.getStart() <= offset and offset < span.getEnd())
@@ -1027,7 +1027,7 @@ const jam::Document::Element* Query::getEnclosingChild (const jam::Document::Ele
     return nullptr;
 }
 
-const jam::Document::Element* Query::getInnermostElement (const jam::Document& document, uint32_t offset)
+const jam::Document::Element* Query::getInnermostElement (const jam::Document& document, size_t offset)
 {
     const auto* element { document.getRoot() };
 
@@ -1048,7 +1048,7 @@ const jam::Document::Element* Query::getOuterLevel (const jam::Document::Element
     return nullptr;
 }
 
-juce::Range<uint32_t> Query::getTextObjectRange (const jam::Document& document, const Language& language, const juce::String& typeName, const juce::Identifier& scopeName, uint32_t offset)
+juce::Range<size_t> Query::getTextObjectRange (const jam::Document& document, const Language& language, const juce::String& typeName, const juce::Identifier& scopeName, size_t offset)
 {
     static constexpr std::string_view functionType { "function" };
     static constexpr std::string_view classType { "class" };
@@ -1076,7 +1076,7 @@ juce::Range<uint32_t> Query::getTextObjectRange (const jam::Document& document, 
     return {};
 }
 
-const jam::Document::Element* Query::getRoleElement (const jam::Document::Element& element, uint32_t offset, const Language& language, int role)
+const jam::Document::Element* Query::getRoleElement (const jam::Document::Element& element, size_t offset, const Language& language, int role)
 {
     if (const auto* child { getEnclosingChild (element, offset) }; child != nullptr)
         if (const auto* inner { getRoleElement (*child, offset, language, role) }; inner != nullptr)
@@ -1105,10 +1105,10 @@ void Query::appendSelectionChain (juce::MemoryBlock& json, const jam::Document& 
     });
 }
 
-void Query::appendSelectionRanges (juce::MemoryBlock& json, const jam::Document& document, uint32_t offset, std::string_view encoding)
+void Query::appendSelectionRanges (juce::MemoryBlock& json, const jam::Document& document, size_t offset, std::string_view encoding)
 {
     const auto& stream { *document.getRoot()->get<jam::Document::Tokens> (Id::tokens) };
-    const auto after { std::upper_bound (stream.begin(), stream.end(), offset, [] (uint32_t position, const jam::Document::Token& token) { return position < token.offset(); }) };
+    const auto after { std::upper_bound (stream.begin(), stream.end(), offset, [] (size_t position, const jam::Document::Token& token) { return position < token.offset(); }) };
     const auto& innermost { *getInnermostElement (document, offset) };
     const auto isTokenLevel { after != stream.begin() and std::prev (after)->offset() + std::prev (after)->length() > offset and std::prev (after)->span != getElementSpan (innermost) };
 
@@ -1131,10 +1131,10 @@ void Query::appendSelectionRanges (juce::MemoryBlock& json, const jam::Document&
     }
 }
 
-juce::Range<uint32_t> Query::getInnerRange (const jam::Document& document, const jam::Document::Element& element, int delimiters)
+juce::Range<size_t> Query::getInnerRange (const jam::Document& document, const jam::Document::Element& element, int delimiters)
 {
     const auto& body { element.get<jam::Document::Tokens> (Id::body)->at (0) };
-    const auto delimiterCount { static_cast<uint32_t> (delimiters) };
+    const auto delimiterCount { static_cast<size_t> (delimiters) };
 
     if (body.length() == 0)
         return {};
@@ -1144,9 +1144,9 @@ juce::Range<uint32_t> Query::getInnerRange (const jam::Document& document, const
 
     const auto view { document.getView (body) };
     const auto trimmed { jam::Format::trim (view) };
-    const auto startOffset { trimmed.empty() ? 0u : static_cast<uint32_t> (trimmed.data() - view.data()) };
+    const auto startOffset { trimmed.empty() ? size_t { 0 } : static_cast<size_t> (trimmed.data() - view.data()) };
 
-    return { body.offset() + startOffset, body.offset() + startOffset + static_cast<uint32_t> (trimmed.size()) };
+    return { body.offset() + startOffset, body.offset() + startOffset + static_cast<size_t> (trimmed.size()) };
 }
 
 jam::Fuzzy::Result Query::getMatch (const jam::Fuzzy::Pattern& pattern, const jam::Document& document, const jam::Document::Element& element) const

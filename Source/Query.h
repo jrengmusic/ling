@@ -370,7 +370,7 @@ private:
         const auto isNamed { [&document, text] (const SymbolDocument::SymbolRecord& record)
         {
             const auto start { document.getByteOffset (static_cast<uint32_t> (record.line), static_cast<uint32_t> (record.column)) };
-            const auto length { static_cast<uint32_t> (record.nameLength) };
+            const auto length { static_cast<size_t> (record.nameLength) };
 
             return document.getView (jam::Document::Token (start, start + length)).compare (text) == 0;
         } };
@@ -962,7 +962,7 @@ private:
      * @param rangeEnd        End byte offset of the requested range.
      * @param encoding        Negotiated LSP position encoding.
      */
-    static void appendFixItActions (juce::MemoryBlock& json, const juce::File& file, const jam::Document& document, const SymbolDocument& symbolDocument, const SymbolDocument::FileEntry& symbolFile, uint32_t rangeStart, uint32_t rangeEnd, std::string_view encoding);
+    static void appendFixItActions (juce::MemoryBlock& json, const juce::File& file, const jam::Document& document, const SymbolDocument& symbolDocument, const SymbolDocument::FileEntry& symbolFile, size_t rangeStart, size_t rangeEnd, std::string_view encoding);
 
     /**
      * @brief Appends one QuickFix CodeAction object replacing @p range in @p file with @p newText.
@@ -1019,7 +1019,7 @@ private:
      * @param startOffset  Start byte offset (inclusive).
      * @param endOffset    End byte offset (exclusive).
      */
-    void appendSemanticTokens (juce::MemoryBlock& json, int pathIndex, const Index& index, std::string_view encoding, uint32_t startOffset, uint32_t endOffset) const;
+    void appendSemanticTokens (juce::MemoryBlock& json, int pathIndex, const Index& index, std::string_view encoding, size_t startOffset, size_t endOffset) const;
 
     /**
      * @brief Splits a multi-line token span [@p startOffset, @p endOffset) into single-line LSP semantic token tuples.
@@ -1034,7 +1034,7 @@ private:
      * @param encoding        Negotiated LSP position encoding.
      * @return Byte offset of the last emitted segment, becoming the next @p previousOffset.
      */
-    static uint32_t appendTokenLines (juce::MemoryBlock& json, const jam::Document& document, uint32_t previousOffset, uint32_t startOffset, uint32_t endOffset, int type, int modifiers, std::string_view encoding);
+    static size_t appendTokenLines (juce::MemoryBlock& json, const jam::Document& document, size_t previousOffset, size_t startOffset, size_t endOffset, int type, int modifiers, std::string_view encoding);
 
     /**
      * @brief Appends one 5-integer delta-encoded LSP semantic token tuple (`deltaLine`, `deltaStart`, `length`, `type`, `modifiers`).
@@ -1048,7 +1048,7 @@ private:
      * @param modifiers       Semantic token modifier bitmask in Legend::getModifiers().
      * @param encoding        Negotiated LSP position encoding.
      */
-    static void appendSegment (juce::MemoryBlock& json, const jam::Document& document, uint32_t previousOffset, uint32_t startOffset, uint32_t endOffset, int type, int modifiers, std::string_view encoding);
+    static void appendSegment (juce::MemoryBlock& json, const jam::Document& document, size_t previousOffset, size_t startOffset, size_t endOffset, int type, int modifiers, std::string_view encoding);
 
     /**
      * @brief Converts a 1-based (@p line, @p column) position in @p encoding to a byte offset clamped at source size.
@@ -1059,7 +1059,7 @@ private:
      * @param encoding  Negotiated LSP position encoding.
      * @return Byte offset within @p document's source.
      */
-    static uint32_t getOffset (const jam::Document& document, int line, int column, std::string_view encoding);
+    static size_t getOffset (const jam::Document& document, int line, int column, std::string_view encoding);
 
     /**
      * @brief Computes the inner byte range of @p element's Id::body token, trimming whitespace or delimiter bytes.
@@ -1069,7 +1069,7 @@ private:
      * @param delimiters  Number of surrounding delimiter bytes to expand outward, or 0 to trim whitespace.
      * @return Inner byte range, or empty when body length is zero.
      */
-    static juce::Range<uint32_t> getInnerRange (const jam::Document& document, const jam::Document::Element& element, int delimiters);
+    static juce::Range<size_t> getInnerRange (const jam::Document& document, const jam::Document::Element& element, int delimiters);
 
     /**
      * @brief Returns the full source byte span [start, end) from @p element's Id::range token.
@@ -1077,7 +1077,7 @@ private:
      * @param element  Document element carrying Id::range.
      * @return Byte range of @p element.
      */
-    static juce::Range<uint32_t> getElementSpan (const jam::Document::Element& element);
+    static juce::Range<size_t> getElementSpan (const jam::Document::Element& element);
 
     /**
      * @brief Finds the direct child of @p element whose span contains byte @p offset.
@@ -1086,7 +1086,7 @@ private:
      * @param offset   Target byte offset.
      * @return Enclosing child element, or nullptr when none contains @p offset.
      */
-    static const jam::Document::Element* getEnclosingChild (const jam::Document::Element& element, uint32_t offset);
+    static const jam::Document::Element* getEnclosingChild (const jam::Document::Element& element, size_t offset);
 
     /**
      * @brief Descends from the root of @p document to the deepest element enclosing @p offset.
@@ -1095,7 +1095,7 @@ private:
      * @param offset    Target byte offset.
      * @return Deepest enclosing element (or the root element).
      */
-    static const jam::Document::Element* getInnermostElement (const jam::Document& document, uint32_t offset);
+    static const jam::Document::Element* getInnermostElement (const jam::Document& document, size_t offset);
 
     /**
      * @brief Walks upward from @p element to the nearest ancestor having a strictly wider byte span.
@@ -1114,7 +1114,7 @@ private:
      * @param role      Bitmask of jam::LanguageRole flags to match.
      * @return Deepest matching element, or nullptr when none matches.
      */
-    static const jam::Document::Element* getRoleElement (const jam::Document::Element& element, uint32_t offset, const Language& language, int role);
+    static const jam::Document::Element* getRoleElement (const jam::Document::Element& element, size_t offset,const Language& language, int role);
 
     /**
      * @brief Appends an LSP SelectionRange object for @p element and recursively links its outer parent chain.
@@ -1134,7 +1134,7 @@ private:
      * @param offset    Target byte offset.
      * @param encoding  Negotiated LSP position encoding.
      */
-    static void appendSelectionRanges (juce::MemoryBlock& json, const jam::Document& document, uint32_t offset, std::string_view encoding);
+    static void appendSelectionRanges (juce::MemoryBlock& json, const jam::Document& document, size_t offset, std::string_view encoding);
 
     /**
      * @brief Resolves the inner or outer byte range for text object @p typeName (`function`, `class`, `loop`, `conditional`) at @p offset.
@@ -1146,7 +1146,7 @@ private:
      * @param offset     Target byte offset.
      * @return Resolved byte range, or empty when @p typeName is unknown or unmatched.
      */
-    static juce::Range<uint32_t> getTextObjectRange (const jam::Document& document, const Language& language, const juce::String& typeName, const juce::Identifier& scopeName, uint32_t offset);
+    static juce::Range<size_t> getTextObjectRange (const jam::Document& document, const Language& language, const juce::String& typeName, const juce::Identifier& scopeName, size_t offset);
 
     /**
      * @brief Serializes a JSON-RPC notification object for @p method onto @p request Id::result.
@@ -1183,7 +1183,7 @@ private:
      * @param offset    Byte offset in @p document.
      * @param encoding  Negotiated LSP position encoding.
      */
-    static void appendPosition (juce::MemoryBlock& json, const jam::Document& document, uint32_t offset, std::string_view encoding);
+    static void appendPosition (juce::MemoryBlock& json, const jam::Document& document, size_t offset, std::string_view encoding);
 
     /**
      * @brief Appends an LSP Range object (`start`, `end`) for byte span [@p startOffset, @p endOffset).
@@ -1194,7 +1194,7 @@ private:
      * @param endOffset    End byte offset.
      * @param encoding     Negotiated LSP position encoding.
      */
-    static void appendRange (juce::MemoryBlock& json, const jam::Document& document, uint32_t startOffset, uint32_t endOffset, std::string_view encoding);
+    static void appendRange (juce::MemoryBlock& json, const jam::Document& document, size_t startOffset, size_t endOffset, std::string_view encoding);
 
     /**
      * @brief Appends a quoted `file://` URI string for @p file.
