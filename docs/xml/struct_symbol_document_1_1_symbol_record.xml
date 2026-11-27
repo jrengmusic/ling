@@ -20,13 +20,13 @@
         </inbodydescription>
         <location file="SymbolDocument.h" line="138" column="17" bodyfile="SymbolDocument.h" bodystart="138" bodyend="138"/>
         <referencedby refid="class_symbol_document_1_1_builder_1ac4353fd209e4a4a8a4932ea36215fda7" compoundref="_symbol_document_8cpp" startline="131" endline="151">SymbolDocument::Builder::addSymbol</referencedby>
-        <referencedby refid="class_query_1a1af630e950e748883bd8aace09b6e235" compoundref="_query_8h" startline="404" endline="410">Query::applyToDeclarations</referencedby>
-        <referencedby refid="class_query_1a7d98690db81b3e8de810ea6b0bc3b0f7" compoundref="_query_8h" startline="694" endline="722">Query::applyToImplementations</referencedby>
-        <referencedby refid="class_query_1a76c1f274a78046412fbf74511ae165fb" compoundref="_query_8cpp" startline="359" endline="375">Query::documentHighlight</referencedby>
-        <referencedby refid="class_query_1a852e9ede3402713f66bb2abf97ed1436" compoundref="_query_8cpp" startline="341" endline="357">Query::findReferences</referencedby>
-        <referencedby refid="class_query_1ae6923bd8f08e5fc9296cc680e164bca0" compoundref="_query_8cpp" startline="888" endline="916">Query::getRecordType</referencedby>
-        <referencedby refid="class_query_1ac9134cc465d90c1f0528a3db2f9325f9" compoundref="_query_8cpp" startline="1324" endline="1336">Query::incomingCalls</referencedby>
-        <referencedby refid="class_query_1ab610e34818feb1149c05e046c74e9a50" compoundref="_query_8cpp" startline="377" endline="404">Query::rename</referencedby>
+        <referencedby refid="class_query_1a1af630e950e748883bd8aace09b6e235" compoundref="_query_8h" startline="425" endline="431">Query::applyToDeclarations</referencedby>
+        <referencedby refid="class_query_1a7d98690db81b3e8de810ea6b0bc3b0f7" compoundref="_query_8h" startline="704" endline="733">Query::applyToImplementations</referencedby>
+        <referencedby refid="class_query_1a76c1f274a78046412fbf74511ae165fb" compoundref="_query_8cpp" startline="413" endline="429">Query::documentHighlight</referencedby>
+        <referencedby refid="class_query_1a852e9ede3402713f66bb2abf97ed1436" compoundref="_query_8cpp" startline="395" endline="411">Query::findReferences</referencedby>
+        <referencedby refid="class_query_1ae6923bd8f08e5fc9296cc680e164bca0" compoundref="_query_8cpp" startline="944" endline="972">Query::getRecordType</referencedby>
+        <referencedby refid="class_query_1ac9134cc465d90c1f0528a3db2f9325f9" compoundref="_query_8cpp" startline="1391" endline="1403">Query::incomingCalls</referencedby>
+        <referencedby refid="class_query_1ab610e34818feb1149c05e046c74e9a50" compoundref="_query_8cpp" startline="431" endline="458">Query::rename</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_symbol_document_1_1_symbol_record_1a4e9b806e44148a09ed9f03a4f66ab813" prot="public" static="no" mutable="no">
         <type>int32_t</type>
@@ -44,7 +44,7 @@
         </inbodydescription>
         <location file="SymbolDocument.h" line="139" column="17" bodyfile="SymbolDocument.h" bodystart="139" bodyend="139"/>
         <referencedby refid="class_symbol_document_1_1_builder_1ac4353fd209e4a4a8a4932ea36215fda7" compoundref="_symbol_document_8cpp" startline="131" endline="151">SymbolDocument::Builder::addSymbol</referencedby>
-        <referencedby refid="class_index_1a5837c1f93d2f053f686a2056533af55a" compoundref="_index_8cpp" startline="387" endline="390">Index::isRecordBefore</referencedby>
+        <referencedby refid="class_index_1a5837c1f93d2f053f686a2056533af55a" compoundref="_index_8cpp" startline="612" endline="615">Index::isRecordBefore</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_symbol_document_1_1_symbol_record_1a23f80aa4ab77331e0b1ab7c731c1a091" prot="public" static="no" mutable="no">
         <type>int32_t</type>
@@ -62,7 +62,7 @@
         </inbodydescription>
         <location file="SymbolDocument.h" line="140" column="17" bodyfile="SymbolDocument.h" bodystart="140" bodyend="140"/>
         <referencedby refid="class_symbol_document_1_1_builder_1ac4353fd209e4a4a8a4932ea36215fda7" compoundref="_symbol_document_8cpp" startline="131" endline="151">SymbolDocument::Builder::addSymbol</referencedby>
-        <referencedby refid="class_index_1a5837c1f93d2f053f686a2056533af55a" compoundref="_index_8cpp" startline="387" endline="390">Index::isRecordBefore</referencedby>
+        <referencedby refid="class_index_1a5837c1f93d2f053f686a2056533af55a" compoundref="_index_8cpp" startline="612" endline="615">Index::isRecordBefore</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_symbol_document_1_1_symbol_record_1a4651689f905e2c60d53b6d2c41800203" prot="public" static="no" mutable="no">
         <type>int32_t</type>
@@ -89,7 +89,7 @@
         <qualifiedname>SymbolDocument::SymbolRecord::role</qualifiedname>
         <initializer>{ 0 }</initializer>
         <briefdescription>
-<para>Bitmask of <ref refid="structjam_1_1LanguageRole" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::LanguageRole</ref> flags for this occurrence. </para>
+<para>Bitmask of <ref refid="structjam_1_1LanguageRole" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageRole</ref> flags for this occurrence. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
@@ -97,8 +97,8 @@
         </inbodydescription>
         <location file="SymbolDocument.h" line="142" column="17" bodyfile="SymbolDocument.h" bodystart="142" bodyend="142"/>
         <referencedby refid="class_symbol_document_1_1_builder_1ac4353fd209e4a4a8a4932ea36215fda7" compoundref="_symbol_document_8cpp" startline="131" endline="151">SymbolDocument::Builder::addSymbol</referencedby>
-        <referencedby refid="class_query_1a274081916912f104cac7113c72e8a1b3" compoundref="_query_8h" startline="751" endline="774">Query::applyToDerivedFrom</referencedby>
-        <referencedby refid="class_query_1a6be8d158cd564f0019757e508702795b" compoundref="_query_8cpp" startline="771" endline="827">Query::typeDefinition</referencedby>
+        <referencedby refid="class_query_1a274081916912f104cac7113c72e8a1b3" compoundref="_query_8h" startline="762" endline="785">Query::applyToDerivedFrom</referencedby>
+        <referencedby refid="class_query_1a6be8d158cd564f0019757e508702795b" compoundref="_query_8cpp" startline="827" endline="883">Query::typeDefinition</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_symbol_document_1_1_symbol_record_1af0c60f99415ccfa3e5f0c88ea59271f7" prot="public" static="no" mutable="no">
         <type>int32_t</type>
@@ -108,7 +108,7 @@
         <qualifiedname>SymbolDocument::SymbolRecord::type</qualifiedname>
         <initializer>{ 0 }</initializer>
         <briefdescription>
-<para>Token type (<ref refid="structmap_1_1SyntaxTokenType" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">map::SyntaxTokenType</ref>) of the symbol. </para>
+<para>Token type (<ref refid="structmap_1_1SyntaxTokenType" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">map::SyntaxTokenType</ref>) of the symbol. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
@@ -125,7 +125,7 @@
         <qualifiedname>SymbolDocument::SymbolRecord::hover</qualifiedname>
         <initializer>{ 0 }</initializer>
         <briefdescription>
-<para><ref refid="class_index" kindref="compound">Index</ref> into the file&apos;s <ref refid="struct_symbol_document_1_1_hover_entry" kindref="compound">HoverEntry</ref> slice, or <ref refid="structjam_1_1LanguageCallbacks_1a41f0bf20e8cafe5a5f3e02c8be9355b4" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::LanguageCallbacks::noHover</ref>. </para>
+<para><ref refid="class_index" kindref="compound">Index</ref> into the file&apos;s <ref refid="struct_symbol_document_1_1_hover_entry" kindref="compound">HoverEntry</ref> slice, or <ref refid="structjam_1_1LanguageCallbacks_1a41f0bf20e8cafe5a5f3e02c8be9355b4" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageCallbacks::noHover</ref>. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
@@ -133,7 +133,8 @@
         </inbodydescription>
         <location file="SymbolDocument.h" line="144" column="17" bodyfile="SymbolDocument.h" bodystart="144" bodyend="144"/>
         <referencedby refid="class_symbol_document_1_1_builder_1ac4353fd209e4a4a8a4932ea36215fda7" compoundref="_symbol_document_8cpp" startline="131" endline="151">SymbolDocument::Builder::addSymbol</referencedby>
-        <referencedby refid="class_query_1adf9f19baf3d11420d442548886f453a7" compoundref="_query_8cpp" startline="406" endline="479">Query::hover</referencedby>
+        <referencedby refid="class_query_1ae656dac86a2bc2cc7e71b0d62cf6294d" compoundref="_query_8cpp" startline="362" endline="393">Query::appendHoverDefinition</referencedby>
+        <referencedby refid="class_query_1adf9f19baf3d11420d442548886f453a7" compoundref="_query_8cpp" startline="460" endline="535">Query::hover</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_symbol_document_1_1_symbol_record_1a10efa1f9d41d12eb31c8b4dd20ef0e18" prot="public" static="no" mutable="no">
         <type>uint32_t</type>

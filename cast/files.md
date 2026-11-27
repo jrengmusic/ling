@@ -31,6 +31,10 @@
 | languageLibraryWindows     | @string | `build/language.dll`          | Library that a language build writes on Windows, below its cache folder.            |
 | languageSpell              | @string | `spell.md`                    | Spell file of a language.                                                           |
 | languageTemplate           | @string | `language.cast`               | Template file of a language.                                                        |
+| pageLibrary                | @string | `build/libpage.dylib`         | Page library that the carried page build writes, below its folder.                  |
+| pageLibraryWindows         | @string | `build/page.dll`              | Page library that the carried page build writes on Windows, below its folder.       |
+| tokensLibrary              | @string | `build/libtokens.dylib`       | Token library that the carried token build writes, below its folder.                |
+| tokensLibraryWindows       | @string | `build/tokens.dll`            | Token library that the carried token build writes on Windows, below its folder.     |
 | lingCache                  | @string | `.cache/ling`                 | Cache folder of LING below the home folder or a repository root.                    |
 | lingConfig                 | @string | `.config/ling`                | Config folder of LING below the home folder.                                        |
 | lingHelp                   | @string | `HELP.frame`                  | Rendered help text.                                                                 |

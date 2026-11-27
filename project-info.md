@@ -103,6 +103,10 @@ Every field is a complete literal; nothing downstream derives, concatenates, or 
 +-----------------------------+-----------------------------------------------+--------------------------------------------------+
 | languageCoreManifest        | language/core/spell.md                        | Manifest of the carried library of the languages |
 +-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| pageManifest                | language/page/spell.md                        | Manifest of the carried page library             |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
+| tokensManifest              | language/tokens/spell.md                      | Manifest of the carried token library            |
++-----------------------------+-----------------------------------------------+--------------------------------------------------+
 
 ## juce module
 
@@ -136,6 +140,7 @@ Every field is a complete literal; nothing downstream derives, concatenates, or 
 | @user-module | jam_markdown_graphics | Markdown and mermaid materialisation, layout and view component                                  |
 | @user-module | jam_terminal          | VT read-side engine, TTY, protocol vocabulary, keyboard encoding                                 |
 | @user-module | jam_tui               | Terminal user interface components, painted through the terminal graphics context                |
+| @user-module | jam_profiler          | Profiler zones and samples                                                                       |
 +--------------+-----------------------+--------------------------------------------------------------------------------------------------+
 
 ## program module
@@ -174,7 +179,6 @@ Every field is a complete literal; nothing downstream derives, concatenates, or 
 | @user-module | jam_syntax_tree            | Programming-language tokenizers and parsers over jam::Document                                        |
 | @user-module | jam_subprocess             | JUCE-based subprocess launcher with streaming output and byte-cap truncation                          |
 | @user-module | jam_fuzzy                  | Fuzzy search (Levenshtein) and fzf-algorithm matching engine                                          |
-| @user-module | jam_profiler               | Profiler zones and samples                                                                            |
 | @user-module | jam_model_context_protocol | Model Context Protocol server over stdio: newline framing, JSON Schema 2020-12 validation, tool calls |
 +--------------+----------------------------+-------------------------------------------------------------------------------------------------------+
 
@@ -257,9 +261,9 @@ Every field is a complete literal; nothing downstream derives, concatenates, or 
 +----------+---------+----------------------------------------------------------------------------+
 | argument | command | flag                                                                       |
 +==========+=========+============================================================================+
-|          | cmake   | -P languageBundle.cmake                                                    |
-+----------+---------+----------------------------------------------------------------------------+
 |          | cast    | ../jam/cast/spell.md                                                       |
++----------+---------+----------------------------------------------------------------------------+
+|          | cmake   | -P languageBundle.cmake                                                    |
 +----------+---------+----------------------------------------------------------------------------+
 |          | cmake   | -S . -B Builds/Release -G Ninja -DCMAKE_BUILD_TYPE=Release -DCAST_SIGN=ON  |
 +----------+---------+----------------------------------------------------------------------------+
@@ -267,17 +271,17 @@ Every field is a complete literal; nothing downstream derives, concatenates, or 
 +----------+---------+----------------------------------------------------------------------------+
 |          | cmake   | -P gh.cmake                                                                |
 +----------+---------+----------------------------------------------------------------------------+
-| debug    | cmake   | -P languageBundle.cmake                                                    |
-+----------+---------+----------------------------------------------------------------------------+
 | debug    | cast    | ../jam/cast/spell.md                                                       |
++----------+---------+----------------------------------------------------------------------------+
+| debug    | cmake   | -P languageBundle.cmake                                                    |
 +----------+---------+----------------------------------------------------------------------------+
 | debug    | cmake   | -S . -B Builds/Debug -G Ninja -DCMAKE_BUILD_TYPE=Debug                     |
 +----------+---------+----------------------------------------------------------------------------+
 | debug    | ninja   | -C Builds/Debug                                                            |
 +----------+---------+----------------------------------------------------------------------------+
-| no-sign  | cmake   | -P languageBundle.cmake                                                    |
-+----------+---------+----------------------------------------------------------------------------+
 | no-sign  | cast    | ../jam/cast/spell.md                                                       |
++----------+---------+----------------------------------------------------------------------------+
+| no-sign  | cmake   | -P languageBundle.cmake                                                    |
 +----------+---------+----------------------------------------------------------------------------+
 | no-sign  | cmake   | -S . -B Builds/Release -G Ninja -DCMAKE_BUILD_TYPE=Release -DCAST_SIGN=OFF |
 +----------+---------+----------------------------------------------------------------------------+

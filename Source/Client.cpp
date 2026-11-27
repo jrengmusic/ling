@@ -1,11 +1,22 @@
 #include "Client.h"
 
-Client::Client (const juce::File& newManifestFile, const juce::String& newToolchainArgument)
+static void sendTree (juce::InterprocessConnection& connection, const juce::ValueTree& tree)
+{
+    juce::MemoryBlock data;
+    juce::MemoryOutputStream stream { data, false };
+
+    tree.writeToStream (stream);
+    stream.flush();
+    connection.sendMessage (data);
+}
+
+Client::Client (LINGModel& newModel, const juce::File& newManifestFile, const juce::String& newToolchainArgument)
     : juce::InterprocessConnection (true)
     , manifestFile (newManifestFile)
+    , model (newModel)
     , toolchainArgument (newToolchainArgument)
 {
-    const auto portDirectory { Server::getPortFile (manifestFile, jam::Strings::getView (toolchainArgument)).getParentDirectory() };
+    const auto portDirectory { Server::getPortFile().getParentDirectory() };
 
     portDirectory.createDirectory();
     watcher.addFolder (portDirectory);
@@ -24,10 +35,7 @@ void Client::start()
 {
     if (not connectToDaemon())
     {
-        jam::Strings daemonArguments { juce::File::getSpecialLocation (juce::File::currentExecutableFile).getFullPathName(), Id::daemon.toString(), manifestFile.getFullPathName() };
-
-        if (toolchainArgument.isNotEmpty())
-            daemonArguments.add (juce::String (Chars::doubleDash) + toolchainArgument);
+        const jam::Strings daemonArguments { juce::File::getSpecialLocation (juce::File::currentExecutableFile).getFullPathName(), Id::daemon.toString() };
 
         if (not jam::ChildProcess::startDetached (daemonArguments))
         {
@@ -42,7 +50,7 @@ bool Client::connectToDaemon()
 {
     static constexpr int connectTimeoutMs { 200 };
 
-    const auto port { Server::getPortFile (manifestFile, jam::Strings::getView (toolchainArgument)).loadFileAsString().getIntValue() };
+    const auto port { Server::getPortFile().loadFileAsString().getIntValue() };
     const auto isConnected { connectToSocket (juce::IPAddress::local().toString(), port, connectTimeoutMs) };
 
     if (isConnected)
@@ -53,7 +61,7 @@ bool Client::connectToDaemon()
 
 void Client::fileChanged (const juce::File& file, jam::File::Watcher::Event)
 {
-    const auto portFile { Server::getPortFile (manifestFile, jam::Strings::getView (toolchainArgument)) };
+    const auto portFile { Server::getPortFile() };
 
     if (file == portFile)
     {
@@ -72,6 +80,12 @@ void Client::connectionLost()
 
 void Client::connectionMade()
 {
+    juce::ValueTree connection { jam::Format::toType (Id::connection) };
+
+    connection.setProperty (Id::manifest, manifestFile.getFullPathName(), nullptr);
+    connection.setProperty (Id::toolchainArgument, toolchainArgument, nullptr);
+    sendTree (*this, connection);
+
     while (requests.getNumChildren() > 0)
     {
         const auto row { requests.getChild (0) };
@@ -82,21 +96,23 @@ void Client::connectionMade()
 
 void Client::sendRequest (const juce::ValueTree& row)
 {
-    juce::MemoryBlock data;
-    juce::MemoryOutputStream stream { data, false };
-
-    row.writeToStream (stream);
-    stream.flush();
-    sendMessage (data);
+    sendTree (*this, row);
     requests.removeChild (row, nullptr);
 }
 
 void Client::setMessage (const jam::JsonDocument& document, const jam::Document::Element& root)
 {
-    if (document.getString (document.get (root, lsp::Member::method)).compare (lsp::Method::showMessage) == 0)
+    const auto method { document.getString (document.get (root, lsp::Member::method)) };
+
+    if (method.compare (lsp::Method::showMessage) == 0)
     {
         const auto& params { *document.getChildByToken (root, document.get (root, lsp::Member::params)) };
 
         model.setMessage (jam::Strings::fromView (document.getString (document.get (params, lsp::Member::message))));
+    }
+    else if (method.compare (Server::noPortMethod) == 0)
+    {
+        disconnect (waitForDisconnect, juce::InterprocessConnection::Notify::no);
+        state.setProperty (Id::port, Server::noPort, nullptr);
     }
 }

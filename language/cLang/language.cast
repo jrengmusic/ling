@@ -1,5 +1,6 @@
 ```head
 #include <algorithm>
+#include <array>
 #include <cassert>
 #include <cctype>
 #include <cstddef>
@@ -110,6 +111,7 @@ enum class CursorType
     typeDefinitionDeclaration = 20,
     cxxMethod = 21,
     cursorNamespace = 22,
+    linkageSpecification = 23,
     constructor = 24,
     destructor = 25,
     conversionFunction = 26,
@@ -410,7 +412,7 @@ struct IndexerCallbacks
     void (*indexEntityReference) (ClientData clientData, const IndexEntityReferenceInfo* reference);
 };
 
-static constexpr unsigned indexOptions { static_cast<unsigned> (IndexOptionFlags::indexFunctionLocalSymbols) | static_cast<unsigned> (IndexOptionFlags::indexImplicitTemplateInstantiations) | static_cast<unsigned> (IndexOptionFlags::skipParsedBodiesInSession) };
+static constexpr unsigned indexOptions { static_cast<unsigned> (IndexOptionFlags::indexFunctionLocalSymbols) | static_cast<unsigned> (IndexOptionFlags::skipParsedBodiesInSession) };
 
 namespace HeaderHint
 {
@@ -499,6 +501,14 @@ struct IndexSession
 
             if (candidate->isLoaded())
             {
+                static constexpr const char* noThreadsVariable { "LIBCLANG_NOTHREADS" };
+                static constexpr const char* noThreadsValue { "1" };
+                #ifdef _WIN32
+                _putenv_s (noThreadsVariable, noThreadsValue);
+                #else
+                static constexpr int keepExisting { 0 };
+                setenv (noThreadsVariable, noThreadsValue, keepExisting);
+                #endif
                 indexHandle = { candidate->createIndex (excludeDeclarationsFromPCH, displayDiagnostics), candidate->disposeIndex };
                 action = { indexHandle != nullptr ? candidate->createIndexAction (indexHandle.get()) : nullptr, candidate->disposeIndexAction };
                 libclang = std::move (candidate);
@@ -679,7 +689,6 @@ private:
     static constexpr int readFailure { 4 };
     static constexpr int unitFailure { 5 };
     static constexpr int sessionFailure { 6 };
-    static constexpr int threadFailure { 7 };
     static constexpr int saveFailure { 8 };
     static constexpr int quoteLength { 1 };
     static constexpr int qualifierLength { 3 };
@@ -698,7 +707,6 @@ private:
     static constexpr int declarationFileStride { 2 };
     static constexpr int excludeDeclarationsFromPCH { 0 };
     static constexpr int displayDiagnostics { 0 };
-    static constexpr unsigned defaultStackSize { 0 };
     static constexpr unsigned translationUnitOptions { static_cast<unsigned> (TranslationUnitFlags::detailedPreprocessingRecord) };
     static constexpr unsigned precompiledOptions { static_cast<unsigned> (TranslationUnitFlags::incomplete) | static_cast<unsigned> (TranslationUnitFlags::forSerialization) };
     static constexpr unsigned contextOptions { translationUnitOptions | static_cast<unsigned> (TranslationUnitFlags::keepGoing) };
@@ -746,10 +754,8 @@ static int index (const char* const* arguments, int argumentCount, const char* d
             commandLine.add (argumentTexts.getPointer (position));
 
         const auto precompiledPath { getOutputPath (arguments, argumentCount, directory) };
-        auto indexUnit { [&session, &commandLine, &callbacks, directory, &precompiledPath, bufferPaths, bufferTexts, bufferCount, &result] { result = indexSource (session, commandLine, callbacks, directory, precompiledPath, bufferPaths, bufferTexts, bufferCount); } };
 
-        result = threadFailure;
-        session.libclang->executeOnThread ([] (void* data) { (*static_cast<decltype (indexUnit)*> (data))(); }, &indexUnit, defaultStackSize);
+        result = indexSource (session, commandLine, callbacks, directory, precompiledPath, bufferPaths, bufferTexts, bufferCount);
     }
 
     if (result != 0)
@@ -3078,15 +3084,9 @@ struct IndexContext
     ling::WordLists keptRanges;
     ling::WordMap pathKeys;
     ling::WordMap pathFiles;
-
-    bool isPreprocessed (SourceLocation location) const
-    {
-        SourceFile file { nullptr };
-
-        libclang.getSpellingLocation (location, &file, nullptr, nullptr, nullptr);
-
-        return file == nullptr or preprocessedFiles.contains (getFileWord (file));
-    }
+    ling::WordSet ownedContainers;
+    ling::WordMap classCursors;
+    ling::WordSet populatedBases;
 
     bool isForeign (SourceFile file)
     {
@@ -3154,6 +3154,34 @@ struct IndexContext
         return keptRanges.isEmpty() or getKeptPosition (file, offset) != invalidPosition;
     }
 
+    bool isExtentKept (SourceFile file, SourceRange extent)
+    {
+        assert (file != nullptr);
+
+        if (not keptRanges.isEmpty())
+        {
+            const auto pathKey { getPathKey (file) };
+            unsigned startOffset { 0 };
+            unsigned endOffset { 0 };
+
+            libclang.getSpellingLocation (libclang.getRangeStart (extent), nullptr, nullptr, nullptr, &startOffset);
+            libclang.getSpellingLocation (libclang.getRangeEnd (extent), nullptr, nullptr, nullptr, &endOffset);
+
+            for (int position { 0 }; position < keptRanges.getSize (pathKey); ++position)
+            {
+                const auto range { keptRanges.at (pathKey, position) };
+                const auto keptStart { static_cast<unsigned> (ling::HalfWords::unpackFirst (range)) };
+                const auto keptEnd { static_cast<unsigned> (ling::HalfWords::unpackSecond (range)) };
+
+                if (startOffset < keptEnd and keptStart <= endOffset) return true;
+            }
+
+            return false;
+        }
+
+        return true;
+    }
+
     unsigned long long getSymbolHash (const char* symbol, Cursor entity)
     {
         const auto symbolHash { ling::Wyhash::hashBytes (symbol, std::strlen (symbol)) };
@@ -3180,6 +3208,20 @@ struct IndexContext
             preprocessedFiles.add (getFileWord (file), static_cast<unsigned long long> (reinterpret_cast<std::uintptr_t> (contents)));
             preprocessedFiles.add (getFileWord (file), static_cast<unsigned long long> (size));
         }
+    }
+
+    void addOwnedContainers()
+    {
+        preprocessedFiles.applyToKeys ([this] (unsigned long long fileWord)
+        {
+            auto current { fileWord };
+
+            while (includers.contains (current) and not ownedContainers.contains (includers.at (current)))
+            {
+                current = includers.at (current);
+                ownedContainers.add (current);
+            }
+        });
     }
 
     std::string_view getFileContents (SourceFile file, TranslationUnit activeUnit = nullptr) const
@@ -3442,6 +3484,7 @@ static void onInclusion (SourceFile includedFile, SourceLocation* inclusionStack
 static void addIncludes (const LibClang& libclang, IndexContext& context, TranslationUnit translationUnit)
 {
     libclang.getInclusions (translationUnit, onInclusion, &context);
+    context.addOwnedContainers();
 }
 
 ```
@@ -3831,27 +3874,34 @@ static void reportOutline (IndexContext& context, const IndexDeclarationInfo* de
     unsigned line { 0 };
     unsigned column { 0 };
     unsigned offset { 0 };
-    unsigned endLine { 0 };
-    unsigned endColumn { 0 };
-
-    libclang.getSpellingLocation (libclang.indexLocSourceLocation (declaration->loc), &file, &line, &column, &offset);
-    libclang.getSpellingLocation (libclang.getRangeEnd (libclang.getCursorExtent (declaration->cursor)), nullptr, &endLine, &endColumn, nullptr);
-
-    context.addPreprocessedFile (file, context.translationUnit != nullptr ? context.translationUnit : libclang.getCursorTranslationUnit (declaration->cursor));
-    const auto contents { context.getFileContents (file) };
-    const auto qualifierLength { static_cast<int> (offset) - getOutlineQualifierStart (contents, static_cast<int> (offset)) };
-    const auto nameLength { getOutlineNameLength (libclang, declaration->cursor, offset, declaration->entityInfo->name) };
-    const auto path { libclang.getFileName (file) };
-    const auto normalPath { getNormalPath (libclang.getCString (path)) };
     int index { invalidPosition };
 
-    if (context.callbacks.addOutline != nullptr and nameLength > 0 and not context.isForeign (file) and context.keptRanges.isEmpty())
-        index = context.callbacks.addOutline (context.callbacks.context, normalPath.c_str(), static_cast<int> (line), static_cast<int> (column), static_cast<int> (endLine), static_cast<int> (endColumn), nameLength, qualifierLength, getOutlineType (libclang, declaration->cursor, type), getOutlineParent (context, declaration));
+    libclang.getSpellingLocation (libclang.indexLocSourceLocation (declaration->loc), &file, &line, &column, &offset);
+
+    if (context.callbacks.addOutline != nullptr and file != nullptr and not context.isForeign (file) and context.keptRanges.isEmpty())
+    {
+        unsigned endLine { 0 };
+        unsigned endColumn { 0 };
+
+        libclang.getSpellingLocation (libclang.getRangeEnd (libclang.getCursorExtent (declaration->cursor)), nullptr, &endLine, &endColumn, nullptr);
+        context.addPreprocessedFile (file, context.translationUnit != nullptr ? context.translationUnit : libclang.getCursorTranslationUnit (declaration->cursor));
+
+        const auto contents { context.getFileContents (file) };
+        const auto qualifierLength { static_cast<int> (offset) - getOutlineQualifierStart (contents, static_cast<int> (offset)) };
+        const auto nameLength { getOutlineNameLength (libclang, declaration->cursor, offset, declaration->entityInfo->name) };
+
+        if (nameLength > 0)
+        {
+            const auto path { libclang.getFileName (file) };
+            const auto normalPath { getNormalPath (libclang.getCString (path)) };
+
+            index = context.callbacks.addOutline (context.callbacks.context, normalPath.c_str(), static_cast<int> (line), static_cast<int> (column), static_cast<int> (endLine), static_cast<int> (endColumn), nameLength, qualifierLength, getOutlineType (libclang, declaration->cursor, type), getOutlineParent (context, declaration));
+            libclang.disposeString (path);
+        }
+    }
 
     if (outlineContainerTypes[type] != 0)
         context.outlines.set (static_cast<unsigned long long> (libclang.hashCursor (declaration->cursor)), static_cast<unsigned long long> (index));
-
-    libclang.disposeString (path);
 }
 
 ```
@@ -4113,17 +4163,14 @@ static void storeEnumeratorScope (IndexContext& context, const IndexDeclarationI
 
 ```
 ```addMacroCompletion
-static void addMacroCompletion (IndexContext& context, Cursor cursor)
+static void addMacroCompletion (IndexContext& context, CursorType type, std::string_view usr, std::string_view name, SourceFile file)
 {
-    const auto& libclang { context.libclang };
-    const auto usr { getText (libclang, libclang.getCursorUSR (cursor)) };
-    const auto name { getText (libclang, libclang.getCursorSpelling (cursor)) };
-    SourceFile file { nullptr };
+    if (type == CursorType::macroDefinition and not name.empty())
+    {
+        const std::string nameText (name);
 
-    libclang.getSpellingLocation (libclang.getCursorLocation (cursor), &file, nullptr, nullptr, nullptr);
-
-    if (cursor.type == CursorType::macroDefinition)
-        addCompletionRow (context, 0, ling::Wyhash::hashBytes (usr.data(), usr.size()), name, name, map::SyntaxTokenType::macro, 0, file);
+        addCompletionRow (context, 0, ling::Wyhash::hashBytes (usr.data(), usr.size()), nameText, nameText, map::SyntaxTokenType::macro, 0, file);
+    }
 }
 
 ```
@@ -4146,22 +4193,31 @@ static void addCompletionRecord (IndexContext& context, const IndexDeclarationIn
 ```addCompletionBases
 static void addCompletionBases (IndexContext& context, const IndexDeclarationInfo* declaration, SourceFile file)
 {
-    const auto* classInfo { context.libclang.getCXXClassDeclInfo (declaration) };
-    const auto derived { ling::Wyhash::hashBytes (declaration->entityInfo->USR, std::strlen (declaration->entityInfo->USR)) };
-
-    if (classInfo != nullptr and declaration->isDefinition != 0)
+    if (declaration->isDefinition != 0)
     {
-        std::for_each (classInfo->bases, classInfo->bases + classInfo->numBases,
-                       [&context, derived] (const IndexBaseClassInfo* base)
-                       {
-                           if (base->base != nullptr)
-                               context.completionBases.add (derived, ling::Wyhash::hashBytes (base->base->USR, std::strlen (base->base->USR)));
-                       });
+        const auto* classInfo { context.libclang.getCXXClassDeclInfo (declaration) };
 
-        if (classInfo->numBases != 0)
+        if (classInfo != nullptr)
         {
-            context.derivedClasses.add (derived);
-            context.derivedPaths.add (derived, getFileWord (file));
+            const auto derived { ling::Wyhash::hashBytes (declaration->entityInfo->USR, std::strlen (declaration->entityInfo->USR)) };
+
+            context.classCursors.set (derived, static_cast<unsigned long long> (addCursor (context.cursors, declaration->cursor)));
+
+            if (classInfo->numBases != 0)
+            {
+                std::for_each (classInfo->bases, classInfo->bases + classInfo->numBases,
+                               [&context, derived] (const IndexBaseClassInfo* base)
+                               {
+                                   if (base->base != nullptr)
+                                       context.completionBases.add (derived, ling::Wyhash::hashBytes (base->base->USR, std::strlen (base->base->USR)));
+                               });
+
+                if (file == nullptr or not context.isForeign (file))
+                {
+                    context.derivedClasses.add (derived);
+                    context.derivedPaths.add (derived, getFileWord (file));
+                }
+            }
         }
     }
 }
@@ -4185,11 +4241,56 @@ static void emitCompletion (IndexContext& context, unsigned long long scope, uns
 
 ```
 ```addInheritedCompletions
+static void addForeignBaseCompletions (IndexContext& context, unsigned long long base)
+{
+    static const ling::LookupTable memberEntityTypes {
+        {
+            { static_cast<int> (CursorType::cxxMethod), static_cast<int> (IndexEntityType::cxxInstanceMethod) },
+            { static_cast<int> (CursorType::functionTemplate), static_cast<int> (IndexEntityType::function) },
+            { static_cast<int> (CursorType::fieldDeclaration), static_cast<int> (IndexEntityType::field) },
+            { static_cast<int> (CursorType::variableDeclaration), static_cast<int> (IndexEntityType::cxxStaticVariable) },
+            { static_cast<int> (CursorType::enumerationDeclaration), static_cast<int> (IndexEntityType::enumeration) },
+            { static_cast<int> (CursorType::typeAliasDeclaration), static_cast<int> (IndexEntityType::cxxTypeAlias) },
+            { static_cast<int> (CursorType::typeDefinitionDeclaration), static_cast<int> (IndexEntityType::typeDefinition) },
+            { static_cast<int> (CursorType::classDeclaration), static_cast<int> (IndexEntityType::cxxClass) },
+            { static_cast<int> (CursorType::structDeclaration), static_cast<int> (IndexEntityType::structure) },
+            { static_cast<int> (CursorType::unionDeclaration), static_cast<int> (IndexEntityType::entityUnion) },
+            { static_cast<int> (CursorType::classTemplate), static_cast<int> (IndexEntityType::cxxClass) }
+        }
+    };
+
+    if (not context.populatedBases.contains (base) and context.completionsByScope.getSize (base) == 0 and context.classCursors.contains (base))
+    {
+        context.populatedBases.add (base);
+
+        const auto& libclang { context.libclang };
+        const auto baseCursor { getCursor (context.cursors, static_cast<int> (context.classCursors.at (base))) };
+
+        applyToChildren (libclang, baseCursor, [&context, &libclang, base] (Cursor child)
+        {
+            const int entityType { memberEntityTypes[static_cast<int> (child.type)] };
+
+            if (entityType != 0 and libclang.getCXXAccessSpecifier (child) != accessPrivate)
+            {
+                const auto name { getText (libclang, libclang.getCursorSpelling (child)) };
+                const auto usr { getText (libclang, libclang.getCursorUSR (child)) };
+                const int type { getEntityType (child.type == CursorType::cxxMethod and libclang.isStaticMethod (child) != 0 ? static_cast<int> (IndexEntityType::cxxStaticMethod) : entityType) };
+
+                if (not name.empty() and not usr.empty() and (roles[type] & LanguageRole::declaration) != 0)
+                    addCompletionRow (context, base, ling::Wyhash::hashBytes (usr.data(), usr.size()), name, getInsertText (libclang, child, name, type), type, 0, nullptr);
+            }
+
+            return ChildVisitResult::visitContinue;
+        });
+    }
+}
+
 static void addInheritedCompletions (IndexContext& context, unsigned long long derived, unsigned long long base, ling::WordSet& inheritedBases)
 {
     if (not inheritedBases.contains (base))
     {
         inheritedBases.add (base);
+        addForeignBaseCompletions (context, base);
 
         for (int position { 0 }; position < context.completionsByScope.getSize (base); ++position)
         {
@@ -4231,30 +4332,45 @@ static void addCompletions (IndexContext& context)
 static void onDeclaration (ClientData clientData, const IndexDeclarationInfo* declaration)
 {
     auto& context { *static_cast<IndexContext*> (clientData) };
-    const auto* classInfo { context.libclang.getCXXClassDeclInfo (declaration) };
-    SourceFile file { nullptr };
+    const auto location { context.libclang.indexLocSourceLocation (declaration->loc) };
 
-    const auto symbolHash { context.getSymbolHash (declaration->entityInfo->USR, declaration->cursor) };
-    const bool isComplete { declaration->isDefinition != 0 or definitionTypes[static_cast<int> (declaration->cursor.type)] == 0 };
+    if (context.libclang.isInSystemHeader (location) == 0)
+    {
+        SourceFile file { nullptr };
 
-    const auto record { context.addSymbol (declaration->loc, declaration->entityInfo->USR, declaration->cursor, LanguageRole::declaration | (isComplete ? LanguageRole::definition : 0), getEntityType (static_cast<int> (declaration->entityInfo->type)), declaration->entityInfo->name, context.addHover (declaration->loc, declaration->entityInfo->USR, declaration->cursor)) };
-    context.libclang.getSpellingLocation (context.libclang.indexLocSourceLocation (declaration->loc), &file, nullptr, nullptr, nullptr);
-    context.declarationFiles.add (symbolHash, getFileWord (file));
-    context.declarationFiles.add (symbolHash, static_cast<unsigned long long> (isComplete ? 1 : 0));
-    addOutline (context, declaration);
-    addTypeDefinition (context, record, declaration->cursor);
-    addCompletionRecord (context, declaration, file);
-    addCompletionBases (context, declaration, file);
+        context.libclang.getSpellingLocation (location, &file, nullptr, nullptr, nullptr);
 
-    if (classInfo != nullptr)
-        std::for_each (classInfo->bases, classInfo->bases + classInfo->numBases,
-                       [&context] (const IndexBaseClassInfo* base)
-                       {
-                           if (base->base != nullptr)
-                           {
-                               context.addSymbol (base->loc, base->base->USR, context.libclang.getCursorReferenced (base->cursor), LanguageRole::reference | LanguageRole::base, getEntityType (static_cast<int> (base->base->type)), base->base->name, context.addHover (base->loc, base->base->USR, context.libclang.getCursorReferenced (base->cursor)));
-                           }
-                       });
+        const auto symbolHash { context.getSymbolHash (declaration->entityInfo->USR, declaration->cursor) };
+        const bool isComplete { declaration->isDefinition != 0 or definitionTypes[static_cast<int> (declaration->cursor.type)] == 0 };
+
+        context.declarationFiles.add (symbolHash, getFileWord (file));
+        context.declarationFiles.add (symbolHash, static_cast<unsigned long long> (isComplete ? 1 : 0));
+
+        if (context.keptRanges.isEmpty())
+            addCompletionBases (context, declaration, file);
+
+        if (file == nullptr or not context.isForeign (file))
+        {
+            if (context.keptRanges.isEmpty())
+                addCompletionRecord (context, declaration, file);
+
+            const auto* classInfo { context.libclang.getCXXClassDeclInfo (declaration) };
+            const auto record { context.addSymbol (declaration->loc, declaration->entityInfo->USR, declaration->cursor, LanguageRole::declaration | (isComplete ? LanguageRole::definition : 0), getEntityType (static_cast<int> (declaration->entityInfo->type)), declaration->entityInfo->name, context.addHover (declaration->loc, declaration->entityInfo->USR, declaration->cursor)) };
+
+            addOutline (context, declaration);
+            addTypeDefinition (context, record, declaration->cursor);
+
+            if (classInfo != nullptr)
+                std::for_each (classInfo->bases, classInfo->bases + classInfo->numBases,
+                               [&context] (const IndexBaseClassInfo* base)
+                               {
+                                   if (base->base != nullptr)
+                                   {
+                                       context.addSymbol (base->loc, base->base->USR, context.libclang.getCursorReferenced (base->cursor), LanguageRole::reference | LanguageRole::base, getEntityType (static_cast<int> (base->base->type)), base->base->name, context.addHover (base->loc, base->base->USR, context.libclang.getCursorReferenced (base->cursor)));
+                                   }
+                               });
+        }
+    }
 }
 
 ```
@@ -4262,21 +4378,31 @@ static void onDeclaration (ClientData clientData, const IndexDeclarationInfo* de
 static void onReference (ClientData clientData, const IndexEntityReferenceInfo* reference)
 {
     auto& context { *static_cast<IndexContext*> (clientData) };
+    const auto location { context.libclang.indexLocSourceLocation (reference->loc) };
 
-    const int role { referenceRoles[static_cast<int> (reference->role) & static_cast<int> (SymbolRole::call)] | (reference->cursor.type == CursorType::usingDeclaration ? LanguageRole::declaration : 0) };
-
-    const auto referencedCursor { context.libclang.isInvalid (static_cast<int> (context.libclang.getCursorKind (context.libclang.getCursorReferenced (reference->cursor)))) == 0 ? context.libclang.getCursorReferenced (reference->cursor) : reference->referencedEntity->cursor };
-
-    const auto entityCursor { reference->referencedEntity->cursor };
-    const auto memberPattern { context.libclang.getSpecializedCursorTemplate (entityCursor) };
-    const bool isMemberTemplate { (entityCursor.type == CursorType::functionTemplate or entityCursor.type == CursorType::classTemplate) and context.libclang.isInvalid (static_cast<int> (memberPattern.type)) == 0 };
-    const std::string patternSymbol { isMemberTemplate ? getText (context.libclang, context.libclang.getCursorUSR (memberPattern)) : std::string {} };
-    const char* symbol { isMemberTemplate ? patternSymbol.c_str() : reference->referencedEntity->USR };
-
-    if (context.libclang.getCursorReferenced (reference->cursor).type != CursorType::overloadedDeclarationReference)
+    if (context.libclang.isInSystemHeader (location) == 0)
     {
-        const auto record { context.addSymbol (reference->loc, symbol, referencedCursor, role, getEntityType (static_cast<int> (reference->referencedEntity->type)), reference->referencedEntity->name, context.addHover (reference->loc, symbol, referencedCursor)) };
-        addTypeDefinition (context, record, context.libclang.getCursorReferenced (reference->cursor));
+        SourceFile file { nullptr };
+
+        context.libclang.getSpellingLocation (location, &file, nullptr, nullptr, nullptr);
+
+        if (file != nullptr and not context.isForeign (file))
+        {
+            const int role { referenceRoles[static_cast<int> (reference->role) & static_cast<int> (SymbolRole::call)] | (reference->cursor.type == CursorType::usingDeclaration ? LanguageRole::declaration : 0) };
+            const auto referencedCursor { context.libclang.isInvalid (static_cast<int> (context.libclang.getCursorKind (context.libclang.getCursorReferenced (reference->cursor)))) == 0 ? context.libclang.getCursorReferenced (reference->cursor) : reference->referencedEntity->cursor };
+            const auto entityCursor { reference->referencedEntity->cursor };
+            const auto memberPattern { context.libclang.getSpecializedCursorTemplate (entityCursor) };
+            const bool isMemberTemplate { (entityCursor.type == CursorType::functionTemplate or entityCursor.type == CursorType::classTemplate) and context.libclang.isInvalid (static_cast<int> (memberPattern.type)) == 0 };
+            const std::string patternSymbol { isMemberTemplate ? getText (context.libclang, context.libclang.getCursorUSR (memberPattern)) : std::string {} };
+            const char* symbol { isMemberTemplate ? patternSymbol.c_str() : reference->referencedEntity->USR };
+
+            if (context.libclang.getCursorReferenced (reference->cursor).type != CursorType::overloadedDeclarationReference)
+            {
+                const auto record { context.addSymbol (reference->loc, symbol, referencedCursor, role, getEntityType (static_cast<int> (reference->referencedEntity->type)), reference->referencedEntity->name, context.addHover (reference->loc, symbol, referencedCursor)) };
+
+                addTypeDefinition (context, record, context.libclang.getCursorReferenced (reference->cursor));
+            }
+        }
     }
 }
 
@@ -4932,17 +5058,33 @@ static ChildVisitResult onMacro (Cursor cursor, Cursor, ClientData clientData)
     auto& context { *static_cast<IndexContext*> (clientData) };
     const auto& libclang { context.libclang };
 
-    if ((cursor.type == CursorType::macroDefinition or cursor.type == CursorType::macroExpansion) and context.isPreprocessed (libclang.getCursorLocation (cursor)))
+    if (cursor.type == CursorType::macroDefinition or cursor.type == CursorType::macroExpansion)
     {
-        const bool isDefinition { cursor.type == CursorType::macroDefinition };
-        const auto hoverCursor { isDefinition ? cursor : libclang.getCursorReferenced (cursor) };
-        const auto usr { libclang.getCursorUSR (hoverCursor) };
-        const auto spelling { libclang.getCursorSpelling (cursor) };
+        const auto location { libclang.getCursorLocation (cursor) };
+        SourceFile file { nullptr };
+        unsigned offset { 0 };
 
-        context.addSymbol (libclang.getCursorLocation (cursor), libclang.getCString (usr), hoverCursor, isDefinition ? LanguageRole::declaration : LanguageRole::reference, map::SyntaxTokenType::macro, libclang.getCString (spelling), context.addHover (libclang.getCursorLocation (cursor), libclang.getCString (usr), hoverCursor));
-        addMacroCompletion (context, cursor);
-        libclang.disposeString (spelling);
-        libclang.disposeString (usr);
+        libclang.getSpellingLocation (location, &file, nullptr, nullptr, &offset);
+
+        if (file != nullptr and context.preprocessedFiles.contains (getFileWord (file)) and libclang.isInSystemHeader (location) == 0 and not context.isForeign (file) and context.isKept (file, offset))
+        {
+            const bool isDefinition { cursor.type == CursorType::macroDefinition };
+            const auto hoverCursor { isDefinition ? cursor : libclang.getCursorReferenced (cursor) };
+            const auto usr { libclang.getCursorUSR (hoverCursor) };
+            const auto spelling { libclang.getCursorSpelling (cursor) };
+            const char* usrText { libclang.getCString (usr) };
+            const char* spellingText { libclang.getCString (spelling) };
+            const std::string_view usrView { usrText != nullptr ? std::string_view (usrText) : std::string_view {} };
+            const std::string_view spellingView { spellingText != nullptr ? std::string_view (spellingText) : std::string_view {} };
+
+            context.addSymbol (location, usrText, hoverCursor, isDefinition ? LanguageRole::declaration : LanguageRole::reference, map::SyntaxTokenType::macro, spellingText, context.addHover (location, usrText, hoverCursor));
+
+            if (isDefinition)
+                addMacroCompletion (context, cursor.type, usrView, spellingView, file);
+
+            libclang.disposeString (spelling);
+            libclang.disposeString (usr);
+        }
     }
 
     return ChildVisitResult::visitContinue;
@@ -5528,19 +5670,29 @@ static ChildVisitResult onCursor (Cursor cursor, Cursor, ClientData clientData)
 
     const auto& libclang { context.libclang };
     const auto location { libclang.getCursorLocation (cursor) };
+    SourceFile file { nullptr };
 
-    if (context.isPreprocessed (location))
+    libclang.getSpellingLocation (location, &file, nullptr, nullptr, nullptr);
+
+    const bool isContainer { cursor.type == CursorType::cursorNamespace or cursor.type == CursorType::linkageSpecification };
+
+    if (file != nullptr and context.preprocessedFiles.contains (getFileWord (file)))
     {
-        if (not context.isForeign (location))
+        const bool isOwned { libclang.isInSystemHeader (location) == 0 and not context.isForeign (file) };
+
+        if (isOwned and (isContainer or context.isExtentKept (file, libclang.getCursorExtent (cursor))))
         {
             const auto addCursorRecord { reinterpret_cast<AddRecord> (reinterpret_cast<std::uintptr_t> (cursorRecords[static_cast<int> (cursor.type)])) };
 
             if (addCursorRecord != nullptr)
                 addCursorRecord (libclang, context, cursor);
-        }
 
-        return ChildVisitResult::recurse;
+            return ChildVisitResult::recurse;
+        }
     }
+
+    if (isContainer and (file == nullptr or context.ownedContainers.contains (getFileWord (file))))
+        return ChildVisitResult::recurse;
 
     return ChildVisitResult::visitContinue;
 }
@@ -5658,14 +5810,15 @@ static void addDiagnostics (const LibClang& libclang, IndexContext& context, Tra
     {
         const std::unique_ptr<void, decltype (LibClang::disposeDiagnostic)> diagnostic { libclang.getDiagnostic (translationUnit, position), libclang.disposeDiagnostic };
         const auto severity { libclang.getDiagnosticSeverity (diagnostic.get()) };
+        const auto location { libclang.getDiagnosticLocation (diagnostic.get()) };
         SourceFile file { nullptr };
         unsigned line { 0 };
         unsigned column { 0 };
 
-        libclang.getSpellingLocation (libclang.getDiagnosticLocation (diagnostic.get()), &file, &line, &column, nullptr);
+        libclang.getSpellingLocation (location, &file, &line, &column, nullptr);
         const auto [endLine, endColumn] { libclang.getDiagnosticNumRanges (diagnostic.get()) > 0 ? getEndPosition (libclang, libclang.getDiagnosticRange (diagnostic.get(), 0), file, line, column) : std::make_pair (line, column) };
 
-        if (file != nullptr and severity >= ToolchainValue::reportedSeverity)
+        if (file != nullptr and severity >= ToolchainValue::reportedSeverity and libclang.isInSystemHeader (location) == 0)
         {
             if (not context.isForeign (file))
             {
@@ -5718,7 +5871,11 @@ static IndexerCallbacks getIndexerCallbacks()
         },
         [] (ClientData clientData, const IncludedFileInfo* includedFile) -> IndexClientFile
         {
-            static_cast<IndexContext*> (clientData)->addPreprocessedFile (includedFile->file);
+            auto& indexContext { *static_cast<IndexContext*> (clientData) };
+
+            if (includedFile->file != nullptr and not indexContext.isForeign (includedFile->file))
+                indexContext.addPreprocessedFile (includedFile->file);
+
             return nullptr;
         },
         nullptr, nullptr, onDeclaration, onReference
@@ -5900,6 +6057,43 @@ static std::string_view getOpeningDirective (std::string_view contents, unsigned
 
 ```
 ```addSkippedDirectives
+static bool hasNonIncludeCode (std::string_view body)
+{
+    static constexpr std::string_view whitespaces { " \t\r\n\v\f" };
+    static constexpr std::array<std::string_view, 7> skippedDirectives { { "include_next", "include", "import", "pragma", "endif", "else", "elif" } };
+
+    for (std::size_t position { body.find_first_not_of (whitespaces) }; position != std::string_view::npos; position = body.find_first_not_of (whitespaces, position))
+    {
+        if (body.compare (position, std::string_view (Chars::doubleSlash).size(), Chars::doubleSlash) == 0)
+            position = std::min (body.find (static_cast<char> (Chars::newline), position), body.size());
+        else if (body.compare (position, std::string_view (Chars::cssCommentOpen).size(), Chars::cssCommentOpen) == 0)
+        {
+            const auto close { body.find (Chars::cssCommentClose, position + std::string_view (Chars::cssCommentOpen).size()) };
+
+            position = close == std::string_view::npos ? body.size() : close + std::string_view (Chars::cssCommentClose).size();
+        }
+        else if (body.at (position) == Chars::hash)
+        {
+            const auto lineEnd { std::min (body.find (static_cast<char> (Chars::newline), position), body.size()) };
+            const auto line { body.substr (position + 1, lineEnd - (position + 1)) };
+            const auto nameStart { line.find_first_not_of (horizontalSpaces) };
+            const auto tail { nameStart == std::string_view::npos ? std::string_view {} : line.substr (nameStart) };
+
+            if (std::none_of (skippedDirectives.begin(), skippedDirectives.end(), [&tail] (std::string_view directive)
+                { return tail.size() >= directive.size() and tail.compare (0, directive.size(), directive) == 0 and (tail.size() == directive.size() or not isIdentifierCharacter (tail.at (directive.size()))); }))
+                return true;
+
+            position = lineEnd;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 static unsigned addSkippedDirectives (IndexContext& mainContext, const ling::WordLists& keptRanges, ling::Texts& directiveTexts, ling::WordMap& directiveEntries)
 {
     unsigned platformMask { 0 };
@@ -5912,10 +6106,14 @@ static unsigned addSkippedDirectives (IndexContext& mainContext, const ling::Wor
         {
             const auto range { keptRanges.at (pathKey, position) };
             const auto start { static_cast<unsigned> (ling::HalfWords::unpackFirst (range)) };
+            const auto end { static_cast<unsigned> (ling::HalfWords::unpackSecond (range)) };
             const auto line { getDirectiveLine (contents, start) };
+            const auto bodyStart { std::min (static_cast<std::size_t> (start) + line.size() + 1, contents.size()) };
+            const auto bodyEnd { std::min (static_cast<std::size_t> (end), contents.size()) };
+            const auto body { bodyStart < bodyEnd ? contents.substr (bodyStart, bodyEnd - bodyStart) : std::string_view {} };
             const auto keyword { getDirectiveKeyword (line) };
 
-            if (getConditionActions().contains (keyword))
+            if (getConditionActions().contains (keyword) and hasNonIncludeCode (body))
             {
                 const auto action { static_cast<ConditionAction> (getConditionActions().at (keyword)) };
                 const auto sourceLine { action == ConditionAction::invert ? getOpeningDirective (contents, start) : line };
@@ -6041,6 +6239,7 @@ static ling::WordLists addContextPass (const IndexSession& session, const ling::
 
     const int result { applyToTranslationUnit (session, commandLine, unsavedFiles, bufferCount, contextOptions, context, [&libclang, &context, &remaining] (TranslationUnit translationUnit)
     {
+        addIncludes (libclang, context, translationUnit);
         addCallPassings (libclang, context, translationUnit);
         addHovers (libclang, context);
         addChosenSymbols (libclang, context);

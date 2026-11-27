@@ -1,7 +1,9 @@
 #include "Server.h"
 
-Server::Server()
-    : message (*model.getParameter<jam::ParameterText> (jam::Format::toType (Id::overlay), Id::message),
+Server::Workspace::Workspace (Server& newOwner, const juce::String& newKey, const juce::File& manifestFile, const juce::String& toolchainArgument)
+    : owner (newOwner),
+      key (newKey),
+      message (*model.getParameter<jam::ParameterText> (jam::Format::toType (Id::overlay), Id::message),
                [this] (const juce::var& text)
                {
                    const auto& messageText { text.toString() };
@@ -25,8 +27,7 @@ Server::Server()
                        });
                    });
 
-                   for (const auto& connection : connections)
-                       connection->sendMessage (json);
+                   owner.broadcast (state, json);
                }),
       progress (*model.getParameter<jam::Parameter<int>> (jam::Format::toType (Id::overlay), Id::pendingJobCount),
                 [this] (const juce::var& pendingValue)
@@ -34,96 +35,171 @@ Server::Server()
                     const auto pendingJobs { static_cast<int> (pendingValue) };
                     const auto totalJobs { model.getParameter<jam::Parameter<int>> (jam::Format::toType (Id::overlay), Id::jobCount)->getValue() };
                     const auto progressType { pendingJobs == 0 ? lsp::WorkDoneProgressKind::End : pendingJobs == totalJobs ? lsp::WorkDoneProgressKind::Begin : lsp::WorkDoneProgressKind::Report };
-                    const auto json { getProgress (progressType, pendingJobs, totalJobs) };
 
-                    for (const auto& connection : connections)
-                        connection->sendMessage (json);
+                    owner.broadcast (state, getProgress (progressType, pendingJobs, totalJobs));
                 })
+{
+    model.addListener (this);
+    model.state.setProperty (Id::toolchainArgument, toolchainArgument, nullptr);
+    model.state.setProperty (Id::manifest, manifestFile.getFullPathName(), nullptr);
+}
+
+Server::Workspace::~Workspace()
+{
+    model.removeListener (this);
+}
+
+bool Server::Workspace::hasConnection (const juce::ValueTree& connectionState) const
+{
+    return connectionState.getParent() == state;
+}
+
+void Server::Workspace::addConnection (Connection& connection, juce::ValueTree& connectionState)
+{
+    stopTimer();
+    state.appendChild (connectionState, nullptr);
+
+    if (hasEmptyFiles())
+    {
+        connection.sendMessage (getNoPortNotification());
+    }
+    else
+    {
+        const auto pendingJobs { model.getParameter<jam::Parameter<int>> (jam::Format::toType (Id::overlay), Id::pendingJobCount)->getValue() };
+        const auto totalJobs { model.getParameter<jam::Parameter<int>> (jam::Format::toType (Id::overlay), Id::jobCount)->getValue() };
+
+        if (pendingJobs > 0)
+            connection.sendMessage (getProgress (lsp::WorkDoneProgressKind::Begin, pendingJobs, totalJobs));
+    }
+}
+
+void Server::Workspace::removeConnection (juce::ValueTree& connectionState)
+{
+    if (connectionState.getParent() == state)
+        state.removeChild (connectionState, nullptr);
+
+    if (state.getNumChildren() == 0)
+        startTimer (model.state[Id::timeout]);
+}
+
+bool Server::Workspace::hasEmptyFiles() const
+{
+    const auto files { model.state.getChildWithName (jam::Format::toType (Id::files)) };
+
+    return files.isValid() and files.hasProperty (Id::buildFiles) and files.getNumChildren() == 0;
+}
+
+void Server::Workspace::valueTreeChildAdded (juce::ValueTree& parentTree, juce::ValueTree& childWhichHasBeenAdded)
+{
+    if (parentTree == model.state and childWhichHasBeenAdded.hasType (jam::Format::toType (Id::files)))
+    {
+        if (childWhichHasBeenAdded.getNumChildren() == 0)
+            owner.broadcast (state, getNoPortNotification());
+
+        if (state.getNumChildren() == 0)
+            startTimer (model.state[Id::timeout]);
+    }
+}
+
+void Server::Workspace::timerCallback()
+{
+    const auto workspaceKey { key };
+
+    owner.removeWorkspace (workspaceKey);
+}
+
+Server::Server()
 {
     watcher.addFolder (juce::File::getSpecialLocation (juce::File::currentExecutableFile).getParentDirectory());
     watcher.coalesceEvents (LINGModel::coalesceMs);
     watcher.addListener (this);
-    model.addListener (this);
 }
 
 Server::~Server()
 {
     watcher.removeListener (this);
     stop();
-    model.removeListener (this);
-    state.removeListener (this);
 }
 
 void Server::start()
 {
     [[maybe_unused]] const auto isListening { beginWaitingForSocket (anyPort, juce::IPAddress::local().toString()) };
     jassert (isListening);
+
+    const auto portFile { getPortFile() };
+
+    portFile.getParentDirectory().createDirectory();
+    portFile.replaceWithText (juce::String (getBoundPort()));
+    startTimer (LINGModel::defaultTimeoutMs);
 }
 
-juce::File Server::getPortFile (const juce::File& manifest, std::string_view toolchainArgument)
+juce::File Server::getPortFile()
 {
-    return LINGModel::getCacheDirectory (manifest, toolchainArgument).getChildFile (jam::Format::toFileName (LINGModel::getDaemonName (manifest, toolchainArgument).c_str(), files::lingPort));
-}
-
-juce::File Server::getPortFile() const
-{
-    const auto toolchainArgument { model.state[Id::toolchainArgument].toString() };
-
-    return getPortFile (juce::File { model.state[Id::manifest].toString() }, jam::Strings::getView (toolchainArgument));
+    return LINGModel::getCacheDirectory().getChildFile (jam::Format::toFileName (LINGModel::getDaemonName().c_str(), files::lingPort));
 }
 
 juce::InterprocessConnection* Server::createConnectionObject()
 {
-    const auto connection { std::make_shared<std::unique_ptr<Connection>> (std::make_unique<Connection> (connections)) };
+    const auto connection { std::make_shared<std::unique_ptr<Connection>> (std::make_unique<Connection> (
+        connections,
+        [this] (Connection& clientConnection, juce::ValueTree& connectionState, const juce::File& manifestFile, const juce::String& toolchainArgument)
+        {
+            attachConnection (clientConnection, connectionState, manifestFile, toolchainArgument);
+        },
+        [this] (Connection&, juce::ValueTree& connectionState)
+        {
+            detachConnection (connectionState);
+        })) };
     auto* object { connection->get() };
 
     juce::MessageManager::callAsync ([this, connection] { connections.add (std::move (*connection)); });
     return object;
 }
 
-void Server::valueTreeChildAdded (juce::ValueTree& parentTree, juce::ValueTree& childWhichHasBeenAdded)
+void Server::attachConnection (Connection& connection, juce::ValueTree& connectionState, const juce::File& manifestFile, const juce::String& toolchainArgument)
 {
-    if (childWhichHasBeenAdded.hasType (jam::Format::toType (Id::files)) and parentTree == model.state)
+    stopTimer();
+
+    const auto key { jam::Strings::fromView (LINGModel::getProjectName (manifestFile, jam::Strings::getView (toolchainArgument))) };
+    const auto [entry, isAdded] { workspaces.try_emplace (key) };
+    auto& [workspaceKey, workspace] { *entry };
+
+    if (isAdded)
+        workspace = std::make_unique<Workspace> (*this, key, manifestFile, toolchainArgument);
+
+    workspace->addConnection (connection, connectionState);
+}
+
+void Server::detachConnection (juce::ValueTree& connectionState)
+{
+    for (const auto& [workspaceKey, workspace] : workspaces)
     {
-        getPortFile().getParentDirectory().createDirectory();
-
-        if (childWhichHasBeenAdded.getNumChildren() == 0)
+        if (workspace->hasConnection (connectionState))
         {
-            getPortFile().replaceWithText (juce::String (noPort));
-            stop();
-            juce::JUCEApplicationBase::quit();
-        }
-        else
-        {
-            getPortFile().replaceWithText (juce::String (getBoundPort()));
-            if (state.getNumChildren() == 0)
-                startTimer (model.state[Id::timeout]);
-
-            model.removeListener (this);
-            state.addListener (this);
-        }
-    }
-    else if (parentTree == state)
-    {
-        stopTimer();
-
-        const auto pendingJobs { model.getParameter<jam::Parameter<int>> (jam::Format::toType (Id::overlay), Id::pendingJobCount)->getValue() };
-        const auto totalJobs { model.getParameter<jam::Parameter<int>> (jam::Format::toType (Id::overlay), Id::jobCount)->getValue() };
-
-        if (pendingJobs > 0)
-        {
-            const auto json { getProgress (lsp::WorkDoneProgressKind::Begin, pendingJobs, totalJobs) };
-
-            for (const auto& connection : connections)
-                connection->sendMessage (json);
+            workspace->removeConnection (connectionState);
+            return;
         }
     }
 }
 
-void Server::valueTreeChildRemoved (juce::ValueTree& parentTree, juce::ValueTree&, int)
+void Server::removeWorkspace (const juce::String& key)
 {
-    if (parentTree == state and state.getNumChildren() == 0)
-        startTimer (model.state[Id::timeout]);
+    workspaces.erase (key);
+
+    if (workspaces.empty())
+    {
+        if (connections.isEmpty())
+            timerCallback();
+        else
+            startTimer (LINGModel::defaultTimeoutMs);
+    }
+}
+
+void Server::broadcast (const juce::ValueTree& workspaceConnections, const juce::MemoryBlock& message)
+{
+    for (const auto& connection : connections)
+        if (connection->isIn (workspaceConnections))
+            connection->sendMessage (message);
 }
 
 void Server::timerCallback()
@@ -140,6 +216,21 @@ void Server::fileChanged (const juce::File& file, jam::File::Watcher::Event)
 {
     if (file == juce::File::getSpecialLocation (juce::File::currentExecutableFile))
         timerCallback();
+}
+
+juce::MemoryBlock Server::getNoPortNotification()
+{
+    juce::MemoryBlock json;
+
+    jam::JsonWriter::appendObject (json, [] (juce::MemoryBlock& notification)
+    {
+        Query::appendJsonRpc (notification);
+
+        jam::JsonWriter::appendKey (notification, lsp::Member::method);
+        jam::JsonWriter::appendString (notification, noPortMethod);
+    });
+
+    return json;
 }
 
 juce::MemoryBlock Server::getProgress (std::string_view progressType, int pendingJobs, int totalJobs)

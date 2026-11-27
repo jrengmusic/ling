@@ -258,6 +258,11 @@ void SymbolDocument::Builder::sortAndDeduplicate()
 {
     for (auto& file : files)
     {
+        std::stable_sort (file.symbols.begin(), file.symbols.end(), [] (const SymbolRecord& left, const SymbolRecord& right)
+        {
+            return std::make_pair (left.line, left.column) < std::make_pair (right.line, right.column);
+        });
+
         sortOutlineEntries (file.outlines);
 
         removeDuplicateEntries (file.inlayHints, [this] (const InlayHintEntry& entry)
@@ -569,6 +574,11 @@ SymbolDocument::Header SymbolDocument::getHeader() const noexcept
     Header header {};
     std::memcpy (&header, base, sizeof (Header));
     return header;
+}
+
+juce::int64 SymbolDocument::getHash() const noexcept
+{
+    return getHeader().hash;
 }
 
 SymbolDocument::Span<SymbolDocument::FileEntry> SymbolDocument::getFiles() const noexcept

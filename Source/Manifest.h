@@ -79,7 +79,9 @@ private:
         juce::ValueTree toolchain;///< The toolchain child that the job builds. It holds the message property when validation fails.
         juce::ValueTree roots;///< The roots child that the job builds.
         int timeout { 0 };///< The timeout in milliseconds, from the daemon table, or the default timeout.
-        int threads { LINGModel::defaultThreads };///< The worker thread count from the daemon table, or defaultThreads.
+        int threads { LINGModel::getDefaultThreads() };///< The worker thread count from the daemon table, or LINGModel::getDefaultThreads().
+        /** @brief The watcher coalescing window in milliseconds from the daemon table, or LINGModel::defaultCoalesceMs. */
+        int coalesce { LINGModel::defaultCoalesceMs };
         std::atomic<bool> isFinished { false };///< Set to true when runJob ends. The message thread reads it with acquire order.
     };
 
@@ -92,14 +94,15 @@ private:
     void handleAsyncUpdate() override;
 
     /**
-     * @brief Sets the timeout and thread count of the model, and replaces its roots and toolchain children.
+     * @brief Sets the timeout, thread count, and watcher coalesce window of the model, and replaces its roots and toolchain children.
      *
      * @param toolchain  The toolchain child that replaces the current one.
      * @param roots      The roots child that replaces the current one.
      * @param timeout    The timeout, in milliseconds, that Id::timeout receives.
      * @param threads    The worker thread count that Id::threads receives.
+     * @param coalesce   The watcher event coalescing window, in milliseconds, that Id::coalesce receives.
      */
-    void setToolchain (const juce::ValueTree& toolchain, const juce::ValueTree& roots, int timeout, int threads);
+    void setToolchain (const juce::ValueTree& toolchain, const juce::ValueTree& roots, int timeout, int threads, int coalesce);
 
     /**
      * @brief Returns an integer setting from the daemon table of @p manifest, or @p defaultValue when absent.

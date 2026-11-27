@@ -114,6 +114,77 @@
 <!-- The entry format is in /log (commands/log.md). It is the only source. -->
 <!-- Sprint entries go here, written by PRIMARY agents -->
 
+## Sprint 23: Restore repeated-reference goToDefinition by removing suppressRedundantReferences ✅
+
+**Date:** 2026-11-27
+**Duration:** 00:15
+
+### Agents Participated
+- Primary: COUNSELOR — reproduced `goToDefinition` failures on `Client.cpp:14:15` and `Client.cpp:23:30`, traced the root cause to `IndexOptionFlags::suppressRedundantReferences`, validated the fix, and logged Sprint 23.
+- Subagents: `@Pathfinder` (Neovim LSP config inspection, CLI probes, `benchmark/mcp.md` rebuild and verification, git status collection), `@Engineer` (`language/cLang/language.cast:415` fix).
+
+### Files Modified (1 total)
+- `language/cLang/language.cast:415` — removed `IndexOptionFlags::suppressRedundantReferences` from `indexOptions` while keeping `indexImplicitTemplateInstantiations` removed so `libclang` emits every reference inside a lexical scope.
+
+### Alignment Check
+- [x] BLESSED principles followed
+- [x] NAMES.md adhered
+- [x] MANIFESTO.md principles applied
+
+### Problems Solved
+- `goToDefinition` returned empty results on repeated references inside the same function or constructor initializer (`Source/Client.cpp:14:15` `: juce::InterprocessConnection (true)` and `Source/Client.cpp:23:30` `LINGModel::coalesceMs`) because `IndexOptionFlags::suppressRedundantReferences` (`CXIndexOpt_SuppressRedundantRefs`) dropped them. Removed the flag at `language/cLang/language.cast:415`, rebuilt `/Users/jreng/.local/bin/ling` via `benchmark/mcp.md` (`exitCode 0`, `epoch` `6.01 s`), and verified both positions return their definitions (`juce_InterprocessConnection.h:64` and `Source/LINGModel.h:13`).
+
+### State for Continuation
+- None — sprint fully closed, nothing open.
+
+### Debts Paid
+- None
+
+### Debts Deferred
+- None
+
+## Sprint 22: Demand-driven indexing, resource confinement, shared daemon, and cold-build efficiency ✅
+
+**Date:** 2026-11-27
+**Duration:** 08:30
+
+### Agents Participated
+- Primary: COUNSELOR — planned Parts 1–4, validated each step against CONTRACT, diagnosed cold-build bottlenecks and runtime defects via `scout` and `whatdbg`, validated all 7 `@Auditor` DCF fixes and the post-audit Doxygen pass.
+- Subagents: `@Pathfinder` (codebase discovery, `scout` profiling and MCP accuracy runs, Doxygen pass across 13 headers), `@Engineer` (Parts 1–4 implementation, 7 audit fixes, cold-build optimizations, `addOwnedContainers` cycle fix, `setIndexed` hang fix), `@Auditor` (single sprint-end contract sweep).
+
+### Files Modified (37 source/config files + regenerated `docs/xml/` + plan/RFC)
+- `Source/SymbolDocument.h`, `Source/SymbolDocument.cpp` — bumped binary format to v2, sorted `SymbolRecord` at creation, added `getHash()`.
+- `Source/Index.h`, `Source/Index.cpp` — removed `Index::records`, added lifetime-stable `unitPathIndex` keying, incremental `removeDocuments()`, `UnitOwners` with `roots` and local-directory ownership pass, bounded LRU document cache (`maxCachedDocuments = 64`) with `DocumentScope`.
+- `Source/LINGModel.h`, `Source/LINGModel.cpp` — added `getDefaultThreads()`, `defaultCoalesceMs`, binary-hash `getDaemonName()`, `isWithinRoots()`, and shared `.swap` paths inside roots.
+- `Source/Manifest.h`, `Source/Manifest.cpp` — added configurable `coalesce` in `## daemon` and updated default thread count.
+- `Source/Processor.h`, `Source/Processor.cpp` — added demand-driven `requestUnit()`/`requestAllUnits()`, non-destructive background rebuilds, shared `ThreadPool` injection, burst normal-priority worker pool, root-scoped `UnitsJob`, and `hasIndex()` check in `setIndexed (int)`.
+- `Source/Query.h`, `Source/Query.cpp` — added `appendHoverDefinition()` fallback for external SDK definitions and `DocumentScope` pinning.
+- `Source/Server.h`, `Source/Server.cpp` — implemented multi-workspace `Server::Workspace` registry sharing one `ThreadPool` with per-workspace idle eviction.
+- `Source/Client.h`, `Source/Client.cpp`, `Source/Connection.h`, `Source/Connection.cpp`, `Source/Operation.h`, `Source/Operation.cpp`, `Source/Relay.h`, `Source/Relay.cpp`, `Source/ToolClient.h`, `Source/ToolClient.cpp`, `Source/ToolRelay.h`, `Source/ToolRelay.cpp` — routed clients to the binary-hashed shared daemon and sent workspace manifest metadata on attach.
+- `Source/Main.cpp`, `Source/Validator.cpp`, `Source/HELP.md`, `cast/identifiers.md`, `cast/text.md`, `Source/generated/*` — updated daemon lock, CLI/profiler startup, `Id::coalesce`, help text, and `runDaemon` Doxygen block.
+- `language/cLang/language.cast`, `language/cLang/construction.md` — pruned foreign callbacks/outlines/macros/completions, added lazy `addForeignBaseCompletions()`, fixed `addOwnedContainers()` include-cycle loop, removed `indexImplicitTemplateInstantiations`, added `suppressRedundantReferences`, and set `LIBCLANG_NOTHREADS=1`.
+- `PLAN-demand-driven-indexing-and-efficiency.md` — marked Steps 1.1–5.2 complete.
+
+### Alignment Check
+- [x] BLESSED principles followed
+- [x] NAMES.md adhered
+- [x] MANIFESTO.md principles applied
+
+### Problems Solved
+- Cold index build exceeded 9 minutes on `end` due to unrooted JUCE headers returning `isForeign == false`, eager foreign completions, `Nexus.cpp` stealing module headers, and `indexImplicitTemplateInstantiations` taking 50.7% CPU. Fixed root containment in `UnitOwners::isForeign`, added local-directory header ownership, pruned foreign callbacks with lazy base completions, tuned `indexOptions`, and scaled worker pool to `max(2, cpus - 2)`. Verified cold build dropped to `34.08 s` (>16x faster), warm build dropped to `1.34 s` (`-90.0%` vs `13.36 s` baseline), and `.symbols` disk size dropped >10x.
+- `IndexContext::addOwnedContainers()` looped infinitely on cyclic includes (`whatdbg` trace on PID `61569`). Guarded traversal with `not ownedContainers.contains (includers.at (current))` (`language/cLang/language.cast:3219`).
+- Failed `ParseJob` on `hasIndex() == false` files (such as `Source/tools.json`) left `files[Id::isIndexed]` permanently `false`, hanging `scope == Id::files` requests. Fixed `Processor::setIndexed (int)` (`Source/Processor.cpp:446-456`); verified `--debug` failed-toolchain probe exits `0` in `3 s`.
+- Resolved all 7 `@Auditor` DCF findings and completed the post-audit Doxygen pass across all 13 modified headers and `Source/Main.cpp:406-413`.
+
+### State for Continuation
+- None — sprint fully closed, nothing open.
+
+### Debts Paid
+- None
+
+### Debts Deferred
+- None
+
 ## Sprint 21: Adopt slim CLI module layout and build-time HelpFrames in archetype and JAM CLIs ✅
 
 **Date:** 2026-11-25
@@ -241,220 +312,3 @@
 
 ### Debts Deferred
 - None
-
-## Sprint 18: Universal MCP `content` + `structuredContent` contract, explicit `noPort` error, Windows Job breakaway fallback, `goToImplementation` crash fix, and audit ✅
-
-**Date:** 2026-11-22
-**Duration:** 02:35
-
-### Agents Participated
-- COUNSELOR: Built Framework Inventory across `jam` and `ling`, authored and executed `PLAN-mcp-empty-responses-and-manifest-cwd.md`, diagnosed `Query::applyToImplementations` root-parent null dereference, validated all Engineer steps, confirmed and resolved all 3 Auditor findings, verified all Pathfinder Doxygen edits, and logged Sprint 18.
-- Pathfinder (`flash`): Gathered `jam` and `ling` inventory excerpts, investigated Windows stdio vs MCP response framing, verified git history for `test/` and `benchmark/`, ran the 13/13 sequential raw MCP stdio verification, `noPort` error verification, `ling` and `end` Windows `clang-cl` accuracy checks, and executed the post-audit Doxygen pass.
-- Engineer (`inherit`): Implemented `appendTextContent` and updated `ModelContextServer::sendResponse`/`sendToolError`, added `failNoDaemon` and `ToolRelay::sendNoDaemonError`, added `CREATE_BREAKAWAY_FROM_JOB` `ERROR_ACCESS_DENIED` fallback in `ChildProcess::startDetached`, and resolved all 3 Auditor findings (`isValidMeta` → `applyValidMeta`, `Source/HELP.md`, `CLAUDE.md`, `README.md`, and deletion of `PLAN-mcp-empty-responses-and-manifest-cwd.md`).
-- Auditor (`inherit`): Audited all 10 sprint files and root docs against `MANIFESTO.md`, `CODING.md`, `NAMES.md`, `LANGUAGE.md`, and `PLAN-mcp-empty-responses-and-manifest-cwd.md` (`NEEDS_WORK`, 3 findings — all 3 confirmed and resolved).
-
-### Files Modified (13 total: 4 in `jam`, 9 in `ling` including 1 deleted)
-- `../jam/jam_model_context_protocol/server/jam_ModelContextServer.h:44-53, 106-138` — updated `sendResponse` Doxygen, replaced `isValidMeta` with template `applyValidMeta` (NAMES.md Rule 1 Verb Contract), and added `applyValidMeta` Doxygen.
-- `../jam/jam_model_context_protocol/server/jam_ModelContextServer.cpp:109-156, 288-386` — added file-local `static void appendTextContent`, updated `sendResponse` to emit `content` text block alongside `structuredContent` and `sendToolError` to reuse it, and migrated `discover`/`listTools`/`callTool` to `applyValidMeta`.
-- `../jam/jam_subprocess/subprocess/jam_ChildProcess.h:46-61` — updated `startDetached` Doxygen for Windows breakaway fallback.
-- `../jam/jam_subprocess/subprocess/native/jam_ChildProcess_windows.cpp:233-267` — added `baseCreationFlags` and retry without `CREATE_BREAKAWAY_FROM_JOB` when `CreateProcessW` returns `ERROR_ACCESS_DENIED`.
-- `cast/text.md:24` — added `failNoDaemon` diagnostic text (`no daemon for manifest`).
-- `Source/Client.h:64-78` — moved `const juce::File manifestFile` to `protected:` (preserving member order relative to `Client.cpp:5-6`) without adding a getter.
-- `Source/ToolRelay.h:64-84, 107-115` — renamed `sendEmptyResult` to `sendNoDaemonError` and updated Doxygen blocks.
-- `Source/ToolRelay.cpp:115-171` — replaced `sendEmptyResult` (`null`) with `sendNoDaemonError` calling `server.sendToolError` with `failNoDaemon` + `Id::diagnosticSeparator` + `manifestFile.getFullPathName()`.
-- `Source/Query.h:681-705` — guarded `applyToImplementations` with `declaration.parent != nullptr and declaration.parent != document.getRoot()` to prevent null `Id::type` dereference on top-level out-of-line definitions, and updated Doxygen.
-- `Source/HELP.md:32, 309` — documented `ling --mcp` tool error on `-1` port file and Windows `%LOCALAPPDATA%\ling` cache path.
-- `CLAUDE.md:13, 20-28` — synced Sprint 18 summary, removed non-existent `test/` and `benchmark/` layout entries, and updated sprint log range.
-- `README.md:46` — clarified pre-installation PATH collision statement.
-- `PLAN-mcp-empty-responses-and-manifest-cwd.md` — deleted completed Sprint 18 plan.
-
-### Alignment Check
-- [x] BLESSED principles followed
-- [x] NAMES.md adhered
-- [x] MANIFESTO.md principles applied
-
-### Problems Solved
-- **Empty MCP tool output for standard `content`-reading clients:** `jam::ModelContextServer::sendResponse` emitted `"content": []` and relied on a single host's `structuredContent` fallback; now emits both `content: [{"type":"text","text":"..."}]` and `structuredContent` for all JAM MCP servers (`ling`, `whatdbg`, `scout`).
-- **Silent `null` on `Server::noPort` in `ToolRelay`:** Replaced `sendEmptyResult` with `sendNoDaemonError`, returning an explicit MCP `isError: true` message naming the manifest path.
-- **Windows restricted Job Object daemon spawn failure:** `jam::ChildProcess::startDetached` now retries `CreateProcessW` without `CREATE_BREAKAWAY_FROM_JOB` on `ERROR_ACCESS_DENIED`.
-- **`goToImplementation` daemon crash on out-of-line member definitions:** `Query::applyToImplementations` called `index.hasRole` on `document.getRoot()` (no `Id::type`), crashing in `LibraryLanguage::hasRole`; fixed with `declaration.parent != nullptr and declaration.parent != document.getRoot()`, passing 13/13 MCP tools in one sequential stdio session (`EXIT_CODE=0`).
-- **Audit clean sweep (3/3 resolved):** Replaced side-effecting `ModelContextServer::isValidMeta` with `applyValidMeta`, synced `Source/HELP.md`/`CLAUDE.md`/`README.md`, and deleted the completed plan.
-
-### State for Continuation
-- Build `ling` (`cast cast/spell.md --no-sign`) exited 0 and installed `ling 0.0.1 (a550b12)` to `C:\Users\jreng\.local\bin\ling.exe`.
-- Rebuild `whatdbg` and `scout` when needed so they pick up the `jam::ModelContextServer` fix.
-- Regenerate Doxygen XML in `jam` (`<leader>bd`) and `ling` when Doxygen config/target is available.
-- Live `carol_ling` MCP host spawns `ling --mcp project-info.md` in `C:\Users\jreng\.gemini\config\plugins\carol`; verify host CWD configuration separately if needed.
-
-### Debts Paid
-- None
-
-### Debts Deferred
-- None
-
-## Sprint 17: Windows build, `cLang` `clang-cl` indexing, path normalization, `addUnits` rename, and audit ✅
-
-**Date:** 2026-11-22
-**Duration:** 02:00
-
-### Agents Participated
-- COUNSELOR: Diagnosed Windows build, `cLang` `clang-cl` indexing, path separator mismatch, and `units()` contract smells; validated Engineer implementations and all 4 Auditor findings; verified Pathfinder post-audit Doxygen edits; logged Sprint 17.
-- Pathfinder (`flash`): Inspected Windows build/bundle pipeline, verified LSP stdio and CLI behavior on Windows, probed `language.dll` `units()`/`index()` return codes, mapped the `LanguageEntry::units` blast radius across `jam` and `ling`, and executed the post-audit Doxygen pass.
-- Engineer (`inherit`): Implemented `databaseDrivers`, `argumentPrefixRemovals`, `/Fo` output extraction, CRLF trimming, `clang-cl` `/clang:` argument ordering, `getManifestDriver`/`getInstallDirectory`, `units` → `addUnits` rename across `jam` and `ling`, canonical `juce::File::getFullPathName()` normalization in `Processor.cpp`, and resolved all 4 Auditor findings (`getArguments` return-by-value, `getManifestDriver` `"arguments"` path handling, `Source/HELP.md`, `CLAUDE.md`, `README.md`, and deletion of `PLAN-cli-notification-operations-hang.md`).
-- Auditor (`inherit`): Audited all 13 modified files plus root docs against `MANIFESTO.md`, `CODING.md`, `NAMES.md`, and `LANGUAGE.md` (`NEEDS_WORK`, 4 findings — all 4 confirmed and resolved).
-
-### Files Modified (17 total: 3 in `jam`, 14 in `ling` including 1 deleted)
-- `../jam/jam_syntax_tree/document/jam_LanguageInterface.h:62, 100, 162` — renamed `LanguageEntry::units` → `addUnits` and `LanguageUnits` → `LanguageAddUnits`; updated Doxygen references.
-- `../jam/jam_syntax_tree/document/jam_LanguageLibrary.h:84` — renamed `LanguageLibrary::units` → `addUnits` and updated Doxygen comment.
-- `../jam/jam_syntax_tree/document/jam_LanguageLibrary.cpp:13, 103` — updated `LanguageEntry::addUnits` and `LanguageAddUnits` lookup.
-- `language/cLang/construction.md:360-364, 524-529, 581-586, 601-609` — replaced scalar `databaseDriver` with platform-keyed `databaseDrivers` (`c++` / `clang-cl`), removed `clang-cl.exe` from `drivers`, added `outputPrefix`, `clangDriverPrefix`, `clangClDriver`, `commandKey`, `argumentsKey`, and `argumentPrefixRemovals` (`/Fo`, `/Fd`, `/Yc`, `/Yu`, `/Fp`).
-- `language/cLang/spell.md:109, 341-344, 381-384, 440-451, 489` — wired `addUnits`, `getDatabaseDrivers`, `getArgumentPrefixRemovals`, `getPrefixPosition`, `getManifestDriver`, `getInstallDirectory`, and `addUnitRows`.
-- `language/cLang/language.cast:715-765, 2000-2109, 2209-2416, 2610-2880, 6074, 6095-6123` — set Windows `CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded"` and `_CRT_SECURE_NO_WARNINGS`; stripped `\r` in `getCommandOutput`, `getVersionInstallDirectory`, and `addRecord`; added `/Fo` extraction via `getPrefixPosition`; returned `ling::Texts` from `getArguments` with `/clang:` flags placed before `-- <source>`; added `compile_commands.json`-first `getManifestDriver`/`getInstallDirectory`; renamed `units` → `addUnits` and internal helper to `addUnitRows`.
-- `cast/cmake.cast:217-220` — moved Windows architecture suffix on `CAST_PACK_platform` after `file(GLOB CAST_BINARY_FILES ...)` so BinaryData finds `Source/languages/Windows/*.zip`.
-- `.gitignore:36` — narrowed `Source/languages/` to `Source/languages/*/` so built-in language `.h`/`.cpp` files stay tracked while per-machine platform archives stay untracked.
-- `Source/Language.h:80`, `Source/BuiltInLanguage.h:69`, `Source/LibraryLanguage.h:78`, `Source/LibraryLanguage.cpp:34-36` — renamed `units` → `addUnits`.
-- `Source/Processor.h:452-556`, `Source/Processor.cpp:880-883, 1269, 1309-1337` — renamed `language->addUnits`, normalized `cLang` paths through `juce::File::getFullPathName()` in `UnitsJob::getOrCreatePathIndex`, `UnitsJob::addBuildFile`, and `IndexJob::isForeign`, and updated Doxygen blocks.
-- `Source/HELP.md:248, 281, 301-305` — synced `addUnits` entry/callbacks, `definition` role (`1024`), and `isForeign` callback.
-- `CLAUDE.md:13, 18, 30`, `README.md:7` — synced sprint state, `ToolRelay`/`tools.json`, and removed deleted tracker links.
-- `PLAN-cli-notification-operations-hang.md` — deleted completed Sprint 16 plan.
-
-### Alignment Check
-- [x] BLESSED principles followed
-- [x] NAMES.md adhered
-- [x] MANIFESTO.md principles applied
-
-### Problems Solved
-- **Windows `cLang` DLL link mismatch and warning:** `language.cast` omitted `CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded"` (conflicting with `languageCore.lib`) and `_CRT_SECURE_NO_WARNINGS`.
-- **Windows BinaryData pack path and `.gitignore`:** Narrowed `.gitignore` to `Source/languages/*/` and deferred the Windows `x64` suffix on `CAST_PACK_platform` until after the BinaryData glob.
-- **Windows `clang-cl` indexing produced zero `.symbols` files:** `getArguments` placed `/clang:` flags after `-- <source>` (`CXError_InvalidArguments`), `databaseDriver` (`c++`) hit MSYS2 GCC, `drivers` rewrote Visual Studio `clang-cl.exe` to MSYS2 (`'windows.h' file not found`), CRLF `\r` broke paths, and `/Fo<path>` was not parsed for `ninja -t deps`.
-- **Windows path separator mismatch (`/` vs `\`):** Normalized incoming `cLang` paths through `juce::File::getFullPathName()` at the `UnitsJob`/`IndexJob` boundary so `index.paths`, `pathRows`, `unitRows`, and `Query::getPathIndex` share one canonical representation.
-- **`units()` contract smells:** Renamed `units` → `addUnits` (`NAMES.md` Rule 1, Rule 5) across `jam` and `ling`, and resolved `libclang` from `compile_commands.json`'s compiler path first instead of `PATH`.
-- **Audit clean sweep (4/4 resolved):** Removed out-parameter from `getArguments`, fixed space-splitting for `"arguments"` entries in `getManifestDriver`, synced `Source/HELP.md`/`CLAUDE.md`/`README.md`, and deleted completed Sprint 16 plan.
-
-### State for Continuation
-- Rebuild `ling` (`cast cast/spell.md`) after deleting `C:\Users\jreng\.config\ling\language\cLang`, then verify `.symbols` generation and Neovim `gd` (`textDocument/definition`) on Windows.
-- Regenerate Doxygen XML (`doxygen Doxyfile` in `../jam` and `ninja -C Builds/Release doxygen` in `ling`) after build.
-
-### Debts Paid
-- None
-
-### Debts Deferred
-- None
-
-## Sprint 16: CLI buffer notification hang fix and `setBuffer`/`removeBuffer` naming ✅
-
-**Date:** 2026-11-22
-**Duration:** 02:03
-
-### Agents Participated
-- COUNSELOR: Consumed `RFC-cli-notification-operations-hang.md`, built Framework Inventory, settled Option A with ARCHITECT, authored `PLAN-cli-notification-operations-hang.md`, validated Steps 1–5 against CONTRACT, verified Auditor PASS and Pathfinder Doxygen edits, and logged Sprint 16.
-- Pathfinder (`flash`): Discovered CLI/LSP notification pipeline, `did*` blast radius, `cast/spell.md` codegen mappings, and completed the post-audit Doxygen pass on `Source/Query.h`, `Source/Processor.h`, and `Source/Relay.h`.
-- Engineer (`inherit`): Replaced `didOpen`/`didChange`/`didClose` with `setBuffer`/`removeBuffer` in `cast/` tables, exposed `Query::setResult` as `public static`, updated `Processor::registerEvents` and `Processor::setBufferChange`, unified `Relay::setBuffer`/`Relay::removeBuffer`, and updated `Source/HELP.md`.
-- Auditor (`inherit`): Audited Steps 1–5 against `MANIFESTO.md`, `CODING.md`, `NAMES.md`, `LANGUAGE.md`, and `PLAN-cli-notification-operations-hang.md` (`PASS`, 0 findings).
-
-### Files Modified (10 total)
-- `cast/identifiers.md:92, 105` — removed `didChange`, `didClose`, `didOpen`; added `removeBuffer` and `setBuffer` in alphabetical order.
-- `cast/readiness.md:24-25` — replaced `Id::didOpen`/`Id::didChange`/`Id::didClose` with `Id::setBuffer` and `Id::removeBuffer`.
-- `cast/parameters.md:32-33` — replaced `Id::didOpen`/`Id::didChange`/`Id::didClose` with `Id::setBuffer` and `Id::removeBuffer`.
-- `Source/Query.h:258-286` — exposed `Query::setResult` as `public static` beside `Query::setError` and updated its Doxygen block.
-- `Source/Processor.cpp:139-140, 682-697` — bound `Id::setBuffer`/`Id::removeBuffer`; `setBufferChange` removes `request` silently when parent has `Id::positionEncoding` (`Relay`) and writes `result: null` via `Query::setResult` otherwise (`Operation`).
-- `Source/Processor.h:705-728` — updated Doxygen blocks for `setBuffer`, `removeBuffer`, and `setBufferChange`.
-- `Source/Relay.h:182-198`, `Source/Relay.cpp:84-86, 323-357` — replaced `Relay::didOpen`/`didChange`/`didClose` with `Relay::setBuffer` and `Relay::removeBuffer` (preserving external `lsp::Method::did*` wire constants) and added Doxygen blocks.
-- `Source/HELP.md:97-99, 156-157` — updated `Methods` and `Operation Words` tables to `setBuffer` and `removeBuffer` with CLI `result: null` contract.
-- `PLAN-cli-notification-operations-hang.md` — wrote execution plan for this sprint.
-
-### Alignment Check
-- [x] BLESSED principles followed
-- [x] NAMES.md adhered
-- [x] MANIFESTO.md principles applied
-
-### Problems Solved
-- **CLI buffer notification infinite hang:** `Processor::setBufferChange` previously removed `request` without setting `Id::result`, leaving CLI `Operation` waiting forever. `setBufferChange` now checks `request.getParent().hasProperty (Id::positionEncoding)` so LSP `Relay` stays silent while CLI `Operation` receives `{"jsonrpc":"2.0","id":null,"result":null}` via `Query::setResult` and exits `0` after `Id::isIndexed` clears synchronously.
-- **Foreign `did*` semantics (`NAMES.md` Rule -1, Rule 1, Rule 5):** Collapsed duplicate `Id::didOpen`/`Id::didChange` and `Relay::didOpen`/`Relay::didChange` into `setBuffer`, and renamed `didClose` to `removeBuffer`, matching `Processor::setBuffer`/`Processor::removeBuffer` 1:1 while keeping external `lsp::Method::did*` wire strings intact (`NAMES.md` Rule 2).
-
-### State for Continuation
-- Build with `cast cast/spell.md` to regenerate `Source/generated/*` and verify `ling setBuffer`/`ling removeBuffer` output and LSP `test/buffer.lua`.
-- Run `ninja doxygen` after build to regenerate `docs/xml/`.
-- Ephemeral `RFC-cli-notification-operations-hang.md` and `PLAN-cli-notification-operations-hang.md` remain at project root until ARCHITECT deletes or archives them.
-
-### Debts Paid
-- None
-
-### Debts Deferred
-- None
-
----
-
-**End of SPRINT-LOG.md Template**
-
-Copy this template to your project root as `SPRINT-LOG.md` and customize:
-- Project name
-- Repository URL/path
-- Starting date
-- Add project-specific rules to CRITICAL RULES section
-
-Rock 'n Roll!  
-**JRENG!**
-
-
-## Handoff to COUNSELOR: ling BLESSED Cold-Index Performance & Zero-Copy Mapped SymbolDocument
-
-**From:** COUNSELOR
-**Date:** 2026-11-21
-**Status:** In Progress
-
-### Read First
-- `/Users/jreng/Documents/Poems/dev/ling/PLAN-ling-lsp-0-tracker.md` — master tracker, canon rulings, and updated 2026-11-21 state.
-- `/Users/jreng/Documents/Poems/dev/ling/PLAN-ling-contract-fix.md` — remaining acceptance harness (Step 15) and `scout` profile vs clangd (Step 16).
-- `/Users/jreng/Documents/Poems/dev/ling/DEBT.md` — open debt `DEBT-20261121T005809` (cold-index CPU/RAM load, now verified improved; drain at `/log`).
-
-### Context
-ARCHITECT directed fixing cold-index CPU/RAM load and thermal noise in adherence to `MANIFESTO.md`, `CODING.md`, and `NAMES.md`: ignored generated/vendored TUs, single-pass `clang_indexSourceFileFullArgv` + `CXIndexOpt_SkipParsedBodiesInSession`, background-priority thread pool capped at 4 threads, clean-room single-header `jam::simd` byte scanner in `jam_core`, per-worker `IndexSession`, direct `getParameterLabel` source slicing, priority `.pch` queueing, and zero-copy `juce::MemoryMappedFile` `SymbolDocument`. All changes are built and runtime-verified on `ling` and `END`.
-
-### Completed
-- **Ignored units table:** Added `## ignoredUnits` (7 patterns: `juce_binarydata_`, `Harfbuzz`, `Sheenbidi`, `ara`, `lv2_libs`, `jam_freetype.mm`, `CompilationTime`) in `language/cLang/construction.md:622-632`, wired in `language/cLang/spell.md:382-385, 437-439` and `language/cLang/language.cast:2075-2085, 2461-2510`. Verified 0 ignored TUs indexed on both `ling` and `END`.
-- **Per-worker `IndexSession` + libclang crash fixes:** Added RAII `thread_local IndexSession` (`LibClang` + `CXIndex` + `CXIndexAction`, mutex-serialized `clang_createIndex`) in `language/cLang/language.cast:464-503, 703-722`. Non-PCH disk TUs (`bufferCount == 0 and not usesPrecompiled`) run `clang_indexSourceFileFullArgv` with `CXIndexOpt_SkipParsedBodiesInSession`; PCH-consuming and live-buffer TUs run `parseTranslationUnit2FullArgv` + `indexTranslationUnit` (`language.cast:5715-5848`), eliminating both the `unsaved_files` double-free (`Indexing.cpp:521-533` + `ASTUnit.cpp:244-248`) and the PCH `IndexingConsumer::HandleTopLevelDecl` dangling-stack `SIGSEGV` (`ling-2026-11-21-171351.ips`).
-- **Cached `getFileContents` + direct `getParameterLabel`:** Cached `libclang.getFileContents` per `SourceFile` in `IndexContext::preprocessedFiles` (`language.cast:2868-2931, 3537-3538`), eliminating quadratic `clang::SourceManager::translateFile`. Replaced `libclang.tokenize` in `getParameterLabel` (`language.cast:4878-4946`) with a direct `std::string_view` slice from cached `getFileContents`. Added `shouldExit` check in `onCursor` (`language.cast:5170-5171`) and 1-arg guard in `addParameterHints` (`language.cast:4904-4906`).
-- **Thread pool & PCH scheduling:** Set `LINGModel::defaultThreads { 4 }` (`Source/LINGModel.h:47`), `juce::Thread::Priority::background` (`Source/Processor.cpp:10-13`), `pool->removeAllJobs (true, waitForJob)` in `Processor::~Processor()` (`Source/Processor.cpp:25-29`), prerequisite-producer (`Id::output`) priority in `Processor::addIndexJobs` (`Source/Processor.cpp:1198-1245`), and updated `Source/HELP.md:183`.
-- **Zero-copy mapped `SymbolDocument`:** Replaced `SymbolDocument`'s heap `jam::Document::Element` tree with an 8-byte aligned, pointer-free binary `.symbols` format mapped read-only in place via `juce::MemoryMappedFile` (`Source/SymbolDocument.h:1-259`, `Source/SymbolDocument.cpp:1-640`), updated `Source/BuiltInLanguage.h`, `Source/Index.h/.cpp`, `Source/Processor.h/.cpp`, `Source/Query.h/.cpp`, and `Source/SwapValidator.cpp`.
-- **Single-header `jam::simd` byte scanner:** Implemented `jam::simd::findByte` and `jam::simd::findNonPlainByte` (NEON `vshrn_n_u16` + `vqtbl1q_u8`, SSE2 range masks, scalar fallback) inline in `jam/jam_core/jam_Simd.h:18-351` with canonical `jam_Css.h` namespace enclosure, wired into `jam/jam_core/document/jam_Document.cpp:279-287, 461-521`.
-- **Runtime validation (build `/Users/jreng/.local/bin/ling`, `Nov 21 19:47`):**
-  - `ling` cold index: `161.68 s`, peak CPU `416.7%` (was `500%`), peak RSS `3357.5 MB` (was `8.0 GB`), zero crashes.
-  - `END` cold index: `171.21 s`, peak CPU `422.5%` (was `490%`), peak RSS `3958.3 MB` (was `4.57 GB`), settled idle RSS `1375.8 MB` (was `3.7 GB`), zero crashes.
-  - `compare end-definition`: `10.41 s`, median `0.3325 ms` (p95 `5.2409 ms`), `agree = 171`, `disagree = 10`, `stale = 77`, `lingError = 0` (was `162/19/77`), `jam_FileWatcher.cpp` `14/14` agree, `ENDView.cpp` opened cleanly (`0` `unit index failed`, `0` `daemon connection lost`).
-  - Zero new `ling-*.ips` crash reports.
-- **Plan hygiene:** Deleted 5 completed/superseded plans (`PLAN-ling-runs-from-anywhere.md`, `PLAN-ling-compiler-truth.md`, `PLAN-ling-ast-once.md`, `PLAN-ling-cold-index-load.md`, `PLAN-ling-blessed-index-perf.md`) and updated `PLAN-ling-lsp-0-tracker.md`.
-
-### Remaining
-- **COUNSELOR (`PLAN-ling-contract-fix.md` Step 15):** Trace and fix `juce_Component.cpp:3531:46` (`bounds`), `:4160:13` (`expectEquals`), and `:2364:28` (`getInstance` hover overrun).
-- **COUNSELOR (`PLAN-ling-contract-fix.md` Step 15):** Update remaining stale `:jam` value arrays and 77 stale positions in `test/end-positions.json` and `test/expected/end-*.json` from code reads.
-- **COUNSELOR (`PLAN-ling-contract-fix.md` Step 15):** Run remaining END suites (`end-methods`, `end-references`, `end-hover`, `end-inlay`, warm `end-definition` repeat, T1–T3/T6/T8/T13/T28) and all 5 KANJUT suites via `/private/tmp/claude-501/-Users-jreng-Documents-Poems-dev-ling/27ab850f-6578-4c2a-961e-c63fd0b6cfa1/scratchpad/run_test_long.sh`.
-- **COUNSELOR (Diagnostic cleanup):** Remove temporary `debug::Log` / `logScope` lines (`Source/Main.cpp:419, 512`, `Source/Connection.cpp:51`, and `Source/Processor.cpp` diagnostic log writes).
-- **COUNSELOR (`PLAN-ling-contract-fix.md` Step 16):** Run `scout` profile against clangd (T9, T10, T21) and optional `scout` A/B benchmark of `jam::simd` vs scalar.
-- **COUNSELOR (On ARCHITECT trigger):** Run `/audit`, Pathfinder doxygen pass, and `/log` (drain `DEBT-20261121T005809`).
-
-### Key Decisions
-- *"you dont build. i will build"*
-- *"always delete on disk, let the binary build and replace"* (`/Users/jreng/.config/ling/language/cLang`)
-- *"hold audit and doxygen. until i explicitly said so."*
-- *"jam::Format for string manipulation. dont use juce::String. only use juce::String to communicate with juce native API"*
-- *"reminder: we never write byte-to-byte translation. we always CLEAN ROOM rewrite from scratch BLESSED compliance into our domain"*
-- *"make it 4 thread max"*
-- *"make it single header. also the canon pattern for namespace is with comment separator with its enclosure for example jam_Css"*
-
-### Files Modified
-- `ling/language/cLang/construction.md` — added `## ignoredUnits` and `indexSourceFileFullArgv`.
-- `ling/language/cLang/spell.md` — wired `ignoredUnits` into `getIgnoredUnits` / `isIgnoredUnit`.
-- `ling/language/cLang/language.cast` — ignored-units filter, `IndexSession`, PCH/unsaved routing, cached `getFileContents`, direct `getParameterLabel` slice, `onCursor` exit check, `addParameterHints` 1-arg guard, `reportOutline` cursor TU fallback.
-- `ling/Source/LINGModel.h`, `ling/Source/LINGModel.cpp`, `ling/Source/HELP.md` — `defaultThreads = 4`, background priority docs.
-- `ling/Source/SymbolDocument.h`, `ling/Source/SymbolDocument.cpp` — zero-copy `juce::MemoryMappedFile` binary `.symbols` format and `Builder`.
-- `ling/Source/BuiltInLanguage.h`, `ling/Source/Index.h`, `ling/Source/Index.cpp`, `ling/Source/Processor.h`, `ling/Source/Processor.cpp`, `ling/Source/Query.h`, `ling/Source/Query.cpp`, `ling/Source/SwapValidator.cpp` — zero-copy `SymbolDocument` integration, `~Processor` job wait, priority `.pch` queue.
-- `ling/PLAN-ling-lsp-0-tracker.md` — updated 2026-11-21 state and verified numbers.
-- `ling/test/end-positions.json`, `ling/test/end-references-positions.json`, `ling/test/end-symbols.json`, `ling/test/expected/end-definition.json` — retargeted deleted `jam_Listener.cpp` to `jam_FileWatcher.cpp`.
-- `jam/jam_core/jam_Simd.h`, `jam/jam_core/document/jam_Document.cpp` — single-header `jam::simd` byte scanner (`findByte`, `findNonPlainByte`) wired into `jam::Document`.
-
-### Open Questions
-None.
-
-### Next Steps
-- Resume `PLAN-ling-contract-fix.md` Step 15 (fix `bounds`/`expectEquals`/`getInstance` hover, refresh stale END expectations, run remaining END and KANJUT suites, remove temporary `debug::Log` lines), then Step 16 (`scout` vs clangd). Wait for ARCHITECT's explicit trigger before running `/audit`, doxygen pass, or `/log`.

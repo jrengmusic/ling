@@ -2,101 +2,135 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
   <compounddef id="_tool_relay_8h" kind="file" language="C++">
     <compoundname>ToolRelay.h</compoundname>
-    <includes refid="_client_8h" local="yes">Client.h</includes>
+    <includes refid="_tool_client_8h" local="yes">ToolClient.h</includes>
     <includes refid="_query_8h" local="yes">Query.h</includes>
     <includedby refid="_main_8cpp" local="yes">Main.cpp</includedby>
     <includedby refid="_tool_relay_8cpp" local="yes">ToolRelay.cpp</includedby>
     <incdepgraph>
-      <node id="2">
+      <node id="3">
         <label>Client.h</label>
         <link refid="_client_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="11" relation="include">
+        <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
       </node>
-      <node id="13">
+      <node id="14">
         <label>Connection.h</label>
         <link refid="_connection_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="11" relation="include">
+        <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="14" relation="include">
+        <childnode refid="15" relation="include">
         </childnode>
       </node>
-      <node id="15">
+      <node id="16">
         <label>Index.h</label>
         <link refid="_index_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="11" relation="include">
+        <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="16" relation="include">
+        <childnode refid="12" relation="include">
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
         <childnode refid="18" relation="include">
         </childnode>
-      </node>
-      <node id="11">
-        <label>LINGModel.h</label>
-        <link refid="_l_i_n_g_model_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="17">
-        <label>Language.h</label>
-        <link refid="_language_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="16" relation="include">
-        </childnode>
-      </node>
-      <node id="14">
-        <label>Query.h</label>
-        <link refid="_query_8h"/>
-        <childnode refid="15" relation="include">
+        <childnode refid="19" relation="include">
         </childnode>
       </node>
       <node id="12">
-        <label>Server.h</label>
-        <link refid="_server_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
+        <label>LINGModel.h</label>
+        <link refid="_l_i_n_g_model_8h"/>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="11" relation="include">
-        </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="14" relation="include">
+        <childnode refid="5" relation="include">
         </childnode>
       </node>
       <node id="18">
-        <label>SwapValidator.h</label>
-        <link refid="_swap_validator_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
+        <label>Language.h</label>
+        <link refid="_language_8h"/>
         <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
         </childnode>
       </node>
-      <node id="16">
+      <node id="20">
+        <label>Manifest.h</label>
+        <link refid="_manifest_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>Processor.h</label>
+        <link refid="_processor_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>Query.h</label>
+        <link refid="_query_8h"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>Server.h</label>
+        <link refid="_server_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>SwapValidator.h</label>
+        <link refid="_swap_validator_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
         <label>SymbolDocument.h</label>
         <link refid="_symbol_document_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
         <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ToolClient.h</label>
+        <link refid="_tool_client_8h"/>
+        <childnode refid="3" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -104,18 +138,16 @@
         <link refid="_tool_relay_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="14" relation="include">
+        <childnode refid="15" relation="include">
         </childnode>
       </node>
-      <node id="8">
+      <node id="9">
         <label>Files.h</label>
         <link refid="_files_8h"/>
       </node>
-      <node id="4">
+      <node id="5">
         <label>generated/Generated.h</label>
         <link refid="_generated_8h"/>
-        <childnode refid="5" relation="include">
-        </childnode>
         <childnode refid="6" relation="include">
         </childnode>
         <childnode refid="7" relation="include">
@@ -126,28 +158,30 @@
         </childnode>
         <childnode refid="10" relation="include">
         </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
       </node>
-      <node id="10">
+      <node id="11">
         <label>HashMaps.h</label>
         <link refid="_hash_maps_8h"/>
       </node>
-      <node id="6">
+      <node id="7">
         <label>Identifiers.h</label>
         <link refid="_identifiers_8h"/>
       </node>
-      <node id="9">
+      <node id="10">
         <label>Lsp.h</label>
         <link refid="_lsp_8h"/>
       </node>
-      <node id="5">
+      <node id="6">
         <label>ProjectInfo.h</label>
         <link refid="_project_info_8h"/>
       </node>
-      <node id="7">
+      <node id="8">
         <label>Text.h</label>
         <link refid="_text_8h"/>
       </node>
-      <node id="3">
+      <node id="4">
         <label>JuceHeader.h</label>
       </node>
     </incdepgraph>
@@ -179,42 +213,39 @@
 <codeline lineno="1"><highlight class="normal"></highlight></codeline>
 <codeline lineno="5"><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_client_8h" kindref="compound">Client.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_tool_client_8h" kindref="compound">ToolClient.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_query_8h" kindref="compound">Query.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="9"><highlight class="normal"></highlight></codeline>
-<codeline lineno="19" refid="class_tool_relay" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_tool_relay_1a2faa8ce30deab3cd1ccae1774718d63b" kindref="member">ToolRelay</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_client_1a5e8ad11b4e80ac1b63a7f419d6dabcd2" kindref="member">Client</ref>,</highlight></codeline>
-<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1ValueTree_1_1Listener" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::ValueTree::Listener</ref></highlight></codeline>
-<codeline lineno="21"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_tool_relay_1a2faa8ce30deab3cd1ccae1774718d63b" kindref="member">ToolRelay</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1File" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::File</ref>&amp;<sp/>newManifestFile,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1String" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String</ref>&amp;<sp/>newToolchainArgument);</highlight></codeline>
+<codeline lineno="19" refid="class_tool_relay" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_tool_relay_1af8bb4cda7d466810b39250c737206d3d" kindref="member">ToolRelay</ref></highlight></codeline>
+<codeline lineno="20"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_tool_relay_1af8bb4cda7d466810b39250c737206d3d" kindref="member">ToolRelay</ref><sp/>(<ref refid="class_l_i_n_g_model" kindref="compound">LINGModel</ref>&amp;<sp/>newModel,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref>&amp;<sp/>newManifestFile,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref>&amp;<sp/>newManifestName,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref>&amp;<sp/>newToolchainArgument);</highlight></codeline>
 <codeline lineno="34"><highlight class="normal"></highlight></codeline>
-<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_tool_relay_1a2faa8ce30deab3cd1ccae1774718d63b" kindref="member">~ToolRelay</ref>()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="37"><highlight class="normal"></highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_tool_relay_1a3cb108fe641f86e8bd045c52f5d93ac4" kindref="member">start</ref>();</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"></highlight></codeline>
-<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_tool_relay_1aa532009e849e74793886d3af923f1677" kindref="member">connectionMade</ref>()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"></highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_tool_relay_1a4cda3d8491875e20fc7b4c868b327843" kindref="member">messageReceived</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1MemoryBlock" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::MemoryBlock</ref>&amp;<sp/>reply)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"></highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_tool_relay_1a377deae101af920e91d086bac8442c78" kindref="member">valueTreeChildAdded</ref><sp/>(<ref refid="classjuce_1_1ValueTree" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref>&amp;<sp/>parentTree,<sp/><ref refid="classjuce_1_1ValueTree" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref>&amp;<sp/>childWhichHasBeenAdded)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"></highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_tool_relay_1aca23f7c98f5734fb33547e2c3ee65c25" kindref="member">valueTreePropertyChanged</ref><sp/>(<ref refid="classjuce_1_1ValueTree" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref>&amp;<sp/>tree,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1Identifier" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref>&amp;<sp/>property)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"></highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_tool_relay_1a3bfb62ecc062c74bdfab260ef720b363" kindref="member">addRequest</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1String" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String</ref>&amp;<sp/>requestId,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1JsonDocument" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::JsonDocument</ref>&amp;<sp/>document,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;<sp/>arguments,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1Identifier" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref>&amp;<sp/><ref refid="juce__UnityPluginInterface_8h_1a485dc2a0e5ed7da3d9f826367b36ee55a6440030ae8284cee96c1c88b356c45a7" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">command</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1Identifier" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref>&amp;<sp/>shape);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_tool_relay_1a3cb108fe641f86e8bd045c52f5d93ac4" kindref="member">start</ref>();</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_tool_relay_1a3bfb62ecc062c74bdfab260ef720b363" kindref="member">addRequest</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref>&amp;<sp/>requestId,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1JsonDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::JsonDocument</ref>&amp;<sp/>document,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;<sp/>arguments,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1Identifier" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref>&amp;<sp/><ref refid="juce__UnityPluginInterface_8h_1a485dc2a0e5ed7da3d9f826367b36ee55a6440030ae8284cee96c1c88b356c45a7" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">command</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1Identifier" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref>&amp;<sp/>shape);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Array&lt;juce::var&gt;</ref><sp/><ref refid="class_tool_relay_1ad5825d369f06afc7c187d7c8bc1c6b90" kindref="member">getRequestArguments</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1JsonDocument" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::JsonDocument</ref>&amp;<sp/>document,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;<sp/>arguments,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1Identifier" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref>&amp;<sp/>shape);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref><sp/><ref refid="class_tool_relay_1ad9e71b27e87b146f95bc35a9e057ef9b" kindref="member">getManifestFile</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref>&amp;<sp/>request,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1Identifier" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref>&amp;<sp/>shape)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_tool_client" kindref="compound">ToolClient</ref>&amp;<sp/><ref refid="class_tool_relay_1a43b55a3d754854a833386fcbfff0b039" kindref="member">getOrCreateClient</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref>&amp;<sp/>requestManifest);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92" refid="class_tool_relay_1a09ddf610b7d4dfe7a4c57520a5795910" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_l_i_n_g_model" kindref="compound">LINGModel</ref>&amp;<sp/><ref refid="class_tool_relay_1a09ddf610b7d4dfe7a4c57520a5795910" kindref="member">model</ref>;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95" refid="class_tool_relay_1a5ff7682b9a867a89153265aa012f8dc7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref><sp/><ref refid="class_tool_relay_1a5ff7682b9a867a89153265aa012f8dc7" kindref="member">manifestFile</ref>;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98" refid="class_tool_relay_1ae25417b4b90a0464d645cc7a2e7390c2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref><sp/><ref refid="class_tool_relay_1ae25417b4b90a0464d645cc7a2e7390c2" kindref="member">manifestName</ref>;</highlight></codeline>
 <codeline lineno="99"><highlight class="normal"></highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_tool_relay_1a5601264f86623f40b0030dfab3e387f4" kindref="member">sendRequest</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1ValueTree" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref>&amp;<sp/>row);</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"></highlight></codeline>
-<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_tool_relay_1a04938e66ca8a75bc42b3fdf5573fbc56" kindref="member">sendEmptyResult</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1ValueTree" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref>&amp;<sp/>row);</highlight></codeline>
-<codeline lineno="113"><highlight class="normal"></highlight></codeline>
-<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1Array" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::Array&lt;juce::var&gt;</ref><sp/><ref refid="class_tool_relay_1ad5825d369f06afc7c187d7c8bc1c6b90" kindref="member">getRequestArguments</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1JsonDocument" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::JsonDocument</ref>&amp;<sp/>document,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;<sp/>arguments,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1Identifier" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::Identifier</ref>&amp;<sp/>shape);</highlight></codeline>
-<codeline lineno="126"><highlight class="normal"></highlight></codeline>
-<codeline lineno="128" refid="class_tool_relay_1a3b6b3d0a99879225c5990d5d054b3a65" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1ValueTree" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref><sp/><ref refid="class_tool_relay_1a3b6b3d0a99879225c5990d5d054b3a65" kindref="member">requests</ref><sp/>{<sp/><ref refid="class_client_1a156ea116c333d0160312d53971a2a709" kindref="member">model</ref>.<ref refid="classjam_1_1Model_1aef4cd7ff33d3393980f2d12217e49857" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">state</ref>.<ref refid="classjuce_1_1ValueTree_1adee85cfdd2f88f76b32094e4c655182f" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">getOrCreateChildWithName</ref><sp/>(<ref refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Format::toType</ref><sp/>(<ref refid="namespaceId_1aba863f05445ed7fb30696b39fc5873c2" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Id::requests</ref>),<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>};</highlight></codeline>
-<codeline lineno="129"><highlight class="normal"></highlight></codeline>
-<codeline lineno="131" refid="class_tool_relay_1a53b8a891ea4392aefbdb5c53f3540fb1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjam_1_1ModelContextServer" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::ModelContextServer</ref><sp/><ref refid="class_tool_relay_1a53b8a891ea4392aefbdb5c53f3540fb1" kindref="member">server</ref><sp/>{<sp/>BinaryData::getString<sp/>(<ref refid="namespacefiles_1a213be59ca49dea3ad8560bb14e07a7ca" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">files::lingTools</ref>).<ref refid="classjuce_1_1String_1a288d9b6ad31a5825d00aa76bfd998ca8" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">toStdString</ref>(),<sp/>ProjectInfo::projectName,<sp/>ProjectInfo::versionString<sp/>};</highlight></codeline>
-<codeline lineno="132"><highlight class="normal"></highlight></codeline>
-<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="juce__PlatformDefs_8h_1a851b02724a8158a7f746c66b5758b3dd" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR</ref><sp/>(<ref refid="class_tool_relay" kindref="compound">ToolRelay</ref>)</highlight></codeline>
-<codeline lineno="134"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="101" refid="class_tool_relay_1a331af7e18ab9edc35059f072434d3b62" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref><sp/><ref refid="class_tool_relay_1a331af7e18ab9edc35059f072434d3b62" kindref="member">toolchainArgument</ref>;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104" refid="class_tool_relay_1a53b8a891ea4392aefbdb5c53f3540fb1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjam_1_1ModelContextServer" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::ModelContextServer</ref><sp/><ref refid="class_tool_relay_1a53b8a891ea4392aefbdb5c53f3540fb1" kindref="member">server</ref><sp/>{<sp/>BinaryData::getString<sp/>(<ref refid="namespacefiles_1a213be59ca49dea3ad8560bb14e07a7ca" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">files::lingTools</ref>).<ref refid="classjuce_1_1String_1a288d9b6ad31a5825d00aa76bfd998ca8" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">toStdString</ref>(),<sp/>ProjectInfo::projectName,<sp/>ProjectInfo::versionString<sp/>};</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107" refid="class_tool_relay_1afca50d7b904221ae8dd023f15e68bd28" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjam_1_1HashMap" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::HashMap&lt;juce::String, std::unique_ptr&lt;ToolClient&gt;</ref>&gt;<sp/><ref refid="class_tool_relay_1afca50d7b904221ae8dd023f15e68bd28" kindref="member">clients</ref>;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="juce__PlatformDefs_8h_1a851b02724a8158a7f746c66b5758b3dd" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR</ref><sp/>(<ref refid="class_tool_relay_1af8bb4cda7d466810b39250c737206d3d" kindref="member">ToolRelay</ref>)</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">};</highlight></codeline>
     </programlisting>
     <location file="ToolRelay.h"/>
   </compounddef>

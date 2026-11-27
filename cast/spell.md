@@ -158,6 +158,7 @@
 | - [list]: @project-info:cmake                 |                           | @cmake:language-bundle                        | @LanguageBundle  |
 | - [list]: @project-info:binary                |                           | - [list]: @cmake:pack-value                   |                  |
 | - [list]: @binaryFiles:files                  |                           |                                               |                  |
+| - [list]: @project-info:help                  |                           |                                               |                  |
 | - [list]: @project-info:pack                  |                           |                                               |                  |
 +-----------------------------------------------+---------------------------+-----------------------------------------------+------------------+
 | - [list]: @project-info:cmake                 |                           | @installer:[no-banner]release                 | @Release         |

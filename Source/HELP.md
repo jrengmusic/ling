@@ -23,13 +23,13 @@ This guide describes ling. ling prints this guide when you run `ling` with no ar
 
 `ling <manifest> [--<word>]` starts the server. The server speaks LSP over stdio.
 
-The server connects to the daemon of the manifest and the word. When no daemon runs, the server starts one.
+The server connects to the shared daemon. When no daemon runs, the server starts one.
 
 When the manifest is a bare file name that the working folder does not hold, the server uses the nearest parent folder that holds it.
 
 When no folder holds it, the server uses the working folder as the project. The daemon of that folder asks each language for its units with no toolchain rows.
 
-A daemon with zero units writes `-1` to its port file and ends at once. Then the LSP server answers each operation with a `null` result, and `ling --mcp` answers with a tool error (`no daemon for manifest: <manifest>`).
+A workspace with zero units sends a ling/noPort notification to its connected clients and closes the workspace. Then the LSP server answers each operation with a null result, and ling --mcp answers with a tool error (no daemon for manifest: <manifest>).
 
 `ling --mcp` sends each request that names a file to the daemon of the manifest above that file. That manifest has the file name of the command line manifest. When no folder above the file holds it, the request goes to the command line manifest. `workspaceSymbol` goes to the command line manifest. The first request for a manifest starts its daemon.
 
@@ -41,9 +41,9 @@ A request that needs a failed unit runs the index of that unit again. When the u
 
 The daemon writes its port file when it starts. The port file holds the local port of the daemon.
 
-The port file path is `<cache>/<project name>/<daemon name>.port`. `<cache>` is `~/.cache/ling`. On Windows, it is `%LOCALAPPDATA%\ling`.
+The port file path is <cache>/<daemon name>.port. <cache> is ~/.cache/ling. On Windows, it is %LOCALAPPDATA%\ling.
 
-The project name is a hash of the manifest path and the word. The daemon name is the project name and a hash of the ling build.
+The project name is a hash of the manifest path and the word. The daemon name is a hash of the ling build.
 
 Each daemon name runs one daemon. A second `ling daemon` with the same name exits at once.
 
@@ -64,7 +64,7 @@ Before `initialize`, each request gets error `-32002`. After `shutdown`, each re
 | `ling --mcp <manifest> [--<word>]`                          | Serves the operations of the daemon as Model Context Protocol tools over stdio (revision 2026-07-28). Ends when stdin closes.                                          | 0, or 1 when the daemon connection ends |
 | `ling <manifest> [--<word>]`                                | Starts the server on stdio. See Server.                                                                                                                                | 0 after `shutdown` and `exit`, otherwise 1 |
 | `ling <manifest>` with no folder that holds it              | Starts the server on stdio for the working folder. See Server.                                                                                                         | 0 after `shutdown` and `exit`, otherwise 1 |
-| `ling daemon <manifest> [--<word>]`                         | Starts the daemon. Exits at once when a daemon with the same name runs.                                                                                                | 0                          |
+| `ling daemon`                                               | Starts the shared daemon. Exits at once when a daemon with the same build hash runs.                                                                                   | 0                          |
 | `ling <operation> <manifest> [--<word>] <arguments>`        | Sends one request to the daemon, and starts the daemon when none answers. Prints the JSON-RPC response on stdout. See Operation Words.                                 | 0, or 1 when the response holds an error |
 | `ling <path>/<missing>`                                     | Prints `ling: <path>/<missing>: not found` on stderr.                                                                                                                  | 1                          |
 | `ling <manifest> <other>`                                   | Prints `ling: <other>: unknown flag` on stderr.                                                                                                                        | 1                          |
@@ -194,14 +194,15 @@ ling passes the `command` and `flag` of each row to each language. Each language
 
 ### daemon
 
-The `## daemon` table holds the rows `timeout` and `threads` in its `value` column. Each value is a positive integer. The first `## daemon` table that holds the row sets the value.
+The `## daemon` table holds the rows `timeout`, `threads`, and `coalesce` in its `value` column. Each value is a positive integer. The first `## daemon` table that holds the row sets the value.
 
-| Row       | Meaning                                                                        | Default |
-| :-------- | :----------------------------------------------------------------------------- | :------ |
-| `timeout` | The time in milliseconds that the daemon waits for a client before it ends.    | 60000   |
-| `threads` | The count of threads for the parse and index jobs.                             | 4       |
+| Row        | Meaning                                                                             | Default           |
+| :--------- | :---------------------------------------------------------------------------------- | :---------------- |
+| `timeout`  | The time in milliseconds that the daemon waits for a client before it ends.         | 60000             |
+| `threads`  | The count of threads for the parse and index jobs.                                  | half CPUs (min 2) |
+| `coalesce` | The time in milliseconds that the file watcher merges repeated changes to one file. | 1000              |
 
-The parse and index threads run at background priority.
+The parse and index threads run at low priority.
 
 ### source glob
 
@@ -316,11 +317,13 @@ A library calls these callbacks. ling gives each callback a context and a functi
 
 ## Carried Libraries
 
-The release carries the language libraries as archives. The daemon unpacks the archives once into `<cache>/language/<hash>`. The cache is `~/.cache/ling` (on Windows, `%LOCALAPPDATA%\ling`).
+The release carries the language libraries as archives. The release also carries the page library (`page`: `libpage.dylib` or `page.dll`, with theme style sheets) and the token library (`tokens`: `libtokens.dylib` or `tokens.dll`). The daemon unpacks the archives once into `<cache>/language/<hash>`. The cache is `~/.cache/ling` (on Windows, `%LOCALAPPDATA%\ling`).
 
-A language folder with a library in `build/` uses that library. Otherwise, the daemon uses the carried library of the folder name.
+A folder `~/.config/ling/language/<name>/build/` with a library overrides the carried library of that name.
 
-The daemon opens a copy of the library. The copy is in `<cache>/language/<name>/` and its name is the hash of the library bytes.
+The daemon opens a copy of the library. The copy is in `<cache>/language/<hash>/<name>/`, and `<hash>` is the hash of the library bytes.
+
+Other programs may open these files. The exports of the page library are `ling_write_page` and `ling_run_page`. The exports of the token library are `ling_get_languages` and `ling_get_<name>`.
 
 ## Build
 

@@ -565,14 +565,10 @@ private:
         if (const auto entry { index.symbolFiles.find (pathIndex) }; entry != index.symbolFiles.end())
         {
             const auto& [filePathIndex, unitFile] { *entry };
-            const auto& [unitRow, symbolFile] { unitFile };
+            const auto& [unitPathIndex, symbolFile] { unitFile };
 
-            if (const auto stored { index.documents.find (pathIndex) }; stored != index.documents.end())
-            {
-                const auto& [documentIndex, document] { *stored };
-
-                function (*index.symbolDocuments.at (unitRow), *symbolFile, *document);
-            }
+            if (const auto* document { index.getOrCreateDocument (pathIndex) }; document != nullptr)
+                function (*index.symbolDocuments.at (unitPathIndex), *symbolFile, *document);
         }
     }
 
@@ -594,9 +590,8 @@ private:
         const int column { arguments[columnIndex] };
         const auto pathIndex { getPathIndex (request, index) };
 
-        if (const auto entry { index.documents.find (pathIndex) }; entry != index.documents.end())
+        if (const auto* document { index.getOrCreateDocument (pathIndex) }; document != nullptr)
         {
-            const auto& [documentIndex, document] { *entry };
             const auto byteColumn { Index::getByteColumn (*document, line, column, encoding) + columnOffset };
 
             if (byteColumn > 0)
@@ -637,16 +632,10 @@ private:
 
         setResult (request, [&index, pathIndex, encoding, &function] (juce::MemoryBlock& message)
         {
-            if (const auto entry { index.documents.find (pathIndex) }; entry != index.documents.end())
-            {
-                const auto& [documentIndex, document] { *entry };
-
+            if (const auto* document { index.getOrCreateDocument (pathIndex) }; document != nullptr)
                 function (message, pathIndex, *document, encoding);
-            }
             else
-            {
                 jam::JsonWriter::appendNull (message);
-            }
         });
     }
 
@@ -714,31 +703,32 @@ private:
     template <typename Function>
     void applyToImplementations (int pathIndex, const jam::Document::Element& declaration, const Function& function, const Index& index) const
     {
-        const auto& document { *index.documents.at (pathIndex) };
-
-        if (index.hasRole (document, declaration, jam::LanguageRole::classToken))
+        if (const auto* document { index.getOrCreateDocument (pathIndex) }; document != nullptr)
         {
-            index.applyToRecords (pathIndex, document, declaration, getLastTokenIndex (declaration), [this, &function, &index] (const SymbolDocument::SymbolRecord& record)
+            if (index.hasRole (*document, declaration, jam::LanguageRole::classToken))
             {
-                applyToDerived (record.symbol, function, index);
-            });
-        }
-        else if (declaration.parent != nullptr and declaration.parent != document.getRoot() and index.hasRole (document, *declaration.parent, jam::LanguageRole::classToken))
-        {
-            const auto memberName { document.getView (declaration.get<jam::Document::Tokens> (Id::nameTokens)->last()) };
-
-            index.applyToRecords (pathIndex, document, *declaration.parent, getLastTokenIndex (*declaration.parent), [this, &function, &index, memberName] (const SymbolDocument::SymbolRecord& record)
-            {
-                applyToDerived (record.symbol, [this, &function, &index, memberName] (int derivedIndex, const jam::Document& derivedDocument, const jam::Document::Element& derived, int)
+                index.applyToRecords (pathIndex, *document, declaration, getLastTokenIndex (declaration), [this, &function, &index] (const SymbolDocument::SymbolRecord& record)
                 {
-                    for (const auto* child : derived)
+                    applyToDerived (record.symbol, function, index);
+                });
+            }
+            else if (declaration.parent != nullptr and declaration.parent != document->getRoot() and index.hasRole (*document, *declaration.parent, jam::LanguageRole::classToken))
+            {
+                const auto memberName { document->getView (declaration.get<jam::Document::Tokens> (Id::nameTokens)->last()) };
+
+                index.applyToRecords (pathIndex, *document, *declaration.parent, getLastTokenIndex (*declaration.parent), [this, &function, &index, memberName] (const SymbolDocument::SymbolRecord& record)
+                {
+                    applyToDerived (record.symbol, [this, &function, &index, memberName] (int derivedIndex, const jam::Document& derivedDocument, const jam::Document::Element& derived, int)
                     {
-                        if (index.hasRole (derivedDocument, *child, jam::LanguageRole::declaration)
-                            and derivedDocument.getView (child->get<jam::Document::Tokens> (Id::nameTokens)->last()).compare (memberName) == 0)
-                            applyToDeclarations (derivedIndex, derivedDocument, *child, getLastTokenIndex (*child), function, index);
-                    }
-                }, index);
-            });
+                        for (const auto* child : derived)
+                        {
+                            if (index.hasRole (derivedDocument, *child, jam::LanguageRole::declaration)
+                                and derivedDocument.getView (child->get<jam::Document::Tokens> (Id::nameTokens)->last()).compare (memberName) == 0)
+                                applyToDeclarations (derivedIndex, derivedDocument, *child, getLastTokenIndex (*child), function, index);
+                        }
+                    }, index);
+                });
+            }
         }
     }
 
@@ -1186,6 +1176,15 @@ private:
     static void appendPosition (juce::MemoryBlock& json, const jam::Document& document, size_t offset, std::string_view encoding);
 
     /**
+     * @brief Appends an LSP Position object (`line`, `character`) from 0-based coordinates.
+     *
+     * @param json       JSON object buffer receiving the Position.
+     * @param line       0-based line number.
+     * @param character  0-based character offset in the negotiated encoding.
+     */
+    static void appendPosition (juce::MemoryBlock& json, int line, int character);
+
+    /**
      * @brief Appends an LSP Range object (`start`, `end`) for byte span [@p startOffset, @p endOffset).
      *
      * @param json         JSON object buffer receiving the Range.
@@ -1236,6 +1235,18 @@ private:
      * @param encoding    Negotiated LSP position encoding.
      */
     static void appendNameLocation (juce::MemoryBlock& json, const juce::String& path, const jam::Document& document, const jam::Document::Element& element, int tokenIndex, std::string_view encoding);
+
+    /**
+     * @brief Appends a fallback LSP Location from the symbol's HoverEntry definition span when no indexed declaration exists.
+     *
+     * @param entries     JSON array buffer receiving the Location entry.
+     * @param pathIndex   Path index of the queried file in @c index.paths.
+     * @param document    Parsed document owning @p element.
+     * @param element     Element carrying Id::nameTokens.
+     * @param tokenIndex  Index inside @p element's Id::nameTokens.
+     * @param index       Index holding symbol files and SymbolDocument hover entries.
+     */
+    void appendHoverDefinition (juce::MemoryBlock& entries, int pathIndex, const jam::Document& document, const jam::Document::Element& element, int tokenIndex, const Index& index) const;
 
     /**
      * @brief Appends an LSP CallHierarchyItem object (`name`, `type`, `uri`, `range`, `selectionRange`).

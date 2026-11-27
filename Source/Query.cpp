@@ -146,16 +146,21 @@ bool Query::isBefore (int pathIndex, const jam::Document::Element& element, int 
     return order < 0;
 }
 
-void Query::appendPosition (juce::MemoryBlock& json, const jam::Document& document, size_t offset, std::string_view encoding)
+void Query::appendPosition (juce::MemoryBlock& json, int line, int character)
 {
-    jam::JsonWriter::appendObject (json, [&document, offset, encoding] (juce::MemoryBlock& members)
+    jam::JsonWriter::appendObject (json, [line, character] (juce::MemoryBlock& members)
     {
         jam::JsonWriter::appendKey (members, lsp::Member::line);
-        jam::Format::appendDecimal (members, static_cast<int> (document.getLineNumber (offset)) - 1);
+        jam::Format::appendDecimal (members, line);
 
         jam::JsonWriter::appendKey (members, lsp::Member::character);
-        jam::Format::appendDecimal (members, Index::getCharacter (document, offset, encoding));
+        jam::Format::appendDecimal (members, character);
     });
+}
+
+void Query::appendPosition (juce::MemoryBlock& json, const jam::Document& document, size_t offset, std::string_view encoding)
+{
+    appendPosition (json, static_cast<int> (document.getLineNumber (offset)) - 1, Index::getCharacter (document, offset, encoding));
 }
 
 void Query::appendRange (juce::MemoryBlock& json, const jam::Document& document, size_t startOffset, size_t endOffset, std::string_view encoding)
@@ -272,9 +277,8 @@ void Query::appendOccurrenceEdit (juce::MemoryBlock& edits, const Index& index, 
 {
     const auto& [occurrencePathIndex, occurrenceRecord] { occurrence };
 
-    if (const auto stored { index.documents.find (occurrencePathIndex) }; stored != index.documents.end())
+    if (const auto* document { index.getOrCreateDocument (occurrencePathIndex) }; document != nullptr)
     {
-        const auto& [documentIndex, document] { *stored };
         const auto [element, tokenIndex] { Index::getElement (*document, occurrenceRecord->line, occurrenceRecord->column) };
 
         if (element != nullptr)
@@ -341,13 +345,51 @@ void Query::goToDefinition (juce::ValueTree& request, const Index& index) const
     {
         applyToPosition (request, [this, &index, &entries, encoding] (int pathIndex, const jam::Document& document, const jam::Document::Element& element, int tokenIndex)
         {
+            const auto beforeSize { entries.getSize() };
+
             applyToDeclarations (pathIndex, document, element, tokenIndex, [&index, &entries, encoding] (int declarationIndex, const jam::Document& declarationDocument, const jam::Document::Element& declaration, int declarationTokenIndex)
             {
                 jam::JsonWriter::appendSeparator (entries);
                 appendNameLocation (entries, index.paths.at (declarationIndex), declarationDocument, declaration, declarationTokenIndex, encoding);
             }, index);
+
+            if (entries.getSize() == beforeSize)
+                appendHoverDefinition (entries, pathIndex, document, element, tokenIndex, index);
         }, index, encoding);
     });
+}
+
+void Query::appendHoverDefinition (juce::MemoryBlock& entries, int pathIndex, const jam::Document& document, const jam::Document::Element& element, int tokenIndex, const Index& index) const
+{
+    const SymbolDocument::SymbolRecord* hoverRecord { nullptr };
+
+    applyToSymbols (pathIndex, document, element, tokenIndex, [&hoverRecord] (const SymbolDocument::SymbolRecord& record) { if (hoverRecord == nullptr and record.hover != jam::LanguageCallbacks::noHover) hoverRecord = &record; }, index);
+
+    if (hoverRecord != nullptr)
+    {
+        const auto& [unitPathIndex, file] { index.symbolFiles.at (pathIndex) };
+        const auto& symbolDocument { *index.symbolDocuments.at (unitPathIndex) };
+        const auto& hoverEntry { symbolDocument.getHovers (*file).at (static_cast<uint32_t> (hoverRecord->hover)) };
+        const auto definitionPath { symbolDocument.getString (hoverEntry.pathOffset, hoverEntry.pathLength) };
+
+        if (not definitionPath.empty() and hoverEntry.line > 0 and hoverEntry.column > 0 and hoverEntry.endLine > 0 and hoverEntry.endColumn > 0)
+        {
+            jam::JsonWriter::appendSeparator (entries);
+            jam::JsonWriter::appendObject (entries, [&hoverEntry, definitionPath] (juce::MemoryBlock& members)
+            {
+                jam::JsonWriter::appendKey (members, lsp::Member::uri);
+                appendUri (members, juce::File { jam::Strings::fromView (definitionPath) });
+                jam::JsonWriter::appendKey (members, lsp::Member::range);
+                jam::JsonWriter::appendObject (members, [&hoverEntry] (juce::MemoryBlock& range)
+                {
+                    jam::JsonWriter::appendKey (range, lsp::Member::start);
+                    appendPosition (range, hoverEntry.line - 1, hoverEntry.column - 1);
+                    jam::JsonWriter::appendKey (range, lsp::Member::end);
+                    appendPosition (range, hoverEntry.endLine - 1, hoverEntry.endColumn - 1);
+                });
+            });
+        }
+    }
 }
 
 void Query::findReferences (juce::ValueTree& request, const Index& index) const
@@ -444,44 +486,46 @@ void Query::hover (juce::ValueTree& request, const Index& index) const
     {
         if (hoverRecord != nullptr)
         {
-            const auto& hoverDocument { *index.documents.at (hoverPathIndex) };
-            const auto& hoverToken { hoverElement->get<jam::Document::Tokens> (Id::nameTokens)->at (hoverTokenIndex) };
-            const auto& [unitRow, file] { index.symbolFiles.at (hoverPathIndex) };
-            const auto& symbolDocument { *index.symbolDocuments.at (unitRow) };
-            const auto& hoverEntry { symbolDocument.getHovers (*file).at (static_cast<uint32_t> (hoverRecord->hover)) };
-            const auto hover { symbolDocument.getString (hoverEntry.hoverOffset, hoverEntry.hoverLength) };
-            const auto definitionPath { symbolDocument.getString (hoverEntry.pathOffset, hoverEntry.pathLength) };
-            std::string_view definition {};
-
-            if (not definitionPath.empty())
+            if (const auto* hoverDocument { index.getOrCreateDocument (hoverPathIndex) }; hoverDocument != nullptr)
             {
-                if (const auto stored { index.documents.find (index.paths.indexOf (jam::Strings::fromView (definitionPath), false, 0)) }; stored != index.documents.end())
-                {
-                    const auto& [definitionIndex, definitionDocument] { *stored };
+                const auto& hoverToken { hoverElement->get<jam::Document::Tokens> (Id::nameTokens)->at (hoverTokenIndex) };
+                const auto& [unitPathIndex, file] { index.symbolFiles.at (hoverPathIndex) };
+                const auto& symbolDocument { *index.symbolDocuments.at (unitPathIndex) };
+                const auto& hoverEntry { symbolDocument.getHovers (*file).at (static_cast<uint32_t> (hoverRecord->hover)) };
+                const auto hover { symbolDocument.getString (hoverEntry.hoverOffset, hoverEntry.hoverLength) };
+                const auto definitionPath { symbolDocument.getString (hoverEntry.pathOffset, hoverEntry.pathLength) };
+                std::string_view definition {};
 
-                    definition = definitionDocument->getView (jam::Document::Token (definitionDocument->getByteOffset (static_cast<uint32_t> (hoverEntry.line), static_cast<uint32_t> (hoverEntry.column)),
-                                                                                     definitionDocument->getByteOffset (static_cast<uint32_t> (hoverEntry.endLine), static_cast<uint32_t> (hoverEntry.endColumn))));
+                if (not definitionPath.empty())
+                {
+                    if (const auto* definitionDocument { index.getOrCreateDocument (index.paths.indexOf (jam::Strings::fromView (definitionPath), false, 0)) }; definitionDocument != nullptr)
+                        definition = definitionDocument->getView (jam::Document::Token (definitionDocument->getByteOffset (static_cast<uint32_t> (hoverEntry.line), static_cast<uint32_t> (hoverEntry.column)),
+                                                                                         definitionDocument->getByteOffset (static_cast<uint32_t> (hoverEntry.endLine), static_cast<uint32_t> (hoverEntry.endColumn))));
                 }
-            }
 
-            jam::JsonWriter::appendObject (message, [&hover, &definition, &hoverDocument, &hoverToken, encoding] (juce::MemoryBlock& members)
-            {
-                jam::JsonWriter::appendKey (members, lsp::Member::contents);
-                jam::JsonWriter::appendObject (members, [&hover, &definition] (juce::MemoryBlock& contents)
+                jam::JsonWriter::appendObject (message, [&hover, &definition, hoverDocument, &hoverToken, encoding] (juce::MemoryBlock& members)
                 {
-                    jam::JsonWriter::appendKey (contents, lsp::Member::type);
-                    jam::JsonWriter::appendString (contents, lsp::MarkupType::PlainText);
+                    jam::JsonWriter::appendKey (members, lsp::Member::contents);
+                    jam::JsonWriter::appendObject (members, [&hover, &definition] (juce::MemoryBlock& contents)
+                    {
+                        jam::JsonWriter::appendKey (contents, lsp::Member::type);
+                        jam::JsonWriter::appendString (contents, lsp::MarkupType::PlainText);
 
-                    jam::JsonWriter::appendKey (contents, lsp::Member::value);
-                    jam::Format::appendUtf8 (contents, Chars::doubleQuote);
-                    jam::JsonWriter::appendStringBody (contents, hover);
-                    jam::JsonWriter::appendStringBody (contents, definition);
-                    jam::Format::appendUtf8 (contents, Chars::doubleQuote);
+                        jam::JsonWriter::appendKey (contents, lsp::Member::value);
+                        jam::Format::appendUtf8 (contents, Chars::doubleQuote);
+                        jam::JsonWriter::appendStringBody (contents, hover);
+                        jam::JsonWriter::appendStringBody (contents, definition);
+                        jam::Format::appendUtf8 (contents, Chars::doubleQuote);
+                    });
+
+                    jam::JsonWriter::appendKey (members, lsp::Member::range);
+                    appendRange (members, *hoverDocument, hoverToken.span.getStart(), hoverToken.span.getEnd(), encoding);
                 });
-
-                jam::JsonWriter::appendKey (members, lsp::Member::range);
-                appendRange (members, hoverDocument, hoverToken.span.getStart(), hoverToken.span.getEnd(), encoding);
-            });
+            }
+            else
+            {
+                jam::JsonWriter::appendNull (message);
+            }
         }
         else
         {
@@ -929,28 +973,30 @@ int Query::getRecordType (int pathIndex, const jam::Document& document, const ja
 
 void Query::appendSemanticTokens (juce::MemoryBlock& json, int pathIndex, const Index& index, std::string_view encoding, size_t startOffset, size_t endOffset) const
 {
-    const auto& document { *index.documents.at (pathIndex) };
-    const auto& language { *index.languages.at (*document.getRoot()->get<int> (Id::family)) };
-    const auto& stream { *document.getRoot()->get<jam::Document::Tokens> (Id::tokens) };
-    const auto first { std::lower_bound (stream.begin(), stream.end(), startOffset, [] (const jam::Document::Token& token, size_t offset) { return token.offset() + token.length() <= offset; }) };
-    size_t previousOffset { 0 };
-
-    jam::JsonWriter::appendObject (json, [this, pathIndex, &index, &document, &language, &stream, first, startOffset, endOffset, encoding, &previousOffset] (juce::MemoryBlock& members)
+    if (const auto* document { index.getOrCreateDocument (pathIndex) }; document != nullptr)
     {
-        jam::JsonWriter::appendKey (members, lsp::Member::data);
-        jam::JsonWriter::appendArray (members, [this, pathIndex, &index, &document, &language, &stream, first, startOffset, endOffset, encoding, &previousOffset] (juce::MemoryBlock& entries)
+        const auto& language { *index.languages.at (*document->getRoot()->get<int> (Id::family)) };
+        const auto& stream { *document->getRoot()->get<jam::Document::Tokens> (Id::tokens) };
+        const auto first { std::lower_bound (stream.begin(), stream.end(), startOffset, [] (const jam::Document::Token& token, size_t offset) { return token.offset() + token.length() <= offset; }) };
+        size_t previousOffset { 0 };
+
+        jam::JsonWriter::appendObject (json, [this, pathIndex, &index, document, &language, &stream, first, startOffset, endOffset, encoding, &previousOffset] (juce::MemoryBlock& members)
         {
-            for (auto token { first }; token != stream.end() and token->offset() < endOffset; ++token)
+            jam::JsonWriter::appendKey (members, lsp::Member::data);
+            jam::JsonWriter::appendArray (members, [this, pathIndex, &index, document, &language, &stream, first, startOffset, endOffset, encoding, &previousOffset] (juce::MemoryBlock& entries)
             {
-                const auto tokenEnd { token->offset() + token->length() };
+                for (auto token { first }; token != stream.end() and token->offset() < endOffset; ++token)
+                {
+                    const auto tokenEnd { token->offset() + token->length() };
 
-                const auto [element, tokenIndex] { language.hasIndex() ? document.getNameToken (token->offset()) : std::pair<const jam::Document::Element*, int> { nullptr, -1 } };
-                const auto tokenType { element != nullptr ? getRecordType (pathIndex, document, *element, tokenIndex, index) : token->type };
+                    const auto [element, tokenIndex] { language.hasIndex() ? document->getNameToken (token->offset()) : std::pair<const jam::Document::Element*, int> { nullptr, -1 } };
+                    const auto tokenType { element != nullptr ? getRecordType (pathIndex, *document, *element, tokenIndex, index) : token->type };
 
-                previousOffset = appendTokenLines (entries, document, previousOffset, std::max (token->offset(), startOffset), std::min (tokenEnd, endOffset), language.getSemanticType (tokenType), language.getSemanticModifiers (tokenType), encoding);
-            }
+                    previousOffset = appendTokenLines (entries, *document, previousOffset, std::max (token->offset(), startOffset), std::min (tokenEnd, endOffset), language.getSemanticType (tokenType), language.getSemanticModifiers (tokenType), encoding);
+                }
+            });
         });
-    });
+    }
 }
 
 size_t Query::appendTokenLines (juce::MemoryBlock& json, const jam::Document& document, size_t previousOffset, size_t startOffset, size_t endOffset, int type, int modifiers, std::string_view encoding)
@@ -1164,16 +1210,17 @@ Query::Matches Query::getMatches (const jam::Fuzzy::Pattern& pattern, const Inde
         {
             const auto& [pathIndex, record] { declarationOccurrence };
 
-            if (const auto [element, tokenIndex] { index.getElement (declarationOccurrence) }; element != nullptr)
+            if (const auto* document { index.getOrCreateDocument (pathIndex) }; document != nullptr)
             {
-                const auto& document { *index.documents.at (pathIndex) };
-
-                if (index.hasRole (document, *element, jam::LanguageRole::declaration))
+                if (const auto [element, tokenIndex] { Index::getElement (*document, record->line, record->column) }; element != nullptr)
                 {
-                    const auto match { getMatch (pattern, document, *element) };
+                    if (index.hasRole (*document, *element, jam::LanguageRole::declaration))
+                    {
+                        const auto match { getMatch (pattern, *document, *element) };
 
-                    if (match.isMatch())
-                        scored.add ({ match.score, pathIndex, element });
+                        if (match.isMatch())
+                            scored.add ({ match.score, pathIndex, element });
+                    }
                 }
             }
         }
@@ -1210,23 +1257,25 @@ void Query::workspaceSymbol (juce::ValueTree& request, const Index& index) const
 
         for (const auto& [score, pathIndex, element] : getMatches (pattern, index))
         {
-            const auto& path { index.paths.at (pathIndex) };
-            const auto& document { *index.documents.at (pathIndex) };
-            const auto& token { element->get<jam::Document::Tokens> (Id::nameTokens)->at (getLastTokenIndex (*element)) };
-            const auto symbolType { index.getSymbolType (document, *element) };
-
-            jam::JsonWriter::appendSeparator (entries);
-            jam::JsonWriter::appendObject (entries, [&path, &document, &token, symbolType, encoding] (juce::MemoryBlock& members)
+            if (const auto* document { index.getOrCreateDocument (pathIndex) }; document != nullptr)
             {
-                jam::JsonWriter::appendKey (members, lsp::Member::name);
-                jam::JsonWriter::appendString (members, document.getView (token));
+                const auto& path { index.paths.at (pathIndex) };
+                const auto& token { element->get<jam::Document::Tokens> (Id::nameTokens)->at (getLastTokenIndex (*element)) };
+                const auto symbolType { index.getSymbolType (*document, *element) };
 
-                jam::JsonWriter::appendKey (members, lsp::Member::type);
-                jam::Format::appendDecimal (members, symbolType);
+                jam::JsonWriter::appendSeparator (entries);
+                jam::JsonWriter::appendObject (entries, [&path, document, &token, symbolType, encoding] (juce::MemoryBlock& members)
+                {
+                    jam::JsonWriter::appendKey (members, lsp::Member::name);
+                    jam::JsonWriter::appendString (members, document->getView (token));
 
-                jam::JsonWriter::appendKey (members, lsp::Member::location);
-                appendLocation (members, path, document, token, encoding);
-            });
+                    jam::JsonWriter::appendKey (members, lsp::Member::type);
+                    jam::Format::appendDecimal (members, symbolType);
+
+                    jam::JsonWriter::appendKey (members, lsp::Member::location);
+                    appendLocation (members, path, *document, token, encoding);
+                });
+            }
         }
     });
 }
@@ -1264,10 +1313,14 @@ void Query::prepareCallHierarchy (juce::ValueTree& request, const Index& index) 
 std::pair<const jam::Document::Element*, int> Query::getCallReference (const Index& index, const Occurrence& occurrence)
 {
     const auto& [referencePathIndex, record] { occurrence };
-    const auto [element, tokenIndex] { index.getElement (occurrence) };
 
-    if (element != nullptr and index.hasRole (*index.documents.at (referencePathIndex), *element, jam::LanguageRole::call) and element->parent->parent != nullptr)
-        return { element, tokenIndex };
+    if (const auto* document { index.getOrCreateDocument (referencePathIndex) }; document != nullptr)
+    {
+        const auto [element, tokenIndex] { Index::getElement (*document, record->line, record->column) };
+
+        if (element != nullptr and index.hasRole (*document, *element, jam::LanguageRole::call) and element->parent->parent != nullptr)
+            return { element, tokenIndex };
+    }
 
     return { nullptr, -1 };
 }
@@ -1294,23 +1347,25 @@ void Query::appendIncomingRuns (juce::MemoryBlock& entries, juce::int64 symbol, 
 int Query::appendIncomingRun (juce::MemoryBlock& entries, const Index& index, const Occurrences& references, int runStart, const jam::Document::Element& caller, std::string_view encoding)
 {
     const auto runPathIndex { getOccurrencePath (references.at (runStart)) };
-    const auto& path { index.paths.at (runPathIndex) };
-    const auto& document { *index.documents.at (runPathIndex) };
-
     auto runEnd { runStart + 1 };
 
-    jam::JsonWriter::appendSeparator (entries);
-    jam::JsonWriter::appendObject (entries, [&index, &references, &path, &document, &caller, &runEnd, runStart, encoding] (juce::MemoryBlock& members)
+    if (const auto* document { index.getOrCreateDocument (runPathIndex) }; document != nullptr)
     {
-        jam::JsonWriter::appendKey (members, lsp::Member::from);
-        appendItem (members, path, document, caller, getLastTokenIndex (caller), index, encoding);
+        const auto& path { index.paths.at (runPathIndex) };
 
-        jam::JsonWriter::appendKey (members, lsp::Member::fromRanges);
-        jam::JsonWriter::appendArray (members, [&index, &references, &document, &caller, runStart, &runEnd, encoding] (juce::MemoryBlock& ranges)
+        jam::JsonWriter::appendSeparator (entries);
+        jam::JsonWriter::appendObject (entries, [&index, &references, &path, document, &caller, &runEnd, runStart, encoding] (juce::MemoryBlock& members)
         {
-            runEnd = appendCallRanges (ranges, index, references, runStart, caller, document, encoding);
+            jam::JsonWriter::appendKey (members, lsp::Member::from);
+            appendItem (members, path, *document, caller, getLastTokenIndex (caller), index, encoding);
+
+            jam::JsonWriter::appendKey (members, lsp::Member::fromRanges);
+            jam::JsonWriter::appendArray (members, [&index, &references, document, &caller, runStart, &runEnd, encoding] (juce::MemoryBlock& ranges)
+            {
+                runEnd = appendCallRanges (ranges, index, references, runStart, caller, *document, encoding);
+            });
         });
-    });
+    }
 
     return runEnd;
 }

@@ -39,6 +39,7 @@ extern const juce::Identifier cancel;
 extern const juce::Identifier cast;
 extern const juce::Identifier children;
 extern const juce::Identifier cmake;
+extern const juce::Identifier coalesce;
 extern const juce::Identifier codeAction;
 extern const juce::Identifier column;
 extern const juce::Identifier completion;

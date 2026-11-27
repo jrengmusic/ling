@@ -1,7 +1,7 @@
 #include "Operation.h"
 
-Operation::Operation (const juce::File& newManifestFile, const juce::String& newToolchainArgument, juce::MemoryBlock&& newRequest)
-    : Client (newManifestFile, newToolchainArgument)
+Operation::Operation (LINGModel& newModel, const juce::File& newManifestFile, const juce::String& newToolchainArgument, juce::MemoryBlock&& newRequest)
+    : Client (newModel, newManifestFile, newToolchainArgument)
     , request (std::move (newRequest))
 {
     state.addListener (this);
@@ -15,6 +15,7 @@ Operation::~Operation()
 
 void Operation::connectionMade()
 {
+    Client::connectionMade();
     sendMessage (request);
 }
 
@@ -36,7 +37,7 @@ void Operation::messageReceived (const juce::MemoryBlock& reply)
 
         fwrite (reply.getData(), sizeof (char), reply.getSize(), stdout);
         fwrite (&newline, sizeof (char), 1, stdout);
-        disconnect (-1, juce::InterprocessConnection::Notify::no);
+        disconnect (waitForDisconnect, juce::InterprocessConnection::Notify::no);
         juce::JUCEApplicationBase::getInstance()->setApplicationReturnValue (document->contains (root, lsp::Member::error) ? EXIT_FAILURE : EXIT_SUCCESS);
         juce::JUCEApplicationBase::quit();
     }

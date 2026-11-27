@@ -14,8 +14,9 @@ LINGModel::LINGModel()
     createAndAddParameter<jam::Parameter<int>> (overlayRow, Id::jobCount, 0);
     createAndAddParameter<jam::Parameter<int>> (overlayRow, Id::pendingJobCount, 0);
     state.setProperty (Id::timeout, defaultTimeoutMs, nullptr);
+    state.setProperty (Id::coalesce, defaultCoalesceMs, nullptr);
 
-    watcher.coalesceEvents (coalesceMs);
+    watcher.coalesceEvents (defaultCoalesceMs);
     watcher.addListener (this);
 }
 
@@ -24,6 +25,14 @@ void LINGModel::setMessage (const juce::String& text)
     auto* param { getParameter<jam::ParameterText> (jam::Format::toType (Id::overlay), Id::message) };
 
     param->setValue (text);
+}
+
+int LINGModel::getDefaultThreads()
+{
+    static constexpr int minimumThreads { 2 };
+    static constexpr int reservedCpus { 2 };
+
+    return std::max (minimumThreads, juce::SystemStats::getNumCpus() - reservedCpus);
 }
 
 std::string LINGModel::getProjectName (const juce::File& manifest, std::string_view toolchainArgument)
@@ -38,7 +47,7 @@ std::string LINGModel::getProjectName (const juce::File& manifest, std::string_v
     return name;
 }
 
-std::string LINGModel::getDaemonName (const juce::File& manifest, std::string_view toolchainArgument)
+std::string LINGModel::getDaemonName()
 {
     static const auto buildHash { []
     {
@@ -48,7 +57,7 @@ std::string LINGModel::getDaemonName (const juce::File& manifest, std::string_vi
         return jam::Wyhash::hashBytes (executable.getData(), executable.getSize());
     }() };
 
-    auto name (getProjectName (manifest, toolchainArgument));
+    std::string name;
 
     jam::Format::appendHex (name, buildHash);
     return name;
@@ -176,7 +185,15 @@ juce::File LINGModel::getSwapFile (const juce::File& file, juce::StringRef exten
     const juce::File manifest { state[Id::manifest].toString() };
 
     if (row.isValid())
-        return juce::File { row[Id::swap].toString() }.getChildFile (jam::Strings::fromView (getProjectName (manifest, jam::Strings::getView (toolchainArgument)))).getChildFile (jam::Format::toFileName (file.getRelativePathFrom (juce::File { row[Id::path].toString() }), extension));
+    {
+        const auto relativeName { jam::Format::toFileName (file.getRelativePathFrom (juce::File { row[Id::path].toString() }), extension) };
+        const juce::File swapDirectory { row[Id::swap].toString() };
+
+        if (juce::String (extension).compare (files::lingSwap) == 0)
+            return swapDirectory.getChildFile (relativeName);
+
+        return swapDirectory.getChildFile (jam::Strings::fromView (getProjectName (manifest, jam::Strings::getView (toolchainArgument)))).getChildFile (relativeName);
+    }
 
     const auto path { file.getFullPathName() };
     const auto bytes { jam::Strings::getView (path) };
@@ -186,12 +203,22 @@ juce::File LINGModel::getSwapFile (const juce::File& file, juce::StringRef exten
     return getCacheDirectory (manifest, jam::Strings::getView (toolchainArgument)).getChildFile (jam::Format::toFileName (jam::Strings::fromView (name), extension));
 }
 
+bool LINGModel::isWithinRoots (const jam::Array<juce::File>& roots, const juce::File& file)
+{
+    return roots.isEmpty() or std::any_of (roots.begin(), roots.end(), [&file] (const juce::File& root)
+    {
+        return file == root or file.isAChildOf (root);
+    });
+}
+
 void LINGModel::valueTreePropertyChanged (juce::ValueTree& tree, const juce::Identifier& property)
 {
     jam::Model::valueTreePropertyChanged (tree, property);
 
     if (tree == state and property == Id::manifest)
         watcher.addFolder (getProjectDirectory (juce::File { state[Id::manifest].toString() }));
+    else if (tree == state and property == Id::coalesce)
+        watcher.coalesceEvents (static_cast<int> (state[Id::coalesce]));
 }
 
 void LINGModel::valueTreeChildAdded (juce::ValueTree& parentTree, juce::ValueTree& childWhichHasBeenAdded)

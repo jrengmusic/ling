@@ -27,6 +27,7 @@
 | @id  | cast                 | `cast`                 |             |
 | @id  | children             | `children`             |             |
 | @id  | cmake                | `cmake`                |             |
+| @id  | coalesce             | `coalesce`             |             |
 | @id  | codeAction           | `codeAction`           |             |
 | @id  | column               | `column`               |             |
 | @id  | completion           | `completion`           |             |

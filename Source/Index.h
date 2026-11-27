@@ -8,17 +8,77 @@
 
 /**
  * @class Index
- * @brief Holds parsed source documents, mapped SymbolDocument bindings, symbol occurrence tables, and loaded languages.
+ * @brief Holds cached source documents, SymbolDocument bindings, symbol tables, and loaded languages.
  *
- * Each source path gets a stable index in paths. Documents stay in documents
- * until removeDocuments() or a null addDocument() erases them. addBindings()
- * and removeDocuments() maintain symbolDocuments, symbolFiles, records,
+ * Each source path gets a stable index in paths. Source hashes stay in
+ * sourceHashes while getOrCreateDocument() loads and caches documents on demand
+ * up to maxCachedDocuments. DocumentScope pins cached documents during queries.
+ * addBindings() and removeDocuments() maintain symbolDocuments, symbolFiles,
  * completions, declarations, and references. Processor writes the index, and
  * Query reads it through a const reference.
  */
 class Index
 {
 public:
+    /**
+     * @struct UnitOwners
+     * @brief Maps file paths to owning translation unit row indices and holds project roots.
+     */
+    struct UnitOwners
+    {
+        /** @brief Sentinel row index returned when a path has no owning unit. */
+        static constexpr int noRow { -1 };
+
+        /**
+         * @brief Records @p unitRow as the owner of @p path when @p path is absent.
+         *
+         * @param path     File path to register.
+         * @param unitRow  Owning unit row index.
+         */
+        void addIfAbsent (const juce::String& path, int unitRow);
+        /**
+         * @brief Returns the owning unit row index for @p path, or @c noRow when absent.
+         *
+         * @param path  File path to look up.
+         * @return Owning unit row index, or @c noRow.
+         */
+        int getRow (juce::StringRef path) const;
+        /**
+         * @brief Tells whether @p recordPath belongs to another unit or lies outside @c roots.
+         *
+         * @param recordPath  File path of the symbol record.
+         * @param unitRow     Unit row index performing the check.
+         * @return @c true when another unit owns @p recordPath or when unowned outside @c roots.
+         */
+        bool isForeign (const char* recordPath, int unitRow) const;
+
+        /** @brief Registered source and dependency file paths parallel to @c rows. */
+        jam::Strings paths;
+        /** @brief Owning unit row indices parallel to @c paths. */
+        jam::Array<int> rows;
+        /** @brief Project root directories limiting unowned symbol records in isForeign(). */
+        jam::Array<juce::File> roots;
+    };
+
+    /**
+     * @struct DocumentScope
+     * @brief RAII guard that suspends LRU document cache eviction while queries read @c Index.
+     */
+    struct DocumentScope
+    {
+        /**
+         * @brief Increments the eviction lock depth on @p indexToUse.
+         *
+         * @param indexToUse  Index whose cached documents stay pinned during this scope.
+         */
+        explicit DocumentScope (const Index& indexToUse);
+        /** @brief Decrements the eviction lock depth and evicts excess cached documents when zero. */
+        ~DocumentScope();
+        /** @brief Index whose document eviction lock depth this guard manages. */
+        const Index& index;
+        JUCE_DECLARE_NON_COPYABLE (DocumentScope)
+    };
+
     /**
      * @brief Creates an empty index bound to @p modelToUse.
      *
@@ -40,19 +100,16 @@ public:
     void applyToDocuments (const Function& function) const
     {
         for (const auto pathIndex : pathOrder)
-            if (const auto stored { documents.find (pathIndex) }; stored != documents.end())
-            {
-                const auto& [documentIndex, document] { *stored };
-
-                function (paths.getView (pathIndex), *document, *this);
-            }
+            if (sourceHashes.contains (pathIndex))
+                if (const auto* document { getOrCreateDocument (pathIndex) }; document != nullptr)
+                    function (paths.getView (pathIndex), *document, *this);
     }
 
     /**
-     * @brief Erases each stored document whose path is absent from @p files, and removes every SymbolDocument with its bindings.
+     * @brief Erases documents absent from @p files and unbinds SymbolDocuments not retained by isUnitRetained().
      *
-     * Each SymbolDocument of symbolDocuments is unbound through removeBindings(), and then
-     * symbolDocuments is cleared.
+     * Drops removed paths from sourceHashes, documents, and cachedDocuments.
+     * Unbinds non-retained units via removeBindings() and erases them from symbolDocuments.
      *
      * @param files  The current files child tree to retain entries against.
      */
@@ -68,19 +125,39 @@ public:
     void setDocuments();
 
     /**
-     * @brief Stores or replaces the parsed document for @p path, or erases it when @p document is null.
+     * @brief Stores or replaces the parsed document and @p sourceHash for @p path, or erases both when null.
      *
-     * @param path      Source file path whose index in paths keys documents.
-     * @param document  Parsed document to store, or nullptr to erase the entry.
+     * @param path        Source file path whose index in paths keys documents.
+     * @param document    Parsed document to store, or nullptr to erase the entry.
+     * @param sourceHash  Wyhash digest of the source bytes, or zero when erasing.
      */
-    void addDocument (const juce::String& path, std::unique_ptr<jam::Document> document);
+    void addDocument (const juce::String& path, std::unique_ptr<jam::Document> document, juce::int64 sourceHash);
+
+    /**
+     * @brief Records @p sourceHash for @p path and drops any cached document so it reloads from swap on demand.
+     *
+     * @param path        Source file path.
+     * @param sourceHash  Wyhash digest of the source bytes.
+     */
+    void addSourceHash (const juce::String& path, juce::int64 sourceHash);
+
+    /**
+     * @brief Returns the parsed document for @p pathIndex, loading and caching it from swap when absent.
+     *
+     * Moves cache hits to the back of @c cachedDocuments and evicts entries above
+     * @c maxCachedDocuments when @c evictionLockDepth is zero.
+     *
+     * @param pathIndex  Stable path index in @c paths.
+     * @return Cached document pointer, or @c nullptr when missing or invalid.
+     */
+    const jam::Document* getOrCreateDocument (int pathIndex) const;
 
     /**
      * @brief Replaces the symbol bindings of unit @p rowIndex with @p symbolDocument.
      *
-     * Clears any previous bindings for @p rowIndex, then registers each file
-     * entry owned by @p rowIndex (or unclaimed in symbolFiles) into symbolFiles,
-     * records, completions, declarations, and references.
+     * Clears previous bindings for @p rowIndex, then registers each owned or
+     * unclaimed file entry into symbolFiles, completions, declarations, and
+     * references.
      *
      * @param rowIndex        Translation unit row index in the files child.
      * @param symbolDocument  Validated SymbolDocument produced for the unit.
@@ -111,11 +188,11 @@ public:
     void addPathRows (const juce::ValueTree& files);
 
     /**
-     * @brief Rebuilds unitRows mapping each unit and its dependencies to an owning unit row index.
+     * @brief Rebuilds @c unitOwners mapping each unit and its dependencies to an owning unit row index.
      *
-     * Registers explicit unit rows first, then dependency files in three passes:
-     * standalone units without prerequisites, prerequisite units, and units with
-     * prerequisites.
+     * Populates project roots and explicit unit rows first. Registers local
+     * dependencies inside each unit's folder next, then runs three fallback
+     * passes: standalone units, prerequisite units, and units with prerequisites.
      *
      * @param files  The files child tree.
      */
@@ -133,7 +210,7 @@ public:
     getElement (const jam::Document& document, int line, int column);
 
     /**
-     * @brief Resolves a symbol occurrence pair to its element and name-token index in documents.
+     * @brief Resolves a symbol occurrence pair to its element and name-token index via getOrCreateDocument().
      *
      * @param occurrence  Pair of (pathIndex, SymbolRecord*) from declarations or references.
      * @return Matching (Element*, tokenIndex), or { nullptr, -1 } when the document is absent.
@@ -167,7 +244,21 @@ public:
      * @param pathIndex    Target path index in paths.
      * @return Contiguous [start, end) range for @p pathIndex.
      */
-    juce::Range<int> getPathRange (const jam::Array<std::pair<int, const SymbolDocument::SymbolRecord*>>& occurrences, int pathIndex) const;
+    template<typename Record>
+    juce::Range<int> getPathRange (const jam::Array<std::pair<int, const Record*>>& occurrences, int pathIndex) const
+    {
+        const auto isPathBefore { [this] (const std::pair<int, const Record*>& left, const std::pair<int, const Record*>& right)
+        {
+            const auto& [leftPathIndex, leftRecord] { left };
+            const auto& [rightPathIndex, rightRecord] { right };
+
+            return paths.getView (leftPathIndex).compare (paths.getView (rightPathIndex)) < 0;
+        } };
+        const std::pair<int, const Record*> probe { pathIndex, nullptr };
+        const auto [first, last] { std::equal_range (occurrences.begin(), occurrences.end(), probe, isPathBefore) };
+
+        return { static_cast<int> (std::distance (occurrences.begin(), first)), static_cast<int> (std::distance (occurrences.begin(), last)) };
+    }
 
     /**
      * @brief Returns the owning SymbolDocument for the file at @p pathIndex.
@@ -242,25 +333,27 @@ public:
                          int tokenIndex,
                          const Function& function) const
     {
-        if (const auto stored { records.find (pathIndex) }; stored != records.end())
+        if (const auto stored { symbolFiles.find (pathIndex) }; stored != symbolFiles.end())
         {
-            const auto& [recordPathIndex, sortedRecords] { *stored };
+            const auto& [storedPathIndex, unitFile] { *stored };
+            const auto& [unitPathIndex, file] { unitFile };
+            const auto fileSymbols { symbolDocuments.at (unitPathIndex)->getSymbols (*file) };
             const auto& token { element.get<jam::Document::Tokens> (Id::nameTokens)->at (tokenIndex) };
             const auto line { static_cast<int> (document.getLineNumber (token.offset())) };
             const auto column { static_cast<int> (document.getColumnNumber (token.offset())) };
             const auto endColumn { column + static_cast<int> (document.getView (token).size()) };
-            const auto recordPosition { [] (const SymbolDocument::SymbolRecord* record)
+            const auto recordPosition { [] (const SymbolDocument::SymbolRecord& record)
             {
-                return std::make_pair (record->line, record->column);
+                return std::make_pair (record.line, record.column);
             } };
-            const auto firstRecord { std::lower_bound (sortedRecords.begin(), sortedRecords.end(), std::make_pair (line, column),
-                [&recordPosition] (const SymbolDocument::SymbolRecord* record, const std::pair<int, int>& position)
+            const auto firstRecord { std::lower_bound (fileSymbols.begin(), fileSymbols.end(), std::make_pair (line, column),
+                [&recordPosition] (const SymbolDocument::SymbolRecord& record, const std::pair<int, int>& position)
                 {
                     return recordPosition (record) < position;
                 }) };
 
-            for (auto record { firstRecord }; record != sortedRecords.end() and recordPosition (*record) < std::make_pair (line, endColumn); ++record)
-                function (**record);
+            for (auto record { firstRecord }; record != fileSymbols.end() and recordPosition (*record) < std::make_pair (line, endColumn); ++record)
+                function (*record);
         }
     }
 
@@ -281,8 +374,9 @@ public:
         {
             const auto& [pathIndex, record] { *occurrence };
 
-            if (const auto [element, tokenIndex] { getElement (*occurrence) }; element != nullptr)
-                function (pathIndex, *documents.at (pathIndex), *element, tokenIndex, *record);
+            if (const auto* document { getOrCreateDocument (pathIndex) }; document != nullptr)
+                if (const auto [element, tokenIndex] { getElement (*document, record->line, record->column) }; element != nullptr)
+                    function (pathIndex, *document, *element, tokenIndex, *record);
         }
     }
 
@@ -387,8 +481,8 @@ public:
     /** @brief Indices into paths maintained in ascending path byte order. */
     jam::Array<int> pathOrder;
 
-    /** @brief Parsed syntax documents keyed by pathIndex. */
-    jam::HashMap<int, std::unique_ptr<jam::Document>> documents;
+    /** @brief Wyhash source content digests keyed by @c pathIndex for indexed files. */
+    jam::HashMap<int, juce::int64> sourceHashes;
 
     /** @brief Loaded Language instances keyed by family identifier. */
     jam::HashMap<int, std::shared_ptr<const Language>> languages;
@@ -421,11 +515,8 @@ public:
     /** @brief Maps each indexed pathIndex to (owning unit row index, FileEntry* in that unit's SymbolDocument). */
     jam::HashMap<int, std::pair<int, const SymbolDocument::FileEntry*>> symbolFiles;
 
-    /** @brief Per-pathIndex pointers to SymbolRecord entries sorted by (line, column) for binary search. */
-    jam::HashMap<int, jam::Array<const SymbolDocument::SymbolRecord*>> records;
-
-    /** @brief Maps each file path (unit or dependency) to its owning translation unit row index in files. */
-    jam::HashMap<juce::String, int> unitRows;
+    /** @brief Snapshot of file-to-unit ownership and project roots shared with IndexJob instances. */
+    std::shared_ptr<const UnitOwners> unitOwners { std::make_shared<const UnitOwners>() };
 
     /** @brief Maps each file path in files to its row index in files. */
     jam::HashMap<juce::String, int> pathRows;
@@ -434,10 +525,19 @@ public:
     jam::HashMap<juce::String, jam::Array<int>> stemRows;
 
 private:
-    /** @brief Unregisters all symbolFiles and symbol tables contributed by unit @p rowIndex. */
-    void removeBindings (int rowIndex);
+    /**
+     * @brief Tells whether bindings for @p unitPathIndex remain valid against @p files and @c unitOwners.
+     *
+     * @param unitPathIndex  Path index of the unit in @c paths.
+     * @param files          Current files child tree.
+     * @return @c true when the unit keeps its arguments and still owns every bound file.
+     */
+    bool isUnitRetained (int unitPathIndex, const juce::ValueTree& files) const;
 
-    /** @brief Removes completions, records, declarations, and references registered for @p pathIndex. */
+    /** @brief Unregisters all symbolFiles and symbol tables contributed by unit @p unitPathIndex. */
+    void removeBindings (int unitPathIndex);
+
+    /** @brief Removes completions, declarations, and references registered for @p pathIndex. */
     void removeSymbols (int pathIndex);
 
     /** @brief Removes all occurrences for @p pathIndex from @p symbols under @p symbol. */
@@ -451,10 +551,7 @@ private:
     /** @brief Registers all completion records of @p file at @p pathIndex into completions. */
     void addCompletions (int pathIndex, const SymbolDocument& symbolDocument, const SymbolDocument::FileEntry& file);
 
-    /** @brief Collects and position-sorts the SymbolRecord pointers of @p file into records[@p pathIndex]. */
-    void addRecords (int pathIndex, const SymbolDocument& symbolDocument, const SymbolDocument::FileEntry& file);
-
-    /** @brief Populates completions, records, declarations, and references from @p file at @p pathIndex. */
+    /** @brief Populates completions, declarations, and references from @p file at @p pathIndex. */
     void addSymbols (int pathIndex, const SymbolDocument& symbolDocument, const SymbolDocument::FileEntry& file);
 
     /** @brief Inserts per-symbol @p blocks for @p pathIndex into @p symbols in path byte order. */
@@ -472,6 +569,32 @@ private:
      * @return Stable pathIndex in paths.
      */
     int getOrCreatePathIndex (const juce::String& path);
+
+    /**
+     * @brief Loads and validates the syntax swap document for @p pathIndex from disk.
+     *
+     * @param pathIndex   Path index in @c paths.
+     * @param storedHash  Expected source content hash.
+     * @return Validated document, or @c nullptr when missing or mismatched.
+     */
+    std::unique_ptr<jam::Document> getSwapDocument (int pathIndex, juce::int64 storedHash) const;
+    /**
+     * @brief Removes @p pathIndex from @c cachedDocuments when present.
+     *
+     * @param pathIndex  Path index in @c paths.
+     */
+    void removeCachedDocument (int pathIndex) const;
+    /** @brief Evicts oldest cached documents above @c maxCachedDocuments when @c evictionLockDepth is zero. */
+    void evictCachedDocuments() const;
+
+    /** @brief Maximum number of disk-backed documents retained in @c cachedDocuments. */
+    static constexpr int maxCachedDocuments { 64 };
+    /** @brief Parsed syntax documents keyed by @c pathIndex, holding open buffers and LRU-cached files. */
+    mutable jam::HashMap<int, std::unique_ptr<jam::Document>> documents;
+    /** @brief LRU queue of disk-backed @c pathIndex keys ordered from oldest to most recently used. */
+    mutable jam::Array<int> cachedDocuments;
+    /** @brief Active DocumentScope nesting depth; nonzero suspends LRU cache eviction. */
+    mutable int evictionLockDepth { 0 };
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Index)

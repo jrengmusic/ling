@@ -25,11 +25,12 @@ public:
      * Registers each query tool on @c server. Sets @c onInputClosed to quit with
      * success and @c onCancelled to queue an Id::cancel row on each client.
      *
+     * @param newModel              The model shared with created ToolClient instances.
      * @param newManifestFile       The default manifest. start() creates its client. getManifestFile() returns it for a query, or when no manifest is found.
      * @param newManifestName       The file name that a request manifest must match.
      * @param newToolchainArgument  The toolchain argument that the clients receive.
      */
-    ToolRelay (const juce::File& newManifestFile, const juce::String& newManifestName, const juce::String& newToolchainArgument);
+    ToolRelay (LINGModel& newModel, const juce::File& newManifestFile, const juce::String& newManifestName, const juce::String& newToolchainArgument);
 
     /**
      * @brief Starts the daemon client of the manifest and opens the MCP standard input server.
@@ -86,6 +87,9 @@ private:
      * @return The client of the manifest.
      */
     ToolClient& getOrCreateClient (const juce::File& requestManifest);
+
+    /** @brief Shared model passed to each ToolClient created by getOrCreateClient(). */
+    LINGModel& model;
 
     /** @brief The default manifest. start() creates its client, and getManifestFile() returns it when no other manifest applies. */
     const juce::File manifestFile;

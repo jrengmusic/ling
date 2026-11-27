@@ -240,11 +240,11 @@ juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_mermaid_diagram")  # Cle
 juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_markdown_graphics")# Markdown and mermaid materialisation, layout and view component
 juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_terminal")         # VT read-side engine, TTY, protocol vocabulary, keyboard encoding
 juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_tui")              # Terminal user interface components, painted through the terminal graphics context
+juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_profiler")         # Profiler zones and samples
 
 juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_syntax_tree")           # Programming-language tokenizers and parsers over jam::Document
 juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_subprocess")            # JUCE-based subprocess launcher with streaming output and byte-cap truncation
 juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_fuzzy")                 # Fuzzy search (Levenshtein) and fzf-algorithm matching engine
-juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_profiler")              # Profiler zones and samples
 juce_add_module("${CMAKE_CURRENT_SOURCE_DIR}/../jam/jam_model_context_protocol")# Model Context Protocol server over stdio: newline framing, JSON Schema 2020-12 validation, tool calls
 
 message(STATUS "CAST: user modules added from ${CMAKE_CURRENT_SOURCE_DIR}/../jam")
@@ -336,6 +336,7 @@ jam_mermaid_diagram
 jam_markdown_graphics
 jam_terminal
 jam_tui
+jam_profiler
 )
 
 target_link_libraries(${PROJECT_NAME}

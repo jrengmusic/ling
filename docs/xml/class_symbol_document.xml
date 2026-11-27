@@ -17,7 +17,7 @@
     <innerclass refid="struct_symbol_document_1_1_access" prot="private">SymbolDocument::Access</innerclass>
     <sectiondef kind="public-static-attrib">
       <memberdef kind="variable" id="class_symbol_document_1a5d2a4d1f909c9aac5f36f5b1d936033d" prot="public" static="yes" constexpr="yes" mutable="no">
-        <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
+        <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
         <definition>juce::int64 SymbolDocument::noSymbol</definition>
         <argsstring></argsstring>
         <name>noSymbol</name>
@@ -31,8 +31,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="SymbolDocument.h" line="18" column="34" bodyfile="SymbolDocument.h" bodystart="18" bodyend="18"/>
-        <referencedby refid="class_query_1aeee6ea867ed4a19086496c2a0fa48b62" compoundref="_query_8h" startline="427" endline="463">Query::applyToScopeSymbols</referencedby>
-        <referencedby refid="class_query_1ab610e34818feb1149c05e046c74e9a50" compoundref="_query_8cpp" startline="377" endline="404">Query::rename</referencedby>
+        <referencedby refid="class_query_1aeee6ea867ed4a19086496c2a0fa48b62" compoundref="_query_8h" startline="448" endline="484">Query::applyToScopeSymbols</referencedby>
+        <referencedby refid="class_query_1ab610e34818feb1149c05e046c74e9a50" compoundref="_query_8cpp" startline="431" endline="458">Query::rename</referencedby>
       </memberdef>
       <memberdef kind="variable" id="class_symbol_document_1a07429fecfabe254bc5e70271b580bc10" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>int</type>
@@ -49,8 +49,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="SymbolDocument.h" line="21" column="26" bodyfile="SymbolDocument.h" bodystart="21" bodyend="21"/>
-        <referencedby refid="class_query_1a163faae03873f24fd5fb7ba47a310df3" compoundref="_query_8cpp" startline="853" endline="865">Query::documentSymbol</referencedby>
-        <referencedby refid="struct_processor_1_1_index_job_1a6bd61c6eae95b51c30924ca8a9fa27a3" compoundref="_processor_8cpp" startline="947" endline="958">Processor::IndexJob::getOutlineParent</referencedby>
+        <referencedby refid="class_query_1a163faae03873f24fd5fb7ba47a310df3" compoundref="_query_8cpp" startline="909" endline="921">Query::documentSymbol</referencedby>
+        <referencedby refid="struct_processor_1_1_index_job_1a6bd61c6eae95b51c30924ca8a9fa27a3" compoundref="_processor_8cpp" startline="1141" endline="1152">Processor::IndexJob::getOutlineParent</referencedby>
         <referencedby refid="class_built_in_language_1a3f8a34f0e97dc8ec59545d4550482232" compoundref="_built_in_language_8h" startline="409" endline="422">BuiltInLanguage&lt; Elements, TokenTypes &gt;::getParentIndex</referencedby>
         <referencedby refid="_symbol_document_8cpp_1a77f9c45bdb580c50346bd15659ccec6c" compoundref="_symbol_document_8cpp" startline="62" endline="94">sortOutlineEntries</referencedby>
       </memberdef>
@@ -69,9 +69,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="SymbolDocument.h" line="499" column="31" bodyfile="SymbolDocument.h" bodystart="499" bodyend="499"/>
-        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">isValidBuffer</referencedby>
-        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+        <location file="SymbolDocument.h" line="505" column="31" bodyfile="SymbolDocument.h" bodystart="505" bodyend="505"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="465" endline="559">isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="295" endline="427">SymbolDocument::Builder::serialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="class_symbol_document_1a4027a43a655f9c384ff54664be601c90" prot="private" static="yes" constexpr="yes" mutable="no">
         <type>uint32_t</type>
@@ -79,16 +79,17 @@
         <argsstring></argsstring>
         <name>currentFormatVersion</name>
         <qualifiedname>SymbolDocument::currentFormatVersion</qualifiedname>
-        <initializer>{ 1 }</initializer>
+        <initializer>{ 2 }</initializer>
         <briefdescription>
+<para>Binary format version written by <ref refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" kindref="member">Builder::serialize()</ref> and checked by <ref refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" kindref="member">isValidBuffer()</ref>. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="SymbolDocument.h" line="500" column="31" bodyfile="SymbolDocument.h" bodystart="500" bodyend="500"/>
-        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">isValidBuffer</referencedby>
-        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+        <location file="SymbolDocument.h" line="507" column="31" bodyfile="SymbolDocument.h" bodystart="507" bodyend="507"/>
+        <referencedby refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="465" endline="559">isValidBuffer</referencedby>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="295" endline="427">SymbolDocument::Builder::serialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="class_symbol_document_1afddb85fdae16b6bbbc35c85f12b1a803" prot="private" static="yes" constexpr="yes" mutable="no">
         <type>uint64_t</type>
@@ -103,13 +104,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="SymbolDocument.h" line="501" column="31" bodyfile="SymbolDocument.h" bodystart="501" bodyend="501"/>
-        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="290" endline="422">SymbolDocument::Builder::serialize</referencedby>
+        <location file="SymbolDocument.h" line="508" column="31" bodyfile="SymbolDocument.h" bodystart="508" bodyend="508"/>
+        <referencedby refid="class_symbol_document_1_1_builder_1acf3df5b164b6c9cc2e931690b2e1b9b3" compoundref="_symbol_document_8cpp" startline="295" endline="427">SymbolDocument::Builder::serialize</referencedby>
       </memberdef>
     </sectiondef>
     <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="class_symbol_document_1aad702cb4972f831e0fb305b5448c1708" prot="private" static="no" mutable="no">
-        <type>std::unique_ptr&lt; <ref refid="classjuce_1_1MemoryMappedFile" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::MemoryMappedFile</ref> &gt;</type>
+        <type>std::unique_ptr&lt; <ref refid="classjuce_1_1MemoryMappedFile" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::MemoryMappedFile</ref> &gt;</type>
         <definition>std::unique_ptr&lt;juce::MemoryMappedFile&gt; SymbolDocument::mapped</definition>
         <argsstring></argsstring>
         <name>mapped</name>
@@ -120,12 +121,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="SymbolDocument.h" line="561" column="21" bodyfile="SymbolDocument.h" bodystart="561" bodyend="-1"/>
-        <referencedby refid="class_symbol_document_1a660053b5a2d2b3c3ce26bb1c1a93e0a3" compoundref="_symbol_document_8cpp" startline="554" endline="563">open</referencedby>
-        <referencedby refid="class_symbol_document_1a57b7b4f6791ccd1a10d93b6efd1adf67" compoundref="_symbol_document_8cpp" startline="444" endline="449">SymbolDocument</referencedby>
+        <location file="SymbolDocument.h" line="568" column="21" bodyfile="SymbolDocument.h" bodystart="568" bodyend="-1"/>
+        <referencedby refid="class_symbol_document_1a660053b5a2d2b3c3ce26bb1c1a93e0a3" compoundref="_symbol_document_8cpp" startline="561" endline="570">open</referencedby>
+        <referencedby refid="class_symbol_document_1a57b7b4f6791ccd1a10d93b6efd1adf67" compoundref="_symbol_document_8cpp" startline="451" endline="456">SymbolDocument</referencedby>
       </memberdef>
       <memberdef kind="variable" id="class_symbol_document_1a7a04392510754d99dd452d30c785b768" prot="private" static="no" mutable="no">
-        <type><ref refid="classjuce_1_1MemoryBlock" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::MemoryBlock</ref></type>
+        <type><ref refid="classjuce_1_1MemoryBlock" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::MemoryBlock</ref></type>
         <definition>juce::MemoryBlock SymbolDocument::owned</definition>
         <argsstring></argsstring>
         <name>owned</name>
@@ -136,8 +137,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="SymbolDocument.h" line="562" column="23" bodyfile="SymbolDocument.h" bodystart="562" bodyend="-1"/>
-        <referencedby refid="class_symbol_document_1a024a7254fa9523befde781c706c12e98" compoundref="_symbol_document_8cpp" startline="451" endline="456">SymbolDocument</referencedby>
+        <location file="SymbolDocument.h" line="569" column="23" bodyfile="SymbolDocument.h" bodystart="569" bodyend="-1"/>
+        <referencedby refid="class_symbol_document_1a024a7254fa9523befde781c706c12e98" compoundref="_symbol_document_8cpp" startline="458" endline="463">SymbolDocument</referencedby>
       </memberdef>
       <memberdef kind="variable" id="class_symbol_document_1ae4ce1aa68fa40432d8e24a4e006540cc" prot="private" static="no" mutable="no">
         <type>const uint8_t *</type>
@@ -152,12 +153,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="SymbolDocument.h" line="563" column="19" bodyfile="SymbolDocument.h" bodystart="563" bodyend="563"/>
-        <referencedby refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="565" endline="570">getHeader</referencedby>
-        <referencedby refid="class_symbol_document_1a709803faed5ba02f84e8c1cad1a4606a" compoundref="_symbol_document_8cpp" startline="635" endline="640">getString</referencedby>
-        <referencedby refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="554" endline="559">getTable</referencedby>
-        <referencedby refid="class_symbol_document_1a024a7254fa9523befde781c706c12e98" compoundref="_symbol_document_8cpp" startline="451" endline="456">SymbolDocument</referencedby>
-        <referencedby refid="class_symbol_document_1a57b7b4f6791ccd1a10d93b6efd1adf67" compoundref="_symbol_document_8cpp" startline="444" endline="449">SymbolDocument</referencedby>
+        <location file="SymbolDocument.h" line="570" column="19" bodyfile="SymbolDocument.h" bodystart="570" bodyend="570"/>
+        <referencedby refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="572" endline="577">getHeader</referencedby>
+        <referencedby refid="class_symbol_document_1a709803faed5ba02f84e8c1cad1a4606a" compoundref="_symbol_document_8cpp" startline="647" endline="652">getString</referencedby>
+        <referencedby refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="561" endline="566">getTable</referencedby>
+        <referencedby refid="class_symbol_document_1a024a7254fa9523befde781c706c12e98" compoundref="_symbol_document_8cpp" startline="458" endline="463">SymbolDocument</referencedby>
+        <referencedby refid="class_symbol_document_1a57b7b4f6791ccd1a10d93b6efd1adf67" compoundref="_symbol_document_8cpp" startline="451" endline="456">SymbolDocument</referencedby>
       </memberdef>
       <memberdef kind="variable" id="class_symbol_document_1a05116adde5d0404570f149d67a3a3291" prot="private" static="no" mutable="no">
         <type>size_t</type>
@@ -172,9 +173,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="SymbolDocument.h" line="564" column="12" bodyfile="SymbolDocument.h" bodystart="564" bodyend="564"/>
-        <referencedby refid="class_symbol_document_1a024a7254fa9523befde781c706c12e98" compoundref="_symbol_document_8cpp" startline="451" endline="456">SymbolDocument</referencedby>
-        <referencedby refid="class_symbol_document_1a57b7b4f6791ccd1a10d93b6efd1adf67" compoundref="_symbol_document_8cpp" startline="444" endline="449">SymbolDocument</referencedby>
+        <location file="SymbolDocument.h" line="571" column="12" bodyfile="SymbolDocument.h" bodystart="571" bodyend="571"/>
+        <referencedby refid="class_symbol_document_1a024a7254fa9523befde781c706c12e98" compoundref="_symbol_document_8cpp" startline="458" endline="463">SymbolDocument</referencedby>
+        <referencedby refid="class_symbol_document_1a57b7b4f6791ccd1a10d93b6efd1adf67" compoundref="_symbol_document_8cpp" startline="451" endline="456">SymbolDocument</referencedby>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-static-func">
@@ -185,15 +186,15 @@
         <name>open</name>
         <qualifiedname>SymbolDocument::open</qualifiedname>
         <param>
-          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
           <declname>swapFile</declname>
         </param>
         <param>
-          <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
+          <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
           <declname>hash</declname>
         </param>
         <param>
-          <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
+          <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
           <declname>languageHash</declname>
         </param>
         <param>
@@ -243,14 +244,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="SymbolDocument.h" line="418" column="28" bodyfile="SymbolDocument.cpp" bodystart="554" bodyend="563"/>
+        <location file="SymbolDocument.h" line="417" column="28" bodyfile="SymbolDocument.cpp" bodystart="561" bodyend="570"/>
         <references refid="classjuce_1_1MemoryMappedFile_1a2a557f42e076cd4b5ccbb4cb80930f97">juce::MemoryMappedFile::getData</references>
         <references refid="classjuce_1_1MemoryMappedFile_1a82218b9347cf7bf8ac8192b59ea35fdd">juce::MemoryMappedFile::getSize</references>
-        <references refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="458" endline="552">isValidBuffer</references>
-        <references refid="class_symbol_document_1aad702cb4972f831e0fb305b5448c1708" compoundref="_symbol_document_8h" startline="561">mapped</references>
+        <references refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" compoundref="_symbol_document_8cpp" startline="465" endline="559">isValidBuffer</references>
+        <references refid="class_symbol_document_1aad702cb4972f831e0fb305b5448c1708" compoundref="_symbol_document_8h" startline="568">mapped</references>
         <references refid="classjuce_1_1MemoryMappedFile_1acb17e1ac2c4919de6cca24e6d92b13f7a9db38fcd6341ddc8e94f020f41e3fa5d">juce::MemoryMappedFile::readOnly</references>
-        <referencedby refid="class_symbol_document_1_1_builder_1a21460171b97dba1d6fcf8dbd05328b18" compoundref="_symbol_document_8cpp" startline="424" endline="437">SymbolDocument::Builder::buildToSwap</referencedby>
-        <referencedby refid="class_index_1af12e54a1917f3495b54fe591594f4b4b" compoundref="_index_8cpp" startline="57" endline="60">Index::readSwapFile</referencedby>
+        <referencedby refid="class_index_1af12e54a1917f3495b54fe591594f4b4b" compoundref="_index_8cpp" startline="83" endline="86">Index::readSwapFile</referencedby>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -269,9 +269,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="SymbolDocument.h" line="421" column="10" bodyfile="SymbolDocument.cpp" bodystart="572" bodyend="577"/>
-        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="565" endline="570">getHeader</references>
-        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="554" endline="559">getTable</references>
+        <location file="SymbolDocument.h" line="420" column="10" bodyfile="SymbolDocument.cpp" bodystart="584" bodyend="589"/>
+        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="572" endline="577">getHeader</references>
+        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="561" endline="566">getTable</references>
       </memberdef>
       <memberdef kind="function" id="class_symbol_document_1a980e39cdf84be9ab8c46b5e26fc0be32" prot="public" static="no" const="yes" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type><ref refid="struct_symbol_document_1_1_span" kindref="compound">Span</ref>&lt; <ref refid="struct_symbol_document_1_1_symbol_record" kindref="compound">SymbolRecord</ref> &gt;</type>
@@ -302,10 +302,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="SymbolDocument.h" line="429" column="10" bodyfile="SymbolDocument.cpp" bodystart="579" bodyend="584"/>
-        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="565" endline="570">getHeader</references>
-        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="554" endline="559">getTable</references>
-        <referencedby refid="class_index_1ad2be276fb2ebb0b9daab2e45adaa576b" compoundref="_index_8cpp" startline="421" endline="437">Index::addRecords</referencedby>
+        <location file="SymbolDocument.h" line="428" column="10" bodyfile="SymbolDocument.cpp" bodystart="591" bodyend="596"/>
+        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="572" endline="577">getHeader</references>
+        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="561" endline="566">getTable</references>
+        <referencedby refid="class_index_1ac19cde19cea8e9b6df9881fd05ab9bfc" compoundref="_index_8cpp" startline="631" endline="660">Index::addSymbols</referencedby>
       </memberdef>
       <memberdef kind="function" id="class_symbol_document_1a1b857d2d7857901d942c8a9afd884c96" prot="public" static="no" const="yes" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type><ref refid="struct_symbol_document_1_1_span" kindref="compound">Span</ref>&lt; int64_t &gt;</type>
@@ -336,9 +336,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="SymbolDocument.h" line="437" column="10" bodyfile="SymbolDocument.cpp" bodystart="586" bodyend="591"/>
-        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="565" endline="570">getHeader</references>
-        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="554" endline="559">getTable</references>
+        <location file="SymbolDocument.h" line="436" column="10" bodyfile="SymbolDocument.cpp" bodystart="598" bodyend="603"/>
+        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="572" endline="577">getHeader</references>
+        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="561" endline="566">getTable</references>
       </memberdef>
       <memberdef kind="function" id="class_symbol_document_1afd2f9b95e556cec2dcc0e83958272c76" prot="public" static="no" const="yes" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type><ref refid="struct_symbol_document_1_1_span" kindref="compound">Span</ref>&lt; <ref refid="struct_symbol_document_1_1_completion_record" kindref="compound">CompletionRecord</ref> &gt;</type>
@@ -369,11 +369,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="SymbolDocument.h" line="445" column="10" bodyfile="SymbolDocument.cpp" bodystart="593" bodyend="598"/>
-        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="565" endline="570">getHeader</references>
-        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="554" endline="559">getTable</references>
-        <referencedby refid="class_index_1a1b235a0fbfaf240cc47a498d597eb62b" compoundref="_index_8cpp" startline="363" endline="372">Index::addCompletions</referencedby>
-        <referencedby refid="class_index_1aa47fa08dfa76c8e7a09023e474bf8863" compoundref="_index_8cpp" startline="339" endline="361">Index::removeCompletions</referencedby>
+        <location file="SymbolDocument.h" line="444" column="10" bodyfile="SymbolDocument.cpp" bodystart="605" bodyend="610"/>
+        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="572" endline="577">getHeader</references>
+        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="561" endline="566">getTable</references>
+        <referencedby refid="class_index_1a1b235a0fbfaf240cc47a498d597eb62b" compoundref="_index_8cpp" startline="578" endline="597">Index::addCompletions</referencedby>
+        <referencedby refid="class_index_1aa47fa08dfa76c8e7a09023e474bf8863" compoundref="_index_8cpp" startline="554" endline="576">Index::removeCompletions</referencedby>
       </memberdef>
       <memberdef kind="function" id="class_symbol_document_1a176879565b3e49bdea0f894d2e6d1abf" prot="public" static="no" const="yes" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type><ref refid="struct_symbol_document_1_1_span" kindref="compound">Span</ref>&lt; <ref refid="struct_symbol_document_1_1_hover_entry" kindref="compound">HoverEntry</ref> &gt;</type>
@@ -404,9 +404,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="SymbolDocument.h" line="453" column="10" bodyfile="SymbolDocument.cpp" bodystart="600" bodyend="605"/>
-        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="565" endline="570">getHeader</references>
-        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="554" endline="559">getTable</references>
+        <location file="SymbolDocument.h" line="452" column="10" bodyfile="SymbolDocument.cpp" bodystart="612" bodyend="617"/>
+        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="572" endline="577">getHeader</references>
+        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="561" endline="566">getTable</references>
       </memberdef>
       <memberdef kind="function" id="class_symbol_document_1a3abeff9a43597142c5aec59d756991c9" prot="public" static="no" const="yes" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type><ref refid="struct_symbol_document_1_1_span" kindref="compound">Span</ref>&lt; <ref refid="struct_symbol_document_1_1_inlay_hint_entry" kindref="compound">InlayHintEntry</ref> &gt;</type>
@@ -437,10 +437,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="SymbolDocument.h" line="461" column="10" bodyfile="SymbolDocument.cpp" bodystart="607" bodyend="612"/>
-        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="565" endline="570">getHeader</references>
-        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="554" endline="559">getTable</references>
-        <referencedby refid="class_query_1aad6e5a1c4754d6605f90f30699fc7769" compoundref="_query_8cpp" startline="548" endline="580">Query::inlayHint</referencedby>
+        <location file="SymbolDocument.h" line="460" column="10" bodyfile="SymbolDocument.cpp" bodystart="619" bodyend="624"/>
+        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="572" endline="577">getHeader</references>
+        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="561" endline="566">getTable</references>
+        <referencedby refid="class_query_1aad6e5a1c4754d6605f90f30699fc7769" compoundref="_query_8cpp" startline="604" endline="636">Query::inlayHint</referencedby>
       </memberdef>
       <memberdef kind="function" id="class_symbol_document_1a7eabd60a7dc7199dd5ad442393b1ed13" prot="public" static="no" const="yes" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type><ref refid="struct_symbol_document_1_1_span" kindref="compound">Span</ref>&lt; <ref refid="struct_symbol_document_1_1_diagnostic_entry" kindref="compound">DiagnosticEntry</ref> &gt;</type>
@@ -471,10 +471,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="SymbolDocument.h" line="469" column="10" bodyfile="SymbolDocument.cpp" bodystart="614" bodyend="619"/>
-        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="565" endline="570">getHeader</references>
-        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="554" endline="559">getTable</references>
-        <referencedby refid="class_query_1a59f0b916e64bca9e3a53ab112922ffcf" compoundref="_query_8cpp" startline="617" endline="637">Query::appendDiagnostics</referencedby>
+        <location file="SymbolDocument.h" line="468" column="10" bodyfile="SymbolDocument.cpp" bodystart="626" bodyend="631"/>
+        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="572" endline="577">getHeader</references>
+        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="561" endline="566">getTable</references>
+        <referencedby refid="class_query_1a59f0b916e64bca9e3a53ab112922ffcf" compoundref="_query_8cpp" startline="673" endline="693">Query::appendDiagnostics</referencedby>
       </memberdef>
       <memberdef kind="function" id="class_symbol_document_1aa8a6e999e47720c45bc9649d566531e6" prot="public" static="no" const="yes" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type><ref refid="struct_symbol_document_1_1_span" kindref="compound">Span</ref>&lt; <ref refid="struct_symbol_document_1_1_outline_entry" kindref="compound">OutlineEntry</ref> &gt;</type>
@@ -505,10 +505,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="SymbolDocument.h" line="477" column="10" bodyfile="SymbolDocument.cpp" bodystart="621" bodyend="626"/>
-        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="565" endline="570">getHeader</references>
-        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="554" endline="559">getTable</references>
-        <referencedby refid="class_query_1a163faae03873f24fd5fb7ba47a310df3" compoundref="_query_8cpp" startline="853" endline="865">Query::documentSymbol</referencedby>
+        <location file="SymbolDocument.h" line="476" column="10" bodyfile="SymbolDocument.cpp" bodystart="633" bodyend="638"/>
+        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="572" endline="577">getHeader</references>
+        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="561" endline="566">getTable</references>
+        <referencedby refid="class_query_1a163faae03873f24fd5fb7ba47a310df3" compoundref="_query_8cpp" startline="909" endline="921">Query::documentSymbol</referencedby>
       </memberdef>
       <memberdef kind="function" id="class_symbol_document_1a1837c5eeaac88354c6ac168b7fa8811c" prot="public" static="no" const="yes" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type><ref refid="struct_symbol_document_1_1_span" kindref="compound">Span</ref>&lt; <ref refid="struct_symbol_document_1_1_fix_it_entry" kindref="compound">FixItEntry</ref> &gt;</type>
@@ -539,10 +539,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="SymbolDocument.h" line="485" column="10" bodyfile="SymbolDocument.cpp" bodystart="628" bodyend="633"/>
-        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="565" endline="570">getHeader</references>
-        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="554" endline="559">getTable</references>
-        <referencedby refid="class_query_1a556bb5accc9b8a0ee57d511261fe6093" compoundref="_query_8cpp" startline="726" endline="739">Query::appendFixItActions</referencedby>
+        <location file="SymbolDocument.h" line="484" column="10" bodyfile="SymbolDocument.cpp" bodystart="640" bodyend="645"/>
+        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="572" endline="577">getHeader</references>
+        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="561" endline="566">getTable</references>
+        <referencedby refid="class_query_1a9a689947cebf7336b4c7c3a4b1e1f447" compoundref="_query_8cpp" startline="782" endline="795">Query::appendFixItActions</referencedby>
       </memberdef>
       <memberdef kind="function" id="class_symbol_document_1a709803faed5ba02f84e8c1cad1a4606a" prot="public" static="no" const="yes" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type>std::string_view</type>
@@ -585,13 +585,33 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="SymbolDocument.h" line="494" column="22" bodyfile="SymbolDocument.cpp" bodystart="635" bodyend="640"/>
-        <references refid="class_symbol_document_1ae4ce1aa68fa40432d8e24a4e006540cc" compoundref="_symbol_document_8h" startline="563" endline="563">base</references>
-        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="565" endline="570">getHeader</references>
-        <referencedby refid="class_query_1ac4dc7ce737d628ad4f1ba257f3b3817e" compoundref="_query_8cpp" startline="705" endline="724">Query::appendCompletionItem</referencedby>
-        <referencedby refid="class_query_1a59f0b916e64bca9e3a53ab112922ffcf" compoundref="_query_8cpp" startline="617" endline="637">Query::appendDiagnostics</referencedby>
-        <referencedby refid="class_query_1a556bb5accc9b8a0ee57d511261fe6093" compoundref="_query_8cpp" startline="726" endline="739">Query::appendFixItActions</referencedby>
-        <referencedby refid="class_query_1aad6e5a1c4754d6605f90f30699fc7769" compoundref="_query_8cpp" startline="548" endline="580">Query::inlayHint</referencedby>
+        <location file="SymbolDocument.h" line="493" column="22" bodyfile="SymbolDocument.cpp" bodystart="647" bodyend="652"/>
+        <references refid="class_symbol_document_1ae4ce1aa68fa40432d8e24a4e006540cc" compoundref="_symbol_document_8h" startline="570" endline="570">base</references>
+        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="572" endline="577">getHeader</references>
+        <referencedby refid="class_query_1ac4dc7ce737d628ad4f1ba257f3b3817e" compoundref="_query_8cpp" startline="761" endline="780">Query::appendCompletionItem</referencedby>
+        <referencedby refid="class_query_1a59f0b916e64bca9e3a53ab112922ffcf" compoundref="_query_8cpp" startline="673" endline="693">Query::appendDiagnostics</referencedby>
+        <referencedby refid="class_query_1a9a689947cebf7336b4c7c3a4b1e1f447" compoundref="_query_8cpp" startline="782" endline="795">Query::appendFixItActions</referencedby>
+        <referencedby refid="class_query_1aad6e5a1c4754d6605f90f30699fc7769" compoundref="_query_8cpp" startline="604" endline="636">Query::inlayHint</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_symbol_document_1a2fd1fc78c36e471e21c506723299a1ad" prot="public" static="no" const="yes" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
+        <definition>juce::int64 SymbolDocument::getHash</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>getHash</name>
+        <qualifiedname>SymbolDocument::getHash</qualifiedname>
+        <briefdescription>
+<para>Returns the content stamp hash stored in the binary header. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>64-bit hash value from <ref refid="struct_symbol_document_1_1_header_1a74171f58ee377b01e6aa4907d6729925" kindref="member">Header::hash</ref>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SymbolDocument.h" line="500" column="17" bodyfile="SymbolDocument.cpp" bodystart="579" bodyend="582"/>
+        <references refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" compoundref="_symbol_document_8cpp" startline="572" endline="577">getHeader</references>
+        <references refid="struct_symbol_document_1_1_header_1a74171f58ee377b01e6aa4907d6729925" compoundref="_symbol_document_8h" startline="68" endline="68">SymbolDocument::Header::hash</references>
       </memberdef>
       <memberdef kind="function" id="class_symbol_document_1a57b7b4f6791ccd1a10d93b6efd1adf67" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -603,7 +623,7 @@
           <type><ref refid="struct_symbol_document_1_1_access" kindref="compound">Access</ref></type>
         </param>
         <param>
-          <type>std::unique_ptr&lt; <ref refid="classjuce_1_1MemoryMappedFile" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::MemoryMappedFile</ref> &gt;</type>
+          <type>std::unique_ptr&lt; <ref refid="classjuce_1_1MemoryMappedFile" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::MemoryMappedFile</ref> &gt;</type>
           <declname>mappedFile</declname>
         </param>
         <briefdescription>
@@ -624,10 +644,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="SymbolDocument.h" line="511" column="5" bodyfile="SymbolDocument.cpp" bodystart="444" bodyend="449"/>
-        <references refid="class_symbol_document_1ae4ce1aa68fa40432d8e24a4e006540cc" compoundref="_symbol_document_8h" startline="563" endline="563">base</references>
-        <references refid="class_symbol_document_1a05116adde5d0404570f149d67a3a3291" compoundref="_symbol_document_8h" startline="564" endline="564">byteSize</references>
-        <references refid="class_symbol_document_1aad702cb4972f831e0fb305b5448c1708" compoundref="_symbol_document_8h" startline="561">mapped</references>
+        <location file="SymbolDocument.h" line="518" column="5" bodyfile="SymbolDocument.cpp" bodystart="451" bodyend="456"/>
+        <references refid="class_symbol_document_1ae4ce1aa68fa40432d8e24a4e006540cc" compoundref="_symbol_document_8h" startline="570" endline="570">base</references>
+        <references refid="class_symbol_document_1a05116adde5d0404570f149d67a3a3291" compoundref="_symbol_document_8h" startline="571" endline="571">byteSize</references>
+        <references refid="class_symbol_document_1aad702cb4972f831e0fb305b5448c1708" compoundref="_symbol_document_8h" startline="568">mapped</references>
       </memberdef>
       <memberdef kind="function" id="class_symbol_document_1a024a7254fa9523befde781c706c12e98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -639,7 +659,7 @@
           <type><ref refid="struct_symbol_document_1_1_access" kindref="compound">Access</ref></type>
         </param>
         <param>
-          <type><ref refid="classjuce_1_1MemoryBlock" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::MemoryBlock</ref></type>
+          <type><ref refid="classjuce_1_1MemoryBlock" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::MemoryBlock</ref></type>
           <declname>ownedBlock</declname>
         </param>
         <briefdescription>
@@ -660,10 +680,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="SymbolDocument.h" line="520" column="5" bodyfile="SymbolDocument.cpp" bodystart="451" bodyend="456"/>
-        <references refid="class_symbol_document_1ae4ce1aa68fa40432d8e24a4e006540cc" compoundref="_symbol_document_8h" startline="563" endline="563">base</references>
-        <references refid="class_symbol_document_1a05116adde5d0404570f149d67a3a3291" compoundref="_symbol_document_8h" startline="564" endline="564">byteSize</references>
-        <references refid="class_symbol_document_1a7a04392510754d99dd452d30c785b768" compoundref="_symbol_document_8h" startline="562">owned</references>
+        <location file="SymbolDocument.h" line="527" column="5" bodyfile="SymbolDocument.cpp" bodystart="458" bodyend="463"/>
+        <references refid="class_symbol_document_1ae4ce1aa68fa40432d8e24a4e006540cc" compoundref="_symbol_document_8h" startline="570" endline="570">base</references>
+        <references refid="class_symbol_document_1a05116adde5d0404570f149d67a3a3291" compoundref="_symbol_document_8h" startline="571" endline="571">byteSize</references>
+        <references refid="class_symbol_document_1a7a04392510754d99dd452d30c785b768" compoundref="_symbol_document_8h" startline="569">owned</references>
       </memberdef>
     </sectiondef>
     <sectiondef kind="private-static-func">
@@ -682,11 +702,11 @@
           <declname>size</declname>
         </param>
         <param>
-          <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
+          <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
           <declname>hash</declname>
         </param>
         <param>
-          <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
+          <type><ref refid="namespacejuce_1a6afa306885ea6220ef17d2a02cfa7f0a" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::int64</ref></type>
           <declname>languageHash</declname>
         </param>
         <param>
@@ -745,14 +765,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="SymbolDocument.h" line="537" column="17" bodyfile="SymbolDocument.cpp" bodystart="458" bodyend="552"/>
+        <location file="SymbolDocument.h" line="544" column="17" bodyfile="SymbolDocument.cpp" bodystart="465" bodyend="559"/>
         <references refid="struct_symbol_document_1_1_header_1aae55975acc9abdd3ac03fbe3d88e6df6" compoundref="_symbol_document_8h" startline="84" endline="84">SymbolDocument::Header::completionsCount</references>
         <references refid="struct_symbol_document_1_1_header_1afc0b58a0c92bdfc508d3e9a9a956b542" compoundref="_symbol_document_8h" startline="83" endline="83">SymbolDocument::Header::completionsOffset</references>
-        <references refid="class_symbol_document_1a4027a43a655f9c384ff54664be601c90" compoundref="_symbol_document_8h" startline="500" endline="500">currentFormatVersion</references>
+        <references refid="class_symbol_document_1a4027a43a655f9c384ff54664be601c90" compoundref="_symbol_document_8h" startline="507" endline="507">currentFormatVersion</references>
         <references refid="struct_symbol_document_1_1_header_1a93752206d24854e624812cc0cd4c72e8" compoundref="_symbol_document_8h" startline="93" endline="93">SymbolDocument::Header::diagnosticsCount</references>
         <references refid="struct_symbol_document_1_1_header_1a68ff9705644648e6546adb39dbbfa485" compoundref="_symbol_document_8h" startline="92" endline="92">SymbolDocument::Header::diagnosticsOffset</references>
         <references refid="struct_symbol_document_1_1_header_1a2ab981ac775c36b4f647af045b66af95" compoundref="_symbol_document_8h" startline="70" endline="70">SymbolDocument::Header::family</references>
-        <references refid="class_symbol_document_1a4d8dde7166bb4455b5365dff1f75e7f9" compoundref="_symbol_document_8h" startline="499" endline="499">fileMagic</references>
+        <references refid="class_symbol_document_1a4d8dde7166bb4455b5365dff1f75e7f9" compoundref="_symbol_document_8h" startline="505" endline="505">fileMagic</references>
         <references refid="struct_symbol_document_1_1_header_1a1b9da1c83b4a22431aacc7f4ae982a7f" compoundref="_symbol_document_8h" startline="75" endline="75">SymbolDocument::Header::filesCount</references>
         <references refid="struct_symbol_document_1_1_header_1ab98427eb4a31f31da6f81bf830144f26" compoundref="_symbol_document_8h" startline="74" endline="74">SymbolDocument::Header::filesOffset</references>
         <references refid="struct_symbol_document_1_1_header_1a426a96bdb62918d8a37d95d0ac358b56" compoundref="_symbol_document_8h" startline="99" endline="99">SymbolDocument::Header::fixItsCount</references>
@@ -779,7 +799,7 @@
         <references refid="struct_symbol_document_1_1_header_1abb8ef33ce7eb4e97df2b08348cc5cd2e" compoundref="_symbol_document_8h" startline="80" endline="80">SymbolDocument::Header::typeSymbolsOffset</references>
         <references refid="struct_symbol_document_1_1_header_1ad99253407776e9525da095b228120767" compoundref="_symbol_document_8h" startline="72" endline="72">SymbolDocument::Header::versionLength</references>
         <references refid="struct_symbol_document_1_1_header_1a80765baaf2f0e4ff1220a6a03a0be8da" compoundref="_symbol_document_8h" startline="71" endline="71">SymbolDocument::Header::versionOffset</references>
-        <referencedby refid="class_symbol_document_1a660053b5a2d2b3c3ce26bb1c1a93e0a3" compoundref="_symbol_document_8cpp" startline="554" endline="563">open</referencedby>
+        <referencedby refid="class_symbol_document_1a660053b5a2d2b3c3ce26bb1c1a93e0a3" compoundref="_symbol_document_8cpp" startline="561" endline="570">open</referencedby>
       </memberdef>
     </sectiondef>
     <sectiondef kind="private-func">
@@ -799,18 +819,19 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="SymbolDocument.h" line="544" column="12" bodyfile="SymbolDocument.cpp" bodystart="565" bodyend="570"/>
-        <references refid="class_symbol_document_1ae4ce1aa68fa40432d8e24a4e006540cc" compoundref="_symbol_document_8h" startline="563" endline="563">base</references>
-        <referencedby refid="class_symbol_document_1afd2f9b95e556cec2dcc0e83958272c76" compoundref="_symbol_document_8cpp" startline="593" endline="598">getCompletions</referencedby>
-        <referencedby refid="class_symbol_document_1a7eabd60a7dc7199dd5ad442393b1ed13" compoundref="_symbol_document_8cpp" startline="614" endline="619">getDiagnostics</referencedby>
-        <referencedby refid="class_symbol_document_1a401c4076ca25ce161b3d0c4717f64b95" compoundref="_symbol_document_8cpp" startline="572" endline="577">getFiles</referencedby>
-        <referencedby refid="class_symbol_document_1a1837c5eeaac88354c6ac168b7fa8811c" compoundref="_symbol_document_8cpp" startline="628" endline="633">getFixIts</referencedby>
-        <referencedby refid="class_symbol_document_1a176879565b3e49bdea0f894d2e6d1abf" compoundref="_symbol_document_8cpp" startline="600" endline="605">getHovers</referencedby>
-        <referencedby refid="class_symbol_document_1a3abeff9a43597142c5aec59d756991c9" compoundref="_symbol_document_8cpp" startline="607" endline="612">getInlayHints</referencedby>
-        <referencedby refid="class_symbol_document_1aa8a6e999e47720c45bc9649d566531e6" compoundref="_symbol_document_8cpp" startline="621" endline="626">getOutlines</referencedby>
-        <referencedby refid="class_symbol_document_1a709803faed5ba02f84e8c1cad1a4606a" compoundref="_symbol_document_8cpp" startline="635" endline="640">getString</referencedby>
-        <referencedby refid="class_symbol_document_1a980e39cdf84be9ab8c46b5e26fc0be32" compoundref="_symbol_document_8cpp" startline="579" endline="584">getSymbols</referencedby>
-        <referencedby refid="class_symbol_document_1a1b857d2d7857901d942c8a9afd884c96" compoundref="_symbol_document_8cpp" startline="586" endline="591">getTypeSymbols</referencedby>
+        <location file="SymbolDocument.h" line="551" column="12" bodyfile="SymbolDocument.cpp" bodystart="572" bodyend="577"/>
+        <references refid="class_symbol_document_1ae4ce1aa68fa40432d8e24a4e006540cc" compoundref="_symbol_document_8h" startline="570" endline="570">base</references>
+        <referencedby refid="class_symbol_document_1afd2f9b95e556cec2dcc0e83958272c76" compoundref="_symbol_document_8cpp" startline="605" endline="610">getCompletions</referencedby>
+        <referencedby refid="class_symbol_document_1a7eabd60a7dc7199dd5ad442393b1ed13" compoundref="_symbol_document_8cpp" startline="626" endline="631">getDiagnostics</referencedby>
+        <referencedby refid="class_symbol_document_1a401c4076ca25ce161b3d0c4717f64b95" compoundref="_symbol_document_8cpp" startline="584" endline="589">getFiles</referencedby>
+        <referencedby refid="class_symbol_document_1a1837c5eeaac88354c6ac168b7fa8811c" compoundref="_symbol_document_8cpp" startline="640" endline="645">getFixIts</referencedby>
+        <referencedby refid="class_symbol_document_1a2fd1fc78c36e471e21c506723299a1ad" compoundref="_symbol_document_8cpp" startline="579" endline="582">getHash</referencedby>
+        <referencedby refid="class_symbol_document_1a176879565b3e49bdea0f894d2e6d1abf" compoundref="_symbol_document_8cpp" startline="612" endline="617">getHovers</referencedby>
+        <referencedby refid="class_symbol_document_1a3abeff9a43597142c5aec59d756991c9" compoundref="_symbol_document_8cpp" startline="619" endline="624">getInlayHints</referencedby>
+        <referencedby refid="class_symbol_document_1aa8a6e999e47720c45bc9649d566531e6" compoundref="_symbol_document_8cpp" startline="633" endline="638">getOutlines</referencedby>
+        <referencedby refid="class_symbol_document_1a709803faed5ba02f84e8c1cad1a4606a" compoundref="_symbol_document_8cpp" startline="647" endline="652">getString</referencedby>
+        <referencedby refid="class_symbol_document_1a980e39cdf84be9ab8c46b5e26fc0be32" compoundref="_symbol_document_8cpp" startline="591" endline="596">getSymbols</referencedby>
+        <referencedby refid="class_symbol_document_1a1b857d2d7857901d942c8a9afd884c96" compoundref="_symbol_document_8cpp" startline="598" endline="603">getTypeSymbols</referencedby>
       </memberdef>
       <memberdef kind="function" id="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" prot="private" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
         <templateparamlist>
@@ -855,19 +876,19 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="SymbolDocument.h" line="554" column="18" bodyfile="SymbolDocument.h" bodystart="554" bodyend="559"/>
-        <references refid="class_symbol_document_1ae4ce1aa68fa40432d8e24a4e006540cc" compoundref="_symbol_document_8h" startline="563" endline="563">base</references>
-        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="554" endline="559">getTable</references>
-        <referencedby refid="class_symbol_document_1afd2f9b95e556cec2dcc0e83958272c76" compoundref="_symbol_document_8cpp" startline="593" endline="598">getCompletions</referencedby>
-        <referencedby refid="class_symbol_document_1a7eabd60a7dc7199dd5ad442393b1ed13" compoundref="_symbol_document_8cpp" startline="614" endline="619">getDiagnostics</referencedby>
-        <referencedby refid="class_symbol_document_1a401c4076ca25ce161b3d0c4717f64b95" compoundref="_symbol_document_8cpp" startline="572" endline="577">getFiles</referencedby>
-        <referencedby refid="class_symbol_document_1a1837c5eeaac88354c6ac168b7fa8811c" compoundref="_symbol_document_8cpp" startline="628" endline="633">getFixIts</referencedby>
-        <referencedby refid="class_symbol_document_1a176879565b3e49bdea0f894d2e6d1abf" compoundref="_symbol_document_8cpp" startline="600" endline="605">getHovers</referencedby>
-        <referencedby refid="class_symbol_document_1a3abeff9a43597142c5aec59d756991c9" compoundref="_symbol_document_8cpp" startline="607" endline="612">getInlayHints</referencedby>
-        <referencedby refid="class_symbol_document_1aa8a6e999e47720c45bc9649d566531e6" compoundref="_symbol_document_8cpp" startline="621" endline="626">getOutlines</referencedby>
-        <referencedby refid="class_symbol_document_1a980e39cdf84be9ab8c46b5e26fc0be32" compoundref="_symbol_document_8cpp" startline="579" endline="584">getSymbols</referencedby>
-        <referencedby refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="554" endline="559">getTable</referencedby>
-        <referencedby refid="class_symbol_document_1a1b857d2d7857901d942c8a9afd884c96" compoundref="_symbol_document_8cpp" startline="586" endline="591">getTypeSymbols</referencedby>
+        <location file="SymbolDocument.h" line="561" column="18" bodyfile="SymbolDocument.h" bodystart="561" bodyend="566"/>
+        <references refid="class_symbol_document_1ae4ce1aa68fa40432d8e24a4e006540cc" compoundref="_symbol_document_8h" startline="570" endline="570">base</references>
+        <references refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="561" endline="566">getTable</references>
+        <referencedby refid="class_symbol_document_1afd2f9b95e556cec2dcc0e83958272c76" compoundref="_symbol_document_8cpp" startline="605" endline="610">getCompletions</referencedby>
+        <referencedby refid="class_symbol_document_1a7eabd60a7dc7199dd5ad442393b1ed13" compoundref="_symbol_document_8cpp" startline="626" endline="631">getDiagnostics</referencedby>
+        <referencedby refid="class_symbol_document_1a401c4076ca25ce161b3d0c4717f64b95" compoundref="_symbol_document_8cpp" startline="584" endline="589">getFiles</referencedby>
+        <referencedby refid="class_symbol_document_1a1837c5eeaac88354c6ac168b7fa8811c" compoundref="_symbol_document_8cpp" startline="640" endline="645">getFixIts</referencedby>
+        <referencedby refid="class_symbol_document_1a176879565b3e49bdea0f894d2e6d1abf" compoundref="_symbol_document_8cpp" startline="612" endline="617">getHovers</referencedby>
+        <referencedby refid="class_symbol_document_1a3abeff9a43597142c5aec59d756991c9" compoundref="_symbol_document_8cpp" startline="619" endline="624">getInlayHints</referencedby>
+        <referencedby refid="class_symbol_document_1aa8a6e999e47720c45bc9649d566531e6" compoundref="_symbol_document_8cpp" startline="633" endline="638">getOutlines</referencedby>
+        <referencedby refid="class_symbol_document_1a980e39cdf84be9ab8c46b5e26fc0be32" compoundref="_symbol_document_8cpp" startline="591" endline="596">getSymbols</referencedby>
+        <referencedby refid="class_symbol_document_1a7be0c8dbc9dbe1f3685c2a2c9cbbb77c" compoundref="_symbol_document_8h" startline="561" endline="566">getTable</referencedby>
+        <referencedby refid="class_symbol_document_1a1b857d2d7857901d942c8a9afd884c96" compoundref="_symbol_document_8cpp" startline="598" endline="603">getTypeSymbols</referencedby>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -889,11 +910,11 @@
       </node>
       <node id="4">
         <label>juce::MemoryBlock</label>
-        <link refid="classjuce_1_1MemoryBlock" external="D:/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1MemoryBlock" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
       </node>
       <node id="3">
         <label>juce::MemoryMappedFile</label>
-        <link refid="classjuce_1_1MemoryMappedFile" external="D:/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1MemoryMappedFile" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
       </node>
       <node id="2">
         <label>std::unique_ptr&lt; juce::MemoryMappedFile &gt;</label>
@@ -902,7 +923,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="SymbolDocument.h" line="14" column="1" bodyfile="SymbolDocument.h" bodystart="15" bodyend="567"/>
+    <location file="SymbolDocument.h" line="14" column="1" bodyfile="SymbolDocument.h" bodystart="15" bodyend="574"/>
     <listofallmembers>
       <member refid="class_symbol_document_1ae4ce1aa68fa40432d8e24a4e006540cc" prot="private" virt="non-virtual"><scope>SymbolDocument</scope><name>base</name></member>
       <member refid="class_symbol_document_1a05116adde5d0404570f149d67a3a3291" prot="private" virt="non-virtual"><scope>SymbolDocument</scope><name>byteSize</name></member>
@@ -912,6 +933,7 @@
       <member refid="class_symbol_document_1a7eabd60a7dc7199dd5ad442393b1ed13" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getDiagnostics</name></member>
       <member refid="class_symbol_document_1a401c4076ca25ce161b3d0c4717f64b95" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getFiles</name></member>
       <member refid="class_symbol_document_1a1837c5eeaac88354c6ac168b7fa8811c" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getFixIts</name></member>
+      <member refid="class_symbol_document_1a2fd1fc78c36e471e21c506723299a1ad" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getHash</name></member>
       <member refid="class_symbol_document_1a83bcdd9ea09d2075383adf1d3ad1c419" prot="private" virt="non-virtual"><scope>SymbolDocument</scope><name>getHeader</name></member>
       <member refid="class_symbol_document_1a176879565b3e49bdea0f894d2e6d1abf" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getHovers</name></member>
       <member refid="class_symbol_document_1a3abeff9a43597142c5aec59d756991c9" prot="public" virt="non-virtual"><scope>SymbolDocument</scope><name>getInlayHints</name></member>

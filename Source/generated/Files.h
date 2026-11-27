@@ -43,6 +43,10 @@ extern const juce::String languageLibrary;           ///< Library that a languag
 extern const juce::String languageLibraryWindows;    ///< Library that a language build writes on Windows, below its cache folder.
 extern const juce::String languageSpell;             ///< Spell file of a language.
 extern const juce::String languageTemplate;          ///< Template file of a language.
+extern const juce::String pageLibrary;               ///< Page library that the carried page build writes, below its folder.
+extern const juce::String pageLibraryWindows;        ///< Page library that the carried page build writes on Windows, below its folder.
+extern const juce::String tokensLibrary;             ///< Token library that the carried token build writes, below its folder.
+extern const juce::String tokensLibraryWindows;      ///< Token library that the carried token build writes on Windows, below its folder.
 extern const juce::String lingCache;                 ///< Cache folder of LING below the home folder or a repository root.
 extern const juce::String lingConfig;                ///< Config folder of LING below the home folder.
 extern const juce::String lingHelp;                  ///< Rendered help text.

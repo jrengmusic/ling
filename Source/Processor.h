@@ -11,17 +11,14 @@
  * @brief Runs unit-discovery, parse, and index jobs on a thread pool, and applies results to the index.
  *
  * Registers built-in languages and loads dynamic language libraries into index.
- * When a toolchain tree arrives, UnitsJob discovers compilation units and emits
- * the files tree. Each file row whose family has a language receives a ParseJob,
- * which reads or parses the file (or open buffer) and may also produce a
- * SymbolDocument. Each unit row whose dependencies have no pending ParseJob and
- * whose language supports indexing receives an IndexJob that builds a
- * SymbolDocument. Jobs hold inputs by value, run on the pool, and signal the
- * message thread to apply results in handleAsyncUpdate().
+ * UnitsJob discovers compilation units and emits the files tree. Each file row
+ * runs a ParseJob that updates syntax hashes and may emit a SymbolDocument.
  *
- * The processor also dispatches request rows via @c events to Query and manages
- * in-memory editor buffers. Unready requests wait until Id::isIndexed turns
- * true while moveRequestJobsToFront() prioritizes their prerequisite jobs.
+ * Semantic indexing is demand-driven: requestUnit(), requestAllUnits(), or open
+ * buffers queue IndexJobs for requested or stale units. Running jobs preserve
+ * existing bindings until replacement jobs finish in handleAsyncUpdate(). Query
+ * requests wait for scope readiness via isRequestReady() while
+ * moveRequestJobsToFront() prioritizes blocking jobs.
  */
 class Processor : public juce::ValueTree::Listener,
                   private juce::AsyncUpdater
@@ -38,9 +35,10 @@ public:
     /**
      * @brief Registers the processor as a listener of @p newModel, populates event tables, and registers languages.
      *
-     * @param newModel  The model whose state changes drive jobs and requests.
+     * @param newModel    The model whose state changes drive jobs and requests.
+     * @param sharedPool  Optional shared thread pool; creates an owned pool when null.
      */
-    explicit Processor (LINGModel& newModel);
+    explicit Processor (LINGModel& newModel, std::shared_ptr<juce::ThreadPool> sharedPool = {});
 
     /** @brief Removes the processor from model listeners and waits for all pool jobs to finish. */
     ~Processor() override;
@@ -56,6 +54,16 @@ public:
     static juce::File getOrCreateLanguages();
 
     /**
+     * @brief Returns thread pool options configured for language worker threads.
+     *
+     * Sets @p threadCount threads, an 8 MiB stack size, and normal priority.
+     *
+     * @param threadCount  Number of worker threads in the pool.
+     * @return Configured thread pool options.
+     */
+    static juce::ThreadPool::Options getPoolOptions (int threadCount);
+
+    /**
      * @brief Forwards document iteration to index.applyToDocuments().
      *
      * @tparam Function  Callable taking (std::string_view, const jam::Document&, const Index&).
@@ -66,6 +74,9 @@ public:
     {
         index.applyToDocuments (function);
     }
+
+    /** @brief Marks all translation units as requested and queues their index jobs. */
+    void requestAllUnits();
 
 private:
     /**
@@ -91,7 +102,15 @@ private:
     bool hasParseJob (const juce::ValueTree& unit, int unitIndex, int rowIndex) const;
 
     /**
-     * @brief Returns the unit row that owns @p path in index.unitRows.
+     * @brief Tells whether @p unit or any of its dependencies has an open editor buffer.
+     *
+     * @param unit  Translation unit row to inspect.
+     * @return @c true when the unit or a dependency appears in @c Id::buffers.
+     */
+    bool hasOpenBuffer (const juce::ValueTree& unit) const;
+
+    /**
+     * @brief Returns the unit row that owns @p path in @c index.unitOwners.
      *
      * @param path  Full file path to look up.
      * @return The owning unit row, or an invalid ValueTree when @p path has no unit.
@@ -131,6 +150,16 @@ private:
      * @return Combined 64-bit hash key for symbol swap validation.
      */
     juce::int64 getUnitHash (const juce::ValueTree& unit, int unitIndex, const jam::Array<char>& arguments) const;
+
+    /**
+     * @brief Computes the unit stamp by folding getUnitHash() with output file existence.
+     *
+     * @param unit       Translation unit row.
+     * @param unitIndex  Index of @p unit in the files child.
+     * @param arguments  Packed null-delimited compile arguments.
+     * @return Combined 64-bit stamp key for staleness and swap validation.
+     */
+    juce::int64 getUnitStamp (const juce::ValueTree& unit, int unitIndex, const jam::Array<char>& arguments) const;
 
     /**
      * @brief Populates @c events, @c propertyEvents, and @c childEvents dispatch tables.
@@ -262,6 +291,18 @@ private:
     void valueTreeChildAdded (juce::ValueTree& parentTree, juce::ValueTree& childWhichHasBeenAdded) override;
 
     /**
+     * @brief Clears unneeded unit requests when a request or connection leaves the tree.
+     *
+     * @param parentTree                       Tree that lost a child (unused).
+     * @param childWhichHasBeenRemoved         Removed child tree.
+     * @param indexFromWhichChildWasRemoved    Previous child index (unused).
+     */
+    void valueTreeChildRemoved (juce::ValueTree& parentTree, juce::ValueTree& childWhichHasBeenRemoved, int indexFromWhichChildWasRemoved) override;
+
+    /** @brief Removes @c Id::isRequested from unit rows no longer needed by any pending request. */
+    void clearUnusedRequests();
+
+    /**
      * @brief Registers built-in languages and appends a language row for each language directory in config.
      */
     void addLanguages();
@@ -337,6 +378,8 @@ private:
         std::shared_ptr<const Language> language;///< Language instance kept alive for the job's duration.
         juce::int64 languageHash { 0 };///< Language hash required for swap cache hits.
         int family { 0 };///< Language family identifier stored on swap documents.
+        /** @brief Wyhash digest of the parsed source bytes, or zero on failure. */
+        juce::int64 sourceHash { 0 };
         std::optional<juce::String> buffer;///< Unsaved buffer text overriding disk contents when present.
         std::unique_ptr<jam::Document> document;///< Parsed syntax document moved into @c index on the message thread.
         std::unique_ptr<SymbolDocument> symbols;///< Optional SymbolDocument produced directly by built-in languages.
@@ -369,9 +412,9 @@ private:
          * @param familyToUse          Language family identifier.
          * @param bufferPathsToUse     Open editor buffer paths passed as unsaved overlays.
          * @param bufferTextsToUse     Open editor buffer contents aligned with @p bufferPathsToUse.
-         * @param foreignPathsToUse    Unit paths owned by other translation units.
+         * @param unitOwnersToUse      Shared file-to-unit ownership and roots snapshot.
          */
-        IndexJob (Processor& ownerToUse, int rowIndexToUse, const juce::String& pathToUse, const juce::String& directoryToUse, jam::Array<char> argumentsToUse, juce::int64 hashToUse, const juce::File& symbolSwapFileToUse, juce::int64 languageHashToUse, std::shared_ptr<const Language> languageToUse, int familyToUse, juce::StringArray bufferPathsToUse, juce::StringArray bufferTextsToUse, jam::Strings foreignPathsToUse);
+        IndexJob (Processor& ownerToUse, int rowIndexToUse, const juce::String& pathToUse, const juce::String& directoryToUse, jam::Array<char> argumentsToUse, juce::int64 hashToUse, const juce::File& symbolSwapFileToUse, juce::int64 languageHashToUse, std::shared_ptr<const Language> languageToUse, int familyToUse, juce::StringArray bufferPathsToUse, juce::StringArray bufferTextsToUse, std::shared_ptr<const Index::UnitOwners> unitOwnersToUse);
 
         /**
          * @brief Opens the symbol swap cache or runs addSymbols(), catching std::exception at the thread boundary.
@@ -513,12 +556,12 @@ private:
         int getOutlineParent (int parent, int pathIndex) const;
 
         /**
-         * @brief Tells whether @p recordPath is a translation unit owned by another IndexJob.
+         * @brief Tells whether @p recordPath belongs to another unit or lies outside project roots.
          *
-         * Normalizes @p recordPath via juce::File::getFullPathName() before testing against @c foreignPaths.
+         * Delegates to @c unitOwners->isForeign() with this job's @c rowIndex.
          *
-         * @param recordPath  File path to test against @c foreignPaths.
-         * @return @c true when @p recordPath belongs to another unit.
+         * @param recordPath  File path to test.
+         * @return @c true when @p recordPath belongs to another unit or lies outside project roots.
          */
         bool isForeign (const char* recordPath) const;
 
@@ -534,7 +577,8 @@ private:
         int family { 0 };///< Language family identifier stored in the SymbolDocument header.
         juce::StringArray bufferPaths;///< Paths of open editor buffers passed to the indexer.
         juce::StringArray bufferTexts;///< Text contents of open editor buffers aligned with @c bufferPaths.
-        jam::Strings foreignPaths;///< Paths of other translation units excluded from foreign re-indexing.
+        /** @brief Shared unit ownership and project roots snapshot queried by isForeign(). */
+        std::shared_ptr<const Index::UnitOwners> unitOwners;
         SymbolDocument::Builder builder;///< Accumulator populated by static indexer callbacks.
         std::unique_ptr<SymbolDocument> symbols;///< SymbolDocument read from a valid swap file by runJob(), or null. addBindings() moves it into index.
         jam::Array<std::pair<int, int>> outlineSlots;///< Maps callback slot indices to (fileIndex, per-file outlineIndex).
@@ -564,8 +608,9 @@ private:
          * @param cacheDirectoryToUse  Project cache directory.
          * @param languagesToUse       Snapshot of loaded languages by family.
          * @param familiesToUse        Extension-to-family map built from registered languages.
+         * @param rootsToUse           Project root directories filtering stored dependencies.
          */
-        UnitsJob (Processor& ownerToUse, jam::Array<char> argumentsToUse, jam::Array<int> argumentCountsToUse, const juce::String& directoryToUse, const juce::String& cacheDirectoryToUse, jam::HashMap<int, std::shared_ptr<const Language>> languagesToUse, jam::HashMap<juce::String, int> familiesToUse);
+        UnitsJob (Processor& ownerToUse, jam::Array<char> argumentsToUse, jam::Array<int> argumentCountsToUse, const juce::String& directoryToUse, const juce::String& cacheDirectoryToUse, jam::HashMap<int, std::shared_ptr<const Language>> languagesToUse, jam::HashMap<juce::String, int> familiesToUse, jam::Array<juce::File> rootsToUse);
 
         /**
          * @brief Invokes addUnits() for each language, stores buildFiles, catches boundary exceptions, and signals @c owner.
@@ -628,6 +673,23 @@ private:
          * @return Array of integer row indices as juce::var entries.
          */
         juce::Array<juce::var> getOrCreatePathIndices (const char* const* filePaths, int filePathCount, int family);
+        /**
+         * @brief Converts @p filePathCount dependency paths inside project roots to @c files row indices.
+         *
+         * @param filePaths      Array of dependency file path strings.
+         * @param filePathCount  Number of paths in @p filePaths.
+         * @param family         Language family identifier used when adding missing rows.
+         * @return Array of integer row indices as juce::var entries.
+         */
+        juce::Array<juce::var> getOrCreateDependencyIndices (const char* const* filePaths, int filePathCount, int family);
+
+        /**
+         * @brief Tells whether @p file lies inside @c roots.
+         *
+         * @param file  Candidate dependency file.
+         * @return @c true when @c roots is empty or contains @p file.
+         */
+        bool isWithinRoots (const juce::File& file) const;
 
         Processor& owner;///< Processor notified via triggerAsyncUpdate() on completion.
         jam::Array<char> arguments;///< Null-delimited command arguments across toolchain rows.
@@ -636,6 +698,8 @@ private:
         juce::String cacheDirectory;///< Project cache directory.
         jam::HashMap<int, std::shared_ptr<const Language>> languages;///< Snapshot of loaded languages.
         jam::HashMap<juce::String, int> families;///< Maps file extensions to language family identifiers.
+        /** @brief Project root directories filtering indexed dependencies. */
+        jam::Array<juce::File> roots;
         juce::ValueTree files { jam::Format::toType (Id::files) };///< Discovered files tree applied to @c model on completion.
         jam::Strings paths;///< Deduplicated file paths indexed in row order of @c files.
         juce::Array<juce::var> buildFiles;///< Build system files collected via addBuildFile().
@@ -655,6 +719,9 @@ private:
      * A running job is signalled when interruptIfRunning is set, and it stays in the pool.
      */
     static constexpr int noWait { 0 };
+
+    /** @brief Sentinel row index passed to hasParseJob() when no file row is excluded. */
+    static constexpr int noRow { -1 };
 
     /**
      * @brief Starts a job for a row, or queues it behind the running job of that row.
@@ -764,6 +831,13 @@ private:
     void addIndexJobs (const juce::ValueTree& request);
 
     /**
+     * @brief Marks unit @p unitRow requested and queues an IndexJob when ready to index.
+     *
+     * @param unitRow  Unit row index in the files child.
+     */
+    void requestUnit (int unitRow);
+
+    /**
      * @brief Applies the result of a finished IndexJob to @c index, when the row path matches the job path.
      *
      * With @c job.symbols set, the document is moved into index.addBindings(). Otherwise, when
@@ -833,6 +907,23 @@ private:
     void addDocument (ParseJob& job);
 
     /**
+     * @brief Tells whether @p unit lacks a current SymbolDocument matching getUnitStamp().
+     *
+     * @param unit       Translation unit row.
+     * @param unitIndex  Index of @p unit in the files child.
+     * @return @c true when the unit is unindexed or its stamp changed.
+     */
+    bool isUnitStale (const juce::ValueTree& unit, int unitIndex) const;
+    /**
+     * @brief Re-queues an IndexJob after a disk edit when the unit is stale and active.
+     *
+     * @param unit              Translation unit row.
+     * @param unitIndex         Index of @p unit in the files child.
+     * @param finishedRowIndex  Row index whose ParseJob just finished.
+     */
+    void updateUnitOnDiskEdit (const juce::ValueTree& unit, int unitIndex, int finishedRowIndex);
+
+    /**
      * @brief Starts a UnitsJob for the current Id::toolchain child on @c model.state.
      */
     void addUnitsJob();
@@ -884,13 +975,15 @@ private:
     /** @brief Queued replacement UnitsJob instances keyed by toolchain child index. */
     jam::HashMap<int, std::unique_ptr<UnitsJob>> nextUnitsJobs;
 
+    /** @brief Thread pool owned by this processor when no shared pool is injected. */
+    std::shared_ptr<juce::ThreadPool> ownedPool;
     /**
      * @brief Thread pool executing unit-discovery, parse, and index jobs.
      *
-     * Declared after the job maps so jobs finish in ~Processor() via
-     * removeAllJobs(true, waitForJob) before the maps free them.
+     * Declared after the job maps so ~Processor() removes all jobs via
+     * pool->removeJob() before the maps free them.
      */
-    std::unique_ptr<juce::ThreadPool> pool;
+    std::shared_ptr<juce::ThreadPool> pool;
 
     /** @brief Request command handlers keyed by command identifier. */
     Events events;

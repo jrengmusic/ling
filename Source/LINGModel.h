@@ -13,7 +13,6 @@
  */
 class LINGModel
     : public jam::Model
-    , public jam::Instance<LINGModel>
     , private jam::File::Watcher::Listener
 {
 public:
@@ -40,10 +39,12 @@ public:
     static constexpr int defaultTimeoutMs { 60000 };
 
     /** @brief Default worker thread count used at Processor startup and when the manifest sets none or fails validation. */
-    static constexpr int defaultThreads { 4 };
+    static int getDefaultThreads();
 
     /** @brief Coalescing window in milliseconds for merging repeated watcher events on the same file. */
     static constexpr int coalesceMs { 300 };
+    /** @brief Default file-watcher coalescing window in milliseconds when the manifest sets none or fails validation. */
+    static constexpr int defaultCoalesceMs { 1000 };
 
     /**
      * @brief Returns the Wyhash hex identifier for @p manifest and @p toolchainArgument.
@@ -57,16 +58,14 @@ public:
     static std::string getProjectName (const juce::File& manifest, std::string_view toolchainArgument);
 
     /**
-     * @brief Returns the daemon lock and port identifier for @p manifest, @p toolchainArgument, and the current executable.
+     * @brief Returns the Wyhash hex digest of the current executable binary.
      *
-     * Appends the Wyhash hex digest of the running executable to getProjectName()
-     * so rebuilt binaries isolate their daemon lock and port file.
+     * Isolates the daemon port file per built executable so rebuilt binaries do not
+     * collide with older daemons.
      *
-     * @param manifest           Manifest file identifying the project.
-     * @param toolchainArgument  Toolchain argument, or empty when none is given.
      * @return Hexadecimal daemon identifier string.
      */
-    static std::string getDaemonName (const juce::File& manifest, std::string_view toolchainArgument);
+    static std::string getDaemonName();
 
     /**
      * @brief Returns the base LING cache folder.
@@ -154,11 +153,25 @@ public:
     /**
      * @brief Returns the swap file path for @p file with @p extension under the longest matching root or project cache.
      *
+     * Under a matching root's swap directory, syntax swaps (files::lingSwap) share a
+     * common tree while other extensions (such as files::lingSymbols) nest under the
+     * per-project toolchain identifier.
+     *
      * @param file       Source file whose swap path is requested.
      * @param extension  Swap file extension (such as files::lingSwap or files::lingSymbols).
      * @return Swap file path inside the matching root's swap tree or hashed under the project cache.
      */
     juce::File getSwapFile (const juce::File& file, juce::StringRef extension) const;
+    /**
+     * @brief Tells whether @p file equals or lies beneath any directory in @p roots.
+     *
+     * Returns @c true unconditionally when @p roots is empty.
+     *
+     * @param roots  Root directories restricting indexed dependencies.
+     * @param file   Candidate file to test.
+     * @return @c true when @p roots is empty or contains @p file.
+     */
+    static bool isWithinRoots (const jam::Array<juce::File>& roots, const juce::File& file);
 
 private:
     /**

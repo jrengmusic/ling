@@ -28,8 +28,9 @@ void Validator::addRules (Rules& rules)
     rules.add (Id::daemon.toString(),
         [] (const juce::String&, const jam::Document& document) -> juce::Result
         {
-            static const std::array<std::pair<juce::Identifier, const char*>, 2> positiveRows { { { Id::timeout, text::Diagnostics::failDaemonTimeout },
-                                                                                                    { Id::threads, text::Diagnostics::failDaemonThreads } } };
+            static const std::array<std::pair<juce::Identifier, const char*>, 3> positiveRows { { { Id::timeout, text::Diagnostics::failDaemonTimeout },
+                                                                                                    { Id::threads, text::Diagnostics::failDaemonThreads },
+                                                                                                    { Id::coalesce, text::Diagnostics::failDaemonCoalesce } } };
             const auto& manifest { static_cast<const jam::MarkdownDocument&> (document) };
             jam::Strings failures;
 

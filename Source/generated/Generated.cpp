@@ -35,6 +35,7 @@ namespace Id
     const juce::Identifier cast                 { juce::String::fromUTF8 ("cast") };
     const juce::Identifier children             { juce::String::fromUTF8 ("children") };
     const juce::Identifier cmake                { juce::String::fromUTF8 ("cmake") };
+    const juce::Identifier coalesce             { juce::String::fromUTF8 ("coalesce") };
     const juce::Identifier codeAction           { juce::String::fromUTF8 ("codeAction") };
     const juce::Identifier column               { juce::String::fromUTF8 ("column") };
     const juce::Identifier completion           { juce::String::fromUTF8 ("completion") };
@@ -157,6 +158,10 @@ const juce::String languageLibrary            { juce::String::fromUTF8 ("build/l
 const juce::String languageLibraryWindows     { juce::String::fromUTF8 ("build/language.dll") };
 const juce::String languageSpell              { juce::String::fromUTF8 ("spell.md") };
 const juce::String languageTemplate           { juce::String::fromUTF8 ("language.cast") };
+const juce::String pageLibrary                { juce::String::fromUTF8 ("build/libpage.dylib") };
+const juce::String pageLibraryWindows         { juce::String::fromUTF8 ("build/page.dll") };
+const juce::String tokensLibrary              { juce::String::fromUTF8 ("build/libtokens.dylib") };
+const juce::String tokensLibraryWindows       { juce::String::fromUTF8 ("build/tokens.dll") };
 const juce::String lingCache                  { juce::String::fromUTF8 (".cache/ling") };
 const juce::String lingConfig                 { juce::String::fromUTF8 (".config/ling") };
 const juce::String lingHelp                   { juce::String::fromUTF8 ("HELP.frame") };

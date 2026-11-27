@@ -22,8 +22,9 @@ juce::Array<juce::var> ToolRelay::getRequestArguments (const jam::JsonDocument& 
     return requestArguments;
 }
 
-ToolRelay::ToolRelay (const juce::File& newManifestFile, const juce::String& newManifestName, const juce::String& newToolchainArgument)
-    : manifestFile (newManifestFile)
+ToolRelay::ToolRelay (LINGModel& newModel, const juce::File& newManifestFile, const juce::String& newManifestName, const juce::String& newToolchainArgument)
+    : model (newModel)
+    , manifestFile (newManifestFile)
     , manifestName (newManifestName)
     , toolchainArgument (newToolchainArgument)
 {
@@ -95,7 +96,7 @@ ToolClient& ToolRelay::getOrCreateClient (const juce::File& requestManifest)
 
     if (isAdded)
     {
-        client = std::make_unique<ToolClient> (requestManifest, toolchainArgument, server);
+        client = std::make_unique<ToolClient> (model, requestManifest, toolchainArgument, server);
         client->start();
     }
 

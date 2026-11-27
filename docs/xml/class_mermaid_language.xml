@@ -6,7 +6,7 @@
     <includes refid="_mermaid_language_8h" local="no">MermaidLanguage.h</includes>
     <sectiondef kind="public-func">
       <memberdef kind="function" id="class_mermaid_language_1a9dff601b4eb70a5afce80b8ae4d86d9f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type>std::pair&lt; std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;, std::unique_ptr&lt; <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> &gt; &gt;</type>
+        <type>std::pair&lt; std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;, std::unique_ptr&lt; <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> &gt; &gt;</type>
         <definition>std::pair&lt; std::unique_ptr&lt; jam::Document &gt;, std::unique_ptr&lt; SymbolDocument &gt; &gt; MermaidLanguage::parse</definition>
         <argsstring>(std::string_view text, const juce::String &amp;path) const override</argsstring>
         <name>parse</name>
@@ -17,11 +17,11 @@
           <declname>text</declname>
         </param>
         <param>
-          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
           <declname>path</declname>
         </param>
         <briefdescription>
-<para>Parses <computeroutput>text</computeroutput> into a <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> and an optional inline <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref>. </para>
+<para>Parses <computeroutput>text</computeroutput> into a <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> and an optional inline <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref>. </para>
         </briefdescription>
         <detaileddescription>
 <para>Built-in languages build both trees synchronously; library languages return a null <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> and populate symbols asynchronously in <ref refid="class_built_in_language_1a1655e858f06b9f31966dd473b2cf4294" kindref="member">index()</ref>.</para>
@@ -50,10 +50,10 @@
         </inbodydescription>
         <location file="languages/MermaidLanguage.h" line="10" column="15" bodyfile="languages/MermaidLanguage.cpp" bodystart="3" bodyend="6"/>
         <references refid="class_built_in_language_1a6a79e4a7a37067b17146992e88430a4c" compoundref="_built_in_language_8h" startline="203" endline="211">BuiltInLanguage&lt; map::MermaidElements, map::MermaidTokenType &gt;::getParsed</references>
-        <references refid="structjam_1_1MermaidDiagram_1af7d66aa286c128f4db3f89b686cd4d6c">jam::MermaidDiagram::parse</references>
+        <references refid="structjam_1_1MermaidDiagram_1a1a5f8c538a159cc26ccbc4d31afa51d1">jam::MermaidDiagram::parse</references>
       </memberdef>
       <memberdef kind="function" id="class_mermaid_language_1a299d31b903a5c5a63d3999c15c710e6a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type>std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;</type>
+        <type>std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;</type>
         <definition>std::unique_ptr&lt; jam::Document &gt; MermaidLanguage::read</definition>
         <argsstring>(std::string_view text, std::string_view stored) const override</argsstring>
         <name>read</name>
@@ -88,7 +88,7 @@
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>Validated <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref>, or nullptr when <computeroutput>stored</computeroutput> is incompatible. </para>
+<simplesect kind="return"><para>Validated <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref>, or nullptr when <computeroutput>stored</computeroutput> is incompatible. </para>
 </simplesect>
 </para>
         </detaileddescription>
@@ -142,7 +142,7 @@
       </node>
       <node id="4">
         <label>juce::String</label>
-        <link refid="classjuce_1_1String" external="D:/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1String" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
       </node>
     </collaborationgraph>
     <location file="languages/MermaidLanguage.h" line="5" column="1" bodyfile="languages/MermaidLanguage.h" bodystart="6" bodyend="15"/>

@@ -10,13 +10,14 @@ class Operation : public Client,
 {
 public:
     /**
-     * @brief Stores the serialized request payload and listens to state, the connection state of this client, for Server::noPort.
+     * @brief Stores the serialized request payload and listens to @c state for Server::noPort.
      *
+     * @param newModel              The model passed to the Client base.
      * @param newManifestFile       The manifest identifying the target daemon.
      * @param newToolchainArgument  The toolchain argument, or empty when none is given.
      * @param newRequest            Serialized Id::request ValueTree bytes moved into the client.
      */
-    Operation (const juce::File& newManifestFile, const juce::String& newToolchainArgument, juce::MemoryBlock&& newRequest);
+    Operation (LINGModel& newModel, const juce::File& newManifestFile, const juce::String& newToolchainArgument, juce::MemoryBlock&& newRequest);
 
     /** @brief Removes the listener from state and disconnects from the daemon socket. */
     ~Operation() override;

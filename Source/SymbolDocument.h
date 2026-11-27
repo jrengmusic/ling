@@ -492,11 +492,19 @@ public:
      */
     std::string_view getString (uint32_t offset, uint32_t length) const noexcept;
 
+    /**
+     * @brief Returns the content stamp hash stored in the binary header.
+     *
+     * @return 64-bit hash value from Header::hash.
+     */
+    juce::int64 getHash() const noexcept;
+
 private:
     struct Access {};
 
     static constexpr uint32_t fileMagic { 0x4c494e47 };
-    static constexpr uint32_t currentFormatVersion { 1 };
+    /** @brief Binary format version written by Builder::serialize() and checked by isValidBuffer(). */
+    static constexpr uint32_t currentFormatVersion { 2 };
     static constexpr uint64_t sectionAlignment { 8 };
 
 public:

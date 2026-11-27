@@ -73,8 +73,8 @@ static void appendServerInfo (std::string& json)
     });
 }
 
-Relay::Relay (const juce::File& newManifestFile, const juce::String& newToolchainArgument)
-    : Client (newManifestFile, newToolchainArgument)
+Relay::Relay (LINGModel& newModel, const juce::File& newManifestFile, const juce::String& newToolchainArgument)
+    : Client (newModel, newManifestFile, newToolchainArgument)
 {
     requestMethods.add (juce::Identifier { jam::Strings::fromView (lsp::Method::initialize) }, [this] (const juce::Identifier&, const jam::JsonDocument& document, const jam::Document::Element& root, const jam::Document::Token& idToken) { initialize (document, root, idToken); });
     notificationMethods.add (juce::Identifier { jam::Strings::fromView (lsp::Method::initialized) }, [this] (const juce::Identifier&, const jam::JsonDocument&, const jam::Document::Element&) { initialized(); });
@@ -120,7 +120,14 @@ void Relay::start()
 
 void Relay::messageReceived (const juce::MemoryBlock& reply)
 {
-    jam::StdioProtocol::writeMessage (stdio, std::string_view { static_cast<const char*> (reply.getData()), reply.getSize() });
+    const std::string_view text { static_cast<const char*> (reply.getData()), reply.getSize() };
+    const auto document { jam::JsonDocument::read (text) };
+
+    if (document != nullptr and document->contains (*document->getChildByToken (*document->getRoot(), document->getValue()), lsp::Member::method)
+        and document->getString (document->get (*document->getChildByToken (*document->getRoot(), document->getValue()), lsp::Member::method)).compare (Server::noPortMethod) == 0)
+        Client::setMessage (*document, *document->getChildByToken (*document->getRoot(), document->getValue()));
+    else
+        jam::StdioProtocol::writeMessage (stdio, text);
 }
 
 void Relay::valueTreeChildAdded (juce::ValueTree& parentTree, juce::ValueTree& childWhichHasBeenAdded)

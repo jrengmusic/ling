@@ -1,0 +1,32 @@
+:root {
+    --green: #98C379;
+    --red: #E06C75;
+    --amber: #E5C07B;
+}
+
+.appearance {
+    --Markdown--codeBlockBackgroundColourId: var(--blank);
+    --Markdown--syntaxCommentColourId: var(--smokescreen);
+    --Markdown--syntaxStringColourId: var(--cheesecake);
+    --Markdown--syntaxNumberColourId: var(--candyBlossom);
+    --Markdown--syntaxKeywordColourId: var(--rogueMagenta);
+    --Markdown--syntaxPunctuationColourId: var(--concrete);
+    --TextEditor--highlightColourId: var(--carbon);
+    --TextEditor--outlineColourId: var(--smokescreen);
+    --TextEditor--lineNumberTextColourId: var(--smokescreen);
+    --TextEditor--lineNumberBackgroundColourId: var(--blank);
+    --TextEditor--addedColourId: var(--green);
+    --TextEditor--modifiedColourId: var(--amber);
+    --TextEditor--removedColourId: var(--red);
+}
+
+.metrics {
+    gutterSize: 5em;
+    codePaddingVertical: 0em;
+    codePaddingHorizontal: 0em;
+    margin: 0em;
+    maxLineWidth: 65536em;
+    metadataPaddingVertical: 0em;
+    metadataSpacing: 1em;
+    paragraphSpacing: 0em;
+}

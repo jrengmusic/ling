@@ -29,7 +29,7 @@
     <member refid="class_application_1ae4f40724eb7a161d6ae86e30184d932d" kind="function"><name>runBuild</name></member>
     <member refid="class_application_1a69cb66bee3f6b8fbc583f3a62914130b" kind="function"><name>runToolRelay</name></member>
     <member refid="class_application_1a3c8dc9b46966a8ec09fdea562ea98c40" kind="function"><name>runManifest</name></member>
-    <member refid="class_application_1a44869ba74fd55eadd5d183e0ca7d2c7c" kind="function"><name>runDaemon</name></member>
+    <member refid="class_application_1ac2fbfa5bbb575c0ce4900c18c616996f" kind="function"><name>runDaemon</name></member>
     <member refid="class_application_1af60928ca7c22b19ed4436ba17d5a1f7c" kind="function"><name>runOperation</name></member>
   </compound>
   <compound refid="class_symbol_document_1_1_builder" kind="class"><name>SymbolDocument::Builder</name>
@@ -46,7 +46,7 @@
     <member refid="class_symbol_document_1_1_builder_1adde8e236b020f2ac2272652b48fea2b9" kind="function"><name>addCompletion</name></member>
     <member refid="class_symbol_document_1_1_builder_1a33262f598987946a90b60043c260751b" kind="function"><name>addFixIt</name></member>
     <member refid="class_symbol_document_1_1_builder_1a582e6a33c6d08b73b75081d73d877577" kind="function"><name>sortAndDeduplicate</name></member>
-    <member refid="class_symbol_document_1_1_builder_1a21460171b97dba1d6fcf8dbd05328b18" kind="function"><name>buildToSwap</name></member>
+    <member refid="class_symbol_document_1_1_builder_1a1fc85a1ec80562d0e42b8d59c68e2ceb" kind="function"><name>writeSwapFile</name></member>
     <member refid="class_symbol_document_1_1_builder_1ad1a1d53b04b41676ac3ae2f57f7a0ee8" kind="function"><name>buildInMemory</name></member>
     <member refid="class_symbol_document_1_1_builder_1a5713595af80e4af9d39434cabe39b629" kind="function"><name>addString</name></member>
     <member refid="class_symbol_document_1_1_builder_1a3964cd694db39abc49d9f6174ea98ca6" kind="function"><name>getString</name></member>
@@ -83,15 +83,21 @@
   </compound>
   <compound refid="class_client" kind="class"><name>Client</name>
     <member refid="class_client_1ada497223de332fd90f251dcd387b5181" kind="variable"><name>manifestFile</name></member>
+    <member refid="class_client_1a156ea116c333d0160312d53971a2a709" kind="variable"><name>model</name></member>
+    <member refid="class_client_1a8e013972561dc7b64cab53ac885e2059" kind="variable"><name>state</name></member>
+    <member refid="class_client_1af465964d63480849c88e254646624674" kind="variable"><name>requests</name></member>
+    <member refid="class_client_1a01701aa13e5173aaf80f731c908f9f37" kind="variable"><name>waitForDisconnect</name></member>
     <member refid="class_client_1a58e679174623e64752fb4f1111186a36" kind="variable"><name>toolchainArgument</name></member>
     <member refid="class_client_1a5d2b39ff4446a3ff048057293c9e5bb7" kind="variable"><name>watcher</name></member>
-    <member refid="class_client_1a156ea116c333d0160312d53971a2a709" kind="variable"><name>model</name></member>
-    <member refid="class_client_1a5e8ad11b4e80ac1b63a7f419d6dabcd2" kind="function"><name>Client</name></member>
+    <member refid="class_client_1a2038899e18b3f05a253dca70151acef7" kind="function"><name>Client</name></member>
     <member refid="class_client_1af96d672ca01fa070cc9489614dab4194" kind="function"><name>~Client</name></member>
     <member refid="class_client_1a742373e08a80d993d2651b6fff76f5b9" kind="function"><name>start</name></member>
     <member refid="class_client_1a03fbf335433a66624210457ba50f83fb" kind="function"><name>connectToDaemon</name></member>
     <member refid="class_client_1a369f7b5fbcaaa5bf47e7415336a1b82f" kind="function"><name>fileChanged</name></member>
     <member refid="class_client_1af9ec2edf06d69e92a25c53ce4260fa27" kind="function"><name>connectionLost</name></member>
+    <member refid="class_client_1aa5def1c21072f5ed6f70a8859489d2da" kind="function"><name>connectionMade</name></member>
+    <member refid="class_client_1adf8747aec63998b939e450c367d0cf04" kind="function"><name>sendRequest</name></member>
+    <member refid="class_client_1ad054cdf5ac65b2e2c7e54e463940266f" kind="function"><name>setMessage</name></member>
   </compound>
   <compound refid="structtext_1_1_code_action" kind="struct"><name>text::CodeAction</name>
     <member refid="structtext_1_1_code_action_1a5f648f09674ad612f6abff8664e7ba09" kind="variable"><name>fixItTitle</name></member>
@@ -137,11 +143,15 @@
     <member refid="struct_symbol_document_1_1_completion_record_1af6aafed340a21fa9910aa47b3dac4711" kind="variable"><name>padding</name></member>
   </compound>
   <compound refid="class_connection" kind="class"><name>Connection</name>
+    <member refid="class_connection_1ae4f60cddf512531c65e191e21c7ddd18" kind="typedef"><name>Attach</name></member>
+    <member refid="class_connection_1a6a85b3d4f64f154995becb2c33ee5d7a" kind="typedef"><name>Detach</name></member>
     <member refid="class_connection_1a26432575991b48175a23f5f234182617" kind="variable"><name>connections</name></member>
-    <member refid="class_connection_1a239a1ae3ddb9efb16f16e5b1bcd48172" kind="variable"><name>model</name></member>
+    <member refid="class_connection_1a1ecede0572be60b1610299dc4d438db4" kind="variable"><name>onAttach</name></member>
+    <member refid="class_connection_1a911a7c52316abb48dad0c2268545957c" kind="variable"><name>onDetach</name></member>
     <member refid="class_connection_1a5fc585653ad920f89ad3c6247cb91c55" kind="variable"><name>state</name></member>
-    <member refid="class_connection_1a158007fe27d7e591b637c752372a7047" kind="function"><name>Connection</name></member>
+    <member refid="class_connection_1aae29a5b05c1733e4849f0eca9c6ab297" kind="function"><name>Connection</name></member>
     <member refid="class_connection_1a7f2da292b13f5cd23f26bd18b050b2e9" kind="function"><name>~Connection</name></member>
+    <member refid="class_connection_1a9d6aef965db0e1674935229938ddf6da" kind="function"><name>isIn</name></member>
     <member refid="class_connection_1a081d3a1c76e234c5da3dd7f011dfe9c2" kind="function"><name>connectionMade</name></member>
     <member refid="class_connection_1a23c012c1e2740f1e11efe2253220fa1d" kind="function"><name>connectionLost</name></member>
     <member refid="class_connection_1a3c2abaa7098986a8b534a5433bdb9fcd" kind="function"><name>messageReceived</name></member>
@@ -173,12 +183,15 @@
     <member refid="structtext_1_1_diagnostics_1a88ef151e729b90b683e17b37f0ca0083" kind="variable"><name>failDaemonLost</name></member>
     <member refid="structtext_1_1_diagnostics_1a204d1ed64e1ddb8a0febcd742369a763" kind="variable"><name>failDaemonTimeout</name></member>
     <member refid="structtext_1_1_diagnostics_1af30e48722544c30fc73ff0dee4c04506" kind="variable"><name>failDaemonThreads</name></member>
+    <member refid="structtext_1_1_diagnostics_1aa4a893a7163f256dc1b26707675c3b77" kind="variable"><name>failDaemonCoalesce</name></member>
     <member refid="structtext_1_1_diagnostics_1a2f45710676ce947b97c6c13fdd411af7" kind="variable"><name>failSwapVersion</name></member>
     <member refid="structtext_1_1_diagnostics_1afba75a13e6c5d0f3df72f7c969ba90ef" kind="variable"><name>failSwapRecord</name></member>
+    <member refid="structtext_1_1_diagnostics_1afd5ad4b495053becd9fcab65cdf80ec7" kind="variable"><name>failSwapWrite</name></member>
     <member refid="structtext_1_1_diagnostics_1a80e033dff73412d55aebca931f7dc490" kind="variable"><name>failLanguageLoad</name></member>
     <member refid="structtext_1_1_diagnostics_1a592e63682b3f319b9d9e68c575b81486" kind="variable"><name>failLanguageParse</name></member>
     <member refid="structtext_1_1_diagnostics_1a83d689bacb25dd23510f0a605cc89263" kind="variable"><name>failUnitIndex</name></member>
     <member refid="structtext_1_1_diagnostics_1a442b409b3191ecf2bcb010d552a89610" kind="variable"><name>failConstructionNotFound</name></member>
+    <member refid="structtext_1_1_diagnostics_1a5d307f29e65661f3e1813f3657057216" kind="variable"><name>failNoDaemon</name></member>
   </compound>
   <compound refid="structlsp_1_1_diagnostic_severity" kind="struct"><name>lsp::DiagnosticSeverity</name>
     <member refid="structlsp_1_1_diagnostic_severity_1ac7a81d2e3d63a0bc669781f3e38b14ae" kind="variable"><name>Error</name></member>
@@ -190,6 +203,11 @@
     <member refid="structlsp_1_1_document_highlight_type_1a126c007bba046aeb4418dca6358b22e8" kind="variable"><name>Text</name></member>
     <member refid="structlsp_1_1_document_highlight_type_1a39f32d8e7fb2799089222f9b80305be4" kind="variable"><name>Read</name></member>
     <member refid="structlsp_1_1_document_highlight_type_1ae7a6e23cf85bea57cffffb5e21845649" kind="variable"><name>Write</name></member>
+  </compound>
+  <compound refid="struct_index_1_1_document_scope" kind="struct"><name>Index::DocumentScope</name>
+    <member refid="struct_index_1_1_document_scope_1a4e65ec51d9f90f2638e64e1b2ae3c275" kind="variable"><name>index</name></member>
+    <member refid="struct_index_1_1_document_scope_1a90152bf0d011a17822b56f0e2528959b" kind="function"><name>DocumentScope</name></member>
+    <member refid="struct_index_1_1_document_scope_1a3d7aee9a6e3d80d04b8160d2fa3d64d1" kind="function"><name>~DocumentScope</name></member>
   </compound>
   <compound refid="structlsp_1_1_error_codes" kind="struct"><name>lsp::ErrorCodes</name>
     <member refid="structlsp_1_1_error_codes_1a1f5c44acaf61aea5315b7b874d63a8ad" kind="variable"><name>ParseError</name></member>
@@ -303,28 +321,35 @@
     <member refid="class_index_1a33e05434186de020be55979b9682e00a" kind="variable"><name>model</name></member>
     <member refid="class_index_1a787b5943f55b59f85d657a2a0513f0c0" kind="variable"><name>paths</name></member>
     <member refid="class_index_1a567ae54ad5c330c59b83e6c481b10764" kind="variable"><name>pathOrder</name></member>
-    <member refid="class_index_1a1d10723d8567a12de9a23328dcc8a6e5" kind="variable"><name>documents</name></member>
+    <member refid="class_index_1a932371646850d0e5ee3dace6070896b9" kind="variable"><name>sourceHashes</name></member>
     <member refid="class_index_1a34f7d8149c93e526ee9b67253bd9ead6" kind="variable"><name>languages</name></member>
+    <member refid="class_index_1aa0267000c8bb9fe8552dd1c12f09ba85" kind="variable"><name>loadedLanguages</name></member>
     <member refid="class_index_1aeef16f2bf3f9fb25d67680551df43752" kind="variable"><name>declarations</name></member>
     <member refid="class_index_1a3a754d7bfe7286140a8b120dca2b2e43" kind="variable"><name>references</name></member>
     <member refid="class_index_1a2ead8ae2239a07f8e7df07cdb3f0eec4" kind="variable"><name>completions</name></member>
     <member refid="class_index_1a47930ebefc4c543825088ac19e5b2b6c" kind="variable"><name>symbolDocuments</name></member>
     <member refid="class_index_1a3423d676022aa03008833a02664e2fc6" kind="variable"><name>symbolFiles</name></member>
-    <member refid="class_index_1a4d1fa495e81df25eb4f9e9ac80d61d5e" kind="variable"><name>records</name></member>
-    <member refid="class_index_1af5adf0f9eb6b1217c64fbadfa37847b1" kind="variable"><name>unitRows</name></member>
+    <member refid="class_index_1a70b78124f5619abe7ea93b9710de1b93" kind="variable"><name>unitOwners</name></member>
     <member refid="class_index_1a1c37d79c13a5a993b6ff8dc8d6e7ac75" kind="variable"><name>pathRows</name></member>
     <member refid="class_index_1a4e1abe54ba7bf6582e21b15163d17cbf" kind="variable"><name>stemRows</name></member>
+    <member refid="class_index_1a93961c86fa6877a19fe8b428fb13fac6" kind="variable"><name>maxCachedDocuments</name></member>
+    <member refid="class_index_1a1d10723d8567a12de9a23328dcc8a6e5" kind="variable"><name>documents</name></member>
+    <member refid="class_index_1a2626c809206aaeb141e57a743136033f" kind="variable"><name>cachedDocuments</name></member>
+    <member refid="class_index_1a9b9542059eb54f7dfcb91e012af44fe0" kind="variable"><name>evictionLockDepth</name></member>
     <member refid="class_index_1a30a468468c3692160a846cbe60cd3373" kind="function"><name>Index</name></member>
     <member refid="class_index_1aab49531fad9100e5e00207727c2ff4a4" kind="function"><name>applyToDocuments</name></member>
     <member refid="class_index_1af58b8b567cb8794478a223cd2873c183" kind="function"><name>removeDocuments</name></member>
     <member refid="class_index_1ae566876115ab63a2462f58e42219598a" kind="function"><name>setDocuments</name></member>
-    <member refid="class_index_1a6b32b438017d7ec783c1d1afe26e5c83" kind="function"><name>addDocument</name></member>
+    <member refid="class_index_1a80eba3378f7ac4f23f60ee72ed9e4fcf" kind="function"><name>addDocument</name></member>
+    <member refid="class_index_1ae8f5c7248064413dc8951c2c5ea9d3d8" kind="function"><name>addSourceHash</name></member>
+    <member refid="class_index_1a64654a50a64c54848262c6cbb6752cc7" kind="function"><name>getOrCreateDocument</name></member>
     <member refid="class_index_1a4ab90c817535f110465f55e5088f9b18" kind="function"><name>addBindings</name></member>
+    <member refid="class_index_1a36b38468636c5bb59cffaf050ae142f0" kind="function"><name>addBindings</name></member>
     <member refid="class_index_1afcf30a72c421ea970a08fe9b86ec6a20" kind="function"><name>addPathRows</name></member>
     <member refid="class_index_1afe3e1aaddd3750eeb377864ce1634db7" kind="function"><name>addUnitRows</name></member>
     <member refid="class_index_1afa2139387c86ea9c55e8f9fa75ec857b" kind="function"><name>getElement</name></member>
     <member refid="class_index_1a8602d4c1bbac49890d2f79912efec6e0" kind="function"><name>isOccurrenceBefore</name></member>
-    <member refid="class_index_1a8e0bc7ca8c39e3cb5e688f66996d5ac7" kind="function"><name>getPathRange</name></member>
+    <member refid="class_index_1a41e5552a96c3b69f82004c36860c5f0a" kind="function"><name>getPathRange</name></member>
     <member refid="class_index_1a54ecdbc2f2343b63b7854466ce514dc3" kind="function"><name>getSymbolDocument</name></member>
     <member refid="class_index_1a299afbc2c983f0c7e364c7b1d21b9af8" kind="function"><name>hasRole</name></member>
     <member refid="class_index_1add3bf8091d535d5e7f1a298f348af068" kind="function"><name>getSymbolType</name></member>
@@ -334,21 +359,24 @@
     <member refid="class_index_1a2b65707dd49051adfefa1f6fcc4f01cb" kind="function"><name>applyToOccurrences</name></member>
     <member refid="class_index_1af0bb1951e6e8a5d0607656eb6ab2537b" kind="function"><name>getElement</name></member>
     <member refid="class_index_1a5837c1f93d2f053f686a2056533af55a" kind="function"><name>isRecordBefore</name></member>
-    <member refid="class_index_1a11e1093625f8fd5be26f9ab37b61e23a" kind="function"><name>getCharacter</name></member>
+    <member refid="class_index_1aaebb7eefa43438f19373e3e2c79a3fd0" kind="function"><name>getCharacter</name></member>
     <member refid="class_index_1a3cdbf926c197d2b49cd72b9d3e5e5317" kind="function"><name>getByteColumn</name></member>
     <member refid="class_index_1a2ed5026c2259e1346400806155313103" kind="function"><name>readSwapFile</name></member>
     <member refid="class_index_1af12e54a1917f3495b54fe591594f4b4b" kind="function"><name>readSwapFile</name></member>
-    <member refid="class_index_1a0794755d26224054eca2658206a01bd6" kind="function"><name>writeSwapFile</name></member>
+    <member refid="class_index_1a243892e0dcd3795ffcf1ac2031862db1" kind="function"><name>writeSwapFile</name></member>
     <member refid="class_index_1aad673ef1c0e239ba7889f56ea8508143" kind="function"><name>addStamp</name></member>
-    <member refid="class_index_1aa7440a6debcd7229363d973065703ea7" kind="function"><name>removeBindings</name></member>
+    <member refid="class_index_1adc55672424f5e46eb313bbffbdf95a2a" kind="function"><name>isUnitRetained</name></member>
+    <member refid="class_index_1a0ecb3fc5d2fd51a19309796afb0a3a20" kind="function"><name>removeBindings</name></member>
     <member refid="class_index_1a2257c6e1804af58d06b860f55d1fae38" kind="function"><name>removeSymbols</name></member>
     <member refid="class_index_1a5bd0b6c506e58ab52585a1da35e36e13" kind="function"><name>removeOccurrences</name></member>
     <member refid="class_index_1aa47fa08dfa76c8e7a09023e474bf8863" kind="function"><name>removeCompletions</name></member>
     <member refid="class_index_1a1b235a0fbfaf240cc47a498d597eb62b" kind="function"><name>addCompletions</name></member>
-    <member refid="class_index_1ad2be276fb2ebb0b9daab2e45adaa576b" kind="function"><name>addRecords</name></member>
     <member refid="class_index_1ac19cde19cea8e9b6df9881fd05ab9bfc" kind="function"><name>addSymbols</name></member>
     <member refid="class_index_1ad409713d2fc3fb25b973788623227272" kind="function"><name>addOccurrences</name></member>
     <member refid="class_index_1a8725aaa08ef8a830aad9d38a96b252e7" kind="function"><name>getOrCreatePathIndex</name></member>
+    <member refid="class_index_1a083d7915d5f94badeac821a7b030cabc" kind="function"><name>getSwapDocument</name></member>
+    <member refid="class_index_1af1798183328606987d0903b1d190507d" kind="function"><name>removeCachedDocument</name></member>
+    <member refid="class_index_1acf6a66c30d20a694065a179e7cc296f0" kind="function"><name>evictCachedDocuments</name></member>
   </compound>
   <compound refid="struct_processor_1_1_index_job" kind="struct"><name>Processor::IndexJob</name>
     <member refid="struct_processor_1_1_index_job_1af0bd4539549bf6bb8c486bae4b6d724d" kind="variable"><name>outlineFieldCount</name></member>
@@ -364,15 +392,16 @@
     <member refid="struct_processor_1_1_index_job_1ae7affd1d5a01ff01a9030db743195c13" kind="variable"><name>family</name></member>
     <member refid="struct_processor_1_1_index_job_1a9e69f478c33bbc20a91bef242df54fcb" kind="variable"><name>bufferPaths</name></member>
     <member refid="struct_processor_1_1_index_job_1a9736185784ff22a9639e55bae17a24a5" kind="variable"><name>bufferTexts</name></member>
-    <member refid="struct_processor_1_1_index_job_1ab7fa347a41a938ab7efe37948f05bc01" kind="variable"><name>foreignPaths</name></member>
+    <member refid="struct_processor_1_1_index_job_1a5e6f795a39ee2a500f8820b84ee54531" kind="variable"><name>unitOwners</name></member>
     <member refid="struct_processor_1_1_index_job_1a3b3b60255e8ad7548046a03636e4250f" kind="variable"><name>builder</name></member>
     <member refid="struct_processor_1_1_index_job_1afdbf0371c0fa170f7f83aa6bf93a9c60" kind="variable"><name>symbols</name></member>
     <member refid="struct_processor_1_1_index_job_1a157ba208bedc6fbdd78615417007c8b3" kind="variable"><name>outlineSlots</name></member>
     <member refid="struct_processor_1_1_index_job_1a4e1bd93a3b73e4324210b0f0a34b1d7a" kind="variable"><name>outlineKeys</name></member>
     <member refid="struct_processor_1_1_index_job_1a9dea7bf6e991c8d970fa612eb590fc35" kind="variable"><name>completionKeys</name></member>
-    <member refid="struct_processor_1_1_index_job_1af0a42c88170cb5023be3f7be39491216" kind="variable"><name>result</name></member>
+    <member refid="struct_processor_1_1_index_job_1adac822afe8e3a7c7ca1078d77bc0cdc9" kind="variable"><name>result</name></member>
+    <member refid="struct_processor_1_1_index_job_1a03ec8f3841044ce2c969344a213a2b01" kind="variable"><name>temporary</name></member>
     <member refid="struct_processor_1_1_index_job_1aea230c0f54addd9581378664a91ab74b" kind="variable"><name>isFinished</name></member>
-    <member refid="struct_processor_1_1_index_job_1a1577d112164093f1e6c4de997894a149" kind="function"><name>IndexJob</name></member>
+    <member refid="struct_processor_1_1_index_job_1a77e85c3f0a67ecfd2dd1ea9197ee62f1" kind="function"><name>IndexJob</name></member>
     <member refid="struct_processor_1_1_index_job_1a714575fe9a266f2b660e53314ddf6c3c" kind="function"><name>runJob</name></member>
     <member refid="struct_processor_1_1_index_job_1a19788b304f87f62cedcb9b528ce3b1c6" kind="function"><name>addSymbols</name></member>
     <member refid="struct_processor_1_1_index_job_1a6bd61c6eae95b51c30924ca8a9fa27a3" kind="function"><name>getOutlineParent</name></member>
@@ -384,6 +413,7 @@
     <member refid="struct_processor_1_1_index_job_1a73f1ccd7e8219305ba3ded32a0a70226" kind="function"><name>addOutline</name></member>
     <member refid="struct_processor_1_1_index_job_1a84b2ad5112ad68cd8a06769fbf079a26" kind="function"><name>addCompletion</name></member>
     <member refid="struct_processor_1_1_index_job_1a28c90c694ce6e5193c41407420908683" kind="function"><name>addFixIt</name></member>
+    <member refid="struct_processor_1_1_index_job_1ad8bd4707275cd5baeb7eaf01f854d830" kind="function"><name>addMessage</name></member>
   </compound>
   <compound refid="struct_symbol_document_1_1_inlay_hint_entry" kind="struct"><name>SymbolDocument::InlayHintEntry</name>
     <member refid="struct_symbol_document_1_1_inlay_hint_entry_1ad2e924e86aef6a634d772e3d1621f171" kind="variable"><name>line</name></member>
@@ -457,15 +487,16 @@
   </compound>
   <compound refid="class_l_i_n_g_model" kind="class"><name>LINGModel</name>
     <member refid="class_l_i_n_g_model_1a98c415ab589e5c16c6e98d1a8f0859a5" kind="variable"><name>defaultTimeoutMs</name></member>
-    <member refid="class_l_i_n_g_model_1a64034a30e2992f302f2d0f8c2167eb63" kind="variable"><name>defaultThreads</name></member>
     <member refid="class_l_i_n_g_model_1a1c57527a53635e5f4efbcb6d27aa843e" kind="variable"><name>coalesceMs</name></member>
+    <member refid="class_l_i_n_g_model_1a674f52534ba5188acf86da725adb3077" kind="variable"><name>defaultCoalesceMs</name></member>
     <member refid="class_l_i_n_g_model_1a0f5c4a85d80ca163d85c7cc496fbab46" kind="variable"><name>watcher</name></member>
     <member refid="class_l_i_n_g_model_1a027340bbc7ee3868a010942469b1f1ec" kind="function"><name>LINGModel</name></member>
     <member refid="class_l_i_n_g_model_1aed5183a1e913ceaaf115ac1d666e89a0" kind="function"><name>~LINGModel</name></member>
     <member refid="class_l_i_n_g_model_1afdef5b210be00b4c407239da424c8b3d" kind="function"><name>setMessage</name></member>
     <member refid="class_l_i_n_g_model_1a5bcff53e4014ed726cd537a497919beb" kind="function"><name>getSwapFile</name></member>
+    <member refid="class_l_i_n_g_model_1a4093bd2465a3c37aeb3e0dc419c31a5b" kind="function"><name>getDefaultThreads</name></member>
     <member refid="class_l_i_n_g_model_1a6aeffa4a00ed2e45d072e5e850eaad6b" kind="function"><name>getProjectName</name></member>
-    <member refid="class_l_i_n_g_model_1aa8f0468179c1dbd1d51bc903480152db" kind="function"><name>getDaemonName</name></member>
+    <member refid="class_l_i_n_g_model_1a6e515eadbb52f6bfaa34830f584a43a1" kind="function"><name>getDaemonName</name></member>
     <member refid="class_l_i_n_g_model_1a418ec05ca5a75c35b3187e995a82fb5c" kind="function"><name>getCacheDirectory</name></member>
     <member refid="class_l_i_n_g_model_1a0ebd93b9b8bd9a4d665a1e5274410d64" kind="function"><name>getConfigDirectory</name></member>
     <member refid="class_l_i_n_g_model_1a29b44dc7f1b23d71cb935c4c021b7466" kind="function"><name>getLanguageDirectories</name></member>
@@ -473,7 +504,9 @@
     <member refid="class_l_i_n_g_model_1af7419c5552c6ea25171ae51a02d746e2" kind="function"><name>getLanguageLibrary</name></member>
     <member refid="class_l_i_n_g_model_1abf829c79890d961d4b3ac2993aee651b" kind="function"><name>getCacheDirectory</name></member>
     <member refid="class_l_i_n_g_model_1a0df8e4dfb3d082c1ed0f9eacb7aeb690" kind="function"><name>getProjectDirectory</name></member>
+    <member refid="class_l_i_n_g_model_1a7d97175aa992c53560192ced5e382194" kind="function"><name>getManifestFile</name></member>
     <member refid="class_l_i_n_g_model_1a9f03f6d6767d7e5f88afd5c412e75208" kind="function"><name>getPatchedDirectory</name></member>
+    <member refid="class_l_i_n_g_model_1a7da1a6d60270d3a8b790b608be22bba5" kind="function"><name>isWithinRoots</name></member>
     <member refid="class_l_i_n_g_model_1a3cd783d99a31ffc14afb62bdd6abe103" kind="function"><name>valueTreePropertyChanged</name></member>
     <member refid="class_l_i_n_g_model_1a167994bf1e11534308dc0c92299af677" kind="function"><name>valueTreeChildAdded</name></member>
     <member refid="class_l_i_n_g_model_1a69cf1f824a69271ac205f6432f0b8955" kind="function"><name>fileChanged</name></member>
@@ -489,7 +522,7 @@
     <member refid="class_manifest_1a86e078d9418d29915919effe785bb14a" kind="function"><name>valueTreePropertyChanged</name></member>
     <member refid="class_manifest_1a64ee33ff76020fa298b43994752e5200" kind="function"><name>addJob</name></member>
     <member refid="class_manifest_1ac7e3db5a39e355c96bc6b06290dda872" kind="function"><name>handleAsyncUpdate</name></member>
-    <member refid="class_manifest_1ac293516e7c3a7cec11be4fac5210dc25" kind="function"><name>setToolchain</name></member>
+    <member refid="class_manifest_1a20efb1855c4cd7d8a260cf4f5f3568b1" kind="function"><name>setToolchain</name></member>
     <member refid="class_manifest_1a4d89d3ab573aa9372e18fd6794a49ecb" kind="function"><name>getDaemonValue</name></member>
     <member refid="class_manifest_1a8d5113738228ea9088627ed4bbba47f7" kind="function"><name>getRoots</name></member>
     <member refid="class_manifest_1a0334667072db0b66c035e93e94f423c2" kind="function"><name>getToolchain</name></member>
@@ -503,6 +536,7 @@
     <member refid="struct_manifest_1_1_manifest_job_1a7295046c03cee21bfa8f3e3671d83e7d" kind="variable"><name>roots</name></member>
     <member refid="struct_manifest_1_1_manifest_job_1a1818ea4fcfcb75b29616551771be5212" kind="variable"><name>timeout</name></member>
     <member refid="struct_manifest_1_1_manifest_job_1ae83eacb310c8a0b2a2d5a65a3c52acaf" kind="variable"><name>threads</name></member>
+    <member refid="struct_manifest_1_1_manifest_job_1a09988318360084f70bcdbaa9ff5afb4e" kind="variable"><name>coalesce</name></member>
     <member refid="struct_manifest_1_1_manifest_job_1a2e16dcc79759f990a812ce41d85ab39a" kind="variable"><name>isFinished</name></member>
     <member refid="struct_manifest_1_1_manifest_job_1a9c3cb49aa964690620daa1887c2f586f" kind="function"><name>ManifestJob</name></member>
     <member refid="struct_manifest_1_1_manifest_job_1a4c14ead10b37a748c85ae35f3b1fc685" kind="function"><name>runJob</name></member>
@@ -644,7 +678,7 @@
   </compound>
   <compound refid="class_operation" kind="class"><name>Operation</name>
     <member refid="class_operation_1acfe3daf80675e594794fcacfd2d90e2f" kind="variable"><name>request</name></member>
-    <member refid="class_operation_1aeb86b14e43aed460de0025cf943d59e2" kind="function"><name>Operation</name></member>
+    <member refid="class_operation_1abd64ec465465a914a800301df1a38750" kind="function"><name>Operation</name></member>
     <member refid="class_operation_1a1468126e490c5934bfe55d069d461c89" kind="function"><name>~Operation</name></member>
     <member refid="class_operation_1adbaf08b5363a7a022d86f41bd1a5838c" kind="function"><name>connectionMade</name></member>
     <member refid="class_operation_1a114ea0c0f4f8f476bae294004b68b82a" kind="function"><name>messageReceived</name></member>
@@ -674,6 +708,7 @@
     <member refid="struct_processor_1_1_parse_job_1ac314b3ad1e7401a0f35fd5a3c4e1cc18" kind="variable"><name>language</name></member>
     <member refid="struct_processor_1_1_parse_job_1af9d51143498244fb432f62600bef38ed" kind="variable"><name>languageHash</name></member>
     <member refid="struct_processor_1_1_parse_job_1ae1a776a1b36edea85fadef965fccd294" kind="variable"><name>family</name></member>
+    <member refid="struct_processor_1_1_parse_job_1a952db1fbdaa90981cd8cd9824275c790" kind="variable"><name>sourceHash</name></member>
     <member refid="struct_processor_1_1_parse_job_1a8fbaf7a67824549c7d5c9ae65f6c0ba6" kind="variable"><name>buffer</name></member>
     <member refid="struct_processor_1_1_parse_job_1ad90d80118a1bc866143e134feea90c7c" kind="variable"><name>document</name></member>
     <member refid="struct_processor_1_1_parse_job_1ac94a41ca7969884a466670afadaf0aa7" kind="variable"><name>symbols</name></member>
@@ -692,6 +727,7 @@
     <member refid="class_processor_1a013bccb8420385e39537d818ad61fea8" kind="typedef"><name>Events</name></member>
     <member refid="class_processor_1a861e5e618da6d2f24237151c571039d2" kind="variable"><name>waitForJob</name></member>
     <member refid="class_processor_1a4a7e8b1f8969a1a0c50484aec56f9ea7" kind="variable"><name>noWait</name></member>
+    <member refid="class_processor_1a4eaae9c3e78c16bb14e7dde1b1d207f0" kind="variable"><name>noRow</name></member>
     <member refid="class_processor_1a221e46c95ba79722accf868ad6e2cacb" kind="variable"><name>model</name></member>
     <member refid="class_processor_1a876fef51b77ed65bdbb09dd7d1b01d70" kind="variable"><name>index</name></member>
     <member refid="class_processor_1a09caad03da06296758fb0ef8cd41facb" kind="variable"><name>query</name></member>
@@ -701,25 +737,35 @@
     <member refid="class_processor_1ac6bf7f40666768cc105cc933b9845a4f" kind="variable"><name>nextIndexJobs</name></member>
     <member refid="class_processor_1a0476a6e6f14929555b4420ba0d7cebdd" kind="variable"><name>unitsJobs</name></member>
     <member refid="class_processor_1a0b0b3a1bbf22fccc3fa6d79eba30b281" kind="variable"><name>nextUnitsJobs</name></member>
-    <member refid="class_processor_1a3fb9c3a092a60adbcb4524d2585cc811" kind="variable"><name>pool</name></member>
+    <member refid="class_processor_1a1adacf873f73a14f979df2a28b0a0703" kind="variable"><name>ownedPool</name></member>
+    <member refid="class_processor_1a1da7a2132523e26eb88a6ae1b35fa5cb" kind="variable"><name>pool</name></member>
     <member refid="class_processor_1af66620608b76c59a20b72eec4dab6b2d" kind="variable"><name>events</name></member>
+    <member refid="class_processor_1a410ae6d39272fab4c63ddab7a342dfef" kind="variable"><name>bufferEvents</name></member>
     <member refid="class_processor_1a5f3fd5a39357add750fc2b406a880dba" kind="variable"><name>propertyEvents</name></member>
     <member refid="class_processor_1ace956e3fa0a4fc41d46ce698fa90684f" kind="variable"><name>childEvents</name></member>
-    <member refid="class_processor_1a3d8bc2958e0972bb7a4a84c29f0581c4" kind="function"><name>Processor</name></member>
+    <member refid="class_processor_1a04d017a20a3ed5020d46228b412ca63f" kind="function"><name>Processor</name></member>
     <member refid="class_processor_1a3d7c16d172be09d3bfb4df3519d21b31" kind="function"><name>~Processor</name></member>
     <member refid="class_processor_1a3731df1c2da6bfe84ea3f6945ac9ebe6" kind="function"><name>applyToDocuments</name></member>
+    <member refid="class_processor_1a7e37b2bb3701cabc65c491ad6aad1184" kind="function"><name>requestAllUnits</name></member>
     <member refid="class_processor_1a2d6424cd284c59f9b2e289e8a780d819" kind="function"><name>getOrCreateLanguages</name></member>
+    <member refid="class_processor_1add7290d676571d2262b8e1adf5558deb" kind="function"><name>getPoolOptions</name></member>
     <member refid="class_processor_1a6d9ce8bd6a81cdcaa1de9ce979b58664" kind="function"><name>hasDependency</name></member>
     <member refid="class_processor_1ac06eb59d897bf5a7926f42e8769d9a81" kind="function"><name>addArgument</name></member>
     <member refid="class_processor_1af5935deccba671a674298de8383c7b9c" kind="function"><name>getArgumentPointers</name></member>
     <member refid="class_processor_1ae400fd318249d09cca8f9288c51794c9" kind="function"><name>getFinishedRows</name></member>
     <member refid="class_processor_1acf129b01e6aa529b44aed5634ba6acc7" kind="function"><name>hasParseJob</name></member>
+    <member refid="class_processor_1a98f1b18f531120a5b73d245db078e8f8" kind="function"><name>hasOpenBuffer</name></member>
     <member refid="class_processor_1abb666e6ce3b7d1e3dd007d084cc8e7de" kind="function"><name>getUnit</name></member>
     <member refid="class_processor_1a71b46a179bf64953ebf505bcc14461e6" kind="function"><name>getArguments</name></member>
     <member refid="class_processor_1a316f607580f5e468e40ab0a6baf81b78" kind="function"><name>getUnitHash</name></member>
+    <member refid="class_processor_1afcdd626b02628e0cb47f08ffc0aba00f" kind="function"><name>getUnitStamp</name></member>
     <member refid="class_processor_1a24b069461f4161553899d2a8f84d3287" kind="function"><name>registerEvents</name></member>
     <member refid="class_processor_1a1dcabcb77d254b34ff0c04c9b483028d" kind="function"><name>runRequest</name></member>
     <member refid="class_processor_1a1dbe9fa7fc1789e85a9c3dfba2761372" kind="function"><name>isRequestReady</name></member>
+    <member refid="class_processor_1abdc530038c1b93ab3fa4dcfe7257baab" kind="function"><name>getScope</name></member>
+    <member refid="class_processor_1a65ccaeafa914e3834a37e089af978455" kind="function"><name>getUnitRows</name></member>
+    <member refid="class_processor_1a02a8e797b327026a92ad75436b117485" kind="function"><name>getFailedRows</name></member>
+    <member refid="class_processor_1a5a6fae2c8d2edc23916276ad8babd4b3" kind="function"><name>getMessage</name></member>
     <member refid="class_processor_1a700e89bf132e8548f785c018e3e45c07" kind="function"><name>moveRequestJobsToFront</name></member>
     <member refid="class_processor_1a9cdc6be848450a5d856a71bcb56acedf" kind="function"><name>runRequests</name></member>
     <member refid="class_processor_1a61ebbdf84828a3b336b3dadd216efc54" kind="function"><name>addDiagnosticRequests</name></member>
@@ -727,6 +773,8 @@
     <member refid="class_processor_1a208cafdf2a5bbc1411ec1af9261811f5" kind="function"><name>setUnitIndexed</name></member>
     <member refid="class_processor_1a00330f936fb8bceb2e4e6c09a9dd50b3" kind="function"><name>setIndexed</name></member>
     <member refid="class_processor_1a88cdf27664e3bbebb9f25e1f0c868566" kind="function"><name>valueTreeChildAdded</name></member>
+    <member refid="class_processor_1a9f8e753a0945fc9c7f2ab64e628370f8" kind="function"><name>valueTreeChildRemoved</name></member>
+    <member refid="class_processor_1a995bf50617f99b06a47a7ff28a3251f5" kind="function"><name>clearUnusedRequests</name></member>
     <member refid="class_processor_1ab00c859ab19953604870768ae8b054bc" kind="function"><name>addLanguages</name></member>
     <member refid="class_processor_1aa9d56261c04fbac55a81b1bbb72a0db4" kind="function"><name>addBuiltInLanguages</name></member>
     <member refid="class_processor_1a50d0c4af07b79f48b07329a53c46ac3a" kind="function"><name>addJobs</name></member>
@@ -734,8 +782,10 @@
     <member refid="class_processor_1a547e161d2e24134f3c95df35019aeddb" kind="function"><name>addJob</name></member>
     <member refid="class_processor_1a17bb81b45a765c891a708ee1aa4c912a" kind="function"><name>setJob</name></member>
     <member refid="class_processor_1aa046274b867fc5529e706abfb61de0a6" kind="function"><name>removeJob</name></member>
-    <member refid="class_processor_1ab20331a25e35784eca39d7d2673fe68e" kind="function"><name>addIndexJob</name></member>
+    <member refid="class_processor_1a80abb971332530b0957101ae10fc586f" kind="function"><name>addIndexJob</name></member>
     <member refid="class_processor_1a20cfa778e3c1df0713b19a09c9e5b06b" kind="function"><name>addIndexJobs</name></member>
+    <member refid="class_processor_1ae6272c727fc3a60f0d3e59473f8416fc" kind="function"><name>addIndexJobs</name></member>
+    <member refid="class_processor_1adedc307581aa0c45b7a38c7fef2375c9" kind="function"><name>requestUnit</name></member>
     <member refid="class_processor_1ada6bec4ded26df0af355111366519094" kind="function"><name>addBindings</name></member>
     <member refid="class_processor_1a6487194419302dd1602150479e2f0259" kind="function"><name>handleAsyncUpdate</name></member>
     <member refid="class_processor_1af27f30c9e90feacde9f5af3c5c8e8722" kind="function"><name>setFile</name></member>
@@ -745,6 +795,8 @@
     <member refid="class_processor_1a1a565b59f5f9db00ec4fd60ca30260eb" kind="function"><name>setLanguageHash</name></member>
     <member refid="class_processor_1a08af8205b7fae804fbad9b2e7e320f22" kind="function"><name>setLanguage</name></member>
     <member refid="class_processor_1a87bca016816c718f0b53d670f34e27b0" kind="function"><name>addDocument</name></member>
+    <member refid="class_processor_1a5560d43c4765fbf797b60178b7cd601d" kind="function"><name>isUnitStale</name></member>
+    <member refid="class_processor_1aa83cb468a563dbe07e719d05e650014f" kind="function"><name>updateUnitOnDiskEdit</name></member>
     <member refid="class_processor_1abf0bbb797d13002db872460f570b964d" kind="function"><name>addUnitsJob</name></member>
     <member refid="class_processor_1a1f668f02a5ca16270f8258f5a290f2ae" kind="function"><name>getUnitsJob</name></member>
     <member refid="class_processor_1a3b13eabafa4cd0af24ebf4b4bd1e5564" kind="function"><name>setUnitsJobs</name></member>
@@ -793,8 +845,10 @@
     <member refid="class_query_1a2436862865adf7b1e292b123205f154a" kind="function"><name>getFile</name></member>
     <member refid="class_query_1a2c571f5680b49031d21f195688b73598" kind="function"><name>appendJsonRpc</name></member>
     <member refid="class_query_1a1522169f77764d3ff8615957d2f46405" kind="function"><name>setError</name></member>
+    <member refid="class_query_1aa2d6869638ff32396ec91592861965ef" kind="function"><name>setError</name></member>
     <member refid="class_query_1ad9336e7536e4ee2277cfa401bff2a678" kind="function"><name>setResult</name></member>
     <member refid="class_query_1af182fd647d1b9cf7be765d88d8323668" kind="function"><name>isValidRequest</name></member>
+    <member refid="class_query_1a88ec7925914e77efc66a9749840dd3f8" kind="function"><name>getCommand</name></member>
     <member refid="class_query_1a252aeb46bd682380187e9d183c5d5697" kind="function"><name>getArgumentShape</name></member>
     <member refid="class_query_1a21904ccf28761fd9637b31115a869281" kind="function"><name>getLastTokenIndex</name></member>
     <member refid="class_query_1a4281c9d2981b5e79c17464ae120ede51" kind="function"><name>getCounterpart</name></member>
@@ -811,23 +865,24 @@
     <member refid="class_query_1aac9b5cc0c54b338d12e8906c1c9c207b" kind="function"><name>appendOutlines</name></member>
     <member refid="class_query_1afead9f54d95cfd9c0cdadac4325ddd2c" kind="function"><name>appendOutline</name></member>
     <member refid="class_query_1a2bc0c532ecf2415608b36734abe8a5bb" kind="function"><name>appendFileCodeActions</name></member>
-    <member refid="class_query_1a556bb5accc9b8a0ee57d511261fe6093" kind="function"><name>appendFixItActions</name></member>
+    <member refid="class_query_1a9a689947cebf7336b4c7c3a4b1e1f447" kind="function"><name>appendFixItActions</name></member>
     <member refid="class_query_1a03ebf677d16cd07e33b0375104e4c6f5" kind="function"><name>appendCodeAction</name></member>
     <member refid="class_query_1ac4dc7ce737d628ad4f1ba257f3b3817e" kind="function"><name>appendCompletionItem</name></member>
-    <member refid="class_query_1aaf64130322b2182c793760914da56320" kind="function"><name>appendTokenLines</name></member>
-    <member refid="class_query_1a57b019f50734d0b8fd77eda96c968f82" kind="function"><name>appendSegment</name></member>
-    <member refid="class_query_1a0c851413d578a5d618123f134dce1a56" kind="function"><name>getOffset</name></member>
-    <member refid="class_query_1abf7e3a011880fe2ac18af69f9e7edc5d" kind="function"><name>getInnerRange</name></member>
-    <member refid="class_query_1a6d138706ea057e45c83a07040f1aee80" kind="function"><name>getElementSpan</name></member>
-    <member refid="class_query_1a50a98aae030177a03868cd051ae7745b" kind="function"><name>getEnclosingChild</name></member>
-    <member refid="class_query_1ad8246a3f7210262fea013622609b8c34" kind="function"><name>getInnermostElement</name></member>
+    <member refid="class_query_1a7b38c11a46d1e5b7c423eb426a6d7f89" kind="function"><name>appendTokenLines</name></member>
+    <member refid="class_query_1aeec85620f694ffd42e602a4eeb0e99eb" kind="function"><name>appendSegment</name></member>
+    <member refid="class_query_1a7450bb9f324a55165c0fc1d8a918672b" kind="function"><name>getOffset</name></member>
+    <member refid="class_query_1ab340c0c287f353f868943aab5b3051ea" kind="function"><name>getInnerRange</name></member>
+    <member refid="class_query_1a7faa13174634c861c7873bf87fc788a5" kind="function"><name>getElementSpan</name></member>
+    <member refid="class_query_1a2de26cadff94c001062481e15b88ef50" kind="function"><name>getEnclosingChild</name></member>
+    <member refid="class_query_1a163878a0d9d6d7769b2de367965facad" kind="function"><name>getInnermostElement</name></member>
     <member refid="class_query_1a314f687788b952be51c29848bcb52e5d" kind="function"><name>getOuterLevel</name></member>
-    <member refid="class_query_1ab88eedc64ad880b36e90552e75520f95" kind="function"><name>getRoleElement</name></member>
+    <member refid="class_query_1af1f93a976c1c9f4703eebe0b567fe1ee" kind="function"><name>getRoleElement</name></member>
     <member refid="class_query_1ab0a0831c6185bab1ed37ce7dfd9878c1" kind="function"><name>appendSelectionChain</name></member>
-    <member refid="class_query_1aec3fcf2f6240f940d221f1a2924e7c77" kind="function"><name>appendSelectionRanges</name></member>
-    <member refid="class_query_1a71f52dddf2d1fec631bbc04b76f745f9" kind="function"><name>getTextObjectRange</name></member>
-    <member refid="class_query_1ad9570124cf0f5cce94b65905c0af0575" kind="function"><name>appendPosition</name></member>
-    <member refid="class_query_1a8d9110a46b4e0d9d3fa5164cae29a3af" kind="function"><name>appendRange</name></member>
+    <member refid="class_query_1a77a7308f2762847e3f108ddc8a4f95cf" kind="function"><name>appendSelectionRanges</name></member>
+    <member refid="class_query_1a9112ba1bbcacb86df03481039279ea95" kind="function"><name>getTextObjectRange</name></member>
+    <member refid="class_query_1a12b9b8075cae1b685e975712bf0a626f" kind="function"><name>appendPosition</name></member>
+    <member refid="class_query_1a006ba53d438f36d8d77c99849a4abf25" kind="function"><name>appendPosition</name></member>
+    <member refid="class_query_1a0979bd694d1556e6d74224721f1a5000" kind="function"><name>appendRange</name></member>
     <member refid="class_query_1ad8a0e31bb962a991155002d6772f1e03" kind="function"><name>appendUri</name></member>
     <member refid="class_query_1a59f0b916e64bca9e3a53ab112922ffcf" kind="function"><name>appendDiagnostics</name></member>
     <member refid="class_query_1a0441e751976c47bdcb4e92abd80acd62" kind="function"><name>appendLocation</name></member>
@@ -855,8 +910,9 @@
     <member refid="class_query_1a6e16e165b4b4d8a14390169aa5a12c40" kind="function"><name>isBefore</name></member>
     <member refid="class_query_1a8f4bc08d4ab4ae23ab4f76dbed5ea8ec" kind="function"><name>appendScopeCompletions</name></member>
     <member refid="class_query_1ae6923bd8f08e5fc9296cc680e164bca0" kind="function"><name>getRecordType</name></member>
-    <member refid="class_query_1a8b4b8879491b426324edd38e0f92c794" kind="function"><name>appendSemanticTokens</name></member>
+    <member refid="class_query_1aec9b388c3d2614849768b0dece739697" kind="function"><name>appendSemanticTokens</name></member>
     <member refid="class_query_1a2f2e56d877973dc1a75add8e3ef24624" kind="function"><name>setNotification</name></member>
+    <member refid="class_query_1ae656dac86a2bc2cc7e71b0d62cf6294d" kind="function"><name>appendHoverDefinition</name></member>
     <member refid="class_query_1a2ae4ab02c14df0ad3aaf29d3b46fe8a9" kind="function"><name>getMatches</name></member>
     <member refid="class_query_1aca8ff1edf10e14fc5e1d7b5c5b13aa7c" kind="function"><name>getMatch</name></member>
   </compound>
@@ -865,23 +921,20 @@
   </compound>
   <compound refid="class_relay" kind="class"><name>Relay</name>
     <member refid="class_relay_1a04cfc451ace289f134bf1c4de7103633" kind="variable"><name>messages</name></member>
-    <member refid="class_relay_1a79c121b8878dc6c2f8d371651b4b159b" kind="variable"><name>requests</name></member>
     <member refid="class_relay_1ac4f60bbabbc38f154aab94be7c70e996" kind="variable"><name>operations</name></member>
     <member refid="class_relay_1aebca8557b78b99276a29b19eab34a844" kind="variable"><name>requestMethods</name></member>
     <member refid="class_relay_1afc5d50ddbe2104a9336f9c62bbd1da2d" kind="variable"><name>notificationMethods</name></member>
     <member refid="class_relay_1a0aa1dbea8b02a0ae670d9d18abbb229a" kind="variable"><name>numMessagesAttachment</name></member>
     <member refid="class_relay_1a24eac374e2511118858447e8b0d45b46" kind="variable"><name>isOpenAttachment</name></member>
     <member refid="class_relay_1a21757145f215f6bdf8d1718ebc5efc03" kind="variable"><name>stdio</name></member>
-    <member refid="class_relay_1a643442f3307832c873b21d425755b39e" kind="function"><name>Relay</name></member>
+    <member refid="class_relay_1a6778c5dc0c918c03071c42170c392384" kind="function"><name>Relay</name></member>
     <member refid="class_relay_1a6936f44036208c340eb9fd59d1d34b3d" kind="function"><name>~Relay</name></member>
     <member refid="class_relay_1a286bd95d7a74b752fc757aa36e48ef56" kind="function"><name>start</name></member>
-    <member refid="class_relay_1a9b874c082f11a66b4ddaa33b00e89e46" kind="function"><name>connectionMade</name></member>
     <member refid="class_relay_1a2e55863264311af7604f52c7525a4e1c" kind="function"><name>messageReceived</name></member>
     <member refid="class_relay_1aa7f75ddde371504ecf3b0dfd40f5ed5c" kind="function"><name>valueTreeChildAdded</name></member>
     <member refid="class_relay_1aab902eb5ced9b7066ad912d391ff8b4c" kind="function"><name>valueTreePropertyChanged</name></member>
     <member refid="class_relay_1a328730a21c01b8b7b6d74e5775fa8713" kind="function"><name>setMessage</name></member>
     <member refid="class_relay_1add3f254b433fb8ba8224dc52308b1c38" kind="function"><name>addRequest</name></member>
-    <member refid="class_relay_1a2814c0cf0cdc2c402b93b5dbd06d7d1a" kind="function"><name>sendRequest</name></member>
     <member refid="class_relay_1a3397767f37e3b9fbd4aa06f8e1f9b98f" kind="function"><name>sendEmptyResult</name></member>
     <member refid="class_relay_1a3d4d845465bfe39f1da97ef34d8139bb" kind="function"><name>sendResponse</name></member>
     <member refid="class_relay_1adfc8d65e761104323bba423f23d4ffb6" kind="function"><name>sendError</name></member>
@@ -944,24 +997,25 @@
   </compound>
   <compound refid="class_server" kind="class"><name>Server</name>
     <member refid="class_server_1ac65d04b24db4f4357641cc5e16bb2c3b" kind="variable"><name>noPort</name></member>
+    <member refid="class_server_1a11c934b229822184f97ed031ea91930a" kind="variable"><name>noPortMethod</name></member>
     <member refid="class_server_1a30ea9ecd4c1f78867e08840da331d0df" kind="variable"><name>anyPort</name></member>
-    <member refid="class_server_1a6b7140246b55852c84084d5661f3cb63" kind="variable"><name>model</name></member>
-    <member refid="class_server_1a5511e40ed3f13f8c589c653479eaf511" kind="variable"><name>state</name></member>
+    <member refid="class_server_1aa04d2fbafd0aa0dbc24c9cca0feb58f9" kind="variable"><name>pool</name></member>
+    <member refid="class_server_1a9358ae9611025b66a48de17018769268" kind="variable"><name>workspaces</name></member>
     <member refid="class_server_1a3a2a4962b7e0ad2886a6ff7bb27b6479" kind="variable"><name>connections</name></member>
     <member refid="class_server_1ada6a7e2fbb9f1bd3ac8b7e6da017382c" kind="variable"><name>watcher</name></member>
-    <member refid="class_server_1a936e80685778b09d3ea8ff61819f2ca0" kind="variable"><name>message</name></member>
-    <member refid="class_server_1a6b59e742a01d2373242868117a9ad85b" kind="variable"><name>progress</name></member>
     <member refid="class_server_1ad5ec9462b520e59f7ea831e157ee5e59" kind="function"><name>Server</name></member>
     <member refid="class_server_1af575d2e7efe3b7130dcbffc2c163f5e6" kind="function"><name>~Server</name></member>
     <member refid="class_server_1a7eac07d2582fa01c2671362efa955b31" kind="function"><name>start</name></member>
-    <member refid="class_server_1a4eea4c89de21dd82775cd821d7374010" kind="function"><name>getPortFile</name></member>
+    <member refid="class_server_1a96b83a5a39e2bdb4432c7f7fdb1dde27" kind="function"><name>getPortFile</name></member>
     <member refid="class_server_1a8804924ac4a75abb23c93872f0f896b7" kind="function"><name>createConnectionObject</name></member>
-    <member refid="class_server_1aa575c0d8d384a8177425d5cd25ea50d0" kind="function"><name>valueTreeChildAdded</name></member>
-    <member refid="class_server_1afc7f2fd63e0532fa9164aa9308f52c4d" kind="function"><name>valueTreeChildRemoved</name></member>
     <member refid="class_server_1a408f595457a668bacb8c44ac186bfaf0" kind="function"><name>timerCallback</name></member>
     <member refid="class_server_1a81198eb3988a03f8c574be1706ab23c4" kind="function"><name>fileChanged</name></member>
-    <member refid="class_server_1a9cc0faedd6b771c2e6a2e91ddf95e50b" kind="function"><name>getPortFile</name></member>
+    <member refid="class_server_1a0c352b60fb21ab56b8b7db9eafe2d2d1" kind="function"><name>attachConnection</name></member>
+    <member refid="class_server_1a2da981058848784dcd272b67b2a023af" kind="function"><name>detachConnection</name></member>
+    <member refid="class_server_1a75094f925674b42fa95d928383602865" kind="function"><name>removeWorkspace</name></member>
+    <member refid="class_server_1a9fac6a259fa2693c5fb71572fde89493" kind="function"><name>broadcast</name></member>
     <member refid="class_server_1aece7f9ddae369cfc938b0504dd93bb0e" kind="function"><name>getProgress</name></member>
+    <member refid="class_server_1a210746af8a9222772566da1a457084a9" kind="function"><name>getNoPortNotification</name></member>
   </compound>
   <compound refid="struct_symbol_document_1_1_span" kind="struct"><name>SymbolDocument::Span</name>
     <member refid="struct_symbol_document_1_1_span_1afe2ade3d8df4306e1021d1298ce75920" kind="variable"><name>ptr</name></member>
@@ -997,6 +1051,7 @@
     <member refid="class_symbol_document_1aa8a6e999e47720c45bc9649d566531e6" kind="function"><name>getOutlines</name></member>
     <member refid="class_symbol_document_1a1837c5eeaac88354c6ac168b7fa8811c" kind="function"><name>getFixIts</name></member>
     <member refid="class_symbol_document_1a709803faed5ba02f84e8c1cad1a4606a" kind="function"><name>getString</name></member>
+    <member refid="class_symbol_document_1a2fd1fc78c36e471e21c506723299a1ad" kind="function"><name>getHash</name></member>
     <member refid="class_symbol_document_1a57b7b4f6791ccd1a10d93b6efd1adf67" kind="function"><name>SymbolDocument</name></member>
     <member refid="class_symbol_document_1a024a7254fa9523befde781c706c12e98" kind="function"><name>SymbolDocument</name></member>
     <member refid="class_symbol_document_1aa7de13dec68997b8954909ee38ea6c5b" kind="function"><name>isValidBuffer</name></member>
@@ -1047,20 +1102,38 @@
     <member refid="structlsp_1_1_text_document_sync_type_1abd83e6f6673b1b8cad5507e3eced1486" kind="variable"><name>Full</name></member>
     <member refid="structlsp_1_1_text_document_sync_type_1a40692afebf7dbcc6b8a779071f0abac4" kind="variable"><name>Incremental</name></member>
   </compound>
+  <compound refid="class_tool_client" kind="class"><name>ToolClient</name>
+    <member refid="class_tool_client_1a2f91257b3679252c9ab171bc25ebf869" kind="variable"><name>server</name></member>
+    <member refid="class_tool_client_1a47ffe0c40d4199eb4ad135e2413f1d64" kind="function"><name>ToolClient</name></member>
+    <member refid="class_tool_client_1adbaed0f0f989e68a81f666b92576289e" kind="function"><name>~ToolClient</name></member>
+    <member refid="class_tool_client_1ad2e3bdd4213a0add24939c0ba5c65511" kind="function"><name>addRequest</name></member>
+    <member refid="class_tool_client_1aa7addef3810c2ccc87b104c822d3f4ba" kind="function"><name>messageReceived</name></member>
+    <member refid="class_tool_client_1a1e31c66eee5b9da418fdb9dc6eaace52" kind="function"><name>valueTreeChildAdded</name></member>
+    <member refid="class_tool_client_1a68b11807b8b1bc01bce3eefe439f7e62" kind="function"><name>valueTreePropertyChanged</name></member>
+    <member refid="class_tool_client_1aa2fc89a8dd5082ad1b68b73bfe8e6194" kind="function"><name>sendNoDaemonError</name></member>
+  </compound>
   <compound refid="class_tool_relay" kind="class"><name>ToolRelay</name>
-    <member refid="class_tool_relay_1a3b6b3d0a99879225c5990d5d054b3a65" kind="variable"><name>requests</name></member>
+    <member refid="class_tool_relay_1a09ddf610b7d4dfe7a4c57520a5795910" kind="variable"><name>model</name></member>
+    <member refid="class_tool_relay_1a5ff7682b9a867a89153265aa012f8dc7" kind="variable"><name>manifestFile</name></member>
+    <member refid="class_tool_relay_1ae25417b4b90a0464d645cc7a2e7390c2" kind="variable"><name>manifestName</name></member>
+    <member refid="class_tool_relay_1a331af7e18ab9edc35059f072434d3b62" kind="variable"><name>toolchainArgument</name></member>
     <member refid="class_tool_relay_1a53b8a891ea4392aefbdb5c53f3540fb1" kind="variable"><name>server</name></member>
-    <member refid="class_tool_relay_1a2faa8ce30deab3cd1ccae1774718d63b" kind="function"><name>ToolRelay</name></member>
-    <member refid="class_tool_relay_1a4fa159da1e3de2f450cca84d470cad1a" kind="function"><name>~ToolRelay</name></member>
+    <member refid="class_tool_relay_1afca50d7b904221ae8dd023f15e68bd28" kind="variable"><name>clients</name></member>
+    <member refid="class_tool_relay_1af8bb4cda7d466810b39250c737206d3d" kind="function"><name>ToolRelay</name></member>
     <member refid="class_tool_relay_1a3cb108fe641f86e8bd045c52f5d93ac4" kind="function"><name>start</name></member>
-    <member refid="class_tool_relay_1aa532009e849e74793886d3af923f1677" kind="function"><name>connectionMade</name></member>
-    <member refid="class_tool_relay_1a4cda3d8491875e20fc7b4c868b327843" kind="function"><name>messageReceived</name></member>
-    <member refid="class_tool_relay_1a377deae101af920e91d086bac8442c78" kind="function"><name>valueTreeChildAdded</name></member>
-    <member refid="class_tool_relay_1aca23f7c98f5734fb33547e2c3ee65c25" kind="function"><name>valueTreePropertyChanged</name></member>
     <member refid="class_tool_relay_1a3bfb62ecc062c74bdfab260ef720b363" kind="function"><name>addRequest</name></member>
-    <member refid="class_tool_relay_1a5601264f86623f40b0030dfab3e387f4" kind="function"><name>sendRequest</name></member>
-    <member refid="class_tool_relay_1a04938e66ca8a75bc42b3fdf5573fbc56" kind="function"><name>sendEmptyResult</name></member>
+    <member refid="class_tool_relay_1ad9e71b27e87b146f95bc35a9e057ef9b" kind="function"><name>getManifestFile</name></member>
+    <member refid="class_tool_relay_1a43b55a3d754854a833386fcbfff0b039" kind="function"><name>getOrCreateClient</name></member>
     <member refid="class_tool_relay_1ad5825d369f06afc7c187d7c8bc1c6b90" kind="function"><name>getRequestArguments</name></member>
+  </compound>
+  <compound refid="struct_index_1_1_unit_owners" kind="struct"><name>Index::UnitOwners</name>
+    <member refid="struct_index_1_1_unit_owners_1a4d97e88b2fe0dc72c9501810c805e2d0" kind="variable"><name>noRow</name></member>
+    <member refid="struct_index_1_1_unit_owners_1a9bfdb2abcefcef1540d35ccda056ec99" kind="variable"><name>paths</name></member>
+    <member refid="struct_index_1_1_unit_owners_1a36272d0cd440355f687513890ef1247a" kind="variable"><name>rows</name></member>
+    <member refid="struct_index_1_1_unit_owners_1aea8e9f2a28cee7e117182bef1d04ea2b" kind="variable"><name>roots</name></member>
+    <member refid="struct_index_1_1_unit_owners_1aedb3e3030e072c018b6ff65316d78cba" kind="function"><name>addIfAbsent</name></member>
+    <member refid="struct_index_1_1_unit_owners_1adf58a766ff54b8add2b707c2d2f9afed" kind="function"><name>getRow</name></member>
+    <member refid="struct_index_1_1_unit_owners_1a5d23fbca51f97dd6dc373dbe16d841f7" kind="function"><name>isForeign</name></member>
   </compound>
   <compound refid="struct_processor_1_1_units_job" kind="struct"><name>Processor::UnitsJob</name>
     <member refid="struct_processor_1_1_units_job_1a589ae308e760739426fee27bd51a13b4" kind="variable"><name>owner</name></member>
@@ -1070,14 +1143,17 @@
     <member refid="struct_processor_1_1_units_job_1aa766f6aeaad6799c20b3e46ac666e389" kind="variable"><name>cacheDirectory</name></member>
     <member refid="struct_processor_1_1_units_job_1a649332a8a99ddab9d3389515ad60ceb5" kind="variable"><name>languages</name></member>
     <member refid="struct_processor_1_1_units_job_1ae59f73a5935a0895ae21b174d5722bd8" kind="variable"><name>families</name></member>
+    <member refid="struct_processor_1_1_units_job_1aef24d15facaf74d84c700cb90be8cc37" kind="variable"><name>roots</name></member>
     <member refid="struct_processor_1_1_units_job_1a02f882fdc9680054a2e6cdbeb1ad603c" kind="variable"><name>files</name></member>
     <member refid="struct_processor_1_1_units_job_1aece8ba79ded576f6bb487bb0d7acc484" kind="variable"><name>paths</name></member>
     <member refid="struct_processor_1_1_units_job_1a4db8b370fc0a36bc12481aef2f8aee67" kind="variable"><name>buildFiles</name></member>
     <member refid="struct_processor_1_1_units_job_1a254b14eb0d85175b31ad52c2180c4e37" kind="variable"><name>isFinished</name></member>
-    <member refid="struct_processor_1_1_units_job_1a3df7efadfd1b106ffdc839d14e8a4725" kind="function"><name>UnitsJob</name></member>
+    <member refid="struct_processor_1_1_units_job_1a3e905e31e196fe8386758dfde532305b" kind="function"><name>UnitsJob</name></member>
     <member refid="struct_processor_1_1_units_job_1a038ea8617204fc0c3f9f771277732d35" kind="function"><name>runJob</name></member>
     <member refid="struct_processor_1_1_units_job_1ae8e57762933557a8629fab6416dff7fe" kind="function"><name>getOrCreatePathIndex</name></member>
     <member refid="struct_processor_1_1_units_job_1a9d6ebee914ef365ed6c3bc6574e32e3f" kind="function"><name>getOrCreatePathIndices</name></member>
+    <member refid="struct_processor_1_1_units_job_1a870d1bcd7a48227a8b60159c67a82279" kind="function"><name>getOrCreateDependencyIndices</name></member>
+    <member refid="struct_processor_1_1_units_job_1af5fb87042e5a093e99330353e84bc46b" kind="function"><name>isWithinRoots</name></member>
     <member refid="struct_processor_1_1_units_job_1a86d6fe31b73afad0c55074f206402a6e" kind="function"><name>addUnit</name></member>
     <member refid="struct_processor_1_1_units_job_1a17b052542b3c325b10c483116663cfb9" kind="function"><name>addBuildFile</name></member>
     <member refid="struct_processor_1_1_units_job_1ac94c3078a33c91876adcc76888ec1926" kind="function"><name>addMessage</name></member>
@@ -1091,12 +1167,32 @@
     <member refid="structlsp_1_1_work_done_progress_kind_1a25e72cc08d49fd24ac72da384efa9e1c" kind="variable"><name>Report</name></member>
     <member refid="structlsp_1_1_work_done_progress_kind_1ad29e2f846292bcc2c12cdbdc72783dd3" kind="variable"><name>End</name></member>
   </compound>
+  <compound refid="class_server_1_1_workspace" kind="class"><name>Server::Workspace</name>
+    <member refid="class_server_1_1_workspace_1a0e05db1401d3778469e7a3491819993b" kind="variable"><name>owner</name></member>
+    <member refid="class_server_1_1_workspace_1afca25f599bf2bebe53cae15b9666ac0b" kind="variable"><name>key</name></member>
+    <member refid="class_server_1_1_workspace_1ae22e78c1f9be4714178083459b3c4e5b" kind="variable"><name>model</name></member>
+    <member refid="class_server_1_1_workspace_1ad2f36cad3d5ad9938014cfcbf86db1ef" kind="variable"><name>processor</name></member>
+    <member refid="class_server_1_1_workspace_1a964c828a47892feac403fdda4641a2d0" kind="variable"><name>manifest</name></member>
+    <member refid="class_server_1_1_workspace_1aefeb075fc189c4e995008243323064ef" kind="variable"><name>state</name></member>
+    <member refid="class_server_1_1_workspace_1a07e732cf1c70db9d70b367cc6434e084" kind="variable"><name>message</name></member>
+    <member refid="class_server_1_1_workspace_1aca2a60563598c4a7dcc3ee9208c29920" kind="variable"><name>progress</name></member>
+    <member refid="class_server_1_1_workspace_1a75901651c089f868283458432faadbc8" kind="function"><name>Workspace</name></member>
+    <member refid="class_server_1_1_workspace_1aa04a726fd157decc8a4627c43fb63cdd" kind="function"><name>~Workspace</name></member>
+    <member refid="class_server_1_1_workspace_1aea972c8f0b8b7471783fbc8725350885" kind="function"><name>hasConnection</name></member>
+    <member refid="class_server_1_1_workspace_1ae04c1474157bd824533af4aad7c00f4d" kind="function"><name>addConnection</name></member>
+    <member refid="class_server_1_1_workspace_1a19f44662df6e0cb812890778a1550b62" kind="function"><name>removeConnection</name></member>
+    <member refid="class_server_1_1_workspace_1a2f048a6ba7b153db63ea12f315fae653" kind="function"><name>hasEmptyFiles</name></member>
+    <member refid="class_server_1_1_workspace_1a099b6feb603033cfb003faa39997fa64" kind="function"><name>valueTreeChildAdded</name></member>
+    <member refid="class_server_1_1_workspace_1af3d1fd0f9f4530e02a6d9f554dddc618" kind="function"><name>timerCallback</name></member>
+  </compound>
   <compound refid="structmap_1_1_xml_elements" kind="struct"><name>map::XmlElements</name>
     <member refid="structmap_1_1_xml_elements_1aeffe00bcad8635f1635bdb207fac110a" kind="function"><name>XmlElements</name></member>
   </compound>
   <compound refid="class_xml_language" kind="class"><name>XmlLanguage</name>
     <member refid="class_xml_language_1a17abe74983a9d487d2e6d4943a648b37" kind="function"><name>parse</name></member>
     <member refid="class_xml_language_1a0533ac0050f50cbc6264e57a7ef502f5" kind="function"><name>read</name></member>
+  </compound>
+  <compound refid="namespacejam_1_1_file_1_1_watcher" kind="namespace"><name>jam::File::Watcher</name>
   </compound>
   <compound refid="namespacelsp" kind="namespace"><name>lsp</name>
   </compound>
@@ -1116,6 +1212,7 @@
   <compound refid="_built_in_language_8h" kind="file"><name>BuiltInLanguage.h</name>
   </compound>
   <compound refid="_client_8cpp" kind="file"><name>Client.cpp</name>
+    <member refid="_client_8cpp_1a8b47792a1368f326e060c61448df38e1" kind="function"><name>sendTree</name></member>
   </compound>
   <compound refid="_client_8h" kind="file"><name>Client.h</name>
   </compound>
@@ -1210,7 +1307,6 @@
   <compound refid="_operation_8h" kind="file"><name>Operation.h</name>
   </compound>
   <compound refid="_processor_8cpp" kind="file"><name>Processor.cpp</name>
-    <member refid="_processor_8cpp_1ae602dbd4d90d7f9996d4d5198829f57e" kind="function"><name>getPoolOptions</name></member>
     <member refid="_processor_8cpp_1adecc84fb8f07b0cbf714bc23a39fd5af" kind="function"><name>getBuiltInLanguage</name></member>
   </compound>
   <compound refid="_processor_8h" kind="file"><name>Processor.h</name>
@@ -1253,6 +1349,10 @@
     <member refid="_symbol_document_8cpp_1aca3393448490c33e548edf4e18e378db" kind="function"><name>copyArray</name></member>
   </compound>
   <compound refid="_symbol_document_8h" kind="file"><name>SymbolDocument.h</name>
+  </compound>
+  <compound refid="_tool_client_8cpp" kind="file"><name>ToolClient.cpp</name>
+  </compound>
+  <compound refid="_tool_client_8h" kind="file"><name>ToolClient.h</name>
   </compound>
   <compound refid="_tool_relay_8cpp" kind="file"><name>ToolRelay.cpp</name>
   </compound>

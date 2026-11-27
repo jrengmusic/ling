@@ -36,80 +36,78 @@
         <childnode refid="24" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="29">
         <label>Connection.cpp</label>
         <link refid="_connection_8cpp"/>
       </node>
-      <node id="26">
+      <node id="28">
         <label>Connection.h</label>
         <link refid="_connection_8h"/>
-        <childnode refid="27" relation="include">
+        <childnode refid="29" relation="include">
         </childnode>
-        <childnode refid="28" relation="include">
+        <childnode refid="30" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="33">
         <label>Index.cpp</label>
         <link refid="_index_8cpp"/>
       </node>
-      <node id="30">
+      <node id="32">
         <label>Index.h</label>
         <link refid="_index_8h"/>
-        <childnode refid="31" relation="include">
-        </childnode>
-        <childnode refid="32" relation="include">
-        </childnode>
         <childnode refid="33" relation="include">
         </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
       </node>
-      <node id="36">
+      <node id="38">
         <label>LINGModel.cpp</label>
         <link refid="_l_i_n_g_model_8cpp"/>
       </node>
-      <node id="35">
+      <node id="37">
         <label>LINGModel.h</label>
         <link refid="_l_i_n_g_model_8h"/>
         <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="26" relation="include">
+        <childnode refid="32" relation="include">
         </childnode>
-        <childnode refid="30" relation="include">
-        </childnode>
-        <childnode refid="36" relation="include">
+        <childnode refid="38" relation="include">
         </childnode>
         <childnode refid="20" relation="include">
         </childnode>
-        <childnode refid="37" relation="include">
+        <childnode refid="39" relation="include">
         </childnode>
-        <childnode refid="32" relation="include">
+        <childnode refid="34" relation="include">
         </childnode>
-        <childnode refid="28" relation="include">
+        <childnode refid="30" relation="include">
         </childnode>
       </node>
-      <node id="49">
+      <node id="51">
         <label>Language.h</label>
         <link refid="_language_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="30" relation="include">
-        </childnode>
-        <childnode refid="40" relation="include">
-        </childnode>
         <childnode refid="32" relation="include">
         </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
       </node>
-      <node id="39">
+      <node id="41">
         <label>Legend.cpp</label>
         <link refid="_legend_8cpp"/>
       </node>
-      <node id="41">
+      <node id="43">
         <label>LibraryLanguage.cpp</label>
         <link refid="_library_language_8cpp"/>
       </node>
-      <node id="40">
+      <node id="42">
         <label>LibraryLanguage.h</label>
         <link refid="_library_language_8h"/>
-        <childnode refid="41" relation="include">
+        <childnode refid="43" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
@@ -118,16 +116,18 @@
         <label>Main.cpp</label>
         <link refid="_main_8cpp"/>
       </node>
-      <node id="38">
+      <node id="40">
         <label>Manifest.cpp</label>
         <link refid="_manifest_8cpp"/>
       </node>
-      <node id="37">
+      <node id="39">
         <label>Manifest.h</label>
         <link refid="_manifest_8h"/>
         <childnode refid="20" relation="include">
         </childnode>
-        <childnode refid="38" relation="include">
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
         </childnode>
       </node>
       <node id="21">
@@ -146,32 +146,34 @@
         <label>Processor.cpp</label>
         <link refid="_processor_8cpp"/>
       </node>
-      <node id="32">
+      <node id="34">
         <label>Processor.h</label>
         <link refid="_processor_8h"/>
         <childnode refid="20" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
       </node>
-      <node id="34">
+      <node id="36">
         <label>Query.cpp</label>
         <link refid="_query_8cpp"/>
       </node>
-      <node id="33">
+      <node id="35">
         <label>Query.h</label>
         <link refid="_query_8h"/>
-        <childnode refid="26" relation="include">
-        </childnode>
-        <childnode refid="32" relation="include">
+        <childnode refid="28" relation="include">
         </childnode>
         <childnode refid="34" relation="include">
         </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
         <childnode refid="22" relation="include">
         </childnode>
-        <childnode refid="28" relation="include">
+        <childnode refid="30" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
+        <childnode refid="26" relation="include">
         </childnode>
       </node>
       <node id="23">
@@ -186,95 +188,107 @@
         <childnode refid="23" relation="include">
         </childnode>
       </node>
-      <node id="43">
+      <node id="45">
         <label>SchemaSuite.cpp</label>
         <link refid="_schema_suite_8cpp"/>
       </node>
-      <node id="42">
+      <node id="44">
         <label>SchemaSuite.h</label>
         <link refid="_schema_suite_8h"/>
         <childnode refid="20" relation="include">
         </childnode>
-        <childnode refid="43" relation="include">
+        <childnode refid="45" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="31">
         <label>Server.cpp</label>
         <link refid="_server_8cpp"/>
       </node>
-      <node id="28">
+      <node id="30">
         <label>Server.h</label>
         <link refid="_server_8h"/>
         <childnode refid="17" relation="include">
         </childnode>
         <childnode refid="20" relation="include">
         </childnode>
-        <childnode refid="29" relation="include">
+        <childnode refid="31" relation="include">
         </childnode>
       </node>
-      <node id="45">
+      <node id="47">
         <label>StdioClientProbe.cpp</label>
         <link refid="_stdio_client_probe_8cpp"/>
       </node>
-      <node id="44">
+      <node id="46">
         <label>StdioClientProbe.h</label>
         <link refid="_stdio_client_probe_8h"/>
         <childnode refid="20" relation="include">
         </childnode>
-        <childnode refid="45" relation="include">
-        </childnode>
-      </node>
-      <node id="47">
-        <label>SwapValidator.cpp</label>
-        <link refid="_swap_validator_8cpp"/>
-      </node>
-      <node id="46">
-        <label>SwapValidator.h</label>
-        <link refid="_swap_validator_8h"/>
-        <childnode refid="30" relation="include">
-        </childnode>
         <childnode refid="47" relation="include">
         </childnode>
       </node>
-      <node id="50">
-        <label>SymbolDocument.cpp</label>
-        <link refid="_symbol_document_8cpp"/>
+      <node id="49">
+        <label>SwapValidator.cpp</label>
+        <link refid="_swap_validator_8cpp"/>
       </node>
       <node id="48">
-        <label>SymbolDocument.h</label>
-        <link refid="_symbol_document_8h"/>
-        <childnode refid="30" relation="include">
+        <label>SwapValidator.h</label>
+        <link refid="_swap_validator_8h"/>
+        <childnode refid="32" relation="include">
         </childnode>
         <childnode refid="49" relation="include">
         </childnode>
-        <childnode refid="50" relation="include">
-        </childnode>
-      </node>
-      <node id="25">
-        <label>ToolRelay.cpp</label>
-        <link refid="_tool_relay_8cpp"/>
-      </node>
-      <node id="24">
-        <label>ToolRelay.h</label>
-        <link refid="_tool_relay_8h"/>
-        <childnode refid="20" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
       </node>
       <node id="52">
-        <label>Validator.cpp</label>
-        <link refid="_validator_8cpp"/>
+        <label>SymbolDocument.cpp</label>
+        <link refid="_symbol_document_8cpp"/>
       </node>
-      <node id="51">
-        <label>Validator.h</label>
-        <link refid="_validator_8h"/>
-        <childnode refid="38" relation="include">
+      <node id="50">
+        <label>SymbolDocument.h</label>
+        <link refid="_symbol_document_8h"/>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
         </childnode>
         <childnode refid="52" relation="include">
         </childnode>
       </node>
+      <node id="25">
+        <label>ToolClient.cpp</label>
+        <link refid="_tool_client_8cpp"/>
+      </node>
+      <node id="24">
+        <label>ToolClient.h</label>
+        <link refid="_tool_client_8h"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>ToolRelay.cpp</label>
+        <link refid="_tool_relay_8cpp"/>
+      </node>
+      <node id="26">
+        <label>ToolRelay.h</label>
+        <link refid="_tool_relay_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>Validator.cpp</label>
+        <link refid="_validator_8cpp"/>
+      </node>
       <node id="53">
+        <label>Validator.h</label>
+        <link refid="_validator_8h"/>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
         <label>generated/Generated.cpp</label>
         <link refid="_generated_8cpp"/>
       </node>
@@ -285,35 +299,35 @@
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="26" relation="include">
-        </childnode>
-        <childnode refid="30" relation="include">
-        </childnode>
-        <childnode refid="35" relation="include">
-        </childnode>
-        <childnode refid="39" relation="include">
-        </childnode>
-        <childnode refid="40" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
-        <childnode refid="37" relation="include">
+        <childnode refid="28" relation="include">
         </childnode>
         <childnode refid="32" relation="include">
         </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
         <childnode refid="42" relation="include">
         </childnode>
-        <childnode refid="28" relation="include">
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
         </childnode>
         <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
         </childnode>
         <childnode refid="46" relation="include">
         </childnode>
         <childnode refid="48" relation="include">
         </childnode>
-        <childnode refid="51" relation="include">
+        <childnode refid="50" relation="include">
         </childnode>
         <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -510,7 +524,7 @@
 <codeline lineno="94" refid="structlsp_1_1_member_1a86a3bddd064a1d2541fc6b07256eb505" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>std::string_view<sp/><ref refid="structlsp_1_1_member_1a86a3bddd064a1d2541fc6b07256eb505" kindref="member">error</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/></highlight><highlight class="stringliteral">&quot;error&quot;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
 <codeline lineno="95" refid="structlsp_1_1_member_1a80bb4b05aba8dc12e50057dd5cd7891e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>std::string_view<sp/><ref refid="structlsp_1_1_member_1a80bb4b05aba8dc12e50057dd5cd7891e" kindref="member">code</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/></highlight><highlight class="stringliteral">&quot;code&quot;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
 <codeline lineno="96" refid="structlsp_1_1_member_1a0651cd39cd60a2069caff05e71ba88cc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>std::string_view<sp/><ref refid="structlsp_1_1_member_1a0651cd39cd60a2069caff05e71ba88cc" kindref="member">textDocument</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/></highlight><highlight class="stringliteral">&quot;textDocument&quot;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
-<codeline lineno="97" refid="structlsp_1_1_member_1adcb04ab5b069194f2a73ecbd2cd655e8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>std::string_view<sp/><ref refid="namespacetext" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">text</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/></highlight><highlight class="stringliteral">&quot;text&quot;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="97" refid="structlsp_1_1_member_1adcb04ab5b069194f2a73ecbd2cd655e8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>std::string_view<sp/><ref refid="namespacetext" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">text</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/></highlight><highlight class="stringliteral">&quot;text&quot;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
 <codeline lineno="98" refid="structlsp_1_1_member_1a20a5c8018a87a4b1255d7d83e4008527" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>std::string_view<sp/><ref refid="structlsp_1_1_member_1a20a5c8018a87a4b1255d7d83e4008527" kindref="member">contentChanges</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/></highlight><highlight class="stringliteral">&quot;contentChanges&quot;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
 <codeline lineno="99" refid="structlsp_1_1_member_1aef646b4f51af4d8b9a533e9553fbaa9d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>std::string_view<sp/><ref refid="structlsp_1_1_member_1aef646b4f51af4d8b9a533e9553fbaa9d" kindref="member">query</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/></highlight><highlight class="stringliteral">&quot;query&quot;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
 <codeline lineno="100" refid="structlsp_1_1_member_1a684664cae093b98faa21797561053c5a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>std::string_view<sp/><ref refid="structlsp_1_1_member_1a684664cae093b98faa21797561053c5a" kindref="member">item</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/></highlight><highlight class="stringliteral">&quot;item&quot;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
@@ -684,32 +698,32 @@
 <codeline lineno="282" refid="structlsp_1_1_error_codes_1a31c18c7424fe7ed6d2e9ec789701472c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structlsp_1_1_error_codes_1a31c18c7424fe7ed6d2e9ec789701472c" kindref="member">ContentModified</ref><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-32801<sp/>};</highlight></codeline>
 <codeline lineno="283" refid="structlsp_1_1_error_codes_1a4bfc5f156c37968ff58a2402d47ffb31" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structlsp_1_1_error_codes_1a4bfc5f156c37968ff58a2402d47ffb31" kindref="member">RequestCancelled</ref><sp/><sp/><sp/><sp/><sp/>{<sp/>-32800<sp/>};</highlight></codeline>
 <codeline lineno="284"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="286" refid="structlsp_1_1_semantic_token_type" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structlsp_1_1_semantic_token_type_1a5681c6df593a7f555ee94c4f76450184" kindref="member">SemanticTokenType</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classjam_1_1Bimap" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Bimap</ref>&lt;int&gt;</highlight></codeline>
+<codeline lineno="286" refid="structlsp_1_1_semantic_token_type" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structlsp_1_1_semantic_token_type_1a5681c6df593a7f555ee94c4f76450184" kindref="member">SemanticTokenType</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classjam_1_1Bimap" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Bimap</ref>&lt;int&gt;</highlight></codeline>
 <codeline lineno="287"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="288" refid="structlsp_1_1_semantic_token_type_1a5681c6df593a7f555ee94c4f76450184" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structlsp_1_1_semantic_token_type_1a5681c6df593a7f555ee94c4f76450184" kindref="member">SemanticTokenType</ref>()<sp/>:<sp/><ref refid="namespacejam" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam</ref>::<ref refid="classjam_1_1Bimap_1a0b6d2a3c783749ceaaca233ea1ccec8d" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Bimap</ref>&lt;int&gt;<sp/>{<sp/>{</highlight></codeline>
-<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ab52c2ffb93c9694b7798ec8b2cbe12c0" kindref="member">namespaceToken</ref>,<sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;namespace&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ac3dc8ab25906a96dba5e136ad4d64c7e" kindref="member">type</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;type&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a6f9b27940a0e12f849999d081659db6b" kindref="member">classToken</ref>,<sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;class&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064adea86f3fe55de6f9a45fb7dc745147ef" kindref="member">enumToken</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;enum&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a39e25acfab98cb9620696c8f20c901a1" kindref="member">interfaceToken</ref>,<sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;interface&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a010d3f80317ff53fbec6cee52ecb98e4" kindref="member">structToken</ref>,<sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;struct&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a76b1e09a0a8e7ec1fd59a4a79c14f6e6" kindref="member">typeParameter</ref>,<sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;typeParameter&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064abc40d373449ad87488652cd330ed2a6d" kindref="member">parameter</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;parameter&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a4be2d946fdc7e6759e89068efceeda61" kindref="member">variable</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;variable&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ad5c7774ae6b0e3bf9bf2ceb545e42fa3" kindref="member">property</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;property&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064add2363358526b33290d176f4b1ab1041" kindref="member">enumMember</ref>,<sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;enumMember&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a6f4a0aa90e90d4aa1268786af7b24c9a" kindref="member">event</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;event&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a2e65c0e134ddc125edb01ba05c51740f" kindref="member">function</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;function&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064aa4a01961b1dc61b47829d57872beaf02" kindref="member">method</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;method&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a977ef2f9610f0f2e78b02f40a1944853" kindref="member">macro</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;macro&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a6e252bb9368de1d84f99fcf6671820b6" kindref="member">keyword</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;keyword&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ab723d715ffe2d77e6a7f644fa7374944" kindref="member">modifier</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;modifier&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ab21d7b3eb95d326e91ef5e91162e5f13" kindref="member">comment</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;comment&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ac381708c72caf355cb6a9b9f31f149f4" kindref="member">string</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;string&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064aa1676f92a8209a09ec5b2ac4d39a9afe" kindref="member">number</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;number&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a5bba10d86d23b6c3cfe6ebd1186a4856" kindref="member">regexp</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;regexp&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a3aedcef57cd16724b3a135e1b2007c0f" kindref="member">operatorToken</ref>,<sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;operator&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ab6440a79a1306dd5c1f18455d4911fda" kindref="member">decorator</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;decorator&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="288" refid="structlsp_1_1_semantic_token_type_1a5681c6df593a7f555ee94c4f76450184" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structlsp_1_1_semantic_token_type_1a5681c6df593a7f555ee94c4f76450184" kindref="member">SemanticTokenType</ref>()<sp/>:<sp/><ref refid="namespacejam" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam</ref>::<ref refid="classjam_1_1Bimap_1a0b6d2a3c783749ceaaca233ea1ccec8d" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Bimap</ref>&lt;int&gt;<sp/>{<sp/>{</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ab52c2ffb93c9694b7798ec8b2cbe12c0" kindref="member">namespaceToken</ref>,<sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;namespace&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ac3dc8ab25906a96dba5e136ad4d64c7e" kindref="member">type</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;type&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a6f9b27940a0e12f849999d081659db6b" kindref="member">classToken</ref>,<sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;class&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064adea86f3fe55de6f9a45fb7dc745147ef" kindref="member">enumToken</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;enum&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a39e25acfab98cb9620696c8f20c901a1" kindref="member">interfaceToken</ref>,<sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;interface&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a010d3f80317ff53fbec6cee52ecb98e4" kindref="member">structToken</ref>,<sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;struct&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a76b1e09a0a8e7ec1fd59a4a79c14f6e6" kindref="member">typeParameter</ref>,<sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;typeParameter&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064abc40d373449ad87488652cd330ed2a6d" kindref="member">parameter</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;parameter&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a4be2d946fdc7e6759e89068efceeda61" kindref="member">variable</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;variable&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ad5c7774ae6b0e3bf9bf2ceb545e42fa3" kindref="member">property</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;property&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064add2363358526b33290d176f4b1ab1041" kindref="member">enumMember</ref>,<sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;enumMember&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a6f4a0aa90e90d4aa1268786af7b24c9a" kindref="member">event</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;event&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a2e65c0e134ddc125edb01ba05c51740f" kindref="member">function</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;function&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064aa4a01961b1dc61b47829d57872beaf02" kindref="member">method</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;method&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a977ef2f9610f0f2e78b02f40a1944853" kindref="member">macro</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;macro&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a6e252bb9368de1d84f99fcf6671820b6" kindref="member">keyword</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;keyword&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ab723d715ffe2d77e6a7f644fa7374944" kindref="member">modifier</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;modifier&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ab21d7b3eb95d326e91ef5e91162e5f13" kindref="member">comment</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;comment&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ac381708c72caf355cb6a9b9f31f149f4" kindref="member">string</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;string&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064aa1676f92a8209a09ec5b2ac4d39a9afe" kindref="member">number</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;number&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a5bba10d86d23b6c3cfe6ebd1186a4856" kindref="member">regexp</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;regexp&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064a3aedcef57cd16724b3a135e1b2007c0f" kindref="member">operatorToken</ref>,<sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;operator&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064ab6440a79a1306dd5c1f18455d4911fda" kindref="member">decorator</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;decorator&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
 <codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/>}<sp/>{}</highlight></codeline>
 <codeline lineno="313"><highlight class="normal"></highlight></codeline>
 <codeline lineno="314" refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="structlsp_1_1_semantic_token_type_1a4ebfa5c19629cdbc33ba213e4c171064" kindref="member">value</ref><sp/>:<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"></highlight></codeline>
@@ -741,22 +755,22 @@
 <codeline lineno="340"><highlight class="normal"></highlight></codeline>
 <codeline lineno="341" refid="structlsp_1_1_semantic_token_type_1acc0b379ae9f7b1a4fe11cbf436355ebc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="structlsp_1_1_semantic_token_type_1a5681c6df593a7f555ee94c4f76450184" kindref="member">SemanticTokenType</ref>*<sp/><ref refid="structlsp_1_1_semantic_token_type_1acc0b379ae9f7b1a4fe11cbf436355ebc" kindref="member">getInstance</ref>()<sp/>noexcept</highlight></codeline>
 <codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classjam_1_1SharedInstance_1a00f678ef16ebfd779b3d11585b28e973" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::SharedInstance&lt;SemanticTokenType&gt;::getInstance</ref>();</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classjam_1_1SharedInstance_1a00f678ef16ebfd779b3d11585b28e973" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::SharedInstance&lt;SemanticTokenType&gt;::getInstance</ref>();</highlight></codeline>
 <codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="345"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="347" refid="structlsp_1_1_semantic_token_modifier" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structlsp_1_1_semantic_token_modifier_1aca3d67cc3bbe5250c65ad18f9dd0826b" kindref="member">SemanticTokenModifier</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classjam_1_1Bimap" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Bimap</ref>&lt;int&gt;</highlight></codeline>
+<codeline lineno="347" refid="structlsp_1_1_semantic_token_modifier" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structlsp_1_1_semantic_token_modifier_1aca3d67cc3bbe5250c65ad18f9dd0826b" kindref="member">SemanticTokenModifier</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classjam_1_1Bimap" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Bimap</ref>&lt;int&gt;</highlight></codeline>
 <codeline lineno="348"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="349" refid="structlsp_1_1_semantic_token_modifier_1aca3d67cc3bbe5250c65ad18f9dd0826b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structlsp_1_1_semantic_token_modifier_1aca3d67cc3bbe5250c65ad18f9dd0826b" kindref="member">SemanticTokenModifier</ref>()<sp/>:<sp/><ref refid="namespacejam" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam</ref>::<ref refid="classjam_1_1Bimap_1a0b6d2a3c783749ceaaca233ea1ccec8d" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">Bimap</ref>&lt;int&gt;<sp/>{<sp/>{</highlight></codeline>
-<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a648e184b1e5fdf68df2d5e4231764784" kindref="member">declaration</ref>,<sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;declaration&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a6c8d03aae6a0be7747cb3500d051c0b3" kindref="member">definition</ref>,<sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;definition&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a249efccf63a08458c9c1c5bba04512c6" kindref="member">readonly</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;readonly&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365ac2da1afb724c09e6f9e5581a9d04a89a" kindref="member">staticToken</ref>,<sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;static&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a625440e6859e0f75c2aed4deaaac3515" kindref="member">deprecated</ref>,<sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;deprecated&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365ae1199ebfc4f6fed04dc37198212a71f1" kindref="member">abstract</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;abstract&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a0cfa578a5f0628599423b6c7d680e37a" kindref="member">async</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;async&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365af4450682b3f945fb89c39dbd6e2f92a0" kindref="member">modification</ref>,<sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;modification&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a9aceb07146b24d9ebc2ceecf519bf7ce" kindref="member">documentation</ref>,<sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;documentation&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
-<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a1257ef1eef3ff3507b0772859b477c56" kindref="member">defaultLibrary</ref>,<sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;defaultLibrary&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="349" refid="structlsp_1_1_semantic_token_modifier_1aca3d67cc3bbe5250c65ad18f9dd0826b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structlsp_1_1_semantic_token_modifier_1aca3d67cc3bbe5250c65ad18f9dd0826b" kindref="member">SemanticTokenModifier</ref>()<sp/>:<sp/><ref refid="namespacejam" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam</ref>::<ref refid="classjam_1_1Bimap_1a0b6d2a3c783749ceaaca233ea1ccec8d" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Bimap</ref>&lt;int&gt;<sp/>{<sp/>{</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a648e184b1e5fdf68df2d5e4231764784" kindref="member">declaration</ref>,<sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;declaration&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a6c8d03aae6a0be7747cb3500d051c0b3" kindref="member">definition</ref>,<sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;definition&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a249efccf63a08458c9c1c5bba04512c6" kindref="member">readonly</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;readonly&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365ac2da1afb724c09e6f9e5581a9d04a89a" kindref="member">staticToken</ref>,<sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;static&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a625440e6859e0f75c2aed4deaaac3515" kindref="member">deprecated</ref>,<sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;deprecated&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365ae1199ebfc4f6fed04dc37198212a71f1" kindref="member">abstract</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;abstract&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a0cfa578a5f0628599423b6c7d680e37a" kindref="member">async</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;async&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365af4450682b3f945fb89c39dbd6e2f92a0" kindref="member">modification</ref>,<sp/><sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;modification&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a9aceb07146b24d9ebc2ceecf519bf7ce" kindref="member">documentation</ref>,<sp/><sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;documentation&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><ref refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365a1257ef1eef3ff3507b0772859b477c56" kindref="member">defaultLibrary</ref>,<sp/><ref refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223" kindref="member" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String::fromUTF8</ref><sp/>(</highlight><highlight class="stringliteral">&quot;defaultLibrary&quot;</highlight><highlight class="normal">)<sp/>},</highlight></codeline>
 <codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/>}<sp/>{}</highlight></codeline>
 <codeline lineno="361"><highlight class="normal"></highlight></codeline>
 <codeline lineno="362" refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="structlsp_1_1_semantic_token_modifier_1a53af1326b97fad9be561f9cd79cc7365" kindref="member">value</ref><sp/>:<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"></highlight></codeline>
@@ -775,7 +789,7 @@
 <codeline lineno="375"><highlight class="normal"></highlight></codeline>
 <codeline lineno="376" refid="structlsp_1_1_semantic_token_modifier_1a3b339885d3d4d65500838a1b87a6ed06" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="structlsp_1_1_semantic_token_modifier_1aca3d67cc3bbe5250c65ad18f9dd0826b" kindref="member">SemanticTokenModifier</ref>*<sp/><ref refid="structlsp_1_1_semantic_token_modifier_1a3b339885d3d4d65500838a1b87a6ed06" kindref="member">getInstance</ref>()<sp/>noexcept</highlight></codeline>
 <codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classjam_1_1SharedInstance_1a00f678ef16ebfd779b3d11585b28e973" kindref="member" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::SharedInstance&lt;SemanticTokenModifier&gt;::getInstance</ref>();</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classjam_1_1SharedInstance_1a00f678ef16ebfd779b3d11585b28e973" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::SharedInstance&lt;SemanticTokenModifier&gt;::getInstance</ref>();</highlight></codeline>
 <codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="380"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="381"><highlight class="normal"></highlight></codeline>

@@ -1,7 +1,7 @@
 #include "ToolClient.h"
 
-ToolClient::ToolClient (const juce::File& newManifestFile, const juce::String& newToolchainArgument, jam::ModelContextServer& newServer)
-    : Client (newManifestFile, newToolchainArgument)
+ToolClient::ToolClient (LINGModel& newModel, const juce::File& newManifestFile, const juce::String& newToolchainArgument, jam::ModelContextServer& newServer)
+    : Client (newModel, newManifestFile, newToolchainArgument)
     , server (newServer)
 {
     state.addListener (this);

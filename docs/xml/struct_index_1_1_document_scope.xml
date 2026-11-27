@@ -1,0 +1,328 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="struct_index_1_1_document_scope" kind="struct" language="C++" prot="public">
+    <compoundname>Index::DocumentScope</compoundname>
+    <includes refid="_index_8h" local="no">Index.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_index_1_1_document_scope_1a4e65ec51d9f90f2638e64e1b2ae3c275" prot="public" static="no" mutable="no">
+        <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+        <definition>const Index&amp; Index::DocumentScope::index</definition>
+        <argsstring></argsstring>
+        <name>index</name>
+        <qualifiedname>Index::DocumentScope::index</qualifiedname>
+        <briefdescription>
+<para><ref refid="class_index" kindref="compound">Index</ref> whose document eviction lock depth this guard manages. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Index.h" line="78" column="21" bodyfile="Index.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="struct_index_1_1_document_scope_1a90152bf0d011a17822b56f0e2528959b" compoundref="_index_8cpp" startline="130" endline="134">DocumentScope</referencedby>
+        <referencedby refid="struct_index_1_1_document_scope_1a3d7aee9a6e3d80d04b8160d2fa3d64d1" compoundref="_index_8cpp" startline="136" endline="141">~DocumentScope</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_index_1_1_document_scope_1a90152bf0d011a17822b56f0e2528959b" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Index::DocumentScope::DocumentScope</definition>
+        <argsstring>(const Index &amp;indexToUse)</argsstring>
+        <name>DocumentScope</name>
+        <qualifiedname>Index::DocumentScope::DocumentScope</qualifiedname>
+        <param>
+          <type>const <ref refid="class_index" kindref="compound">Index</ref> &amp;</type>
+          <declname>indexToUse</declname>
+        </param>
+        <briefdescription>
+<para>Increments the eviction lock depth on <computeroutput>indexToUse</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>indexToUse</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="class_index" kindref="compound">Index</ref> whose cached documents stay pinned during this scope. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Index.h" line="74" column="18" bodyfile="Index.cpp" bodystart="130" bodyend="134"/>
+        <references refid="class_index_1a9b9542059eb54f7dfcb91e012af44fe0" compoundref="_index_8h" startline="597" endline="597">Index::evictionLockDepth</references>
+        <references refid="class_index_1a30a468468c3692160a846cbe60cd3373" compoundref="_index_8cpp" startline="3" endline="6">Index::Index</references>
+        <references refid="struct_index_1_1_document_scope_1a4e65ec51d9f90f2638e64e1b2ae3c275" compoundref="_index_8h" startline="78">index</references>
+      </memberdef>
+      <memberdef kind="function" id="struct_index_1_1_document_scope_1a3d7aee9a6e3d80d04b8160d2fa3d64d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Index::DocumentScope::~DocumentScope</definition>
+        <argsstring>()</argsstring>
+        <name>~DocumentScope</name>
+        <qualifiedname>Index::DocumentScope::~DocumentScope</qualifiedname>
+        <briefdescription>
+<para>Decrements the eviction lock depth and evicts excess cached documents when zero. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Index.h" line="76" column="9" bodyfile="Index.cpp" bodystart="136" bodyend="141"/>
+        <references refid="struct_index_1_1_document_scope_1a4e65ec51d9f90f2638e64e1b2ae3c275" compoundref="_index_8h" startline="78">index</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>RAII guard that suspends LRU document cache eviction while queries read <computeroutput><ref refid="class_index" kindref="compound">Index</ref></computeroutput>. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>Index</label>
+        <link refid="class_index"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>model</edgelabel>
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>paths</edgelabel>
+        </childnode>
+        <childnode refid="20" relation="usage">
+          <edgelabel>cachedDocuments</edgelabel>
+          <edgelabel>pathOrder</edgelabel>
+        </childnode>
+        <childnode refid="21" relation="usage">
+          <edgelabel>sourceHashes</edgelabel>
+        </childnode>
+        <childnode refid="22" relation="usage">
+          <edgelabel>languages</edgelabel>
+        </childnode>
+        <childnode refid="23" relation="usage">
+          <edgelabel>loadedLanguages</edgelabel>
+        </childnode>
+        <childnode refid="24" relation="usage">
+          <edgelabel>declarations</edgelabel>
+          <edgelabel>references</edgelabel>
+        </childnode>
+        <childnode refid="25" relation="usage">
+          <edgelabel>completions</edgelabel>
+        </childnode>
+        <childnode refid="26" relation="usage">
+          <edgelabel>symbolDocuments</edgelabel>
+        </childnode>
+        <childnode refid="27" relation="usage">
+          <edgelabel>symbolFiles</edgelabel>
+        </childnode>
+        <childnode refid="28" relation="usage">
+          <edgelabel>unitOwners</edgelabel>
+        </childnode>
+        <childnode refid="31" relation="usage">
+          <edgelabel>pathRows</edgelabel>
+        </childnode>
+        <childnode refid="32" relation="usage">
+          <edgelabel>stemRows</edgelabel>
+        </childnode>
+        <childnode refid="33" relation="usage">
+          <edgelabel>documents</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Index::DocumentScope</label>
+        <link refid="struct_index_1_1_document_scope"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>index</edgelabel>
+        </childnode>
+      </node>
+      <node id="29">
+        <label>Index::UnitOwners</label>
+        <link refid="struct_index_1_1_unit_owners"/>
+        <childnode refid="14" relation="usage">
+          <edgelabel>paths</edgelabel>
+        </childnode>
+        <childnode refid="20" relation="usage">
+          <edgelabel>rows</edgelabel>
+        </childnode>
+        <childnode refid="30" relation="usage">
+          <edgelabel>roots</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>LINGModel</label>
+        <link refid="class_l_i_n_g_model"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="13" relation="private-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>jam::AnyMap&lt; typename TypeOfCriticalSectionToUse &gt;</label>
+        <link refid="classjam_1_1AnyMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>entries</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>types</edgelabel>
+        </childnode>
+      </node>
+      <node id="16">
+        <label>jam::Array&lt; char &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>jam::Array&lt; int &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>jam::Array&lt; jam::Union&lt; int32_t, int32_t &gt; &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>jam::Array&lt; juce::File &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>jam::Array&lt; std::shared_ptr&lt; const Language &gt; &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>jam::File::Watcher::Listener</label>
+      </node>
+      <node id="21">
+        <label>jam::HashMap&lt; int, juce::int64 &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="27">
+        <label>jam::HashMap&lt; int, std::pair&lt; int, const SymbolDocument::FileEntry * &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="22">
+        <label>jam::HashMap&lt; int, std::shared_ptr&lt; const Language &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="26">
+        <label>jam::HashMap&lt; int, std::unique_ptr&lt; SymbolDocument &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="33">
+        <label>jam::HashMap&lt; int, std::unique_ptr&lt; jam::Document &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="19">
+        <label>jam::HashMap&lt; jam::Union&lt; int32_t, int32_t &gt;, int, jam::Strings::CaseFoldHash, jam::Strings::CaseFoldEqual &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="18">
+        <label>jam::HashMap&lt; jam::Union&lt; int32_t, int32_t &gt;, int, jam::Strings::TransparentHash, jam::Strings::TransparentEqual &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="9">
+        <label>jam::HashMap&lt; juce::Identifier, jam::AnyMap::Trait &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="12">
+        <label>jam::HashMap&lt; juce::Identifier, jam::HashMap&lt; juce::Identifier, std::unique_ptr&lt; ParameterAdapter &gt; &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="8">
+        <label>jam::HashMap&lt; juce::Identifier, std::unique_ptr&lt; void, Deleter &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="31">
+        <label>jam::HashMap&lt; juce::String, int &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="32">
+        <label>jam::HashMap&lt; juce::String, jam::Array&lt; int &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="25">
+        <label>jam::HashMap&lt; juce::int64, jam::Array&lt; std::pair&lt; int, const SymbolDocument::CompletionRecord * &gt; &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="24">
+        <label>jam::HashMap&lt; juce::int64, jam::Array&lt; std::pair&lt; int, const SymbolDocument::SymbolRecord * &gt; &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="4">
+        <label>jam::Model</label>
+        <link refid="classjam_1_1Model" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>params</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>state</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>valueTreeChanging</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>adapters</edgelabel>
+        </childnode>
+      </node>
+      <node id="14">
+        <label>jam::Strings</label>
+        <link refid="classjam_1_1Strings" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="15" relation="usage">
+          <edgelabel>arena</edgelabel>
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>spans</edgelabel>
+        </childnode>
+        <childnode refid="18" relation="usage">
+          <edgelabel>exactPositions</edgelabel>
+        </childnode>
+        <childnode refid="19" relation="usage">
+          <edgelabel>foldedPositions</edgelabel>
+        </childnode>
+      </node>
+      <node id="11">
+        <label>juce::CriticalSection</label>
+        <link refid="classjuce_1_1CriticalSection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="7">
+        <label>juce::DummyCriticalSection</label>
+        <link refid="classjuce_1_1DummyCriticalSection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="10">
+        <label>juce::ValueTree</label>
+        <link refid="classjuce_1_1ValueTree" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="5">
+        <label>juce::ValueTree::Listener</label>
+        <link refid="classjuce_1_1ValueTree_1_1Listener" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="28">
+        <label>std::shared_ptr&lt; const Index::UnitOwners &gt;</label>
+        <childnode refid="29" relation="usage">
+          <edgelabel>ptr</edgelabel>
+        </childnode>
+      </node>
+      <node id="15">
+        <label>std::unique_ptr&lt; jam::Array&lt; char &gt; &gt;</label>
+        <childnode refid="16" relation="usage">
+          <edgelabel>ptr</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Index.h" line="67" column="5" bodyfile="Index.h" bodystart="68" bodyend="80"/>
+    <listofallmembers>
+      <member refid="struct_index_1_1_document_scope_1a90152bf0d011a17822b56f0e2528959b" prot="public" virt="non-virtual"><scope>Index::DocumentScope</scope><name>DocumentScope</name></member>
+      <member refid="struct_index_1_1_document_scope_1a4e65ec51d9f90f2638e64e1b2ae3c275" prot="public" virt="non-virtual"><scope>Index::DocumentScope</scope><name>index</name></member>
+      <member refid="struct_index_1_1_document_scope_1a3d7aee9a6e3d80d04b8160d2fa3d64d1" prot="public" virt="non-virtual"><scope>Index::DocumentScope</scope><name>~DocumentScope</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

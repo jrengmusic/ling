@@ -510,15 +510,25 @@ set(CAST_CORE_BUILD "${CMAKE_CURRENT_LIST_DIR}/Builds/languages/${CAST_CORE_NAME
 get_filename_component(CAST_LANGUAGE_FOLDER "${CMAKE_CURRENT_LIST_DIR}/:::languageManifest:::" DIRECTORY)
 get_filename_component(CAST_LANGUAGE_NAME "${CAST_LANGUAGE_FOLDER}" NAME)
 set(CAST_LANGUAGE_BUILD "${CMAKE_CURRENT_LIST_DIR}/Builds/languages/${CAST_LANGUAGE_NAME}")
+get_filename_component(CAST_PAGE_FOLDER "${CMAKE_CURRENT_LIST_DIR}/:::pageManifest:::" DIRECTORY)
+get_filename_component(CAST_PAGE_NAME "${CAST_PAGE_FOLDER}" NAME)
+set(CAST_PAGE_BUILD "${CMAKE_CURRENT_LIST_DIR}/Builds/languages/${CAST_PAGE_NAME}")
+get_filename_component(CAST_TOKENS_FOLDER "${CMAKE_CURRENT_LIST_DIR}/:::tokensManifest:::" DIRECTORY)
+get_filename_component(CAST_TOKENS_NAME "${CAST_TOKENS_FOLDER}" NAME)
+set(CAST_TOKENS_BUILD "${CMAKE_CURRENT_LIST_DIR}/Builds/languages/${CAST_TOKENS_NAME}")
 set(CAST_CORE_HEADER :::languageCoreHeader:::)
 list(TRANSFORM CAST_LANE PREPEND "--" OUTPUT_VARIABLE CAST_LANGUAGE_LANE)
 
 if(APPLE)
     set(CAST_CORE_FILE :::languageCoreLibrary:::)
     set(CAST_LANGUAGE_FILE :::languageLibrary:::)
+    set(CAST_PAGE_FILE :::pageLibrary:::)
+    set(CAST_TOKENS_FILE :::tokensLibrary:::)
 elseif(WIN32)
     set(CAST_CORE_FILE :::languageCoreLibraryWindows:::)
     set(CAST_LANGUAGE_FILE :::languageLibraryWindows:::)
+    set(CAST_PAGE_FILE :::pageLibraryWindows:::)
+    set(CAST_TOKENS_FILE :::tokensLibraryWindows:::)
 endif()
 
 file(COPY "${CAST_CORE_FOLDER}/" DESTINATION "${CAST_CORE_BUILD}")
@@ -531,4 +541,14 @@ file(COPY "${CMAKE_CURRENT_LIST_DIR}/:::core:::" "${CMAKE_CURRENT_LIST_DIR}/:::s
 
 execute_process(COMMAND cast spell.md ${CAST_LANGUAGE_LANE} WORKING_DIRECTORY "${CAST_LANGUAGE_BUILD}" COMMAND_ERROR_IS_FATAL ANY)
 execute_process(COMMAND cast --pack "${CMAKE_CURRENT_LIST_DIR}/Source/languages/${CAST_PACK_platform}/${CAST_LANGUAGE_NAME}.zip" "${CAST_LANGUAGE_BUILD}/${CAST_LANGUAGE_FILE}" COMMAND_ERROR_IS_FATAL ANY)
+
+file(COPY "${CAST_PAGE_FOLDER}/" DESTINATION "${CAST_PAGE_BUILD}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/:::styleSheet:::" "${CMAKE_CURRENT_LIST_DIR}/Source/generated/ProjectInfo.h" DESTINATION "${CAST_PAGE_BUILD}")
+execute_process(COMMAND cast spell.md ${CAST_LANGUAGE_LANE} WORKING_DIRECTORY "${CAST_PAGE_BUILD}" COMMAND_ERROR_IS_FATAL ANY)
+execute_process(COMMAND cast --pack "${CMAKE_CURRENT_LIST_DIR}/Source/languages/${CAST_PACK_platform}/${CAST_PAGE_NAME}.zip" "${CAST_PAGE_BUILD}/${CAST_PAGE_FILE}" "${CAST_PAGE_BUILD}/gfx.css" "${CAST_PAGE_BUILD}/ansi.css" COMMAND_ERROR_IS_FATAL ANY)
+
+file(COPY "${CAST_TOKENS_FOLDER}/" DESTINATION "${CAST_TOKENS_BUILD}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/:::core:::" "${CMAKE_CURRENT_LIST_DIR}/:::syntaxTree:::" "${CMAKE_CURRENT_LIST_DIR}/:::languageInterface:::" DESTINATION "${CAST_TOKENS_BUILD}")
+execute_process(COMMAND cast spell.md ${CAST_LANGUAGE_LANE} WORKING_DIRECTORY "${CAST_TOKENS_BUILD}" COMMAND_ERROR_IS_FATAL ANY)
+execute_process(COMMAND cast --pack "${CMAKE_CURRENT_LIST_DIR}/Source/languages/${CAST_PACK_platform}/${CAST_TOKENS_NAME}.zip" "${CAST_TOKENS_BUILD}/${CAST_TOKENS_FILE}" COMMAND_ERROR_IS_FATAL ANY)
 ```

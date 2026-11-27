@@ -1,0 +1,1069 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="class_server_1_1_workspace" kind="class" language="C++" prot="private">
+    <compoundname>Server::Workspace</compoundname>
+    <basecompoundref refid="classjuce_1_1Timer" prot="private" virt="non-virtual">juce::Timer</basecompoundref>
+    <basecompoundref refid="classjuce_1_1ValueTree_1_1Listener" prot="private" virt="non-virtual">juce::ValueTree::Listener</basecompoundref>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_server_1_1_workspace_1a0e05db1401d3778469e7a3491819993b" prot="private" static="no" mutable="no">
+        <type><ref refid="class_server" kindref="compound">Server</ref> &amp;</type>
+        <definition>Server&amp; Server::Workspace::owner</definition>
+        <argsstring></argsstring>
+        <name>owner</name>
+        <qualifiedname>Server::Workspace::owner</qualifiedname>
+        <briefdescription>
+<para>Parent server that owns this workspace and broadcasts notifications. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server.h" line="120" column="16" bodyfile="Server.h" bodystart="120" bodyend="-1"/>
+        <referencedby refid="class_server_1_1_workspace_1af3d1fd0f9f4530e02a6d9f554dddc618" compoundref="_server_8cpp" startline="104" endline="109">timerCallback</referencedby>
+        <referencedby refid="class_server_1_1_workspace_1a099b6feb603033cfb003faa39997fa64" compoundref="_server_8cpp" startline="92" endline="102">valueTreeChildAdded</referencedby>
+        <referencedby refid="class_server_1_1_workspace_1a75901651c089f868283458432faadbc8" compoundref="_server_8cpp" startline="3" endline="45">Workspace</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_server_1_1_workspace_1afca25f599bf2bebe53cae15b9666ac0b" prot="private" static="no" mutable="no">
+        <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref></type>
+        <definition>const juce::String Server::Workspace::key</definition>
+        <argsstring></argsstring>
+        <name>key</name>
+        <qualifiedname>Server::Workspace::key</qualifiedname>
+        <briefdescription>
+<para>Project key identifying this workspace in <computeroutput>owner</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server.h" line="122" column="28" bodyfile="Server.h" bodystart="122" bodyend="-1"/>
+        <referencedby refid="class_server_1_1_workspace_1af3d1fd0f9f4530e02a6d9f554dddc618" compoundref="_server_8cpp" startline="104" endline="109">timerCallback</referencedby>
+        <referencedby refid="class_server_1_1_workspace_1a75901651c089f868283458432faadbc8" compoundref="_server_8cpp" startline="3" endline="45">Workspace</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_server_1_1_workspace_1ae22e78c1f9be4714178083459b3c4e5b" prot="private" static="no" mutable="no">
+        <type><ref refid="class_l_i_n_g_model" kindref="compound">LINGModel</ref></type>
+        <definition>LINGModel Server::Workspace::model</definition>
+        <argsstring></argsstring>
+        <name>model</name>
+        <qualifiedname>Server::Workspace::model</qualifiedname>
+        <briefdescription>
+<para>Shared state model for this workspace. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server.h" line="124" column="19" bodyfile="Server.h" bodystart="124" bodyend="-1"/>
+        <referencedby refid="class_server_1_1_workspace_1ae04c1474157bd824533af4aad7c00f4d" compoundref="_server_8cpp" startline="57" endline="74">addConnection</referencedby>
+        <referencedby refid="class_server_1_1_workspace_1a2f048a6ba7b153db63ea12f315fae653" compoundref="_server_8cpp" startline="85" endline="90">hasEmptyFiles</referencedby>
+        <referencedby refid="class_server_1_1_workspace_1a19f44662df6e0cb812890778a1550b62" compoundref="_server_8cpp" startline="76" endline="83">removeConnection</referencedby>
+        <referencedby refid="class_server_1_1_workspace_1a099b6feb603033cfb003faa39997fa64" compoundref="_server_8cpp" startline="92" endline="102">valueTreeChildAdded</referencedby>
+        <referencedby refid="class_server_1_1_workspace_1a75901651c089f868283458432faadbc8" compoundref="_server_8cpp" startline="3" endline="45">Workspace</referencedby>
+        <referencedby refid="class_server_1_1_workspace_1aa04a726fd157decc8a4627c43fb63cdd" compoundref="_server_8cpp" startline="47" endline="50">~Workspace</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_server_1_1_workspace_1ad2f36cad3d5ad9938014cfcbf86db1ef" prot="private" static="no" mutable="no">
+        <type><ref refid="class_processor" kindref="compound">Processor</ref></type>
+        <definition>Processor Server::Workspace::processor</definition>
+        <argsstring></argsstring>
+        <name>processor</name>
+        <qualifiedname>Server::Workspace::processor</qualifiedname>
+        <initializer>{ <ref refid="class_server_1_1_workspace_1ae22e78c1f9be4714178083459b3c4e5b" kindref="member">model</ref>, owner.pool }</initializer>
+        <briefdescription>
+<para>Runs parse, index, and query jobs on <computeroutput>owner.pool</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server.h" line="126" column="19" bodyfile="Server.h" bodystart="126" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_server_1_1_workspace_1a964c828a47892feac403fdda4641a2d0" prot="private" static="no" mutable="no">
+        <type><ref refid="class_manifest" kindref="compound">Manifest</ref></type>
+        <definition>Manifest Server::Workspace::manifest</definition>
+        <argsstring></argsstring>
+        <name>manifest</name>
+        <qualifiedname>Server::Workspace::manifest</qualifiedname>
+        <initializer>{ <ref refid="class_server_1_1_workspace_1ae22e78c1f9be4714178083459b3c4e5b" kindref="member">model</ref> }</initializer>
+        <briefdescription>
+<para>Loads and reloads the workspace manifest into <computeroutput>model</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server.h" line="128" column="18" bodyfile="Server.h" bodystart="128" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_server_1_1_workspace_1aefeb075fc189c4e995008243323064ef" prot="private" static="no" mutable="no">
+        <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref></type>
+        <definition>juce::ValueTree Server::Workspace::state</definition>
+        <argsstring></argsstring>
+        <name>state</name>
+        <qualifiedname>Server::Workspace::state</qualifiedname>
+        <initializer>{ model.state.getChildWithName (<ref refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Format::toType</ref> (<ref refid="namespaceId_1a743670993dd005f0f872a89a5d009560" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::connections</ref>)) }</initializer>
+        <briefdescription>
+<para>Connections child tree of <computeroutput>model.state</computeroutput> holding attached client rows. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server.h" line="130" column="25" bodyfile="Server.h" bodystart="130" bodyend="130"/>
+        <referencedby refid="class_server_1_1_workspace_1ae04c1474157bd824533af4aad7c00f4d" compoundref="_server_8cpp" startline="57" endline="74">addConnection</referencedby>
+        <referencedby refid="class_server_1_1_workspace_1aea972c8f0b8b7471783fbc8725350885" compoundref="_server_8cpp" startline="52" endline="55">hasConnection</referencedby>
+        <referencedby refid="class_server_1_1_workspace_1a19f44662df6e0cb812890778a1550b62" compoundref="_server_8cpp" startline="76" endline="83">removeConnection</referencedby>
+        <referencedby refid="class_server_1_1_workspace_1a099b6feb603033cfb003faa39997fa64" compoundref="_server_8cpp" startline="92" endline="102">valueTreeChildAdded</referencedby>
+        <referencedby refid="class_server_1_1_workspace_1a75901651c089f868283458432faadbc8" compoundref="_server_8cpp" startline="3" endline="45">Workspace</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_server_1_1_workspace_1a07e732cf1c70db9d70b367cc6434e084" prot="private" static="no" mutable="no">
+        <type><ref refid="classjam_1_1Model_1_1ParameterAttachment" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Model::ParameterAttachment</ref></type>
+        <definition>jam::Model::ParameterAttachment Server::Workspace::message</definition>
+        <argsstring></argsstring>
+        <name>message</name>
+        <qualifiedname>Server::Workspace::message</qualifiedname>
+        <briefdescription>
+<para>Parameter attachment broadcasting overlay error messages as JSON-RPC notifications. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server.h" line="132" column="41" bodyfile="Server.h" bodystart="132" bodyend="-1"/>
+        <referencedby refid="class_server_1_1_workspace_1a75901651c089f868283458432faadbc8" compoundref="_server_8cpp" startline="3" endline="45">Workspace</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_server_1_1_workspace_1aca2a60563598c4a7dcc3ee9208c29920" prot="private" static="no" mutable="no">
+        <type><ref refid="classjam_1_1Model_1_1ParameterAttachment" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Model::ParameterAttachment</ref></type>
+        <definition>jam::Model::ParameterAttachment Server::Workspace::progress</definition>
+        <argsstring></argsstring>
+        <name>progress</name>
+        <qualifiedname>Server::Workspace::progress</qualifiedname>
+        <briefdescription>
+<para>Parameter attachment broadcasting pending job counts as JSON-RPC progress notifications. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server.h" line="134" column="41" bodyfile="Server.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_server_1_1_workspace_1a75901651c089f868283458432faadbc8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Server::Workspace::Workspace</definition>
+        <argsstring>(Server &amp;newOwner, const juce::String &amp;newKey, const juce::File &amp;manifestFile, const juce::String &amp;toolchainArgument)</argsstring>
+        <name>Workspace</name>
+        <qualifiedname>Server::Workspace::Workspace</qualifiedname>
+        <param>
+          <type><ref refid="class_server" kindref="compound">Server</ref> &amp;</type>
+          <declname>newOwner</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <declname>newKey</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &amp;</type>
+          <declname>manifestFile</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <declname>toolchainArgument</declname>
+        </param>
+        <briefdescription>
+<para>Creates a workspace for <computeroutput>manifestFile</computeroutput>, attaches overlay parameters, and loads the manifest. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>newOwner</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parent server owning this workspace. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>newKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Project key identifying this workspace. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>manifestFile</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="class_manifest" kindref="compound">Manifest</ref> file of the workspace. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>toolchainArgument</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Toolchain flag, or empty when none is given. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server.h" line="74" column="9" bodyfile="Server.cpp" bodystart="3" bodyend="45"/>
+        <references refid="structjam_1_1Format_1a6588bb82effb3fb3138073257057463f">jam::Format::appendDecimal</references>
+        <references refid="class_query_1a2c571f5680b49031d21f195688b73598" compoundref="_query_8h" startline="244" endline="248">Query::appendJsonRpc</references>
+        <references refid="structjam_1_1JsonWriter_1a3dd6115b3b48e6a722a2c5bcae0cd70e">jam::JsonWriter::appendKey</references>
+        <references refid="structjam_1_1JsonWriter_1af7e36be58d2d47daf877904d7c6d77e1">jam::JsonWriter::appendObject</references>
+        <references refid="structjam_1_1JsonWriter_1a253a6834c926c31a5d7db60fd9be2cfa">jam::JsonWriter::appendString</references>
+        <references refid="class_server_1a9fac6a259fa2693c5fb71572fde89493" compoundref="_server_8cpp" startline="198" endline="203">Server::broadcast</references>
+        <references refid="structlsp_1_1_message_type_1a3973c0f784b7c0ae0641d563ea20d21e" compoundref="_lsp_8h" startline="160" endline="160">lsp::MessageType::Error</references>
+        <references refid="classjam_1_1Strings_1adfb32d159be94dc4a4004c50be876e3c">jam::Strings::getView</references>
+        <references refid="class_server_1_1_workspace_1afca25f599bf2bebe53cae15b9666ac0b" compoundref="_server_8h" startline="122">key</references>
+        <references refid="structlsp_1_1_member_1aa9dc40ea8adab90b093e8f650a57954e" compoundref="_lsp_8h" startline="80" endline="80">lsp::Member::message</references>
+        <references refid="class_server_1_1_workspace_1a07e732cf1c70db9d70b367cc6434e084" compoundref="_server_8h" startline="132">message</references>
+        <references refid="structlsp_1_1_member_1a15adc485bd56c484bd9540adb21a1a81" compoundref="_lsp_8h" startline="91" endline="91">lsp::Member::messageType</references>
+        <references refid="structlsp_1_1_member_1a8413533706e5a2170bfed01445d08bca" compoundref="_lsp_8h" startline="89" endline="89">lsp::Member::method</references>
+        <references refid="class_server_1_1_workspace_1ae22e78c1f9be4714178083459b3c4e5b" compoundref="_server_8h" startline="124">model</references>
+        <references refid="class_server_1_1_workspace_1a0e05db1401d3778469e7a3491819993b" compoundref="_server_8h" startline="120">owner</references>
+        <references refid="structlsp_1_1_member_1ac346c32145b8977fe701d383e98219e5" compoundref="_lsp_8h" startline="90" endline="90">lsp::Member::params</references>
+        <references refid="class_server_1ad5ec9462b520e59f7ea831e157ee5e59" compoundref="_server_8cpp" startline="111" endline="116">Server::Server</references>
+        <references refid="structlsp_1_1_method_1a897bb42b80246386a8b11205a19cdb76" compoundref="_lsp_8h" startline="40" endline="40">lsp::Method::showMessage</references>
+        <references refid="class_server_1_1_workspace_1aefeb075fc189c4e995008243323064ef" compoundref="_server_8h" startline="130" endline="130">state</references>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1_1_workspace_1aa04a726fd157decc8a4627c43fb63cdd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Server::Workspace::~Workspace</definition>
+        <argsstring>() override</argsstring>
+        <name>~Workspace</name>
+        <qualifiedname>Server::Workspace::~Workspace</qualifiedname>
+        <briefdescription>
+<para>Removes this workspace from its model listeners. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server.h" line="76" column="9" bodyfile="Server.cpp" bodystart="47" bodyend="50"/>
+        <references refid="class_server_1_1_workspace_1ae22e78c1f9be4714178083459b3c4e5b" compoundref="_server_8h" startline="124">model</references>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1_1_workspace_1aea972c8f0b8b7471783fbc8725350885" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Server::Workspace::hasConnection</definition>
+        <argsstring>(const juce::ValueTree &amp;connectionState) const</argsstring>
+        <name>hasConnection</name>
+        <qualifiedname>Server::Workspace::hasConnection</qualifiedname>
+        <param>
+          <type>const <ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>connectionState</declname>
+        </param>
+        <briefdescription>
+<para>Tells whether <computeroutput>connectionState</computeroutput> belongs to this workspace. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>connectionState</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="class_connection" kindref="compound">Connection</ref> ValueTree to test. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><computeroutput>true</computeroutput> when <computeroutput>connectionState</computeroutput> is a child of <computeroutput>state</computeroutput>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server.h" line="84" column="14" bodyfile="Server.cpp" bodystart="52" bodyend="55"/>
+        <references refid="classjuce_1_1ValueTree_1ab24fd944bc0bc40b8cfb5668c5931634">juce::ValueTree::getParent</references>
+        <references refid="class_server_1_1_workspace_1aefeb075fc189c4e995008243323064ef" compoundref="_server_8h" startline="130" endline="130">state</references>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1_1_workspace_1ae04c1474157bd824533af4aad7c00f4d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Server::Workspace::addConnection</definition>
+        <argsstring>(Connection &amp;connection, juce::ValueTree &amp;connectionState)</argsstring>
+        <name>addConnection</name>
+        <qualifiedname>Server::Workspace::addConnection</qualifiedname>
+        <param>
+          <type><ref refid="class_connection" kindref="compound">Connection</ref> &amp;</type>
+          <declname>connection</declname>
+        </param>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>connectionState</declname>
+        </param>
+        <briefdescription>
+<para>Attaches <computeroutput>connection</computeroutput> to this workspace and sends current progress or no-port status. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Stops the idle timer and appends <computeroutput>connectionState</computeroutput> to <computeroutput>state</computeroutput>. Sends <computeroutput>noPortMethod</computeroutput> when files are empty, or sends active job progress.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="class_client" kindref="compound">Client</ref> connection to attach. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>connectionState</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ValueTree representing the connection. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server.h" line="94" column="14" bodyfile="Server.cpp" bodystart="57" bodyend="74"/>
+        <references refid="structlsp_1_1_work_done_progress_kind_1a11df04fdb700bcfe05939679e2a0b6ca" compoundref="_lsp_8h" startline="148" endline="148">lsp::WorkDoneProgressKind::Begin</references>
+        <references refid="class_server_1a210746af8a9222772566da1a457084a9" compoundref="_server_8cpp" startline="221" endline="234">Server::getNoPortNotification</references>
+        <references refid="class_server_1aece7f9ddae369cfc938b0504dd93bb0e" compoundref="_server_8cpp" startline="236" endline="295">Server::getProgress</references>
+        <references refid="class_server_1_1_workspace_1a2f048a6ba7b153db63ea12f315fae653" compoundref="_server_8cpp" startline="85" endline="90">hasEmptyFiles</references>
+        <references refid="namespaceId_1a00ce6b91715e4b8e01502083b4a41bbf" compoundref="_generated_8cpp" startline="75" endline="75">Id::jobCount</references>
+        <references refid="class_server_1_1_workspace_1ae22e78c1f9be4714178083459b3c4e5b" compoundref="_server_8h" startline="124">model</references>
+        <references refid="namespaceId_1a3c4b99c0119059fde6024a09a758312e">Id::overlay</references>
+        <references refid="namespaceId_1a71fc2c9dc899902d41f5827f5ee562c5" compoundref="_generated_8cpp" startline="91" endline="91">Id::pendingJobCount</references>
+        <references refid="class_server_1_1_workspace_1aefeb075fc189c4e995008243323064ef" compoundref="_server_8h" startline="130" endline="130">state</references>
+        <references refid="classjuce_1_1Timer_1a2ff70b860a8c875658b4baa91c8bcef0">juce::Timer::stopTimer</references>
+        <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1_1_workspace_1a19f44662df6e0cb812890778a1550b62" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Server::Workspace::removeConnection</definition>
+        <argsstring>(juce::ValueTree &amp;connectionState)</argsstring>
+        <name>removeConnection</name>
+        <qualifiedname>Server::Workspace::removeConnection</qualifiedname>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>connectionState</declname>
+        </param>
+        <briefdescription>
+<para>Detaches <computeroutput>connectionState</computeroutput> from this workspace and starts the idle timer when empty. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>connectionState</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="class_connection" kindref="compound">Connection</ref> ValueTree to remove. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server.h" line="100" column="14" bodyfile="Server.cpp" bodystart="76" bodyend="83"/>
+        <references refid="classjuce_1_1ValueTree_1ab24fd944bc0bc40b8cfb5668c5931634">juce::ValueTree::getParent</references>
+        <references refid="class_server_1_1_workspace_1ae22e78c1f9be4714178083459b3c4e5b" compoundref="_server_8h" startline="124">model</references>
+        <references refid="classjuce_1_1Timer_1acb43e06d5742106830080af3d50b422d">juce::Timer::startTimer</references>
+        <references refid="class_server_1_1_workspace_1aefeb075fc189c4e995008243323064ef" compoundref="_server_8h" startline="130" endline="130">state</references>
+        <references refid="namespaceId_1ad99de3ca37a30e0bb93696f8de7d2561" compoundref="_generated_8cpp" startline="129" endline="129">Id::timeout</references>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_server_1_1_workspace_1a2f048a6ba7b153db63ea12f315fae653" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Server::Workspace::hasEmptyFiles</definition>
+        <argsstring>() const</argsstring>
+        <name>hasEmptyFiles</name>
+        <qualifiedname>Server::Workspace::hasEmptyFiles</qualifiedname>
+        <briefdescription>
+<para>Tells whether the files tree exists with build files and zero file rows. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><computeroutput>true</computeroutput> when files exist with <computeroutput><ref refid="namespaceId_1a3ccf49d60d6cf69aa6206aa0b836c359" kindref="member" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">Id::buildFiles</ref></computeroutput> and zero children. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server.h" line="108" column="14" bodyfile="Server.cpp" bodystart="85" bodyend="90"/>
+        <references refid="namespaceId_1a3ccf49d60d6cf69aa6206aa0b836c359" compoundref="_generated_8cpp" startline="33" endline="33">Id::buildFiles</references>
+        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="56" endline="56">Id::files</references>
+        <references refid="class_server_1_1_workspace_1ae22e78c1f9be4714178083459b3c4e5b" compoundref="_server_8h" startline="124">model</references>
+        <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
+        <referencedby refid="class_server_1_1_workspace_1ae04c1474157bd824533af4aad7c00f4d" compoundref="_server_8cpp" startline="57" endline="74">addConnection</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1_1_workspace_1a099b6feb603033cfb003faa39997fa64" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void Server::Workspace::valueTreeChildAdded</definition>
+        <argsstring>(juce::ValueTree &amp;parentTree, juce::ValueTree &amp;childWhichHasBeenAdded) override</argsstring>
+        <name>valueTreeChildAdded</name>
+        <qualifiedname>Server::Workspace::valueTreeChildAdded</qualifiedname>
+        <reimplements refid="classjuce_1_1ValueTree_1_1Listener_1ac26fa68e6f4625f71b52ab6fe776e0dc">valueTreeChildAdded</reimplements>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>parentTree</declname>
+        </param>
+        <param>
+          <type><ref refid="classjuce_1_1ValueTree" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::ValueTree</ref> &amp;</type>
+          <declname>childWhichHasBeenAdded</declname>
+        </param>
+        <briefdescription>
+<para>Broadcasts no-port status and starts the idle timer when an empty files tree arrives. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>parentTree</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parent tree receiving the child. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>childWhichHasBeenAdded</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Added child tree. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server.h" line="115" column="14" bodyfile="Server.cpp" bodystart="92" bodyend="102"/>
+        <references refid="namespaceId_1a01614cba0fdde3e15d72fdba1c590fbf" compoundref="_generated_8cpp" startline="56" endline="56">Id::files</references>
+        <references refid="class_server_1a210746af8a9222772566da1a457084a9" compoundref="_server_8cpp" startline="221" endline="234">Server::getNoPortNotification</references>
+        <references refid="classjuce_1_1ValueTree_1a5862b376b4cf88dec5302297a3a0732c">juce::ValueTree::getNumChildren</references>
+        <references refid="classjuce_1_1ValueTree_1a21ae8143e7abb766a9a3b4961d74be2b">juce::ValueTree::hasType</references>
+        <references refid="class_server_1_1_workspace_1ae22e78c1f9be4714178083459b3c4e5b" compoundref="_server_8h" startline="124">model</references>
+        <references refid="class_server_1_1_workspace_1a0e05db1401d3778469e7a3491819993b" compoundref="_server_8h" startline="120">owner</references>
+        <references refid="classjuce_1_1Timer_1acb43e06d5742106830080af3d50b422d">juce::Timer::startTimer</references>
+        <references refid="class_server_1_1_workspace_1aefeb075fc189c4e995008243323064ef" compoundref="_server_8h" startline="130" endline="130">state</references>
+        <references refid="namespaceId_1ad99de3ca37a30e0bb93696f8de7d2561" compoundref="_generated_8cpp" startline="129" endline="129">Id::timeout</references>
+        <references refid="structjam_1_1Format_1ab2a4d1f99713c10e63ece15ecf38b4a7">jam::Format::toType</references>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1_1_workspace_1af3d1fd0f9f4530e02a6d9f554dddc618" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void Server::Workspace::timerCallback</definition>
+        <argsstring>() override</argsstring>
+        <name>timerCallback</name>
+        <qualifiedname>Server::Workspace::timerCallback</qualifiedname>
+        <reimplements refid="classjuce_1_1Timer_1acd7b5a020cd4979f9270dfc5a5634290">timerCallback</reimplements>
+        <briefdescription>
+<para>Requests <computeroutput>owner</computeroutput> to remove this idle workspace. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server.h" line="117" column="14" bodyfile="Server.cpp" bodystart="104" bodyend="109"/>
+        <references refid="class_server_1_1_workspace_1afca25f599bf2bebe53cae15b9666ac0b" compoundref="_server_8h" startline="122">key</references>
+        <references refid="class_server_1_1_workspace_1a0e05db1401d3778469e7a3491819993b" compoundref="_server_8h" startline="120">owner</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Owns one project workspace with its model, processor, manifest, and client connections. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Starts an idle timer when its last connection leaves or when empty files arrive without connections. Notifies <computeroutput>owner</computeroutput> to erase this workspace when the timer expires. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Server::Workspace</label>
+        <link refid="class_server_1_1_workspace"/>
+        <childnode refid="2" relation="private-inheritance">
+        </childnode>
+        <childnode refid="3" relation="private-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>juce::Timer</label>
+        <link refid="classjuce_1_1Timer" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="3">
+        <label>juce::ValueTree::Listener</label>
+        <link refid="classjuce_1_1ValueTree_1_1Listener" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="27">
+        <label>Index</label>
+        <link refid="class_index"/>
+        <childnode refid="17" relation="usage">
+          <edgelabel>model</edgelabel>
+        </childnode>
+        <childnode refid="28" relation="usage">
+          <edgelabel>paths</edgelabel>
+        </childnode>
+        <childnode refid="34" relation="usage">
+          <edgelabel>cachedDocuments</edgelabel>
+          <edgelabel>pathOrder</edgelabel>
+        </childnode>
+        <childnode refid="35" relation="usage">
+          <edgelabel>sourceHashes</edgelabel>
+        </childnode>
+        <childnode refid="36" relation="usage">
+          <edgelabel>languages</edgelabel>
+        </childnode>
+        <childnode refid="37" relation="usage">
+          <edgelabel>loadedLanguages</edgelabel>
+        </childnode>
+        <childnode refid="38" relation="usage">
+          <edgelabel>declarations</edgelabel>
+          <edgelabel>references</edgelabel>
+        </childnode>
+        <childnode refid="39" relation="usage">
+          <edgelabel>completions</edgelabel>
+        </childnode>
+        <childnode refid="40" relation="usage">
+          <edgelabel>symbolDocuments</edgelabel>
+        </childnode>
+        <childnode refid="41" relation="usage">
+          <edgelabel>symbolFiles</edgelabel>
+        </childnode>
+        <childnode refid="42" relation="usage">
+          <edgelabel>unitOwners</edgelabel>
+        </childnode>
+        <childnode refid="45" relation="usage">
+          <edgelabel>pathRows</edgelabel>
+        </childnode>
+        <childnode refid="46" relation="usage">
+          <edgelabel>stemRows</edgelabel>
+        </childnode>
+        <childnode refid="47" relation="usage">
+          <edgelabel>documents</edgelabel>
+        </childnode>
+      </node>
+      <node id="43">
+        <label>Index::UnitOwners</label>
+        <link refid="struct_index_1_1_unit_owners"/>
+        <childnode refid="28" relation="usage">
+          <edgelabel>paths</edgelabel>
+        </childnode>
+        <childnode refid="34" relation="usage">
+          <edgelabel>rows</edgelabel>
+        </childnode>
+        <childnode refid="44" relation="usage">
+          <edgelabel>roots</edgelabel>
+        </childnode>
+      </node>
+      <node id="17">
+        <label>LINGModel</label>
+        <link refid="class_l_i_n_g_model"/>
+        <childnode refid="18" relation="public-inheritance">
+        </childnode>
+        <childnode refid="7" relation="private-inheritance">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>Manifest</label>
+        <link refid="class_manifest"/>
+        <childnode refid="3" relation="private-inheritance">
+        </childnode>
+        <childnode refid="26" relation="private-inheritance">
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>model</edgelabel>
+        </childnode>
+        <childnode refid="59" relation="usage">
+          <edgelabel>job</edgelabel>
+          <edgelabel>nextJob</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>pool</edgelabel>
+        </childnode>
+      </node>
+      <node id="60">
+        <label>Manifest::ManifestJob</label>
+        <link refid="struct_manifest_1_1_manifest_job"/>
+        <childnode refid="61" relation="public-inheritance">
+        </childnode>
+        <childnode refid="58" relation="usage">
+          <edgelabel>owner</edgelabel>
+        </childnode>
+        <childnode refid="16" relation="usage">
+          <edgelabel>manifestPath</edgelabel>
+          <edgelabel>toolchainArgument</edgelabel>
+        </childnode>
+        <childnode refid="22" relation="usage">
+          <edgelabel>roots</edgelabel>
+          <edgelabel>toolchain</edgelabel>
+        </childnode>
+        <childnode refid="62" relation="usage">
+          <edgelabel>isFinished</edgelabel>
+        </childnode>
+      </node>
+      <node id="25">
+        <label>Processor</label>
+        <link refid="class_processor"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="26" relation="private-inheritance">
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>model</edgelabel>
+        </childnode>
+        <childnode refid="27" relation="usage">
+          <edgelabel>index</edgelabel>
+        </childnode>
+        <childnode refid="48" relation="usage">
+          <edgelabel>query</edgelabel>
+        </childnode>
+        <childnode refid="53" relation="usage">
+          <edgelabel>nextParseJobs</edgelabel>
+          <edgelabel>parseJobs</edgelabel>
+        </childnode>
+        <childnode refid="54" relation="usage">
+          <edgelabel>indexJobs</edgelabel>
+          <edgelabel>nextIndexJobs</edgelabel>
+        </childnode>
+        <childnode refid="55" relation="usage">
+          <edgelabel>nextUnitsJobs</edgelabel>
+          <edgelabel>unitsJobs</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>ownedPool</edgelabel>
+          <edgelabel>pool</edgelabel>
+        </childnode>
+        <childnode refid="56" relation="usage">
+          <edgelabel>bufferEvents</edgelabel>
+          <edgelabel>childEvents</edgelabel>
+          <edgelabel>events</edgelabel>
+          <edgelabel>propertyEvents</edgelabel>
+        </childnode>
+      </node>
+      <node id="48">
+        <label>Query</label>
+        <link refid="class_query"/>
+        <childnode refid="49" relation="usage">
+          <edgelabel>slab</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Server</label>
+        <link refid="class_server"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2" relation="private-inheritance">
+        </childnode>
+        <childnode refid="7" relation="private-inheritance">
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>noPortMethod</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>pool</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>workspaces</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>connections</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Server::Workspace</label>
+        <link refid="class_server_1_1_workspace"/>
+        <childnode refid="2" relation="private-inheritance">
+        </childnode>
+        <childnode refid="3" relation="private-inheritance">
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>owner</edgelabel>
+        </childnode>
+        <childnode refid="16" relation="usage">
+          <edgelabel>key</edgelabel>
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>model</edgelabel>
+        </childnode>
+        <childnode refid="25" relation="usage">
+          <edgelabel>processor</edgelabel>
+        </childnode>
+        <childnode refid="58" relation="usage">
+          <edgelabel>manifest</edgelabel>
+        </childnode>
+        <childnode refid="22" relation="usage">
+          <edgelabel>state</edgelabel>
+        </childnode>
+        <childnode refid="63" relation="usage">
+          <edgelabel>message</edgelabel>
+          <edgelabel>progress</edgelabel>
+        </childnode>
+      </node>
+      <node id="19">
+        <label>jam::AnyMap&lt; typename TypeOfCriticalSectionToUse &gt;</label>
+        <link refid="classjam_1_1AnyMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="15" relation="public-inheritance">
+        </childnode>
+        <childnode refid="20" relation="usage">
+          <edgelabel>entries</edgelabel>
+        </childnode>
+        <childnode refid="21" relation="usage">
+          <edgelabel>types</edgelabel>
+        </childnode>
+      </node>
+      <node id="30">
+        <label>jam::Array&lt; char &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="15" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>jam::Array&lt; int &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="15" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>jam::Array&lt; int16_t &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="15" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>jam::Array&lt; int32_t &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="15" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>jam::Array&lt; jam::Union&lt; int32_t, int32_t &gt; &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="15" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>jam::Array&lt; juce::File &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="15" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>jam::Array&lt; juce::juce_wchar &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="15" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>jam::Array&lt; std::shared_ptr&lt; const Language &gt; &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="15" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>jam::Array&lt; std::unique_ptr&lt; ObjectClass &gt; &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="15" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>jam::File::Watcher::Listener</label>
+      </node>
+      <node id="56">
+        <label>jam::Function::Map&lt; juce::Identifier, jam::Function::pointerCapacity, void(juce::ValueTree &amp;)&gt;</label>
+        <link refid="structjam_1_1Function_1_1Map" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="57" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>jam::Fuzzy::Slab</label>
+        <link refid="structjam_1_1Fuzzy_1_1Slab" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="50" relation="usage">
+          <edgelabel>i16</edgelabel>
+        </childnode>
+        <childnode refid="51" relation="usage">
+          <edgelabel>i32</edgelabel>
+        </childnode>
+        <childnode refid="52" relation="usage">
+          <edgelabel>characters</edgelabel>
+        </childnode>
+      </node>
+      <node id="57">
+        <label>jam::HashMap&lt; KeyType, std::variant&lt; Overload&lt; KeyType, capacity, Signatures &gt;::Slot... &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="35">
+        <label>jam::HashMap&lt; int, juce::int64 &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="41">
+        <label>jam::HashMap&lt; int, std::pair&lt; int, const SymbolDocument::FileEntry * &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="36">
+        <label>jam::HashMap&lt; int, std::shared_ptr&lt; const Language &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="54">
+        <label>jam::HashMap&lt; int, std::unique_ptr&lt; Processor::IndexJob &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="53">
+        <label>jam::HashMap&lt; int, std::unique_ptr&lt; Processor::ParseJob &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="55">
+        <label>jam::HashMap&lt; int, std::unique_ptr&lt; Processor::UnitsJob &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="40">
+        <label>jam::HashMap&lt; int, std::unique_ptr&lt; SymbolDocument &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="47">
+        <label>jam::HashMap&lt; int, std::unique_ptr&lt; jam::Document &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="33">
+        <label>jam::HashMap&lt; jam::Union&lt; int32_t, int32_t &gt;, int, jam::Strings::CaseFoldHash, jam::Strings::CaseFoldEqual &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="32">
+        <label>jam::HashMap&lt; jam::Union&lt; int32_t, int32_t &gt;, int, jam::Strings::TransparentHash, jam::Strings::TransparentEqual &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="21">
+        <label>jam::HashMap&lt; juce::Identifier, jam::AnyMap::Trait &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="24">
+        <label>jam::HashMap&lt; juce::Identifier, jam::HashMap&lt; juce::Identifier, std::unique_ptr&lt; ParameterAdapter &gt; &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="20">
+        <label>jam::HashMap&lt; juce::Identifier, std::unique_ptr&lt; void, Deleter &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="45">
+        <label>jam::HashMap&lt; juce::String, int &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="46">
+        <label>jam::HashMap&lt; juce::String, jam::Array&lt; int &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="12">
+        <label>jam::HashMap&lt; juce::String, std::unique_ptr&lt; Server::Workspace &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="39">
+        <label>jam::HashMap&lt; juce::int64, jam::Array&lt; std::pair&lt; int, const SymbolDocument::CompletionRecord * &gt; &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="38">
+        <label>jam::HashMap&lt; juce::int64, jam::Array&lt; std::pair&lt; int, const SymbolDocument::SymbolRecord * &gt; &gt; &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="18">
+        <label>jam::Model</label>
+        <link refid="classjam_1_1Model" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="19" relation="usage">
+          <edgelabel>params</edgelabel>
+        </childnode>
+        <childnode refid="22" relation="usage">
+          <edgelabel>state</edgelabel>
+        </childnode>
+        <childnode refid="23" relation="usage">
+          <edgelabel>valueTreeChanging</edgelabel>
+        </childnode>
+        <childnode refid="24" relation="usage">
+          <edgelabel>adapters</edgelabel>
+        </childnode>
+      </node>
+      <node id="63">
+        <label>jam::Model::ParameterAttachment</label>
+        <link refid="classjam_1_1Model_1_1ParameterAttachment" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="64" relation="private-inheritance">
+        </childnode>
+        <childnode refid="26" relation="private-inheritance">
+        </childnode>
+        <childnode refid="65" relation="usage">
+          <edgelabel>parameter</edgelabel>
+        </childnode>
+        <childnode refid="68" relation="usage">
+          <edgelabel>lastValue</edgelabel>
+        </childnode>
+      </node>
+      <node id="13">
+        <label>jam::Owner&lt; Connection &gt;</label>
+        <link refid="classjam_1_1Owner" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="14" relation="usage">
+          <edgelabel>entries</edgelabel>
+        </childnode>
+      </node>
+      <node id="65">
+        <label>jam::ParameterBase</label>
+        <link refid="structjam_1_1ParameterBase" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="66" relation="usage">
+          <edgelabel>id</edgelabel>
+          <edgelabel>propertyId</edgelabel>
+        </childnode>
+        <childnode refid="62" relation="usage">
+          <edgelabel>needsUpdate</edgelabel>
+        </childnode>
+        <childnode refid="23" relation="usage">
+          <edgelabel>listenerLock</edgelabel>
+        </childnode>
+        <childnode refid="67" relation="usage">
+          <edgelabel>listeners</edgelabel>
+        </childnode>
+      </node>
+      <node id="64">
+        <label>jam::ParameterBase::Listener</label>
+        <link refid="structjam_1_1ParameterBase_1_1Listener" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="28">
+        <label>jam::Strings</label>
+        <link refid="classjam_1_1Strings" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="29" relation="usage">
+          <edgelabel>arena</edgelabel>
+        </childnode>
+        <childnode refid="31" relation="usage">
+          <edgelabel>spans</edgelabel>
+        </childnode>
+        <childnode refid="32" relation="usage">
+          <edgelabel>exactPositions</edgelabel>
+        </childnode>
+        <childnode refid="33" relation="usage">
+          <edgelabel>foldedPositions</edgelabel>
+        </childnode>
+      </node>
+      <node id="67">
+        <label>juce::Array&lt; jam::ParameterBase::Listener * &gt;</label>
+        <link refid="classjuce_1_1Array" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="26">
+        <label>juce::AsyncUpdater</label>
+        <link refid="classjuce_1_1AsyncUpdater" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="23">
+        <label>juce::CriticalSection</label>
+        <link refid="classjuce_1_1CriticalSection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="15">
+        <label>juce::DummyCriticalSection</label>
+        <link refid="classjuce_1_1DummyCriticalSection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="66">
+        <label>juce::Identifier</label>
+        <link refid="classjuce_1_1Identifier" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <childnode refid="66" relation="usage">
+          <edgelabel>null</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>juce::InterprocessConnectionServer</label>
+        <link refid="classjuce_1_1InterprocessConnectionServer" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+        <childnode refid="6" relation="private-inheritance">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>juce::String</label>
+        <link refid="classjuce_1_1String" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="6">
+        <label>juce::Thread</label>
+        <link refid="classjuce_1_1Thread" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="11">
+        <label>juce::ThreadPool</label>
+        <link refid="classjuce_1_1ThreadPool" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="61">
+        <label>juce::ThreadPoolJob</label>
+        <link refid="classjuce_1_1ThreadPoolJob" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="2">
+        <label>juce::Timer</label>
+        <link refid="classjuce_1_1Timer" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="22">
+        <label>juce::ValueTree</label>
+        <link refid="classjuce_1_1ValueTree" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="3">
+        <label>juce::ValueTree::Listener</label>
+        <link refid="classjuce_1_1ValueTree_1_1Listener" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="68">
+        <label>juce::var</label>
+        <link refid="classjuce_1_1var" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="62">
+        <label>std::atomic&lt; bool &gt;</label>
+      </node>
+      <node id="9">
+        <label>std::basic_string_view&lt; Char &gt;</label>
+      </node>
+      <node id="42">
+        <label>std::shared_ptr&lt; const Index::UnitOwners &gt;</label>
+        <childnode refid="43" relation="usage">
+          <edgelabel>ptr</edgelabel>
+        </childnode>
+      </node>
+      <node id="10">
+        <label>std::shared_ptr&lt; juce::ThreadPool &gt;</label>
+        <childnode refid="11" relation="usage">
+          <edgelabel>ptr</edgelabel>
+        </childnode>
+      </node>
+      <node id="8">
+        <label>std::string_view</label>
+        <childnode refid="9" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="59">
+        <label>std::unique_ptr&lt; Manifest::ManifestJob &gt;</label>
+        <childnode refid="60" relation="usage">
+          <edgelabel>ptr</edgelabel>
+        </childnode>
+      </node>
+      <node id="29">
+        <label>std::unique_ptr&lt; jam::Array&lt; char &gt; &gt;</label>
+        <childnode refid="30" relation="usage">
+          <edgelabel>ptr</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Server.h" line="62" column="5" bodyfile="Server.h" bodystart="64" bodyend="137"/>
+    <listofallmembers>
+      <member refid="class_server_1_1_workspace_1ae04c1474157bd824533af4aad7c00f4d" prot="public" virt="non-virtual"><scope>Server::Workspace</scope><name>addConnection</name></member>
+      <member refid="classjuce_1_1Timer_1a5eb2dfa3e6810c268704c159ddcb37bc" prot="private" virt="non-virtual"><scope>Server::Workspace</scope><name>callAfterDelay</name></member>
+      <member refid="classjuce_1_1Timer_1a6c366b7f5a5d70c270a1e85b8aa45888" prot="private" virt="non-virtual"><scope>Server::Workspace</scope><name>callPendingTimersSynchronously</name></member>
+      <member refid="classjuce_1_1Timer_1a3dd602cadcc8e2a3be6aeb6538b8d2c1" prot="private" virt="non-virtual"><scope>Server::Workspace</scope><name>getTimerInterval</name></member>
+      <member refid="class_server_1_1_workspace_1aea972c8f0b8b7471783fbc8725350885" prot="public" virt="non-virtual"><scope>Server::Workspace</scope><name>hasConnection</name></member>
+      <member refid="class_server_1_1_workspace_1a2f048a6ba7b153db63ea12f315fae653" prot="private" virt="non-virtual"><scope>Server::Workspace</scope><name>hasEmptyFiles</name></member>
+      <member refid="classjuce_1_1Timer_1a525f38cc7afdc0696b467bd4ed3f17da" prot="private" virt="non-virtual"><scope>Server::Workspace</scope><name>isTimerRunning</name></member>
+      <member refid="class_server_1_1_workspace_1afca25f599bf2bebe53cae15b9666ac0b" prot="private" virt="non-virtual"><scope>Server::Workspace</scope><name>key</name></member>
+      <member refid="class_server_1_1_workspace_1a964c828a47892feac403fdda4641a2d0" prot="private" virt="non-virtual"><scope>Server::Workspace</scope><name>manifest</name></member>
+      <member refid="class_server_1_1_workspace_1a07e732cf1c70db9d70b367cc6434e084" prot="private" virt="non-virtual"><scope>Server::Workspace</scope><name>message</name></member>
+      <member refid="class_server_1_1_workspace_1ae22e78c1f9be4714178083459b3c4e5b" prot="private" virt="non-virtual"><scope>Server::Workspace</scope><name>model</name></member>
+      <member refid="class_server_1_1_workspace_1a0e05db1401d3778469e7a3491819993b" prot="private" virt="non-virtual"><scope>Server::Workspace</scope><name>owner</name></member>
+      <member refid="class_server_1_1_workspace_1ad2f36cad3d5ad9938014cfcbf86db1ef" prot="private" virt="non-virtual"><scope>Server::Workspace</scope><name>processor</name></member>
+      <member refid="class_server_1_1_workspace_1aca2a60563598c4a7dcc3ee9208c29920" prot="private" virt="non-virtual"><scope>Server::Workspace</scope><name>progress</name></member>
+      <member refid="class_server_1_1_workspace_1a19f44662df6e0cb812890778a1550b62" prot="public" virt="non-virtual"><scope>Server::Workspace</scope><name>removeConnection</name></member>
+      <member refid="classjuce_1_1Timer_1acb43e06d5742106830080af3d50b422d" prot="private" virt="non-virtual"><scope>Server::Workspace</scope><name>startTimer</name></member>
+      <member refid="classjuce_1_1Timer_1a49a4cf0bb438ca956bfae44c1010b0f9" prot="private" virt="non-virtual"><scope>Server::Workspace</scope><name>startTimerHz</name></member>
+      <member refid="class_server_1_1_workspace_1aefeb075fc189c4e995008243323064ef" prot="private" virt="non-virtual"><scope>Server::Workspace</scope><name>state</name></member>
+      <member refid="classjuce_1_1Timer_1a2ff70b860a8c875658b4baa91c8bcef0" prot="private" virt="non-virtual"><scope>Server::Workspace</scope><name>stopTimer</name></member>
+      <member refid="classjuce_1_1Timer_1a4517f6b34af45ee3edc05c468959146e" prot="private" virt="non-virtual"><scope>Server::Workspace</scope><name>Timer</name></member>
+      <member refid="classjuce_1_1Timer_1a2ef75896b7a44dfc641ce2faea04682c" prot="private" virt="non-virtual"><scope>Server::Workspace</scope><name>Timer</name></member>
+      <member refid="class_server_1_1_workspace_1af3d1fd0f9f4530e02a6d9f554dddc618" prot="private" virt="virtual"><scope>Server::Workspace</scope><name>timerCallback</name></member>
+      <member refid="class_server_1_1_workspace_1a099b6feb603033cfb003faa39997fa64" prot="private" virt="virtual"><scope>Server::Workspace</scope><name>valueTreeChildAdded</name></member>
+      <member refid="classjuce_1_1ValueTree_1_1Listener_1a5fb2f9f798c9ebb48235ba15759fd48b" prot="private" virt="virtual"><scope>Server::Workspace</scope><name>valueTreeChildOrderChanged</name></member>
+      <member refid="classjuce_1_1ValueTree_1_1Listener_1a09dc85f9c71389f2801c9a7bc582ae1b" prot="private" virt="virtual"><scope>Server::Workspace</scope><name>valueTreeChildRemoved</name></member>
+      <member refid="classjuce_1_1ValueTree_1_1Listener_1a2e39febd013de0ff7da23a5b574055db" prot="private" virt="virtual"><scope>Server::Workspace</scope><name>valueTreeParentChanged</name></member>
+      <member refid="classjuce_1_1ValueTree_1_1Listener_1a1a5481aafc0faa40aa3404a10c7b3785" prot="private" virt="virtual"><scope>Server::Workspace</scope><name>valueTreePropertyChanged</name></member>
+      <member refid="classjuce_1_1ValueTree_1_1Listener_1aa46de90c3746a395792a632219e404f2" prot="private" virt="virtual"><scope>Server::Workspace</scope><name>valueTreeRedirected</name></member>
+      <member refid="class_server_1_1_workspace_1a75901651c089f868283458432faadbc8" prot="public" virt="non-virtual"><scope>Server::Workspace</scope><name>Workspace</name></member>
+      <member refid="classjuce_1_1ValueTree_1_1Listener_1ab78745617b47f3b12726c0de220e8d9b" prot="private" virt="virtual"><scope>Server::Workspace</scope><name>~Listener</name></member>
+      <member refid="classjuce_1_1Timer_1aa1de34211c34295dfa6a658474ae0ae0" prot="private" virt="virtual"><scope>Server::Workspace</scope><name>~Timer</name></member>
+      <member refid="class_server_1_1_workspace_1aa04a726fd157decc8a4627c43fb63cdd" prot="public" virt="non-virtual"><scope>Server::Workspace</scope><name>~Workspace</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -21,11 +21,12 @@ public:
     /**
      * @brief Creates the client of a manifest, and listens to state for changes of the daemon port and of the requests.
      *
+     * @param newModel              The model passed to the Client base.
      * @param newManifestFile       The manifest that identifies the daemon.
      * @param newToolchainArgument  The toolchain argument. Empty when none is given.
      * @param newServer             The MCP server that receives each result and tool error.
      */
-    ToolClient (const juce::File& newManifestFile, const juce::String& newToolchainArgument, jam::ModelContextServer& newServer);
+    ToolClient (LINGModel& newModel, const juce::File& newManifestFile, const juce::String& newToolchainArgument, jam::ModelContextServer& newServer);
 
     /** @brief Removes the listener from state and disconnects from the daemon. */
     ~ToolClient() override;

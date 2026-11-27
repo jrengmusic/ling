@@ -15,6 +15,7 @@
 | failDaemonLost           | `daemon connection lost`                                          | A connection to the daemon that ended before the result.              |
 | failDaemonTimeout        | `daemon timeout must be a positive integer`                       | A ## daemon timeout cell is not a positive integer.                   |
 | failDaemonThreads        | `daemon threads must be a positive integer`                       | A ## daemon threads cell is not a positive integer.                   |
+| failDaemonCoalesce       | `daemon coalesce must be a positive integer`                      | A ## daemon coalesce cell is not a positive integer.                  |
 | failSwapVersion          | `swap of another version: remove the swap folder and build again` | A swap file that another version of LING wrote.                       |
 | failSwapRecord           | `swap record incomplete`                                          | A swap file whose root or record misses a field.                      |
 | failSwapWrite            | `swap file not written`                                           | A swap file that was not written or did not replace its target.       |

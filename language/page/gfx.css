@@ -1,0 +1,21 @@
+:root {
+    --gfxKeyword: #FC704C;
+    --gfxAqua: #8CC9D9;
+    --gfxCyan: #00C8D8;
+    --gfxSlate: #33535B;
+    --gfxTeal: #699DAA;
+    --gfxNavy: #112130;
+}
+
+.appearance {
+    --Markdown--textColourId: var(--gfxTeal);
+    --Markdown--syntaxKeywordColourId: var(--gfxKeyword);
+    --Markdown--codeTextColourId: var(--gfxAqua);
+    --Markdown--syntaxNumberColourId: var(--gfxCyan);
+    --Markdown--syntaxCommentColourId: var(--gfxSlate);
+    --Markdown--syntaxStringColourId: var(--gfxAqua);
+    --Markdown--syntaxPunctuationColourId: var(--gfxTeal);
+    --TextEditor--highlightColourId: var(--gfxNavy);
+    --TextEditor--lineNumberTextColourId: var(--gfxSlate);
+    --TextEditor--outlineColourId: var(--gfxSlate);
+}

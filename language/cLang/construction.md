@@ -504,7 +504,6 @@
 | getTokenExtent          | `clang_getTokenExtent`             | SourceRange (TranslationUnit translationUnit, SourceToken token) |
 | getRange                | `clang_getRange`                   | SourceRange (SourceLocation begin, SourceLocation end) |
 | getSpellingNameRange    | `clang_Cursor_getSpellingNameRange` | SourceRange (Cursor cursor, unsigned pieceIndex, unsigned options) |
-| executeOnThread         | `clang_executeOnThread`            | void (void (\*function) (void\* data), void\* data, unsigned stackSize) |
 | createCompilationDatabase | `clang_CompilationDatabase_fromDirectory` | void\* (const char\* BuildDir, int\* ErrorCode) |
 | disposeCompilationDatabase | `clang_CompilationDatabase_dispose` | void (void\* database) |
 | getAllCompileCommands | `clang_CompilationDatabase_getAllCompileCommands` | void\* (void\* database) |
@@ -533,7 +532,6 @@
 | readFailure      | `libclang did not read the AST`         |
 | unitFailure      | `libclang gave no translation unit`     |
 | sessionFailure   | `libclang did not load`                 |
-| threadFailure    | `libclang thread did not run`           |
 | saveFailure      | `precompiled header was not saved`      |
 
 ## databaseDrivers

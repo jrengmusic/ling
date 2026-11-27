@@ -1,0 +1,317 @@
+```juce-header
+#pragma once
+
+#include <juce_core/juce_core.h>
+#include <juce_data_structures/juce_data_structures.h>
+#include <juce_events/juce_events.h>
+#include <juce_graphics/juce_graphics.h>
+#include <juce_gui_basics/juce_gui_basics.h>
+#include <jam_core/jam_core.h>
+#include <jam_tui/jam_tui.h>
+#include <generated/jam_SyntaxTree.h>
+#include "BinaryData.h"
+```
+
+```cmake
+cmake_minimum_required (VERSION 3.25)
+
+set (CMAKE_CXX_STANDARD 17)
+set (CMAKE_CXX_STANDARD_REQUIRED ON)
+set (CMAKE_CXX_EXTENSIONS OFF)
+set (CMAKE_BUILD_TYPE Release CACHE STRING "")
+set (CMAKE_C_VISIBILITY_PRESET hidden)
+set (CMAKE_CXX_VISIBILITY_PRESET hidden)
+set (CMAKE_VISIBILITY_INLINES_HIDDEN ON)
+set (CMAKE_OSX_DEPLOYMENT_TARGET "11.0" CACHE STRING "")
+
+project (page LANGUAGES C CXX)
+
+find_program(CAST_CCACHE ccache NO_CACHE REQUIRED)
+get_property(CAST_LANGUAGES GLOBAL PROPERTY ENABLED_LANGUAGES)
+
+foreach(CAST_LANGUAGE ${CAST_LANGUAGES})
+    set(CMAKE_${CAST_LANGUAGE}_COMPILER_LAUNCHER "${CAST_CCACHE}")
+endforeach()
+
+set (CAST_JUCE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../../../../JUCE")
+set (CAST_USER_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../../../jam")
+set (CAST_JUCE_VERSION 8.0.17)
+
+:::patched-juce:::
+
+set (CAST_USER_MODULES
+jam_core
+jam_document
+jam_markdown
+jam_freetype
+jam_graphics
+jam_data_structures
+jam_web
+jam_style
+jam_gui
+jam_mermaid_diagram
+jam_markdown_graphics
+jam_terminal
+jam_tui
+)
+
+foreach (CAST_MODULE ${CAST_USER_MODULES})
+    juce_add_module ("${CAST_USER_MODULE_PATH}/${CAST_MODULE}")
+endforeach ()
+
+juce_add_binary_data (pageData NAMESPACE "BinaryData" SOURCES style.css page.css)
+set_target_properties (pageData PROPERTIES POSITION_INDEPENDENT_CODE ON)
+
+add_library (page SHARED page.cpp)
+
+set (CAST_COMPILE_DEFINITIONS
+DONT_SET_USING_JUCE_NAMESPACE=1
+JUCE_DONT_DECLARE_PROJECTINFO=1
+JUCE_STRICT_REFCOUNTEDPOINTER=1
+JUCE_WEB_BROWSER=0
+JUCE_USE_CURL=0
+"$<$<PLATFORM_ID:Windows>:WIN32_LEAN_AND_MEAN=1>"
+"$<$<PLATFORM_ID:Windows>:NOMINMAX=1>"
+"$<$<PLATFORM_ID:Windows>:_WIN32_IE=0x0A00>"
+"$<$<PLATFORM_ID:Windows>:JUCE_CORE_INCLUDE_NATIVE_HEADERS=1>"
+"$<$<PLATFORM_ID:Windows>:JUCE_GRAPHICS_INCLUDE_DIRECT2D_HELPERS=1>"
+"$<$<PLATFORM_ID:Windows>:JUCE_CORE_INCLUDE_COM_SMART_PTR=1>"
+HAVE_FREETYPE
+"$<$<NOT:$<PLATFORM_ID:Windows>>:HAVE_UNISTD_H>"
+)
+
+target_compile_definitions (page PRIVATE ${CAST_COMPILE_DEFINITIONS})
+target_include_directories (page PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} "${CAST_USER_MODULE_PATH}" "${CAST_USER_MODULE_PATH}/jam_freetype/freetype/include" "${CAST_JUCE_PATH}/modules/juce_graphics/fonts/harfbuzz")
+target_link_libraries (page PRIVATE
+    ${CAST_USER_MODULES}
+    pageData
+    juce::juce_recommended_config_flags
+)
+```
+
+```source
+#include <JuceHeader.h>
+
+static constexpr std::string_view baseSheet { "style.css" };
+static constexpr std::string_view pageSheet { "page.css" };
+static constexpr std::string_view sheetSeparator { "/" };
+
+static int getTerminalColumns()
+{
+    static constexpr int defaultColumns { 80 };
+    const auto columns { jam::TerminalReader {}.getBounds().getWidth() };
+    return columns > 0 ? columns : defaultColumns;
+}
+
+static void addStyleSheet (jam::Strings& names, std::string_view folder, const juce::String& text)
+{
+    std::string name;
+    jam::Format::appendBytes (name, folder);
+    jam::Format::appendBytes (name, sheetSeparator);
+    jam::Format::appendBytes (name, baseSheet);
+
+    if (jam::CssDocument::getOrCreate (juce::Identifier { jam::Strings::fromView (name) }, [text] { return text; }) != nullptr)
+        names.add (name);
+}
+
+static jam::Strings getStyleSheets (std::string_view themeSheet, std::string_view gridSheet)
+{
+    static constexpr std::string_view themeFolder { "theme" };
+    static constexpr std::string_view gridFolder { "grid" };
+    jam::Strings names;
+    names.add (baseSheet);
+    addStyleSheet (names, pageSheet, BinaryData::getString (jam::Strings::fromView (pageSheet)));
+
+    if (not themeSheet.empty())
+        addStyleSheet (names, themeFolder, juce::String::fromUTF8 (themeSheet.data(), static_cast<int> (themeSheet.size())));
+
+    if (not gridSheet.empty())
+        addStyleSheet (names, gridFolder, juce::String::fromUTF8 (gridSheet.data(), static_cast<int> (gridSheet.size())));
+
+    return names;
+}
+
+static juce::NamedValueSet getProperties (const juce::StringPairArray& properties)
+{
+    juce::NamedValueSet named;
+
+    for (int index { 0 }; index < properties.size(); ++index)
+        named.set (juce::Identifier { properties.getAllKeys()[index] }, properties.getAllValues()[index]);
+
+    return named;
+}
+
+static bool isCallToken (std::string_view text, const jam::Document::Token& token)
+{
+    const auto nextIndex { token.span.getEnd() };
+    return nextIndex < text.size() and text.at (nextIndex) == '(';
+}
+
+static jam::Document::Tokens getSyntax (std::string_view text, const jam::Document::Tokens& tokens, juce::Range<size_t> span)
+{
+    static constexpr int noColour { -1 };
+    static const jam::LookupTable<int, int, map::SyntaxTokenType::base + 1> colours
+    {
+        { map::SyntaxTokenType::base, noColour },
+        { map::SyntaxTokenType::keyword, static_cast<int> (map::ColourId::markdownSyntaxKeywordColourId) },
+        { map::SyntaxTokenType::string, static_cast<int> (map::ColourId::markdownSyntaxStringColourId) },
+        { map::SyntaxTokenType::comment, static_cast<int> (map::ColourId::markdownSyntaxCommentColourId) },
+        { map::SyntaxTokenType::number, static_cast<int> (map::ColourId::markdownSyntaxNumberColourId) },
+        { map::SyntaxTokenType::punctuation, static_cast<int> (map::ColourId::markdownSyntaxPunctuationColourId) },
+        { map::SyntaxTokenType::identifier, static_cast<int> (map::ColourId::markdownCodeTextColourId) }
+    };
+
+    jam::Document::Tokens syntax;
+
+    for (const auto& token : tokens)
+    {
+        const auto colour { colours[token.type] };
+        const auto start { juce::jmax (token.span.getStart(), span.getStart()) };
+        const auto end { juce::jmin (token.span.getEnd(), span.getEnd()) };
+
+        if (colour != noColour and start < end and (token.type != map::SyntaxTokenType::identifier or isCallToken (text, token)))
+            syntax.add (jam::Document::Token { start - span.getStart(), end - span.getStart(), colour });
+    }
+
+    return syntax;
+}
+
+static jam::Document::Numbers getNumbers (juce::Span<const int> values, juce::Range<int> lineIndexes)
+{
+    jam::Document::Numbers numbers;
+
+    if (not values.empty())
+    {
+        jassert (lineIndexes.getEnd() <= static_cast<int> (values.size()));
+
+        for (int index { lineIndexes.getStart() }; index < lineIndexes.getEnd(); ++index)
+            numbers.add (static_cast<double> (values[static_cast<size_t> (index)]));
+    }
+
+    return numbers;
+}
+
+static jam::Document::Tokens getHighlights (juce::Span<const juce::Range<int>> highlights, juce::Range<int> lines)
+{
+    jam::Document::Tokens highlightTokens;
+
+    for (const auto& highlight : highlights)
+    {
+        const auto start { juce::jmax (highlight.getStart(), lines.getStart()) };
+        const auto end { juce::jmin (highlight.getEnd(), lines.getEnd()) };
+
+        if (start < end)
+            highlightTokens.add (jam::Document::Token { static_cast<size_t> (start - lines.getStart()), static_cast<size_t> (end - lines.getStart()) });
+    }
+
+    return highlightTokens;
+}
+
+static size_t getLinesEnd (std::string_view text, size_t offset, int numLines)
+{
+    static constexpr char newlineByte { '\n' };
+    size_t end { offset };
+
+    for (int count { 0 }; count < numLines; ++count)
+        end = juce::jmin (jam::simd::findByte (text.data(), text.size(), end, newlineByte) + 1, text.size());
+
+    return end;
+}
+
+static void addBlocks (jam::TerminalPage& page, std::string_view text, const jam::Document::Tokens& tokens, const juce::StringPairArray& properties,
+                       juce::Span<const juce::Range<int>> lines, juce::Span<const int> numbers, juce::Span<const int> changes,
+                       juce::Span<const juce::Range<int>> highlights)
+{
+    static constexpr int firstLineNumber { 1 };
+    size_t lineOffset { 0 };
+    int lineNumber { firstLineNumber };
+
+    for (size_t index { 0 }; index < lines.size(); ++index)
+    {
+        const auto& range { lines[index] };
+        jassert (range.getStart() >= lineNumber);
+
+        const auto blockStart { getLinesEnd (text, lineOffset, range.getStart() - lineNumber) };
+        const auto blockEnd { getLinesEnd (text, blockStart, range.getLength()) };
+        const juce::Range<int> lineIndexes { range.getStart() - firstLineNumber, range.getEnd() - firstLineNumber };
+
+        page.addFile (text.substr (blockStart, blockEnd - blockStart),
+                      index == 0 ? getProperties (properties) : juce::NamedValueSet {},
+                      getSyntax (text, tokens, juce::Range<size_t> { blockStart, blockEnd }),
+                      getNumbers (numbers, lineIndexes),
+                      getNumbers (changes, lineIndexes),
+                      getHighlights (highlights, range));
+
+        lineOffset = blockEnd;
+        lineNumber = range.getEnd();
+    }
+}
+
+static void setPage (jam::TerminalPage& page, std::string_view text, const jam::Document::Tokens& tokens, const juce::StringPairArray& properties,
+                     int columns, bool isWrapping, juce::Span<const juce::Range<int>> lines, juce::Span<const int> numbers,
+                     juce::Span<const int> changes, juce::Span<const juce::Range<int>> highlights)
+{
+    page.setSize (columns > 0 ? columns : getTerminalColumns(), 0);
+    page.setLineNumbersShown (not numbers.empty());
+    page.setLineChangesShown (not changes.empty());
+    page.setWordWrap (isWrapping);
+    addBlocks (page, text, tokens, properties, lines, numbers, changes, highlights);
+    page.setFiles();
+}
+
+static std::unique_ptr<jam::TerminalPage> getTerminalPage (std::string_view themeSheet, std::string_view gridSheet)
+{
+    return std::make_unique<jam::TerminalPage> (jam::ResourceFetchers { BinaryData::fetcher }, getStyleSheets (themeSheet, gridSheet));
+}
+
+#if defined (_WIN32)
+extern "C" __declspec (dllexport)
+#else
+extern "C" __attribute__ ((visibility ("default")))
+#endif
+int ling_write_page (std::string_view text, const jam::Document::Tokens& tokens, const juce::StringPairArray& properties,
+                     std::string_view themeSheet, std::string_view gridSheet, int columns, bool isWrapping,
+                     juce::Span<const juce::Range<int>> lines, juce::Span<const int> numbers, juce::Span<const int> changes,
+                     juce::Span<const juce::Range<int>> highlights, juce::OutputStream& output)
+{
+    juce::ScopedJuceInitialiser_GUI juceInitialiser;
+    jam::SharedInstance<jam::SharedDocuments> documents { std::in_place };
+    auto page { getTerminalPage (themeSheet, gridSheet) };
+
+    setPage (*page, text, tokens, properties, columns, isWrapping, lines, numbers, changes, highlights);
+
+    if (not isWrapping)
+        page->setSize (juce::jmax (page->getWidth(), page->getContentWidth()), 0);
+
+    page->writeToStream (output);
+    return 1;
+}
+
+#if defined (_WIN32)
+extern "C" __declspec (dllexport)
+#else
+extern "C" __attribute__ ((visibility ("default")))
+#endif
+int ling_run_page (std::string_view text, const jam::Document::Tokens& tokens, const juce::StringPairArray& properties,
+                   std::string_view themeSheet, std::string_view gridSheet, int columns, bool isWrapping,
+                   juce::Span<const juce::Range<int>> lines, juce::Span<const int> numbers, juce::Span<const int> changes,
+                   juce::Span<const juce::Range<int>> highlights, bool isAlwaysShown)
+{
+    juce::ScopedJuceInitialiser_GUI juceInitialiser;
+    jam::SharedInstance<jam::SharedDocuments> documents { std::in_place };
+    auto page { getTerminalPage (themeSheet, gridSheet) };
+
+    setPage (*page, text, tokens, properties, columns, isWrapping, lines, numbers, changes, highlights);
+
+    jam::TerminalReader reader;
+    const auto bounds { reader.getBounds() };
+
+    if ((isAlwaysShown or page->getContentHeight() > bounds.getHeight()) and reader.open())
+    {
+        reader.run (std::move (page));
+        return 1;
+    }
+
+    return 0;
+}
+```

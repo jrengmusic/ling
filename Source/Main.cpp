@@ -351,7 +351,7 @@ private:
         const auto manifestFile { getExistingManifestFile (arguments, manifestIndex) };
         const auto toolchainArgument { getToolchainArgument (arguments, manifestIndex) };
 
-        toolRelay = std::make_unique<ToolRelay> (manifestFile, arguments[manifestIndex].resolveAsFile().getFileName(), toolchainArgument);
+        toolRelay = std::make_unique<ToolRelay> (model, manifestFile, arguments[manifestIndex].resolveAsFile().getFileName(), toolchainArgument);
         toolRelay->start();
     }
 
@@ -382,8 +382,8 @@ private:
                 setApplicationReturnValue (result.wasOk() ? EXIT_SUCCESS : EXIT_FAILURE);
                 quit();
 #elif JAM_USING_PROFILER
-                model.addListener (this);
                 processor = std::make_unique<Processor> (model);
+                model.addListener (this);
                 manifest = std::make_unique<Manifest> (model);
 
                 const auto document { jam::ConfigDocument::parse (manifestFile.loadFileAsString(), manifestFile.getFullPathName()) };
@@ -392,7 +392,7 @@ private:
                 model.state.setProperty (Id::toolchainArgument, profilerTable[jam::Format::toType (Id::argument)].toString(), nullptr);
                 model.state.setProperty (Id::manifest, manifestFile.getParentDirectory().getChildFile (profilerTable[jam::Format::toType (Id::manifest)].toString()).getFullPathName(), nullptr);
 #else
-                relay = std::make_unique<Relay> (manifestFile, toolchainArgument);
+                relay = std::make_unique<Relay> (model, manifestFile, toolchainArgument);
                 relay->start();
 #endif
             }
@@ -404,29 +404,20 @@ private:
     }
 
     /**
-     * @brief Starts the daemon of the manifest and the toolchain argument, when no other daemon holds its lock.
+     * @brief Starts the daemon server when no other daemon holds the lock.
      *
-     * The lock name is the daemon name of the manifest and the toolchain argument. The lock is tried
-     * without a wait. When the lock is taken, the function starts the processor and the manifest reading,
-     * sets the toolchain argument and the manifest path in the model, and starts the socket server. When
-     * the lock is not taken, the application quits.
-     *
-     * @param arguments  The command line arguments. Index postFlagArgIndex names the manifest.
+     * The function creates a @c juce::InterProcessLock with the name
+     * @c LINGModel::getDaemonName(). It tries to acquire the lock without waiting.
+     * When it acquires the lock, it creates and starts @c Server. Otherwise, it quits
+     * the application.
      */
-    void runDaemon (const juce::ArgumentList& arguments)
+    void runDaemon (const juce::ArgumentList&)
     {
-        const auto manifestFile { getExistingManifestFile (arguments, manifestIndex) };
-        const auto toolchainArgument { getToolchainArgument (arguments, manifestIndex) };
-
-        lock = std::make_unique<juce::InterProcessLock> (juce::String (LINGModel::getDaemonName (manifestFile, jam::Strings::getView (toolchainArgument))));
+        lock = std::make_unique<juce::InterProcessLock> (juce::String (LINGModel::getDaemonName()));
 
         if (lock->enter (0))
         {
-            processor = std::make_unique<Processor> (model);
-            manifest = std::make_unique<Manifest> (model);
             server = std::make_unique<Server>();
-            model.state.setProperty (Id::toolchainArgument, toolchainArgument, nullptr);
-            model.state.setProperty (Id::manifest, manifestFile.getFullPathName(), nullptr);
             server->start();
         }
         else
@@ -466,7 +457,7 @@ private:
         request.writeToStream (stream);
         stream.flush();
 
-        operation = std::make_unique<Operation> (manifestFile, toolchainArgument, std::move (requestData));
+        operation = std::make_unique<Operation> (model, manifestFile, toolchainArgument, std::move (requestData));
         operation->start();
     }
 
@@ -495,6 +486,12 @@ private:
             profiler->writeSamples (getManifestFile ({ ProjectInfo::projectName, getCommandLineParameterArray() }, commandIndex), jam::Format::toType (juce::Identifier { ProjectInfo::projectName }));
             quit();
         }
+    }
+
+    void valueTreeChildAdded (juce::ValueTree& parentTree, juce::ValueTree& childWhichHasBeenAdded) override
+    {
+        if (parentTree == model.state and childWhichHasBeenAdded.hasType (jam::Format::toType (Id::files)))
+            processor->requestAllUnits();
     }
 #endif
 

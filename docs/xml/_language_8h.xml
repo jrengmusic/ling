@@ -86,32 +86,32 @@
         <childnode refid="14" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="22">
         <label>Client.cpp</label>
         <link refid="_client_8cpp"/>
       </node>
-      <node id="24">
+      <node id="21">
         <label>Client.h</label>
         <link refid="_client_8h"/>
-        <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="26" relation="include">
-        </childnode>
-        <childnode refid="28" relation="include">
-        </childnode>
-        <childnode refid="30" relation="include">
-        </childnode>
-      </node>
-      <node id="22">
-        <label>Connection.cpp</label>
-        <link refid="_connection_8cpp"/>
-      </node>
-      <node id="21">
-        <label>Connection.h</label>
-        <link refid="_connection_8h"/>
         <childnode refid="22" relation="include">
         </childnode>
         <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>Connection.cpp</label>
+        <link refid="_connection_8cpp"/>
+      </node>
+      <node id="33">
+        <label>Connection.h</label>
+        <link refid="_connection_8h"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
         </childnode>
       </node>
       <node id="17">
@@ -125,7 +125,7 @@
         </childnode>
         <childnode refid="18" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
+        <childnode refid="32" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -135,19 +135,19 @@
         </childnode>
         <childnode refid="16" relation="include">
         </childnode>
-        <childnode refid="34" relation="include">
+        <childnode refid="36" relation="include">
         </childnode>
         <childnode refid="18" relation="include">
         </childnode>
       </node>
-      <node id="35">
+      <node id="37">
         <label>LibraryLanguage.cpp</label>
         <link refid="_library_language_8cpp"/>
       </node>
-      <node id="34">
+      <node id="36">
         <label>LibraryLanguage.h</label>
         <link refid="_library_language_8h"/>
-        <childnode refid="35" relation="include">
+        <childnode refid="37" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
@@ -156,16 +156,16 @@
         <label>Main.cpp</label>
         <link refid="_main_8cpp"/>
       </node>
-      <node id="27">
+      <node id="24">
         <label>Operation.cpp</label>
         <link refid="_operation_8cpp"/>
       </node>
-      <node id="26">
+      <node id="23">
         <label>Operation.h</label>
         <link refid="_operation_8h"/>
         <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
+        <childnode refid="24" relation="include">
         </childnode>
       </node>
       <node id="4">
@@ -179,63 +179,77 @@
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
       </node>
-      <node id="33">
+      <node id="35">
         <label>Query.cpp</label>
         <link refid="_query_8cpp"/>
       </node>
-      <node id="20">
+      <node id="32">
         <label>Query.h</label>
         <link refid="_query_8h"/>
-        <childnode refid="21" relation="include">
+        <childnode refid="33" relation="include">
         </childnode>
         <childnode refid="18" relation="include">
         </childnode>
-        <childnode refid="33" relation="include">
+        <childnode refid="35" relation="include">
         </childnode>
-        <childnode refid="28" relation="include">
+        <childnode refid="25" relation="include">
         </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
-        <childnode refid="30" relation="include">
-        </childnode>
-      </node>
-      <node id="29">
-        <label>Relay.cpp</label>
-        <link refid="_relay_8cpp"/>
-      </node>
-      <node id="28">
-        <label>Relay.h</label>
-        <link refid="_relay_8h"/>
-        <childnode refid="19" relation="include">
+        <childnode refid="20" relation="include">
         </childnode>
         <childnode refid="29" relation="include">
         </childnode>
       </node>
-      <node id="32">
-        <label>Server.cpp</label>
-        <link refid="_server_8cpp"/>
+      <node id="26">
+        <label>Relay.cpp</label>
+        <link refid="_relay_8cpp"/>
       </node>
-      <node id="23">
-        <label>Server.h</label>
-        <link refid="_server_8h"/>
-        <childnode refid="24" relation="include">
-        </childnode>
+      <node id="25">
+        <label>Relay.h</label>
+        <link refid="_relay_8h"/>
         <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="32" relation="include">
+        <childnode refid="26" relation="include">
         </childnode>
       </node>
       <node id="31">
+        <label>Server.cpp</label>
+        <link refid="_server_8cpp"/>
+      </node>
+      <node id="20">
+        <label>Server.h</label>
+        <link refid="_server_8h"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>ToolClient.cpp</label>
+        <link refid="_tool_client_8cpp"/>
+      </node>
+      <node id="27">
+        <label>ToolClient.h</label>
+        <link refid="_tool_client_8h"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
         <label>ToolRelay.cpp</label>
         <link refid="_tool_relay_8cpp"/>
       </node>
-      <node id="30">
+      <node id="29">
         <label>ToolRelay.h</label>
         <link refid="_tool_relay_8h"/>
         <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="31" relation="include">
+        <childnode refid="30" relation="include">
         </childnode>
       </node>
       <node id="5">
@@ -326,21 +340,21 @@
 <codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
 <codeline lineno="17" refid="class_language_1a31ccc6a98a6c40a452a66a18ca604c79" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_language_1a31ccc6a98a6c40a452a66a18ca604c79" kindref="member">~Language</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="18"><highlight class="normal"></highlight></codeline>
-<codeline lineno="29" refid="class_language_1aa23f1df5cd018950d06f9b0ddf1c2e23" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::pair&lt;std::unique_ptr&lt;jam::Document&gt;,<sp/>std::unique_ptr&lt;SymbolDocument&gt;&gt;<sp/><ref refid="class_language_1aa23f1df5cd018950d06f9b0ddf1c2e23" kindref="member">parse</ref><sp/>(std::string_view<sp/><ref refid="namespacetext" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">text</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1String" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String</ref>&amp;<sp/>path)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="29" refid="class_language_1aa23f1df5cd018950d06f9b0ddf1c2e23" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::pair&lt;std::unique_ptr&lt;jam::Document&gt;,<sp/>std::unique_ptr&lt;SymbolDocument&gt;&gt;<sp/><ref refid="class_language_1aa23f1df5cd018950d06f9b0ddf1c2e23" kindref="member">parse</ref><sp/>(std::string_view<sp/><ref refid="namespacetext" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">text</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref>&amp;<sp/>path)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="30"><highlight class="normal"></highlight></codeline>
-<codeline lineno="37" refid="class_language_1ad9d9019bec5846302d4b69bd308b7183" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1Result" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::Result</ref><sp/><ref refid="class_language_1ad9d9019bec5846302d4b69bd308b7183" kindref="member">isValid</ref><sp/>(std::string_view<sp/><ref refid="namespacetext" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">text</ref>)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="37" refid="class_language_1ad9d9019bec5846302d4b69bd308b7183" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1Result" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::Result</ref><sp/><ref refid="class_language_1ad9d9019bec5846302d4b69bd308b7183" kindref="member">isValid</ref><sp/>(std::string_view<sp/><ref refid="namespacetext" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">text</ref>)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="38"><highlight class="normal"></highlight></codeline>
-<codeline lineno="46" refid="class_language_1a392c16dfaf08d7ed566e4e3983bb7ac9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::unique_ptr&lt;jam::Document&gt;<sp/><ref refid="class_language_1a392c16dfaf08d7ed566e4e3983bb7ac9" kindref="member">read</ref><sp/>(std::string_view<sp/><ref refid="namespacetext" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">text</ref>,<sp/>std::string_view<sp/>stored)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="46" refid="class_language_1a392c16dfaf08d7ed566e4e3983bb7ac9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::unique_ptr&lt;jam::Document&gt;<sp/><ref refid="class_language_1a392c16dfaf08d7ed566e4e3983bb7ac9" kindref="member">read</ref><sp/>(std::string_view<sp/><ref refid="namespacetext" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">text</ref>,<sp/>std::string_view<sp/>stored)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="47"><highlight class="normal"></highlight></codeline>
-<codeline lineno="60" refid="class_language_1a8be0bd7956e0304c9dfa6f34de424ad9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_language_1a8be0bd7956e0304c9dfa6f34de424ad9" kindref="member">index</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>arguments,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argumentCount,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>directory,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>bufferPaths,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>bufferTexts,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>bufferCount,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1LanguageCallbacks" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::LanguageCallbacks</ref>&amp;<sp/>callbacks)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="60" refid="class_language_1a8be0bd7956e0304c9dfa6f34de424ad9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_language_1a8be0bd7956e0304c9dfa6f34de424ad9" kindref="member">index</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>arguments,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argumentCount,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>directory,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>bufferPaths,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>bufferTexts,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>bufferCount,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1LanguageCallbacks" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageCallbacks</ref>&amp;<sp/>callbacks)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="61"><highlight class="normal"></highlight></codeline>
 <codeline lineno="67" refid="class_language_1a373e97c0fb11550d40cfa069fba7222b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_language_1a373e97c0fb11550d40cfa069fba7222b" kindref="member">hasIndex</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="68"><highlight class="normal"></highlight></codeline>
-<codeline lineno="80" refid="class_language_1a43b8120736963690a482aae116019105" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_language_1a43b8120736963690a482aae116019105" kindref="member">addUnits</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>arguments,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">*<sp/>argumentCounts,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rowCount,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>directory,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>cacheDirectory,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1LanguageCallbacks" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::LanguageCallbacks</ref>&amp;<sp/>callbacks)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="80" refid="class_language_1a43b8120736963690a482aae116019105" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_language_1a43b8120736963690a482aae116019105" kindref="member">addUnits</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>arguments,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">*<sp/>argumentCounts,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rowCount,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>directory,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>cacheDirectory,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1LanguageCallbacks" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::LanguageCallbacks</ref>&amp;<sp/>callbacks)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="81"><highlight class="normal"></highlight></codeline>
-<codeline lineno="89" refid="class_language_1aba611040df762266ca041ca011ec57e2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_language_1aba611040df762266ca041ca011ec57e2" kindref="member">hasRole</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;<sp/>element,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>role)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="89" refid="class_language_1aba611040df762266ca041ca011ec57e2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_language_1aba611040df762266ca041ca011ec57e2" kindref="member">hasRole</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;<sp/>element,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>role)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="90"><highlight class="normal"></highlight></codeline>
-<codeline lineno="97" refid="class_language_1a44c383aa2124008873c41b9d2d9a8861" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_language_1a44c383aa2124008873c41b9d2d9a8861" kindref="member">getSymbolType</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;<sp/>element)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="97" refid="class_language_1a44c383aa2124008873c41b9d2d9a8861" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_language_1a44c383aa2124008873c41b9d2d9a8861" kindref="member">getSymbolType</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1Document_1_1Element" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document::Element</ref>&amp;<sp/>element)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="98"><highlight class="normal"></highlight></codeline>
 <codeline lineno="105" refid="class_language_1a8b4bb63191d8379a26ce449c5c11c839" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_language_1a8b4bb63191d8379a26ce449c5c11c839" kindref="member">getSemanticType</ref><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>tokenType)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="106"><highlight class="normal"></highlight></codeline>
@@ -348,9 +362,9 @@
 <codeline lineno="114"><highlight class="normal"></highlight></codeline>
 <codeline lineno="121" refid="class_language_1a05bcdae53a619c323b12598feaf37333" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_language_1a05bcdae53a619c323b12598feaf37333" kindref="member">getCompletionType</ref><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>tokenType)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="122"><highlight class="normal"></highlight></codeline>
-<codeline lineno="129" refid="class_language_1a2108f1f96098f267d4cc1c2f6726a600" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classjam_1_1Strings" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref><sp/><ref refid="class_language_1a2108f1f96098f267d4cc1c2f6726a600" kindref="member">getCounterparts</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1String" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String</ref>&amp;<sp/>extension)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="129" refid="class_language_1a2108f1f96098f267d4cc1c2f6726a600" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref><sp/><ref refid="class_language_1a2108f1f96098f267d4cc1c2f6726a600" kindref="member">getCounterparts</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref>&amp;<sp/>extension)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="130"><highlight class="normal"></highlight></codeline>
-<codeline lineno="138" refid="class_language_1a0d17de8eed2a3cf897188084fc2e9ad7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::unique_ptr&lt;SymbolDocument&gt;<sp/><ref refid="class_language_1a0d17de8eed2a3cf897188084fc2e9ad7" kindref="member">getSymbols</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref>&amp;<sp/>document,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1String" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String</ref>&amp;<sp/>path)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="138" refid="class_language_1a0d17de8eed2a3cf897188084fc2e9ad7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::unique_ptr&lt;SymbolDocument&gt;<sp/><ref refid="class_language_1a0d17de8eed2a3cf897188084fc2e9ad7" kindref="member">getSymbols</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref>&amp;<sp/>document,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref>&amp;<sp/>path)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="139"><highlight class="normal">};</highlight></codeline>
     </programlisting>
     <location file="Language.h"/>

@@ -24,12 +24,13 @@ public:
      *
      * The callback adds one to numMessages when the read result is zero or more.
      * It sets isOpen to 0 when the read result is negative, which marks the end of input.
-     * The constructor also registers the request and notification lifecycle handlers, and listens to model.state.
+     * The constructor also registers the request and notification lifecycle handlers, and listens to @p newModel.state.
      *
+     * @param newModel              The model passed to the Client base and used for stdio parameters.
      * @param newManifestFile       The manifest that the Client base receives.
      * @param newToolchainArgument  The toolchain argument that the Client base receives.
      */
-    Relay (const juce::File& newManifestFile, const juce::String& newToolchainArgument);
+    Relay (LINGModel& newModel, const juce::File& newManifestFile, const juce::String& newToolchainArgument);
 
     /** @brief Removes the relay from the listeners of model.state, and disconnects. */
     ~Relay() override;

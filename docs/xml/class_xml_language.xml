@@ -6,7 +6,7 @@
     <includes refid="_xml_language_8h" local="no">XmlLanguage.h</includes>
     <sectiondef kind="public-func">
       <memberdef kind="function" id="class_xml_language_1a17abe74983a9d487d2e6d4943a648b37" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type>std::pair&lt; std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;, std::unique_ptr&lt; <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> &gt; &gt;</type>
+        <type>std::pair&lt; std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;, std::unique_ptr&lt; <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> &gt; &gt;</type>
         <definition>std::pair&lt; std::unique_ptr&lt; jam::Document &gt;, std::unique_ptr&lt; SymbolDocument &gt; &gt; XmlLanguage::parse</definition>
         <argsstring>(std::string_view text, const juce::String &amp;path) const override</argsstring>
         <name>parse</name>
@@ -17,11 +17,11 @@
           <declname>text</declname>
         </param>
         <param>
-          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="D:/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
           <declname>path</declname>
         </param>
         <briefdescription>
-<para>Parses <computeroutput>text</computeroutput> into a <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> and an optional inline <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref>. </para>
+<para>Parses <computeroutput>text</computeroutput> into a <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> and an optional inline <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref>. </para>
         </briefdescription>
         <detaileddescription>
 <para>Built-in languages build both trees synchronously; library languages return a null <ref refid="class_symbol_document" kindref="compound">SymbolDocument</ref> and populate symbols asynchronously in <ref refid="class_built_in_language_1a1655e858f06b9f31966dd473b2cf4294" kindref="member">index()</ref>.</para>
@@ -53,7 +53,7 @@
         <references refid="structjam_1_1XmlDocument_1a4b27180c26dfcfb4f862ae78b6ba5da7">jam::XmlDocument::parse</references>
       </memberdef>
       <memberdef kind="function" id="class_xml_language_1a0533ac0050f50cbc6264e57a7ef502f5" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type>std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;</type>
+        <type>std::unique_ptr&lt; <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref> &gt;</type>
         <definition>std::unique_ptr&lt; jam::Document &gt; XmlLanguage::read</definition>
         <argsstring>(std::string_view text, std::string_view stored) const override</argsstring>
         <name>read</name>
@@ -88,7 +88,7 @@
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>Validated <ref refid="structjam_1_1Document" kindref="compound" external="D:/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref>, or nullptr when <computeroutput>stored</computeroutput> is incompatible. </para>
+<simplesect kind="return"><para>Validated <ref refid="structjam_1_1Document" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Document</ref>, or nullptr when <computeroutput>stored</computeroutput> is incompatible. </para>
 </simplesect>
 </para>
         </detaileddescription>
@@ -142,7 +142,7 @@
       </node>
       <node id="4">
         <label>juce::String</label>
-        <link refid="classjuce_1_1String" external="D:/Poems/JUCE/docs/tagfile.xml"/>
+        <link refid="classjuce_1_1String" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
       </node>
     </collaborationgraph>
     <location file="languages/XmlLanguage.h" line="5" column="1" bodyfile="languages/XmlLanguage.h" bodystart="6" bodyend="15"/>

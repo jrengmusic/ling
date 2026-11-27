@@ -17,14 +17,15 @@ class Client : public juce::InterprocessConnection,
 {
 public:
     /**
-     * @brief Stores the manifest and toolchain argument, creates the port directory, and watches it for the port file.
+     * @brief Stores the model, manifest, and toolchain argument, creates the port directory, and watches it for the port file.
      *
-     * The constructor also appends state to the connections child of model.state.
+     * The constructor also appends state to the connections child of @p newModel.state.
      *
+     * @param newModel              The model whose connections and overlay state this client updates.
      * @param newManifestFile       The manifest of the run.
      * @param newToolchainArgument  The toolchain argument. Empty when none is given.
      */
-    Client (const juce::File& newManifestFile, const juce::String& newToolchainArgument);
+    Client (LINGModel& newModel, const juce::File& newManifestFile, const juce::String& newToolchainArgument);
 
     /** @brief Removes the client from the listeners of the watcher, and removes state from its parent. */
     ~Client() override;
@@ -32,9 +33,9 @@ public:
     /**
      * @brief Connects to the daemon, or starts one when no daemon answers.
      *
-     * A started daemon receives the daemon word, the manifest path, and the toolchain
-     * argument flag when one is set. When the process does not start, the function
-     * sets the message, sets the exit code to failure, and quits.
+     * A started daemon receives the executable path and @c Id::daemon. When the
+     * process does not start, the function sets the message, sets the exit code to
+     * failure, and quits.
      */
     void start();
 
@@ -63,14 +64,11 @@ private:
      */
     void connectionLost() override;
 
+protected:
     /**
-     * @brief Sends each queued request row to the daemon, when the connection is made.
-     *
-     * A row leaves the requests when it is sent.
+     * @brief Sends @c Id::manifest and @c Id::toolchainArgument, then flushes all queued rows in @c requests.
      */
     void connectionMade() override;
-
-protected:
     /**
      * @brief Sends a request row to the daemon connection, and removes the row from the requests.
      *
@@ -88,11 +86,11 @@ protected:
      */
     void setMessage (const jam::JsonDocument& document, const jam::Document::Element& root);
 
-    /** @brief The manifest of the run. Its path names the port file. */
+    /** @brief The manifest of the run. Sent to the daemon when the connection opens. */
     const juce::File manifestFile;
 
     /** @brief The model of the run. Holds overlay messages. */
-    LINGModel& model { *LINGModel::getInstance() };
+    LINGModel& model;
 
     /**
      * @brief The connection state of this client. It is a child of the connections child of model.state.
@@ -107,6 +105,9 @@ protected:
      * connectionMade() sends the rows, and each row leaves the list when it is sent.
      */
     juce::ValueTree requests { state.getOrCreateChildWithName (jam::Format::toType (Id::requests), nullptr) };
+
+    /** @brief Timeout in milliseconds passed to disconnect() to wait for socket teardown. */
+    static constexpr int waitForDisconnect { -1 };
 
 private:
     /** @brief The toolchain argument of the run. Empty when none is given. */

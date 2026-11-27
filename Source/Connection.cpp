@@ -1,9 +1,12 @@
 #include "Connection.h"
 
-Connection::Connection (jam::Owner<Connection>& newConnections)
+Connection::Connection (jam::Owner<Connection>& newConnections, Attach newOnAttach, Detach newOnDetach)
     : juce::InterprocessConnection (true)
     , connections (newConnections)
+    , onAttach (std::move (newOnAttach))
+    , onDetach (std::move (newOnDetach))
 {
+    jassert (onAttach != nullptr and onDetach != nullptr);
 }
 
 Connection::~Connection()
@@ -12,16 +15,20 @@ Connection::~Connection()
     disconnect();
 }
 
+bool Connection::isIn (const juce::ValueTree& connectionsTree) const
+{
+    return state.getParent() == connectionsTree;
+}
+
 void Connection::connectionMade()
 {
     state = juce::ValueTree { jam::Format::toType (Id::connection) };
     state.addListener (this);
-    model.state.getChildWithName (jam::Format::toType (Id::connections)).appendChild (state, nullptr);
 }
 
 void Connection::connectionLost()
 {
-    state.getParent().removeChild (state, nullptr);
+    onDetach (*this, state);
     connections.remove (connections.indexOf (this));
 }
 
@@ -31,6 +38,9 @@ void Connection::messageReceived (const juce::MemoryBlock& message)
 
     if (tree.hasType (jam::Format::toType (Id::connection)))
     {
+        if (not state.getParent().isValid() and tree.hasProperty (Id::manifest))
+            onAttach (*this, state, juce::File { tree[Id::manifest].toString() }, tree[Id::toolchainArgument].toString());
+
         state.copyPropertiesFrom (tree, nullptr);
     }
     else if (tree.hasType (jam::Format::toType (Id::cancel)))

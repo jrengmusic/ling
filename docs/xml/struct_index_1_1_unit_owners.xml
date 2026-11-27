@@ -1,0 +1,309 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="en-US">
+  <compounddef id="struct_index_1_1_unit_owners" kind="struct" language="C++" prot="public">
+    <compoundname>Index::UnitOwners</compoundname>
+    <includes refid="_index_8h" local="no">Index.h</includes>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="struct_index_1_1_unit_owners_1a4d97e88b2fe0dc72c9501810c805e2d0" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int Index::UnitOwners::noRow</definition>
+        <argsstring></argsstring>
+        <name>noRow</name>
+        <qualifiedname>Index::UnitOwners::noRow</qualifiedname>
+        <initializer>{ -1 }</initializer>
+        <briefdescription>
+<para>Sentinel row index returned when a path has no owning unit. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Index.h" line="30" column="30" bodyfile="Index.h" bodystart="30" bodyend="30"/>
+        <referencedby refid="class_index_1a4ab90c817535f110465f55e5088f9b18" compoundref="_index_8cpp" startline="263" endline="293">Index::addBindings</referencedby>
+        <referencedby refid="class_processor_1a87bca016816c718f0b53d670f34e27b0" compoundref="_processor_8cpp" startline="1372" endline="1406">Processor::addDocument</referencedby>
+        <referencedby refid="struct_index_1_1_unit_owners_1adf58a766ff54b8add2b707c2d2f9afed" compoundref="_index_8cpp" startline="407" endline="412">getRow</referencedby>
+        <referencedby refid="class_processor_1abb666e6ce3b7d1e3dd007d084cc8e7de" compoundref="_processor_8cpp" startline="117" endline="123">Processor::getUnit</referencedby>
+        <referencedby refid="class_processor_1a65ccaeafa914e3834a37e089af978455" compoundref="_processor_8cpp" startline="271" endline="300">Processor::getUnitRows</referencedby>
+        <referencedby refid="struct_index_1_1_unit_owners_1a5d23fbca51f97dd6dc373dbe16d841f7" compoundref="_index_8cpp" startline="414" endline="426">isForeign</referencedby>
+        <referencedby refid="class_processor_1a1dbe9fa7fc1789e85a9c3dfba2761372" compoundref="_processor_8cpp" startline="329" endline="352">Processor::isRequestReady</referencedby>
+        <referencedby refid="class_index_1adc55672424f5e46eb313bbffbdf95a2a" compoundref="_index_8cpp" startline="8" endline="30">Index::isUnitRetained</referencedby>
+        <referencedby refid="class_processor_1a700e89bf132e8548f785c018e3e45c07" compoundref="_processor_8cpp" startline="354" endline="401">Processor::moveRequestJobsToFront</referencedby>
+        <referencedby refid="class_processor_1a1dcabcb77d254b34ff0c04c9b483028d" compoundref="_processor_8cpp" startline="515" endline="564">Processor::runRequest</referencedby>
+        <referencedby refid="class_processor_1a5e43b7d54be9ef787556218304fcf682" compoundref="_processor_8cpp" startline="440" endline="459">Processor::setIndexed</referencedby>
+        <referencedby refid="class_processor_1a208cafdf2a5bbc1411ec1af9261811f5" compoundref="_processor_8cpp" startline="461" endline="480">Processor::setUnitIndexed</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_index_1_1_unit_owners_1a9bfdb2abcefcef1540d35ccda056ec99" prot="public" static="no" mutable="no">
+        <type><ref refid="classjam_1_1Strings" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Strings</ref></type>
+        <definition>jam::Strings Index::UnitOwners::paths</definition>
+        <argsstring></argsstring>
+        <name>paths</name>
+        <qualifiedname>Index::UnitOwners::paths</qualifiedname>
+        <briefdescription>
+<para>Registered source and dependency file paths parallel to <computeroutput>rows</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Index.h" line="56" column="22" bodyfile="Index.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="struct_index_1_1_unit_owners_1aedb3e3030e072c018b6ff65316d78cba" compoundref="_index_8cpp" startline="398" endline="405">addIfAbsent</referencedby>
+        <referencedby refid="struct_index_1_1_unit_owners_1adf58a766ff54b8add2b707c2d2f9afed" compoundref="_index_8cpp" startline="407" endline="412">getRow</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_index_1_1_unit_owners_1a36272d0cd440355f687513890ef1247a" prot="public" static="no" mutable="no">
+        <type><ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>&lt; int &gt;</type>
+        <definition>jam::Array&lt;int&gt; Index::UnitOwners::rows</definition>
+        <argsstring></argsstring>
+        <name>rows</name>
+        <qualifiedname>Index::UnitOwners::rows</qualifiedname>
+        <briefdescription>
+<para>Owning unit row indices parallel to <computeroutput>paths</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Index.h" line="58" column="20" bodyfile="Index.h" bodystart="58" bodyend="-1"/>
+        <referencedby refid="struct_index_1_1_unit_owners_1aedb3e3030e072c018b6ff65316d78cba" compoundref="_index_8cpp" startline="398" endline="405">addIfAbsent</referencedby>
+        <referencedby refid="struct_index_1_1_unit_owners_1adf58a766ff54b8add2b707c2d2f9afed" compoundref="_index_8cpp" startline="407" endline="412">getRow</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_index_1_1_unit_owners_1aea8e9f2a28cee7e117182bef1d04ea2b" prot="public" static="no" mutable="no">
+        <type><ref refid="classjam_1_1Array" kindref="compound" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml">jam::Array</ref>&lt; <ref refid="classjuce_1_1File" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::File</ref> &gt;</type>
+        <definition>jam::Array&lt;juce::File&gt; Index::UnitOwners::roots</definition>
+        <argsstring></argsstring>
+        <name>roots</name>
+        <qualifiedname>Index::UnitOwners::roots</qualifiedname>
+        <briefdescription>
+<para>Project root directories limiting unowned symbol records in <ref refid="struct_index_1_1_unit_owners_1a5d23fbca51f97dd6dc373dbe16d841f7" kindref="member">isForeign()</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Index.h" line="60" column="20" bodyfile="Index.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="struct_index_1_1_unit_owners_1a5d23fbca51f97dd6dc373dbe16d841f7" compoundref="_index_8cpp" startline="414" endline="426">isForeign</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_index_1_1_unit_owners_1aedb3e3030e072c018b6ff65316d78cba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Index::UnitOwners::addIfAbsent</definition>
+        <argsstring>(const juce::String &amp;path, int unitRow)</argsstring>
+        <name>addIfAbsent</name>
+        <qualifiedname>Index::UnitOwners::addIfAbsent</qualifiedname>
+        <param>
+          <type>const <ref refid="classjuce_1_1String" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::String</ref> &amp;</type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>unitRow</declname>
+        </param>
+        <briefdescription>
+<para>Records <computeroutput>unitRow</computeroutput> as the owner of <computeroutput>path</computeroutput> when <computeroutput>path</computeroutput> is absent. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>File path to register. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>unitRow</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Owning unit row index. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Index.h" line="38" column="14" bodyfile="Index.cpp" bodystart="398" bodyend="405"/>
+        <references refid="classjam_1_1Strings_1a9223c1bf16916a52b122ae7e9d871f50">jam::Strings::add</references>
+        <references refid="classjam_1_1Strings_1a5ac902c382badccfe7b50c6cc0a8b1a1">jam::Strings::indexOf</references>
+        <references refid="struct_index_1_1_unit_owners_1a9bfdb2abcefcef1540d35ccda056ec99" compoundref="_index_8h" startline="56">paths</references>
+        <references refid="struct_index_1_1_unit_owners_1a36272d0cd440355f687513890ef1247a" compoundref="_index_8h" startline="58">rows</references>
+      </memberdef>
+      <memberdef kind="function" id="struct_index_1_1_unit_owners_1adf58a766ff54b8add2b707c2d2f9afed" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Index::UnitOwners::getRow</definition>
+        <argsstring>(juce::StringRef path) const</argsstring>
+        <name>getRow</name>
+        <qualifiedname>Index::UnitOwners::getRow</qualifiedname>
+        <param>
+          <type><ref refid="classjuce_1_1StringRef" kindref="compound" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml">juce::StringRef</ref></type>
+          <declname>path</declname>
+        </param>
+        <briefdescription>
+<para>Returns the owning unit row index for <computeroutput>path</computeroutput>, or <computeroutput>noRow</computeroutput> when absent. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>File path to look up. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Owning unit row index, or <computeroutput>noRow</computeroutput>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Index.h" line="45" column="13" bodyfile="Index.cpp" bodystart="407" bodyend="412"/>
+        <references refid="classjam_1_1Strings_1a5ac902c382badccfe7b50c6cc0a8b1a1">jam::Strings::indexOf</references>
+        <references refid="struct_index_1_1_unit_owners_1a4d97e88b2fe0dc72c9501810c805e2d0" compoundref="_index_8h" startline="30" endline="30">noRow</references>
+        <references refid="struct_index_1_1_unit_owners_1a9bfdb2abcefcef1540d35ccda056ec99" compoundref="_index_8h" startline="56">paths</references>
+        <references refid="struct_index_1_1_unit_owners_1a36272d0cd440355f687513890ef1247a" compoundref="_index_8h" startline="58">rows</references>
+        <referencedby refid="struct_index_1_1_unit_owners_1a5d23fbca51f97dd6dc373dbe16d841f7" compoundref="_index_8cpp" startline="414" endline="426">isForeign</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="struct_index_1_1_unit_owners_1a5d23fbca51f97dd6dc373dbe16d841f7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Index::UnitOwners::isForeign</definition>
+        <argsstring>(const char *recordPath, int unitRow) const</argsstring>
+        <name>isForeign</name>
+        <qualifiedname>Index::UnitOwners::isForeign</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>recordPath</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>unitRow</declname>
+        </param>
+        <briefdescription>
+<para>Tells whether <computeroutput>recordPath</computeroutput> belongs to another unit or lies outside <computeroutput>roots</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>recordPath</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>File path of the symbol record. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>unitRow</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Unit row index performing the check. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><computeroutput>true</computeroutput> when another unit owns <computeroutput>recordPath</computeroutput> or when unowned outside <computeroutput>roots</computeroutput>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Index.h" line="53" column="14" bodyfile="Index.cpp" bodystart="414" bodyend="426"/>
+        <references refid="classjuce_1_1String_1ae26e2af88f5237fd0b23de58cb168223">juce::String::fromUTF8</references>
+        <references refid="classjuce_1_1File_1a515fa016b189068f365cc875e241e2a1">juce::File::getFullPathName</references>
+        <references refid="struct_index_1_1_unit_owners_1adf58a766ff54b8add2b707c2d2f9afed" compoundref="_index_8cpp" startline="407" endline="412">getRow</references>
+        <references refid="class_l_i_n_g_model_1a7da1a6d60270d3a8b790b608be22bba5" compoundref="_l_i_n_g_model_8cpp" startline="206" endline="212">LINGModel::isWithinRoots</references>
+        <references refid="struct_index_1_1_unit_owners_1a4d97e88b2fe0dc72c9501810c805e2d0" compoundref="_index_8h" startline="30" endline="30">noRow</references>
+        <references refid="struct_index_1_1_unit_owners_1aea8e9f2a28cee7e117182bef1d04ea2b" compoundref="_index_8h" startline="60">roots</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Maps file paths to owning translation unit row indices and holds project roots. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>Index::UnitOwners</label>
+        <link refid="struct_index_1_1_unit_owners"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>paths</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>rows</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>roots</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>jam::Array&lt; char &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>jam::Array&lt; int &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>jam::Array&lt; jam::Union&lt; int32_t, int32_t &gt; &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>jam::Array&lt; juce::File &gt;</label>
+        <link refid="classjam_1_1Array" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>jam::HashMap&lt; jam::Union&lt; int32_t, int32_t &gt;, int, jam::Strings::CaseFoldHash, jam::Strings::CaseFoldEqual &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="7">
+        <label>jam::HashMap&lt; jam::Union&lt; int32_t, int32_t &gt;, int, jam::Strings::TransparentHash, jam::Strings::TransparentEqual &gt;</label>
+        <link refid="classjam_1_1HashMap" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+      </node>
+      <node id="2">
+        <label>jam::Strings</label>
+        <link refid="classjam_1_1Strings" external="/Users/jreng/Documents/Poems/dev/jam/docs/tagfile.xml"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>arena</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>spans</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>exactPositions</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>foldedPositions</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>juce::DummyCriticalSection</label>
+        <link refid="classjuce_1_1DummyCriticalSection" external="/Users/jreng/Documents/Poems/JUCE/docs/tagfile.xml"/>
+      </node>
+      <node id="3">
+        <label>std::unique_ptr&lt; jam::Array&lt; char &gt; &gt;</label>
+        <childnode refid="4" relation="usage">
+          <edgelabel>ptr</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Index.h" line="27" column="5" bodyfile="Index.h" bodystart="28" bodyend="61"/>
+    <listofallmembers>
+      <member refid="struct_index_1_1_unit_owners_1aedb3e3030e072c018b6ff65316d78cba" prot="public" virt="non-virtual"><scope>Index::UnitOwners</scope><name>addIfAbsent</name></member>
+      <member refid="struct_index_1_1_unit_owners_1adf58a766ff54b8add2b707c2d2f9afed" prot="public" virt="non-virtual"><scope>Index::UnitOwners</scope><name>getRow</name></member>
+      <member refid="struct_index_1_1_unit_owners_1a5d23fbca51f97dd6dc373dbe16d841f7" prot="public" virt="non-virtual"><scope>Index::UnitOwners</scope><name>isForeign</name></member>
+      <member refid="struct_index_1_1_unit_owners_1a4d97e88b2fe0dc72c9501810c805e2d0" prot="public" virt="non-virtual"><scope>Index::UnitOwners</scope><name>noRow</name></member>
+      <member refid="struct_index_1_1_unit_owners_1a9bfdb2abcefcef1540d35ccda056ec99" prot="public" virt="non-virtual"><scope>Index::UnitOwners</scope><name>paths</name></member>
+      <member refid="struct_index_1_1_unit_owners_1aea8e9f2a28cee7e117182bef1d04ea2b" prot="public" virt="non-virtual"><scope>Index::UnitOwners</scope><name>roots</name></member>
+      <member refid="struct_index_1_1_unit_owners_1a36272d0cd440355f687513890ef1247a" prot="public" virt="non-virtual"><scope>Index::UnitOwners</scope><name>rows</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

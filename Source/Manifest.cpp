@@ -121,7 +121,8 @@ juce::ThreadPoolJob::JobStatus Manifest::ManifestJob::runJob()
     if (manifestFile.isDirectory())
     {
         timeout = LINGModel::defaultTimeoutMs;
-        threads = LINGModel::defaultThreads;
+        threads = LINGModel::getDefaultThreads();
+        coalesce = LINGModel::defaultCoalesceMs;
         toolchain = juce::ValueTree { jam::Format::toType (Id::toolchain) };
         roots = getProjectRoots (manifestFile);
     }
@@ -132,7 +133,8 @@ juce::ThreadPoolJob::JobStatus Manifest::ManifestJob::runJob()
         const auto result { manifest != nullptr ? Validator {}.isValid (*manifest) : jam::MarkdownDocument::isValid (jam::Strings::getView (text), manifestFile.getFullPathName()) };
 
         timeout = result.wasOk() ? getDaemonValue (*manifest, Id::timeout, LINGModel::defaultTimeoutMs) : LINGModel::defaultTimeoutMs;
-        threads = result.wasOk() ? getDaemonValue (*manifest, Id::threads, LINGModel::defaultThreads) : LINGModel::defaultThreads;
+        threads = result.wasOk() ? getDaemonValue (*manifest, Id::threads, LINGModel::getDefaultThreads()) : LINGModel::getDefaultThreads();
+        coalesce = result.wasOk() ? getDaemonValue (*manifest, Id::coalesce, LINGModel::defaultCoalesceMs) : LINGModel::defaultCoalesceMs;
         toolchain = result.wasOk() ? getToolchain (*manifest, toolchainArgument, manifestFile)
                                    : juce::ValueTree { jam::Format::toType (Id::toolchain) };
         roots = result.wasOk() ? getRoots (*manifest, manifestFile) : getProjectRoots (manifestFile);
@@ -154,7 +156,7 @@ void Manifest::handleAsyncUpdate()
     if (job != nullptr and job->isFinished.load (std::memory_order_acquire))
     {
         if (nextJob == nullptr)
-            setToolchain (job->toolchain, job->roots, job->timeout, job->threads);
+            setToolchain (job->toolchain, job->roots, job->timeout, job->threads, job->coalesce);
 
         pool.removeJob (job.get(), true, waitForJob);
         job = std::move (nextJob);
@@ -164,13 +166,14 @@ void Manifest::handleAsyncUpdate()
     }
 }
 
-void Manifest::setToolchain (const juce::ValueTree& toolchain, const juce::ValueTree& roots, int timeout, int threads)
+void Manifest::setToolchain (const juce::ValueTree& toolchain, const juce::ValueTree& roots, int timeout, int threads, int coalesce)
 {
     if (toolchain.hasProperty (Id::message))
         model.setMessage (toolchain[Id::message].toString());
 
     model.state.setProperty (Id::timeout, timeout, nullptr);
     model.state.setProperty (Id::threads, threads, nullptr);
+    model.state.setProperty (Id::coalesce, coalesce, nullptr);
 
     model.removeChild (model.state.getChildWithName (jam::Format::toType (Id::roots)));
     model.appendChild (roots);
